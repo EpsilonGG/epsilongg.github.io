@@ -24,10 +24,7 @@ const { links } = Astro.props;
           ) : (
             <span class="icon-tile__img icon-tile__img--empty" aria-hidden="true">{link.label.slice(0, 2)}</span>
           )}
-          <span class="icon-tile__label">
-            {link.label}
-            {external ? <span class="icon-tile__external" aria-hidden="true">↗</span> : null}
-          </span>
+          <span class="icon-tile__label">{link.label}</span>
           {link.description ? <span class="icon-tile__description">{link.description}</span> : null}
           {external ? <span class="visually-hidden">（在新窗口打开）</span> : null}
         </a>

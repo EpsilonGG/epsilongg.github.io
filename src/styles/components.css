@@ -311,12 +311,6 @@ a.link-row:hover .link-row__label {
   text-decoration-color: var(--color-border-strong);
 }
 
-.link-row__external {
-  margin-left: 0.25em;
-  font-size: 0.85em;
-  color: var(--color-text-muted);
-}
-
 /* --------------------------------------------------------------------------
    文章列表（首页最近文章 / 归档）
    -------------------------------------------------------------------------- */
@@ -622,12 +616,6 @@ a.link-row:hover .link-row__label {
   text-decoration-color: var(--color-border-strong);
 }
 
-.link-card__external {
-  margin-left: 0.25em;
-  font-size: 0.85em;
-  color: var(--color-text-muted);
-}
-
 .link-card__meta {
   flex: none;
   font-size: var(--text-xs);
@@ -691,15 +679,9 @@ a.link-row:hover .link-row__label {
   text-decoration-color: var(--color-border-strong);
 }
 
-.icon-tile__external {
-  margin-left: 0.25em;
-  font-size: 0.85em;
-  color: var(--color-text-muted);
-}
-
 .icon-tile__description {
   margin-top: calc(var(--space-1) * -1);
-  font-size: var(--text-xs);
+  font-size: 0.75rem;
   color: var(--color-text-muted);
   line-height: var(--leading-snug);
 }
@@ -716,13 +698,11 @@ a.link-row:hover .link-row__label {
   list-style: none;
   display: flex;
   flex-wrap: wrap;
-  gap: var(--space-4) var(--space-3);
+  gap: var(--space-3);
 }
 
 .badge-item {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-2);
+  display: block;
   width: 88px;
   text-decoration: none;
 }
@@ -752,35 +732,6 @@ a.link-row:hover .link-row__label {
   font-size: var(--text-xs);
   color: var(--color-text-muted);
   filter: none;
-}
-
-.badge-item__caption {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-  min-height: 31px;
-}
-
-.badge-item__name {
-  font-size: var(--text-xs);
-  font-weight: 500;
-  color: var(--color-text);
-  line-height: var(--leading-snug);
-}
-
-.badge-item:hover .badge-item__name {
-  text-decoration: underline;
-  text-underline-offset: 0.2em;
-  text-decoration-color: var(--color-border-strong);
-}
-
-.badge-item__desc {
-  font-size: 0.6875rem;
-  color: var(--color-text-muted);
-  line-height: var(--leading-snug);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 
 /* 深色主题下徽章偏亮，压低一点亮度避免刺眼 */

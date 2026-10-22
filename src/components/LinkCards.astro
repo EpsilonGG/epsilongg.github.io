@@ -20,10 +20,7 @@ const { links } = Astro.props;
       <li>
         <a class="link-card" href={link.href} {...linkAttrs}>
           <span class="link-card__head">
-            <span class="link-card__label">
-              {link.label}
-              {external ? <span class="link-card__external" aria-hidden="true">↗</span> : null}
-            </span>
+            <span class="link-card__label">{link.label}</span>
             {link.meta ? <span class="link-card__meta">{link.meta}</span> : null}
           </span>
           {link.description ? <span class="link-card__description">{link.description}</span> : null}

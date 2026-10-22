@@ -18,7 +18,7 @@ const linkAttrs = external ? { target: '_blank', rel: 'noopener noreferrer' } : 
 
 <a class="link-row" href={href} {...linkAttrs}>
   <span class="link-row__label">
-    {label}{external ? <span class="link-row__external" aria-hidden="true">↗</span> : null}
+    {label}
     {external ? <span class="visually-hidden">（在新窗口打开）</span> : null}
   </span>
   {description ? <span class="link-row__description">{description}</span> : null}

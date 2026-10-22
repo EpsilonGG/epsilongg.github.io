@@ -98,19 +98,19 @@ export const linkGroups: LinkGroup[] = [
       {
         label: 'MDN Web Docs',
         href: 'https://developer.mozilla.org/',
-        description: 'Web 平台技术参考。',
+        description: '技术参考',
         icon: '/images/tools/mdn.png',
       },
       {
         label: 'Astro 文档',
         href: 'https://docs.astro.build/',
-        description: '本站使用的框架文档。',
+        description: '框架文档',
         icon: '/images/tools/astro.png',
       },
       {
         label: 'GitHub Pages',
         href: 'https://docs.github.com/pages',
-        description: '本站的托管与部署。',
+        description: '托管部署',
         icon: '/images/tools/github-pages.png',
       },
     ],
@@ -143,6 +143,7 @@ export const linkGroups: LinkGroup[] = [
   {
     id: 'friends',
     title: '友情链接',
+    // badges 布局只渲染徽章图片本身，description 不显示，留作备查
     description: '经常串门的地方。',
     layout: 'badges',
     links: [
