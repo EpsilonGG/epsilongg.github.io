@@ -4,15 +4,92 @@ import { getPublishedPosts, groupPostsByYear, formatDate, postPath } from '../li
 
 const posts = await getPublishedPosts();
 const groups = groupPostsByYear(posts);
+
+// 收集所有标签（去重、按 Unicode 排序），用于标签筛选栏。
+// 没有任何标签时不渲染筛选栏，但搜索栏仍可用。
+const allTags = [...new Set(posts.flatMap((post) => post.data.tags))].sort((a, b) =>
+  a.localeCompare(b),
+);
 ---
 
-<BaseLayout title="归档" description="文章与长期内容的索引，按年份分组。">
+<BaseLayout title="笔记" description="文章与长期内容的索引，按年份分组，支持搜索与标签筛选。">
   <div class="page">
     <div class="container">
       <header class="page-header">
-        <h1 class="page-title">归档</h1>
-        {posts.length > 0 ? <p class="page-intro">共 {posts.length} 篇，按发布年份排列。</p> : null}
+        <h1 class="page-title">笔记</h1>
+        {
+          posts.length > 0 ? (
+            <p class="page-intro">
+              共 {posts.length} 篇，按发布年份排列，可按关键词搜索或按标签筛选。
+            </p>
+          ) : null
+        }
       </header>
+
+      {
+        posts.length > 0 ? (
+          <div class="archive-filter" data-archive-filter>
+            <form class="archive-search" role="search" data-search-form>
+              <label class="visually-hidden" for="archive-search-input">搜索文章</label>
+              <input
+                class="archive-search__input"
+                id="archive-search-input"
+                data-search-input
+                type="search"
+                name="q"
+                autocomplete="off"
+                placeholder="搜索标题、摘要或标签"
+                aria-describedby="archive-result-count"
+              />
+              <button class="archive-search__button" type="submit">搜索</button>
+              <button
+                class="archive-search__button archive-search__button--ghost"
+                type="button"
+                data-search-clear
+              >
+                清空
+              </button>
+            </form>
+
+            {
+              allTags.length > 0 ? (
+                <div class="archive-tags" role="group" aria-label="按标签筛选">
+                  <span class="archive-tags__label">标签</span>
+                  {allTags.map((tag) => (
+                    <button
+                      class="archive-tag"
+                      type="button"
+                      data-tag-filter
+                      data-tag={tag}
+                      aria-pressed="false"
+                    >
+                      {tag}
+                    </button>
+                  ))}
+                </div>
+              ) : null
+            }
+
+            <div class="archive-filter__status">
+              <p
+                class="archive-filter__count"
+                id="archive-result-count"
+                data-result-count
+                aria-live="polite"
+              >
+                共 {posts.length} 篇
+              </p>
+              <button class="archive-filter__clear" type="button" data-clear-all hidden>
+                清除全部筛选
+              </button>
+            </div>
+
+            <p class="empty-state archive-filter__empty" data-search-empty hidden>
+              没有匹配的文章。试试更换关键词或清除筛选条件。
+            </p>
+          </div>
+        ) : null
+      }
 
       {
         groups.length > 0 ? (
@@ -23,7 +100,13 @@ const groups = groupPostsByYear(posts);
               </h2>
               <ul class="article-list">
                 {group.posts.map((post) => (
-                  <li class="article-list__item">
+                  <li
+                    class="article-list__item"
+                    data-search-item
+                    data-title={post.data.title}
+                    data-description={post.data.description ?? ''}
+                    data-tags={JSON.stringify(post.data.tags)}
+                  >
                     <a class="article-list__link" href={postPath(post)}>
                       <span class="article-list__title">{post.data.title}</span>
                       <time class="article-list__meta" datetime={post.data.pubDate.toISOString()}>
@@ -39,9 +122,18 @@ const groups = groupPostsByYear(posts);
             </section>
           ))
         ) : (
-          <p class="empty-state">暂无文章。归档会随新文章发布自动更新。</p>
+          <p class="empty-state">暂无文章。笔记会随新文章发布自动更新。</p>
         )
       }
     </div>
   </div>
+
+  <button class="back-to-top" type="button" data-back-to-top aria-label="返回顶部">
+    <span aria-hidden="true">↑</span>
+  </button>
+
+  <script>
+    import '../scripts/archive-filter.ts';
+    import '../scripts/back-to-top.ts';
+  </script>
 </BaseLayout>

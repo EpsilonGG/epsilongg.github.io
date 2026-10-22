@@ -143,7 +143,7 @@ class ApplyBlocksTests(unittest.TestCase):
     def test_empty_posts_is_handled(self):
         result = sync.apply_blocks(README_TEMPLATE, build_blocks(posts=[]))
 
-        self.assertIn("文章归档正在整理中。", result)
+        self.assertIn("文章笔记正在整理中。", result)
         self.assertNotIn("旧的简介内容", result)
 
     def test_posts_are_sorted_and_limited(self):
@@ -151,6 +151,22 @@ class ApplyBlocksTests(unittest.TestCase):
 
         self.assertIn("文章 A", result)
         self.assertNotIn("文章 B", result)
+
+    def test_recent_only_block_syncs_in_place(self):
+        template = (
+            "前面手写内容\n\n"
+            "## 最近更新\n\n"
+            "<!-- RECENT:START -->\n旧\n<!-- RECENT:END -->\n\n"
+            "后面手写内容\n"
+        )
+        # 文件只有 RECENT 区域：build_blocks 返回的其它区域应被忽略，
+        # 仅替换 RECENT 之间的内容，并保留手写部分。
+        result = sync.apply_blocks(template, build_blocks())
+
+        self.assertIn("[文章 A](https://example.github.io/blog/post-a/)", result)
+        self.assertNotIn("旧", result)
+        self.assertIn("前面手写内容", result)
+        self.assertIn("后面手写内容", result)
 
 
 class RenderTests(unittest.TestCase):
@@ -167,6 +183,20 @@ class RenderTests(unittest.TestCase):
 
         self.assertIn("[首页](https://example.github.io/)", rendered)
         self.assertIn("[名片](https://example.github.io/links/)", rendered)
+
+    def test_recent_block_limits_to_three_without_date(self):
+        many = POSTS + [
+            sync.PostSummary("文章 C", "post-c", date(2024, 1, 1)),
+            sync.PostSummary("文章 D", "post-d", date(2023, 1, 1)),
+        ]
+        rendered = sync.render_recent_block(SITE, many)
+
+        self.assertIn("[文章 A](https://example.github.io/blog/post-a/)", rendered)
+        self.assertIn("[文章 B](https://example.github.io/blog/post-b/)", rendered)
+        self.assertIn("[文章 C](https://example.github.io/blog/post-c/)", rendered)
+        self.assertNotIn("文章 D", rendered)
+        self.assertNotIn("2026-03-01", rendered)  # 不带日期等注释
+        self.assertNotIn(" · ", rendered)  # 仅 [标题](网址) 格式
 
     def test_unicode_and_blank_lines_are_kept(self):
         text = (

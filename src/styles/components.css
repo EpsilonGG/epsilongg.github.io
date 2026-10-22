@@ -1064,3 +1064,184 @@ a.link-row:hover .link-row__label {
   margin-top: var(--space-5);
   font-size: var(--text-sm);
 }
+
+/* 统一保证 hidden 属性生效：筛选/分组隐藏时不残留布局 */
+[hidden] {
+  display: none !important;
+}
+
+/* --------------------------------------------------------------------------
+   笔记页 · 搜索与标签筛选
+   -------------------------------------------------------------------------- */
+
+.archive-filter {
+  margin-bottom: var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.archive-search {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.archive-search__input {
+  flex: 1 1 12rem;
+  min-width: 0;
+  padding: var(--space-2) var(--space-3);
+  font: inherit;
+  font-size: var(--text-sm);
+  color: var(--color-text);
+  background-color: var(--color-bg);
+  border: var(--border-width) solid var(--color-border-strong);
+  border-radius: var(--radius);
+}
+
+.archive-search__input::placeholder {
+  color: var(--color-text-muted);
+}
+
+.archive-search__input:focus-visible {
+  outline: 2px solid var(--color-text);
+  outline-offset: 2px;
+  border-color: var(--color-text);
+}
+
+.archive-search__button {
+  flex: none;
+  padding: var(--space-2) var(--space-3);
+  font-size: var(--text-sm);
+  color: var(--color-text);
+  background-color: var(--color-bg-subtle);
+  border: var(--border-width) solid var(--color-border-strong);
+  border-radius: var(--radius);
+  transition: color var(--duration-fast) var(--ease),
+    border-color var(--duration-fast) var(--ease),
+    background-color var(--duration-fast) var(--ease);
+}
+
+.archive-search__button:hover {
+  color: var(--color-text);
+  border-color: var(--color-text-secondary);
+  background-color: var(--color-bg);
+}
+
+.archive-search__button--ghost {
+  background-color: transparent;
+}
+
+.archive-tags {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.archive-tags__label {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+}
+
+.archive-tag {
+  padding: 0.1rem var(--space-2);
+  font-size: var(--text-xs);
+  color: var(--color-text-secondary);
+  background-color: transparent;
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius);
+  transition: color var(--duration-fast) var(--ease),
+    border-color var(--duration-fast) var(--ease),
+    background-color var(--duration-fast) var(--ease);
+}
+
+.archive-tag:hover {
+  color: var(--color-text);
+  border-color: var(--color-border-strong);
+}
+
+.archive-tag[aria-pressed="true"] {
+  color: var(--color-text);
+  background-color: var(--color-bg-subtle);
+  border-color: var(--color-text-secondary);
+}
+
+.archive-filter__status {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2) var(--space-4);
+}
+
+.archive-filter__count {
+  margin: 0;
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.archive-filter__clear {
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+  text-decoration-color: var(--color-border-strong);
+}
+
+.archive-filter__clear:hover {
+  color: var(--color-text);
+}
+
+.archive-filter__empty {
+  margin-top: var(--space-3);
+}
+
+/* --------------------------------------------------------------------------
+   返回顶部按钮（仅笔记页）
+   -------------------------------------------------------------------------- */
+
+.back-to-top {
+  position: fixed;
+  bottom: var(--space-4);
+  right: var(--space-4);
+  z-index: 25;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  font-size: 1.25rem;
+  line-height: 1;
+  color: var(--color-text-secondary);
+  background-color: var(--color-bg);
+  border: var(--border-width) solid var(--color-border-strong);
+  border-radius: var(--radius);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(0.25rem);
+  transition: opacity var(--duration) var(--ease),
+    visibility var(--duration) var(--ease),
+    transform var(--duration) var(--ease),
+    color var(--duration-fast) var(--ease),
+    border-color var(--duration-fast) var(--ease);
+}
+
+.back-to-top.is-visible {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+}
+
+.back-to-top:hover {
+  color: var(--color-text);
+  border-color: var(--color-text-secondary);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .back-to-top {
+    transform: none;
+    transition: none;
+  }
+}

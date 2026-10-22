@@ -8,7 +8,7 @@ Life Science ｜ Vibe Coding ｜ Galgame ｜ Doujin ASMR
 
 [个人主页](https://epsilongg.github.io/) ·
 [链接库](https://epsilongg.github.io/morelinks/) ·
-[文章归档](https://epsilongg.github.io/archive/) ·
+[笔记](https://epsilongg.github.io/archive/) ·
 [邮箱](mailto:epsilongg.work@gmail.com)
 
 </div>
@@ -27,11 +27,14 @@ Life Science ｜ Vibe Coding ｜ Galgame ｜ Doujin ASMR
 - [名片](https://epsilongg.github.io/links/) — 主要身份信息与联系入口
 - [关于](https://epsilongg.github.io/me/) — 个人背景、关注领域与项目概览
 - [链接库](https://epsilongg.github.io/morelinks/) — 外部平台、工具、资源和项目链接
-- [归档](https://epsilongg.github.io/archive/) — 文章、研究记录与长期内容
+- [笔记](https://epsilongg.github.io/archive/) — 文章、研究记录与长期内容
 
 ## 最近更新
 
-- [INTERVIEW with rurudo——UNREAL 画集专访](https://epsilongg.github.io/blog/rurudo-unreal-interview/) · 四区 · 20 April 2026
+<!-- RECENT:START -->
+- [（译）INTERVIEW with rurudo——UNREAL 画集专访](https://epsilongg.github.io/blog/rurudo-unreal-interview/)
+<!-- RECENT:END -->
+
 ---
 
 ## 关于这个仓库

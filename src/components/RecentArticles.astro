@@ -15,7 +15,7 @@ const posts = (await getPublishedPosts()).slice(0, limit);
 
 {
   posts.length === 0 ? (
-    <p class="empty-state">文章归档正在整理中。</p>
+    <p class="empty-state">文章笔记正在整理中。</p>
   ) : (
     <ul class="article-list">
       {posts.map((post) => (

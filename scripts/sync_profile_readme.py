@@ -3,7 +3,7 @@
 
 设计要点
 --------
-1. 只替换三个 Marker 之间的内容，Marker 之外的手写内容永远不会被修改。
+1. 只替换各区域 Marker 之间的内容，Marker 之外的手写内容永远不会被修改。
 2. Marker 缺失、重复、顺序错误或嵌套时直接报错退出，不做任何猜测。
 3. 同样输入重复执行结果一致（幂等）；内容没有变化时不写文件。
 4. ``--check`` 是严格的只读模式：只比较，不写入，无论成功或失败。
@@ -49,11 +49,13 @@ MARKERS: dict[str, tuple[str, str]] = {
     "profile": ("<!-- PROFILE:START -->", "<!-- PROFILE:END -->"),
     "navigation": ("<!-- NAV:START -->", "<!-- NAV:END -->"),
     "posts": ("<!-- POSTS:START -->", "<!-- POSTS:END -->"),
+    "recent": ("<!-- RECENT:START -->", "<!-- RECENT:END -->"),
 }
 
-BLOCK_ORDER: tuple[str, ...] = ("profile", "navigation", "posts")
+BLOCK_ORDER: tuple[str, ...] = ("profile", "navigation", "posts", "recent")
 
 DEFAULT_MAX_POSTS = 5
+RECENT_MAX_POSTS = 3
 
 
 class SyncError(Exception):
@@ -255,12 +257,33 @@ def render_posts_block(
         raise SyncError("site.json 中的 url 不能为空", EXIT_INPUT)
 
     if not posts:
-        return "文章归档正在整理中。"
+        return "文章笔记正在整理中。"
 
     lines: list[str] = []
     for post in list(posts)[: max(0, max_posts)]:
         url = _absolute(site_url, f"/blog/{post.slug}/")
         lines.append(f"- [{post.title}]({url}) · {post.published.isoformat()}")
+
+    return "\n".join(lines)
+
+
+def render_recent_block(
+    site: Mapping[str, Any],
+    posts: Sequence[PostSummary],
+    max_posts: int = RECENT_MAX_POSTS,
+) -> str:
+    """笔记（归档）最近更新：仅展示最近若干篇的标题链接，不带日期等注释。"""
+    site_url = str(site.get("url", "")).strip()
+    if not site_url:
+        raise SyncError("site.json 中的 url 不能为空", EXIT_INPUT)
+
+    if not posts:
+        return "文章笔记正在整理中。"
+
+    lines: list[str] = []
+    for post in list(posts)[: max(0, max_posts)]:
+        url = _absolute(site_url, f"/blog/{post.slug}/")
+        lines.append(f"- [{post.title}]({url})")
 
     return "\n".join(lines)
 
@@ -276,6 +299,7 @@ def build_blocks(
         "profile": render_profile_block(profile),
         "navigation": render_navigation_block(site, navigation),
         "posts": render_posts_block(site, posts, max_posts),
+        "recent": render_recent_block(site, posts),
     }
 
 
@@ -285,7 +309,11 @@ def build_blocks(
 
 
 def locate_blocks(text: str) -> dict[str, tuple[int, int]]:
-    """校验 Marker 并返回每个区域在文本中的 [start, end) 区间。
+    """校验 Marker 并返回每个【实际出现】区域在文本中的 [start, end) 区间。
+
+    某个区域只有在其开始标记出现时才被视为「需要同步」；开始与结束必须成对、
+    各自唯一、顺序正确且不互相嵌套。只用到部分区域的 README（例如仅有
+    ``RECENT`` 的仓库首页 README）也能正常同步。
 
     区间包含开始标记与结束标记本身，便于整段替换。
     """
@@ -296,10 +324,15 @@ def locate_blocks(text: str) -> dict[str, tuple[int, int]]:
         start_count = text.count(start_marker)
         end_count = text.count(end_marker)
 
+        # 该区域在本文件中未使用：跳过，不影响其它区域
+        if start_count == 0 and end_count == 0:
+            continue
+
+        # 开始与结束必须成对出现，否则视为结构错误
         if start_count == 0:
-            raise SyncError(f"缺少开始标记 {start_marker}")
+            raise SyncError(f"缺少开始标记 {start_marker}（检测到残留的 {end_marker}）")
         if end_count == 0:
-            raise SyncError(f"缺少结束标记 {end_marker}")
+            raise SyncError(f"缺少结束标记 {end_marker}（检测到残留的 {start_marker}）")
         if start_count > 1:
             raise SyncError(f"开始标记 {start_marker} 出现了 {start_count} 次，必须唯一")
         if end_count > 1:
@@ -312,24 +345,35 @@ def locate_blocks(text: str) -> dict[str, tuple[int, int]]:
 
         spans[name] = (start, end + len(end_marker))
 
-    # 顺序与嵌套检查：每个区域必须完整位于前一个区域之后
-    for previous, current in zip(BLOCK_ORDER, BLOCK_ORDER[1:]):
+    if not spans:
+        available = " / ".join(m[0] for m in MARKERS.values())
+        raise SyncError(f"README 中没有任何同步区域标记（至少需要其中之一：{available}）")
+
+    ordered = [name for name in BLOCK_ORDER if name in spans]
+    # 顺序检查：出现的区域在文件中必须按 BLOCK_ORDER 的先后依序排列
+    actual_order = sorted(ordered, key=lambda name: spans[name][0])
+    if actual_order != ordered:
+        raise SyncError(
+            "区域顺序错误，应依次为 " + " → ".join(BLOCK_ORDER)
+        )
+
+    # 嵌套检查：相邻出现的区域不能互相包含
+    for previous, current in zip(ordered, ordered[1:]):
         if spans[current][0] < spans[previous][1]:
-            raise SyncError(
-                f"区域 {current} 与区域 {previous} 的顺序错误或存在嵌套，"
-                "应依次为 profile → navigation → posts"
-            )
+            raise SyncError(f"区域 {current} 与区域 {previous} 存在嵌套")
 
     return spans
 
 
 def apply_blocks(text: str, blocks: Mapping[str, str]) -> str:
-    """把三个区域替换为给定内容，其余内容逐字保留。"""
+    """把各区域替换为给定内容，其余内容逐字保留。"""
     spans = locate_blocks(text)
 
     parts: list[str] = []
     cursor = 0
     for name in BLOCK_ORDER:
+        if name not in spans:
+            continue
         start, end = spans[name]
         start_marker, end_marker = MARKERS[name]
         content = blocks[name].strip("\n")
