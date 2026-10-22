@@ -27,8 +27,7 @@ export interface AboutConfig {
 
 export const about: AboutConfig = {
   intro: [
-    '这里是关于页面的简介段落，用来介绍个人背景、正在做的事情和长期关注的问题。',
-    '内容在 src/config/about.ts 中维护，不需要修改页面组件。',
+    '不务正业的研究生',
   ],
   focusAreas: [],
   projects: [],

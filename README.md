@@ -110,9 +110,9 @@ npm test         # Python 单元测试（README 同步脚本）
 | | `email` | 公开邮箱，留空则 404 页不显示「报告问题」 |
 | `src/config/profile.json` | `tagline` / `intro` / `description` | 已填写，可按需润色 |
 | | `location` | 可选，当前为空（首页不显示地区） |
-| `src/config/about.ts` | `intro` / `focusAreas` / `projects` / `experience` | **仍是占位文字**，`/me/` 页面会原样显示 |
-| `src/config/links.ts` | `primaryLinks` | **当前为空**，`/links/` 名片页只有姓名与站内入口 |
-| | `linkGroups` | 「个人平台」「项目与代码仓库」为空；「研究与参考资料」「工具与服务」里是 MDN / Astro / GitHub Pages 文档，可替换或删除 |
+| `src/config/about.ts` | `intro` / `focusAreas` / `projects` / `experience` | `intro` 已填「不务正业的研究生」；后三项为空，`/me/` 对应区块显示「正在整理中」 |
+| `src/config/links.ts` | `primaryLinks` | 已填 GitHub；其他平台可继续加，`/links/` 的「主要平台」区块会自动出现 |
+| | `linkGroups` | 「个人平台」「项目与代码仓库」为空；「研究与参考资料」「工具与服务」里是 MDN / Astro / GitHub Pages 文档，属于搭建时的示例，可替换或删除 |
 | `public/og-default.png` | 分享图 | 已按 EpsilonGG 生成；若改名需重新生成（见第 9 节） |
 | `src/content/blog/example.md` | 草稿示例 | 可以删除 |
 

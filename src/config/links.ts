@@ -37,8 +37,7 @@ export interface LinkGroup {
  * 留空时名片页只显示姓名、定位与站内入口，不显示空区块。
  */
 export const primaryLinks: LinkItem[] = [
-  // 填写示例（确认后取消注释并替换为自己的真实地址）：
-  // { label: 'GitHub', href: 'https://github.com/你的用户名', description: '代码与项目仓库' },
+  { label: 'GitHub', href: 'https://github.com/EpsilonGG', description: '代码与项目仓库' },
 ];
 
 /**
