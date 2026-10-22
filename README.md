@@ -2,9 +2,9 @@
 
 # EpsilonGG
 
-**学生物的 · 偶尔写点代码**
+**学生物的 · 偶尔写点代码 · 不务正业ing**
 
-Galgame ｜ Doujin ASMR ｜ Life Science ｜ Vibe Coding
+Life Science ｜ Vibe Coding ｜ Galgame ｜ Doujin ASMR 
 
 [个人主页](https://epsilongg.github.io/) ·
 [链接库](https://epsilongg.github.io/morelinks/) ·
@@ -15,18 +15,13 @@ Galgame ｜ Doujin ASMR ｜ Life Science ｜ Vibe Coding
 
 ---
 
-**EpsilonGG** · 学生物的Galgamer
-
-Galgame | 同人音声 | vibe everything
-
-不务正业中
 
 ## 在做的事
 
 - **[X-rss](https://github.com/EpsilonGG/X-rss)** — 基于 Actions 的 X / Twitter RSS 聚合器
 - **[X-Reader](https://github.com/EpsilonGG/X-Reader)** — 抓取 X、RSS 与 YouTube，推送 TG / QQ
 
-## 站点导航
+## 个人站点导航
 
 - [首页](https://epsilongg.github.io/) — 个人简介与站点入口
 - [名片](https://epsilongg.github.io/links/) — 主要身份信息与联系入口
@@ -36,15 +31,14 @@ Galgame | 同人音声 | vibe everything
 
 ## 最近更新
 
-- [（译）INTERVIEW with rurudo——UNREAL 画集专访](https://epsilongg.github.io/blog/rurudo-unreal-interview/) · 2022-01-07
-
+- [Coding-complete genome sequence of a largemouth bass virus isolate from Micropterus salmoides collected in China](https://journals.asm.org/doi/10.1128/mra.00101-26) · 四区 · 20 April 2026
 ---
 
 ## 关于这个仓库
 
-这里是 `epsilongg.github.io` 的源码：一个用 Astro 手写的静态个人站，没有前端框架、没有数据库、没有后端。
+这里是 `epsilongg.github.io` 的源码：一个用 Astro 写的静态个人主页。
 
-除了自用，它也可以当成一份能照着抄的模板——所有个人信息都集中在 `src/config/` 下的几个 JSON 里，换掉就是另一个人的主页。
+你可以把这个项目当成一份能照着抄的模板——所有个人信息都集中在 `src/config/` 下的几个 JSON 里，换掉就是另一个人的主页。
 
 | 文档 | 内容 |
 | --- | --- |
