@@ -6,13 +6,8 @@
   },
   {
     "label": "名片",
-    "href": "/links/",
-    "description": "主要身份信息与联系入口"
-  },
-  {
-    "label": "关于",
     "href": "/me/",
-    "description": "个人背景、关注领域与项目概览"
+    "description": "个人背景、主要平台、关注领域与项目概览"
   },
   {
     "label": "链接库",

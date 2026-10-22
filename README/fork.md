@@ -81,17 +81,17 @@ GitHub 允许同名仓库存在，但只有 `<用户名>.github.io` 这个名字
 
 `intro` 是数组，每一项渲染成一个段落；留空则不显示。
 
-### 2.3 `about.ts` —— `/me/` 关于页
+### 2.3 `about.ts` —— `/me/` 名片页
 
 `intro`（一段话）、`focusAreas`（关注领域，字符串数组）、`projects`（`{ title, href, description }`）、`experience`（`{ title, description }`）。任何一项留空，页面对应区块显示「正在整理中」，不会报错。
 
 ### 2.4 `navigation.json` —— 首页的站点导航
 
-首页中间那排入口。`href` 用站内路径（`/links/`），`description` 会显示在名称下面。
+首页中间那排入口。`href` 用站内路径（例如 `/me/`），`description` 会显示在名称下面。
 
-### 2.5 `links.ts` —— 名片页与链接库
+### 2.5 `links.ts` —— 名片页（/me/「主要平台」）与链接库
 
-两个导出：`primaryLinks`（名片页顶部的主要平台）和 `linkGroups`（链接库的五个分类）。四种排版（`list` / `cards` / `icons` / `badges`）的用法见[项目说明第 4.1 节](project.md#41-链接库的四种排版)。
+两个导出：`primaryLinks`（名片页 /me/ 的「主要平台」）和 `linkGroups`（链接库的五个分类）。四种排版（`list` / `cards` / `icons` / `badges`）的用法见[项目说明第 4.1 节](project.md#41-链接库的四种排版)。
 
 **最省事的做法**：把 `linkGroups` 里现成的示例（GitHub 朋友、ACG 资源、工具）整组删掉，只留你真正想放的。删空的分类不会渲染。
 
@@ -164,7 +164,7 @@ npm run check    # 类型检查
 
 - [ ] 仓库名是 `<用户名>.github.io`
 - [ ] `site.json` 的 `url` 是 `https://<用户名>.github.io`（无斜杠、无子路径）
-- [ ] 首页、`/links/`、`/me/`、`/morelinks/`、`/archive/` 都能打开
+- [ ] 首页、`/me/`、`/morelinks/`、`/archive/` 都能打开
 - [ ] 文章页能打开，图片正常显示
 - [ ] 随便输一个不存在的地址，显示 404 页面而不是 GitHub 的默认 404
 - [ ] `/rss.xml` 里的域名是你自己的

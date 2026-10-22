@@ -2,7 +2,7 @@
 
 [← 返回仓库首页](../README.md) ｜ [Fork 指南](fork.md)
 
-以个人简介和站点导航为入口的静态个人网站：首页先介绍「我是谁」，再提供名片、关于、链接库、归档四个入口，博客作为网站的一部分而不是主角。
+以个人简介和站点导航为入口的静态个人网站：首页先介绍「我是谁」，再提供名片、链接库、归档三个入口，博客作为网站的一部分而不是主角。
 
 - 站点地址：`https://epsilongg.github.io`（仓库：`github.com/EpsilonGG/epsilongg.github.io`）
 - 技术栈：Astro 7（静态生成）、TypeScript、原生 CSS、Markdown + Content Collections（Zod 校验）
@@ -54,14 +54,14 @@ npm test         # Python 单元测试（README 同步脚本）
 │   └── og-default.png         默认 Open Graph 分享图（1200×630）
 ├── src/
 │   ├── components/            Header / Footer / 导航 / 链接行 / 链接列表 / 卡片 / 图标网格 / 徽章墙 / 最近文章 / 主题切换 / 阅读进度条
-│   ├── config/                站点、个人资料、导航、链接、关于页的全部数据
+│   ├── config/                站点、个人资料、导航、链接、名片页的全部数据
 │   ├── content/blog/          Markdown 文章
 │   │   ├── rurudo-unreal-interview.md   第一篇真实文章
 │   │   └── example.md                   草稿示例（draft: true，可以删除）
 │   ├── content.config.ts      文章集合定义与 Zod 校验
 │   ├── layouts/               BaseLayout（HTML 骨架与 SEO）/ ArticleLayout（文章阅读布局）
 │   ├── lib/posts.ts           读取、排序、按年分组文章
-│   ├── pages/                 路由：/ /links/ /me/ /morelinks/ /archive/ /blog/[slug]/ /404 /rss.xml /robots.txt
+│   ├── pages/                 路由：/ /me/ /morelinks/ /archive/ /blog/[slug]/ /404 /rss.xml /robots.txt
 │   ├── scripts/theme.ts       主题状态的唯一实现
 │   └── styles/                tokens / global / typography / components / fonts
 ├── scripts/sync_profile_readme.py   README 同步脚本
@@ -83,8 +83,7 @@ npm test         # Python 单元测试（README 同步脚本）
 | 路径 | 内容 |
 | --- | --- |
 | `/` | 首页：个人简介 → 站点导航 → 最近文章 → 页脚 |
-| `/links/` | 名片页（主要平台入口） |
-| `/me/` | 关于页 |
+| `/me/` | 名片页（简介、主要平台、关注领域、项目与经历） |
 | `/morelinks/` | 链接库（分类展示） |
 | `/archive/` | 文章归档，按年份分组 |
 | `/blog/{slug}/` | 单篇文章，`slug` 即 Markdown 文件名 |
@@ -101,7 +100,7 @@ npm test         # Python 单元测试（README 同步脚本）
 
 | 项目 | 状态 |
 | --- | --- |
-| 五个页面 + 文章页 + 404 | 构建通过，共 7 个页面 |
+| 四个页面 + 文章页 + 404 | 构建通过，共 6 个页面 |
 | 站点名称 / 域名 / 作者 / 邮箱 | 已填写为 EpsilonGG |
 | 个人简介（姓名、定位、两段 intro、邮箱、description） | 已填写 |
 | 头像 | 已下载到 `public/images/avatar.jpg`，并在 `profile.json` 中引用 |
@@ -110,7 +109,7 @@ npm test         # Python 单元测试（README 同步脚本）
 | 类型检查 | `npm run check`：36 个文件，0 error / 0 warning / 0 hint |
 | 单元测试 | `npm test`：22 个用例全部通过 |
 | 主题切换 / 阅读进度条 / 响应式 | 320 / 390 / 768 / 1280 宽度下无横向溢出，深浅色均已截图验证 |
-| 空站点降级 | 删掉全部文章后仍可构建（6 个页面），归档页显示「暂无文章」，RSS 输出空频道 |
+| 空站点降级 | 删掉全部文章后仍可构建（5 个页面），归档页显示「暂无文章」，RSS 输出空频道 |
 | GitHub Actions 部署 | 已上线 `https://epsilongg.github.io`，每次 push 自动构建部署（约 40–90 秒） |
 | 文档 | 仓库首页、本文件、[博客写作指南](blog-guide.md)、[Fork 指南](fork.md)、`public/docs/` 下两个 HTML 指南 |
 
@@ -122,13 +121,13 @@ npm test         # Python 单元测试（README 同步脚本）
 
 | 文件 | 字段 | 说明 |
 | --- | --- | --- |
-| `src/config/site.json` | `description` | 站点默认描述，当前是「个人主页：简介、名片、链接库与文章归档。」 |
+| `src/config/site.json` | `description` | 站点默认描述，当前是「EpsilonGG 的个人主页」 |
 | | `startYear` | 版权起始年份，当前 `2026` |
 | | `email` | 公开邮箱，留空则 404 页不显示「报告问题」 |
 | `src/config/profile.json` | `tagline` / `intro` / `description` | 已填写，可按需润色 |
 | | `location` | 可选，当前为空（首页不显示地区） |
 | `src/config/about.ts` | `intro` / `focusAreas` / `projects` / `experience` | 已填写 |
-| `src/config/links.ts` | `primaryLinks` | 已填 GitHub；其他平台可继续加，`/links/` 的「主要平台」区块会自动出现 |
+| `src/config/links.ts` | `primaryLinks` | 已填 GitHub；其他平台可继续加，`/me/`（名片页）的「主要平台」区块会自动出现 |
 | | `linkGroups` | 五个分类各有自己的 `layout`：个人平台/项目用卡片、工具用图标网格、研究与参考资料用列表、常用链接用小按钮墙（内部再分 GitHub / ACG 资源两个子栏目）。见第 4.1 节 |
 | `public/og-default.png` | 分享图 | 已按 EpsilonGG 生成；若改名需重新生成（见第 9 节） |
 | `src/content/blog/example.md` | 草稿示例 | 可以删除 |
@@ -255,7 +254,7 @@ git push -u origin main
 1. 仓库 **Settings → Pages**。
 2. **Build and deployment → Source** 选择 **GitHub Actions**（不要选 "Deploy from a branch"）。
 3. 回到 **Actions** 标签，等待 `Deploy to GitHub Pages` 运行完成（首次约 1–2 分钟）。
-4. 打开 `https://epsilongg.github.io/` 确认首页；再检查 `/archive/`、`/links/`、`/me/`、`/morelinks/`、`/blog/rurudo-unreal-interview/`、`/rss.xml`、`/sitemap-index.xml`、`/robots.txt`，以及一个不存在的地址（应显示 404 页面）。
+4. 打开 `https://epsilongg.github.io/` 确认首页；再检查 `/archive/`、`/me/`、`/morelinks/`、`/blog/rurudo-unreal-interview/`、`/rss.xml`、`/sitemap-index.xml`、`/robots.txt`，以及一个不存在的地址（应显示 404 页面）。
 
 ### 6.3 部署失败排查
 

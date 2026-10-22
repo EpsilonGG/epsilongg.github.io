@@ -1,17 +1,19 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import SectionHeading from '../components/SectionHeading.astro';
+import LinkRow from '../components/LinkRow.astro';
 import { profile } from '../config/profile';
 import { about } from '../config/about';
+import { primaryLinks } from '../config/links';
 
 const introParagraphs = about.intro.map((paragraph) => paragraph.trim()).filter(Boolean);
 ---
 
-<BaseLayout title="关于" description={`${profile.name} 的个人背景、关注领域与项目概览。`}>
+<BaseLayout title="名片" description={`${profile.name} 的个人背景、主要平台、关注领域与项目概览。`}>
   <div class="page">
     <div class="container">
       <header class="page-header">
-        <h1 class="page-title">关于</h1>
+        <h1 class="page-title">名片</h1>
       </header>
 
       <section class="section" aria-labelledby="about-intro">
@@ -28,6 +30,21 @@ const introParagraphs = about.intro.map((paragraph) => paragraph.trim()).filter(
           )
         }
       </section>
+
+      {
+        primaryLinks.length > 0 ? (
+          <section class="section" aria-labelledby="platforms-heading">
+            <SectionHeading title="主要平台" id="platforms-heading" />
+            <ul class="link-list">
+              {primaryLinks.map((link) => (
+                <li>
+                  <LinkRow label={link.label} href={link.href} description={link.description} />
+                </li>
+              ))}
+            </ul>
+          </section>
+        ) : null
+      }
 
       <section class="section" aria-labelledby="about-focus">
         <SectionHeading title="关注领域" id="about-focus" />

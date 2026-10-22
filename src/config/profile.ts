@@ -2,7 +2,7 @@
  * 个人资料配置的类型包装。
  *
  * 数据放在 `profile.json`：Astro 页面与 README 同步脚本（Python）读取同一份文件，
- * 保证首页、名片、关于页与 GitHub Profile README 的个人信息永远一致。
+ * 保证首页、名片页与 GitHub Profile README 的个人信息永远一致。
  */
 import data from './profile.json';
 

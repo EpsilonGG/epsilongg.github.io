@@ -641,11 +641,10 @@
           <span class="block-item__name">3.1 页面与路由</span>
           <span class="block-item__src">src/pages/</span>
         </div>
-        <p>五个固定页面加一条动态路由，全部静态预渲染：</p>
+        <p>四个固定页面加一条动态路由，全部静态预渲染：</p>
         <ul>
           <li><code>/</code> 首页：简介 → 站点导航 → 最近文章 → Footer，顺序固定</li>
-          <li><code>/links/</code> 平台与项目入口</li>
-          <li><code>/me/</code> 关于：名片、关注领域、项目、经历</li>
+          <li><code>/me/</code> 名片：简介、主要平台、关注领域、项目、经历</li>
           <li><code>/morelinks/</code> 链接库：5 组、2 个子栏目</li>
           <li><code>/archive/</code> 归档：按年份分组的全部文章</li>
           <li><code>/blog/{slug}/</code> 文章详情，文件名即 URL</li>
@@ -1191,7 +1190,7 @@
 │   │   ├── profile.json      姓名、简介、头像、社交链接
 │   │   ├── navigation.json   导航项与顺序
 │   │   ├── links.ts          链接库（5 组、2 子栏目、5 种排版）
-│   │   └── about.ts          /me/ 页的名片、关注领域、项目、经历
+│   │   └── about.ts          /me/ 页（名片）的简介、主要平台、关注领域、项目、经历
 │   ├── content/blog/         ★ 文章：一个 .md 一个 URL
 │   ├── content.config.ts     文章 schema（Zod）
 │   ├── layouts/
@@ -1199,7 +1198,6 @@
 │   │   └── ArticleLayout.astro  文章骨架 + 注释面板
 │   ├── pages/                ★ 路由
 │   │   ├── index.astro       /
-│   │   ├── links.astro       /links/
 │   │   ├── me.astro          /me/
 │   │   ├── morelinks.astro   /morelinks/
 │   │   ├── archive.astro     /archive/

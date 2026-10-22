@@ -24,8 +24,7 @@ Life Science ｜ Vibe Coding ｜ Galgame ｜ Doujin ASMR
 ## 个人站点导航
 
 - [首页](https://epsilongg.github.io/) — 个人简介与站点入口
-- [名片](https://epsilongg.github.io/links/) — 主要身份信息与联系入口
-- [关于](https://epsilongg.github.io/me/) — 个人背景、关注领域与项目概览
+- [名片](https://epsilongg.github.io/me/) — 个人背景、主要平台、关注领域与项目概览
 - [链接库](https://epsilongg.github.io/morelinks/) — 外部平台、工具、资源和项目链接
 - [笔记](https://epsilongg.github.io/archive/) — 文章、研究记录与长期内容
 

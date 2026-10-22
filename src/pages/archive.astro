@@ -17,13 +17,6 @@ const allTags = [...new Set(posts.flatMap((post) => post.data.tags))].sort((a, b
     <div class="container">
       <header class="page-header">
         <h1 class="page-title">笔记</h1>
-        {
-          posts.length > 0 ? (
-            <p class="page-intro">
-              共 {posts.length} 篇，按发布年份排列，可按关键词搜索或按标签筛选。
-            </p>
-          ) : null
-        }
       </header>
 
       {

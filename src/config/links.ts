@@ -1,7 +1,7 @@
 /**
  * 外部链接数据。
  *
- * 名片页（/links/）与链接库（/morelinks/）都从这里读取数据，
+ * 名片页（/me/）与链接库（/morelinks/）都从这里读取数据，
  * 页面组件中不硬编码任何个人链接。
  *
  * 注意：
@@ -57,8 +57,8 @@ export interface LinkGroup {
 }
 
 /**
- * 名片页的主要入口（个人平台）。
- * 留空时名片页只显示姓名、定位与站内入口，不显示空区块。
+ * 名片页（/me/）的「主要平台」区块。
+ * 留空时该区块不渲染，其余内容（简介、关注领域、项目与经历）照常显示。
  */
 export const primaryLinks: LinkItem[] = [
   { label: 'GitHub', href: 'https://github.com/EpsilonGG', description: '代码与项目仓库' },
