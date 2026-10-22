@@ -1,0 +1,37 @@
+---
+/**
+ * 图标网格：倒角正方形图标 + 左下角名称与说明。
+ * 用于「工具与服务」。
+ */
+import { isExternalHref, type LinkItem } from '../config/links';
+
+interface Props {
+  links: LinkItem[];
+}
+
+const { links } = Astro.props;
+---
+
+<ul class="icon-grid">
+  {links.map((link) => {
+    const external = isExternalHref(link.href);
+    const linkAttrs = external ? { target: '_blank', rel: 'noopener noreferrer' } : {};
+    return (
+      <li>
+        <a class="icon-tile" href={link.href} {...linkAttrs}>
+          {link.icon ? (
+            <img class="icon-tile__img" src={link.icon} alt="" width="48" height="48" loading="lazy" decoding="async" />
+          ) : (
+            <span class="icon-tile__img icon-tile__img--empty" aria-hidden="true">{link.label.slice(0, 2)}</span>
+          )}
+          <span class="icon-tile__label">
+            {link.label}
+            {external ? <span class="icon-tile__external" aria-hidden="true">↗</span> : null}
+          </span>
+          {link.description ? <span class="icon-tile__description">{link.description}</span> : null}
+          {external ? <span class="visually-hidden">（在新窗口打开）</span> : null}
+        </a>
+      </li>
+    );
+  })}
+</ul>

@@ -36,11 +36,13 @@ npm test         # Python 单元测试（README 同步脚本）
 │   ├── fonts/                 本地字体（Inter / Cormorant Garamond / Fira Code）+ 许可文本
 │   ├── images/
 │   │   ├── avatar.jpg         头像（460×460，与 GitHub 头像同步）
-│   │   └── blog/rurudo-unreal/  第一篇真实文章用的 11 张插图
+│   │   ├── blog/rurudo-unreal/  第一篇真实文章用的 11 张插图
+│   │   ├── links/             友情链接徽章（88×31，按 2 倍图存放）
+│   │   └── tools/             工具图标（48×48，按 2 倍图存放）
 │   ├── favicon.svg
 │   └── og-default.png         默认 Open Graph 分享图（1200×630）
 ├── src/
-│   ├── components/            Header / Footer / 导航 / 链接行 / 最近文章 / 主题切换 / 阅读进度条
+│   ├── components/            Header / Footer / 导航 / 链接行 / 链接列表 / 卡片 / 图标网格 / 徽章墙 / 最近文章 / 主题切换 / 阅读进度条
 │   ├── config/                站点、个人资料、导航、链接、关于页的全部数据
 │   ├── content/blog/          Markdown 文章
 │   │   ├── rurudo-unreal-interview.md   第一篇真实文章
@@ -92,6 +94,7 @@ npm test         # Python 单元测试（README 同步脚本）
 | 个人简介（姓名、定位、两段 intro、邮箱、description） | 已填写 |
 | 头像 | 已下载到 `public/images/avatar.jpg`，并在 `profile.json` 中引用 |
 | 第一篇真实文章 | `（译）INTERVIEW with rurudo——UNREAL 画集专访`，含 11 张本地插图 |
+| 链接库改版 | 个人平台/项目用卡片、工具用图标网格、研究资料用列表、友情链接用 88×31 徽章墙 |
 | 类型检查 | `npm run check`：29 个文件，0 error / 0 warning / 0 hint |
 | 单元测试 | `npm test`：22 个用例全部通过 |
 | 主题切换 / 阅读进度条 / 响应式 | 320 / 390 / 768 / 1280 宽度下无横向溢出 |
@@ -112,7 +115,7 @@ npm test         # Python 单元测试（README 同步脚本）
 | | `location` | 可选，当前为空（首页不显示地区） |
 | `src/config/about.ts` | `intro` / `focusAreas` / `projects` / `experience` | `intro` 已填「不务正业的研究生」；后三项为空，`/me/` 对应区块显示「正在整理中」 |
 | `src/config/links.ts` | `primaryLinks` | 已填 GitHub；其他平台可继续加，`/links/` 的「主要平台」区块会自动出现 |
-| | `linkGroups` | 「个人平台」「项目与代码仓库」为空；「研究与参考资料」「工具与服务」里是 MDN / Astro / GitHub Pages 文档，属于搭建时的示例，可替换或删除 |
+| | `linkGroups` | 五个分类各有自己的 `layout`：个人平台/项目用卡片、工具用图标网格、研究与参考资料用列表、友情链接用徽章墙。见第 4.1 节 |
 | `public/og-default.png` | 分享图 | 已按 EpsilonGG 生成；若改名需重新生成（见第 9 节） |
 | `src/content/blog/example.md` | 草稿示例 | 可以删除 |
 
@@ -125,6 +128,37 @@ npm test         # Python 单元测试（README 同步脚本）
 - 在 GitHub 更换头像后，**仓库里的这张图不会自动更新**，需要重新下载覆盖：把上面 URL 的图片另存为 `public/images/avatar.jpg` 再提交。
 - 想换成本地图片时，保持 1:1、不小于 200×200，然后确认 `profile.json` 的 `avatar` 路径是 `/images/avatar.jpg`（或改路径）。
 - 想暂时不显示头像，把 `profile.json` 的 `avatar` 设为空字符串即可，首页会自动隐藏头像区。
+
+### 4.1 链接库的四种排版
+
+`/morelinks/` 的每个分类按 `layout` 字段渲染，不写就是 `list`：
+
+| `layout` | 样子 | 当前用在 |
+| --- | --- | --- |
+| `list` | 竖排，左侧名称右侧说明 | 研究与参考资料 |
+| `cards` | 卡片网格，右上角一条次要信息（`meta`） | 个人平台、项目与代码仓库 |
+| `icons` | 倒角正方形图标 + 左下角名称与说明 | 工具与服务 |
+| `badges` | 88×31 徽章墙，下方一格说明位 | 友情链接 |
+
+**加一个友情链接**：
+
+1. 准备一张 88×31 的按钮图（对方站点通常有，或者自己做一张），放进 `public/images/links/`。建议存 2 倍图（176×62），在页面上仍按 88×31 显示，高分屏更清楚。
+2. 在 `linkGroups` 里 `id: 'friends'` 那组的 `links` 中加一条：
+
+```ts
+{
+  label: '友站名',
+  href: 'https://example.com/',
+  description: '四到六个字',   // 88px 宽只放得下一行，超出会被省略号截断
+  badge: '/images/links/example.png',
+}
+```
+
+3. 徽章默认灰度、鼠标悬停或键盘聚焦时恢复原色，这个效果由 CSS 控制，图片本身保持原色即可。
+
+> `description` 一定要短。88px 宽大约只放得下 8 个汉字，写长了会被截断成省略号。
+
+**加一个工具图标**：把 48×48 的图标（建议存 96×96）放进 `public/images/tools/`，然后在 `tools` 组里加 `icon: '/images/tools/xxx.png'`。图标没填时会退化成文字方块，不会裂图。
 
 ---
 

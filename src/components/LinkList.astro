@@ -1,0 +1,22 @@
+---
+/**
+ * 竖排链接列表：左侧名称，右侧说明。
+ * 链接库的「研究与参考资料」等分类使用，与名片页的 LinkRow 视觉一致。
+ */
+import LinkRow from './LinkRow.astro';
+import type { LinkItem } from '../config/links';
+
+interface Props {
+  links: LinkItem[];
+}
+
+const { links } = Astro.props;
+---
+
+<ul class="link-list">
+  {links.map((link) => (
+    <li>
+      <LinkRow label={link.label} href={link.href} description={link.description} />
+    </li>
+  ))}
+</ul>

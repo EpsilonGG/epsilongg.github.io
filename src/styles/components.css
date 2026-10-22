@@ -570,6 +570,230 @@ a.link-row:hover .link-row__label {
 }
 
 /* --------------------------------------------------------------------------
+   链接库 · 卡片网格（个人平台 / 项目与代码仓库）
+   -------------------------------------------------------------------------- */
+
+.card-grid {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+  gap: var(--space-3);
+}
+
+.card-grid > li {
+  display: flex;
+}
+
+.link-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  width: 100%;
+  padding: var(--space-3);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius);
+  text-decoration: none;
+  transition: border-color var(--duration) var(--ease);
+}
+
+.link-card:hover,
+.link-card:focus-visible {
+  border-color: var(--color-border-strong);
+}
+
+.link-card__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+
+.link-card__label {
+  font-size: var(--text-base);
+  font-weight: 500;
+  color: var(--color-text);
+}
+
+.link-card:hover .link-card__label {
+  text-decoration: underline;
+  text-underline-offset: 0.25em;
+  text-decoration-color: var(--color-border-strong);
+}
+
+.link-card__external {
+  margin-left: 0.25em;
+  font-size: 0.85em;
+  color: var(--color-text-muted);
+}
+
+.link-card__meta {
+  flex: none;
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+}
+
+.link-card__description {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  line-height: var(--leading-normal);
+  overflow-wrap: anywhere;
+}
+
+/* --------------------------------------------------------------------------
+   链接库 · 图标网格（工具与服务）
+   图标本身已带圆角与描边（2 倍图），这里只控制尺寸与排布。
+   -------------------------------------------------------------------------- */
+
+.icon-grid {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(9.5rem, 1fr));
+  gap: var(--space-4) var(--space-3);
+}
+
+.icon-tile {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-2);
+  text-decoration: none;
+}
+
+.icon-tile__img {
+  width: 48px;
+  height: 48px;
+  display: block;
+}
+
+.icon-tile__img--empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: var(--border-width) solid var(--color-border);
+  border-radius: 12px;
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+}
+
+.icon-tile__label {
+  font-size: var(--text-sm);
+  font-weight: 500;
+  color: var(--color-text);
+}
+
+.icon-tile:hover .icon-tile__label {
+  text-decoration: underline;
+  text-underline-offset: 0.25em;
+  text-decoration-color: var(--color-border-strong);
+}
+
+.icon-tile__external {
+  margin-left: 0.25em;
+  font-size: 0.85em;
+  color: var(--color-text-muted);
+}
+
+.icon-tile__description {
+  margin-top: calc(var(--space-1) * -1);
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  line-height: var(--leading-snug);
+}
+
+/* --------------------------------------------------------------------------
+   链接库 · 徽章墙（友情链接）
+   徽章 88×31，下方留一块与徽章等宽等高的说明位。
+   默认灰度，悬停 / 键盘聚焦时恢复原色。
+   -------------------------------------------------------------------------- */
+
+.badge-wall {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4) var(--space-3);
+}
+
+.badge-item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  width: 88px;
+  text-decoration: none;
+}
+
+.badge-item__img {
+  width: 88px;
+  height: 31px;
+  display: block;
+  filter: grayscale(1);
+  opacity: 0.9;
+  transition: filter var(--duration) var(--ease), opacity var(--duration) var(--ease);
+}
+
+.badge-item:hover .badge-item__img,
+.badge-item:focus-visible .badge-item__img {
+  filter: none;
+  opacity: 1;
+}
+
+.badge-item__img--empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: var(--border-width) solid var(--color-border);
+  border-radius: 2px;
+  background: var(--color-bg-subtle);
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  filter: none;
+}
+
+.badge-item__caption {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-height: 31px;
+}
+
+.badge-item__name {
+  font-size: var(--text-xs);
+  font-weight: 500;
+  color: var(--color-text);
+  line-height: var(--leading-snug);
+}
+
+.badge-item:hover .badge-item__name {
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+  text-decoration-color: var(--color-border-strong);
+}
+
+.badge-item__desc {
+  font-size: 0.6875rem;
+  color: var(--color-text-muted);
+  line-height: var(--leading-snug);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* 深色主题下徽章偏亮，压低一点亮度避免刺眼 */
+:root[data-theme="dark"] .badge-item__img {
+  filter: grayscale(1) brightness(0.9);
+}
+
+:root[data-theme="dark"] .badge-item:hover .badge-item__img,
+:root[data-theme="dark"] .badge-item:focus-visible .badge-item__img {
+  filter: brightness(0.94);
+}
+
+/* --------------------------------------------------------------------------
    404
    -------------------------------------------------------------------------- */
 

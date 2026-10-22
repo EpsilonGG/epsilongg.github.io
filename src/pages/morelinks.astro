@@ -1,12 +1,15 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import LinkRow from '../components/LinkRow.astro';
+import LinkList from '../components/LinkList.astro';
+import LinkCards from '../components/LinkCards.astro';
+import IconGrid from '../components/IconGrid.astro';
+import BadgeWall from '../components/BadgeWall.astro';
 import { linkGroups } from '../config/links';
 
 const visibleGroups = linkGroups.filter((group) => group.links.length > 0);
 ---
 
-<BaseLayout title="链接库" description="整理外部平台、项目仓库、研究资料与工具链接。">
+<BaseLayout title="链接库" description="整理外部平台、项目仓库、工具、研究资料与友情链接。">
   <div class="page">
     <div class="container">
       <header class="page-header">
@@ -20,13 +23,15 @@ const visibleGroups = linkGroups.filter((group) => group.links.length > 0);
             <section class="link-group" aria-labelledby={`group-${group.id}`}>
               <h2 class="link-group__heading" id={`group-${group.id}`}>{group.title}</h2>
               {group.description ? <p class="link-group__description">{group.description}</p> : null}
-              <ul class="link-list">
-                {group.links.map((link) => (
-                  <li>
-                    <LinkRow label={link.label} href={link.href} description={link.description} />
-                  </li>
-                ))}
-              </ul>
+              {group.layout === 'badges' ? (
+                <BadgeWall links={group.links} />
+              ) : group.layout === 'cards' ? (
+                <LinkCards links={group.links} />
+              ) : group.layout === 'icons' ? (
+                <IconGrid links={group.links} />
+              ) : (
+                <LinkList links={group.links} />
+              )}
             </section>
           ))
         ) : (

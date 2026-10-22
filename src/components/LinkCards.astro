@@ -1,0 +1,35 @@
+---
+/**
+ * 卡片网格：用于「个人平台」「项目与代码仓库」。
+ * 卡片本身是链接，右上角可放一条次要信息（语言、内外链等）。
+ */
+import { isExternalHref, type LinkItem } from '../config/links';
+
+interface Props {
+  links: LinkItem[];
+}
+
+const { links } = Astro.props;
+---
+
+<ul class="card-grid">
+  {links.map((link) => {
+    const external = isExternalHref(link.href);
+    const linkAttrs = external ? { target: '_blank', rel: 'noopener noreferrer' } : {};
+    return (
+      <li>
+        <a class="link-card" href={link.href} {...linkAttrs}>
+          <span class="link-card__head">
+            <span class="link-card__label">
+              {link.label}
+              {external ? <span class="link-card__external" aria-hidden="true">↗</span> : null}
+            </span>
+            {link.meta ? <span class="link-card__meta">{link.meta}</span> : null}
+          </span>
+          {link.description ? <span class="link-card__description">{link.description}</span> : null}
+          {external ? <span class="visually-hidden">（在新窗口打开）</span> : null}
+        </a>
+      </li>
+    );
+  })}
+</ul>

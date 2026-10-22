@@ -1,0 +1,39 @@
+---
+/**
+ * 徽章墙：88×31 的站点按钮，下方留一格与徽章等宽等高的说明位。
+ * 用于「友情链接」。徽章图片自托管在 public/images/links/。
+ *
+ * 徽章默认灰度显示，鼠标悬停或键盘聚焦时恢复原色，
+ * 避免满屏彩色按钮冲淡整站的黑白灰基调。
+ */
+import { isExternalHref, type LinkItem } from '../config/links';
+
+interface Props {
+  links: LinkItem[];
+}
+
+const { links } = Astro.props;
+---
+
+<ul class="badge-wall">
+  {links.map((link) => {
+    const external = isExternalHref(link.href);
+    const linkAttrs = external ? { target: '_blank', rel: 'noopener noreferrer' } : {};
+    return (
+      <li>
+        <a class="badge-item" href={link.href} {...linkAttrs}>
+          {link.badge ? (
+            <img class="badge-item__img" src={link.badge} alt="" width="88" height="31" loading="lazy" decoding="async" />
+          ) : (
+            <span class="badge-item__img badge-item__img--empty">{link.label}</span>
+          )}
+          <span class="badge-item__caption">
+            <span class="badge-item__name">{link.label}</span>
+            {link.description ? <span class="badge-item__desc">{link.description}</span> : null}
+          </span>
+          {external ? <span class="visually-hidden">（在新窗口打开）</span> : null}
+        </a>
+      </li>
+    );
+  })}
+</ul>
