@@ -1042,7 +1042,8 @@ a.link-row:hover .link-row__label {
 
 .not-found__code {
   font-family: var(--font-mono);
-  font-size: var(--text-sm);
+  /* 任务书要求：404 数字字号须与「页面不存在」标题相同或更大 */
+  font-size: var(--text-3xl);
   color: var(--color-text-muted);
   letter-spacing: var(--tracking-wide);
 }
@@ -1063,6 +1064,37 @@ a.link-row:hover .link-row__label {
   gap: var(--space-4);
   margin-top: var(--space-5);
   font-size: var(--text-sm);
+}
+
+/* 404 彩蛋小游戏（位于错误说明与导航链接之间） */
+.not-found__game {
+  margin-block: var(--space-6) var(--space-5);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.not-found__game canvas {
+  width: 100%;
+  /* 宽度适中，不喧宾夺主；移动端随容器自然收窄 */
+  max-width: 32rem;
+  height: auto;
+  background: transparent;
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius);
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+  /* 游戏区内的触摸不应触发页面滚动 / 缩放手势 */
+  touch-action: none;
+  display: block;
+}
+
+.not-found__game-hint {
+  margin: 0;
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  text-align: center;
 }
 
 /* 统一保证 hidden 属性生效：筛选/分组隐藏时不残留布局 */

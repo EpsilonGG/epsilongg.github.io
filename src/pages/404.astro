@@ -12,6 +12,20 @@ import { site } from '../config/site';
         <p class="not-found__text">
           你访问的地址没有对应的页面，可能是链接输入有误，或者这个页面已经移动。
         </p>
+
+        <div class="not-found__game">
+          <canvas
+            id="dino-game"
+            width="800"
+            height="300"
+            role="img"
+            aria-label="一个跳跃小游戏：按空格或点击开始，跳跃躲避障碍物，碰撞后按空格重新开始。"
+          ></canvas>
+          <p class="not-found__game-hint">
+            空格 / 点击 开始 · 跳跃躲避障碍 · 再次空格重开
+          </p>
+        </div>
+
         <div class="not-found__links">
           <a href="/">返回首页</a>
           <a href="/archive/">前往笔记</a>
@@ -21,3 +35,7 @@ import { site } from '../config/site';
     </div>
   </div>
 </BaseLayout>
+
+<script>
+  import '../scripts/404-game.ts';
+</script>
