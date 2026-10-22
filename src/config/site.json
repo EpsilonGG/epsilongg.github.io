@@ -1,11 +1,11 @@
 {
   "name": "EpsilonGG",
   "url": "https://epsilongg.github.io",
-  "description": "个人主页：简介、名片、链接库与文章归档。",
+  "description": "EpsilonGG 的个人主页",
   "lang": "zh-CN",
   "author": "EpsilonGG",
   "startYear": 2026,
   "ogImage": "/og-default.png",
-  "github": "https://github.com/EpsilonGG",
+  "github": "",
   "email": ""
 }
