@@ -1,0 +1,86 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import LinkRow from '../components/LinkRow.astro';
+import RecentArticles from '../components/RecentArticles.astro';
+import { site } from '../config/site';
+import { profile } from '../config/profile';
+import { homeNavigation } from '../config/navigation';
+
+const introParagraphs = profile.intro.map((paragraph) => paragraph.trim()).filter(Boolean);
+const hasMeta = Boolean(profile.location || profile.email);
+---
+
+<BaseLayout title={site.name} description={profile.description || site.description}>
+  <div class="page">
+    <div class="container">
+      {/* 区块一：个人简介 —— 首页最重要的内容 */}
+      <section class="intro" aria-labelledby="intro-name">
+        <div class="intro__identity">
+          {
+            profile.avatar ? (
+              <img
+                class="intro__avatar"
+                src={profile.avatar}
+                alt={`${profile.name} 的头像`}
+                width="72"
+                height="72"
+                loading="eager"
+                decoding="async"
+              />
+            ) : null
+          }
+          <div>
+            <h1 class="intro__name" id="intro-name">{profile.name}</h1>
+            {profile.tagline ? <p class="intro__tagline">{profile.tagline}</p> : null}
+          </div>
+        </div>
+
+        {
+          introParagraphs.length > 0 ? (
+            <div class="intro__text">
+              {introParagraphs.map((paragraph) => (
+                <p>{paragraph}</p>
+              ))}
+            </div>
+          ) : null
+        }
+
+        {
+          hasMeta ? (
+            <div class="intro__meta">
+              {profile.location ? <span>{profile.location}</span> : null}
+              {profile.email ? (
+                <a href={`mailto:${profile.email}`}>{profile.email}</a>
+              ) : null}
+            </div>
+          ) : null
+        }
+      </section>
+
+      {/* 区块二：网站导航 —— 让首次访问者知道每个页面的作用 */}
+      <section class="section" aria-labelledby="site-nav-heading">
+        <SectionHeading title="站点导航" id="site-nav-heading" />
+        <ul class="link-list">
+          {
+            homeNavigation.map((item) => (
+              <li>
+                <LinkRow label={item.label} href={item.href} description={item.description} />
+              </li>
+            ))
+          }
+        </ul>
+      </section>
+
+      {/* 区块三：最近文章 —— 次要内容 */}
+      <section class="section" aria-labelledby="recent-heading">
+        <SectionHeading
+          title="最近文章"
+          id="recent-heading"
+          aside={{ label: '全部归档 →', href: '/archive/' }}
+        />
+        <RecentArticles limit={3} />
+      </section>
+    </div>
+  </div>
+</BaseLayout>

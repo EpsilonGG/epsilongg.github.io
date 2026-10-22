@@ -1,0 +1,23 @@
+---
+interface Props {
+  /** 区块标题文字 */
+  title: string;
+  /** 可选：右侧的次级链接，例如「全部 →」 */
+  aside?: { label: string; href: string };
+  /** 可选：标题元素 id，便于 aria-labelledby 关联 */
+  id?: string;
+}
+
+const { title, aside, id } = Astro.props;
+---
+
+<div class="section-heading">
+  <h2 class="section-heading__title" id={id}>{title}</h2>
+  {
+    aside ? (
+      <a class="section-heading__aside" href={aside.href}>
+        {aside.label}
+      </a>
+    ) : null
+  }
+</div>

@@ -1,0 +1,19 @@
+---
+import { navigation, isCurrentPath } from '../config/navigation';
+
+const currentPath = Astro.url.pathname;
+---
+
+<nav class="site-nav" aria-label="主导航">
+  <ul>
+    {
+      navigation.map((item) => (
+        <li>
+          <a href={item.href} aria-current={isCurrentPath(currentPath, item.href) ? 'page' : undefined}>
+            {item.label}
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</nav>

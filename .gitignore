@@ -1,0 +1,27 @@
+# 依赖与构建产物
+node_modules/
+dist/
+.astro/
+
+# 环境变量与密钥（永远不要提交）
+.env
+.env.*
+!.env.example
+
+# 本地系统与编辑器
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Python 测试缓存
+__pycache__/
+*.py[cod]
+.venv/
+
+# 日志
+*.log
+npm-debug.log*
+
+# 本地工具产生的项目数据（不发布到公开仓库）
+.workbuddy-ai/

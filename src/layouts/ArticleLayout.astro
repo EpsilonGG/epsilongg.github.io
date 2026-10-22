@@ -1,0 +1,82 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import ReadingProgress from '../components/ReadingProgress.astro';
+import { formatDate, postPath, type Post } from '../lib/posts';
+
+interface Props {
+  post: Post;
+  /** 较新的一篇（发布日期更晚），可为空 */
+  newer?: Post | null;
+  /** 较旧的一篇，可为空 */
+  older?: Post | null;
+}
+
+const { post, newer = null, older = null } = Astro.props;
+const { title, description, pubDate, updatedDate, tags } = post.data;
+---
+
+<BaseLayout title={title} description={description ?? `${title} · ${post.id}`} ogType="article">
+  <ReadingProgress />
+
+  <article class="page">
+    <div class="container">
+      <a class="back-link" href="/archive/">
+        <span aria-hidden="true">←</span> 返回归档
+      </a>
+
+      <header class="article-header">
+        <h1 class="article-title">{title}</h1>
+        <div class="article-meta">
+          <span>
+            发表于
+            <time datetime={pubDate.toISOString()}>{formatDate(pubDate)}</time>
+          </span>
+          {
+            updatedDate ? (
+              <span>
+                更新于
+                <time datetime={updatedDate.toISOString()}>{formatDate(updatedDate)}</time>
+              </span>
+            ) : null
+          }
+        </div>
+        {description ? <p class="article-description">{description}</p> : null}
+      </header>
+
+      <div class="prose">
+        <slot />
+      </div>
+
+      {
+        tags.length > 0 ? (
+          <ul class="tag-list" aria-label="文章标签">
+            {tags.map((tag) => (
+              <li>{tag}</li>
+            ))}
+          </ul>
+        ) : null
+      }
+
+      {
+        newer || older ? (
+          <nav class="article-nav" aria-label="文章导航">
+            {newer ? (
+              <a class="article-nav__item" href={postPath(newer)}>
+                <span class="article-nav__label">较新一篇</span>
+                <span class="article-nav__title">{newer.data.title}</span>
+              </a>
+            ) : (
+              <span></span>
+            )}
+            {older ? (
+              <a class="article-nav__item article-nav__item--next" href={postPath(older)}>
+                <span class="article-nav__label">较旧一篇</span>
+                <span class="article-nav__title">{older.data.title}</span>
+              </a>
+            ) : null}
+          </nav>
+        ) : null
+      }
+    </div>
+  </article>
+</BaseLayout>

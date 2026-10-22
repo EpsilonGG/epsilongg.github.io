@@ -1,0 +1,39 @@
+---
+/**
+ * 阅读进度条，只在文章详情页使用。
+ *
+ * - 固定在页面顶部，2px 高，不参与布局，不影响滚动。
+ * - 用 transform: scaleX() 更新，避免触发布局计算。
+ * - 滚动事件以 passive + requestAnimationFrame 节流。
+ * - 没有 JavaScript 时进度条不出现，正文仍可完整阅读。
+ */
+---
+
+<div class="reading-progress" aria-hidden="true">
+  <div class="reading-progress__bar" data-reading-progress></div>
+</div>
+
+<script>
+  const bar = document.querySelector<HTMLElement>('[data-reading-progress]');
+
+  if (bar) {
+    let frame = 0;
+
+    const update = () => {
+      frame = 0;
+      const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+      const ratio = scrollable > 0 ? Math.min(1, Math.max(0, window.scrollY / scrollable)) : 0;
+      bar.style.transform = `scaleX(${ratio})`;
+    };
+
+    const schedule = () => {
+      if (frame === 0) {
+        frame = window.requestAnimationFrame(update);
+      }
+    };
+
+    update();
+    window.addEventListener('scroll', schedule, { passive: true });
+    window.addEventListener('resize', schedule, { passive: true });
+  }
+</script>

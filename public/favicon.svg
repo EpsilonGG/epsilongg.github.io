@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="站点图标">
+  <rect width="32" height="32" rx="7" fill="#ffffff" />
+  <rect x="0.75" y="0.75" width="30.5" height="30.5" rx="6.25" fill="none" stroke="#1a1a1a" stroke-width="1.5" />
+  <circle cx="16" cy="16" r="3.6" fill="#1a1a1a" />
+</svg>

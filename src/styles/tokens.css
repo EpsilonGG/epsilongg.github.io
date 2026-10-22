@@ -1,0 +1,88 @@
+/* ==========================================================================
+   设计变量（Design Tokens）
+   所有颜色、字体、字号、间距、圆角、动效时长都在这里定义。
+   组件中禁止硬编码颜色值与圆角数值。
+   ========================================================================== */
+
+:root {
+  color-scheme: light;
+
+  /* 颜色：浅色主题（黑白灰，无品牌强调色） */
+  --color-bg: #ffffff;
+  --color-bg-subtle: #f7f7f7;
+  --color-text: #1a1a1a;
+  --color-text-secondary: #555555;
+  --color-text-muted: #767676;
+  --color-border: #e5e5e5;
+  --color-border-strong: #cfcfcf;
+  --color-selection: #e5e5e5;
+
+  /* 字体族 */
+  --font-sans: "Inter", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei",
+    system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial,
+    sans-serif;
+  --font-serif: "Cormorant Garamond", "Songti SC", "Noto Serif SC", Georgia,
+    "Times New Roman", serif;
+  --font-mono: "Fira Code", ui-monospace, SFMono-Regular, "SF Mono", Menlo,
+    Consolas, "Liberation Mono", monospace;
+
+  /* 字号层级 */
+  --text-xs: 0.8125rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-md: 1.0625rem;
+  --text-lg: 1.1875rem;
+  --text-xl: 1.5rem;
+  --text-2xl: 1.875rem;
+  --text-3xl: 2.25rem;
+
+  /* 行高 */
+  --leading-tight: 1.25;
+  --leading-snug: 1.4;
+  --leading-normal: 1.6;
+  --leading-relaxed: 1.8;
+
+  /* 字距 */
+  --tracking-normal: 0;
+  --tracking-wide: 0.06em;
+
+  /* 布局 */
+  --page-max: 46rem;
+  --measure: 38rem;
+  --page-padding: 1.5rem;
+  --header-height: 3.5rem;
+
+  /* 间距体系 */
+  --space-1: 0.25rem; /*  4px */
+  --space-2: 0.5rem; /*  8px */
+  --space-3: 0.75rem; /* 12px */
+  --space-4: 1rem; /* 16px */
+  --space-5: 1.5rem; /* 24px */
+  --space-6: 2rem; /* 32px */
+  --space-7: 3rem; /* 48px */
+  --space-8: 4rem; /* 64px */
+
+  /* 形状 */
+  --radius: 6px;
+  --radius-round: 50%;
+  --border-width: 1px;
+
+  /* 动效 */
+  --duration-fast: 120ms;
+  --duration: 180ms;
+  --ease: cubic-bezier(0.2, 0, 0, 1);
+}
+
+/* 深色主题：仅覆盖颜色变量，变量名称与浅色主题保持一致 */
+:root[data-theme="dark"] {
+  color-scheme: dark;
+
+  --color-bg: #101010;
+  --color-bg-subtle: #191919;
+  --color-text: #ededed;
+  --color-text-secondary: #b3b3b3;
+  --color-text-muted: #909090;
+  --color-border: #2a2a2a;
+  --color-border-strong: #3d3d3d;
+  --color-selection: #333333;
+}

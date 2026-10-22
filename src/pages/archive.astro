@@ -1,0 +1,47 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getPublishedPosts, groupPostsByYear, formatDate, postPath } from '../lib/posts';
+
+const posts = await getPublishedPosts();
+const groups = groupPostsByYear(posts);
+---
+
+<BaseLayout title="归档" description="文章与长期内容的索引，按年份分组。">
+  <div class="page">
+    <div class="container">
+      <header class="page-header">
+        <h1 class="page-title">归档</h1>
+        {posts.length > 0 ? <p class="page-intro">共 {posts.length} 篇，按发布年份排列。</p> : null}
+      </header>
+
+      {
+        groups.length > 0 ? (
+          groups.map((group) => (
+            <section class="archive-group" aria-labelledby={`year-${group.year}`}>
+              <h2 class="archive-year" id={`year-${group.year}`}>
+                {group.year}
+              </h2>
+              <ul class="article-list">
+                {group.posts.map((post) => (
+                  <li class="article-list__item">
+                    <a class="article-list__link" href={postPath(post)}>
+                      <span class="article-list__title">{post.data.title}</span>
+                      <time class="article-list__meta" datetime={post.data.pubDate.toISOString()}>
+                        {formatDate(post.data.pubDate)}
+                      </time>
+                      {post.data.description ? (
+                        <span class="article-list__description">{post.data.description}</span>
+                      ) : null}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          ))
+        ) : (
+          <p class="empty-state">暂无文章。归档会随新文章发布自动更新。</p>
+        )
+      }
+    </div>
+  </div>
+</BaseLayout>

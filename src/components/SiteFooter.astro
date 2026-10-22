@@ -1,0 +1,24 @@
+---
+import { site } from '../config/site';
+
+const currentYear = new Date().getFullYear();
+const copyrightYears =
+  site.startYear < currentYear ? `${site.startYear}–${currentYear}` : `${currentYear}`;
+---
+
+<footer class="site-footer">
+  <div class="container site-footer__inner">
+    <p>© {copyrightYears} {site.name}</p>
+    <div class="site-footer__links">
+      {
+        site.github ? (
+          <a href={site.github} target="_blank" rel="noopener noreferrer">
+            GitHub<span class="visually-hidden">（在新窗口打开）</span>
+          </a>
+        ) : null
+      }
+      <a href="/archive/">归档</a>
+      <a href="/rss.xml">RSS</a>
+    </div>
+  </div>
+</footer>

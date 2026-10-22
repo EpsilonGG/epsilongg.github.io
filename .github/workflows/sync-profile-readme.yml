@@ -1,0 +1,77 @@
+name: Sync profile README
+
+# 可选工作流：只在手动触发时运行。
+# 需要仓库 Secret `PROFILE_README_TOKEN`（对个人资料仓库有 contents:write 权限的
+# fine-grained token）。未配置该 Secret 时本工作流会直接跳过，不会影响网站构建与部署。
+
+on:
+  workflow_dispatch:
+    inputs:
+      readme_repo:
+        description: 个人资料仓库，格式 owner/repo（例如 octocat/octocat）
+        required: true
+        type: string
+      dry_run:
+        description: 只检查是否需要更新，不写入
+        required: false
+        type: boolean
+        default: true
+
+permissions:
+  contents: read
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check token
+        env:
+          TOKEN: ${{ secrets.PROFILE_README_TOKEN }}
+        run: |
+          if [ -z "$TOKEN" ]; then
+            echo "::notice::未配置 PROFILE_README_TOKEN，跳过同步。"
+            echo "SKIP_SYNC=1" >> "$GITHUB_ENV"
+          fi
+
+      - name: Checkout website
+        if: env.SKIP_SYNC != '1'
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Checkout profile repository
+        if: env.SKIP_SYNC != '1'
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ inputs.readme_repo }}
+          token: ${{ secrets.PROFILE_README_TOKEN }}
+          path: profile-readme
+
+      - name: Setup Python
+        if: env.SKIP_SYNC != '1'
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Sync README
+        if: env.SKIP_SYNC != '1'
+        run: |
+          if [ "${{ inputs.dry_run }}" = "true" ]; then
+            python scripts/sync_profile_readme.py --readme profile-readme/README.md --check
+          else
+            python scripts/sync_profile_readme.py --readme profile-readme/README.md
+          fi
+
+      - name: Commit and push
+        if: env.SKIP_SYNC != '1' && inputs.dry_run == false
+        working-directory: profile-readme
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          if git diff --quiet -- README.md; then
+            echo "README 已是最新，无需提交。"
+            exit 0
+          fi
+          git add README.md
+          git commit -m "chore: sync profile README from website"
+          git push

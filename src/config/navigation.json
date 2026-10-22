@@ -1,0 +1,27 @@
+[
+  {
+    "label": "首页",
+    "href": "/",
+    "description": "个人简介与站点入口"
+  },
+  {
+    "label": "名片",
+    "href": "/links/",
+    "description": "主要身份信息与联系入口"
+  },
+  {
+    "label": "关于",
+    "href": "/me/",
+    "description": "个人背景、关注领域与项目概览"
+  },
+  {
+    "label": "链接库",
+    "href": "/morelinks/",
+    "description": "外部平台、工具、资源和项目链接"
+  },
+  {
+    "label": "归档",
+    "href": "/archive/",
+    "description": "文章、研究记录与长期内容"
+  }
+]

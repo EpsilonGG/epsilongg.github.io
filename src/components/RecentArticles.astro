@@ -1,0 +1,34 @@
+---
+/**
+ * 首页「最近文章」区块。
+ * 只读取真实存在且通过校验的正式文章；没有文章时显示一行克制的提示。
+ */
+import { getPublishedPosts, formatDate, postPath } from '../lib/posts';
+
+interface Props {
+  limit?: number;
+}
+
+const { limit = 3 } = Astro.props;
+const posts = (await getPublishedPosts()).slice(0, limit);
+---
+
+{
+  posts.length === 0 ? (
+    <p class="empty-state">文章归档正在整理中。</p>
+  ) : (
+    <ul class="article-list">
+      {posts.map((post) => (
+        <li class="article-list__item">
+          <a class="article-list__link" href={postPath(post)}>
+            <span class="article-list__title">{post.data.title}</span>
+            <time class="article-list__meta" datetime={post.data.pubDate.toISOString()}>
+              {formatDate(post.data.pubDate)}
+            </time>
+            {post.data.description ? <span class="article-list__description">{post.data.description}</span> : null}
+          </a>
+        </li>
+      ))}
+    </ul>
+  )
+}

@@ -1,0 +1,80 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import LinkRow from '../components/LinkRow.astro';
+import { site } from '../config/site';
+import { profile } from '../config/profile';
+import { primaryLinks } from '../config/links';
+
+const email = profile.email || site.email;
+const hasContact = Boolean(email || profile.location);
+---
+
+<BaseLayout title="名片" description={`${profile.name} 的身份信息、主要平台与联系入口。`}>
+  <div class="page">
+    <div class="container">
+      <header class="page-header">
+        <h1 class="page-title page-title--name">{profile.name}</h1>
+        {profile.tagline ? <p class="page-intro">{profile.tagline}</p> : null}
+      </header>
+
+      <section class="section" aria-labelledby="contact-heading">
+        <SectionHeading title="联系" id="contact-heading" />
+        {
+          hasContact ? (
+            <ul class="link-list">
+              {email ? (
+                <li>
+                  <LinkRow label="邮箱" href={`mailto:${email}`} description={email} />
+                </li>
+              ) : null}
+              {profile.location ? (
+                <li>
+                  <div class="link-row">
+                    <span class="link-row__label">位置</span>
+                    <span class="link-row__description">{profile.location}</span>
+                  </div>
+                </li>
+              ) : null}
+            </ul>
+          ) : (
+            <p class="empty-state">联系方式正在整理中，稍后补充。</p>
+          )
+        }
+      </section>
+
+      {
+        primaryLinks.length > 0 ? (
+          <section class="section" aria-labelledby="platforms-heading">
+            <SectionHeading title="主要平台" id="platforms-heading" />
+            <ul class="link-list">
+              {primaryLinks.map((link) => (
+                <li>
+                  <LinkRow label={link.label} href={link.href} description={link.description} />
+                </li>
+              ))}
+            </ul>
+          </section>
+        ) : null
+      }
+
+      <section class="section" aria-labelledby="site-links-heading">
+        <SectionHeading title="本站" id="site-links-heading" />
+        <ul class="link-list">
+          <li>
+            <LinkRow label="关于" href="/me/" description="个人背景、关注领域与项目概览" />
+          </li>
+          <li>
+            <LinkRow label="链接库" href="/morelinks/" description="外部平台、工具与资源" />
+          </li>
+          <li>
+            <LinkRow label="归档" href="/archive/" description="文章与长期内容索引" />
+          </li>
+          <li>
+            <LinkRow label="RSS" href="/rss.xml" description="订阅本站文章更新" />
+          </li>
+        </ul>
+      </section>
+    </div>
+  </div>
+</BaseLayout>

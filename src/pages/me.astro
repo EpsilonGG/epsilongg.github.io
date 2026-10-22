@@ -1,0 +1,90 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import { profile } from '../config/profile';
+import { about } from '../config/about';
+
+const introParagraphs = about.intro.map((paragraph) => paragraph.trim()).filter(Boolean);
+---
+
+<BaseLayout title="关于" description={`${profile.name} 的个人背景、关注领域与项目概览。`}>
+  <div class="page">
+    <div class="container">
+      <header class="page-header">
+        <h1 class="page-title">关于</h1>
+      </header>
+
+      <section class="section" aria-labelledby="about-intro">
+        <SectionHeading title="简介" id="about-intro" />
+        {
+          introParagraphs.length > 0 ? (
+            <div class="prose">
+              {introParagraphs.map((paragraph) => (
+                <p>{paragraph}</p>
+              ))}
+            </div>
+          ) : (
+            <p class="empty-state">简介正在整理中。</p>
+          )
+        }
+      </section>
+
+      <section class="section" aria-labelledby="about-focus">
+        <SectionHeading title="关注领域" id="about-focus" />
+        {
+          about.focusAreas.length > 0 ? (
+            <ul class="plain-list">
+              {about.focusAreas.map((area) => (
+                <li>{area}</li>
+              ))}
+            </ul>
+          ) : (
+            <p class="empty-state">关注领域正在整理中。</p>
+          )
+        }
+      </section>
+
+      <section class="section" aria-labelledby="about-projects">
+        <SectionHeading title="当前项目" id="about-projects" />
+        {
+          about.projects.length > 0 ? (
+            <ul class="entry-list">
+              {about.projects.map((project) => (
+                <li>
+                  <div class="entry__title">
+                    {project.href ? <a href={project.href}>{project.title}</a> : project.title}
+                    {project.period ? <span class="entry__period">{project.period}</span> : null}
+                  </div>
+                  <p class="entry__description">{project.description}</p>
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p class="empty-state">项目记录正在整理中。</p>
+          )
+        }
+      </section>
+
+      <section class="section" aria-labelledby="about-experience">
+        <SectionHeading title="经历" id="about-experience" />
+        {
+          about.experience.length > 0 ? (
+            <ul class="entry-list">
+              {about.experience.map((entry) => (
+                <li>
+                  <div class="entry__title">
+                    {entry.title}
+                    {entry.period ? <span class="entry__period">{entry.period}</span> : null}
+                  </div>
+                  <p class="entry__description">{entry.description}</p>
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p class="empty-state">经历记录正在整理中。</p>
+          )
+        }
+      </section>
+    </div>
+  </div>
+</BaseLayout>

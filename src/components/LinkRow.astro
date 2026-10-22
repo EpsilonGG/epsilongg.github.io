@@ -1,0 +1,25 @@
+---
+/**
+ * 简洁链接行：左侧名称，右侧说明。
+ * 供首页导航、名片页、链接库共用；组件本身不保存任何数据。
+ */
+import { isExternalHref } from '../config/links';
+
+interface Props {
+  label: string;
+  href: string;
+  description?: string;
+}
+
+const { label, href, description = '' } = Astro.props;
+const external = isExternalHref(href);
+const linkAttrs = external ? { target: '_blank', rel: 'noopener noreferrer' } : {};
+---
+
+<a class="link-row" href={href} {...linkAttrs}>
+  <span class="link-row__label">
+    {label}{external ? <span class="link-row__external" aria-hidden="true">↗</span> : null}
+    {external ? <span class="visually-hidden">（在新窗口打开）</span> : null}
+  </span>
+  {description ? <span class="link-row__description">{description}</span> : null}
+</a>

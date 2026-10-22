@@ -1,0 +1,95 @@
+---
+import { site, absoluteUrl } from '../config/site';
+import { profile } from '../config/profile';
+import SiteHeader from '../components/SiteHeader.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+
+import '../styles/fonts.css';
+import '../styles/tokens.css';
+import '../styles/global.css';
+import '../styles/typography.css';
+import '../styles/components.css';
+
+interface Props {
+  /** 页面标题，不包含站点名后缀 */
+  title: string;
+  /** 页面描述，缺省时使用站点描述 */
+  description?: string;
+  /** Open Graph 类型 */
+  ogType?: 'website' | 'article';
+  /** 自定义分享图路径，缺省使用站点默认图 */
+  image?: string;
+  /** 是否允许搜索引擎索引 */
+  noindex?: boolean;
+}
+
+const {
+  title,
+  description = site.description,
+  ogType = 'website',
+  image = site.ogImage,
+  noindex = false,
+} = Astro.props;
+
+// 首页标题使用「站点名 · 定位」，其余页面使用「页面标题 · 站点名」
+const documentTitle = title === site.name ? `${site.name} · ${profile.tagline}` : `${title} · ${site.name}`;
+const canonical = new URL(Astro.url.pathname, `${site.url}/`).toString();
+const ogImageUrl = image ? absoluteUrl(image) : '';
+---
+
+<!doctype html>
+<html lang={site.lang} data-theme="light">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{documentTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
+
+    <meta property="og:type" content={ogType} />
+    <meta property="og:title" content={documentTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:site_name" content={site.name} />
+    <meta property="og:locale" content="zh_CN" />
+    {ogImageUrl && <meta property="og:image" content={ogImageUrl} />}
+    <meta name="twitter:card" content={ogImageUrl ? 'summary_large_image' : 'summary'} />
+    <meta name="twitter:title" content={documentTitle} />
+    <meta name="twitter:description" content={description} />
+    {ogImageUrl && <meta name="twitter:image" content={ogImageUrl} />}
+
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="alternate" type="application/rss+xml" title={`${site.name} · RSS`} href={absoluteUrl('/rss.xml')} />
+    <meta name="generator" content={Astro.generator} />
+
+    {/*
+      主题初始化：必须在首次绘制前同步执行，避免浅色闪一下再变深色。
+      读取失败（隐私模式 / 存储被禁用 / 非法值）时回退到默认浅色主题。
+      交互逻辑见 src/scripts/theme.ts，此处只做最小初始化。
+    */}
+    <script is:inline>
+      (function () {
+        var theme = 'light';
+        try {
+          var stored = window.localStorage.getItem('theme');
+          if (stored === 'light' || stored === 'dark') {
+            theme = stored;
+          }
+        } catch (error) {
+          theme = 'light';
+        }
+        document.documentElement.dataset.theme = theme;
+      })();
+    </script>
+  </head>
+
+  <body>
+    <a class="skip-link" href="#main">跳到主要内容</a>
+    <SiteHeader />
+    <main id="main" tabindex="-1">
+      <slot />
+    </main>
+    <SiteFooter />
+  </body>
+</html>
