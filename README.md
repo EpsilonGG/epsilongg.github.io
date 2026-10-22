@@ -31,7 +31,7 @@ Life Science ｜ Vibe Coding ｜ Galgame ｜ Doujin ASMR
 
 ## 最近更新
 
-- [Coding-complete genome sequence of a largemouth bass virus isolate from Micropterus salmoides collected in China](https://journals.asm.org/doi/10.1128/mra.00101-26) · 四区 · 20 April 2026
+- [INTERVIEW with rurudo——UNREAL 画集专访](https://epsilongg.github.io/blog/rurudo-unreal-interview/) · 四区 · 20 April 2026
 ---
 
 ## 关于这个仓库
