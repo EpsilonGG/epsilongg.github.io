@@ -27,7 +27,7 @@ export interface AboutConfig {
 
 export const about: AboutConfig = {
   intro: ['不务正业的研究生'],
-  focusAreas: ['Galgame', 'Doujin Audio', 'Life Sciences', 'Vibe Coding'],
+  focusAreas: ['Galgame', 'Doujin ASMR/Games', 'Life Sciences', 'Vibe Coding'],
   projects: [
     {
       title: 'X-rss',
@@ -42,8 +42,8 @@ export const about: AboutConfig = {
   ],
   experience: [
     {
-      title: '中山大学 海洋科学（本科、硕士）',
-      description: '参与鱼类疫病防治及饲料配方优化国家重点研发计划。',
+      title: '中山大学 海洋科学（本硕）',
+      description: '参与鱼类疫病防治及饲料配方优化方向国家重点研发计划。',
     },
   ],
 };
