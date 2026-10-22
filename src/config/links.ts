@@ -171,6 +171,31 @@ export const linkGroups: LinkGroup[] = [
         description: '创作者支援',
         badge: '/images/links/ci-en.png',
       },
+      {
+        label: 'CnGal',
+        href: 'https://www.cngal.org/',
+        badge: '/images/links/cngal.png',
+      },
+      {
+        label: '2DFan',
+        href: 'https://galge.fun/',
+        badge: '/images/links/2dfan.png',
+      },
+      {
+        label: 'Hikarinagi',
+        href: 'https://www.hikarinagi.org/',
+        badge: '/images/links/hikarinagi.png',
+      },
+      {
+        label: '鲲Galgame',
+        href: 'https://www.kungal.com/',
+        badge: '/images/links/kungal.png',
+      },
+      {
+        label: 'Bangumi',
+        href: 'https://bgm.tv/',
+        badge: '/images/links/bangumi.png',
+      },
     ],
   },
 ];
