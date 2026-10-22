@@ -175,6 +175,14 @@
   text-underline-offset: 0.3em;
 }
 
+.site-footer__notice {
+  margin-top: var(--space-3);
+  max-width: var(--measure);
+  font-size: var(--text-xs);
+  line-height: var(--leading-normal);
+  color: var(--color-text-muted);
+}
+
 /* --------------------------------------------------------------------------
    区块标题
    -------------------------------------------------------------------------- */
