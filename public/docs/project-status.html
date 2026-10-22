@@ -458,7 +458,7 @@
         <span class="kpi__label">单元测试全过</span>
       </div>
       <div class="kpi__item">
-        <span class="kpi__num">1.8<small>MB</small></span>
+        <span class="kpi__num">1.7<small>MB</small></span>
         <span class="kpi__label">构建产物</span>
       </div>
     </div>
@@ -584,7 +584,7 @@
           <td>性能</td>
           <td><span class="pill pill--part">良好</span></td>
           <td><span class="meter"><span class="meter__track"><span class="meter__fill" style="--pct:95%"></span></span><span class="meter__pct">95%</span></span></td>
-          <td class="t-hide-sm">图片 1.5 MB 是产物大头</td>
+          <td class="t-hide-sm">图片 1.4 MB 是产物大头</td>
         </tr>
         <tr>
           <td>部署与 CI</td>
@@ -669,7 +669,7 @@
           视觉规则：黑白灰、无强调色、常规圆角统一 6px（徽章 2px 是唯一例外）、无阴影、中文不用斜体。
         </p>
         <p>
-          三套字体，全部自托管、只含拉丁子集，合计 136 KB：
+          三套字体，全部自托管、只含拉丁子集，合计 105 KB：
           Cormorant Garamond（标题衬线）、Inter（正文无衬线）、Fira Code（等宽）。
           中文走系统字体栈，不下载中文字体。
         </p>
@@ -752,6 +752,11 @@
           <li>面板里的「注释 N」序号和文末列表一一对应，克隆自文末节点并去掉回跳箭头</li>
           <li>JS 失效时退化成原生脚注：上标仍能跳到文末列表</li>
         </ul>
+        <p>
+          现有一篇访谈里的 8 条「译注」已全部改成脚注，打开
+          <code>/blog/rurudo-unreal-interview/</code> 就能直接看效果；
+          标记的点击热区做过外扩，视觉尺寸不变但更容易点中。
+        </p>
         <div class="block-item__left">
           剩余：面板最高 45vh，超长注释要在面板内滚动；窄于 480px 时面板几乎占满屏幕。
         </div>
@@ -802,10 +807,10 @@
       <div class="block-item">
         <div class="block-item__head">
           <span class="block-item__name">3.9 性能</span>
-          <span class="block-item__src">dist/ · 1.8 MB</span>
+          <span class="block-item__src">dist/ · 1.7 MB</span>
         </div>
         <p>
-          产物 1.8 MB 的构成：图片 1.5 MB、字体 136 KB、HTML 与 CSS 合计约 100 KB。
+          产物 1.7 MB 的构成：图片 1.4 MB、字体 105 KB、HTML 与 CSS 合计约 175 KB。
           CSS 打成单文件 24 KB，<strong>没有任何外部 JS 文件</strong>——脚本量太小，Astro 全部内联了。
         </p>
         <p>
@@ -814,7 +819,7 @@
           字体和图标都是自己的。图片带 <code>loading="lazy"</code> 和显式 <code>width</code>/<code>height</code> 防布局抖动。
         </p>
         <div class="block-item__left">
-          剩余：图片没转 WebP/AVIF、没做 <code>srcset</code>，这一项能从 1.5 MB 压到 400 KB 量级。
+          剩余：图片没转 WebP/AVIF、没做 <code>srcset</code>，这一项能从 1.4 MB 压到 400 KB 量级。
         </div>
       </div>
 
@@ -923,7 +928,7 @@
         </tr>
         <tr>
           <td>图片无 WebP/AVIF、无 <code>srcset</code></td>
-          <td class="t-hide-sm">1.5 MB 图片占了产物 83%</td>
+          <td class="t-hide-sm">1.4 MB 图片占了产物 83%</td>
           <td><span class="pill pill--todo">欠账</span></td>
         </tr>
         <tr>
@@ -1043,7 +1048,7 @@
       </div>
       <p>
         这是投入产出比最高的一项。构建时把 <code>public/images/blog/</code> 下的图转成 WebP 并生成多档宽度，
-        1.5 MB 能压到 400 KB 左右，首屏会明显变快。可以用 <code>sharp</code> 写个构建前脚本，不必上 Astro 的图片组件。
+        1.4 MB 能压到 400 KB 左右，首屏会明显变快。可以用 <code>sharp</code> 写个构建前脚本，不必上 Astro 的图片组件。
       </p>
     </div>
 
@@ -1216,7 +1221,7 @@
 │       ├── components.css    组件样式（1058 行，最长的文件）
 │       └── fonts.css         @font-face
 ├── public/
-│   ├── fonts/                3 个 woff2（136 KB）+ 3 份字体许可
+│   ├── fonts/                3 个 woff2（105 KB）+ 3 份字体许可
 │   ├── images/               34 张图：头像、图标、文章插图
 │   ├── og-default.png        默认分享图
 │   └── docs/                 两个 HTML 指南（本站托管）
@@ -1293,8 +1298,8 @@
   <footer class="doc-foot">
     <p>
       体检时间 2026-10-22。数据来自实际构建产物与源码统计：
-      7 个 HTML 页面、单 CSS 24,110 字节、0 个外部 JS 文件、22 个测试用例、
-      产物 1.8 MB（图片 1.5 MB / 字体 136 KB / 其余约 100 KB）、
+      7 个 HTML 页面、单 CSS 24,212 字节、0 个外部 JS 文件、22 个测试用例、
+      产物 1.7 MB（图片 1.4 MB / 字体 105 KB / 其余约 180 KB）、
       <code>astro check</code> 36 个文件 0 错 0 警 0 提示。
     </p>
     <p>

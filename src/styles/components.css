@@ -541,6 +541,7 @@ a.link-row:hover .link-row__label {
 }
 
 .prose a[data-footnote-ref] {
+  position: relative;
   display: inline-block;
   margin-inline: 0.1em;
   padding: 0 0.28em;
@@ -555,6 +556,13 @@ a.link-row:hover .link-row__label {
   vertical-align: 0.12em;
   transition: color var(--duration) var(--ease), border-color var(--duration) var(--ease),
     background-color var(--duration) var(--ease);
+}
+
+/* 视觉尺寸不变，但把点击热区撑到 ~25×30，满足触摸目标下限 */
+.prose a[data-footnote-ref]::after {
+  content: "";
+  position: absolute;
+  inset: -0.4rem -0.35rem;
 }
 
 .prose a[data-footnote-ref]:hover,
