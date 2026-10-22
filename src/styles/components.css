@@ -503,6 +503,218 @@ a.link-row:hover .link-row__label {
   text-align: right;
 }
 
+/* --------------------------------------------------------------------------
+   文章 · 图片与图注
+   写作时用 ![替代文字](/path.jpg "图注文字")，构建阶段由
+   src/lib/markdown-figure.mjs 转成 <figure><img><figcaption>。
+   -------------------------------------------------------------------------- */
+
+.article-figure {
+  margin-block: var(--space-5);
+}
+
+.prose .article-figure img {
+  margin-block: 0;
+}
+
+.article-figure__caption {
+  margin-top: var(--space-2);
+  font-size: var(--text-xs);
+  line-height: var(--leading-normal);
+  color: var(--color-text-muted);
+  overflow-wrap: anywhere;
+}
+
+/* 图注里的行内代码 / 链接保持小一号，不要撑破图注 */
+.article-figure__caption code {
+  font-size: 0.95em;
+}
+
+/* --------------------------------------------------------------------------
+   文章 · 注释（脚注）
+   正文里的 [^1] 渲染成右上角的小方块数字，点击由 article-notes.ts
+   在页面底部弹出面板；文章末尾同时保留完整列表。
+   -------------------------------------------------------------------------- */
+
+.prose sup:has(> a[data-footnote-ref]) {
+  line-height: 0;
+}
+
+.prose a[data-footnote-ref] {
+  display: inline-block;
+  margin-inline: 0.1em;
+  padding: 0 0.28em;
+  border: var(--border-width) solid var(--color-border-strong);
+  border-radius: 2px;
+  font-family: var(--font-mono);
+  font-size: 0.72em;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.5;
+  color: var(--color-text-secondary);
+  text-decoration: none;
+  vertical-align: 0.12em;
+  transition: color var(--duration) var(--ease), border-color var(--duration) var(--ease),
+    background-color var(--duration) var(--ease);
+}
+
+.prose a[data-footnote-ref]:hover,
+.prose a[data-footnote-ref]:focus-visible,
+.prose a[data-footnote-ref][aria-expanded="true"] {
+  color: var(--color-text);
+  border-color: var(--color-text-secondary);
+  background: var(--color-bg-subtle);
+}
+
+.prose .footnotes {
+  margin-top: var(--space-7);
+  padding-top: var(--space-5);
+  border-top: var(--border-width) solid var(--color-border);
+  font-size: var(--text-sm);
+}
+
+/* 生成的标题是 <h2 class="sr-only">注释</h2>，这里把它显示成正常的小标题 */
+.prose .footnotes > h2 {
+  margin: 0 0 var(--space-3);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  letter-spacing: var(--tracking-wide);
+}
+
+.prose .footnotes ol {
+  margin: 0;
+  padding-left: 1.35rem;
+  color: var(--color-text-secondary);
+}
+
+.prose .footnotes li {
+  margin-block: var(--space-2);
+}
+
+.prose .footnotes li > p {
+  margin: 0;
+}
+
+.prose .footnotes li:target {
+  color: var(--color-text);
+}
+
+/* 回跳箭头 */
+.prose a[data-footnote-backref] {
+  margin-left: 0.35em;
+  font-size: 0.9em;
+  color: var(--color-text-muted);
+  text-decoration: none;
+}
+
+.prose a[data-footnote-backref]:hover {
+  color: var(--color-text);
+}
+
+/* --------------------------------------------------------------------------
+   文章 · 注释弹出面板
+   -------------------------------------------------------------------------- */
+
+.note-popover {
+  position: fixed;
+  inset-inline: 0;
+  bottom: 0;
+  z-index: 40;
+  display: flex;
+  justify-content: center;
+  padding: 0 var(--page-padding) calc(var(--space-4) + env(safe-area-inset-bottom, 0px));
+  pointer-events: none;
+}
+
+.note-popover[hidden] {
+  display: none;
+}
+
+.note-popover__panel {
+  pointer-events: auto;
+  width: 100%;
+  max-width: var(--measure);
+  max-height: min(45vh, 22rem);
+  overflow-y: auto;
+  padding: var(--space-3) var(--space-4) var(--space-4);
+  border: var(--border-width) solid var(--color-border-strong);
+  border-radius: var(--radius);
+  background: var(--color-bg);
+  animation: note-popover-in var(--duration) var(--ease);
+}
+
+@keyframes note-popover-in {
+  from {
+    opacity: 0;
+    transform: translateY(0.5rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.note-popover__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-3);
+  margin-bottom: var(--space-2);
+}
+
+.note-popover__label {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+.note-popover__close {
+  flex: none;
+  width: 1.75rem;
+  height: 1.75rem;
+  margin: -0.35rem -0.35rem -0.35rem 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  border-radius: 2px;
+  background: none;
+  font-size: 1.1rem;
+  line-height: 1;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  transition: color var(--duration) var(--ease), background-color var(--duration) var(--ease);
+}
+
+.note-popover__close:hover,
+.note-popover__close:focus-visible {
+  color: var(--color-text);
+  background: var(--color-bg-subtle);
+}
+
+.note-popover__body {
+  font-size: var(--text-sm);
+  line-height: var(--leading-relaxed);
+  color: var(--color-text-secondary);
+  overflow-wrap: anywhere;
+}
+
+.note-popover__body > * + * {
+  margin-top: var(--space-2);
+}
+
+.note-popover__body a {
+  color: var(--color-text);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .note-popover__panel {
+    animation: none;
+  }
+}
+
 @media (min-width: 640px) {
   .article-nav {
     grid-template-columns: 1fr 1fr;

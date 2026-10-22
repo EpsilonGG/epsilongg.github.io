@@ -48,17 +48,19 @@ rurudo老师的绘画是自学成才？
 
 **rurudo** 是快要向公司辞职的时候。我本来就很喜欢同人，一般也会在コミケ（译注：日本大型同人交流会Comic Market，下称CM）展开时去购买一些作品。我想终有一天自己也会作为制作方参与其中。
 
+<figure class="article-figure">
 <img src="/images/blog/rurudo-unreal/01.jpg" alt="插图：C99 主视觉图 画师：Hiten" width="1000" height="1411" loading="lazy" decoding="async">
-
-C99 主视觉图 画师：Hiten
+<figcaption class="article-figure__caption">C99 主视觉图 画师：Hiten</figcaption>
+</figure>
 
 您创作的第一本同人志，是收录原创插图的《Nostalgia》。
 
 **rurudo** 那一本是在2018年发行的，那时我很喜欢一位叫2（twi:@lx_xlq）的画师。他是一位画原创角色（译注：original character, 下称OC）的画师，他的角色设计和画风都非常有魅力。之前上班时，在自己开始画原创和二创插画之前，我没有太多空闲时间画自己感兴趣的画。看到他的作品后，“这位画师的OC好棒，我也想画画看”的感想迸发出来，之后我也开始绘制属于自己的插画了。
 
+<figure class="article-figure">
 <img src="/images/blog/rurudo-unreal/02.jpg" alt="插图：本次C99中，rurudo新刊也有2的guest图参与哦" width="297" height="530" loading="lazy" decoding="async">
-
-本次C99中，rurudo新刊也有2的guest图参与哦
+<figcaption class="article-figure__caption">本次C99中，rurudo新刊也有2的guest图参与哦</figcaption>
+</figure>
 
 原来如此，这就是您第一本同人志为原创插画本的原因了。您在学生时代会练习绘制既有的角色，如今则是绘制原创插画，二者之间有什么不同的地方吗？
 
@@ -68,17 +70,19 @@ C99 主视觉图 画师：Hiten
 
 **rurudo** 肯定是对CM的观感有所改变吧。之前我只从买方的角度参与其中，作为出展者观察会场的角度对我来说很新鲜。展位在墙边，能够一下子望到整个会场，当时心情特别激动(笑)。我珍视的同人本销量超出预期，让我既兴奋又感激。我在网上也发布过这本同人志内收录的插画，但网上呈现的互动量与实际能来同人展的人数相比，很可能大相径庭，我甚至想象到过完全没人来自己摊位的情况。
 
+<figure class="article-figure">
 <img src="/images/blog/rurudo-unreal/03.jpg" alt="插图：初次同人本《Nostalgia》封面" width="864" height="862" loading="lazy" decoding="async">
-
-初次同人本《Nostalgia》封面
+<figcaption class="article-figure__caption">初次同人本《Nostalgia》封面</figcaption>
+</figure>
 
 原来如此。除了刚才您提到的喜欢的创作者，还有其他影响你的人吗？
 
 **rurudo** 学生时代时，《我的妹妹不可能那么可爱》这部作品与《某科学的超电磁炮》一样深得我心。我非常崇拜担任前者的小说插绘师的かんざきひろ老师（twi:@kanzakihiro）。首先，作品角色非常可爱，老师不仅为原作小说绘制插图，还担任了动画的角色设计。之前的我一直以为轻小说和动画的制作人员完全不同。但他不仅能画出很可爱的插画，还能做出优秀的动画，这让我十分惊讶。
 
+<figure class="article-figure">
 <img src="/images/blog/rurudo-unreal/04.jpg" alt="插图：かんざきひろ绘制的rurudo个展乐曲《VIVID》头图" width="1192" height="671" loading="lazy" decoding="async">
-
-かんざきひろ绘制的rurudo个展乐曲《VIVID》头图
+<figcaption class="article-figure__caption">かんざきひろ绘制的rurudo个展乐曲《VIVID》头图</figcaption>
+</figure>
 
 他是个是多才多艺的人，以前还创作过音乐。
 
@@ -92,9 +96,10 @@ C99 主视觉图 画师：Hiten
 
 **rurudo** 是啊。虽然我在公司工作了大概3~4年就辞职了，但正是他们的教导与帮助，让这幅画更加丰富。公司真的对我有很大的影响。
 
+<figure class="article-figure">
 <img src="/images/blog/rurudo-unreal/05.jpg" alt="插图：本作封面的绘制在画集末有过程展示" width="683" height="989" loading="lazy" decoding="async">
-
-本作封面的绘制在画集末有过程展示
+<figcaption class="article-figure__caption">本作封面的绘制在画集末有过程展示</figcaption>
+</figure>
 
 ## 被二次元特有的萌点所吸引
 
@@ -102,9 +107,10 @@ C99 主视觉图 画师：Hiten
 
 **rurudo** 没错，画的是兔女郎。虽然我在这之前也收到过约稿邀请，但在时间上第一次接受的商稿就是这幅了。
 
+<figure class="article-figure">
 <img src="/images/blog/rurudo-unreal/06.jpg" alt="插图：rurudo的初商稿，画师本人对臀部的斑纹十分中意" width="630" height="900" loading="lazy" decoding="async">
-
-rurudo的初商稿，画师本人对臀部的斑纹十分中意
+<figcaption class="article-figure__caption">rurudo的初商稿，画师本人对臀部的斑纹十分中意</figcaption>
+</figure>
 
 第一次接受商业约稿有什么感受？
 
@@ -114,9 +120,10 @@ rurudo的初商稿，画师本人对臀部的斑纹十分中意
 
 **rurudo** 我不会觉得很困难。甲方会提出类似“希望角色看起来像这样，加上那样的细节”的要求。在充分理解其要求的同时融入自己的风格，工作大概就是这种感觉。
 
+<figure class="article-figure">
 <img src="/images/blog/rurudo-unreal/07.jpg" alt="插图：音俣るか（已毕业隐退）" width="900" height="600" loading="lazy" decoding="async">
-
-音俣るか（已毕业隐退）
+<figcaption class="article-figure__caption">音俣るか（已毕业隐退）</figcaption>
+</figure>
 
 有没有充满个人风格的OC呢？
 
@@ -126,9 +133,10 @@ rurudo的初商稿，画师本人对臀部的斑纹十分中意
 
 **rurudo** 我喜欢小一点的尺寸，所以可能会无意识地改小(笑)。我也喜欢画巨乳的角色，但有点难平衡啊。
 
+<figure class="article-figure">
 <img src="/images/blog/rurudo-unreal/08.jpg" alt="插图：也可以很大哦~（ロロちゃん，已毕业隐退）" width="1080" height="1080" loading="lazy" decoding="async">
-
-也可以很大哦~（ロロちゃん，已毕业隐退）
+<figcaption class="article-figure__caption">也可以很大哦~（ロロちゃん，已毕业隐退）</figcaption>
+</figure>
 
 在原创或商业约稿中，创作角色时最重要的是什么呢？
 
@@ -150,9 +158,10 @@ rurudo的初商稿，画师本人对臀部的斑纹十分中意
 
 **rurudo** 我最喜欢的与其说是某一幅画，不如说是某一本同人本，也就是《LOVECALL》这本同人志的内容。那是一部以穿着束缚具的女孩为主题的作品，我很喜欢束缚具，但这并非主流题材。尽管如此，还是有许多粉丝愿意购买这本册子来支持我。
 
+<figure class="article-figure">
 <img src="/images/blog/rurudo-unreal/09.jpg" alt="插图：《LOVECALL》封面图" width="850" height="850" loading="lazy" decoding="async">
-
-《LOVECALL》封面图
+<figcaption class="article-figure__caption">《LOVECALL》封面图</figcaption>
+</figure>
 
 把兴xing趣pi展示出来，能被大家接受会很令人高兴吧。
 
@@ -168,9 +177,10 @@ rurudo的初商稿，画师本人对臀部的斑纹十分中意
 
 **rurudo** 我觉得最近比较流行彩绘风格的作品。但我出身于美少女游戏公司，欣赏的画风也多与之前工作时相近，在绘图上色时会缺乏考虑地简单化行事。我想在此基础上增添一些精彩的彩绘感，提高画面的信息量。为这本画集创作的新图就是我作出的尝试。
 
+<figure class="article-figure">
 <img src="/images/blog/rurudo-unreal/10.jpg" alt="插图：Sky" width="1192" height="759" loading="lazy" decoding="async">
-
-Sky
+<figcaption class="article-figure__caption">Sky</figcaption>
+</figure>
 
 这是以腐朽的高塔和蓝色的天空为背景，少女伫立于其中的一幅画。
 
@@ -188,9 +198,10 @@ Sky
 
 **rurudo** 有一位上大学的姐姐在我初中时与我关系很好，我第一次去CM展就是她一直带着的。我从那时开始就成为了御宅族。不过，当时宅文化并不像现在这样流行，很多人都隐瞒着自己的阿宅身份。尽管如此，这里（会展场馆）竟有这么多阿宅，我很惊讶。不仅如此，这里除了仅有插画，还有漫画和评论文等类型的作品。因为热爱而创作的人，来观展的人，来买东西的人，让我感受到了强大的力量。我无法忘记这份感动，所以一直对漫展有很深的感情。
 
+<figure class="article-figure">
 <img src="/images/blog/rurudo-unreal/11.jpg" alt="插图：C95 目录册封面" width="1192" height="894" loading="lazy" decoding="async">
-
-C95 目录册封面
+<figcaption class="article-figure__caption">C95 目录册封面</figcaption>
+</figure>
 
 确实，这肯定会让人希望绘制漫展目录册的封面吧。现在因为新冠疫情影响，不能召开线下CM，希望能早点恢复原状。
 

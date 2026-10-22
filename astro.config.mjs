@@ -1,8 +1,10 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
+import { satteri } from '@astrojs/markdown-satteri';
 
 import { siteUrl } from './src/config/site.ts';
+import { figureCaptionPlugin } from './src/lib/markdown-figure.mjs';
 
 /**
  * 站点部署在 GitHub Pages 用户站点（username.github.io），
@@ -24,6 +26,15 @@ export default defineConfig({
     }),
   ],
   markdown: {
+    // 用 Sätteri 处理器并把脚注标题本地化；同时挂上「图片 title → figure 图注」的插件
+    processor: satteri({
+      features: {
+        gfm: {
+          footnotes: { label: '注释' },
+        },
+      },
+      hastPlugins: [figureCaptionPlugin],
+    }),
     shikiConfig: {
       themes: {
         light: 'github-light',

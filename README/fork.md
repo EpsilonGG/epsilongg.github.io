@@ -14,9 +14,9 @@
 
 站内链接一律写成**根绝对路径**，例如页头返回首页是 `href="/"`、页脚归档是 `href="/archive/"`、图片是 `src="/images/avatar.jpg"`。这意味着：
 
-| 你的仓库名 | 部署地址 | 能不能直接用 |
-| --- | --- | --- |
-| `<你的用户名>.github.io` | `https://<你的用户名>.github.io/` | ✅ 可以，什么都不用改 |
+| 你的仓库名               | 部署地址                                 | 能不能直接用          |
+| ------------------- | ------------------------------------ | --------------- |
+| `<你的用户名>.github.io` | `https://<你的用户名>.github.io/`         | ✅ 可以，什么都不用改     |
 | 其他任意名字（如 `my-blog`） | `https://<你的用户名>.github.io/my-blog/` | ❌ 会整站 404 或样式全丢 |
 
 想让它在项目站（带子路径）下工作，得把组件里所有 `href="/xxx"`、`src="/xxx"` 改成 `import.meta.env.BASE_URL + 'xxx'`，并在 `astro.config.mjs` 里加 `base`。本项目**没有**做这层适配，所以：
@@ -29,11 +29,11 @@
 
 三种方式，选一种：
 
-| 方式 | 命令 / 操作 | 适合 |
-| --- | --- | --- |
-| Fork | 仓库右上角 **Fork** | 想保留和原仓库的关联 |
-| 下载 zip | **Code → Download ZIP**，解压后 `git init` | 想从零开始，不要历史 |
-| Use this template | 仓库右上角 **Use this template**（若已开启） | 同上，但操作更顺手 |
+| 方式                | 命令 / 操作                                | 适合         |
+| ----------------- | -------------------------------------- | ---------- |
+| Fork              | 仓库右上角 **Fork**                         | 想保留和原仓库的关联 |
+| 下载 zip            | **Code → Download ZIP**，解压后 `git init` | 想从零开始，不要历史 |
+| Use this template | 仓库右上角 **Use this template**（若已开启）      | 同上，但操作更顺手  |
 
 Fork 之后，仓库名默认还是 `epsilongg.github.io`，**必须改名**：
 
@@ -99,14 +99,14 @@ GitHub 允许同名仓库存在，但只有 `<用户名>.github.io` 这个名字
 
 ## 3. 换图
 
-| 文件 | 要求 | 不换会怎样 |
-| --- | --- | --- |
-| `public/images/avatar.jpg` | 1:1，建议 ≥ 400×400 | 显示的是原作者的 GitHub 头像 |
-| `public/favicon.svg` | 浏览器标签页图标 | 显示原作者的图标 |
-| `public/og-default.png` | 1200×630 | 分享到社交平台时预览图是原作者的 |
-| `public/images/links/icons/` | 64×64 PNG | 链接库的站点图标 |
-| `public/images/people/` | 64×64 PNG | 常用链接里 GitHub 朋友的头像 |
-| `public/images/tools/` | 96×96 PNG（白色圆角方块） | 工具与服务的图标 |
+| 文件                           | 要求                | 不换会怎样              |
+| ---------------------------- | ----------------- | ------------------ |
+| `public/images/avatar.jpg`   | 1:1，建议 ≥ 400×400  | 显示的是原作者的 GitHub 头像 |
+| `public/favicon.svg`         | 浏览器标签页图标          | 显示原作者的图标           |
+| `public/og-default.png`      | 1200×630          | 分享到社交平台时预览图是原作者的   |
+| `public/images/links/icons/` | 64×64 PNG         | 链接库的站点图标           |
+| `public/images/people/`      | 64×64 PNG         | 常用链接里 GitHub 朋友的头像 |
+| `public/images/tools/`       | 96×96 PNG（白色圆角方块） | 工具与服务的图标           |
 
 头像可以直接用 GitHub 头像：把 `https://github.com/<你的用户名>.png?size=460` 的图片另存为 `avatar.jpg`（这个地址返回的其实是 JPEG，所以后缀写 `.jpg`）。
 
@@ -180,20 +180,17 @@ npm run check    # 类型检查
 
 1. 新建一个和用户名同名的仓库，勾选 Add a README file。
 2. 在它的 `README.md` 里放三对 Marker（顺序固定）：
-
    ```markdown
-   <!-- PROFILE:START -->
-   <!-- PROFILE:END -->
 
-   <!-- NAV:START -->
-   <!-- NAV:END -->
 
-   <!-- POSTS:START -->
-   <!-- POSTS:END -->
+
+
+
+
+
+
    ```
-
 3. 把网站仓库和 profile 仓库克隆到同一个父目录，然后：
-
    ```bash
    python scripts/sync_profile_readme.py --readme ../<你的用户名>/README.md --check   # 先看要不要更新
    python scripts/sync_profile_readme.py --readme ../<你的用户名>/README.md           # 真正写入
@@ -205,28 +202,28 @@ npm run check    # 类型检查
 
 ## 9. 常见问题
 
-**Q：`npm install` 报 `EBADENGINE`**
+**Q：`npm install` 报 `EBADENGINE`**  
 Node 版本太低。装 Node 22.12 以上；或者别动 `package.json` 里锁定的 `astro` 版本。
 
-**Q：Actions 里 `npm ci` 失败**
+**Q：Actions 里 `npm ci` 失败**  
 `package-lock.json` 没提交。`git add package-lock.json` 后重新推。
 
-**Q：页面 404**
+**Q：页面 404**  
 Pages 的 Source 没选 GitHub Actions，或者工作流失败了。先看 Actions 页面。
 
-**Q：样式全丢、只有裸 HTML**
+**Q：样式全丢、只有裸 HTML**  
 几乎一定是仓库名不是 `<用户名>.github.io`，导致站点跑在子路径下而链接是根路径。改仓库名，或者去看第 0 节。
 
-**Q：Actions 里还有一条 `pages build and deployment` 是红的**
+**Q：Actions 里还有一条 `pages build and deployment` 是红的**  
 那是 GitHub 早期的 Jekyll 构建流水线，和本站无关。只要 `Deploy to GitHub Pages` 是绿的就可以忽略。
 
-**Q：改完推送了，刷新没变化**
+**Q：改完推送了，刷新没变化**  
 GitHub Pages 有缓存，等 1–2 分钟，用 `Ctrl + F5` 强制刷新。
 
-**Q：想绑定自己的域名**
+**Q：想绑定自己的域名**  
 仓库 Settings → Pages → Custom domain 填域名，DNS 加一条 CNAME 指向 `<用户名>.github.io`。然后把 `site.json` 的 `url` 改成新域名，推送即可（其他文件不用动）。
 
-**Q：可以商用 / 二次分发吗**
+**Q：可以商用 / 二次分发吗**  
 这个仓库没有附 License 文件，默认保留所有权利。自己用、改成自己的主页没问题；要再分发或用于商业用途，请先联系作者。
 
 ---

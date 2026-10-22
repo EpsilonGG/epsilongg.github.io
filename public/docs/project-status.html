@@ -1,0 +1,1308 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>项目现状 · EpsilonGG 个人主页</title>
+<style>
+  :root {
+    color-scheme: light;
+    --bg: #ffffff;
+    --bg-subtle: #f7f7f7;
+    --bg-code: #f4f4f4;
+    --text: #1a1a1a;
+    --text-secondary: #555555;
+    --text-muted: #767676;
+    --border: #e5e5e5;
+    --border-strong: #cfcfcf;
+    --accent: #1a1a1a;
+    --mark: #fff8c5;
+    --warn: #b45309;
+    --sans: "Inter", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", system-ui, -apple-system, "Segoe UI", sans-serif;
+    --serif: "Cormorant Garamond", "Songti SC", "Noto Serif SC", Georgia, "Times New Roman", serif;
+    --mono: "Fira Code", ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      color-scheme: dark;
+      --bg: #101010;
+      --bg-subtle: #191919;
+      --bg-code: #171717;
+      --text: #ededed;
+      --text-secondary: #b3b3b3;
+      --text-muted: #909090;
+      --border: #2a2a2a;
+      --border-strong: #3d3d3d;
+      --accent: #ededed;
+      --mark: #3a3410;
+      --warn: #d9a05b;
+    }
+  }
+
+  * { box-sizing: border-box; }
+
+  html { -webkit-text-size-adjust: 100%; }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 1.75;
+    letter-spacing: 0.01em;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .page {
+    max-width: 46rem;
+    margin: 0 auto;
+    padding: 3.5rem 1.5rem 6rem;
+  }
+
+  /* ---------- 头部 ---------- */
+  .doc-head { padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+  .doc-kicker {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+  h1 {
+    margin: 0.75rem 0 0;
+    font-family: var(--serif);
+    font-size: clamp(1.9rem, 5vw, 2.6rem);
+    font-weight: 500;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+  }
+  .doc-sub {
+    margin: 0.9rem 0 0;
+    color: var(--text-secondary);
+    font-size: 1rem;
+    max-width: 36rem;
+  }
+  .doc-meta {
+    margin-top: 1.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.25rem;
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    color: var(--text-muted);
+  }
+
+  /* ---------- 指标条 ---------- */
+  .kpi {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    margin: 1.75rem 0 0;
+    border: 1px solid var(--border);
+    border-radius: 2px;
+  }
+  .kpi__item { padding: 0.85rem 0.9rem; border-right: 1px solid var(--border); }
+  .kpi__item:last-child { border-right: 0; }
+  .kpi__num {
+    display: block;
+    font-family: var(--mono);
+    font-size: 1.05rem;
+    line-height: 1.3;
+    letter-spacing: -0.01em;
+  }
+  .kpi__num small { font-size: 0.7rem; color: var(--text-muted); margin-left: 0.15em; }
+  .kpi__label {
+    display: block;
+    margin-top: 0.15rem;
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    letter-spacing: 0.02em;
+  }
+
+  /* ---------- 目录 ---------- */
+  .toc {
+    margin: 2rem 0 0;
+    padding: 1.25rem 1.25rem 1rem;
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    background: var(--bg-subtle);
+  }
+  .toc-title {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 0.75rem;
+  }
+  .toc ol {
+    margin: 0;
+    padding-left: 1.2rem;
+    columns: 2;
+    column-gap: 1.5rem;
+    font-size: 0.875rem;
+  }
+  .toc li { margin: 0.15rem 0; break-inside: avoid; }
+  .toc a { color: var(--text-secondary); text-decoration: none; }
+  .toc a:hover { color: var(--text); text-decoration: underline; text-underline-offset: 0.2em; }
+
+  /* ---------- 正文 ---------- */
+  section { margin-top: 3.5rem; scroll-margin-top: 1.5rem; }
+
+  h2 {
+    margin: 0 0 1rem;
+    font-size: 1.35rem;
+    font-weight: 600;
+    letter-spacing: -0.005em;
+    display: flex;
+    align-items: baseline;
+    gap: 0.6rem;
+  }
+  h2 .num {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    font-weight: 400;
+    color: var(--text-muted);
+    letter-spacing: 0.06em;
+  }
+  h3 {
+    margin: 2rem 0 0.6rem;
+    font-size: 1.02rem;
+    font-weight: 600;
+  }
+  h4 {
+    margin: 1.5rem 0 0.4rem;
+    font-size: 0.92rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+  }
+  p { margin: 0.75rem 0; }
+  ul, ol { margin: 0.75rem 0; padding-left: 1.4rem; }
+  li { margin: 0.35rem 0; }
+  li > ul, li > ol { margin: 0.3rem 0; }
+
+  a { color: var(--text); text-decoration: underline; text-underline-offset: 0.2em; text-decoration-color: var(--border-strong); }
+  a:hover { text-decoration-color: currentColor; }
+
+  strong { font-weight: 600; }
+  em { font-style: italic; color: var(--text-secondary); }
+
+  .lead { font-size: 1.02rem; line-height: 1.8; }
+
+  code {
+    font-family: var(--mono);
+    font-size: 0.86em;
+    background: var(--bg-code);
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    padding: 0.1em 0.35em;
+    word-break: break-word;
+  }
+  pre {
+    margin: 1rem 0;
+    padding: 1rem 1.1rem;
+    background: var(--bg-code);
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    font-size: 0.8rem;
+    line-height: 1.65;
+    white-space: pre;
+    overflow-x: auto;
+  }
+  pre code { background: none; border: 0; padding: 0; font-size: 1em; }
+
+  table {
+    width: 100%;
+    margin: 1.1rem 0;
+    border-collapse: collapse;
+    font-size: 0.875rem;
+  }
+  th, td {
+    text-align: left;
+    padding: 0.55rem 0.7rem;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+  th {
+    font-weight: 600;
+    color: var(--text-secondary);
+    border-bottom-color: var(--border-strong);
+    white-space: nowrap;
+  }
+  tbody tr:last-child td { border-bottom: 0; }
+  td.nowrap, th.nowrap { white-space: nowrap; }
+
+  /* ---------- 提示块 ---------- */
+  .note {
+    margin: 1.25rem 0;
+    padding: 0.9rem 1.1rem;
+    border-left: 2px solid var(--border-strong);
+    background: var(--bg-subtle);
+    font-size: 0.92rem;
+    color: var(--text-secondary);
+  }
+  .note strong { color: var(--text); }
+  .note--warn { border-left-color: var(--warn); }
+  .note p:first-child { margin-top: 0; }
+  .note p:last-child { margin-bottom: 0; }
+
+  .mark { background: var(--mark); padding: 0 0.15em; }
+
+  /* ---------- 卡片 ---------- */
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(15.5rem, 1fr));
+    gap: 0.9rem;
+    margin: 1.5rem 0;
+  }
+  .card {
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    padding: 1rem 1.1rem;
+    background: var(--bg-subtle);
+  }
+  .card h4 { margin: 0 0 0.35rem; font-size: 0.92rem; color: var(--text); }
+  .card p { margin: 0; font-size: 0.85rem; color: var(--text-muted); line-height: 1.6; }
+
+  kbd {
+    font-family: var(--mono);
+    font-size: 0.78em;
+    border: 1px solid var(--border-strong);
+    border-bottom-width: 2px;
+    border-radius: 3px;
+    padding: 0.05em 0.35em;
+    color: var(--text-secondary);
+    background: var(--bg-subtle);
+  }
+
+  /* ---------- 状态标签 ---------- */
+  .pill {
+    display: inline-block;
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.04em;
+    line-height: 1.6;
+    padding: 0 0.4rem;
+    border: 1px solid var(--border-strong);
+    border-radius: 2px;
+    color: var(--text-secondary);
+    white-space: nowrap;
+  }
+  .pill--done { background: var(--text); color: var(--bg); border-color: var(--text); }
+  .pill--todo { border-style: dashed; }
+  .pill--part { border-color: var(--text-secondary); color: var(--text); }
+
+  /* ---------- 进度条 ---------- */
+  .meter { display: flex; align-items: center; gap: 0.55rem; min-width: 7rem; }
+  .meter__track {
+    flex: 1;
+    height: 4px;
+    background: var(--border);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+  .meter__fill {
+    display: block;
+    height: 100%;
+    width: var(--pct, 0%);
+    background: var(--text);
+  }
+  .meter__fill--empty { background: transparent; }
+  .meter__pct {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    min-width: 2.4rem;
+    text-align: right;
+  }
+
+  /* ---------- 区块列表 ---------- */
+  .block-list {
+    margin: 1.25rem 0;
+    border: 1px solid var(--border);
+    border-radius: 2px;
+  }
+  .block-item { padding: 1rem 1.1rem; border-bottom: 1px solid var(--border); }
+  .block-item:last-child { border-bottom: 0; }
+  .block-item__head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.3rem 0.75rem;
+  }
+  .block-item__name { font-size: 0.95rem; font-weight: 600; }
+  .block-item__src {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    color: var(--text-muted);
+  }
+  .block-item > p {
+    margin: 0.5rem 0 0;
+    font-size: 0.88rem;
+    color: var(--text-secondary);
+  }
+  .block-item ul { margin: 0.5rem 0 0; font-size: 0.88rem; color: var(--text-secondary); }
+  .block-item .block-item__left {
+    margin-top: 0.6rem;
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    border-top: 1px dashed var(--border);
+    padding-top: 0.5rem;
+  }
+
+  /* ---------- 待办条目 ---------- */
+  .todo { border-top: 1px solid var(--border); padding: 0.95rem 0; }
+  .todo:last-child { border-bottom: 1px solid var(--border); }
+  .todo__head {
+    display: flex;
+    align-items: baseline;
+    gap: 0.55rem;
+    flex-wrap: wrap;
+  }
+  .todo__prio {
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.04em;
+    color: var(--text-muted);
+    border: 1px solid var(--border-strong);
+    border-radius: 2px;
+    padding: 0 0.3rem;
+  }
+  .todo__prio--p0 { background: var(--text); color: var(--bg); border-color: var(--text); }
+  .todo__title { font-weight: 600; font-size: 0.95rem; }
+  .todo__cost {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    margin-left: auto;
+  }
+  .todo p { margin: 0.35rem 0 0; font-size: 0.87rem; color: var(--text-secondary); }
+
+  .group-label {
+    margin: 1.75rem 0 0.25rem;
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+
+  /* ---------- 页脚 ---------- */
+  .doc-foot {
+    margin-top: 4rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+    font-size: 0.82rem;
+    color: var(--text-muted);
+  }
+
+  @media (max-width: 720px) {
+    .kpi { grid-template-columns: repeat(2, 1fr); }
+    .kpi__item { border-bottom: 1px solid var(--border); }
+    .kpi__item:nth-child(2n) { border-right: 0; }
+    .kpi__item:last-child {
+      grid-column: 1 / -1;
+      border-right: 0;
+      border-bottom: 0;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .page { padding: 2.5rem 1.15rem 4rem; }
+    .toc ol { columns: 1; }
+    table { font-size: 0.82rem; }
+    th, td { padding: 0.45rem 0.5rem; }
+    .t-hide-sm { display: none; }
+    .meter { min-width: 5.5rem; }
+  }
+
+  @media print {
+    body { font-size: 11pt; }
+    section { break-inside: avoid-page; }
+    .toc { break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header class="doc-head">
+    <div class="doc-kicker">Report · Project Status</div>
+    <h1>这个站点<br />现在走到了哪一步</h1>
+    <p class="doc-sub">
+      一份写给未来的自己的体检报告：每个部分做到什么程度、哪些是刻意留白、哪些是欠账，
+      以及如果要拿它当模板开新项目，哪些地方必须先动手改。
+    </p>
+    <div class="doc-meta">
+      <span>站点 epsilongg.github.io</span>
+      <span>版本 v0.1.0</span>
+      <span>构建 7 页面 / 约 10 s</span>
+      <span>体检 2026-10-22</span>
+    </div>
+
+    <div class="kpi">
+      <div class="kpi__item">
+        <span class="kpi__num">7</span>
+        <span class="kpi__label">HTML 页面</span>
+      </div>
+      <div class="kpi__item">
+        <span class="kpi__num">24<small>KB</small></span>
+        <span class="kpi__label">单文件 CSS</span>
+      </div>
+      <div class="kpi__item">
+        <span class="kpi__num">0</span>
+        <span class="kpi__label">外部 JS 文件</span>
+      </div>
+      <div class="kpi__item">
+        <span class="kpi__num">22</span>
+        <span class="kpi__label">单元测试全过</span>
+      </div>
+      <div class="kpi__item">
+        <span class="kpi__num">1.8<small>MB</small></span>
+        <span class="kpi__label">构建产物</span>
+      </div>
+    </div>
+
+    <nav class="toc">
+      <div class="toc-title">目录</div>
+      <ol>
+        <li><a href="#verdict">一句话结论</a></li>
+        <li><a href="#scorecard">完成度总表</a></li>
+        <li><a href="#detail">逐项说明</a></li>
+        <li><a href="#gaps">已知不足</a></li>
+        <li><a href="#next">可优化点</a></li>
+        <li><a href="#map">文件地图</a></li>
+        <li><a href="#template">当模板用的话</a></li>
+      </ol>
+    </nav>
+  </header>
+
+  <!-- ============================================================ -->
+  <section id="verdict">
+    <h2><span class="num">01</span>一句话结论</h2>
+
+    <p class="lead">
+      站点已经<strong>完整可用</strong>：五个固定页面、一条文章路由、一套设计系统、一条 CI 流水线、
+      一套文档和一套脚本，全部跑通且互相对得上。它的定位是一个<strong>编辑型个人主页</strong>——
+      首页是名片，不是博客；文章是名片上的补充说明。
+    </p>
+
+    <p>
+      真正缺的不是功能，是<strong>规模</strong>。当前所有设计都建立在"文章不超过十篇"这个前提上：
+      没有列表页、没有分页、没有标签页、没有搜索、没有文章内目录。一旦文章过二十篇，
+      <code>/archive/</code> 会变成一条无限长的列表，读者只能靠浏览器查找。
+    </p>
+
+    <div class="cards">
+      <div class="card">
+        <h4>能用</h4>
+        <p>7 个页面全部 200；构建 0 报错；<code>astro check</code> 36 个文件 0 错 0 警 0 提示；22 个测试全过；两次线上部署已验证。</p>
+      </div>
+      <div class="card">
+        <h4>能改</h4>
+        <p>个人信息、链接、文案都在 <code>src/config/</code>；颜色字号间距在 <code>tokens.css</code>。改内容不碰组件。</p>
+      </div>
+      <div class="card">
+        <h4>能复制</h4>
+        <p><code>README/fork.md</code> 把"改成你自己的"拆成五步，最小改动只需换 5 个文件。</p>
+      </div>
+      <div class="card">
+        <h4>不能扩</h4>
+        <p>内容规模化那一层（列表／分页／标签／搜索／TOC）完全空白，而且是<strong>刻意</strong>的——项目书 B-3.0 明确规定了首页顺序和不设 <code>/blog/</code> 列表页。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section id="scorecard">
+    <h2><span class="num">02</span>完成度总表</h2>
+
+    <p>
+      下表的百分比是<strong>按项目书 B-3.0 的验收要求</strong>算的，不是按"一个博客该有的功能"算的。
+      凡是项目书没要求的，一律记在最后的"内容规模化"和"授权"两行里，不摊薄前面的分数。
+    </p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>部分</th>
+          <th class="nowrap">状态</th>
+          <th>完成度</th>
+          <th class="t-hide-sm">说明</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>页面与路由</td>
+          <td><span class="pill pill--done">完成</span></td>
+          <td><span class="meter"><span class="meter__track"><span class="meter__fill" style="--pct:100%"></span></span><span class="meter__pct">100%</span></span></td>
+          <td class="t-hide-sm">5 固定页 + 文章动态路由 + 404</td>
+        </tr>
+        <tr>
+          <td>设计与排版</td>
+          <td><span class="pill pill--done">完成</span></td>
+          <td><span class="meter"><span class="meter__track"><span class="meter__fill" style="--pct:100%"></span></span><span class="meter__pct">100%</span></span></td>
+          <td class="t-hide-sm">令牌集中，黑白灰无强调色</td>
+        </tr>
+        <tr>
+          <td>内容与数据配置</td>
+          <td><span class="pill pill--done">完成</span></td>
+          <td><span class="meter"><span class="meter__track"><span class="meter__fill" style="--pct:100%"></span></span><span class="meter__pct">100%</span></span></td>
+          <td class="t-hide-sm">JSON 数据源 + 同名 TS 类型包装</td>
+        </tr>
+        <tr>
+          <td>链接库</td>
+          <td><span class="pill pill--done">完成</span></td>
+          <td><span class="meter"><span class="meter__track"><span class="meter__fill" style="--pct:100%"></span></span><span class="meter__pct">100%</span></span></td>
+          <td class="t-hide-sm">5 组、2 个子栏目、5 种排版</td>
+        </tr>
+        <tr>
+          <td>博客基础</td>
+          <td><span class="pill pill--done">完成</span></td>
+          <td><span class="meter"><span class="meter__track"><span class="meter__fill" style="--pct:100%"></span></span><span class="meter__pct">100%</span></span></td>
+          <td class="t-hide-sm">Content Collections + Zod 校验</td>
+        </tr>
+        <tr>
+          <td>注释（脚注弹层）</td>
+          <td><span class="pill pill--done">完成</span></td>
+          <td><span class="meter"><span class="meter__track"><span class="meter__fill" style="--pct:100%"></span></span><span class="meter__pct">100%</span></span></td>
+          <td class="t-hide-sm">本轮新增</td>
+        </tr>
+        <tr>
+          <td>图片图注</td>
+          <td><span class="pill pill--done">完成</span></td>
+          <td><span class="meter"><span class="meter__track"><span class="meter__fill" style="--pct:100%"></span></span><span class="meter__pct">100%</span></span></td>
+          <td class="t-hide-sm">本轮新增，hast 插件</td>
+        </tr>
+        <tr>
+          <td>主题与可访问性</td>
+          <td><span class="pill pill--part">基本完成</span></td>
+          <td><span class="meter"><span class="meter__track"><span class="meter__fill" style="--pct:90%"></span></span><span class="meter__pct">90%</span></span></td>
+          <td class="t-hide-sm">缺真机与屏幕阅读器实测</td>
+        </tr>
+        <tr>
+          <td>性能</td>
+          <td><span class="pill pill--part">良好</span></td>
+          <td><span class="meter"><span class="meter__track"><span class="meter__fill" style="--pct:95%"></span></span><span class="meter__pct">95%</span></span></td>
+          <td class="t-hide-sm">图片 1.5 MB 是产物大头</td>
+        </tr>
+        <tr>
+          <td>部署与 CI</td>
+          <td><span class="pill pill--done">完成</span></td>
+          <td><span class="meter"><span class="meter__track"><span class="meter__fill" style="--pct:100%"></span></span><span class="meter__pct">100%</span></span></td>
+          <td class="t-hide-sm">Actions → Pages，最小权限</td>
+        </tr>
+        <tr>
+          <td>脚本与测试</td>
+          <td><span class="pill pill--done">完成</span></td>
+          <td><span class="meter"><span class="meter__track"><span class="meter__fill" style="--pct:100%"></span></span><span class="meter__pct">100%</span></span></td>
+          <td class="t-hide-sm">22 个用例，幂等 + 原子写</td>
+        </tr>
+        <tr>
+          <td>文档</td>
+          <td><span class="pill pill--done">完成</span></td>
+          <td><span class="meter"><span class="meter__track"><span class="meter__fill" style="--pct:100%"></span></span><span class="meter__pct">100%</span></span></td>
+          <td class="t-hide-sm">4 份 Markdown + 2 个 HTML</td>
+        </tr>
+        <tr>
+          <td>内容规模化</td>
+          <td><span class="pill pill--todo">未做</span></td>
+          <td><span class="meter"><span class="meter__track"><span class="meter__fill meter__fill--empty" style="--pct:0%"></span></span><span class="meter__pct">0%</span></span></td>
+          <td class="t-hide-sm">列表／分页／标签／搜索／TOC</td>
+        </tr>
+        <tr>
+          <td>授权与法务</td>
+          <td><span class="pill pill--todo">未做</span></td>
+          <td><span class="meter"><span class="meter__track"><span class="meter__fill meter__fill--empty" style="--pct:0%"></span></span><span class="meter__pct">0%</span></span></td>
+          <td class="t-hide-sm">仓库公开但没有 LICENSE</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="note">
+      <p>
+        <strong>怎么读这张表。</strong>十二项满分不等于"做完了一个博客"。
+        前十二项回答的是"项目书要求的东西做完了吗"，答案是做完了；
+        最后两项回答的是"它能不能长大"，答案是不能——但那是有意为之的取舍，不是疏忽。
+      </p>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section id="detail">
+    <h2><span class="num">03</span>逐项说明</h2>
+
+    <p>每一项都给出：做了什么、关键文件在哪、以及还剩什么。</p>
+
+    <div class="block-list">
+
+      <div class="block-item">
+        <div class="block-item__head">
+          <span class="block-item__name">3.1 页面与路由</span>
+          <span class="block-item__src">src/pages/</span>
+        </div>
+        <p>五个固定页面加一条动态路由，全部静态预渲染：</p>
+        <ul>
+          <li><code>/</code> 首页：简介 → 站点导航 → 最近文章 → Footer，顺序固定</li>
+          <li><code>/links/</code> 平台与项目入口</li>
+          <li><code>/me/</code> 关于：名片、关注领域、项目、经历</li>
+          <li><code>/morelinks/</code> 链接库：5 组、2 个子栏目</li>
+          <li><code>/archive/</code> 归档：按年份分组的全部文章</li>
+          <li><code>/blog/{slug}/</code> 文章详情，文件名即 URL</li>
+          <li><code>/404</code>、<code>/robots.txt</code>（路由生成，不是静态文件）、<code>/rss.xml</code>、<code>/sitemap-index.xml</code></li>
+        </ul>
+        <p>
+          <code>trailingSlash: 'ignore'</code> 配 <code>build.format: 'directory'</code>，
+          线上 URL 一律带尾斜杠。所有内链写成根绝对路径 <code>/xxx/</code>，
+          这意味着<strong>站点只能部署在域名根路径</strong>。
+        </p>
+        <div class="block-item__left">剩余：没有分页；没有 <code>/blog/</code> 列表页（项目书规定）。</div>
+      </div>
+
+      <div class="block-item">
+        <div class="block-item__head">
+          <span class="block-item__name">3.2 设计与排版</span>
+          <span class="block-item__src">src/styles/tokens.css · 91 行</span>
+        </div>
+        <p>
+          所有颜色、字号、间距、圆角、行宽都只在 <code>tokens.css</code> 定义，组件里不允许写死数值。
+          视觉规则：黑白灰、无强调色、常规圆角统一 6px（徽章 2px 是唯一例外）、无阴影、中文不用斜体。
+        </p>
+        <p>
+          三套字体，全部自托管、只含拉丁子集，合计 136 KB：
+          Cormorant Garamond（标题衬线）、Inter（正文无衬线）、Fira Code（等宽）。
+          中文走系统字体栈，不下载中文字体。
+        </p>
+        <div class="block-item__left">剩余：CJK 字形在 macOS / Windows / Linux 上不一致，标题观感会飘。</div>
+      </div>
+
+      <div class="block-item">
+        <div class="block-item__head">
+          <span class="block-item__name">3.3 内容与数据配置</span>
+          <span class="block-item__src">src/config/</span>
+        </div>
+        <p>
+          约定是"JSON 是数据源，同名 <code>.ts</code> 只做类型包装"，这样 Python 同步脚本能直接读 JSON，
+          不需要解析 TS。目前四个数据源：<code>site.json</code>（站点名、域名、语言、起始年、OG 图）、
+          <code>profile.json</code>（姓名、简介、头像、社交链接）、<code>navigation.json</code>（导航项）、
+          <code>links.ts</code>（链接库，因为是带联合类型的结构化数据，直接用 TS 更省事）。
+        </p>
+        <div class="block-item__left">
+          剩余：<code>about.ts</code> 是纯 TS，不符合"JSON 数据源"的约定，Python 脚本读不到它。
+          当前没有脚本需要读，属于已知不一致。
+        </div>
+      </div>
+
+      <div class="block-item">
+        <div class="block-item__head">
+          <span class="block-item__name">3.4 链接库</span>
+          <span class="block-item__src">src/config/links.ts · LinkBlock.astro</span>
+        </div>
+        <p>
+          五组：平台、项目、工具与服务、研究、常用链接。常用链接下再拆两个子栏目——
+          GitHub（5 位朋友，带头像）和 ACG 资源（12 条，一排五个的按钮墙）。
+        </p>
+        <p>
+          五种排版：卡片（LinkCards）、图标网格（IconGrid）、列表（LinkList）、按钮墙（BadgeWall）、单行（LinkRow）。
+          <code>LinkBlock.astro</code> 按 <code>layout</code> + <code>fallbackLayout</code> 做分发和降级，
+          所以某个组数据不全时会自动退到更简单的排版，不会渲染出空洞。
+        </p>
+        <div class="block-item__left">
+          剩余：34 个图标是手工抓取的 PNG（多数 64×64，工具类 96×96），源站换 favicon 不会自动更新；
+          VNDB 和南+论坛只提供 16×16 图标，用 CSS 字母块代替位图。
+        </div>
+      </div>
+
+      <div class="block-item">
+        <div class="block-item__head">
+          <span class="block-item__name">3.5 博客与 Markdown</span>
+          <span class="block-item__src">src/content.config.ts · astro.config.mjs</span>
+        </div>
+        <p>
+          Content Collections + Zod。字段：<code>title</code>（必填）、<code>pubDate</code>（必填）、
+          <code>description</code>、<code>updatedDate</code>、<code>tags</code>（默认空数组）、
+          <code>draft</code>（默认 false）。另外有一条跨字段校验：<code>updatedDate</code> 不能早于 <code>pubDate</code>。
+        </p>
+        <p>
+          Astro 7 默认用 Sätteri 处理器，所以 GFM 脚注开箱可用，不需要装 <code>remark-gfm</code>。
+          代码高亮用 Shiki 双主题（<code>github-light</code> / <code>github-dark</code>），
+          <code>defaultColor: false</code> 让颜色交给 CSS 变量，跟随站点主题切换。
+        </p>
+        <div class="block-item__left">
+          剩余：<code>tags</code> 字段收集了但没用起来——没有标签页、没有按标签筛选；
+          草稿只能改成 <code>draft: false</code> 才能预览。
+        </div>
+      </div>
+
+      <div class="block-item">
+        <div class="block-item__head">
+          <span class="block-item__name">3.6 注释（脚注弹层）</span>
+          <span class="pill pill--done">本轮新增</span>
+          <span class="block-item__src">article-notes.ts · 101 行</span>
+        </div>
+        <p>
+          写法就是标准 GFM 脚注：正文里 <code>文字[^1]</code>，文末写 <code>[^1]: 注释内容</code>。
+          点击正文里的上标，页面底部滑出一块面板显示该条注释，右上角有 × 可关闭；
+          文末仍然保留完整的注释列表。
+        </p>
+        <ul>
+          <li>关闭方式三种：× 按钮、<kbd>Esc</kbd>、点面板外部</li>
+          <li>关闭后焦点回到刚才点的标记，<code>aria-expanded</code> 同步复位</li>
+          <li>点标记不会跳转锚点（<code>location.hash</code> 保持为空），读者不会丢失阅读位置</li>
+          <li>面板里的「注释 N」序号和文末列表一一对应，克隆自文末节点并去掉回跳箭头</li>
+          <li>JS 失效时退化成原生脚注：上标仍能跳到文末列表</li>
+        </ul>
+        <div class="block-item__left">
+          剩余：面板最高 45vh，超长注释要在面板内滚动；窄于 480px 时面板几乎占满屏幕。
+        </div>
+      </div>
+
+      <div class="block-item">
+        <div class="block-item__head">
+          <span class="block-item__name">3.7 图片图注</span>
+          <span class="pill pill--done">本轮新增</span>
+          <span class="block-item__src">src/lib/markdown-figure.mjs · 62 行</span>
+        </div>
+        <p>
+          最短写法：<code>![alt](图片路径 "图注文字")</code>——Markdown 的 <code>title</code> 就是图注。
+          构建时一个 hast 插件把"独占一个段落、带 title 的图片"升级成
+          <code>&lt;figure&gt;</code> + <code>&lt;figcaption&gt;</code>，并把 <code>title</code> 从
+          <code>&lt;img&gt;</code> 上摘掉，避免和浏览器 hover 提示重复。
+        </p>
+        <p>
+          需要精确控制尺寸时手写 <code>&lt;figure class="article-figure"&gt;</code> 也可以，
+          现有那篇访谈的 11 张插图就是这么转的。图片统一放 <code>public/images/blog/&lt;slug&gt;/</code>。
+        </p>
+        <div class="block-item__left">
+          剩余：只处理"独占段落的图片"。行内图片、多图并排、被链接包住的图片都不会生成图注。
+        </div>
+      </div>
+
+      <div class="block-item">
+        <div class="block-item__head">
+          <span class="block-item__name">3.8 主题与可访问性</span>
+          <span class="block-item__src">theme.ts · BaseLayout.astro</span>
+        </div>
+        <p>
+          亮/暗双主题：默认跟随系统 <code>prefers-color-scheme</code>，可手动切换，选择记在
+          <code>localStorage</code>。页面 <code>&lt;head&gt;</code> 里内联了一小段同步脚本，
+          在首次绘制前就把主题类名写上去，所以不会闪白。
+        </p>
+        <p>
+          可访问性做了这些：<code>.skip-link</code>「跳到主要内容」、注释面板
+          <code>role="dialog"</code> + <code>aria-labelledby</code> + 焦点管理 + <kbd>Esc</kbd>、
+          主题按钮带 <code>aria-pressed</code>、图片全部有 <code>alt</code>、
+          <code>prefers-reduced-motion</code> 下关掉滑入动画。
+        </p>
+        <div class="block-item__left">
+          剩余：没做过屏幕阅读器实测；对比度没用量化工具核过；移动端只验到 500px 宽（Chrome headless 的下限），没上真机。
+        </div>
+      </div>
+
+      <div class="block-item">
+        <div class="block-item__head">
+          <span class="block-item__name">3.9 性能</span>
+          <span class="block-item__src">dist/ · 1.8 MB</span>
+        </div>
+        <p>
+          产物 1.8 MB 的构成：图片 1.5 MB、字体 136 KB、HTML 与 CSS 合计约 100 KB。
+          CSS 打成单文件 24 KB，<strong>没有任何外部 JS 文件</strong>——脚本量太小，Astro 全部内联了。
+        </p>
+        <p>
+          文章页一共 4 个 <code>&lt;script&gt;</code>：1 个在 head 里防主题闪烁，3 个 module
+          （主题切换、阅读进度、注释面板）。没有客户端框架、没有 hydration、没有第三方请求，
+          字体和图标都是自己的。图片带 <code>loading="lazy"</code> 和显式 <code>width</code>/<code>height</code> 防布局抖动。
+        </p>
+        <div class="block-item__left">
+          剩余：图片没转 WebP/AVIF、没做 <code>srcset</code>，这一项能从 1.5 MB 压到 400 KB 量级。
+        </div>
+      </div>
+
+      <div class="block-item">
+        <div class="block-item__head">
+          <span class="block-item__name">3.10 部署与 CI</span>
+          <span class="block-item__src">.github/workflows/</span>
+        </div>
+        <p>
+          GitHub Actions → GitHub Pages，push 到 <code>main</code> 触发，也可以手动 dispatch。
+          流水线跑 <code>npm ci</code> → <code>npm run check</code> → <code>npm run build</code>，
+          类型不过就不发布。权限收到最小（<code>contents: read</code> / <code>pages: write</code> /
+          <code>id-token: write</code>），并用 <code>concurrency</code> 保证同一时间只有一个部署任务。
+        </p>
+        <p>
+          仓库是用户站 <code>EpsilonGG/epsilongg.github.io</code>，所以不配 <code>base</code>，域名即根路径。
+        </p>
+        <div class="block-item__left">
+          剩余：Actions 列表里偶尔有一条 <code>pages build and deployment</code> 失败，那是 GitHub 内置构建
+          与自定义流水线打架，不影响发布结果，属于已知无害项。
+        </div>
+      </div>
+
+      <div class="block-item">
+        <div class="block-item__head">
+          <span class="block-item__name">3.11 脚本与测试</span>
+          <span class="block-item__src">scripts/ · tests/</span>
+        </div>
+        <p>
+          <code>sync_profile_readme.py</code>（445 行）把 <code>profile.json</code>、
+          <code>navigation.json</code> 和文章列表同步进主页 README 的三个 marker 块里。
+          三个 marker 的顺序固定，脚本幂等（重复运行结果不变），写入用"临时文件 + 原子替换"，
+          所以中途失败不会留下半截文件。<code>--check</code> 是严格只读模式，可以用来做 CI 校验。
+        </p>
+        <p>
+          <code>tests/test_readme_sync.py</code>（287 行）覆盖 22 个用例，包含 marker 缺失、
+          顺序错乱、内容为空、日期格式化等边界。全部通过。
+        </p>
+        <div class="block-item__left">剩余：测试只覆盖 README 同步，站点本身没有自动化测试。</div>
+      </div>
+
+      <div class="block-item">
+        <div class="block-item__head">
+          <span class="block-item__name">3.12 文档</span>
+          <span class="block-item__src">README/ · public/docs/</span>
+        </div>
+        <ul>
+          <li><code>README.md</code>（根）：主页名片 + 文档导航，内容与 GitHub 主页 README 大致一致</li>
+          <li><code>README/project.md</code>：目录结构、路由、配置项、写文章、部署与排查</li>
+          <li><code>README/blog-guide.md</code>：frontmatter、图注、注释的写法、发布前清单、给 AI 的提示词</li>
+          <li><code>README/fork.md</code>：从 fork 到上线，含"必须部署在根路径"的警告</li>
+          <li><code>public/docs/github-profile-readme-guide.html</code>：主页 README 搭建与维护</li>
+          <li><code>public/docs/project-status.html</code>：本页</li>
+        </ul>
+        <div class="block-item__left">
+          为什么两个指南放 <code>public/docs/</code>：GitHub 不渲染 <code>.html</code>，只会给出源码。
+          放进 <code>public/</code> 后由站点托管，链接是可读的网页。
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section id="gaps">
+    <h2><span class="num">04</span>已知不足</h2>
+
+    <p>
+      按"会不会真的咬到人"排序。最后一列区分三种性质：<strong>刻意</strong>（项目书要求）、
+      <strong>取舍</strong>（算过成本后决定不做）、<strong>欠账</strong>（该做但还没做）。
+    </p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>问题</th>
+          <th class="t-hide-sm">影响</th>
+          <th class="nowrap">性质</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>没有 <code>/blog/</code> 列表页</td>
+          <td class="t-hide-sm">文章只能从首页"最近文章"或 <code>/archive/</code> 进入</td>
+          <td><span class="pill">刻意</span></td>
+        </tr>
+        <tr>
+          <td>无分页 / 标签页 / 搜索 / 文章内目录</td>
+          <td class="t-hide-sm">文章过二十篇后，查找成本陡增</td>
+          <td><span class="pill pill--todo">欠账</span></td>
+        </tr>
+        <tr>
+          <td><code>tags</code> 字段收集了但没页面</td>
+          <td class="t-hide-sm">写标签只是给未来留的钩子，现在没有可见效果</td>
+          <td><span class="pill pill--todo">欠账</span></td>
+        </tr>
+        <tr>
+          <td>注释面板最高 45vh</td>
+          <td class="t-hide-sm">长注释要在面板内滚动；窄屏几乎占满</td>
+          <td><span class="pill">取舍</span></td>
+        </tr>
+        <tr>
+          <td>图注只认"独占段落 + 带 title 的图片"</td>
+          <td class="t-hide-sm">行内图、多图并排、带链接的图不出图注</td>
+          <td><span class="pill pill--todo">欠账</span></td>
+        </tr>
+        <tr>
+          <td>图片无 WebP/AVIF、无 <code>srcset</code></td>
+          <td class="t-hide-sm">1.5 MB 图片占了产物 83%</td>
+          <td><span class="pill pill--todo">欠账</span></td>
+        </tr>
+        <tr>
+          <td>CJK 依赖系统字体</td>
+          <td class="t-hide-sm">跨平台中文标题字形不同</td>
+          <td><span class="pill">取舍</span></td>
+        </tr>
+        <tr>
+          <td><code>astro</code> 锁死 7.3.8</td>
+          <td class="t-hide-sm">7.4.x 要求 Node ≥ 22.23.4，本机是 22.22.2</td>
+          <td><span class="pill">环境</span></td>
+        </tr>
+        <tr>
+          <td>只能部署在域名根路径</td>
+          <td class="t-hide-sm">内链全是根绝对路径，子路径部署会全站 404</td>
+          <td><span class="pill">取舍</span></td>
+        </tr>
+        <tr>
+          <td>没有 LICENSE</td>
+          <td class="t-hide-sm">仓库公开但未授权，别人 fork 时权责不清</td>
+          <td><span class="pill pill--todo">欠账</span></td>
+        </tr>
+        <tr>
+          <td><code>og-default.png</code> 是静态图</td>
+          <td class="t-hide-sm">改站名或标题后要手动重做分享图</td>
+          <td><span class="pill pill--todo">欠账</span></td>
+        </tr>
+        <tr>
+          <td>草稿只能改 <code>draft: false</code> 才能看</td>
+          <td class="t-hide-sm">没有 dev 环境的草稿开关，写一半的文章没法边写边看</td>
+          <td><span class="pill pill--todo">欠账</span></td>
+        </tr>
+        <tr>
+          <td><code>about.ts</code> 不是 JSON</td>
+          <td class="t-hide-sm">和"JSON 是数据源"的约定不一致</td>
+          <td><span class="pill">历史遗留</span></td>
+        </tr>
+        <tr>
+          <td>0 篇文章时 RSS 输出空 channel</td>
+          <td class="t-hide-sm">XML 合法，但部分阅读器会报错</td>
+          <td><span class="pill">边界</span></td>
+        </tr>
+        <tr>
+          <td>无障碍未实测</td>
+          <td class="t-hide-sm">对比度、屏幕阅读器行为都没验证过</td>
+          <td><span class="pill pill--todo">欠账</span></td>
+        </tr>
+        <tr>
+          <td>移动端只验到 500px</td>
+          <td class="t-hide-sm">受 Chrome headless 最小宽度限制，未真机测试</td>
+          <td><span class="pill pill--todo">欠账</span></td>
+        </tr>
+        <tr>
+          <td>图标是手工抓的</td>
+          <td class="t-hide-sm">源站换 favicon 后不会更新</td>
+          <td><span class="pill pill--todo">欠账</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- ============================================================ -->
+  <section id="next">
+    <h2><span class="num">05</span>可优化点</h2>
+
+    <p>
+      按"什么时候必须做"分三档。成本是粗估的工程量，不是日历时间。
+      P0 的共同点是：<strong>不做，文章一多就会难受</strong>。
+    </p>
+
+    <div class="group-label">P0 · 内容变多之前必须做</div>
+
+    <div class="todo">
+      <div class="todo__head">
+        <span class="todo__prio todo__prio--p0">P0</span>
+        <span class="todo__title">文章列表页 + 分页</span>
+        <span class="todo__cost">成本 中</span>
+      </div>
+      <p>
+        新建 <code>/blog/</code> 列表页，或者给 <code>/archive/</code> 加分页。
+        注意这会<strong>推翻项目书 B-3.0 里"不设列表页"的约定</strong>——真要做得先改约定，
+        否则以后会反复纠结"到底该不该有"。实现上 Astro 静态分页（<code>paginate()</code>）即可，不需要额外依赖。
+      </p>
+    </div>
+
+    <div class="todo">
+      <div class="todo__head">
+        <span class="todo__prio todo__prio--p0">P0</span>
+        <span class="todo__title">文章内目录（TOC）</span>
+        <span class="todo__cost">成本 低</span>
+      </div>
+      <p>
+        <code>render()</code> 的返回值里已经带 <code>headings</code>，直接渲染成侧栏或可折叠块就行，
+        零新增依赖。现在那篇访谈两百多行，没有目录只能靠滚动。
+      </p>
+    </div>
+
+    <div class="todo">
+      <div class="todo__head">
+        <span class="todo__prio todo__prio--p0">P0</span>
+        <span class="todo__title">补一个 LICENSE</span>
+        <span class="todo__cost">成本 极低</span>
+      </div>
+      <p>
+        建议代码与文字分开授权：代码用 MIT，文章与图片用 CC BY-NC-SA 4.0。
+        页脚已经写了"未经同意禁止转载"，但没有 LICENSE 文件，法律上仍然是"保留所有权利"的默认状态，边界模糊。
+      </p>
+    </div>
+
+    <div class="group-label">P1 · 体验明显提升</div>
+
+    <div class="todo">
+      <div class="todo__head">
+        <span class="todo__prio">P1</span>
+        <span class="todo__title">图片优化：WebP + srcset</span>
+        <span class="todo__cost">成本 中</span>
+      </div>
+      <p>
+        这是投入产出比最高的一项。构建时把 <code>public/images/blog/</code> 下的图转成 WebP 并生成多档宽度，
+        1.5 MB 能压到 400 KB 左右，首屏会明显变快。可以用 <code>sharp</code> 写个构建前脚本，不必上 Astro 的图片组件。
+      </p>
+    </div>
+
+    <div class="todo">
+      <div class="todo__head">
+        <span class="todo__prio">P1</span>
+        <span class="todo__title">图注插件扩展</span>
+        <span class="todo__cost">成本 低</span>
+      </div>
+      <p>
+        在 <code>markdown-figure.mjs</code> 里再认两种结构：被 <code>&lt;a&gt;</code> 包住的图片（<code>a &gt; img</code>），
+        以及连续多张独占段落的图片（自动合成一个 grid figure）。插件只有 62 行，改起来很轻。
+      </p>
+    </div>
+
+    <div class="todo">
+      <div class="todo__head">
+        <span class="todo__prio">P1</span>
+        <span class="todo__title">窄屏注释降级</span>
+        <span class="todo__cost">成本 低</span>
+      </div>
+      <p>
+        窄于 480px 时，把底部面板换成"原地内联展开"或全屏 sheet。
+        纯 CSS 加一段媒体查询 + 一个类名切换就能做到，不用改交互逻辑。
+      </p>
+    </div>
+
+    <div class="todo">
+      <div class="todo__head">
+        <span class="todo__prio">P1</span>
+        <span class="todo__title">标签页</span>
+        <span class="todo__cost">成本 中</span>
+      </div>
+      <p>
+        <code>tags</code> 字段已经在 schema 里了，缺的是 <code>/tags/{tag}/</code> 路由和标签索引页。
+        文章少于十篇时收益有限，超过二十篇时几乎是必需品。可以等文章攒够再一次性做。
+      </p>
+    </div>
+
+    <div class="todo">
+      <div class="todo__head">
+        <span class="todo__prio">P1</span>
+        <span class="todo__title">站内搜索</span>
+        <span class="todo__cost">成本 中</span>
+      </div>
+      <p>
+        Pagefind 在构建后扫一遍 HTML 生成静态索引，运行时纯前端查询，不需要后端，
+        不违反"无数据库、无服务端"的约束。索引文件按需加载，不拖首屏。
+      </p>
+    </div>
+
+    <div class="group-label">P2 · 长期维护</div>
+
+    <div class="todo">
+      <div class="todo__head">
+        <span class="todo__prio">P2</span>
+        <span class="todo__title">解除 Astro 版本锁</span>
+        <span class="todo__cost">成本 低</span>
+      </div>
+      <p>
+        先把本机 Node 升到 ≥ 22.23.4，再把 <code>astro</code> 从 <code>7.3.8</code> 放开到 <code>^7.4</code>。
+        升级后要重跑 <code>astro check</code> 和构建，重点看 Sätteri 处理器的配置项有没有变。
+      </p>
+    </div>
+
+    <div class="todo">
+      <div class="todo__head">
+        <span class="todo__prio">P2</span>
+        <span class="todo__title">支持子路径部署</span>
+        <span class="todo__cost">成本 中</span>
+      </div>
+      <p>
+        把所有内链从 <code>/xxx/</code> 改成 <code>import.meta.env.BASE_URL</code> 前缀，
+        这样 fork 出来的人可以直接部署到 <code>user.github.io/repo</code>，不必买域名。
+        改动面广但机械，适合一次性做完再统一验证。
+      </p>
+    </div>
+
+    <div class="todo">
+      <div class="todo__head">
+        <span class="todo__prio">P2</span>
+        <span class="todo__title">图标自动化</span>
+        <span class="todo__cost">成本 中</span>
+      </div>
+      <p>
+        写个脚本按 <code>links.ts</code> 里的域名批量抓 favicon、校验尺寸、缺图的自动退到字母块。
+        顺便把"手工抓 34 张图"这件一次性劳动变成可重复的流程。
+      </p>
+    </div>
+
+    <div class="todo">
+      <div class="todo__head">
+        <span class="todo__prio">P2</span>
+        <span class="todo__title">CI 加链接检查</span>
+        <span class="todo__cost">成本 低</span>
+      </div>
+      <p>
+        构建后扫一遍 <code>dist</code> 里的内链和图片引用，死链在流水线阶段就报错。
+        外链可以单独跑、允许失败，避免被别人的站点波动拖累。
+      </p>
+    </div>
+
+    <div class="todo">
+      <div class="todo__head">
+        <span class="todo__prio">P2</span>
+        <span class="todo__title">草稿预览</span>
+        <span class="todo__cost">成本 低</span>
+      </div>
+      <p>
+        dev 环境放行 <code>draft: true</code>，生产构建继续过滤。
+        <code>posts.ts</code> 里加一个 <code>import.meta.env.DEV</code> 判断即可。
+      </p>
+    </div>
+
+    <div class="todo">
+      <div class="todo__head">
+        <span class="todo__prio">P2</span>
+        <span class="todo__title">无障碍实测</span>
+        <span class="todo__cost">成本 低</span>
+      </div>
+      <p>
+        用对比度工具核一遍灰阶文字（尤其是 <code>--text-muted</code> 在小字号下的表现），
+        再用 VoiceOver 或 NVDA 走一遍首页到文章页的路径。黑白灰配色风险不大，但没量过就是没量过。
+      </p>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section id="map">
+    <h2><span class="num">06</span>文件地图</h2>
+
+    <p>想知道某个东西在哪改，看这棵树就够了。</p>
+
+<pre><code>personal-site/
+├── astro.config.mjs          Sätteri 处理器 + 图注插件 + Shiki 双主题
+├── package.json              6 个直接依赖（astro / rss / sitemap / satteri / check / typescript）
+├── src/
+│   ├── config/               ★ 所有内容数据在这里
+│   │   ├── site.json         站名、域名、语言、起始年、OG 图
+│   │   ├── profile.json      姓名、简介、头像、社交链接
+│   │   ├── navigation.json   导航项与顺序
+│   │   ├── links.ts          链接库（5 组、2 子栏目、5 种排版）
+│   │   └── about.ts          /me/ 页的名片、关注领域、项目、经历
+│   ├── content/blog/         ★ 文章：一个 .md 一个 URL
+│   ├── content.config.ts     文章 schema（Zod）
+│   ├── layouts/
+│   │   ├── BaseLayout.astro  head / SEO / OG / 主题 / skip-link / 页头页脚
+│   │   └── ArticleLayout.astro  文章骨架 + 注释面板
+│   ├── pages/                ★ 路由
+│   │   ├── index.astro       /
+│   │   ├── links.astro       /links/
+│   │   ├── me.astro          /me/
+│   │   ├── morelinks.astro   /morelinks/
+│   │   ├── archive.astro     /archive/
+│   │   ├── blog/[...slug].astro  /blog/{slug}/
+│   │   ├── 404.astro
+│   │   ├── robots.txt.ts     路由生成的 robots.txt
+│   │   └── rss.xml.ts
+│   ├── components/           13 个组件，链接库有 5 种排版
+│   ├── scripts/
+│   │   ├── theme.ts          主题切换与记忆
+│   │   └── article-notes.ts  注释弹层
+│   ├── lib/
+│   │   ├── posts.ts          文章读取、排序、草稿过滤
+│   │   └── markdown-figure.mjs  图注 hast 插件
+│   └── styles/
+│       ├── tokens.css        ★ 颜色/字号/间距/圆角，唯一来源
+│       ├── global.css        重置与基础
+│       ├── typography.css    排版规则
+│       ├── components.css    组件样式（1058 行，最长的文件）
+│       └── fonts.css         @font-face
+├── public/
+│   ├── fonts/                3 个 woff2（136 KB）+ 3 份字体许可
+│   ├── images/               34 张图：头像、图标、文章插图
+│   ├── og-default.png        默认分享图
+│   └── docs/                 两个 HTML 指南（本站托管）
+├── scripts/sync_profile_readme.py   主页 README 同步（445 行）
+├── tests/test_readme_sync.py        22 个用例（287 行）
+├── README.md                 主页名片 + 文档导航
+├── README/                   project / blog-guide / fork
+└── .github/workflows/        Actions → Pages</code></pre>
+
+    <div class="note">
+      <p>
+        <strong>三个星号是改动的入口。</strong>改内容去 <code>src/config/</code>，写文章去
+        <code>src/content/blog/</code>，加页面去 <code>src/pages/</code>。
+        其余目录基本只在"改功能"时才需要碰。
+      </p>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section id="template">
+    <h2><span class="num">07</span>当模板用的话</h2>
+
+    <p>
+      如果以后拿这个仓库开新项目，按下面四步走，能省掉重新踩坑的时间。
+    </p>
+
+    <h3>必须改的五个文件</h3>
+    <table>
+      <thead>
+        <tr><th>文件</th><th>改什么</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><code>src/config/site.json</code></td><td>站名、域名、描述、语言、起始年</td></tr>
+        <tr><td><code>src/config/profile.json</code></td><td>姓名、简介、头像、社交链接</td></tr>
+        <tr><td><code>src/config/navigation.json</code></td><td>导航项与顺序</td></tr>
+        <tr><td><code>src/config/about.ts</code></td><td><code>/me/</code> 页的全部内容</td></tr>
+        <tr><td><code>src/config/links.ts</code></td><td>链接库；清空数组页面也不会崩</td></tr>
+      </tbody>
+    </table>
+
+    <h3>必须删的三样</h3>
+    <ul>
+      <li><code>src/content/blog/rurudo-unreal-interview.md</code> 和 <code>public/images/blog/rurudo-unreal/</code></li>
+      <li><code>public/docs/</code> 下的两个 HTML 指南（它们是写给这个项目自己的）</li>
+      <li><code>public/og-default.png</code>，换成自己的分享图</li>
+    </ul>
+
+    <h3>必须想清楚的一件事</h3>
+    <div class="note note--warn">
+      <p>
+        <strong>部署路径。</strong>现在所有内链都是根绝对路径，站点只能挂在域名根上
+        （用户站 <code>user.github.io</code> 或自己的域名）。如果新项目要部署成
+        <code>user.github.io/repo</code> 这种子路径，必须先按 P2 那一条把所有内链改成
+        <code>import.meta.env.BASE_URL</code> 前缀，否则整站 404。
+        <code>README/fork.md</code> 的第 0 节专门写了这件事。
+      </p>
+    </div>
+
+    <h3>最好别动的</h3>
+    <p>
+      <code>src/styles/tokens.css</code>。它只有 91 行，但是整个站点的气质来源——
+      改了颜色、字号、圆角，等于换了一套设计语言，所有页面的观感会一起漂移。
+      想调局部，加组件级样式，别动令牌。
+    </p>
+
+    <h3>可以整个丢掉的</h3>
+    <p>
+      <code>scripts/</code>、<code>tests/</code> 和 <code>README/</code>。
+      这三样服务于"把站点内容同步到 GitHub 主页 README"这个特定需求，
+      新项目如果不需要主页名片，删掉它们不影响站点运行。
+    </p>
+  </section>
+
+  <footer class="doc-foot">
+    <p>
+      体检时间 2026-10-22。数据来自实际构建产物与源码统计：
+      7 个 HTML 页面、单 CSS 24,110 字节、0 个外部 JS 文件、22 个测试用例、
+      产物 1.8 MB（图片 1.5 MB / 字体 136 KB / 其余约 100 KB）、
+      <code>astro check</code> 36 个文件 0 错 0 警 0 提示。
+    </p>
+    <p>
+      配套文档：<a href="https://github.com/EpsilonGG/epsilongg.github.io/blob/main/README/project.md">项目说明</a>（仓库内）、
+      <a href="/docs/github-profile-readme-guide.html">主页 README 指南</a>。
+    </p>
+  </footer>
+
+</div>
+</body>
+</html>

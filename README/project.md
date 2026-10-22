@@ -37,9 +37,12 @@ npm test         # Python 单元测试（README 同步脚本）
 ├── README.md                  仓库首页（与 GitHub Profile README 基本一致）
 ├── README/                    文档
 │   ├── project.md             本文件：项目说明
+│   ├── blog-guide.md          博客写作指南（frontmatter / 图注 / 注释）
 │   └── fork.md                如何 fork 出你自己的个人主页
 ├── public/
-│   ├── docs/github-profile-readme-guide.html   主页 README 指南，部署后可在 /docs/ 下直接访问
+│   ├── docs/                  给维护者看的 HTML 指南，部署后可在 /docs/ 下直接访问
+│   │   ├── github-profile-readme-guide.html   主页 README 怎么搭、怎么维护
+│   │   └── project-status.html                项目现状：完成度、不足与可优化点
 │   ├── fonts/                 本地字体（Inter / Cormorant Garamond / Fira Code）+ 许可文本
 │   ├── images/
 │   │   ├── avatar.jpg         头像（460×460，与 GitHub 头像同步）
@@ -104,12 +107,12 @@ npm test         # Python 单元测试（README 同步脚本）
 | 头像 | 已下载到 `public/images/avatar.jpg`，并在 `profile.json` 中引用 |
 | 第一篇真实文章 | `（译）INTERVIEW with rurudo——UNREAL 画集专访`，含 11 张本地插图 |
 | 链接库 | 个人平台/项目用卡片、工具用图标网格、研究资料用列表、常用链接用一行五个的小按钮（GitHub / ACG 资源两个子栏目） |
-| 类型检查 | `npm run check`：34 个文件，0 error / 0 warning / 0 hint |
+| 类型检查 | `npm run check`：36 个文件，0 error / 0 warning / 0 hint |
 | 单元测试 | `npm test`：22 个用例全部通过 |
 | 主题切换 / 阅读进度条 / 响应式 | 320 / 390 / 768 / 1280 宽度下无横向溢出，深浅色均已截图验证 |
 | 空站点降级 | 删掉全部文章后仍可构建（6 个页面），归档页显示「暂无文章」，RSS 输出空频道 |
 | GitHub Actions 部署 | 已上线 `https://epsilongg.github.io`，每次 push 自动构建部署（约 40–90 秒） |
-| 文档 | 仓库首页、本文件、[Fork 指南](fork.md)、`public/docs/github-profile-readme-guide.html` |
+| 文档 | 仓库首页、本文件、[博客写作指南](blog-guide.md)、[Fork 指南](fork.md)、`public/docs/` 下两个 HTML 指南 |
 
 仍为占位、需要你自己补的部分见第 4 节。
 
@@ -350,4 +353,4 @@ git restore --source=<commit> -- path/to/file   # 把单个文件恢复到某个
 - **主题**：默认浅色，用户选择保存在 `localStorage`；读取或写入失败时回退到浅色，不影响页面使用。首屏有内联脚本预先应用主题，避免闪烁。
 - **移动端导航**：五个入口文字都很短，窄屏下换行显示而不是折叠菜单，因此没有额外的键盘交互与焦点管理负担。
 - **转载文章**：第一篇是翻译作品，文首保留了原文出处、作者与版权说明。这类文章请自行确认授权范围。
-- **`public/docs/`**：放给维护者看的说明性文件（目前是一个 HTML 指南）。因为在 `public/` 下，它会随站点一起发布，可通过 `/docs/github-profile-readme-guide.html` 直接打开；它不在导航里，也不会进 sitemap。
+- **`public/docs/`**：放给维护者看的说明性文件（目前是两个 HTML 指南）。因为在 `public/` 下，它们会随站点一起发布，可通过 `/docs/github-profile-readme-guide.html` 和 `/docs/project-status.html` 直接打开；不在导航里，也不会进 sitemap。

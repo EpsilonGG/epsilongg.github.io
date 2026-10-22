@@ -49,8 +49,10 @@ Galgame | 同人音声 | vibe everything
 | 文档 | 内容 |
 | --- | --- |
 | [项目说明](README/project.md) | 目录结构、路由、配置项、写文章、部署与排查 |
+| [博客写作指南](README/blog-guide.md) | frontmatter、图片图注、注释（脚注）的写法与约定 |
 | [Fork 指南](README/fork.md) | 从 fork 到上线，把它改成你自己的个人主页 |
 | [主页 README 指南](https://epsilongg.github.io/docs/github-profile-readme-guide.html) | GitHub Profile README 怎么搭、怎么长期维护（浏览器直接打开） |
+| [项目现状](https://epsilongg.github.io/docs/project-status.html) | 各部分完成度、已知不足与可优化点（浏览器直接打开） |
 
 ---
 
