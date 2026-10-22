@@ -1,15 +1,17 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import LinkList from '../components/LinkList.astro';
-import LinkCards from '../components/LinkCards.astro';
-import IconGrid from '../components/IconGrid.astro';
-import BadgeWall from '../components/BadgeWall.astro';
+import LinkBlock from '../components/LinkBlock.astro';
 import { linkGroups } from '../config/links';
 
-const visibleGroups = linkGroups.filter((group) => group.links.length > 0);
+const visibleGroups = linkGroups
+  .map((group) => ({
+    ...group,
+    subgroups: group.subgroups?.filter((sub) => sub.links.length > 0),
+  }))
+  .filter((group) => group.links.length > 0 || (group.subgroups?.length ?? 0) > 0);
 ---
 
-<BaseLayout title="链接库" description="整理外部平台、项目仓库、工具、研究资料与友情链接。">
+<BaseLayout title="链接库" description="整理外部平台、项目仓库、工具、研究资料与常用链接。">
   <div class="page">
     <div class="container">
       <header class="page-header">
@@ -23,14 +25,18 @@ const visibleGroups = linkGroups.filter((group) => group.links.length > 0);
             <section class="link-group" aria-labelledby={`group-${group.id}`}>
               <h2 class="link-group__heading" id={`group-${group.id}`}>{group.title}</h2>
               {group.description ? <p class="link-group__description">{group.description}</p> : null}
-              {group.layout === 'badges' ? (
-                <BadgeWall links={group.links} />
-              ) : group.layout === 'cards' ? (
-                <LinkCards links={group.links} />
-              ) : group.layout === 'icons' ? (
-                <IconGrid links={group.links} />
+              {group.subgroups && group.subgroups.length > 0 ? (
+                group.subgroups.map((sub, index) => (
+                  <>
+                    {index > 0 ? <hr class="link-group__divider" /> : null}
+                    <div class="link-subgroup">
+                      <h3 class="link-subgroup__heading" id={`group-${group.id}-${sub.id}`}>{sub.title}</h3>
+                      <LinkBlock links={sub.links} layout={sub.layout} fallbackLayout={group.layout} />
+                    </div>
+                  </>
+                ))
               ) : (
-                <LinkList links={group.links} />
+                <LinkBlock links={group.links} layout={group.layout} />
               )}
             </section>
           ))

@@ -16,6 +16,9 @@
   --color-border: #e5e5e5;
   --color-border-strong: #cfcfcf;
   --color-selection: #e5e5e5;
+  /* 工具图标瓦片：图片素材本身是白色圆角方块，没有图片时的字母块要跟它保持一致 */
+  --color-tile-bg: #ffffff;
+  --color-tile-text: #555555;
 
   /* 字体族 */
   --font-sans: "Inter", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei",

@@ -671,8 +671,12 @@ a.link-row:hover .link-row__label {
   justify-content: center;
   border: var(--border-width) solid var(--color-border);
   border-radius: 12px;
-  font-size: var(--text-xs);
-  color: var(--color-text-muted);
+  background: var(--color-tile-bg);
+  font-family: var(--font-mono);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--color-tile-text);
 }
 
 .icon-tile__label {
@@ -695,61 +699,116 @@ a.link-row:hover .link-row__label {
 }
 
 /* --------------------------------------------------------------------------
-   链接库 · 徽章墙（友情链接）
-   徽章 88×31，下方留一块与徽章等宽等高的说明位。
-   默认灰度，悬停 / 键盘聚焦时恢复原色。
+   链接库 · 徽章墙（常用链接）
+   早期个人主页那种一排小按钮。整个按钮是 HTML + CSS 画的，
+   宽度按 7.5rem 自动填充，桌面端一行正好 5 个，窄屏自动降列。
+   图标默认灰度，悬停 / 键盘聚焦时恢复原色。
    -------------------------------------------------------------------------- */
 
 .badge-wall {
   margin: 0;
   padding: 0;
   list-style: none;
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(7.5rem, 1fr));
   gap: var(--space-3);
 }
 
 .badge-item {
-  display: block;
-  width: 88px;
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  height: 2.75rem;
+  padding-inline: var(--space-2);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: 2px;
+  background: var(--color-bg-subtle);
   text-decoration: none;
+  transition: border-color var(--duration) var(--ease),
+    background-color var(--duration) var(--ease);
 }
 
-.badge-item__img {
-  width: 88px;
-  height: 31px;
+.badge-item:hover,
+.badge-item:focus-visible {
+  border-color: var(--color-border-strong);
+  background: var(--color-bg);
+}
+
+.badge-item__icon {
+  flex: none;
+  width: 22px;
+  height: 22px;
   display: block;
+  border-radius: 3px;
   filter: grayscale(1);
   opacity: 0.9;
   transition: filter var(--duration) var(--ease), opacity var(--duration) var(--ease);
 }
 
-.badge-item:hover .badge-item__img,
-.badge-item:focus-visible .badge-item__img {
-  filter: none;
-  opacity: 1;
-}
-
-.badge-item__img--empty {
+/* 没有图标时退化成字母块，尺寸与图标一致 */
+.badge-item__icon--mono {
   display: flex;
   align-items: center;
   justify-content: center;
-  border: var(--border-width) solid var(--color-border);
-  border-radius: 2px;
-  background: var(--color-bg-subtle);
-  font-size: var(--text-xs);
+  border: var(--border-width) solid var(--color-border-strong);
+  border-radius: 3px;
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  line-height: 1;
   color: var(--color-text-muted);
   filter: none;
 }
 
-/* 深色主题下徽章偏亮，压低一点亮度避免刺眼 */
-:root[data-theme="dark"] .badge-item__img {
+.badge-item__label {
+  min-width: 0;
+  font-size: 0.75rem;
+  font-weight: 500;
+  line-height: var(--leading-tight);
+  color: var(--color-text-secondary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: color var(--duration) var(--ease);
+}
+
+.badge-item:hover .badge-item__icon,
+.badge-item:focus-visible .badge-item__icon {
+  filter: none;
+  opacity: 1;
+}
+
+.badge-item:hover .badge-item__label,
+.badge-item:focus-visible .badge-item__label {
+  color: var(--color-text);
+}
+
+/* 深色主题下图标偏亮，压低一点亮度避免刺眼 */
+:root[data-theme="dark"] .badge-item__icon {
   filter: grayscale(1) brightness(0.9);
 }
 
-:root[data-theme="dark"] .badge-item:hover .badge-item__img,
-:root[data-theme="dark"] .badge-item:focus-visible .badge-item__img {
+:root[data-theme="dark"] .badge-item:hover .badge-item__icon,
+:root[data-theme="dark"] .badge-item:focus-visible .badge-item__icon {
   filter: brightness(0.94);
+}
+
+/* --------------------------------------------------------------------------
+   链接库 · 子栏目（常用链接 → GitHub / ACG 资源）
+   -------------------------------------------------------------------------- */
+
+.link-subgroup__heading {
+  margin-bottom: var(--space-3);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  letter-spacing: var(--tracking-wide);
+}
+
+.link-group__divider {
+  margin-block: var(--space-5);
+  border: 0;
+  border-top: var(--border-width) solid var(--color-border);
 }
 
 /* --------------------------------------------------------------------------

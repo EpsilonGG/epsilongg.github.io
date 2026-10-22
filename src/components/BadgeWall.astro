@@ -1,12 +1,12 @@
 ---
 /**
- * 徽章墙：88×31 的站点按钮。
- * 用于「友情链接」。徽章图片自托管在 public/images/links/。
+ * 徽章墙：早期个人主页那种一排小按钮的样式。
+ * 用于「常用链接」。整个徽章是 HTML + CSS 画出来的（不是图片），
+ * 所以放大到任何尺寸都清晰，加一个新链接也只需要改 links.ts。
  *
- * 徽章图片本身已经写着站点名，下方不再重复文字，
- * 保证整面墙保持 88×31 的紧凑规格。
- * 默认灰度显示，鼠标悬停或键盘聚焦时恢复原色，
- * 避免满屏彩色按钮冲淡整站的黑白灰基调。
+ * 图标默认灰度，鼠标悬停或键盘聚焦时恢复原色，
+ * 避免满屏彩色小图冲淡整站的黑白灰基调。
+ * 没有图标的条目退化成字母块，保持同一套尺寸。
  */
 import { isExternalHref, type LinkItem } from '../config/links';
 
@@ -24,11 +24,14 @@ const { links } = Astro.props;
     return (
       <li>
         <a class="badge-item" href={link.href} {...linkAttrs}>
-          {link.badge ? (
-            <img class="badge-item__img" src={link.badge} alt={link.label} width="88" height="31" loading="lazy" decoding="async" />
+          {link.icon ? (
+            <img class="badge-item__icon" src={link.icon} alt="" width="22" height="22" loading="lazy" decoding="async" />
           ) : (
-            <span class="badge-item__img badge-item__img--empty">{link.label}</span>
+            <span class="badge-item__icon badge-item__icon--mono" aria-hidden="true">
+              {link.monogram ?? link.label.slice(0, 1)}
+            </span>
           )}
+          <span class="badge-item__label">{link.label}</span>
           {external ? <span class="visually-hidden">（在新窗口打开）</span> : null}
         </a>
       </li>

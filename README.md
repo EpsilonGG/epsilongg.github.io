@@ -37,8 +37,9 @@ npm test         # Python 单元测试（README 同步脚本）
 │   ├── images/
 │   │   ├── avatar.jpg         头像（460×460，与 GitHub 头像同步）
 │   │   ├── blog/rurudo-unreal/  第一篇真实文章用的 11 张插图
-│   │   ├── links/             友情链接徽章（88×31，按 2 倍图存放）
-│   │   └── tools/             工具图标（48×48，按 2 倍图存放）
+│   │   ├── links/icons/       常用链接的小图标（按 22×22 显示，存 64×64）
+│   │   ├── people/            GitHub 朋友的头像（按 22×22 显示，存 64×64）
+│   │   └── tools/             工具图标（48×48 白色圆角方块，按 2 倍图存放）
 │   ├── favicon.svg
 │   └── og-default.png         默认 Open Graph 分享图（1200×630）
 ├── src/
@@ -94,8 +95,8 @@ npm test         # Python 单元测试（README 同步脚本）
 | 个人简介（姓名、定位、两段 intro、邮箱、description） | 已填写 |
 | 头像 | 已下载到 `public/images/avatar.jpg`，并在 `profile.json` 中引用 |
 | 第一篇真实文章 | `（译）INTERVIEW with rurudo——UNREAL 画集专访`，含 11 张本地插图 |
-| 链接库改版 | 个人平台/项目用卡片、工具用图标网格、研究资料用列表、友情链接用 88×31 徽章墙 |
-| 类型检查 | `npm run check`：29 个文件，0 error / 0 warning / 0 hint |
+| 链接库改版 | 个人平台/项目用卡片、工具用图标网格、研究资料用列表、常用链接用一行五个的小按钮（GitHub / ACG 资源两个子栏目） |
+| 类型检查 | `npm run check`：34 个文件，0 error / 0 warning / 0 hint |
 | 单元测试 | `npm test`：22 个用例全部通过 |
 | 主题切换 / 阅读进度条 / 响应式 | 320 / 390 / 768 / 1280 宽度下无横向溢出 |
 | GitHub Actions 部署工作流 | 已就绪，尚未触发过 |
@@ -115,7 +116,7 @@ npm test         # Python 单元测试（README 同步脚本）
 | | `location` | 可选，当前为空（首页不显示地区） |
 | `src/config/about.ts` | `intro` / `focusAreas` / `projects` / `experience` | `intro` 已填「不务正业的研究生」；后三项为空，`/me/` 对应区块显示「正在整理中」 |
 | `src/config/links.ts` | `primaryLinks` | 已填 GitHub；其他平台可继续加，`/links/` 的「主要平台」区块会自动出现 |
-| | `linkGroups` | 五个分类各有自己的 `layout`：个人平台/项目用卡片、工具用图标网格、研究与参考资料用列表、友情链接用徽章墙。见第 4.1 节 |
+| | `linkGroups` | 五个分类各有自己的 `layout`：个人平台/项目用卡片、工具用图标网格、研究与参考资料用列表、常用链接用小按钮墙（内部再分 GitHub / ACG 资源两个子栏目）。见第 4.1 节 |
 | `public/og-default.png` | 分享图 | 已按 EpsilonGG 生成；若改名需重新生成（见第 9 节） |
 | `src/content/blog/example.md` | 草稿示例 | 可以删除 |
 
@@ -138,26 +139,43 @@ npm test         # Python 单元测试（README 同步脚本）
 | `list` | 竖排，左侧名称右侧说明 | 研究与参考资料 |
 | `cards` | 卡片网格，右上角一条次要信息（`meta`） | 个人平台、项目与代码仓库 |
 | `icons` | 48×48 倒角方形图标 + 下方名称与四字说明 | 工具与服务 |
-| `badges` | 88×31 徽章墙，纯图不带文字 | 友情链接 |
+| `badges` | 一排小按钮（22px 图标 + 站名），桌面一行五个 | 常用链接 → GitHub / ACG 资源 |
 
-**加一个友情链接**：
+**`badges` 是 HTML + CSS 画的，不是图片。** 所以放大不会糊、深色模式自动适配、加一个链接只要改一行数据，不需要再做按钮图。宽度按 `7.5rem` 自动填充：内容区 688px 时一行正好 5 个，窗口变窄会自动降到 4 / 3 / 2 列。
 
-1. 准备一张 88×31 的按钮图（对方站点通常有，或者自己做一张），放进 `public/images/links/`。建议存 2 倍图（176×62），在页面上仍按 88×31 显示，高分屏更清楚。
-2. 在 `linkGroups` 里 `id: 'friends'` 那组的 `links` 中加一条：
+**加一个常用链接**：
+
+1. 图标放进 `public/images/links/icons/`（页面上按 22×22 显示，存 64×64 就够清晰）。
+2. 在 `linkGroups` 里 `id: 'common'` 的 `subgroups` 中找到对应子栏目，加一条：
 
 ```ts
 {
-  label: '友站名',              // 作为图片的 alt 文本，屏幕上不显示
+  label: '友站名',                                  // 按钮上的文字
   href: 'https://example.com/',
-  badge: '/images/links/example.png',
+  icon: '/images/links/icons/example.png',          // 省略则退化成字母块
+  monogram: '友',                                   // 可选：字母块显示什么字
 }
 ```
 
-3. 徽章默认灰度、鼠标悬停或键盘聚焦时恢复原色，这个效果由 CSS 控制，图片本身保持原色即可。
+3. 图标默认灰度、鼠标悬停或键盘聚焦时恢复原色，这个效果由 CSS 控制，图片本身保持原色即可。
 
-> 徽章下方**不渲染任何文字**，站点名必须写在图片里。这是为了保住 88×31 的紧凑规格——下面再挂一行长名字，徽章就白做小了。
+**加一个 GitHub 朋友**：头像下载到 `public/images/people/<用户名>.png`（GitHub 头像地址后面加 `&s=160` 就能拿到大图），`label` 写 GitHub 用户名，`icon` 指向那张头像。
 
-**加一个工具图标**：把图标放进 `public/images/tools/`（按 48×48 显示，建议存 96×96），然后在 `tools` 组里加 `icon: '/images/tools/xxx.png'`。图标没填时会退化成文字方块，不会裂图。说明文字保持四个字左右，和图标同宽最整齐。
+**加一个工具图标**：把图标放进 `public/images/tools/`（页面上按 48×48 显示，存 96×96），然后在 `tools` 组里加 `icon: '/images/tools/xxx.png'`。不写 `icon` 时会退化成白色圆角方块 + 字母（`monogram` 可指定），不会裂图。说明文字保持四个字左右，和图标同宽最整齐。
+
+**再分一层子栏目**：一个分类想再分小组时，用 `subgroups` 代替 `links`，子栏目之间会自动画一条分隔线：
+
+```ts
+{
+  id: 'common',
+  title: '常用链接',
+  links: [],                       // 有 subgroups 时这个留空
+  subgroups: [
+    { id: 'github', title: 'GitHub', layout: 'badges', links: [/* … */] },
+    { id: 'acg', title: 'ACG 资源', layout: 'badges', links: [/* … */] },
+  ],
+}
+```
 
 ---
 

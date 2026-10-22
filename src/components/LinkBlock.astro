@@ -1,0 +1,33 @@
+---
+/**
+ * 按 layout 分发到对应的渲染组件。
+ * 链接库页面的主分类和子栏目都走这里，保证同一套排版规则。
+ */
+import LinkList from './LinkList.astro';
+import LinkCards from './LinkCards.astro';
+import IconGrid from './IconGrid.astro';
+import BadgeWall from './BadgeWall.astro';
+import type { GroupLayout, LinkItem } from '../config/links';
+
+interface Props {
+  links: LinkItem[];
+  layout?: GroupLayout;
+  /** 外层分类的 layout，子栏目没写 layout 时用它 */
+  fallbackLayout?: GroupLayout;
+}
+
+const { links, layout, fallbackLayout } = Astro.props;
+const mode = layout ?? fallbackLayout ?? 'list';
+---
+
+{
+  mode === 'badges' ? (
+    <BadgeWall links={links} />
+  ) : mode === 'cards' ? (
+    <LinkCards links={links} />
+  ) : mode === 'icons' ? (
+    <IconGrid links={links} />
+  ) : (
+    <LinkList links={links} />
+  )
+}
