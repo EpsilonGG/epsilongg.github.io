@@ -240,6 +240,7 @@
     <p>提交前跑一次构建，frontmatter 写错（拼错、类型不对、日期非法）会立刻报错并指出是哪个文件：</p>
     <pre><code>npm run build</code></pre>
     <p>字段缺失或 <code>updatedDate</code> 早于 <code>pubDate</code> 也会在这里被拦下，不会静默上线。</p>
+    <p>另有一个不会报错、只会默默画错的坑：正文里成对的半角波浪号 <code>~</code> 会被当成删除线，作品副标题 <code>《加奈~妹妹~》</code> 里的「妹妹」就会被划掉。写日文作品名时用全角 <code>～</code>（<code>《加奈～妹妹～》</code>），或把半角波浪号转义成 <code>\~</code>。构建后跑一次 <code>grep -ro '&lt;del&gt;' dist/blog</code>，结果应为 0。</p>
 
     <h3>5. 想先攒草稿</h3>
     <p>设 <code>draft: true</code>：不生成页面、不进首页 / 列表 / RSS / sitemap，开发环境也看不到。准备好再改回 <code>false</code>。</p>

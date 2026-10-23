@@ -532,7 +532,7 @@ a.link-row:hover .link-row__label {
 /* --------------------------------------------------------------------------
    文章页 · 左侧栏
    桌面：sticky 左栏，只放截断标题、一二级目录、首页/置顶/较新/较旧四个按钮。
-   窄屏（< 1024px）：折成正文上方一条工具条，按钮只留图标，目录按需展开。
+   窄屏（< 1024px）：折成正文上方一条工具条并吸顶，按钮只留图标，目录按需展开。
    -------------------------------------------------------------------------- */
 
 .article-page > .container {
@@ -679,14 +679,21 @@ a.link-row:hover .link-row__label {
     max-width: var(--page-max);
   }
 
+  /*
+    工具条吸顶：往下读时「首页 / 置顶 / 较新 / 较旧」始终在视口顶端，
+    不必再滚回去找。背景必须是不透明的，否则正文会从工具条下面透出来。
+  */
   .article-sidebar {
-    position: static;
+    position: sticky;
+    top: 0;
+    z-index: 10;
     flex-direction: row;
     flex-wrap: wrap;
     align-items: center;
     gap: var(--space-2);
     margin-bottom: var(--space-5);
     padding: var(--space-2) var(--space-2) var(--space-2) var(--space-3);
+    background-color: var(--color-bg);
     border: var(--border-width) solid var(--color-border);
     border-radius: var(--radius);
   }
@@ -754,6 +761,14 @@ a.link-row:hover .link-row__label {
 
   .article-sidebar__toc.is-open {
     display: block;
+  }
+
+  /*
+    工具条吸顶后占了视口顶端一条，目录跳转时标题要往下让，
+    否则刚跳过去的标题会被工具条压住。
+  */
+  .prose :is(h1, h2, h3, h4) {
+    scroll-margin-top: calc(var(--article-toolbar-h) + var(--space-4));
   }
 }
 
