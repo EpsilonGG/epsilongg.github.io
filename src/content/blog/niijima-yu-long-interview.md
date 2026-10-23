@@ -1,5 +1,5 @@
 ---
-title: （译）新島夕 Long Interview
+title: 新島夕 Long Interview
 description: 新岛夕长篇访谈的中文翻译：从创作根源、剧本与演出的方法论，到他对“角色”这一存在的思考。
 pubDate: 2025-11-09
 tags:

@@ -104,7 +104,7 @@ npm test         # Python 单元测试（README 同步脚本）
 | 站点名称 / 域名 / 作者 / 邮箱 | 已填写为 EpsilonGG |
 | 个人简介（姓名、定位、两段 intro、邮箱、description） | 已填写 |
 | 头像 | 已下载到 `public/images/avatar.jpg`，并在 `profile.json` 中引用 |
-| 第一篇真实文章 | `（译）INTERVIEW with rurudo——UNREAL 画集专访`，含 11 张本地插图 |
+| 第一篇真实文章 | `INTERVIEW with rurudo——UNREAL 画集专访`，含 11 张本地插图 |
 | 链接库 | 个人平台/项目用卡片、工具用图标网格、研究资料用列表、常用链接用一行五个的小按钮（GitHub / ACG 资源两个子栏目） |
 | 类型检查 | `npm run check`：36 个文件，0 error / 0 warning / 0 hint |
 | 单元测试 | `npm test`：22 个用例全部通过 |

@@ -2,10 +2,12 @@
 /**
  * 文章页左侧栏。
  *
- * 只放三样东西：截断后的标题、一二级标题组成的目录、首页与置顶按钮。
+ * 放四样东西：截断后的标题、一二级标题组成的目录、首页/置顶/较新/较旧四个按钮。
  * 窄屏（< 1024px）时整栏折成正文上方的一条工具条，按钮变成纯图标，
  * 目录收进「目录」图标里按需展开——移动端标题就在正文正上方，不必重复显示。
  */
+import { postPath, type Post } from '../lib/posts';
+
 interface Heading {
   depth: number;
   slug: string;
@@ -15,16 +17,19 @@ interface Heading {
 interface Props {
   title: string;
   headings: Heading[];
+  /** 较新的一篇（发布日期更晚），可为空 */
+  newer?: Post | null;
+  /** 较旧的一篇，可为空 */
+  older?: Post | null;
 }
 
-const { title, headings } = Astro.props;
+const { title, headings, newer = null, older = null } = Astro.props;
 
-/** 标题超过这个字数就截断，用【…】收尾 */
+/** 标题超过这个字数就截断，末尾用省略号收尾 */
 const TITLE_LIMIT = 20;
 
 const chars = Array.from(title);
-const sidebarTitle =
-  chars.length > TITLE_LIMIT ? `${chars.slice(0, TITLE_LIMIT).join('')}【…】` : title;
+const sidebarTitle = chars.length > TITLE_LIMIT ? `${chars.slice(0, TITLE_LIMIT).join('')}…` : title;
 
 // 目录只要一二级标题；三级及以下不进侧栏。
 // 文末的注释列表由 Markdown 处理器自动补一个 h2（id 为 footnote-label），
@@ -88,6 +93,60 @@ const hasToc = tocItems.length > 0;
       </svg>
       <span class="article-sidebar__label">置顶</span>
     </button>
+
+    {
+      newer ? (
+        <a
+          class="article-sidebar__btn"
+          href={postPath(newer)}
+          title={`较新一篇：${newer.data.title}`}
+        >
+          <svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M10 3.5 5.5 8 10 12.5" />
+          </svg>
+          <span class="article-sidebar__label">较新</span>
+        </a>
+      ) : (
+        <span
+          class="article-sidebar__btn article-sidebar__btn--disabled"
+          role="link"
+          aria-disabled="true"
+          title="已经是最新一篇"
+        >
+          <svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M10 3.5 5.5 8 10 12.5" />
+          </svg>
+          <span class="article-sidebar__label">较新</span>
+        </span>
+      )
+    }
+
+    {
+      older ? (
+        <a
+          class="article-sidebar__btn"
+          href={postPath(older)}
+          title={`较旧一篇：${older.data.title}`}
+        >
+          <svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M6 3.5 10.5 8 6 12.5" />
+          </svg>
+          <span class="article-sidebar__label">较旧</span>
+        </a>
+      ) : (
+        <span
+          class="article-sidebar__btn article-sidebar__btn--disabled"
+          role="link"
+          aria-disabled="true"
+          title="已经是最旧一篇"
+        >
+          <svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M6 3.5 10.5 8 6 12.5" />
+          </svg>
+          <span class="article-sidebar__label">较旧</span>
+        </span>
+      )
+    }
   </div>
 </aside>
 

@@ -31,9 +31,9 @@ Life Science ｜ Vibe Coding ｜ Galgame ｜ Doujin ASMR
 ## 最近更新
 
 <!-- RECENT:START -->
-- [（译）新島夕 Long Interview](https://epsilongg.github.io/blog/niijima-yu-long-interview/)
-- [（译）BugBug 2023年10月号 声优采访特辑——歩サラ](https://epsilongg.github.io/blog/busara-bugbug-interview/)
-- [（译）《星之终途》特别访谈——剧作者·田中罗密欧](https://epsilongg.github.io/blog/tsui-no-stella-interview/)
+- [新島夕 Long Interview](https://epsilongg.github.io/blog/niijima-yu-long-interview/)
+- [BugBug 2023年10月号 声优采访特辑——歩サラ](https://epsilongg.github.io/blog/busara-bugbug-interview/)
+- [《星之终途》特别访谈——剧作者·田中罗密欧](https://epsilongg.github.io/blog/tsui-no-stella-interview/)
 <!-- RECENT:END -->
 
 ---

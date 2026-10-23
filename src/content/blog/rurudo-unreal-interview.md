@@ -1,5 +1,5 @@
 ---
-title: （译）INTERVIEW with rurudo——UNREAL 画集专访
+title: INTERVIEW with rurudo——UNREAL 画集专访
 description: rurudo 首本画集《UNREAL》官方访谈的中文翻译：从自学绘画、入职美少女游戏公司，到成为自由画师、出版第一本画集。
 pubDate: 2022-01-07
 updatedDate: 2026-10-22

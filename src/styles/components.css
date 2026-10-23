@@ -531,7 +531,7 @@ a.link-row:hover .link-row__label {
 
 /* --------------------------------------------------------------------------
    文章页 · 左侧栏
-   桌面：sticky 左栏，只放截断标题、一二级目录、首页与置顶按钮。
+   桌面：sticky 左栏，只放截断标题、一二级目录、首页/置顶/较新/较旧四个按钮。
    窄屏（< 1024px）：折成正文上方一条工具条，按钮只留图标，目录按需展开。
    -------------------------------------------------------------------------- */
 
@@ -628,16 +628,18 @@ a.link-row:hover .link-row__label {
   border-left-color: var(--color-text);
 }
 
+/* 四个按钮排成 2×2：首页 / 置顶，较新 / 较旧 */
 .article-sidebar__actions {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: var(--space-2);
 }
 
 .article-sidebar__btn {
   display: inline-flex;
   align-items: center;
-  gap: var(--space-2);
+  justify-content: center;
+  gap: var(--space-1);
   padding: var(--space-1) var(--space-2);
   border: var(--border-width) solid var(--color-border);
   border-radius: var(--radius);
@@ -654,6 +656,17 @@ a.link-row:hover .link-row__label {
 .article-sidebar__btn:hover {
   color: var(--color-text);
   border-color: var(--color-border-strong);
+}
+
+/* 没有上一篇 / 下一篇时留一个占位，保持 2×2 的格子不塌 */
+.article-sidebar__btn--disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+.article-sidebar__btn--disabled:hover {
+  color: var(--color-text-muted);
+  border-color: var(--color-border);
 }
 
 .article-sidebar__btn svg {
@@ -708,9 +721,11 @@ a.link-row:hover .link-row__label {
     border-color: var(--color-border-strong);
   }
 
+  /* 工具条里改回一行：目录开关 + 四个图标按钮 */
   .article-sidebar__actions {
-    margin-inline-start: auto;
+    display: flex;
     flex-wrap: nowrap;
+    margin-inline-start: auto;
   }
 
   /*
