@@ -22,6 +22,7 @@ const posts = (await getPublishedPosts()).slice(0, limit);
         <li class="article-list__item">
           <a class="article-list__link" href={postPath(post)}>
             <span class="article-list__title">{post.data.title}</span>
+            {post.data.source === 'ai' ? <span class="article-badge">AI 整理</span> : null}
             <time class="article-list__meta" datetime={post.data.pubDate.toISOString()}>
               {formatDate(post.data.pubDate)}
             </time>

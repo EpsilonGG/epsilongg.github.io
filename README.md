@@ -31,9 +31,9 @@ Life Science ｜ Vibe Coding ｜ Galgame ｜ Doujin ASMR
 ## 最近更新
 
 <!-- RECENT:START -->
+- [冒险游戏名门 MAGES. 还有出人意料的新作与复刻在筹备！？——代表董事社长浅田诚访谈](https://epsilongg.github.io/blog/mages-asada-makoto-interview/)
 - [新島夕 Long Interview](https://epsilongg.github.io/blog/niijima-yu-long-interview/)
 - [BugBug 2023年10月号 声优采访特辑——歩サラ](https://epsilongg.github.io/blog/busara-bugbug-interview/)
-- [《星之终途》特别访谈——剧作者·田中罗密欧](https://epsilongg.github.io/blog/tsui-no-stella-interview/)
 <!-- RECENT:END -->
 
 ---
