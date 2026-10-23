@@ -90,6 +90,11 @@ p {
   font-size: var(--text-base);
 }
 
+/* 从左侧栏目录跳转时，标题不要紧贴视口顶端 */
+.prose :is(h1, h2, h3, h4) {
+  scroll-margin-top: var(--space-5);
+}
+
 .prose ul,
 .prose ol {
   margin-top: var(--space-4);

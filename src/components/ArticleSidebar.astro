@@ -1,0 +1,96 @@
+---
+/**
+ * 文章页左侧栏。
+ *
+ * 只放三样东西：截断后的标题、一二级标题组成的目录、首页与置顶按钮。
+ * 窄屏（< 1024px）时整栏折成正文上方的一条工具条，按钮变成纯图标，
+ * 目录收进「目录」图标里按需展开——移动端标题就在正文正上方，不必重复显示。
+ */
+interface Heading {
+  depth: number;
+  slug: string;
+  text: string;
+}
+
+interface Props {
+  title: string;
+  headings: Heading[];
+}
+
+const { title, headings } = Astro.props;
+
+/** 标题超过这个字数就截断，用【…】收尾 */
+const TITLE_LIMIT = 20;
+
+const chars = Array.from(title);
+const sidebarTitle =
+  chars.length > TITLE_LIMIT ? `${chars.slice(0, TITLE_LIMIT).join('')}【…】` : title;
+
+// 目录只要一二级标题；三级及以下不进侧栏。
+// 文末的注释列表由 Markdown 处理器自动补一个 h2（id 为 footnote-label），
+// 它不是作者写的章节，也从目录里剔掉，免得挤占「栏内最多十行」。
+const tocItems = headings.filter(
+  (heading) => heading.depth <= 2 && heading.slug !== 'footnote-label',
+);
+
+const hasToc = tocItems.length > 0;
+---
+
+<aside class="article-sidebar" data-article-sidebar>
+  <div class="article-sidebar__head">
+    <p class="article-sidebar__title" title={title}>{sidebarTitle}</p>
+
+    {
+      hasToc ? (
+        <button
+          class="article-sidebar__toggle"
+          type="button"
+          data-toc-toggle
+          aria-expanded="false"
+          aria-controls="article-toc"
+        >
+          <svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true">
+            <path d="M6 4h7M6 8h7M6 12h7M3 4h.01M3 8h.01M3 12h.01" />
+          </svg>
+          <span class="article-sidebar__label">目录</span>
+        </button>
+      ) : null
+    }
+  </div>
+
+  {
+    hasToc ? (
+      <nav class="article-sidebar__toc" id="article-toc" aria-label="文章目录" data-toc>
+        <ol class="article-toc">
+          {tocItems.map((item) => (
+            <li class={`article-toc__item article-toc__item--d${item.depth}`}>
+              <a class="article-toc__link" href={`#${item.slug}`} data-toc-link>
+                {item.text}
+              </a>
+            </li>
+          ))}
+        </ol>
+      </nav>
+    ) : null
+  }
+
+  <div class="article-sidebar__actions">
+    <a class="article-sidebar__btn" href="/">
+      <svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M2.5 7 8 2.5 13.5 7M4.2 6.4V13h7.6V6.4" />
+      </svg>
+      <span class="article-sidebar__label">首页</span>
+    </a>
+
+    <button class="article-sidebar__btn" type="button" data-sidebar-top>
+      <svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M8 13V3.5M4 7l4-3.5L12 7" />
+      </svg>
+      <span class="article-sidebar__label">置顶</span>
+    </button>
+  </div>
+</aside>
+
+<script>
+  import '../scripts/article-sidebar.ts';
+</script>

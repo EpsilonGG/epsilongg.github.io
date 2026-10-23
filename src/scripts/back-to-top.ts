@@ -37,9 +37,10 @@ function initBackToTop(): void {
 
   button.addEventListener('click', () => {
     window.scrollTo({ top: 0 });
-    // 将焦点移到主区域，保证键盘用户点击后焦点跟随到页面顶部
+    // 将焦点移到主区域，保证键盘用户点击后焦点跟随到页面顶部。
+    // preventScroll：否则浏览器会把页面滚到 #main 的顶部，而不是页面顶部。
     const main = document.getElementById('main');
-    if (main) main.focus();
+    if (main) main.focus({ preventScroll: true });
   });
 }
 

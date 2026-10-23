@@ -54,6 +54,12 @@
   --measure: 38rem;
   --page-padding: 1.5rem;
   --header-height: 3.5rem;
+  /* 文章页左侧栏宽度；窄屏时整栏折叠成顶部工具条 */
+  --sidebar-w: 13rem;
+  --sidebar-gap: 2rem;
+  /* 目录行高与最多可见行数：超出后在栏内滚动 */
+  --toc-row-h: 1.75rem;
+  --toc-rows: 10;
 
   /* 间距体系 */
   --space-1: 0.25rem; /*  4px */
