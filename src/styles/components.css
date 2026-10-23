@@ -537,20 +537,33 @@ a.link-row:hover .link-row__label {
 
 .article-page > .container {
   display: grid;
-  grid-template-columns: var(--sidebar-w) minmax(0, 1fr);
-  gap: var(--sidebar-gap);
-  /* 正文仍保持 --measure 的阅读宽度，多出来的宽度给侧栏 */
-  max-width: calc(
-    var(--measure) + var(--sidebar-w) + var(--sidebar-gap) + 2 * var(--page-padding)
-  );
+  /*
+    侧栏 / 间隔 / 正文，再加一条与「侧栏 + 间隔」等宽的占位列。
+    占位列把整组轨道撑成对称的，正文因此正好落在视口正中，侧栏挂在它左边；
+    没有这条占位列时，正文会被侧栏顶得整体偏右（之前的问题）。
+    视口不够宽时只有正文那一列会缩，对称关系不变，正文仍然居中。
+  */
+  grid-template-columns:
+    var(--sidebar-w)
+    var(--sidebar-gap)
+    minmax(0, var(--measure))
+    var(--sidebar-w)
+    var(--sidebar-gap);
+  justify-content: center;
+  /* 间隔由第二列占位，这里不要再加 column-gap */
+  column-gap: 0;
+  /* 容器铺满，居中交给 justify-content */
+  max-width: none;
 }
 
 /* 允许正文里的长代码块在网格中收缩，而不是把侧栏挤走 */
 .article-page__main {
+  grid-column: 3;
   min-width: 0;
 }
 
 .article-sidebar {
+  grid-column: 1;
   position: sticky;
   top: var(--space-6);
   align-self: start;
