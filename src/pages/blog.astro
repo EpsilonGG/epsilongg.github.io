@@ -63,6 +63,12 @@ const allTags = [...new Set(posts.flatMap((post) => post.data.tags))].sort((a, b
               ) : null
             }
 
+            <label class="archive-ai-toggle">
+              <input class="archive-ai-toggle__input" type="checkbox" data-ai-toggle />
+              <span class="archive-ai-toggle__track" aria-hidden="true"></span>
+              <span class="archive-ai-toggle__text">含 AI 整理</span>
+            </label>
+
             <div class="archive-filter__status">
               <p
                 class="archive-filter__count"
@@ -93,7 +99,9 @@ const allTags = [...new Set(posts.flatMap((post) => post.data.tags))].sort((a, b
 
       {
         groups.length > 0 ? (
-          groups.map((group) => (
+          <>
+            <p class="archive-list-heading" data-archive-list-heading>原创与转载</p>
+            {groups.map((group) => (
             <section class="archive-group" aria-labelledby={`year-${group.year}`}>
               <h2 class="archive-year" id={`year-${group.year}`}>
                 {group.year}
@@ -106,9 +114,13 @@ const allTags = [...new Set(posts.flatMap((post) => post.data.tags))].sort((a, b
                     data-title={post.data.title}
                     data-description={post.data.description ?? ''}
                     data-tags={JSON.stringify(post.data.tags)}
+                    data-source={post.data.source}
                   >
                     <a class="article-list__link" href={postPath(post)}>
                       <span class="article-list__title">{post.data.title}</span>
+                      {post.data.source === 'ai' ? (
+                        <span class="article-badge">AI 整理</span>
+                      ) : null}
                       <time class="article-list__meta" datetime={post.data.pubDate.toISOString()}>
                         {formatDate(post.data.pubDate)}
                       </time>
@@ -120,8 +132,8 @@ const allTags = [...new Set(posts.flatMap((post) => post.data.tags))].sort((a, b
                 ))}
               </ul>
             </section>
-          ))
-        ) : (
+          ))}
+        </> ) : (
           <p class="empty-state">暂无文章。笔记会随新文章发布自动更新。</p>
         )
       }

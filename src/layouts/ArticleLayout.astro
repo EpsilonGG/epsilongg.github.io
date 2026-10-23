@@ -12,7 +12,7 @@ interface Props {
 }
 
 const { post, newer = null, older = null } = Astro.props;
-const { title, description, pubDate, updatedDate, tags } = post.data;
+const { title, description, pubDate, updatedDate, tags, source } = post.data;
 ---
 
 <BaseLayout title={title} description={description ?? `${title} · ${post.id}`} ogType="article">
@@ -41,6 +41,11 @@ const { title, description, pubDate, updatedDate, tags } = post.data;
           }
         </div>
         {description ? <p class="article-description">{description}</p> : null}
+        {
+          source === 'ai' ? (
+            <p class="article-badge article-badge--page">AI 整理</p>
+          ) : null
+        }
       </header>
 
       <div class="prose">

@@ -56,6 +56,7 @@ tags:                     # 可选，默认空数组
   - 笔记
   - 翻译
 draft: false              # 可选，默认 false
+source: original          # 可选，默认 original。ai = AI 整理
 ---
 ```
 
@@ -67,8 +68,18 @@ draft: false              # 可选，默认 false
 | `updatedDate` | ❌ | 日期 | **不能早于 `pubDate`**，否则构建失败 |
 | `tags` | ❌ | 字符串数组 | 显示在文章底部；不会生成标签页（本站没有标签路由） |
 | `draft` | ❌ | 布尔 | `true` 时：不生成页面、不进首页/归档/RSS/sitemap。**开发环境同样不显示** |
+| `source` | ❌ | `original` \| `ai` | 内容来源。**默认 `original`**（本人原创，或转载/整理自其它网站但由人工完成）。`ai` 表示由 AI 参与整理/生成；单篇与列表项都会显示「AI 整理」标记，且默认不进「笔记」列表，需手动开启滑块才出现 |
 
 字段写错（拼错、类型不对、日期非法）会让 `npm run build` 直接失败并指出是哪个文件，不会静默跳过。
+
+### 2.1 内容来源与 AI 披露
+
+「笔记」栏目用 `source` 一个字段区分两类内容，**不另开独立栏目**：
+
+- **`original`（默认）**：本人原创，或转载/整理自其它网站但由人工完成。默认列表的栏目名就叫 **「原创与转载」**，涵盖这两类。
+- **`ai`**：由 AI 参与整理/生成的文章。出于披露透明，单篇页面与列表项都会出现一个 **「AI 整理」** 小标记；并且**默认不在「笔记」列表里出现**——访客需要在筛选区勾选 **「含 AI 整理」** 滑块，列表才会把它们并入，栏目名随之变为「全部（含 AI 整理）」。
+
+设计意图：绝大多数访客只想看人工内容，所以 AI 整理的文章默认隐藏、按需开启；「AI 整理」标记则保证一旦展示就明确披露。转载自其它网站的内容（人工完成）仍属于 `original`，无需特殊标记。
 
 ---
 
@@ -235,9 +246,11 @@ npm run build    # 构建，frontmatter 有问题会在这里报错
 请为我的 Astro 博客写一篇文章，严格遵守以下格式：
 
 1. 文件路径：src/content/blog/<英文短横线 slug>.md（只输出文件内容）
-2. frontmatter 必须有 title、description、pubDate；可选 tags、draft。
+2. frontmatter 必须有 title、description、pubDate；可选 tags、draft、source。
    - pubDate 格式 YYYY-MM-DD
    - description 一句话，不超过 60 字
+   - source 取值 original（默认，原创或人工转载）或 ai（AI 参与整理/生成）。
+     若 source: ai，单篇和列表都会出现「AI 整理」标记，且默认不进「笔记」列表，需开滑块才显示。
 3. 正文从 ## 开始，不要写一级标题（# 由 title 生成）。
 4. 图片用：![替代文字](/images/blog/<slug>/01.jpg "图注文字")
    —— 第三个参数是图注，必须写；图片按 01、02 顺序编号。
@@ -259,3 +272,5 @@ npm run build    # 构建，frontmatter 有问题会在这里报错
 | 注释 / 图注 / 代码块的样式 | `src/styles/components.css`（搜「文章 ·」） |
 | 文章字段校验 | `src/content.config.ts` |
 | 文章页布局 | `src/layouts/ArticleLayout.astro` |
+| 笔记列表的搜索 / 标签 / 分页 / AI 滑块 | `src/scripts/archive-filter.ts` |
+| 笔记列表页结构（滑块、栏目名、列表项） | `src/pages/blog.astro` |

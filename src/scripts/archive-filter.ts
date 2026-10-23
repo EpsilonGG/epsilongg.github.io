@@ -21,6 +21,8 @@ interface ArchiveItem {
   haystack: string;
   /** 文章标签（用于标签筛选的精确匹配） */
   tags: string[];
+  /** 内容来源：original（默认）/ ai（AI 整理） */
+  source: string;
 }
 
 /** 每页最多显示的笔记数量 */
@@ -39,6 +41,11 @@ function initArchiveFilter(): void {
   const tagButtons = Array.from(
     root.querySelectorAll<HTMLButtonElement>('[data-tag-filter]'),
   );
+
+  // 「含 AI 整理」滑块：默认不勾选，勾选后列表才包含 AI 整理的文章。
+  const aiToggle = root.querySelector<HTMLInputElement>('[data-ai-toggle]');
+  // 列表栏目名：默认「原创与转载」，开启滑块后切换为「全部（含 AI 整理）」。
+  const listHeading = root.querySelector<HTMLElement>('[data-archive-list-heading]');
 
   const paginationNav = root.querySelector<HTMLElement>('[data-archive-pagination]');
   const prevBtn = root.querySelector<HTMLButtonElement>('[data-page-prev]');
@@ -59,11 +66,13 @@ function initArchiveFilter(): void {
     const title = (el.dataset.title ?? '').toLowerCase();
     const description = (el.dataset.description ?? '').toLowerCase();
     const tagText = tags.join(' ').toLowerCase();
+    const source = el.dataset.source ?? 'original';
     return {
       el,
       group: el.closest<HTMLElement>('.archive-group') ?? el,
       haystack: `${title} ${description} ${tagText}`,
       tags,
+      source,
     };
   });
 
@@ -98,6 +107,8 @@ function initArchiveFilter(): void {
     const activeTags = tagButtons
       .filter((btn) => btn.getAttribute('aria-pressed') === 'true')
       .map((btn) => (btn.dataset.tag ?? '').toLowerCase());
+    // 默认（滑块未勾选）不显示 AI 整理文章；勾选后才纳入。
+    const aiOn = aiToggle?.checked ?? false;
 
     // 1. 先算「是否匹配筛选」，并记录到 data-matched 上
     const matched: ArchiveItem[] = [];
@@ -107,7 +118,9 @@ function initArchiveFilter(): void {
       const matchesTags =
         activeTags.length === 0 ||
         activeTags.every((t) => item.tags.some((it) => it.toLowerCase() === t));
-      const isMatch = matchesSearch && matchesTags;
+      // 来源筛选：未开启滑块时排除 AI 整理文章。
+      const matchesSource = aiOn || item.source !== 'ai';
+      const isMatch = matchesSearch && matchesTags && matchesSource;
       if (isMatch) {
         item.el.setAttribute('data-matched', '');
         matched.push(item);
@@ -140,12 +153,16 @@ function initArchiveFilter(): void {
     // 5. 计数显示筛选结果总数（而非当前页数量）
     if (countEl) countEl.textContent = `共 ${matched.length} 篇`;
     if (emptyEl) emptyEl.hidden = matched.length !== 0;
+    // 栏目名随滑块状态切换：默认「原创与转载」，开启后「全部（含 AI 整理）」。
+    if (listHeading) {
+      listHeading.textContent = aiOn ? '全部（含 AI 整理）' : '原创与转载';
+    }
 
     // 6. 分页控件
     renderPagination(totalPages);
 
     // 7. 清除全部筛选按钮
-    const hasActiveFilter = term !== '' || activeTags.length > 0;
+    const hasActiveFilter = term !== '' || activeTags.length > 0 || aiOn;
     if (clearAll) clearAll.hidden = !hasActiveFilter;
   };
 
@@ -182,10 +199,17 @@ function initArchiveFilter(): void {
     });
   }
 
+  // 「含 AI 整理」滑块：勾选即把 AI 整理文章并入列表，并回到第 1 页
+  aiToggle?.addEventListener('change', () => {
+    currentPage = 1;
+    apply();
+  });
+
   // 清除全部筛选：搜索与标签同时复位，并保留搜索关键词框的焦点
   clearAll?.addEventListener('click', () => {
     if (input) input.value = '';
     for (const btn of tagButtons) btn.setAttribute('aria-pressed', 'false');
+    if (aiToggle) aiToggle.checked = false;
     currentPage = 1;
     apply();
     input?.focus();

@@ -19,6 +19,14 @@ const blog = defineCollection({
       updatedDate: z.coerce.date().optional(),
       tags: z.array(z.string().trim().min(1)).default([]),
       draft: z.boolean().default(false),
+      /**
+       * 内容来源 / 披露标记。
+       * - `original`（默认）：本人原创，或转载/整理自其它网站但由人工完成。
+       *   默认「笔记」列表（栏目名「原创与转载」）展示的就是这一类。
+       * - `ai`：由 AI 参与整理/生成的文章。默认列表不包含，需要手动开启
+       *   滑块后才会出现，单篇页面与列表项都会显示「AI 整理」标记作披露。
+       */
+      source: z.enum(['original', 'ai']).default('original'),
     })
     .superRefine((data, ctx) => {
       if (data.updatedDate && data.updatedDate.getTime() < data.pubDate.getTime()) {

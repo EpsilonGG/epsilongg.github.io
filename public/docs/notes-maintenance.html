@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>笔记栏目维护指南 · EpsilonGG</title>
+  <style>
+    :root {
+      --text: #1a1a1a;
+      --muted: #6b6b6b;
+      --secondary: #4a4a4a;
+      --border: #d9d9d9;
+      --border-strong: #9a9a9a;
+      --bg: #ffffff;
+      --bg-subtle: #f4f4f4;
+      --radius: 6px;
+    }
+    * { box-sizing: border-box; }
+    html { -webkit-text-size-adjust: 100%; }
+    body {
+      margin: 0;
+      padding: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+        "Hiragino Sans GB", "Microsoft YaHei", Roboto, Helvetica, Arial, sans-serif;
+      line-height: 1.7;
+      font-size: 16px;
+    }
+    .wrap {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 3rem 1.25rem 5rem;
+    }
+    h1 {
+      font-size: 1.6rem;
+      font-weight: 700;
+      margin: 0 0 0.5rem;
+      letter-spacing: -0.01em;
+    }
+    .lede {
+      color: var(--muted);
+      margin: 0 0 2.5rem;
+      font-size: 0.95rem;
+    }
+    h2 {
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin: 2.8rem 0 1rem;
+      padding-bottom: 0.4rem;
+      border-bottom: 1px solid var(--border);
+    }
+    h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      margin: 1.6rem 0 0.5rem;
+    }
+    p { margin: 0.7rem 0; }
+    ul, ol { padding-left: 1.3rem; margin: 0.7rem 0; }
+    li { margin: 0.35rem 0; }
+    code {
+      font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+      font-size: 0.88em;
+      background: var(--bg-subtle);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 0.1em 0.35em;
+    }
+    pre {
+      background: var(--bg-subtle);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1rem;
+      overflow-x: auto;
+      font-size: 0.85rem;
+      line-height: 1.55;
+    }
+    pre code { background: none; border: none; padding: 0; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1rem 0;
+      font-size: 0.9rem;
+    }
+    th, td {
+      text-align: left;
+      padding: 0.5rem 0.6rem;
+      border: 1px solid var(--border);
+      vertical-align: top;
+    }
+    th { background: var(--bg-subtle); font-weight: 600; }
+    .badge {
+      display: inline-block;
+      padding: 0.05rem 0.5rem;
+      font-size: 0.75rem;
+      line-height: 1.4;
+      color: var(--secondary);
+      background: var(--bg);
+      border: 1px solid var(--border-strong);
+      border-radius: var(--radius);
+      white-space: nowrap;
+      vertical-align: middle;
+    }
+    .note {
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--border-strong);
+      border-radius: var(--radius);
+      padding: 0.8rem 1rem;
+      background: var(--bg-subtle);
+      margin: 1.2rem 0;
+      font-size: 0.92rem;
+    }
+    .mock {
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1rem 1.1rem;
+      margin: 1.2rem 0;
+      font-size: 0.9rem;
+    }
+    .mock .row { display: flex; align-items: center; gap: 0.6rem; margin: 0.4rem 0; }
+    .switch {
+      position: relative;
+      width: 36px; height: 20px;
+      border: 1px solid var(--border-strong);
+      border-radius: 999px;
+      background: var(--bg-subtle);
+      flex: none;
+    }
+    .switch::before {
+      content: "";
+      position: absolute;
+      top: 50%; left: 3px;
+      width: 14px; height: 14px;
+      border-radius: 50%;
+      background: var(--muted);
+      transform: translateY(-50%);
+    }
+    .switch.on { background: var(--bg); border-color: var(--secondary); }
+    .switch.on::before { left: 17px; background: var(--text); }
+    .pill { font-size: 0.8rem; color: var(--muted); }
+    footer {
+      margin-top: 3.5rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 0.82rem;
+    }
+    a { color: var(--text); }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <h1>笔记栏目维护指南</h1>
+    <p class="lede">
+      本站「笔记」栏目（<code>/blog/</code>）已支持区分 <strong>原创 / 转载</strong> 与
+      <strong>AI 整理</strong> 两类内容。本文说明新增的行为，以及如何用最低成本维护这个栏目。
+    </p>
+
+    <h2>一、这次新增了什么</h2>
+    <p>
+      用文章 frontmatter 里的一个字段 <code>source</code> 区分内容来源，<strong>不另开独立栏目</strong>，
+      全部仍归在「笔记」一栏里：
+    </p>
+    <table>
+      <thead>
+        <tr><th><code>source</code> 取值</th><th>含义</th><th>在「笔记」列表里</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>original</code>（默认）</td>
+          <td>本人原创，或转载 / 整理自其它网站但由人工完成</td>
+          <td>默认显示，栏目名「原创与转载」</td>
+        </tr>
+        <tr>
+          <td><code>ai</code></td>
+          <td>由 AI 参与整理 / 生成的文章</td>
+          <td>默认<strong>不显示</strong>；勾选滑块后才并入列表</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>二、访客看到的效果</h2>
+    <p>筛选区多了一个滑块，默认关闭：</p>
+    <div class="mock">
+      <div class="row">
+        <span class="switch"></span>
+        <span>含 AI 整理</span>
+        <span class="pill">（默认未勾选）</span>
+      </div>
+      <p style="margin:.6rem 0 0;color:var(--muted);font-size:.85rem;">
+        列表上方栏目名：<strong>原创与转载</strong>
+      </p>
+    </div>
+    <p>勾选后：</p>
+    <div class="mock">
+      <div class="row">
+        <span class="switch on"></span>
+        <span>含 AI 整理</span>
+      </div>
+      <p style="margin:.6rem 0 0;color:var(--muted);font-size:.85rem;">
+        列表上方栏目名变为：<strong>全部（含 AI 整理）</strong>
+      </p>
+    </div>
+    <p>
+      凡是 <code>source: ai</code> 的文章，在列表项与单篇页面都会出现一个
+      <span class="badge">AI 整理</span> 标记，做到明确披露。
+    </p>
+    <div class="note">
+      设计意图：大多数访客只想看人工内容，所以 AI 整理的文章默认隐藏、按需开启；
+      「AI 整理」标记则保证一旦展示就透明披露。转载自其它网站但人工完成的内容仍属
+      <code>original</code>，无需任何特殊标记。
+    </div>
+
+    <h2>三、怎么低成本维护笔记栏目</h2>
+    <p>维护成本极低，核心就是「<strong>写 Markdown + 填好 frontmatter</strong>」，其余交给构建。</p>
+
+    <h3>1. 新增一篇文章</h3>
+    <ol>
+      <li>在 <code>src/content/blog/</code> 下新建 <code>&lt;slug&gt;.md</code>（文件名即 URL，建议小写英文 + 连字符）。</li>
+      <li>填 frontmatter（见下方速查表）。</li>
+      <li>正文用 Markdown 写；图片加 <code>title</code> 就是图注，<code>[^1]</code> 就是注释。</li>
+      <li>本地 <code>npm run dev</code> 预览，确认无误后提交。</li>
+    </ol>
+
+    <h3>2. 什么时候写 <code>source: ai</code></h3>
+    <ul>
+      <li>文章由 AI 参与整理 / 生成 → 设 <code>source: ai</code>。会自动打「AI 整理」标记，且默认不在列表里出现。</li>
+      <li>原创、或人工转载 / 整理其它网站内容 → 不写或写 <code>source: original</code>（默认）。</li>
+    </ul>
+    <p>就这么一个字段的区别，没有别的开关或配置。</p>
+
+    <h3>3. 转载其它网站的内容</h3>
+    <p>
+      直接当作普通文章添加即可（记得在正文或 <code>description</code> 里注明原始出处，这是转载的礼貌也是合规需要）。
+      因为是人工转载，<code>source</code> 保持默认的 <code>original</code>，
+      它会出现在默认的「原创与转载」列表里，不需要任何额外处理。
+    </p>
+
+    <h3>4. 校验永远不踩坑</h3>
+    <p>提交前跑一次构建，frontmatter 写错（拼错、类型不对、日期非法）会立刻报错并指出是哪个文件：</p>
+    <pre><code>npm run build</code></pre>
+    <p>字段缺失或 <code>updatedDate</code> 早于 <code>pubDate</code> 也会在这里被拦下，不会静默上线。</p>
+
+    <h3>5. 想先攒草稿</h3>
+    <p>设 <code>draft: true</code>：不生成页面、不进首页 / 列表 / RSS / sitemap，开发环境也看不到。准备好再改回 <code>false</code>。</p>
+
+    <h2>四、frontmatter 字段速查</h2>
+    <table>
+      <thead>
+        <tr><th>字段</th><th>必填</th><th>说明</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><code>title</code></td><td>✅</td><td>不能为空，渲染成 &lt;h1&gt;；正文别再写一级标题</td></tr>
+        <tr><td><code>description</code></td><td>建议</td><td>一句话摘要，进首页 / 列表 / RSS / 搜索</td></tr>
+        <tr><td><code>pubDate</code></td><td>✅</td><td>日期，<code>YYYY-MM-DD</code></td></tr>
+        <tr><td><code>updatedDate</code></td><td>❌</td><td>不能早于 <code>pubDate</code></td></tr>
+        <tr><td><code>tags</code></td><td>❌</td><td>字符串数组，显示在文章底部</td></tr>
+        <tr><td><code>draft</code></td><td>❌</td><td>默认 <code>false</code></td></tr>
+        <tr><td><code>source</code></td><td>❌</td><td><code>original</code>（默认）｜ <code>ai</code>（AI 整理）</td></tr>
+      </tbody>
+    </table>
+
+    <h2>五、也可以让 AI 帮你维护</h2>
+    <p>
+      仓库里准备了一份 agent skill（<code>notes-maintenance</code>），把上面的字段约定、滑块行为、
+      构建校验一次性告诉了智能体。下次让 AI「按本站格式写一篇并发布」，它会自动遵循这套规则，
+      包括正确地设置 / 不设置 <code>source: ai</code>。维护笔记栏目因此变成一句自然语言指令。
+    </p>
+
+    <footer>
+      相关代码：<code>src/content.config.ts</code>（字段校验）、<code>src/pages/blog.astro</code>（列表与滑块）、
+      <code>src/scripts/archive-filter.ts</code>（筛选逻辑）、<code>src/layouts/ArticleLayout.astro</code>（单篇标记）。
+    </footer>
+  </main>
+</body>
+</html>
