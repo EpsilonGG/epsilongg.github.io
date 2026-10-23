@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>实现方案：AI 整理发布文章（区分 AI 整理内容）</title>
+  <style>
+    :root {
+      --fg: #1a1a1a;
+      --muted: #555;
+      --line: #ddd;
+      --bg: #fff;
+      --sub: #f6f6f6;
+      --accent: #2b6cb0;
+    }
+    * { box-sizing: border-box; }
+    html { -webkit-text-size-adjust: 100%; }
+    body {
+      margin: 0;
+      padding: 2.5rem 1.25rem 4rem;
+      font: 16px/1.7 -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+        "Microsoft YaHei", "Hiragino Sans GB", sans-serif;
+      color: var(--fg);
+      background: var(--bg);
+    }
+    .wrap { max-width: 760px; margin: 0 auto; }
+    h1 { font-size: 1.7rem; line-height: 1.3; margin: 0 0 0.25rem; }
+    .sub { color: var(--muted); margin: 0 0 2rem; font-size: 0.95rem; }
+    h2 {
+      font-size: 1.2rem;
+      margin: 2.4rem 0 0.8rem;
+      padding-bottom: 0.35rem;
+      border-bottom: 1px solid var(--line);
+    }
+    h3 { font-size: 1.02rem; margin: 1.5rem 0 0.5rem; }
+    p { margin: 0.7rem 0; }
+    ul, ol { margin: 0.6rem 0; padding-left: 1.4rem; }
+    li { margin: 0.35rem 0; }
+    code {
+      font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+      font-size: 0.88em;
+      background: var(--sub);
+      padding: 0.12em 0.4em;
+      border-radius: 4px;
+    }
+    pre {
+      background: var(--sub);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 1rem 1.1rem;
+      overflow: auto;
+      font-size: 0.85rem;
+      line-height: 1.55;
+    }
+    pre code { background: none; padding: 0; }
+    .note {
+      background: #fff8e6;
+      border: 1px solid #f0dca0;
+      border-radius: 8px;
+      padding: 0.8rem 1rem;
+      margin: 1.2rem 0;
+      font-size: 0.92rem;
+    }
+    .tag-badge {
+      display: inline-block;
+      font-size: 0.75rem;
+      padding: 0.1em 0.55em;
+      border-radius: 999px;
+      border: 1px solid var(--accent);
+      color: var(--accent);
+      vertical-align: middle;
+    }
+    table { border-collapse: collapse; width: 100%; margin: 1rem 0; font-size: 0.92rem; }
+    th, td { border: 1px solid var(--line); padding: 0.5rem 0.7rem; text-align: left; vertical-align: top; }
+    th { background: var(--sub); }
+    footer { margin-top: 3rem; color: var(--muted); font-size: 0.85rem; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>实现方案：AI 整理发布文章</h1>
+    <p class="sub">为 EpsilonGG 个人主页（Astro 静态站）提供「区分 AI 整理 / 原创」内容的可选方案 · 仅作提案，尚未实现</p>
+
+    <div class="note">
+      <strong>调研说明（关于 eryuemu.com）：</strong>
+      通过公开抓取，eryuemu.com 首页仅能取到简介区（二月木的个人博客，主修自动化，记录折腾大模型 / WSL2 / Linux / eSIM / QQ 机器人 / 书法与二次元），其「最近文章」列表疑似由前端 JS 渲染，抓取结果未包含文章条目与任何 AI 相关标签；其标准 <code>/sitemap.xml</code>、<code>/rss.xml</code> 也未能在该地址取到。
+      <br />因此下文不依赖对 eryuemu 内部实现的还原，而是基于「静态站点 + 内容集合」的通用做法，给出一套可落地的方案；若你后续能提供该站某篇具体的 AI 整理文章链接，方案可进一步对齐。
+    </div>
+
+    <h2>1. 什么是「AI 整理发布文章」</h2>
+    <p>通常指作者用大模型参与「采集 → 摘要 / 翻译 / 重写 / 校对 → 排版发布」中的部分或全部环节，但仍由人把关、署名与归档的内容。与之相对的是完全原创（手写）的文章。区分的核心目的有二：</p>
+    <ul>
+      <li><strong>透明度</strong>：让读者知道哪些内容是 AI 协助 / 整理过的，满足诚实署名与平台规范。</li>
+      <li><strong>检索 / 订阅偏好</strong>：让读者能只看重原创，或只看 AI 整理的速览 / 译文。</li>
+    </ul>
+
+    <h2>2. 通用做法（静态站点常见）</h2>
+    <p>无论哪类静态生成器，思路一致：在文章元数据里加一个「来源 / 是否 AI 协助」字段，构建时据此渲染徽章、提供筛选或独立栏目，并在 RSS / SEO 中保持透明。</p>
+    <ul>
+      <li><strong>元数据字段</strong>：frontmatter 里加 <code>source: ai</code> / <code>source: original</code>，或布尔 <code>aiAssisted: true</code>。</li>
+      <li><strong>徽章展示</strong>：文章卡片（列表页）与文章页头部显示 <span class="tag-badge">AI 整理</span> 标签。</li>
+      <li><strong>筛选 / 独立栏目</strong>：列表页加一个「仅看 AI 整理」开关；或单独开一个 <code>/ai/</code> 栏目。</li>
+      <li><strong>RSS 分轨</strong>：可选提供只含 AI 整理文章的订阅源。</li>
+    </ul>
+
+    <h2>3. 给本项目的实现方案</h2>
+    <p>本项目已有「笔记」（<code>/blog/</code> 列表，支持搜索、标签筛选、分页）与文章页。在此基础上做区分，影响面小、可渐进。</p>
+
+    <h3>3.1 数据模型</h3>
+    <p>在 <code>src/content.config.ts</code> 的 Zod schema 里新增一个可选字段（兼容现有文章，不填默认为原创）：</p>
+    <pre><code>source: z.enum(["original", "ai"]).default("original")
+// 或轻量写法： aiAssisted: z.boolean().default(false)</code></pre>
+    <p>文章 frontmatter 示例：</p>
+    <pre><code>---
+title: （译）xxx 专访
+description: 由 AI 协助翻译与校对的访谈整理
+pubDate: 2026-03-01
+tags: [访谈, 翻译]
+source: ai            # 新增：标明为 AI 整理 / 协助
+---</code></pre>
+
+    <h3>3.2 展示层（徽章）</h3>
+    <p>在「笔记」列表的每一条、以及 <code>ArticleLayout.astro</code> 文章头部，依据 <code>source === 'ai'</code> 渲染徽章：</p>
+    <pre><code>{post.data.source === 'ai' &amp;&amp; (
+  &lt;span class="article-badge"&gt;AI 整理&lt;/span&gt;
+)}</code></pre>
+    <p>CSS 沿用现有设计 token（黑白灰、6px 圆角），徽章用细边框 + 小号字，不引入强调色。</p>
+
+    <h3>3.3 两种路线（二选一或并存）</h3>
+    <table>
+      <thead>
+        <tr><th>路线</th><th>做法</th><th>优点</th><th>代价</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>A. 轻量标签</strong></td>
+          <td>直接把 <code>AI 整理</code> 作为普通标签；复用现有标签筛选栏即可「按标签筛选」。</td>
+          <td>零 schema 改动、零新 UI；立刻可用。</td>
+          <td>语义弱（和普通标签混在一起），无法做「仅看 AI / 仅看原创」的互斥切换。</td>
+        </tr>
+        <tr>
+          <td><strong>B. 独立字段 + 徽章 + 开关</strong></td>
+          <td>新增 <code>source</code> 字段，列表页加一个「仅看 AI 整理」切换，文章页显示徽章。</td>
+          <td>语义清晰、透明、可做互斥筛选与潜在独立栏目。</td>
+          <td>改 schema + 列表页筛选逻辑 + 文章页头部，工作量中等。</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="note">推荐：先做 <strong>B 的徽章部分</strong>（透明度收益最大、改动最小），筛选 / 独立栏目作为可选项后续再加。</div>
+
+    <h3>3.4 与现有搜索 / 标签 / 分页的集成</h3>
+    <ul>
+      <li>搜索与标签筛选逻辑集中在 <code>src/scripts/archive-filter.ts</code>，按 DOM 上的 <code>data-*</code> 工作；若要支持「仅看 AI 整理」，可在每个列表项上挂 <code>data-source="ai"</code>，并在该脚本里加一个互斥开关（AND 组合，与现有逻辑一致）。</li>
+      <li>「每页 10 篇」的分页已作用于筛选结果集，新增筛选不会影响分页结构。</li>
+      <li>若做独立栏目（如 <code>/ai/</code>），可参考现有 <code>/blog/[slug].astro</code> 与列表页，用 <code>getStaticPaths</code> 生成；但需注意与「笔记」列表的路由不冲突（例如用 <code>/blog/ai/</code> 或单独的 <code>/ai/</code>）。</li>
+    </ul>
+
+    <h3>3.5 RSS 与 SEO 注意</h3>
+    <ul>
+      <li>若提供「仅 AI」订阅源，建议在 <code>rss.xml.ts</code> 里新增一个带查询/路径的源，并在页脚说明，避免读者混淆。</li>
+      <li>无论用哪种路线，都应在文章显著位置（徽章 + 文末说明）标注 AI 参与程度，符合各平台对 AI 生成内容的披露要求。</li>
+    </ul>
+
+    <h2>4. 工作量与决策清单（供决定是否做）</h2>
+    <ol>
+      <li><strong>是否要做区分？</strong> 当前仅 1 篇译文，区分的价值有限；若后续 AI 整理内容增多，再做更划算。</li>
+      <li><strong>路线选择：</strong> A（标签，零成本）还是 B（字段 + 徽章 + 开关）？</li>
+      <li><strong>是否需要独立栏目 / 独立 RSS？</strong> 还是仅在列表与文章页标注即可？</li>
+      <li><strong>披露措辞：</strong> 统一用「AI 整理 / AI 协助 / AI 翻译」中哪一个，规则写进写作指南 <code>README/blog-guide.md</code>。</li>
+    </ol>
+
+    <footer>
+      本文件为提案文档，不随站点导航暴露，仅供决策参考。确定方案后可直接据此改动 <code>content.config.ts</code>、<code>blog.astro</code> / <code>ArticleLayout.astro</code> 与 <code>archive-filter.ts</code>。
+    </footer>
+  </div>
+</body>
+</html>

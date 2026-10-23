@@ -1230,6 +1230,76 @@ a.link-row:hover .link-row__label {
   margin-top: var(--space-3);
 }
 
+/* 笔记页 · 分页（作用于筛选后的结果集，与搜索/标签联动） */
+.archive-pagination {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
+  margin-top: var(--space-3);
+}
+
+.archive-pagination__btn {
+  flex: none;
+  padding: 0.2rem var(--space-3);
+  font-size: var(--text-sm);
+  color: var(--color-text);
+  background-color: var(--color-bg-subtle);
+  border: var(--border-width) solid var(--color-border-strong);
+  border-radius: var(--radius);
+  transition: color var(--duration-fast) var(--ease),
+    border-color var(--duration-fast) var(--ease),
+    background-color var(--duration-fast) var(--ease);
+}
+
+.archive-pagination__btn:hover:not(:disabled) {
+  color: var(--color-text);
+  border-color: var(--color-text-secondary);
+  background-color: var(--color-bg);
+}
+
+.archive-pagination__btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.archive-pagination__numbers {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1);
+}
+
+.archive-pagination__num {
+  min-width: 2rem;
+  padding: 0.2rem var(--space-2);
+  font-size: var(--text-sm);
+  font-variant-numeric: tabular-nums;
+  color: var(--color-text-secondary);
+  background-color: transparent;
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius);
+  transition: color var(--duration-fast) var(--ease),
+    border-color var(--duration-fast) var(--ease),
+    background-color var(--duration-fast) var(--ease);
+}
+
+.archive-pagination__num:hover {
+  color: var(--color-text);
+  border-color: var(--color-border-strong);
+}
+
+.archive-pagination__num[aria-current="page"] {
+  color: var(--color-text);
+  background-color: var(--color-bg-subtle);
+  border-color: var(--color-text-secondary);
+}
+
+.archive-pagination__info {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  font-variant-numeric: tabular-nums;
+}
+
 /* --------------------------------------------------------------------------
    返回顶部按钮（仅笔记页）
    -------------------------------------------------------------------------- */

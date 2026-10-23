@@ -15,7 +15,7 @@ draft: true
 
 ### 段落与强调
 
-普通段落，包含**加粗**、`行内代码`，以及[站内链接](/archive/)和[外部链接](https://docs.astro.build/)。
+普通段落，包含**加粗**、`行内代码`，以及[站内链接](/blog/)和[外部链接](https://docs.astro.build/)。
 
 ### 列表
 

@@ -61,7 +61,7 @@ npm test         # Python 单元测试（README 同步脚本）
 │   ├── content.config.ts      文章集合定义与 Zod 校验
 │   ├── layouts/               BaseLayout（HTML 骨架与 SEO）/ ArticleLayout（文章阅读布局）
 │   ├── lib/posts.ts           读取、排序、按年分组文章
-│   ├── pages/                 路由：/ /me/ /morelinks/ /archive/ /blog/[slug]/ /404 /rss.xml /robots.txt
+│   ├── pages/                 路由：/ /me/ /morelinks/ /blog/ /blog/[slug]/ /404 /rss.xml /robots.txt
 │   ├── scripts/theme.ts       主题状态的唯一实现
 │   └── styles/                tokens / global / typography / components / fonts
 ├── scripts/sync_profile_readme.py   README 同步脚本
@@ -76,7 +76,7 @@ npm test         # Python 单元测试（README 同步脚本）
 - 颜色、字号、间距、圆角、动效时长只在 `src/styles/tokens.css` 定义，组件里不写死色值。
 - 个人信息只存在 `src/config/*.json` / `*.ts`，页面组件不保存任何个人资料。
 - 数据用 JSON（`site.json`、`profile.json`、`navigation.json`）是因为 README 同步脚本（Python）也要读取同一份数据，避免出现两份互相冲突的配置。
-- 站内链接一律写成根绝对路径（`/archive/`），所以站点**必须部署在域名根路径**。这条限制的具体影响见 [Fork 指南](fork.md#0-站点必须部署在域名根路径)。
+- 站内链接一律写成根绝对路径（`/blog/` 等），所以站点**必须部署在域名根路径**。这条限制的具体影响见 [Fork 指南](fork.md#0-站点必须部署在域名根路径)。
 
 ### 路由说明
 
@@ -85,12 +85,12 @@ npm test         # Python 单元测试（README 同步脚本）
 | `/` | 首页：个人简介 → 站点导航 → 最近文章 → 页脚 |
 | `/me/` | 名片页（简介、主要平台、关注领域、项目与经历） |
 | `/morelinks/` | 链接库（分类展示） |
-| `/archive/` | 文章归档，按年份分组 |
+| `/blog/` | 笔记（文章列表）：按年份分组，支持搜索、标签筛选与分页 |
 | `/blog/{slug}/` | 单篇文章，`slug` 即 Markdown 文件名 |
 | `/rss.xml`、`/robots.txt`、`/sitemap-index.xml` | 自动生成 |
 | 其他任意地址 | `404.html` |
 
-**本站没有 `/blog/` 文章列表页**，这是有意设计：文章入口只有首页「最近文章」和 `/archive/`。直接访问 `/blog/` 会得到 404。
+**本站有 `/blog/` 文章列表页**（即「笔记」页）：文章入口为首页「最近文章」、单篇文章的上一篇/下一篇导航，以及 `/blog/`（按年份分组、可搜索、可按标签筛选、分页）。
 
 ---
 
@@ -254,7 +254,7 @@ git push -u origin main
 1. 仓库 **Settings → Pages**。
 2. **Build and deployment → Source** 选择 **GitHub Actions**（不要选 "Deploy from a branch"）。
 3. 回到 **Actions** 标签，等待 `Deploy to GitHub Pages` 运行完成（首次约 1–2 分钟）。
-4. 打开 `https://epsilongg.github.io/` 确认首页；再检查 `/archive/`、`/me/`、`/morelinks/`、`/blog/rurudo-unreal-interview/`、`/rss.xml`、`/sitemap-index.xml`、`/robots.txt`，以及一个不存在的地址（应显示 404 页面）。
+4. 打开 `https://epsilongg.github.io/` 确认首页；再检查 `/blog/`、`/me/`、`/morelinks/`、`/blog/rurudo-unreal-interview/`、`/rss.xml`、`/sitemap-index.xml`、`/robots.txt`，以及一个不存在的地址（应显示 404 页面）。
 
 ### 6.3 部署失败排查
 

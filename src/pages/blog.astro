@@ -12,7 +12,7 @@ const allTags = [...new Set(posts.flatMap((post) => post.data.tags))].sort((a, b
 );
 ---
 
-<BaseLayout title="笔记" description="文章与长期内容的索引，按年份分组，支持搜索与标签筛选。">
+<BaseLayout title="笔记" description="文章与长期内容的索引，按年份分组，支持搜索、标签筛选与分页。">
   <div class="page">
     <div class="container">
       <header class="page-header">
@@ -80,6 +80,13 @@ const allTags = [...new Set(posts.flatMap((post) => post.data.tags))].sort((a, b
             <p class="empty-state archive-filter__empty" data-search-empty hidden>
               没有匹配的文章。试试更换关键词或清除筛选条件。
             </p>
+
+            <nav class="archive-pagination" data-archive-pagination hidden aria-label="分页导航">
+              <button class="archive-pagination__btn" type="button" data-page-prev aria-label="上一页">上一页</button>
+              <div class="archive-pagination__numbers" data-page-numbers aria-label="页码"></div>
+              <span class="archive-pagination__info" data-page-info aria-live="polite"></span>
+              <button class="archive-pagination__btn" type="button" data-page-next aria-label="下一页">下一页</button>
+            </nav>
           </div>
         ) : null
       }

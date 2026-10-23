@@ -1,5 +1,5 @@
 /**
- * 笔记页的搜索与标签筛选。
+ * 笔记页的搜索、标签筛选与分页。
  *
  * 设计约束（来自项目计划）：
  * - 纯原生实现，不引入搜索库（Fuse.js / Lunr 等）。
@@ -8,6 +8,8 @@
  * - 初始 HTML 已完整渲染文章列表；本脚本只负责隐藏/显示，不依赖 JS 才能看到内容。
  * - 搜索与标签筛选逻辑集中在此处，统一使用 AND 组合。
  * - 不做中文分词、拼写纠错或语义搜索，只做基本的子串匹配。
+ * - 分页：每页最多 PAGE_SIZE 篇；分页作用于「筛选后的结果集」，与搜索/标签联动。
+ *   没有 JS 时所有文章照常显示（分页控件默认 hidden，由脚本在有多页时才显示）。
  */
 
 interface ArchiveItem {
@@ -20,6 +22,9 @@ interface ArchiveItem {
   /** 文章标签（用于标签筛选的精确匹配） */
   tags: string[];
 }
+
+/** 每页最多显示的笔记数量 */
+const PAGE_SIZE = 10;
 
 function initArchiveFilter(): void {
   const root = document.querySelector<HTMLElement>('[data-archive-filter]');
@@ -34,6 +39,12 @@ function initArchiveFilter(): void {
   const tagButtons = Array.from(
     root.querySelectorAll<HTMLButtonElement>('[data-tag-filter]'),
   );
+
+  const paginationNav = root.querySelector<HTMLElement>('[data-archive-pagination]');
+  const prevBtn = root.querySelector<HTMLButtonElement>('[data-page-prev]');
+  const nextBtn = root.querySelector<HTMLButtonElement>('[data-page-next]');
+  const numbersEl = root.querySelector<HTMLElement>('[data-page-numbers]');
+  const pageInfoEl = root.querySelector<HTMLElement>('[data-page-info]');
 
   const items: ArchiveItem[] = Array.from(
     document.querySelectorAll<HTMLElement>('[data-search-item]'),
@@ -56,44 +67,98 @@ function initArchiveFilter(): void {
     };
   });
 
+  let currentPage = 1;
+
+  const renderPagination = (totalPages: number): void => {
+    if (!paginationNav) return;
+    if (totalPages <= 1) {
+      paginationNav.hidden = true;
+      return;
+    }
+    paginationNav.hidden = false;
+    if (pageInfoEl) pageInfoEl.textContent = `第 ${currentPage} / ${totalPages} 页`;
+    if (prevBtn) prevBtn.disabled = currentPage <= 1;
+    if (nextBtn) nextBtn.disabled = currentPage >= totalPages;
+    if (numbersEl) {
+      numbersEl.replaceChildren();
+      for (let page = 1; page <= totalPages; page++) {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'archive-pagination__num';
+        btn.textContent = String(page);
+        btn.setAttribute('data-page', String(page));
+        if (page === currentPage) btn.setAttribute('aria-current', 'page');
+        numbersEl.appendChild(btn);
+      }
+    }
+  };
+
   const apply = (): void => {
     const term = (input?.value ?? '').trim().toLowerCase();
     const activeTags = tagButtons
       .filter((btn) => btn.getAttribute('aria-pressed') === 'true')
       .map((btn) => (btn.dataset.tag ?? '').toLowerCase());
 
-    let visible = 0;
+    // 1. 先算「是否匹配筛选」，并记录到 data-matched 上
+    const matched: ArchiveItem[] = [];
     for (const item of items) {
       const matchesSearch = term === '' || item.haystack.includes(term);
       // 标签筛选：选中的标签文章必须全部具备（AND）
       const matchesTags =
         activeTags.length === 0 ||
         activeTags.every((t) => item.tags.some((it) => it.toLowerCase() === t));
-      const show = matchesSearch && matchesTags;
-      item.el.hidden = !show;
-      if (show) visible += 1;
+      const isMatch = matchesSearch && matchesTags;
+      if (isMatch) {
+        item.el.setAttribute('data-matched', '');
+        matched.push(item);
+      } else {
+        item.el.removeAttribute('data-matched');
+      }
     }
 
-    // 没有可见文章的年份分组整体隐藏，避免留下空标题
+    // 2. 分页作用于筛选结果集
+    const totalPages = Math.max(1, Math.ceil(matched.length / PAGE_SIZE));
+    if (currentPage > totalPages) currentPage = totalPages;
+    const start = (currentPage - 1) * PAGE_SIZE;
+    const end = start + PAGE_SIZE;
+
+    // 3. 可见性 = 匹配筛选 且 落在当前页
+    for (const item of items) {
+      const isMatch = item.el.hasAttribute('data-matched');
+      const index = isMatch ? matched.indexOf(item) : -1;
+      const onPage = isMatch && index >= start && index < end;
+      item.el.hidden = !onPage;
+    }
+
+    // 4. 没有可见文章的年份分组整体隐藏，避免留下空标题
     const groups = new Set(items.map((i) => i.group));
     for (const g of groups) {
       const anyVisible = items.some((i) => i.group === g && !i.el.hidden);
       g.hidden = !anyVisible;
     }
 
-    if (countEl) countEl.textContent = `共 ${visible} 篇`;
-    if (emptyEl) emptyEl.hidden = visible !== 0;
+    // 5. 计数显示筛选结果总数（而非当前页数量）
+    if (countEl) countEl.textContent = `共 ${matched.length} 篇`;
+    if (emptyEl) emptyEl.hidden = matched.length !== 0;
 
+    // 6. 分页控件
+    renderPagination(totalPages);
+
+    // 7. 清除全部筛选按钮
     const hasActiveFilter = term !== '' || activeTags.length > 0;
     if (clearAll) clearAll.hidden = !hasActiveFilter;
   };
 
-  // 输入即筛选（不区分大小写、首尾空格在 apply 内处理）
-  input?.addEventListener('input', apply);
+  // 输入即筛选（重置到第 1 页，避免停留在无结果的页码）
+  input?.addEventListener('input', () => {
+    currentPage = 1;
+    apply();
+  });
 
   // 提交按钮（语义化 / 键盘 Enter）不刷新页面
   form?.addEventListener('submit', (event) => {
     event.preventDefault();
+    currentPage = 1;
     apply();
   });
 
@@ -103,6 +168,7 @@ function initArchiveFilter(): void {
       input.value = '';
       input.focus();
     }
+    currentPage = 1;
     apply();
   });
 
@@ -111,6 +177,7 @@ function initArchiveFilter(): void {
     btn.addEventListener('click', () => {
       const pressed = btn.getAttribute('aria-pressed') === 'true';
       btn.setAttribute('aria-pressed', String(!pressed));
+      currentPage = 1;
       apply();
     });
   }
@@ -119,11 +186,34 @@ function initArchiveFilter(): void {
   clearAll?.addEventListener('click', () => {
     if (input) input.value = '';
     for (const btn of tagButtons) btn.setAttribute('aria-pressed', 'false');
+    currentPage = 1;
     apply();
     input?.focus();
   });
 
-  // 初始同步一次（无筛选时也应给出正确计数）
+  // 分页：上一页 / 下一页
+  prevBtn?.addEventListener('click', () => {
+    if (currentPage > 1) {
+      currentPage -= 1;
+      apply();
+    }
+  });
+  nextBtn?.addEventListener('click', () => {
+    currentPage += 1;
+    apply();
+  });
+  // 页码按钮（事件委托）
+  numbersEl?.addEventListener('click', (event) => {
+    const target = (event.target as HTMLElement).closest('[data-page]');
+    if (!target) return;
+    const page = Number.parseInt(target.getAttribute('data-page') ?? '1', 10);
+    if (!Number.isNaN(page)) {
+      currentPage = page;
+      apply();
+    }
+  });
+
+  // 初始同步一次（无筛选时也应给出正确计数与分页）
   apply();
 }
 

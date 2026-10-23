@@ -490,7 +490,7 @@
     <p>
       真正缺的不是功能，是<strong>规模</strong>。当前所有设计都建立在"文章不超过十篇"这个前提上：
       没有列表页、没有分页、没有标签页、没有搜索、没有文章内目录。一旦文章过二十篇，
-      <code>/archive/</code> 会变成一条无限长的列表，读者只能靠浏览器查找。
+      <code>/blog/</code> 会变成一条无限长的列表，读者只能靠浏览器查找。
     </p>
 
     <div class="cards">
@@ -646,7 +646,7 @@
           <li><code>/</code> 首页：简介 → 站点导航 → 最近文章 → Footer，顺序固定</li>
           <li><code>/me/</code> 名片：简介、主要平台、关注领域、项目、经历</li>
           <li><code>/morelinks/</code> 链接库：5 组、2 个子栏目</li>
-          <li><code>/archive/</code> 归档：按年份分组的全部文章</li>
+          <li><code>/blog/</code> 笔记：按年份分组的全部文章（搜索 + 标签筛选 + 分页）</li>
           <li><code>/blog/{slug}/</code> 文章详情，文件名即 URL</li>
           <li><code>/404</code>、<code>/robots.txt</code>（路由生成，不是静态文件）、<code>/rss.xml</code>、<code>/sitemap-index.xml</code></li>
         </ul>
@@ -902,7 +902,7 @@
       <tbody>
         <tr>
           <td>没有 <code>/blog/</code> 列表页</td>
-          <td class="t-hide-sm">文章只能从首页"最近文章"或 <code>/archive/</code> 进入</td>
+          <td class="t-hide-sm">文章只能从首页"最近文章"或 <code>/blog/</code> 进入</td>
           <td><span class="pill">刻意</span></td>
         </tr>
         <tr>
@@ -1007,7 +1007,7 @@
         <span class="todo__cost">成本 中</span>
       </div>
       <p>
-        新建 <code>/blog/</code> 列表页，或者给 <code>/archive/</code> 加分页。
+        已新建 <code>/blog/</code> 列表页（原 <code>/archive/</code> 重命名为 <code>/blog/</code>），并已加分页（每页 10 篇）。
         注意这会<strong>推翻项目书 B-3.0 里"不设列表页"的约定</strong>——真要做得先改约定，
         否则以后会反复纠结"到底该不该有"。实现上 Astro 静态分页（<code>paginate()</code>）即可，不需要额外依赖。
       </p>
@@ -1200,7 +1200,7 @@
 │   │   ├── index.astro       /
 │   │   ├── me.astro          /me/
 │   │   ├── morelinks.astro   /morelinks/
-│   │   ├── archive.astro     /archive/
+│   │   ├── blog.astro     /blog/
 │   │   ├── blog/[...slug].astro  /blog/{slug}/
 │   │   ├── 404.astro
 │   │   ├── robots.txt.ts     路由生成的 robots.txt
