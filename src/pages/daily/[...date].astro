@@ -1,0 +1,26 @@
+---
+import { render } from 'astro:content';
+import DailyLayout from '../../layouts/DailyLayout.astro';
+import { getDailyReports } from '../../lib/daily';
+
+export async function getStaticPaths() {
+  const reports = await getDailyReports();
+
+  // reports 已按发布日期倒序排列：索引更小的是较新的一篇
+  return reports.map((report, index) => ({
+    params: { date: report.id },
+    props: {
+      post: report,
+      newer: reports[index - 1] ?? null,
+      older: reports[index + 1] ?? null,
+    },
+  }));
+}
+
+const { post, newer, older } = Astro.props;
+const { Content, headings } = await render(post);
+---
+
+<DailyLayout post={post} newer={newer} older={older} headings={headings}>
+  <Content />
+</DailyLayout>

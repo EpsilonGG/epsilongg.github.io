@@ -1,0 +1,73 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import ReadingProgress from '../components/ReadingProgress.astro';
+import { formatDate, type Daily } from '../lib/daily';
+
+interface Props {
+  post: Daily;
+  /** 较新的一篇（发布日期更晚），可为空 */
+  newer?: Daily | null;
+  /** 较旧的一篇，可为空 */
+  older?: Daily | null;
+  /** 正文标题，用于左侧栏目录 */
+  headings?: { depth: number; slug: string; text: string }[];
+}
+
+const { post, newer = null, older = null, headings = [] } = Astro.props;
+const { title, description, pubDate, source } = post.data;
+---
+
+<BaseLayout title={title} description={description ?? `${title} · ${post.id}`} ogType="article">
+  <ReadingProgress />
+
+  <article class="page article-page">
+    <div class="container article-page__inner">
+      <div class="article-page__main">
+        <a class="back-link" href="/daily/">
+          <span aria-hidden="true">←</span> 返回日报
+        </a>
+
+        <header class="article-header">
+          <h1 class="article-title">{title}</h1>
+          <div class="article-meta">
+            <span>
+              发布于
+              <time datetime={pubDate.toISOString()}>{formatDate(pubDate)}</time>
+            </span>
+          </div>
+          {description ? <p class="article-description">{description}</p> : null}
+          {
+            source === 'ai' ? (
+              <p class="article-badge article-badge--page">AI 整理</p>
+            ) : null
+          }
+        </header>
+
+        <div class="prose">
+          <slot />
+        </div>
+
+        {
+          newer || older ? (
+            <nav class="article-nav" aria-label="日报导航">
+              {newer ? (
+                <a class="article-nav__item" href={`/daily/${newer.id}/`}>
+                  <span class="article-nav__label">较新一篇</span>
+                  <span class="article-nav__title">{newer.data.title}</span>
+                </a>
+              ) : (
+                <span></span>
+              )}
+              {older ? (
+                <a class="article-nav__item article-nav__item--next" href={`/daily/${older.id}/`}>
+                  <span class="article-nav__label">较旧一篇</span>
+                  <span class="article-nav__title">{older.data.title}</span>
+                </a>
+              ) : null}
+            </nav>
+          ) : null
+        }
+      </div>
+    </div>
+  </article>
+</BaseLayout>

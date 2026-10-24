@@ -1,0 +1,40 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getDailyReports, dailyPath } from '../../lib/daily';
+import { formatDate } from '../../lib/posts';
+
+const reports = await getDailyReports();
+---
+
+<BaseLayout title="日报" description="每日 X（推特）动态摘要，由本地 WorkBuddy 整理">
+  <div class="page">
+    <div class="container">
+      <header class="page-header">
+        <h1 class="page-title">日报</h1>
+      </header>
+
+      {
+        reports.length > 0 ? (
+          <ul class="article-list">
+            {reports.map((r) => (
+              <li class="article-list__item">
+                <a class="article-list__link" href={dailyPath(r)}>
+                  <span class="article-list__title">{r.data.title}</span>
+                  <span class="article-badge">AI 整理</span>
+                  <time class="article-list__meta" datetime={r.data.pubDate.toISOString()}>
+                    {formatDate(r.data.pubDate)}
+                  </time>
+                  {r.data.description ? (
+                    <span class="article-list__description">{r.data.description}</span>
+                  ) : null}
+                </a>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p class="empty-state">暂无日报。日报由本地 WorkBuddy 基于 X-Reader 抓取的推文生成。</p>
+        )
+      }
+    </div>
+  </div>
+</BaseLayout>

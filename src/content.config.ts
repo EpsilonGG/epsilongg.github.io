@@ -39,4 +39,20 @@ const blog = defineCollection({
     }),
 });
 
-export const collections = { blog };
+/**
+ * 日报集合：由本地 WorkBuddy（LLM）基于 X-Reader 抓取的推文生成的每日摘要。
+ * 与 blog 分离，避免混入「笔记」归档；内容来源默认标记为 `ai`（AI 整理）。
+ */
+const daily = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/daily' }),
+  schema: z.object({
+    title: z.string().trim().min(1, 'title 不能为空'),
+    description: z.string().trim().min(1, 'description 不能是空字符串').optional(),
+    pubDate: z.coerce.date(),
+    source: z.enum(['original', 'ai']).default('ai'),
+    accounts: z.array(z.string().trim().min(1)).default([]),
+    draft: z.boolean().default(false),
+  }),
+});
+
+export const collections = { blog, daily };

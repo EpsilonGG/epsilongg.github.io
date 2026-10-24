@@ -18,5 +18,10 @@
     "label": "笔记",
     "href": "/blog/",
     "description": "文章、研究记录与长期内容"
+  },
+  {
+    "label": "日报",
+    "href": "/daily/",
+    "description": "每日 X（推特）动态摘要，由本地 WorkBuddy 整理"
   }
 ]
