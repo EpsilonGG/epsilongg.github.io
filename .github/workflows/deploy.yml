@@ -45,6 +45,12 @@ jobs:
       - name: Build site
         run: npm run build
 
+      # 死链检查对着产物跑：页面改名之后忘了改链接，构建不会报错，
+      # 只有点进去的人看到 404。只查站内（本地文件比对），不联网，不会因为
+      # 外站限流或超时让流水线莫名变红。
+      - name: Check internal links
+        run: npm run links
+
       # 放在构建之后：图片清单和 WebP 变体是构建时生成的，测试要对着产物验
       - name: Script tests
         run: npm test

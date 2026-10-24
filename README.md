@@ -46,9 +46,11 @@ Life Science ｜ Vibe Coding ｜ Galgame ｜ Doujin ASMR
 
 | 文档 | 内容 |
 | --- | --- |
+| [快速启动](README/quickstart.md) | 20 分钟把它变成你自己的主页：三步 + 上线检查清单 + 给 AI 的速查 |
 | [项目说明](README/project.md) | 目录结构、路由、配置项、写文章、部署与排查 |
 | [博客写作指南](README/blog-guide.md) | frontmatter、图片图注、注释（脚注）的写法与约定 |
-| [Fork 指南](README/fork.md) | 从 fork 到上线，把它改成你自己的个人主页 |
+| [Fork 指南](README/fork.md) | 从 fork 到上线（完整版）：子路径部署的改动清单、只要文字的做法、常见问题 |
+| [广告位](README/ads.md) | 右侧栏广告位：默认关闭，怎么开、放得下什么尺寸、合规要求 |
 | [主页 README 指南](https://epsilongg.github.io/docs/github-profile-readme-guide.html) | GitHub Profile README 怎么搭、怎么长期维护（浏览器直接打开） |
 | [项目现状](https://epsilongg.github.io/docs/project-status.html) | 各部分完成度、已知不足与可优化点（浏览器直接打开） |
 

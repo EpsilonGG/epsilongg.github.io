@@ -2,6 +2,7 @@
 import BaseLayout from './BaseLayout.astro';
 import ReadingProgress from '../components/ReadingProgress.astro';
 import ArticleSidebar from '../components/ArticleSidebar.astro';
+import ArticleRail from '../components/ArticleRail.astro';
 import { formatDate, postPath, type Post } from '../lib/posts';
 
 interface Heading {
@@ -95,6 +96,10 @@ const { title, description, pubDate, updatedDate, tags, source } = post.data;
           ) : null
         }
       </div>
+
+      {/* 右侧广告位：默认不渲染（见 src/config/ads.json）。它落在网格第 4 列，
+          也就是原本给「正文居中」留的对称占位列，所以开启后正文位置不变。 */}
+      <ArticleRail />
     </div>
   </article>
 

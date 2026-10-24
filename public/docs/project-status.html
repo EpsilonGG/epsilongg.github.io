@@ -301,6 +301,7 @@
   .pill--done { background: var(--text); color: var(--bg); border-color: var(--text); }
   .pill--todo { border-style: dashed; }
   .pill--part { border-color: var(--text-secondary); color: var(--text); }
+  .pill--skip { color: var(--text-muted); border-style: dashed; }
 
   /* ---------- 进度条 ---------- */
   .meter { display: flex; align-items: center; gap: 0.55rem; min-width: 7rem; }
@@ -458,7 +459,7 @@
         <span class="kpi__label">HTML 页面</span>
       </div>
       <div class="kpi__item">
-        <span class="kpi__num">6.4<small>KB</small></span>
+        <span class="kpi__num">6.8<small>KB</small></span>
         <span class="kpi__label">CSS（gzip）</span>
       </div>
       <div class="kpi__item">
@@ -466,11 +467,11 @@
         <span class="kpi__label">外部 JS 文件</span>
       </div>
       <div class="kpi__item">
-        <span class="kpi__num">53</span>
+        <span class="kpi__num">71</span>
         <span class="kpi__label">测试全过</span>
       </div>
       <div class="kpi__item">
-        <span class="kpi__num">9.2<small>KB</small></span>
+        <span class="kpi__num">9.9<small>KB</small></span>
         <span class="kpi__label">首页传输（gzip）</span>
       </div>
     </div>
@@ -500,7 +501,7 @@
     <p class="lead">
       站点已经<strong>完整可用</strong>：四个固定页面、一条文章路由、一套设计系统、一条 CI 流水线、
       三份维护文档和两套脚本，全部跑通且互相对得上。它的定位是一个<strong>轻量化的编辑型个人主页</strong>——
-      首页是名片，不是博客；文章是名片上的补充说明。整站首页传输 <strong>9.2 KB</strong>、零外部 JS，
+      首页是名片，不是博客；文章是名片上的补充说明。整站首页传输 <strong>9.9 KB</strong>、零外部 JS，
       这个体量是刻意的，也是它区别于同类站点的地方。
     </p>
 
@@ -523,7 +524,7 @@
     <div class="cards">
       <div class="card">
         <h4>能用</h4>
-        <p>10 个页面全部 200；构建 0 报错；<code>astro check</code> 0 错 0 警 0 提示；53 个测试全过；每次推送自动部署，线上已验证。</p>
+        <p>10 个页面全部 200；构建 0 报错；<code>astro check</code> 0 错 0 警 0 提示；71 个测试全过、426 个站内链接零死链；每次推送自动部署，线上已验证。</p>
       </div>
       <div class="card">
         <h4>能改</h4>
@@ -611,7 +612,7 @@
           <td>性能</td>
           <td><span class="pill pill--done">完成</span></td>
           <td><span class="meter"><span class="meter__track"><span class="meter__fill" style="--pct:96%"></span></span><span class="meter__pct">96%</span></span></td>
-          <td class="t-hide-sm">首屏 9.2 KB；图片已转 WebP 三档，手机端下载量 −74%</td>
+          <td class="t-hide-sm">首屏 9.9 KB；图片已转 WebP 三档，手机端下载量 −74%</td>
         </tr>
         <tr>
           <td>部署与 CI</td>
@@ -623,7 +624,7 @@
           <td>脚本与测试</td>
           <td><span class="pill pill--done">完成</span></td>
           <td><span class="meter"><span class="meter__track"><span class="meter__fill" style="--pct:100%"></span></span><span class="meter__pct">100%</span></span></td>
-          <td class="t-hide-sm">53 个用例（42 Python + 11 Node），含图片清单对账</td>
+          <td class="t-hide-sm">71 个用例（60 Python + 11 Node），含链接检查与图片清单对账</td>
         </tr>
         <tr>
           <td>文档</td>
@@ -897,7 +898,7 @@
         <p>
           产物 15 MB 的构成：图片 14 MB（原图 7.0 MB + WebP 变体 6.2 MB + 站点图标）、
           HTML 约 500 KB、字体 136 KB、CSS 35 KB。
-          <strong>但首屏和这个数字无关</strong>——首页实际传输 9.2 KB（HTML 2.8 + CSS 6.4），
+          <strong>但首屏和这个数字无关</strong>——首页实际传输 9.9 KB（HTML 3.1 + CSS 6.8），
           文章页 19–30 KB（按篇幅）。图片只在滚到它时才开始下载。
         </p>
         <p>
@@ -941,9 +942,16 @@
         </div>
         <p>
           GitHub Actions → GitHub Pages，push 到 <code>main</code> 触发，也可以手动 dispatch。
-          流水线跑 <code>npm ci</code> → <code>npm run check</code> → <code>npm run build</code>，
-          类型不过就不发布。权限收到最小（<code>contents: read</code> / <code>pages: write</code> /
+          流水线跑 <code>npm ci</code> → <code>npm run check</code> → <code>npm run test:md</code> →
+          <code>npm run build</code> → <code>npm run links</code> → <code>npm test</code>，
+          任何一步不过都不发布。权限收到最小（<code>contents: read</code> / <code>pages: write</code> /
           <code>id-token: write</code>），并用 <code>concurrency</code> 保证同一时间只有一个部署任务。
+        </p>
+        <p>
+          <strong>死链检查是这一轮加的</strong>，位置在 build 之后——它要对着产物扫，
+          不是对着源码。查的是"链了但文件不存在"和"锚点指向一个不存在的 id"，
+          只查站内：外站限流、挡爬虫、偶发超时都会让流水线莫名变红，那是另一个问题，
+          该用定时任务查，不该挂在每次 push 上。
         </p>
         <p>
           仓库是用户站 <code>EpsilonGG/epsilongg.github.io</code>，所以不配 <code>base</code>，域名即根路径。
@@ -960,28 +968,38 @@
           <span class="block-item__src">scripts/ · tests/</span>
         </div>
         <p>
-          <code>sync_profile_readme.py</code>（445 行）把 <code>profile.json</code>、
+          <code>sync_profile_readme.py</code>（489 行）把 <code>profile.json</code>、
           <code>navigation.json</code> 和文章列表同步进主页 README 的三个 marker 块里。
           三个 marker 的顺序固定，脚本幂等（重复运行结果不变），写入用"临时文件 + 原子替换"，
           所以中途失败不会留下半截文件。<code>--check</code> 是严格只读模式，可以用来做 CI 校验。
         </p>
         <p>
-          <code>check_remote_images.py</code>（约 290 行）扫文章里的远程图片，逐张请求，
+          <code>check_remote_images.py</code>（约 310 行）扫文章里的远程图片，逐张请求，
           报状态码、类型和体积，坏链退出码 1。它补的是一个结构性漏洞——
           构建只拼 HTML 不请求图片，所以外站删图在流水线里永远发现不了。
           加 <code>--write-dims</code> 时顺便把宽高记进 <code>src/data/remote-images.json</code>，
           构建时自动给远程图补尺寸（见 3.15）。
         </p>
         <p>
-          <code>optimize_images.mjs</code>（约 190 行）是图片管线的前半段：扫
+          <code>check_links.py</code>（约 270 行）是这一轮新加的：扫
+          <code>dist</code> 里所有 <code>href</code> / <code>src</code> / <code>srcset</code>，
+          解析成站内路径再映射回文件系统（目录自动找 <code>index.html</code>、无扩展名试
+          <code>.html</code>、百分号编码先解码），有锚点就打开目标文件核对 <code>id</code>。
+          <code>--external</code> 才真的去请求外链，CI 里不用。
+        </p>
+        <p>
+          <code>optimize_images.mjs</code>（约 200 行）是图片管线的前半段：扫
           <code>public/images/blog/</code>，出 WebP 变体、写尺寸清单。按 mtime 增量，
           第二次运行基本是空转。
         </p>
         <p>
-          测试合计 <strong>53 个用例</strong>：
+          测试合计 <strong>71 个用例</strong>（Python 60 + Node 11）：
         </p>
         <ul>
           <li><code>test_readme_sync.py</code>（24 个）：marker 缺失、顺序错乱、内容为空、日期格式化</li>
+          <li><code>test_check_links.py</code>（18 个）：路径解析（目录 / 扩展名 / 相对路径 /
+              百分号编码）、缺文件、缺锚点、<code>srcset</code> 拆分、外链与 <code>mailto</code> 跳过、
+              同域绝对地址折叠</li>
           <li><code>test_remote_images.py</code>（13 个）：两种图片写法、代码块忽略、行号、
               体积格式化，以及 PNG/JPEG/GIF/WebP 的宽高解析（纯 Python，不依赖 Pillow）</li>
           <li><code>test_image_manifest.py</code>（5 个）：文章引用的每张图都在清单里、
@@ -991,9 +1009,8 @@
               外加并组后 <code>sizes</code> 是否跟着缩半</li>
         </ul>
         <div class="block-item__left">
-          剩余：测试覆盖的是脚本和插件，<strong>站点页面本身仍然没有自动化测试</strong>——
-          HTML 结构、内链、TOC 条数这些还是靠手工抽查。加一个构建后扫死链的脚本成本很低（约 30 行），
-          但这一轮没做。
+          剩余：页面本身仍然没有"渲染结果"级别的测试——死链和锚点这一轮补上了，
+          但 TOC 条数、标签筛选、分页这些交互还是靠手工抽查。
         </div>
       </div>
 
@@ -1004,9 +1021,15 @@
         </div>
         <ul>
           <li><code>README.md</code>（根）：主页名片 + 文档导航，内容与 GitHub 主页 README 大致一致</li>
+          <li><code>README/quickstart.md</code>：<strong>本轮新增</strong>。三步上线 + 6 条检查清单 +
+              给 AI 的一页速查，README 末尾的文档表第一条就是它</li>
           <li><code>README/project.md</code>：目录结构、路由、配置项、写文章、部署与排查</li>
           <li><code>README/blog-guide.md</code>：frontmatter、图注、注释、远程图片的写法、发布前清单、给 AI 的提示词</li>
-          <li><code>README/fork.md</code>：从 fork 到上线，含"必须部署在根路径"的警告</li>
+          <li><code>README/fork.md</code>：<strong>本轮扩充</strong>。从 fork 到上线（完整版）：
+              第 0.1 节是子路径部署的六处改动清单，第 9 节是另开账号做文字备份的三条路径，
+              这两块原来写在本文档第九节里，现在跟着代码一起版本管理</li>
+          <li><code>README/ads.md</code>：<strong>本轮新增</strong>。右侧广告位怎么开、放得下什么尺寸、
+              联盟分成计划的形态、合规要求、副作用</li>
           <li><code>README/reports/</code>：一次性调查报告（分类模块方案对比），不进部署</li>
           <li><code>public/docs/github-profile-readme-guide.html</code>：主页 README 搭建与维护</li>
           <li><code>public/docs/notes-maintenance.html</code>：笔记栏目的日常维护，含 AI 披露与远程图片</li>
@@ -1029,7 +1052,7 @@
           只收 h1/h2 的目录（最多 10 行，超出在栏内滚动）、以及首页 / 置顶 / 较新 / 较旧四个按钮组成的 2×2 格。
         </p>
         <ul>
-          <li>版面是 5 列网格：<code>弹性 | 侧栏 | 间隔 | 正文 | 占位 | 弹性</code>，正文正好落在视口正中，侧栏挂在左侧留白里</li>
+          <li>版面是 6 列网格：<code>左栏轨道 | 间隔 | 正文 | 留白 | 右栏 | 间隔</code>，正文左右两侧总宽相等，正好落在视口正中</li>
           <li>滚动时目录跟着高亮当前小节（<code>aria-current</code>，rAF 节流）</li>
           <li>窄于 1024px 折成 44px 高的<strong>吸顶</strong>工具条，目录变可展开浮层，按钮退回一行四个图标</li>
           <li>没有相邻文章时渲染灰态占位（<code>aria-disabled</code>），保持格子对齐、不跳转</li>
@@ -1163,6 +1186,45 @@
         </div>
       </div>
 
+      <div class="block-item">
+        <div class="block-item__head">
+          <span class="block-item__name">3.18 右侧广告位（预留，默认关闭）</span>
+          <span class="pill pill--part">已建好但不外显</span>
+          <span class="block-item__src">ArticleRail.astro · config/ads.json · 共 90 行</span>
+        </div>
+        <p>
+          文章页是六列网格：
+          <code>左栏轨道 14rem / 间隔 2rem / 正文 38rem / 留白 1rem / 右栏 13rem / 间隔 2rem</code>。
+          右栏这一列原来是纯占位，作用只有一个——<strong>让整组轨道左右配平，正文落在视口正中</strong>。
+          广告位就住进去，所以<strong>开广告不会让正文移动一个像素</strong>，这是"留个空"的全部意义。
+        </p>
+        <p>
+          左栏轨道是 14rem 而不是 13rem，多出来的 1rem 不是给侧栏用的：侧栏本身仍按 13rem 靠右贴齐，
+          那份留白落在它<em>外侧</em>。这样左侧总宽（14+2）和右侧总宽（1+13+2）都是 16rem，
+          正文继续居中，同时正文和广告之间多出一道 <code>--rail-gutter</code> 16px 的呼吸区——
+          不加这道留白，广告图会紧贴正文最后一个字。
+        </p>
+        <p>
+          列宽 208px，放得下 200×200 方图、160×600 / 120×600 竖幅；
+          300×250、728×90 这类横向尺寸放不下（要放就得把 <code>--rail-w</code> 调大，
+          并把 <code>--sidebar-w</code> 一起配平，两侧才保持对称）。配置是
+          <code>src/config/ads.json</code> 的 <code>enabled</code> + <code>slots</code>，
+          每条横幅写死 <code>width</code> / <code>height</code>——不写的话广告一加载页面就跳一截。
+        </p>
+        <p>
+          <strong>默认关闭，而且不是 <code>display: none</code>，是根本不渲染。</strong>
+          <code>enabled: false</code> 时产物里连 <code>&lt;aside&gt;</code> 标签都没有，
+          不会多一次请求、多一个第三方域名、多一份隐私负担。理由很实际：
+          这个站没有外部流量，也没有需要导流的内容产品，开着只会拖慢首屏、破坏气质。
+        </p>
+        <div class="block-item__left">
+          联盟计划（DLsite 那类成果报酬型（CPS））的形态就是"固定像素的横幅图 + 一个带 affiliate_id 的链接"，
+          正好对应 <code>image</code> + <code>href</code>，填配置即可；
+          给 JS 脚本的平台（A8 之类）要粘进组件并写死容器高度。尺寸表、合规要求（广告标注）、
+          与背景图模式同时开的注意事项，都在 <code>README/ads.md</code>。
+        </div>
+      </div>
+
     </div>
   </section>
 
@@ -1223,7 +1285,7 @@
         </div>
         <p>
           中文字体没法像拉丁字母那样只带两百个字形。一个常用字子集约
-          <strong>0.8–1.5 MB</strong>，而整站首页只传 9.2 KB——装一个中文字体，
+          <strong>0.8–1.5 MB</strong>，而整站首页只传 9.9 KB——装一个中文字体，
           首屏就翻一百倍。拉丁部分（Inter / Cormorant）是自托管的，中文刻意交给系统：
           macOS 用苹方、Windows 用雅黑或宋体、Android 用思源。字形略有差异，字号和行高是一致的。
         </p>
@@ -1454,7 +1516,7 @@
           处理：<code>astro</code> 从 <code>7.3.8</code> 放开到 <code>^7.4.2</code>，
           <code>engines.node</code> 改成 <code>&gt;=22.23.4</code>（跟着上游要求走，不再假装 22.12 够用），
           CI 的 <code>setup-node</code> 钉到 <code>24</code>。
-          升级后 <code>astro check</code> 0 错、构建通过、53 个测试全过。
+          升级后 <code>astro check</code> 0 错、构建通过、71 个测试全过。
         </p>
         <div class="block-item__left">
           顺手记一个坑：Astro 7 把渲染好的 Markdown HTML 缓存在
@@ -1471,59 +1533,68 @@
     <h2><span class="num">05</span>还剩什么值得做</h2>
 
     <p>
-      上一轮列了一堆 P1/P2，这一轮砍到只剩三件——其余明确<strong>不做</strong>，
+      上一轮列了三件。这一轮：第一件<strong>做完了</strong>，另外两件<strong>明确不做</strong>——
       理由写在下面，免得过几个月又想起来纠结一次。
     </p>
 
-    <div class="group-label">值得做 · 按性价比排</div>
+    <div class="group-label">这一轮做完的</div>
 
-    <div class="todo">
-      <div class="todo__head">
-        <span class="todo__prio">1</span>
-        <span class="todo__title">CI 加构建后死链检查</span>
-        <span class="todo__cost">成本 极低 · 约 30 行</span>
+    <div class="block-list">
+      <div class="block-item">
+        <div class="block-item__head">
+          <span class="block-item__name">CI 构建后死链检查</span>
+          <span class="pill pill--done">已完成</span>
+          <span class="block-item__src">scripts/check_links.py · 277 行</span>
+        </div>
+        <div class="block-item__left">
+          扫 <code>dist</code> 里所有 <code>href</code> / <code>src</code> / <code>srcset</code>，
+          映射回文件系统，缺文件就退出 1；顺带查 <code>#锚点</code> 指向的 id 是否真的存在。
+          只查站内（本地比对），外链默认跳过——外站限流、挡爬虫、偶发超时都会让流水线莫名变红，
+          那是另一件事，该用定时任务查。现在跑一遍：14 个页面、426 个站内链接、538 处引用，
+          全部通过。
+        </div>
+        <div class="block-item__left">
+          <strong>第一次跑就抓到一个真 bug</strong>：404 页的 canonical 指向
+          <code>/404/</code>，而那个页面不存在——等于自己声明了一条死链。
+          已改成 noindex 页面不输出 canonical / og:url。这就是这类检查的价值：
+          它不需要有人想起来去点。
+        </div>
       </div>
-      <p>
-        扫 <code>dist</code> 里所有 <code>href="/…"</code> 与 <code>src="/…"</code>，
-        映射到文件系统，缺文件就退出 1。外链单独跑、允许失败，避免被别人的站点波动拖累。
-        这是全站唯一一处"出错概率不低、发现概率为零"的地方：改 slug、删页面、
-        换图片目录，都不会有任何提示。
-      </p>
     </div>
 
-    <div class="todo">
-      <div class="todo__head">
-        <span class="todo__prio">2</span>
-        <span class="todo__title">站内搜索扩到正文（Pagefind）</span>
-        <span class="todo__cost">成本 中 · 2 小时</span>
+    <div class="group-label">明确不做（这一轮拍板）</div>
+
+    <div class="block-list">
+      <div class="block-item">
+        <div class="block-item__head">
+          <span class="block-item__name">站内搜索扩到正文（Pagefind）</span>
+          <span class="pill pill--skip">不做</span>
+        </div>
+        <div class="block-item__left">
+          技术上可行：Pagefind 在构建后扫一遍 HTML 生成静态索引，运行时纯前端查询，不要后端。
+          问题是<strong>索引按篇分片，约 15–25 KB/篇</strong>，而且是独立产物，不能像 CSS 那样
+          一次加载全站共用。5 篇文章换来一份几百 KB 的索引，只为了让"搜某个作品名"能命中正文——
+          而现在总共就五篇，标题 + 描述 + 标签已经够翻。
+          <strong>结论：太费空间，不做。</strong>文章数上去了再重新算这笔账。
+        </div>
       </div>
-      <p>
-        <strong>必要性判断</strong>：5 篇文章时搜标题就够了；到 15 篇，读者会开始记得
-        "某篇里提过某个作品"而不是标题；到 30 篇，搜不到正文就等于没有搜索。
-      </p>
-      <p>
-        <strong>项目增量</strong>：Pagefind 在构建后扫一遍 HTML 生成静态索引，
-        运行时纯前端查询，不需要后端。索引按篇分片，<strong>约 15–25 KB/篇（gzip）</strong>：
-        5 篇约 100 KB，20 篇约 400 KB，50 篇约 1 MB——而且只在打开搜索框时才下载，
-        不进首屏。代价是多一个构建步骤、多一份产物、多一个 npm 依赖。
-      </p>
+      <div class="block-item">
+        <div class="block-item__head">
+          <span class="block-item__name">子路径部署支持</span>
+          <span class="pill pill--skip">不做</span>
+        </div>
+        <div class="block-item__left">
+          改动面不窄但很机械：组件里的 <code>href</code>、<code>navigation.json</code>、
+          Markdown 图片路径、<code>ogImage</code>、RSS 的绝对地址，六处。
+          但「另开账号做备份」这个真实需求，用<strong>同名仓库</strong>就能零改动满足
+          （见第九节）。真要放到子路径下的人，改动清单已经写进
+          <code>README/fork.md</code> 第 0.1 节，谁需要谁照着改——
+          不必为一个没发生过的场景，让所有页面都多一层前缀拼接。
+        </div>
+      </div>
     </div>
 
-    <div class="todo">
-      <div class="todo__head">
-        <span class="todo__prio">3</span>
-        <span class="todo__title">支持子路径部署</span>
-        <span class="todo__cost">成本 中 · 半天</span>
-      </div>
-      <p>
-        把所有内链加上 <code>import.meta.env.BASE_URL</code> 前缀。改动面不窄但很机械：
-        8 处组件里的 <code>href="/…"</code>、<code>navigation.json</code> 里的 href、
-        Markdown 图片路径（要加一个插件改写）、<code>site.json</code> 的 <code>ogImage</code>、
-        RSS 与 sitemap 的绝对地址。做之前先确认真的需要——第九节给了一条零改动的替代路径。
-      </p>
-    </div>
-
-    <div class="group-label">明确不做</div>
+    <div class="group-label">其余明确不做</div>
 
     <ul>
       <li><strong>AVIF</strong>——比 WebP 只再省 10–20%，编码慢十倍，52 张图省不下多少，还多一套兜底逻辑</li>
@@ -1536,6 +1607,14 @@
       <li><strong>草稿 dev 预览开关</strong>——把 <code>draft</code> 改成 false 只要两秒，加开关反而多一条代码路径</li>
       <li><strong>自动生成 OG 图</strong>——要引入 satori/resvg 之类的渲染引擎，为了一张图不值得</li>
     </ul>
+
+    <div class="note">
+      <p>
+        <strong>工程侧到此为止。</strong>剩下的短板只有一条，而且不是代码问题：
+        <strong>5 篇文章撑不起一个"站"的体积感</strong>。再优化下去就是拿 1% 的性能
+        换 10% 的可读性下降，不划算。
+      </p>
+    </div>
   </section>
 
   <!-- ============================================================ -->
@@ -1553,7 +1632,7 @@
     <div class="note">
       <p>
         <strong>先说结论。</strong>把四个站放在一条数轴上，本项目在"体积"这一端是孤立点：
-        首页 <strong>9.2 KB</strong>，另外三个是 75.5 / 493 / 503 KB，差 <strong>8 到 55 倍</strong>。
+        首页 <strong>9.9 KB</strong>，另外三个是 75.5 / 493 / 503 KB，差 <strong>7.6 到 51 倍</strong>。
         但首页对首页比其实不太公平（别人首页是内容流，本站首页是名片），
         所以更该看<strong>文章页对文章页</strong>：本站 19–30 KB（五篇，中位 24.5），
         eryuemu 48.1 KB，差<strong>一倍左右</strong>——
@@ -1619,7 +1698,7 @@
           <td class="t-num">2.8</td>
           <td class="t-num">6.4 <span class="t-hide-sm">(1 个)</span></td>
           <td class="t-num">0</td>
-          <td class="t-num"><strong>9.2 KB</strong></td>
+          <td class="t-num"><strong>9.9 KB</strong></td>
         </tr>
         <tr>
           <td><strong>本项目 · 文章页</strong></td>
@@ -1765,7 +1844,7 @@
     <div class="cards">
       <div class="card">
         <h4>优点 · 体积</h4>
-        <p>首页 9.2 KB，是三个对照站的 1/8 到 1/55；文章页对文章页差一倍左右。没有框架、没有水合、没有第三方请求，这不是优化出来的，是架构决定的。</p>
+        <p>首页 9.9 KB，是三个对照站的 1/7.6 到 1/51；文章页对文章页差一倍左右。没有框架、没有水合、没有第三方请求，这不是优化出来的，是架构决定的。</p>
       </div>
       <div class="card">
         <h4>优点 · 阅读侧最完整</h4>
@@ -2127,132 +2206,55 @@
     <h2><span class="num">09</span>fork 出去当内容备份</h2>
 
     <p>
-      场景：另开一个账号，把这个仓库 fork 过去，只用来给公众号 / B 站专栏的文章留一份
-      可搜索、可直链的网页备份。这里给三条路径，<strong>第一条不需要改任何代码</strong>。
+      场景：另开一个账号，把仓库 fork 过去，只用来给公众号 / B 站专栏的文章留一份
+      可搜索、可直链的网页备份。
     </p>
-
-    <h3>9.1 路径 A · 新账号 + 同名仓库（推荐，零改动）</h3>
 
     <p>
-      子路径部署的所有麻烦，都来自"仓库名不是 <code>&lt;name&gt;.github.io</code>"。
-      只要新账号下建的仓库<strong>正好叫这个名字</strong>，Pages 就挂在域名根上，
-      现在这套根绝对路径全部直接可用。
+      <strong>这件事已经从这一页搬走了</strong>——它属于"怎么做"，不属于"现在什么状态"。
+      原来写在 9.1–9.5 的五小节（六步上线、删除清单、子路径改动清单、只要文字、
+      三个现实问题）现在都在仓库里，跟着代码一起版本管理：
     </p>
 
-    <ol>
-      <li>新 GitHub 账号下新建仓库 <code>&lt;新账号名&gt;.github.io</code>（必须一字不差）</li>
-      <li>把本仓库的 <code>src/</code>、<code>public/</code>、<code>scripts/</code>、
-          <code>tests/</code>、<code>astro.config.mjs</code>、<code>package*.json</code>、
-          <code>.github/</code> 拷过去（或直接 fork 后改 remote）</li>
-      <li>改 <strong>四个文件</strong>（见下表），这是唯一必须动的地方</li>
-      <li>删掉不需要的内容（见 9.2）</li>
-      <li>仓库 Settings → Pages → Source 选 <strong>GitHub Actions</strong></li>
-      <li>push 一次，等一分钟</li>
-    </ol>
-
-    <table>
-      <thead>
-        <tr><th>文件</th><th>改什么</th></tr>
-      </thead>
-      <tbody>
-        <tr><td><code>src/config/site.json</code></td><td>站名、<code>url</code>（改成新域名，OG 图靠它）、描述、起始年</td></tr>
-        <tr><td><code>src/config/profile.json</code></td><td>姓名、简介、头像、邮箱</td></tr>
-        <tr><td><code>src/config/navigation.json</code></td><td>导航项；只留「笔记」一项也完全可以</td></tr>
-        <tr><td><code>src/config/about.ts</code></td><td>名片页内容，或者直接删掉这个页面（见 9.2）</td></tr>
-      </tbody>
-    </table>
-
-    <h3>9.2 只做文字备份时，删掉这些</h3>
-
-    <table>
-      <thead>
-        <tr><th>删什么</th><th class="t-hide-sm">后果</th></tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><code>src/pages/me.astro</code>、<code>morelinks.astro</code></td>
-          <td class="t-hide-sm">名片页与链接库消失。<strong>必须同时改 <code>navigation.json</code></strong>，否则导航里留死链</td>
-        </tr>
-        <tr>
-          <td><code>src/config/links.ts</code>、<code>about.ts</code> 与链接库组件</td>
-          <td class="t-hide-sm">没人引用就不会报错，留着也不影响构建</td>
-        </tr>
-        <tr>
-          <td><code>src/content/blog/</code> 下不要的文章 + <code>public/images/blog/</code> 对应目录</td>
-          <td class="t-hide-sm">删文章记得连图一起删，否则 <code>npm run images</code> 会继续给它们出变体</td>
-        </tr>
-        <tr>
-          <td><code>public/docs/</code> 整个目录</td>
-          <td class="t-hide-sm">四份 HTML 指南是写给这个项目自己的，新站用不上</td>
-        </tr>
-        <tr>
-          <td><code>scripts/sync_profile_readme.py</code>、<code>tests/test_readme_sync.py</code>、
-              <code>.github/workflows/sync-profile-readme.yml</code></td>
-          <td class="t-hide-sm">这套东西只服务"把站点内容同步到 GitHub 主页 README"，备份站不需要</td>
-        </tr>
-        <tr>
-          <td><code>public/og-default.png</code></td>
-          <td class="t-hide-sm">换成自己的分享图，1200×630</td>
-        </tr>
-      </tbody>
-    </table>
-
-    <div class="note">
-      <p>
-        <strong>删完记得跑一次。</strong><code>npm run build</code> 会把缺页面的导航链接原样输出，
-        构建<strong>不会报错</strong>——死链要靠自己点一遍。这也是第五节说"该加 CI 死链检查"的原因。
-      </p>
+    <div class="block-list">
+      <div class="block-item">
+        <div class="block-item__head">
+          <span class="block-item__name">README/quickstart.md · 快速启动</span>
+          <span class="pill pill--done">新</span>
+        </div>
+        <div class="block-item__left">
+          三步上线：拿代码 → 改 6 处 → 开 Pages。附 6 条上线检查清单，
+          末尾还有一段「给 AI / agent 的一页速查」——把仓库约定压成十几行，
+          直接贴给模型就能开工。<code>README.md</code> 末尾的文档表里已经链过去了。
+        </div>
+      </div>
+      <div class="block-item">
+        <div class="block-item__head">
+          <span class="block-item__name">README/fork.md · 完整版</span>
+          <span class="pill pill--done">扩充</span>
+        </div>
+        <div class="block-item__left">
+          这一轮把原来 9.1–9.5 的内容并了进去，并补上「<code>npm run links</code>
+          会立刻告诉你子路径漏了哪几处」这类实际操作。第 0.1 节是子路径部署的六处改动清单，
+          第 9 节是另开账号做文字备份的三条路径。
+        </div>
+      </div>
     </div>
 
-    <h3>9.3 路径 B · 非要子路径部署的话</h3>
-
     <p>
-      如果新账号的仓库不叫 <code>&lt;name&gt;.github.io</code>（比如叫 <code>notes</code>），
-      站点会挂在 <code>https://&lt;name&gt;.github.io/notes/</code>，那就得先让所有链接认识这个前缀。
-      改动清单如下，工作量约半天：
+      只留一条最关键的约束在这里，因为它决定了后面所有步骤能不能跑通：
+      <strong>仓库名必须叫 <code>&lt;账号名&gt;.github.io</code></strong>。站内链接全是根绝对路径
+      （<code>/blog/</code>、<code>/images/x.jpg</code>），只有仓库名长这样，Pages 才把站点挂在
+      域名根上；换个名字就跑到 <code>/仓库名/</code> 下面，整站样式和链接一起失效。
+      绑定自定义域名同样算根路径，没问题。
     </p>
-
-    <table>
-      <thead>
-        <tr><th>位置</th><th class="t-hide-sm">怎么改</th></tr>
-      </thead>
-      <tbody>
-        <tr><td><code>astro.config.mjs</code></td><td class="t-hide-sm">加 <code>base: '/notes'</code></td></tr>
-        <tr><td>6 个组件 / 页面里的 8 处 <code>href="/…"</code></td><td class="t-hide-sm">改成 <code>{`${import.meta.env.BASE_URL}…`}</code>，建议封一个 <code>withBase()</code> 工具函数</td></tr>
-        <tr><td><code>src/config/navigation.json</code></td><td class="t-hide-sm">href 存的是根路径，渲染时统一过一遍 <code>withBase()</code></td></tr>
-        <tr><td>Markdown 里的 <code>/images/…</code></td><td class="t-hide-sm">图片插件里加一步：站内绝对路径前面拼 <code>base</code></td></tr>
-        <tr><td><code>site.json</code> 的 <code>ogImage</code></td><td class="t-hide-sm">同样要拼 <code>base</code>，否则分享图指向域名根</td></tr>
-        <tr><td><code>rss.xml.ts</code> / sitemap</td><td class="t-hide-sm">Astro 的 sitemap 会自动带 base；RSS 里的绝对链接要手动补</td></tr>
-      </tbody>
-    </table>
-
-    <h3>9.4 路径 C · 根本不要站点，只要文字</h3>
-
-    <p>
-      如果目标只是"把文章搬进公众号后台"，那连 fork 都不用：直接打开线上的文章页，
-      全选复制，粘进编辑器。Markdown 里的 <code>**加粗**</code> 和列表粘过去会变成纯文本，
-      需要重新排一遍——所以<strong>真正省事的做法是留着 <code>.md</code> 源文件本身</strong>，
-      它才是内容的真身，HTML 只是它的一种渲染结果。
-    </p>
-
-    <h3>9.5 备份时绕不开的三个现实问题</h3>
-
-    <ul>
-      <li><strong>公众号正文基本不能带外链</strong>。译文里的原文出处链接会被折叠或要求改写成文字，
-          建议在正文末尾统一写"原文：xxx（链接见站点）"，站点那份保留可点的链接</li>
-      <li><strong>图片要重新上传</strong>。公众号不接受外链图床，本地图得再传一遍；
-          本站的 WebP 变体不用带过去，原图（<code>.jpg</code> / <code>.png</code>）才是通用格式</li>
-      <li><strong>授权跟着仓库走</strong>。fork 出去后 <code>LICENSE</code>（MIT）和
-          <code>LICENSE-CONTENT</code>（CC BY-NC-SA）也一起过去了。备份自己的文章没问题；
-          如果备份的是别人的译文，<strong>出处必须一起保留</strong>——那是 CC 署名的要求，
-          也是原作者的底线</li>
-    </ul>
 
     <div class="note">
       <p>
-        <strong>这一节没有改任何代码。</strong>路径 A 的四个配置文件、路径 A 的删除清单，
-        都是纯手工操作，脚本化反而更容易出错（每个备份站的取舍不一样）。
-        真要动手时照着 9.1 的六步走，比记一套脚本可靠。
+        <strong>为什么「同名仓库」这条是零改动。</strong>不是运气好，是因为这个站从一开始就没做
+        "子路径适配"这件事——省下来的复杂度，恰好让「同名仓库」这条路变成纯配置操作。
+        代价是反过来：真要放到子路径下，得按 fork.md 第 0.1 节改六处。
+        这是一个明确的取舍，不是遗漏。
       </p>
     </div>
   </section>
@@ -2274,6 +2276,8 @@
 │   │   ├── profile.json      姓名、简介、头像、社交链接
 │   │   ├── navigation.json   导航项与顺序
 │   │   ├── links.ts          链接库（5 组、2 子栏目、5 种排版）
+│   │   ├── ads.json          文章页右侧广告位（默认 enabled: false，不外显）
+│   │   ├── ads.ts            广告位类型包装 + hasAds 判定
 │   │   └── about.ts          /me/ 页（名片）的简介、主要平台、关注领域、项目、经历
 │   ├── content/blog/         ★ 文章：一个 .md 一个 URL
 │   ├── content.config.ts     文章 schema（Zod，含 source 披露字段）
@@ -2289,8 +2293,9 @@
 │   │   ├── 404.astro         含一个小游戏（404-game.ts，728 行）
 │   │   ├── robots.txt.ts     路由生成的 robots.txt
 │   │   └── rss.xml.ts
-│   ├── components/           14 个组件，链接库有 5 种排版
-│   │   └── ArticleSidebar.astro  文章页左侧栏（目录 + 四个按钮）
+│   ├── components/           16 个组件，链接库有 5 种排版
+│   │   ├── ArticleSidebar.astro  文章页左侧栏（目录 + 四个按钮）
+│   │   └── ArticleRail.astro     文章页右侧广告位（关闭时零标记零请求）
 │   ├── scripts/
 │   │   ├── theme.ts          主题切换与记忆
 │   │   ├── background.ts     背景图开关与记忆
@@ -2309,7 +2314,7 @@
 │       ├── tokens.css        ★ 颜色/字号/间距/圆角，唯一来源
 │       ├── global.css        重置与基础
 │       ├── typography.css    排版规则
-│       ├── components.css    组件样式（1816 行，最长的文件）
+│       ├── components.css    组件样式（1895 行，最长的文件）
 │       └── fonts.css         @font-face
 ├── public/
 │   ├── fonts/                3 个 woff2（136 KB）+ 3 份字体许可
@@ -2318,12 +2323,13 @@
 │   ├── og-default.png        默认分享图
 │   └── docs/                 4 个 HTML 指南（本站托管）
 ├── scripts/
-│   ├── sync_profile_readme.py  主页 README 同步（445 行）
-│   ├── check_remote_images.py  远程图片体检 + 尺寸记录（290 行）
-│   └── optimize_images.mjs     图片 WebP 变体与清单（190 行）
-├── tests/                    53 个用例（Python 42 + Node 11）
+│   ├── sync_profile_readme.py  主页 README 同步（489 行）
+│   ├── check_remote_images.py  远程图片体检 + 尺寸记录（308 行）
+│   ├── check_links.py          站内死链检查（277 行，CI 必跑）
+│   └── optimize_images.mjs     图片 WebP 变体与清单（199 行）
+├── tests/                    71 个用例（Python 60 + Node 11）
 ├── README.md                 主页名片 + 文档导航
-├── README/                   project / blog-guide / fork + reports/
+├── README/                   quickstart / project / blog-guide / fork / ads + reports/
 └── .github/workflows/        Actions → Pages</code></pre>
 
     <div class="note">
@@ -2397,14 +2403,14 @@
       <code>.github/workflows/sync-profile-readme.yml</code> 和 <code>README/</code>。
       这一组服务于"把站点内容同步到 GitHub 主页 README"这个特定需求，
       新项目如果不需要主页名片，删掉它们不影响站点运行。
-      <code>scripts/</code> 里另外两个（图片优化、远程图体检）是站点本身要用的，别删。
+      <code>scripts/</code> 里另外三个（图片优化、远程图体检、站内链接检查）是站点本身要用的，别删。
     </p>
   </section>
 
   <footer class="doc-foot">
     <p>
       体检时间 2026-10-24。数据来自实际构建产物、源码统计与现场抓取：
-      10 个 HTML 页面、单 CSS 35,791 字节（gzip 6,539）、0 个外部 JS 文件、53 个测试用例、
+      10 个 HTML 页面、单 CSS 38,825 字节（gzip 6,948）、0 个外部 JS 文件、71 个测试用例、
       产物 15 MB（原图 7.0 MB + WebP 变体 6.2 MB + 字体 136 KB + 其余约 700 KB）、
       <code>astro check</code> 0 错 0 警 0 提示，Astro 7.4.2 / Sätteri 0.4.5 / Node ≥ 22.23.4。
     </p>
@@ -2413,7 +2419,8 @@
       统一 Chrome UA、gzip 传输、只计 HTML + 外链 CSS + 外链 JS，均按压缩后的实际下载字节。
     </p>
     <p>
-      配套文档：<a href="https://github.com/EpsilonGG/epsilongg.github.io/blob/main/README/project.md">项目说明</a>（仓库内）、
+      配套文档：<a href="https://github.com/EpsilonGG/epsilongg.github.io/blob/main/README/quickstart.md">快速启动</a>、
+      <a href="https://github.com/EpsilonGG/epsilongg.github.io/blob/main/README/project.md">项目说明</a>、
       <a href="/docs/github-profile-readme-guide.html">主页 README 指南</a>、
       <a href="/docs/notes-maintenance.html">笔记维护</a>。
     </p>

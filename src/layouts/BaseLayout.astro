@@ -44,13 +44,17 @@ const ogImageUrl = image ? absoluteUrl(image) : '';
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{documentTitle}</title>
     <meta name="description" content={description} />
-    <link rel="canonical" href={canonical} />
+    {/*
+      noindex 的页面（目前只有 404）不输出 canonical / og:url：
+      404 页算出来的地址是 /404/，那是个不存在的页面，声明它等于自己指了一条死链。
+    */}
+    {!noindex && <link rel="canonical" href={canonical} />}
     {noindex && <meta name="robots" content="noindex, nofollow" />}
 
     <meta property="og:type" content={ogType} />
     <meta property="og:title" content={documentTitle} />
     <meta property="og:description" content={description} />
-    <meta property="og:url" content={canonical} />
+    {!noindex && <meta property="og:url" content={canonical} />}
     <meta property="og:site_name" content={site.name} />
     <meta property="og:locale" content="zh_CN" />
     {ogImageUrl && <meta property="og:image" content={ogImageUrl} />}

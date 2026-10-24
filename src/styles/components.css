@@ -577,19 +577,21 @@ a.link-row:hover .link-row__label {
 .article-page > .container {
   display: grid;
   /*
-    侧栏 / 间隔 / 正文，再加一条与「侧栏 + 间隔」等宽的占位列。
-    占位列把整组轨道撑成对称的，正文因此正好落在视口正中，侧栏挂在它左边；
-    没有这条占位列时，正文会被侧栏顶得整体偏右（之前的问题）。
+    左栏轨道 / 间隔 / 正文 / 留白 / 右栏 / 间隔，六列。
+    正文左右两侧的总宽度必须相等（--sidebar-w + --sidebar-gap
+    = --rail-gutter + --rail-w + --sidebar-gap），否则正文会被顶偏——
+    之前就偏过，所以这里是显式配平过的，不是随手写的。
     视口不够宽时只有正文那一列会缩，对称关系不变，正文仍然居中。
   */
   grid-template-columns:
     var(--sidebar-w)
     var(--sidebar-gap)
     minmax(0, var(--measure))
-    var(--sidebar-w)
+    var(--rail-gutter)
+    var(--rail-w)
     var(--sidebar-gap);
   justify-content: center;
-  /* 间隔由第二列占位，这里不要再加 column-gap */
+  /* 间隔由第二、四、六列占位，这里不要再加 column-gap */
   column-gap: 0;
   /* 容器铺满，居中交给 justify-content */
   max-width: none;
@@ -603,6 +605,14 @@ a.link-row:hover .link-row__label {
 
 .article-sidebar {
   grid-column: 1;
+  /*
+    靠右贴齐：第 1 列比侧栏本身宽出 --rail-gutter，那份留白留在外侧，
+    侧栏到正文的距离因此还是 --sidebar-gap，和加广告位之前一模一样。
+    用 margin-left: auto 而不是 justify-self: end——后者会让 Chrome 把盒子
+    按收缩宽度排版，窄屏塌成 block 后工具条就只有 224px 宽、还贴在右边。
+  */
+  width: var(--rail-w);
+  margin-left: auto;
   position: sticky;
   top: var(--space-6);
   align-self: start;
@@ -610,6 +620,66 @@ a.link-row:hover .link-row__label {
   flex-direction: column;
   gap: var(--space-4);
   min-width: 0;
+}
+
+/* --------------------------------------------------------------------------
+   文章 · 右侧广告位（默认关闭）
+
+   第 5 列原本是空的：它和左侧栏等宽，作用是让整组轨道对称、正文落在视口正中。
+   广告位就住在这列里，所以开广告不会让正文移动——这也是「留个空」的全部意义。
+   宽度 208px，放得下 200×200 方图和 160×600 / 120×600 竖幅；
+   和正文之间还隔着 --rail-gutter（16px），不然广告会贴住正文最后一个字。
+
+   `src/config/ads.json` 里 enabled 为 false 时，这个 <aside> 根本不会被渲染，
+   产物里连标签都没有，也不会多一次请求。
+   -------------------------------------------------------------------------- */
+.article-rail {
+  grid-column: 5;
+  position: sticky;
+  top: var(--space-6);
+  align-self: start;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-4);
+  min-width: 0;
+}
+
+.article-rail__label {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+/* 图片按原始像素显示，不拉伸——横幅放大一个像素都会发虚 */
+.article-rail__slot {
+  display: block;
+  max-width: 100%;
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  transition: border-color var(--duration-fast) var(--ease);
+}
+
+.article-rail__slot:hover {
+  border-color: var(--color-border-strong);
+}
+
+.article-rail__slot img {
+  display: block;
+  margin: 0;
+  border: 0;
+  border-radius: 0;
+}
+
+/* 窄屏没有这一列，广告也不该出现 */
+@media (max-width: 1023px) {
+  .article-rail {
+    display: none;
+  }
 }
 
 .article-sidebar__head {
@@ -739,6 +809,8 @@ a.link-row:hover .link-row__label {
     position: sticky;
     top: 0;
     z-index: 10;
+    /* 网格塌成 block 后，桌面端的定宽会把工具条压成 208px，这里要放开 */
+    width: auto;
     flex-direction: row;
     flex-wrap: wrap;
     align-items: center;
@@ -834,7 +906,8 @@ a.link-row:hover .link-row__label {
    目录还是原来的裸文字。
    -------------------------------------------------------------------------- */
 @media (min-width: 1280px) {
-  :root[data-bg="on"] .article-sidebar {
+  :root[data-bg="on"] .article-sidebar,
+  :root[data-bg="on"] .article-rail {
     padding: var(--space-3);
     border: var(--border-width) solid var(--color-border);
     border-radius: var(--radius);

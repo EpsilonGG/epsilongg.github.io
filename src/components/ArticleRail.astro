@@ -1,0 +1,50 @@
+---
+/**
+ * 文章页右侧广告位。
+ *
+ * 默认不渲染（`src/config/ads.json` 里 `enabled: false`），产物里连标签都没有。
+ * 打开之后它落在网格第 5 列——那一列是给正文居中用的对称占位，宽度
+ * `--rail-w` 13rem = 208px，所以正文不会因此移动一个像素；
+ * 它和正文之间还隔着 `--rail-gutter` 16px，不会贴住正文。
+ *
+ * 尺寸：208px 的列放得下 200×200 方图、160×600 与 120×600 竖幅。
+ * 300×250、728×90 这类横向尺寸放不下，要先把 `--rail-w` 调大，
+ * 同时把 `--sidebar-w` 跟着配平（它是 `rail-w + rail-gutter`），两侧才保持对称。
+ *
+ * 脚本类联盟广告（A8、もしも 之类给一段 JS 的）不要塞进 JSON，
+ * 直接粘到下面标注的位置，并把 `height` 写死——不然脚本加载前后
+ * 页面会跳一下。
+ */
+import { ads, hasAds } from '../config/ads';
+---
+
+{
+  hasAds ? (
+    <aside class="article-rail" aria-label={ads.label}>
+      <p class="article-rail__label">{ads.label}</p>
+      {
+        ads.slots.map((slot) => (
+          <a
+            class="article-rail__slot"
+            href={slot.href}
+            rel="sponsored noopener noreferrer"
+            target="_blank"
+          >
+            <img
+              src={slot.image}
+              width={slot.width}
+              height={slot.height}
+              alt={slot.alt}
+              loading="lazy"
+              decoding="async"
+              referrerpolicy="no-referrer"
+            />
+          </a>
+        ))
+      }
+      {/* 脚本类广告粘在这里，外面套一个定高的 div：
+          <div class="article-rail__slot" style="height: 600px"> …广告代码… </div>
+      */}
+    </aside>
+  ) : null
+}

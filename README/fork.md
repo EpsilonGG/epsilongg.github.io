@@ -1,8 +1,11 @@
-# Fork 指南：把它改成你自己的个人主页
+# Fork 指南：把它改成你自己的个人主页（完整版）
 
-[← 返回仓库首页](../README.md) ｜ [项目说明](project.md)
+[← 返回仓库首页](../README.md) ｜ [快速启动](quickstart.md) ｜ [项目说明](project.md)
 
 这个仓库本质上是「一套静态个人站的骨架 + 一堆 JSON 配置」。换成你自己的主页，需要动的地方其实只有 5 个配置文件加几张图，剩下的是部署。
+
+> **只想尽快上线？** 看[快速启动](quickstart.md)，一页三步走完。
+> 这一份是完整版：子路径部署怎么改、只做文字备份怎么做、以及踩过的坑。
 
 下面按顺序走一遍，全程大约 30–60 分钟（不含写文章）。
 
@@ -19,9 +22,22 @@
 | `<你的用户名>.github.io` | `https://<你的用户名>.github.io/`         | ✅ 可以，什么都不用改     |
 | 其他任意名字（如 `my-blog`） | `https://<你的用户名>.github.io/my-blog/` | ❌ 会整站 404 或样式全丢 |
 
-想让它在项目站（带子路径）下工作，得把组件里所有 `href="/xxx"`、`src="/xxx"` 改成 `import.meta.env.BASE_URL + 'xxx'`，并在 `astro.config.mjs` 里加 `base`。本项目**没有**做这层适配，所以：
-
 > **仓库名必须叫 `<你的用户名>.github.io`。** 或者绑定自定义域名（自定义域名也是根路径，同样没问题）。
+
+### 0.1 非要放在子路径下的话
+
+本项目**没有**做这层适配，但它需要的改动是确定的，照着做大约半天。目标是让所有站内地址都带上 `/my-blog` 前缀：
+
+| 位置 | 怎么改 |
+| --- | --- |
+| `astro.config.mjs` | 加 `base: '/my-blog'` |
+| 组件 / 页面里的 `href="/…"` | 改成 `` `${import.meta.env.BASE_URL}…` ``；建议封一个 `withBase()` 工具函数，别散着改 |
+| `src/config/navigation.json` | 里面存的是根路径，渲染时统一过一遍 `withBase()` |
+| Markdown 里的 `/images/…` | 在 `src/lib/markdown-images.mjs` 里加一步：站内绝对路径前面拼 `base` |
+| `site.json` 的 `ogImage` | 同样要拼 `base`，否则分享图指向域名根 |
+| `rss.xml.ts` | RSS 里的绝对链接要手动补 `base`；`@astrojs/sitemap` 会自动带上，不用管 |
+
+改完之后 `npm run links` 会立刻告诉你漏了哪几处——它按 `dist/` 里的真实文件比对，前缀不对就是死链。
 
 ---
 
@@ -118,15 +134,15 @@ GitHub 允许同名仓库存在，但只有 `<用户名>.github.io` 这个名字
 
 ```bash
 # 示例文章（连同插图一起删）
-rm src/content/blog/rurudo-unreal-interview.md
 rm src/content/blog/example.md
+rm src/content/blog/rurudo-unreal-interview.md
 rm -rf public/images/blog/rurudo-unreal
 
 # 原作者的文档（可选，留着也不影响构建）
 rm -rf public/docs
 ```
 
-删完之后 `npm run build` **仍然能通过**（已验证：0 篇文章时构建 6 个页面），归档页会显示「暂无文章。归档会随新文章发布自动更新。」，RSS 输出一个空的 channel。
+删完之后 `npm run build` **仍然能通过**（已验证：0 篇文章时构建 6 个页面），笔记页会显示「暂无文章」，RSS 输出一个空的 channel。
 
 > `public/images/people/`、`public/images/links/icons/`、`public/images/tools/` 里是原作者的图标素材。要删就先删 `links.ts` 里对应的条目，否则会留下裂图——顺序反了也不会报错，只是页面上出现空图标。
 
@@ -141,9 +157,10 @@ npm install
 npm run dev      # http://localhost:4321
 npm run build    # 确认能构建
 npm run check    # 类型检查
+npm run links    # 站内死链检查（要先 build）
 ```
 
-需要 Node **≥ 22.12**。如果你装的是 22.23.x 以下但想升级 Astro，注意 `astro@7.4.x` 要求 Node ≥ 22.23.4，否则 `npm install` 会报 `EBADENGINE`；本仓库锁在 `astro@7.3.8` 就是为了兼容 Node 22.22。
+需要 Node **≥ 22.23.4**。`astro@7.4` 的 `engines` 有这个硬下限，低于它 `npm install` 会报 `EBADENGINE`。仓库里的 `package.json` 已经把这条写进去了，`nvm use 24` 之类切一下最省事。
 
 ---
 
@@ -154,7 +171,13 @@ npm run check    # 类型检查
 3. 回到 **Actions** 标签，等 `Deploy to GitHub Pages` 跑完（首次约 1–2 分钟）。
 4. 打开 `https://<你的用户名>.github.io/`。
 
-工作流 `.github/workflows/deploy.yml` 已经在仓库里：`push` 到 `main` 就自动构建 + 部署，里面依次执行 `npm ci` → `npm run check` → `npm run build` → 上传 `dist` → 部署。
+工作流 `.github/workflows/deploy.yml` 已经在仓库里：`push` 到 `main` 就自动跑一遍，顺序是
+
+```
+npm ci → npm run check → npm run test:md → npm run build → npm run links → npm test → 上传 dist → 部署
+```
+
+任何一步红了就不会发布——所以**推上去变红，先看 Actions 里是哪一步**，别急着怀疑 Pages。
 
 > **Fork 来的仓库第一次可能需要在 Actions 页面点一次 “I understand my workflows, go ahead and enable them”。**
 
@@ -179,37 +202,96 @@ npm run check    # 类型检查
 这个仓库还带了一个 Python 脚本，可以把网站里的简介、导航、最近文章同步到你的 **GitHub Profile README**（即 `<用户名>/<用户名>` 仓库里的 `README.md`）。
 
 1. 新建一个和用户名同名的仓库，勾选 Add a README file。
-2. 在它的 `README.md` 里放三对 Marker（顺序固定）：
+2. 在它的 `README.md` 里放三对 Marker（顺序固定：profile → navigation → posts）：
+
    ```markdown
+   <!-- PROFILE:START -->
+   <!-- PROFILE:END -->
 
+   <!-- NAV:START -->
+   <!-- NAV:END -->
 
-
-
-
-
-
-
+   <!-- POSTS:START -->
+   <!-- POSTS:END -->
    ```
+
 3. 把网站仓库和 profile 仓库克隆到同一个父目录，然后：
+
    ```bash
    python scripts/sync_profile_readme.py --readme ../<你的用户名>/README.md --check   # 先看要不要更新
    python scripts/sync_profile_readme.py --readme ../<你的用户名>/README.md           # 真正写入
    ```
 
+只替换 Marker 之间的内容，Marker 之外的手写内容逐字保留；Marker 缺失、重复或顺序错乱会直接报错退出，不会瞎猜位置。
+
 完整原理、Actions 自动同步和 token 配置见 [`public/docs/github-profile-readme-guide.html`](../public/docs/github-profile-readme-guide.html)（部署后可在 `/docs/github-profile-readme-guide.html` 打开）。
 
 ---
 
-## 9. 常见问题
+## 9. 另开一个账号做文字备份
+
+场景：另开一个 GitHub 账号，把仓库 fork 过去，只用来给公众号 / B 站专栏的文章留一份可搜索、可直链的网页备份。三条路径，**第一条不需要改任何代码**。
+
+### 9.1 路径 A · 新账号 + 同名仓库（推荐，零改动）
+
+子路径部署的所有麻烦，都来自「仓库名不是 `<name>.github.io`」。只要新账号下建的仓库**正好叫这个名字**，Pages 就挂在域名根上，现在这套根绝对路径全部直接可用。
+
+1. 新 GitHub 账号下新建仓库 `<新账号名>.github.io`（必须一字不差）
+2. 把本仓库的 `src/`、`public/`、`scripts/`、`tests/`、`astro.config.mjs`、`package*.json`、`.github/` 拷过去（或直接 fork 后改 remote）
+3. 改四个文件（见下表），这是唯一必须动的地方
+4. 删掉不需要的内容（见 9.2）
+5. 仓库 Settings → Pages → Source 选 **GitHub Actions**
+6. push 一次，等一分钟
+
+| 文件 | 改什么 |
+| --- | --- |
+| `src/config/site.json` | 站名、`url`（改成新域名，OG 图靠它）、描述、起始年 |
+| `src/config/profile.json` | 姓名、简介、头像、邮箱 |
+| `src/config/navigation.json` | 导航项；只留「笔记」一项也完全可以 |
+| `src/config/about.ts` | 名片页内容，或者直接删掉这个页面（见 9.2） |
+
+### 9.2 只做文字备份时，删掉这些
+
+| 删什么 | 后果 |
+| --- | --- |
+| `src/pages/me.astro`、`morelinks.astro` | 名片页与链接库消失。**必须同时改 `navigation.json`**，否则导航里留死链 |
+| `src/config/links.ts`、`about.ts` 与链接库组件 | 没人引用就不会报错，留着也不影响构建 |
+| `src/content/blog/` 下不要的文章 + `public/images/blog/` 对应目录 | 删文章记得连图一起删，否则 `npm run images` 会继续给它们出变体 |
+| `public/docs/` 整个目录 | 那几份 HTML 指南是写给这个项目自己的，新站用不上 |
+| `scripts/sync_profile_readme.py`、`tests/test_readme_sync.py`、`.github/workflows/sync-profile-readme.yml` | 这套东西只服务「把站点内容同步到 GitHub 主页 README」，备份站不需要 |
+| `public/og-default.png` | 换成自己的分享图，1200×630 |
+
+删完记得跑一次 `npm run build && npm run links`。**构建不会因为死链报错**（导航里写了个不存在的页面照样输出），死链检查会。
+
+### 9.3 路径 B · 非要子路径部署的话
+
+见[第 0.1 节](#01-非要放在子路径下的话)的改动清单，大约半天工作量。
+
+### 9.4 路径 C · 根本不要站点，只要文字
+
+如果目标只是「把文章搬进公众号后台」，那连 fork 都不用：直接打开线上的文章页，全选复制，粘进编辑器。Markdown 里的 `**加粗**` 和列表粘过去会变成纯文本，需要重新排一遍——所以**真正省事的做法是留着 `.md` 源文件本身**，它才是内容的真身，HTML 只是它的一种渲染结果。
+
+### 9.5 备份时绕不开的三个现实问题
+
+- **公众号正文基本不能带外链**。译文里的原文出处链接会被折叠或要求改写成文字，建议在正文末尾统一写「原文：xxx（链接见站点）」，站点那份保留可点的链接
+- **图片要重新上传**。公众号不接受外链图床，本地图得再传一遍；本站的 WebP 变体不用带过去，原图（`.jpg` / `.png`）才是通用格式
+- **授权跟着仓库走**。fork 出去后 `LICENSE`（MIT）和 `LICENSE-CONTENT`（CC BY-NC-SA）也一起过去了。备份自己的文章没问题；如果备份的是别人的译文，**出处必须一起保留**——那是 CC 署名的要求，也是原作者的底线
+
+---
+
+## 10. 常见问题
 
 **Q：`npm install` 报 `EBADENGINE`**  
-Node 版本太低。装 Node 22.12 以上；或者别动 `package.json` 里锁定的 `astro` 版本。
+Node 版本太低。`astro@7.4` 要求 Node ≥ 22.23.4，切到 Node 24 最省事。
 
 **Q：Actions 里 `npm ci` 失败**  
 `package-lock.json` 没提交。`git add package-lock.json` 后重新推。
 
 **Q：页面 404**  
 Pages 的 Source 没选 GitHub Actions，或者工作流失败了。先看 Actions 页面。
+
+**Q：`npm run links` 报死链**  
+按提示改链接，或者把那个页面补回来。它只查站内（本地文件比对），报出来的都是真死链。常见来源：改了文章文件名（slug 就是文件名）、删了页面没改导航、标题改了但目录锚点没跟着变。
 
 **Q：样式全丢、只有裸 HTML**  
 几乎一定是仓库名不是 `<用户名>.github.io`，导致站点跑在子路径下而链接是根路径。改仓库名，或者去看第 0 节。
@@ -224,7 +306,7 @@ GitHub Pages 有缓存，等 1–2 分钟，用 `Ctrl + F5` 强制刷新。
 仓库 Settings → Pages → Custom domain 填域名，DNS 加一条 CNAME 指向 `<用户名>.github.io`。然后把 `site.json` 的 `url` 改成新域名，推送即可（其他文件不用动）。
 
 **Q：可以商用 / 二次分发吗**  
-这个仓库没有附 License 文件，默认保留所有权利。自己用、改成自己的主页没问题；要再分发或用于商业用途，请先联系作者。
+代码是 [MIT](../LICENSE)，随便用；文章、译文、图片是 [CC BY-NC-SA 4.0](../LICENSE-CONTENT)，可以转载但要署名、非商业、相同方式共享。**内容不许商用**，译文还要保留原文出处。
 
 ---
 

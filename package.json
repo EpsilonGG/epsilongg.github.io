@@ -13,6 +13,7 @@
     "preview": "astro preview",
     "check": "astro check",
     "check:images": "python scripts/check_remote_images.py",
+    "links": "python scripts/check_links.py",
     "images": "node scripts/optimize_images.mjs",
     "images:force": "node scripts/optimize_images.mjs --force",
     "test": "python -m unittest discover -s tests -v",

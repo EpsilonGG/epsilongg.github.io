@@ -63,8 +63,16 @@
   --measure: 38rem;
   --page-padding: 1.5rem;
   --header-height: 3.5rem;
-  /* 文章页左侧栏宽度；窄屏时整栏折叠成顶部工具条 */
-  --sidebar-w: 13rem;
+  /* 文章页左/右两栏同宽（13rem = 208px），正文因此落在视口正中 */
+  --rail-w: 13rem;
+  /* 正文与右栏之间的留白：0 的话广告图会贴住正文最后一个字 */
+  --rail-gutter: 1rem;
+  /*
+    左侧栏轨道 = 右栏 + 留白。多出来的这一份不是给侧栏用的（侧栏本身靠右贴齐、
+    仍是 --rail-w 宽），而是用来抵消右侧那道 --rail-gutter，让正文左右两侧
+    的总宽度相等、继续居中。改任何一边都要让这个等式成立。
+  */
+  --sidebar-w: calc(var(--rail-w) + var(--rail-gutter));
   --sidebar-gap: 2rem;
   /* 目录行高与最多可见行数：超出后在栏内滚动 */
   --toc-row-h: 1.75rem;
