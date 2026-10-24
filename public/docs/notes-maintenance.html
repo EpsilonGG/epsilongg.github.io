@@ -241,6 +241,13 @@
     <pre><code>npm run build</code></pre>
     <p>字段缺失或 <code>updatedDate</code> 早于 <code>pubDate</code> 也会在这里被拦下，不会静默上线。</p>
     <p>另有一个不会报错、只会默默画错的坑：正文里成对的半角波浪号 <code>~</code> 会被当成删除线，作品副标题 <code>《加奈~妹妹~》</code> 里的「妹妹」就会被划掉。写日文作品名时用全角 <code>～</code>（<code>《加奈～妹妹～》</code>），或把半角波浪号转义成 <code>\~</code>。构建后跑一次 <code>grep -ro '&lt;del&gt;' dist/blog</code>，结果应为 0。</p>
+    <p>
+      转载外站时图片可以只写原站地址、不下载进仓库（<code>![图注](https://原站/xx.jpg "说明")</code>），
+      这种「远程图」构建期不会报错，原站哪天删了图也发现不了——所以要多跑一步
+      <code>python scripts/check_remote_images.py</code>，它会逐张请求并报出坏链（退出码 1）。
+      注意远程图必须用 Markdown 写法，手写 <code>&lt;img&gt;</code> 不经过插件，挡不住防盗链。
+      图片很多或原文可能下架时，还是下载下来压缩更稳。
+    </p>
 
     <h3>5. 想先攒草稿</h3>
     <p>设 <code>draft: true</code>：不生成页面、不进首页 / 列表 / RSS / sitemap，开发环境也看不到。准备好再改回 <code>false</code>。</p>

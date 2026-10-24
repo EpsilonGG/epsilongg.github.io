@@ -12,6 +12,7 @@
     "build": "astro build",
     "preview": "astro preview",
     "check": "astro check",
+    "check:images": "python scripts/check_remote_images.py",
     "test": "python -m unittest discover -s tests -v"
   },
   "dependencies": {

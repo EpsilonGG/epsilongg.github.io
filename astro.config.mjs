@@ -5,6 +5,7 @@ import { satteri } from '@astrojs/markdown-satteri';
 
 import { siteUrl } from './src/config/site.ts';
 import { figureCaptionPlugin } from './src/lib/markdown-figure.mjs';
+import { imageAttrsPlugin } from './src/lib/markdown-image-attrs.mjs';
 
 /**
  * 站点部署在 GitHub Pages 用户站点（username.github.io），
@@ -33,7 +34,8 @@ export default defineConfig({
           footnotes: { label: '注释' },
         },
       },
-      hastPlugins: [figureCaptionPlugin],
+      // 顺序：先补图片属性（lazy / async / no-referrer），再把带 title 的图升级成 figure
+      hastPlugins: [imageAttrsPlugin, figureCaptionPlugin],
     }),
     shikiConfig: {
       themes: {
