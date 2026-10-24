@@ -114,7 +114,8 @@ git push
 | --- | --- |
 | `scripts/daily_digest.py` | ★ **规范、唯一的组装脚本**（无 LLM 的一半）。**不要再改 `X-rss-workspace/daily-report/digest.py`**，那是被取代的旧原型 |
 | `scripts/daily.sh` | 一键流程包装：组装 → 提示用 WorkBuddy 填摘要 → 打印 git 命令 |
-| `scripts/sample_items/x.jsonl` | 样例数据，用于无真实数据时预览/测试 |
+| `scripts/rss_to_items.py` | 把 X-rss-main 的**真实** RSS feeds（`output/feeds_processed/*.xml`）转成 NormalizedItem JSONL（账号/原文链接/内容均为真实；该 RSS 源不含媒体与互动数） |
+| `scripts/sample_items/x.jsonl` | 预览/测试数据。现由 `rss_to_items.py` 从 X-rss-main 真实 feeds 生成（**真实推文**，非编造） |
 | `src/content.config.ts` | `daily` 内容集合的 Zod schema |
 | `src/lib/daily.ts` | `getDailyReports()`、`dailyPath()` 等取数函数 |
 | `src/layouts/DailyLayout.astro` | 日报详情页布局（复用 `BaseLayout`，含"AI 整理"徽章、上/下篇导航） |
