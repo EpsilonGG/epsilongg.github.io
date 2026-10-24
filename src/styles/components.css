@@ -855,9 +855,24 @@ a.link-row:hover .link-row__label {
    src/lib/markdown-figure.mjs 转成 <figure><img><figcaption>。
    -------------------------------------------------------------------------- */
 
+/*
+  比正文栏窄的图居中，图注跟着图片的左边走（而不是跟着正文栏的左边）。
+
+  麻烦在于「图注的左边 = 图片的左边」，而图片有多宽是它自己决定的。
+  做法：
+    1. figure 用 width: fit-content 收缩到图片那么宽，再用 margin-inline: auto
+       摆到正文栏正中——比正文栏宽的图会被 max-width 卡在栏宽，行为和以前一样；
+    2. 图注用 width: 0 + min-width: 100%：参与「固有尺寸」计算时贡献 0，
+       所以 figure 的宽度只由图片决定，图注的长短不会把 figure 撑开；
+       真正排版时 min-width 又把它拉回 figure 的宽度，文字只在图片宽度内折行。
+
+  少了第 2 步，一句长图注的 max-content 会把 figure 撑到整栏宽，图就贴回左边了。
+*/
 .article-figure {
   /* figure 默认带 UA 的 margin-inline: 40px，并组后会把每格白吃 80px */
-  margin: var(--space-5) 0;
+  width: fit-content;
+  max-width: 100%;
+  margin: var(--space-5) auto;
 }
 
 .prose .article-figure img {
@@ -865,6 +880,9 @@ a.link-row:hover .link-row__label {
 }
 
 .article-figure__caption {
+  /* 见上：0 宽不参与固有尺寸，min-width 再把它拉回 figure 的宽度 */
+  width: 0;
+  min-width: 100%;
   margin-top: var(--space-2);
   font-size: var(--text-xs);
   line-height: var(--leading-normal);
@@ -878,9 +896,21 @@ a.link-row:hover .link-row__label {
 }
 
 /* 站内图片会被 markdown-images.mjs 包进 <picture>（WebP + srcset）。
-   让它变成块级，否则里面 img 的上下外边距会被挤在行内盒子里。 */
+   让它变成块级，否则里面 img 的上下外边距会被挤在行内盒子里。
+   没有图注的独立图片（写作时只给了 alt、没给 title）也走这条，
+   宽度不到正文栏时同样居中。 */
 .prose :is(p, figure) > picture {
   display: block;
+}
+
+.prose p > img,
+.prose p > picture {
+  margin-inline: auto;
+}
+
+.prose p > picture {
+  width: fit-content;
+  max-width: 100%;
 }
 
 /* 连续两张以上带图注的图片会被 markdown-figure.mjs 并成一组：

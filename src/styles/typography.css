@@ -75,6 +75,26 @@ p {
   margin-top: var(--space-4);
 }
 
+/*
+  正文两端对齐。
+
+  中文每个字一样宽，一行放得下多少字是固定的，所以不做对齐时行末会差一两个字，
+  三十几行读下来右边缘就是一条锯齿。对齐之后右边缘是一条直线。
+
+  这里只写 text-align，不写 text-justify：
+  - 标准里的 inter-ideograph 在 Chrome 里已经不认（实测 CSS.supports 为 false），
+    写了也只会被丢掉；
+  - 默认的 auto 对中文本来就是按「字间」分配余量、对英文按「词间」分配，
+    正是想要的行为，硬改成 inter-character 反而会把英文单词拆开。
+
+  最后一行浏览器按默认规则左对齐，不会被拉成一段稀稀拉拉的字。
+  列表项同理，否则有序列表里长段落会跟正文对不齐。
+*/
+.prose p,
+.prose li {
+  text-align: justify;
+}
+
 .prose h2 {
   margin-top: var(--space-7);
   font-size: var(--text-xl);

@@ -718,6 +718,17 @@
           Cormorant Garamond（标题衬线）、Inter（正文无衬线）、Fira Code（等宽）。
           中文走系统字体栈，不下载中文字体。
         </p>
+        <p>
+          正文两端对齐（<code>text-align: justify</code>，只加在 <code>.prose p</code> 与
+          <code>.prose li</code> 上，标题和图注不动）。中文每个字一样宽，一行放得下多少字是固定的，
+          不对齐时行末会差一两个字，三十几行读下来右边缘就是一条锯齿；对齐之后右边缘是一条直线。
+          最后一行浏览器按默认规则左对齐，不会被拉成稀稀拉拉的一行。
+        </p>
+        <p>
+          没有写 <code>text-justify</code>：标准里的 <code>inter-ideograph</code> 在 Chrome 里已经不认
+          （实测 <code>CSS.supports</code> 返回 false），而默认的 <code>auto</code> 对中文按字、
+          对英文按词分配余量，正好是想要的行为；硬改成 <code>inter-character</code> 反而会把英文单词拆开。
+        </p>
         <div class="block-item__left">剩余：CJK 字形在 macOS / Windows / Linux 上不一致，标题观感会飘。</div>
       </div>
 
@@ -841,6 +852,15 @@
           剩余：行内小图标（段落里还有文字）仍然不出图注，这是有意的——把图标包进 figure 会撑乱行距。
           另外并组只认"相邻"，中间夹一句正文就断开了。
         </div>
+        <p>
+          图片排版又补了两条：比正文栏窄的图<strong>居中</strong>，图注的左边<strong>对齐图片的左边</strong>
+          而不是正文栏的左边，所以图注只在图片宽度内折行。难点是"让图注的宽度由图片决定"——
+          图注用 <code>width: 0</code> + <code>min-width: 100%</code>：算固有尺寸时它贡献 0，
+          于是 <code>figure</code> 的宽度只由图片决定（<code>width: fit-content</code> +
+          自动外边距就是居中）；真正排版时 <code>min-width</code> 又把它拉回
+          <code>figure</code> 的宽度，文字自然在图片宽度内折行。少了这一步，
+          一句长图注的 <code>max-content</code> 会把 <code>figure</code> 撑到整栏宽，图就贴回左边了。
+        </p>
       </div>
 
       <div class="block-item">
@@ -2284,7 +2304,7 @@
 │       ├── tokens.css        ★ 颜色/字号/间距/圆角，唯一来源
 │       ├── global.css        重置与基础
 │       ├── typography.css    排版规则
-│       ├── components.css    组件样式（1786 行，最长的文件）
+│       ├── components.css    组件样式（1816 行，最长的文件）
 │       └── fonts.css         @font-face
 ├── public/
 │   ├── fonts/                3 个 woff2（136 KB）+ 3 份字体许可

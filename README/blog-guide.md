@@ -145,6 +145,8 @@ source: original          # 可选，默认 original。ai = AI 整理
 
 输出是 `<div class="article-figure-grid">` 里装两个 `<figure>`。中间**不要**插正文，插了就不并组。
 
+比正文栏窄的图会自动**居中**，图注的左边**对齐图片的左边**（不是正文栏的左边），所以图注只在图片宽度内折行。这是样式自动处理的，写文章时不用管；想改观感去 `components.css` 搜「文章 · 图片与图注」。
+
 ### 4.2 不要手写 figure
 
 `width` / `height` 现在由构建过程自动补（见 4.3），所以**不需要**再手写 `<figure>` 块。手写原始 HTML 有两个坏处：
