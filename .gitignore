@@ -29,3 +29,6 @@ npm-debug.log*
 
 # 本地工具产生的项目数据（不发布到公开仓库）
 .workbuddy-ai/
+
+# 日报本地组装产物（briefing 等中间文件，由 scripts/daily_digest.py 生成）
+out/
