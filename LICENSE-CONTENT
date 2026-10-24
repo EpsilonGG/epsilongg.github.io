@@ -1,0 +1,76 @@
+内容授权 / Content License
+==========================
+
+本仓库中的**文字、译文、图片与文档**不适用根目录 `LICENSE`（MIT）的条款，
+而是采用：
+
+    Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International
+    （CC BY-NC-SA 4.0，署名—非商业性使用—相同方式共享 4.0 国际）
+
+授权条款全文：https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode.zh-hans
+人类可读摘要：https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-hans
+
+适用范围
+--------
+
+以下路径下的全部内容归 EpsilonGG 所有，按 CC BY-NC-SA 4.0 授权：
+
+- `src/content/blog/`      —— 全部文章正文（含原创与译文）
+- `public/images/blog/`    —— 文章插图
+- `public/images/`         —— 头像、图标等站点图片素材
+- `public/docs/`           —— 站点内托管的三份指南文档
+- `README.md`、`README/`   —— 项目文档与报告
+
+简单说：**代码随便用，内容不许商用。**
+
+你可以做什么
+------------
+
+- 转载、复制、分发上述内容，包括全文转载到博客、公众号、B 站专栏等平台；
+- 改编、节选、翻译成其它语言；
+- 用于个人学习、研究、非营利性分享。
+
+前提条件
+--------
+
+1. **署名**：注明作者 EpsilonGG 并附上原文链接（`https://epsilongg.github.io/`）。
+   转载到不支持外链的平台时，至少写明作者与站点名称。
+2. **非商业**：不得用于商业目的。包括但不限于：付费墙内容、广告变现站点、
+   付费社群资料、以内容本身作为商品或服务卖点。若确有商业用途，请先联系作者授权。
+3. **相同方式共享**：改编后的作品必须以同样的 CC BY-NC-SA 4.0 协议发布，
+   不得改投更宽松的协议或闭源独占。
+
+译文与原作的关系
+----------------
+
+`src/content/blog/` 下的译文是对日文原稿的中文翻译，原文著作权属于原作者与
+原出版方（如 BugBug、Game*Spark、官方站点等）。本仓库对译文本身主张
+CC BY-NC-SA 4.0，但**不主张、也不能代替**原作的任何权利。
+转载译文时请连同原文出处一并保留——每篇译文开头都写有原文链接，
+删掉出处再转载属于违规。
+
+图片的例外
+----------
+
+文章插图多来自原采访页面，版权归原出版方所有，在本仓库中仅作为
+评论、引用与介绍之用（合理使用）。这类图片**不在**本授权范围内，
+不得单独抽出用于其它用途。转载全文时图片随文引用即可，请勿另作他用。
+
+字体
+----
+
+`public/fonts/` 下的字体文件遵循各自的 SIL Open Font License，
+许可文本见同目录下的 `*-LICENSE.txt`，与本文件无关。
+
+---
+
+Content License (English summary)
+---------------------------------
+
+All articles, translations, images and documentation in this repository are
+licensed under CC BY-NC-SA 4.0 — attribution required, non-commercial only,
+derivatives must carry the same license.
+
+Source code is licensed under the MIT License; see `LICENSE`.
+
+Copyright (c) 2026 EpsilonGG. Some Rights Reserved.

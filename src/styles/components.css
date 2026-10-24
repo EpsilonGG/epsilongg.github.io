@@ -793,7 +793,8 @@ a.link-row:hover .link-row__label {
    -------------------------------------------------------------------------- */
 
 .article-figure {
-  margin-block: var(--space-5);
+  /* figure 默认带 UA 的 margin-inline: 40px，并组后会把每格白吃 80px */
+  margin: var(--space-5) 0;
 }
 
 .prose .article-figure img {
@@ -811,6 +812,31 @@ a.link-row:hover .link-row__label {
 /* 图注里的行内代码 / 链接保持小一号，不要撑破图注 */
 .article-figure__caption code {
   font-size: 0.95em;
+}
+
+/* 站内图片会被 markdown-images.mjs 包进 <picture>（WebP + srcset）。
+   让它变成块级，否则里面 img 的上下外边距会被挤在行内盒子里。 */
+.prose :is(p, figure) > picture {
+  display: block;
+}
+
+/* 连续两张以上带图注的图片会被 markdown-figure.mjs 并成一组：
+   宽屏并排，窄屏（手机上）一行一张，避免缩成邮票大小。 */
+.article-figure-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
+  gap: var(--space-4);
+  margin-block: var(--space-5);
+}
+
+.article-figure-grid .article-figure {
+  margin-block: 0;
+}
+
+@media (max-width: 34rem) {
+  .article-figure-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
 }
 
 /* --------------------------------------------------------------------------

@@ -16,10 +16,7 @@ tags:
 
 **歩サラ**（あゆみサラ）[^1] 2013 年出道于《虚之少女》（茅原雪子）。作为无可匹敌的人气美少女游戏声优，在多部作品中担任高人气女主，在粉丝与业界人士中也毫无疑问地评价颇高。自 2020 年开始，以 YouTuber[^2] 的身份活跃中。
 
-<figure class="article-figure">
-<img src="/images/blog/busara-bugbug-interview/01.jpg" alt="歩サラ（あゆみサラ）资料卡" width="900" height="378" loading="lazy" decoding="async">
-<figcaption class="article-figure__caption">歩サラ（あゆみサラ）资料卡</figcaption>
-</figure>
+![歩サラ（あゆみサラ）资料卡](/images/blog/busara-bugbug-interview/01.jpg "歩サラ（あゆみサラ）资料卡")
 
 ## 到东京后发觉声优这份工作
 
@@ -33,10 +30,7 @@ tags:
 
 **歩サラ**：我是在乡下长大的，以前做的是别的工作。当时我喜欢国外的电视剧，看到演职人员表而认识到了声优的存在。但我并未在那时意识到，这可以是我的一份职业。之后我来到东京，又再次察觉到“声优也是一份职业啊”，这才投身进去了……大概就是这样的(笑)。
 
-<figure class="article-figure">
-<img src="/images/blog/busara-bugbug-interview/02.jpg" alt="歩サラ" width="255" height="257" loading="lazy" decoding="async">
-<figcaption class="article-figure__caption">歩サラ在观看《Beverly Hills, 90210》日配版时认识到了“声优”这一职业</figcaption>
-</figure>
+![歩サラ](/images/blog/busara-bugbug-interview/02.jpg "歩サラ在观看《Beverly Hills, 90210》日配版时认识到了“声优”这一职业")
 
 ——也就是说，因为小时候喜欢动漫和漫画~，或者上学时加入过戏剧部……之类的理由都。
 
@@ -54,10 +48,7 @@ tags:
 
 **歩サラ**：不，我选择的不是这种培训所，而是“可以在工作闲暇时间前往的目的地”。在上班之余，一周参与两次培训。我上的地方与其说是培训所，更像是个专科学校，先花一两年学习基础知识，毕业后再去事务所的培训班。因此我是在那里毕业后，进入了事务所的培训班，再从那里成为事务所所属的声优。
 
-<figure class="article-figure">
-<img src="/images/blog/busara-bugbug-interview/03.jpg" alt="歩サラ" width="1280" height="619" loading="lazy" decoding="async">
-<figcaption class="article-figure__caption">虽一开始没有志向于此，现在的歩サラ已经是一位每年出演作品达两位数以上的优秀声优。她认为，自己能走到今天这一步也是多亏了与各种人的关系。</figcaption>
-</figure>
+![歩サラ](/images/blog/busara-bugbug-interview/03.jpg "虽一开始没有志向于此，现在的歩サラ已经是一位每年出演作品达两位数以上的优秀声优。她认为，自己能走到今天这一步也是多亏了与各种人的关系。")
 
 ## 自由职业者时期发现试音机会
 
@@ -83,10 +74,7 @@ tags:
 
 **歩サラ**：完全是被工作牵着鼻子走啊。估计是因为准备工作已经做到这份上了，语音收录的实际过程非常顺畅。
 
-<figure class="article-figure">
-<img src="/images/blog/busara-bugbug-interview/04.jpg" alt="《虚之少女》中的茅原雪子" width="1280" height="720" loading="lazy" decoding="async">
-<figcaption class="article-figure__caption">歩サラ在出道作《虚之少女》里，通过对角色的深刻理解和自己对台词内涵的诠释出演了女主角茅原雪子。作品中某些沉重的部分，也在语音收录前为声优本人的精神状况带来了相当的困扰。</figcaption>
-</figure>
+![《虚之少女》中的茅原雪子](/images/blog/busara-bugbug-interview/04.jpg "歩サラ在出道作《虚之少女》里，通过对角色的深刻理解和自己对台词内涵的诠释出演了女主角茅原雪子。作品中某些沉重的部分，也在语音收录前为声优本人的精神状况带来了相当的困扰。")
 
 ——美少女游戏出道作的顺利收录，有为你带来自信心吗？
 
@@ -128,10 +116,7 @@ tags:
 
 **歩サラ**：是这样的。对了，当时Alcot蜂巢社《キミのとなりで恋してる！》的星野なぎさ由我配音。在当时很少见的是，我是被指名参与进这部游戏的配音工作的。在这之前，我在一部同人游戏的工作中认识了おぅんごぅる老师，这才得到了被指名的机会，其实这可能也是命运的安排吧。
 
-<figure class="article-figure">
-<img src="/images/blog/busara-bugbug-interview/05.jpg" alt="《キミのとなりで恋してる！》" width="1280" height="720" loading="lazy" decoding="async">
-<figcaption class="article-figure__caption">ALcot ハニカム《キミのとなりで恋してる！》歩サラ在同人游戏中的演技被写手青睐，而得到了主役机会。</figcaption>
-</figure>
+![《キミのとなりで恋してる！》](/images/blog/busara-bugbug-interview/05.jpg "ALcot ハニカム《キミのとなりで恋してる！》歩サラ在同人游戏中的演技被写手青睐，而得到了主役机会。")
 
 ——哦？请多说说(笑)。
 
@@ -145,10 +130,7 @@ tags:
 
 **歩サラ**：**哈哈，能不能算得上老手呢……但确实，我也已经参加很多作品了吧。太感谢了。
 
-<figure class="article-figure">
-<img src="/images/blog/busara-bugbug-interview/06.jpg" alt="《悠久のカンパネラ》" width="1280" height="720" loading="lazy" decoding="async">
-<figcaption class="article-figure__caption">ういんどみるOasis《悠久のカンパネラ》包括风车社在内的多家品牌都选择了与歩サラ的持续性合作。</figcaption>
-</figure>
+![《悠久のカンパネラ》](/images/blog/busara-bugbug-interview/06.jpg "ういんどみるOasis《悠久のカンパネラ》包括风车社在内的多家品牌都选择了与歩サラ的持续性合作。")
 
 ## 粉丝人气压倒性第一的男娘主人公
 
@@ -174,10 +156,7 @@ tags:
 
 **歩サラ**：确实如此。我也很高兴能有一位收获大家如此长时间喜爱的角色。
 
-<figure class="article-figure">
-<img src="/images/blog/busara-bugbug-interview/07.jpg" alt="《少女*领域》" width="1280" height="720" loading="lazy" decoding="async">
-<figcaption class="article-figure__caption">歩サラ在其中出演男娘大小姐的高人气作品《少女*领域》不仅至今仍广受喜爱，也是后续拓展业务范围的契机之一。</figcaption>
-</figure>
+![《少女\*领域》](/images/blog/busara-bugbug-interview/07.jpg "歩サラ在其中出演男娘大小姐的高人气作品《少女\*领域》不仅至今仍广受喜爱，也是后续拓展业务范围的契机之一。")
 
 ——《少女*领域RADIO * MAIDEN》曾也是高人气的广播节目。
 
@@ -224,10 +203,7 @@ tags:
 
 **歩サラ**：升级为女主当然很开心，但再次扮演七海同样值得欢喜。我认为，粉丝能再次见到心爱的角色会十分兴奋，而我作为声优，在续集中再次扮演这一角色也同样很高兴。手机游戏兴盛的当下，声优能数次演绎同一角色的机会增加了许多。但包装版游戏很少会开发续集，我有时觉得，这样其实挺可惜的。
 
-<figure class="article-figure">
-<img src="/images/blog/busara-bugbug-interview/09.jpg" alt="《景の海のアペイリア》" width="1400" height="1249" loading="lazy" decoding="async">
-<figcaption class="article-figure__caption">从《根雪の幻影》开始关注 SILKYPLUS 的歩サラ在《景の海のアペイリア》中首次为该品牌献声。此后也参与了同品牌的《罐头少女的终末世界》和《异想魅惑》。</figcaption>
-</figure>
+![《景の海のアペイリア》](/images/blog/busara-bugbug-interview/09.jpg "从《根雪の幻影》开始关注 SILKYPLUS 的歩サラ在《景の海のアペイリア》中首次为该品牌献声。此后也参与了同品牌的《罐头少女的终末世界》和《异想魅惑》。")
 
 ——您在这一时期出演了许多作品，还有哪些是您印象深刻的吗。
 
@@ -257,10 +233,7 @@ tags:
 
 **歩サラ**：续作已经提上日程，厂商与玩家们协力抬高气氛并享受其中，活动和直播都能有所实感，非常有意思。所以也希望大家能继续支持(笑)。
 
-<figure class="article-figure">
-<img src="/images/blog/busara-bugbug-interview/10.jpg" alt="《异想魅惑》" width="1280" height="720" loading="lazy" decoding="async">
-<figcaption class="article-figure__caption">《异想魅惑》也是近年歩サラ的代表作之一，SILKYPLUS 围绕游戏开设了多次活动和直播，2022 年底也决定了续作的制作。</figcaption>
-</figure>
+![《异想魅惑》](/images/blog/busara-bugbug-interview/10.jpg "《异想魅惑》也是近年歩サラ的代表作之一，SILKYPLUS 围绕游戏开设了多次活动和直播，2022 年底也决定了续作的制作。")
 
 ——以疫情为节点，之后您参加的现场活动也变多了。
 
@@ -274,10 +247,7 @@ tags:
 
 **歩サラ**：确实如此。我以前中意剧情见长的游戏。像Innocent Grey和SILKYSPLUS这种就很棒。但我在参与《甜蜜女友2》的过程中明白了“原来如此，这就是爱着可爱角色的乐趣啊”(笑)。遇到了很棒的作品(笑)。
 
-<figure class="article-figure">
-<img src="/images/blog/busara-bugbug-interview/11.jpg" alt="《甜蜜女友2》" width="1280" height="906" loading="lazy" decoding="async">
-<figcaption class="article-figure__caption">以出道作《虚之少女》为首，喜欢剧情见长的游戏的歩サラ，在《甜蜜女友2》的收录过程中或许觉醒了新的爱好？</figcaption>
-</figure>
+![《甜蜜女友2》](/images/blog/busara-bugbug-interview/11.jpg "以出道作《虚之少女》为首，喜欢剧情见长的游戏的歩サラ，在《甜蜜女友2》的收录过程中或许觉醒了新的爱好？")
 
 ——如此说来真的有这种感觉，您在与许多人的往来交流中出演了各种各样的作品。您在IRODORI最新作《八劔伝》也与前作《樱花裁决》一样，负责官方直播的工作。
 
@@ -303,10 +273,7 @@ tags:
 
 **歩サラ**：举办活动时也一样，不单是参加活动很有趣，粉丝朋友间相聚一堂，线下面基也很棒不是吗。我的粉丝们内部形成了一个社区，撇开我而乐在其中(笑)。我感受到了这种变化。
 
-<figure class="article-figure">
-<img src="/images/blog/busara-bugbug-interview/12.jpg" alt="YouTube 频道「ポサラの遊び場」" width="1400" height="232" loading="lazy" decoding="async">
-<figcaption class="article-figure__caption">歩サラ在 2020 年 4 月开设的 YouTube 频道「ポサラの遊び場」。账号内容包括了游戏实况、杂谈和声优联动等众多主题的视频和直播。</figcaption>
-</figure>
+![YouTube 频道「ポサラの遊び場」](/images/blog/busara-bugbug-interview/12.jpg "歩サラ在 2020 年 4 月开设的 YouTube 频道「ポサラの遊び場」。账号内容包括了游戏实况、杂谈和声优联动等众多主题的视频和直播。")
 
 ## 兴趣是户外活动和下午茶
 
@@ -324,10 +291,7 @@ tags:
 
 **歩サラ**：没错。难得有机会就让她一起参与了(笑)。
 
-<figure class="article-figure">
-<img src="/images/blog/busara-bugbug-interview/13.jpg" alt="YouTube 直播画面" width="246" height="138" loading="lazy" decoding="async">
-<figcaption class="article-figure__caption">充分运用 YouTube 运营经验，为各种游戏宣传</figcaption>
-</figure>
+![YouTube 直播画面](/images/blog/busara-bugbug-interview/13.jpg "充分运用 YouTube 运营经验，为各种游戏宣传")
 
 ——您在闲时有哪些喜欢做的事情吗？
 
@@ -369,10 +333,7 @@ tags:
 
 **歩サラ**：万一真有这一天到来，还要拜托BugBug做采访特辑了(笑)。
 
-<figure class="article-figure">
-<img src="/images/blog/busara-bugbug-interview/14.jpg" alt="《ハミダシクリエイティブ凸》" width="1280" height="720" loading="lazy" decoding="async">
-<figcaption class="article-figure__caption">まどそふと《ハミダシクリエイティブ凸》</figcaption>
-</figure>
+![《ハミダシクリエイティブ凸》](/images/blog/busara-bugbug-interview/14.jpg "まどそふと《ハミダシクリエイティブ凸》")
 
 ## 肾上腺素飙升的收录现场
 
@@ -426,9 +387,7 @@ tags:
 
 **歩サラ**：如果你觉得本次的采访很有趣，请一定再买一本推荐给你的朋友。BugBug会很开心，我也会很安心(笑)。以及IRODORI的游戏《八劔伝》也请多多支持。
 
-<figure class="article-figure">
-<img src="/images/blog/busara-bugbug-interview/15.jpg" alt="歩サラ" width="1080" height="360" loading="lazy" decoding="async">
-</figure>
+![歩サラ](/images/blog/busara-bugbug-interview/15.jpg)
 
 [^1]: 个人官网：<https://ayumisara.com>；X（Twitter）：[@ayumi_sarah](https://x.com/ayumi_sarah)。
 [^2]: YouTube 频道「ポサラの遊び場」：[@posara](https://www.youtube.com/@posara)。

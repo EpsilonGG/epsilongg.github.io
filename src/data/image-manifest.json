@@ -1,0 +1,875 @@
+{
+  "$comment": "由 scripts/optimize_images.mjs 生成，请勿手改。",
+  "generatedAt": "2026-10-24T05:54:39.447Z",
+  "images": {
+    "/images/blog/busara-bugbug-interview/01.jpg": {
+      "w": 900,
+      "h": 378,
+      "bytes": 113168,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/busara-bugbug-interview/01-600.webp",
+          "bytes": 32302
+        },
+        {
+          "w": 900,
+          "src": "/images/blog/busara-bugbug-interview/01-900.webp",
+          "bytes": 62228
+        }
+      ]
+    },
+    "/images/blog/busara-bugbug-interview/02.jpg": {
+      "w": 255,
+      "h": 257,
+      "bytes": 16482,
+      "variants": [
+        {
+          "w": 255,
+          "src": "/images/blog/busara-bugbug-interview/02-255.webp",
+          "bytes": 9254
+        }
+      ]
+    },
+    "/images/blog/busara-bugbug-interview/03.jpg": {
+      "w": 1280,
+      "h": 619,
+      "bytes": 306440,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/busara-bugbug-interview/03-600.webp",
+          "bytes": 58490
+        },
+        {
+          "w": 960,
+          "src": "/images/blog/busara-bugbug-interview/03-960.webp",
+          "bytes": 127950
+        },
+        {
+          "w": 1280,
+          "src": "/images/blog/busara-bugbug-interview/03-1280.webp",
+          "bytes": 206372
+        }
+      ]
+    },
+    "/images/blog/busara-bugbug-interview/04.jpg": {
+      "w": 1280,
+      "h": 720,
+      "bytes": 110952,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/busara-bugbug-interview/04-600.webp",
+          "bytes": 22406
+        },
+        {
+          "w": 960,
+          "src": "/images/blog/busara-bugbug-interview/04-960.webp",
+          "bytes": 40448
+        },
+        {
+          "w": 1280,
+          "src": "/images/blog/busara-bugbug-interview/04-1280.webp",
+          "bytes": 57504
+        }
+      ]
+    },
+    "/images/blog/busara-bugbug-interview/05.jpg": {
+      "w": 1280,
+      "h": 720,
+      "bytes": 164200,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/busara-bugbug-interview/05-600.webp",
+          "bytes": 30936
+        },
+        {
+          "w": 960,
+          "src": "/images/blog/busara-bugbug-interview/05-960.webp",
+          "bytes": 59384
+        },
+        {
+          "w": 1280,
+          "src": "/images/blog/busara-bugbug-interview/05-1280.webp",
+          "bytes": 92068
+        }
+      ]
+    },
+    "/images/blog/busara-bugbug-interview/06.jpg": {
+      "w": 1280,
+      "h": 720,
+      "bytes": 162057,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/busara-bugbug-interview/06-600.webp",
+          "bytes": 28176
+        },
+        {
+          "w": 960,
+          "src": "/images/blog/busara-bugbug-interview/06-960.webp",
+          "bytes": 57744
+        },
+        {
+          "w": 1280,
+          "src": "/images/blog/busara-bugbug-interview/06-1280.webp",
+          "bytes": 89228
+        }
+      ]
+    },
+    "/images/blog/busara-bugbug-interview/07.jpg": {
+      "w": 1280,
+      "h": 720,
+      "bytes": 228485,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/busara-bugbug-interview/07-600.webp",
+          "bytes": 50250
+        },
+        {
+          "w": 960,
+          "src": "/images/blog/busara-bugbug-interview/07-960.webp",
+          "bytes": 98690
+        },
+        {
+          "w": 1280,
+          "src": "/images/blog/busara-bugbug-interview/07-1280.webp",
+          "bytes": 146370
+        }
+      ]
+    },
+    "/images/blog/busara-bugbug-interview/08.jpg": {
+      "w": 1400,
+      "h": 1427,
+      "bytes": 420709,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/busara-bugbug-interview/08-600.webp",
+          "bytes": 70820
+        },
+        {
+          "w": 960,
+          "src": "/images/blog/busara-bugbug-interview/08-960.webp",
+          "bytes": 138890
+        },
+        {
+          "w": 1400,
+          "src": "/images/blog/busara-bugbug-interview/08-1400.webp",
+          "bytes": 240966
+        }
+      ]
+    },
+    "/images/blog/busara-bugbug-interview/09.jpg": {
+      "w": 1400,
+      "h": 1249,
+      "bytes": 374946,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/busara-bugbug-interview/09-600.webp",
+          "bytes": 41410
+        },
+        {
+          "w": 960,
+          "src": "/images/blog/busara-bugbug-interview/09-960.webp",
+          "bytes": 85018
+        },
+        {
+          "w": 1400,
+          "src": "/images/blog/busara-bugbug-interview/09-1400.webp",
+          "bytes": 157944
+        }
+      ]
+    },
+    "/images/blog/busara-bugbug-interview/10.jpg": {
+      "w": 1280,
+      "h": 720,
+      "bytes": 135268,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/busara-bugbug-interview/10-600.webp",
+          "bytes": 28030
+        },
+        {
+          "w": 960,
+          "src": "/images/blog/busara-bugbug-interview/10-960.webp",
+          "bytes": 50544
+        },
+        {
+          "w": 1280,
+          "src": "/images/blog/busara-bugbug-interview/10-1280.webp",
+          "bytes": 73218
+        }
+      ]
+    },
+    "/images/blog/busara-bugbug-interview/11.jpg": {
+      "w": 1280,
+      "h": 906,
+      "bytes": 166422,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/busara-bugbug-interview/11-600.webp",
+          "bytes": 32328
+        },
+        {
+          "w": 960,
+          "src": "/images/blog/busara-bugbug-interview/11-960.webp",
+          "bytes": 67504
+        },
+        {
+          "w": 1280,
+          "src": "/images/blog/busara-bugbug-interview/11-1280.webp",
+          "bytes": 103590
+        }
+      ]
+    },
+    "/images/blog/busara-bugbug-interview/12.jpg": {
+      "w": 1400,
+      "h": 232,
+      "bytes": 69173,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/busara-bugbug-interview/12-600.webp",
+          "bytes": 12356
+        },
+        {
+          "w": 960,
+          "src": "/images/blog/busara-bugbug-interview/12-960.webp",
+          "bytes": 23210
+        },
+        {
+          "w": 1400,
+          "src": "/images/blog/busara-bugbug-interview/12-1400.webp",
+          "bytes": 38322
+        }
+      ]
+    },
+    "/images/blog/busara-bugbug-interview/13.jpg": {
+      "w": 246,
+      "h": 138,
+      "bytes": 24376,
+      "variants": [
+        {
+          "w": 246,
+          "src": "/images/blog/busara-bugbug-interview/13-246.webp",
+          "bytes": 16402
+        }
+      ]
+    },
+    "/images/blog/busara-bugbug-interview/14.jpg": {
+      "w": 1280,
+      "h": 720,
+      "bytes": 157244,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/busara-bugbug-interview/14-600.webp",
+          "bytes": 31556
+        },
+        {
+          "w": 960,
+          "src": "/images/blog/busara-bugbug-interview/14-960.webp",
+          "bytes": 60282
+        },
+        {
+          "w": 1280,
+          "src": "/images/blog/busara-bugbug-interview/14-1280.webp",
+          "bytes": 89966
+        }
+      ]
+    },
+    "/images/blog/busara-bugbug-interview/15.jpg": {
+      "w": 1080,
+      "h": 360,
+      "bytes": 55605,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/busara-bugbug-interview/15-600.webp",
+          "bytes": 13602
+        },
+        {
+          "w": 1080,
+          "src": "/images/blog/busara-bugbug-interview/15-1080.webp",
+          "bytes": 32608
+        }
+      ]
+    },
+    "/images/blog/mages-asada-makoto-interview/01.jpg": {
+      "w": 670,
+      "h": 377,
+      "bytes": 46209,
+      "variants": [
+        {
+          "w": 670,
+          "src": "/images/blog/mages-asada-makoto-interview/01-670.webp",
+          "bytes": 18424
+        }
+      ]
+    },
+    "/images/blog/mages-asada-makoto-interview/02.jpg": {
+      "w": 670,
+      "h": 376,
+      "bytes": 63508,
+      "variants": [
+        {
+          "w": 670,
+          "src": "/images/blog/mages-asada-makoto-interview/02-670.webp",
+          "bytes": 24572
+        }
+      ]
+    },
+    "/images/blog/mages-asada-makoto-interview/03.png": {
+      "w": 670,
+      "h": 376,
+      "bytes": 257032,
+      "variants": [
+        {
+          "w": 670,
+          "src": "/images/blog/mages-asada-makoto-interview/03-670.webp",
+          "bytes": 29984
+        }
+      ]
+    },
+    "/images/blog/mages-asada-makoto-interview/04.jpg": {
+      "w": 670,
+      "h": 376,
+      "bytes": 55998,
+      "variants": [
+        {
+          "w": 670,
+          "src": "/images/blog/mages-asada-makoto-interview/04-670.webp",
+          "bytes": 19038
+        }
+      ]
+    },
+    "/images/blog/mages-asada-makoto-interview/05.jpg": {
+      "w": 670,
+      "h": 376,
+      "bytes": 79311,
+      "variants": [
+        {
+          "w": 670,
+          "src": "/images/blog/mages-asada-makoto-interview/05-670.webp",
+          "bytes": 32940
+        }
+      ]
+    },
+    "/images/blog/mages-asada-makoto-interview/06.jpg": {
+      "w": 670,
+      "h": 376,
+      "bytes": 57290,
+      "variants": [
+        {
+          "w": 670,
+          "src": "/images/blog/mages-asada-makoto-interview/06-670.webp",
+          "bytes": 23438
+        }
+      ]
+    },
+    "/images/blog/mages-asada-makoto-interview/07.jpg": {
+      "w": 670,
+      "h": 502,
+      "bytes": 156941,
+      "variants": [
+        {
+          "w": 670,
+          "src": "/images/blog/mages-asada-makoto-interview/07-670.webp",
+          "bytes": 88486
+        }
+      ]
+    },
+    "/images/blog/mages-asada-makoto-interview/08.jpg": {
+      "w": 670,
+      "h": 376,
+      "bytes": 91050,
+      "variants": [
+        {
+          "w": 670,
+          "src": "/images/blog/mages-asada-makoto-interview/08-670.webp",
+          "bytes": 41666
+        }
+      ]
+    },
+    "/images/blog/mages-asada-makoto-interview/09.jpg": {
+      "w": 670,
+      "h": 376,
+      "bytes": 69521,
+      "variants": [
+        {
+          "w": 670,
+          "src": "/images/blog/mages-asada-makoto-interview/09-670.webp",
+          "bytes": 28024
+        }
+      ]
+    },
+    "/images/blog/mages-asada-makoto-interview/10.jpg": {
+      "w": 670,
+      "h": 377,
+      "bytes": 50990,
+      "variants": [
+        {
+          "w": 670,
+          "src": "/images/blog/mages-asada-makoto-interview/10-670.webp",
+          "bytes": 22268
+        }
+      ]
+    },
+    "/images/blog/mages-asada-makoto-interview/11.jpg": {
+      "w": 670,
+      "h": 377,
+      "bytes": 95520,
+      "variants": [
+        {
+          "w": 670,
+          "src": "/images/blog/mages-asada-makoto-interview/11-670.webp",
+          "bytes": 45316
+        }
+      ]
+    },
+    "/images/blog/niijima-yu-long-interview/01.jpg": {
+      "w": 716,
+      "h": 1024,
+      "bytes": 107033,
+      "variants": [
+        {
+          "w": 716,
+          "src": "/images/blog/niijima-yu-long-interview/01-716.webp",
+          "bytes": 57070
+        }
+      ]
+    },
+    "/images/blog/niijima-yu-long-interview/02.jpg": {
+      "w": 330,
+      "h": 330,
+      "bytes": 16429,
+      "variants": [
+        {
+          "w": 330,
+          "src": "/images/blog/niijima-yu-long-interview/02-330.webp",
+          "bytes": 9404
+        }
+      ]
+    },
+    "/images/blog/niijima-yu-long-interview/03.jpg": {
+      "w": 800,
+      "h": 1114,
+      "bytes": 206317,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/niijima-yu-long-interview/03-600.webp",
+          "bytes": 62484
+        },
+        {
+          "w": 800,
+          "src": "/images/blog/niijima-yu-long-interview/03-800.webp",
+          "bytes": 93940
+        }
+      ]
+    },
+    "/images/blog/niijima-yu-long-interview/04.jpg": {
+      "w": 482,
+      "h": 680,
+      "bytes": 55778,
+      "variants": [
+        {
+          "w": 482,
+          "src": "/images/blog/niijima-yu-long-interview/04-482.webp",
+          "bytes": 30282
+        }
+      ]
+    },
+    "/images/blog/niijima-yu-long-interview/05.jpg": {
+      "w": 1024,
+      "h": 686,
+      "bytes": 76982,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/niijima-yu-long-interview/05-600.webp",
+          "bytes": 19698
+        },
+        {
+          "w": 1024,
+          "src": "/images/blog/niijima-yu-long-interview/05-1024.webp",
+          "bytes": 40120
+        }
+      ]
+    },
+    "/images/blog/rurudo-unreal/01.jpg": {
+      "w": 1000,
+      "h": 1411,
+      "bytes": 298633,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/rurudo-unreal/01-600.webp",
+          "bytes": 101544
+        },
+        {
+          "w": 1000,
+          "src": "/images/blog/rurudo-unreal/01-1000.webp",
+          "bytes": 257968
+        }
+      ]
+    },
+    "/images/blog/rurudo-unreal/02.jpg": {
+      "w": 297,
+      "h": 530,
+      "bytes": 27653,
+      "variants": [
+        {
+          "w": 297,
+          "src": "/images/blog/rurudo-unreal/02-297.webp",
+          "bytes": 23076
+        }
+      ]
+    },
+    "/images/blog/rurudo-unreal/03.jpg": {
+      "w": 864,
+      "h": 862,
+      "bytes": 101375,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/rurudo-unreal/03-600.webp",
+          "bytes": 45392
+        },
+        {
+          "w": 864,
+          "src": "/images/blog/rurudo-unreal/03-864.webp",
+          "bytes": 73872
+        }
+      ]
+    },
+    "/images/blog/rurudo-unreal/04.jpg": {
+      "w": 1192,
+      "h": 671,
+      "bytes": 83211,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/rurudo-unreal/04-600.webp",
+          "bytes": 22828
+        },
+        {
+          "w": 1192,
+          "src": "/images/blog/rurudo-unreal/04-1192.webp",
+          "bytes": 53660
+        }
+      ]
+    },
+    "/images/blog/rurudo-unreal/05.jpg": {
+      "w": 683,
+      "h": 989,
+      "bytes": 88474,
+      "variants": [
+        {
+          "w": 683,
+          "src": "/images/blog/rurudo-unreal/05-683.webp",
+          "bytes": 72290
+        }
+      ]
+    },
+    "/images/blog/rurudo-unreal/06.jpg": {
+      "w": 630,
+      "h": 900,
+      "bytes": 83149,
+      "variants": [
+        {
+          "w": 630,
+          "src": "/images/blog/rurudo-unreal/06-630.webp",
+          "bytes": 64156
+        }
+      ]
+    },
+    "/images/blog/rurudo-unreal/07.jpg": {
+      "w": 900,
+      "h": 600,
+      "bytes": 50871,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/rurudo-unreal/07-600.webp",
+          "bytes": 20896
+        },
+        {
+          "w": 900,
+          "src": "/images/blog/rurudo-unreal/07-900.webp",
+          "bytes": 37346
+        }
+      ]
+    },
+    "/images/blog/rurudo-unreal/08.jpg": {
+      "w": 1080,
+      "h": 1080,
+      "bytes": 89979,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/rurudo-unreal/08-600.webp",
+          "bytes": 23942
+        },
+        {
+          "w": 1080,
+          "src": "/images/blog/rurudo-unreal/08-1080.webp",
+          "bytes": 47280
+        }
+      ]
+    },
+    "/images/blog/rurudo-unreal/09.jpg": {
+      "w": 850,
+      "h": 850,
+      "bytes": 78724,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/rurudo-unreal/09-600.webp",
+          "bytes": 33802
+        },
+        {
+          "w": 850,
+          "src": "/images/blog/rurudo-unreal/09-850.webp",
+          "bytes": 51980
+        }
+      ]
+    },
+    "/images/blog/rurudo-unreal/10.jpg": {
+      "w": 1192,
+      "h": 759,
+      "bytes": 174400,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/rurudo-unreal/10-600.webp",
+          "bytes": 38048
+        },
+        {
+          "w": 1192,
+          "src": "/images/blog/rurudo-unreal/10-1192.webp",
+          "bytes": 115406
+        }
+      ]
+    },
+    "/images/blog/rurudo-unreal/11.jpg": {
+      "w": 1192,
+      "h": 894,
+      "bytes": 199700,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/rurudo-unreal/11-600.webp",
+          "bytes": 62094
+        },
+        {
+          "w": 1192,
+          "src": "/images/blog/rurudo-unreal/11-1192.webp",
+          "bytes": 160020
+        }
+      ]
+    },
+    "/images/blog/tsui-no-stella-interview/01.jpg": {
+      "w": 1400,
+      "h": 788,
+      "bytes": 352961,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/tsui-no-stella-interview/01-600.webp",
+          "bytes": 43722
+        },
+        {
+          "w": 960,
+          "src": "/images/blog/tsui-no-stella-interview/01-960.webp",
+          "bytes": 98126
+        },
+        {
+          "w": 1400,
+          "src": "/images/blog/tsui-no-stella-interview/01-1400.webp",
+          "bytes": 195808
+        }
+      ]
+    },
+    "/images/blog/tsui-no-stella-interview/02.jpg": {
+      "w": 1200,
+      "h": 675,
+      "bytes": 201423,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/tsui-no-stella-interview/02-600.webp",
+          "bytes": 32296
+        },
+        {
+          "w": 1200,
+          "src": "/images/blog/tsui-no-stella-interview/02-1200.webp",
+          "bytes": 118468
+        }
+      ]
+    },
+    "/images/blog/tsui-no-stella-interview/03.jpg": {
+      "w": 600,
+      "h": 450,
+      "bytes": 86217,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/tsui-no-stella-interview/03-600.webp",
+          "bytes": 41954
+        }
+      ]
+    },
+    "/images/blog/tsui-no-stella-interview/04.jpg": {
+      "w": 1000,
+      "h": 1268,
+      "bytes": 126123,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/tsui-no-stella-interview/04-600.webp",
+          "bytes": 26126
+        },
+        {
+          "w": 1000,
+          "src": "/images/blog/tsui-no-stella-interview/04-1000.webp",
+          "bytes": 58332
+        }
+      ]
+    },
+    "/images/blog/tsui-no-stella-interview/05.jpg": {
+      "w": 1280,
+      "h": 720,
+      "bytes": 274730,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/tsui-no-stella-interview/05-600.webp",
+          "bytes": 44266
+        },
+        {
+          "w": 960,
+          "src": "/images/blog/tsui-no-stella-interview/05-960.webp",
+          "bytes": 99028
+        },
+        {
+          "w": 1280,
+          "src": "/images/blog/tsui-no-stella-interview/05-1280.webp",
+          "bytes": 163836
+        }
+      ]
+    },
+    "/images/blog/tsui-no-stella-interview/06.jpg": {
+      "w": 1280,
+      "h": 720,
+      "bytes": 180386,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/tsui-no-stella-interview/06-600.webp",
+          "bytes": 23160
+        },
+        {
+          "w": 960,
+          "src": "/images/blog/tsui-no-stella-interview/06-960.webp",
+          "bytes": 57544
+        },
+        {
+          "w": 1280,
+          "src": "/images/blog/tsui-no-stella-interview/06-1280.webp",
+          "bytes": 103622
+        }
+      ]
+    },
+    "/images/blog/tsui-no-stella-interview/07.jpg": {
+      "w": 1280,
+      "h": 720,
+      "bytes": 187730,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/tsui-no-stella-interview/07-600.webp",
+          "bytes": 24480
+        },
+        {
+          "w": 960,
+          "src": "/images/blog/tsui-no-stella-interview/07-960.webp",
+          "bytes": 56850
+        },
+        {
+          "w": 1280,
+          "src": "/images/blog/tsui-no-stella-interview/07-1280.webp",
+          "bytes": 100012
+        }
+      ]
+    },
+    "/images/blog/tsui-no-stella-interview/08.jpg": {
+      "w": 1280,
+      "h": 675,
+      "bytes": 219573,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/tsui-no-stella-interview/08-600.webp",
+          "bytes": 30836
+        },
+        {
+          "w": 960,
+          "src": "/images/blog/tsui-no-stella-interview/08-960.webp",
+          "bytes": 70744
+        },
+        {
+          "w": 1280,
+          "src": "/images/blog/tsui-no-stella-interview/08-1280.webp",
+          "bytes": 120576
+        }
+      ]
+    },
+    "/images/blog/tsui-no-stella-interview/09.jpg": {
+      "w": 1000,
+      "h": 444,
+      "bytes": 52427,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/tsui-no-stella-interview/09-600.webp",
+          "bytes": 13266
+        },
+        {
+          "w": 1000,
+          "src": "/images/blog/tsui-no-stella-interview/09-1000.webp",
+          "bytes": 23866
+        }
+      ]
+    },
+    "/images/blog/tsui-no-stella-interview/10.jpg": {
+      "w": 1400,
+      "h": 1056,
+      "bytes": 224540,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/tsui-no-stella-interview/10-600.webp",
+          "bytes": 25614
+        },
+        {
+          "w": 960,
+          "src": "/images/blog/tsui-no-stella-interview/10-960.webp",
+          "bytes": 53632
+        },
+        {
+          "w": 1400,
+          "src": "/images/blog/tsui-no-stella-interview/10-1400.webp",
+          "bytes": 98904
+        }
+      ]
+    }
+  }
+}

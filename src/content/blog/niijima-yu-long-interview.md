@@ -16,10 +16,7 @@ tags:
 
 在一整本专门介绍一位创作者的特辑刊物中，收录了采访创作者本人的访谈。若这不算是意外之喜，那又该称之为何？本次杂志企划的初衷——对新岛夕先生本人的采访得以实现。从作为他创作源泉的那些作品，到剧本写作中的核心，又聊到他对“角色”这一存在的思考。新岛先生的话语始终温柔和缓，但我们也时而能从中窥见他那不容动摇的信念。衷心希望各位读者能一同回顾我们与他的这次交流。
 
-<figure class="article-figure">
-<img src="/images/blog/niijima-yu-long-interview/01.jpg" alt="《新島夕トリビュート》封面" width="716" height="1024" loading="lazy" decoding="async">
-<figcaption class="article-figure__caption">《新島夕トリビュート》封面（Ghost Letters）</figcaption>
-</figure>
+![《新島夕トリビュート》封面](/images/blog/niijima-yu-long-interview/01.jpg "《新島夕トリビュート》封面（Ghost Letters）")
 
 ## 1. 关于根源
 
@@ -79,9 +76,7 @@ tags:
 
 而在美少女游戏业界被称为黄金期的那个时代，即使是仅凭野心和才能就投身于这个行业的人，也有可能找到方法做出点成绩。但话虽如此，毕竟要做商业化作品，游戏成品还是需要在商业上达到一定品质的。放到现在，作品要达到价值9800日元的品质，就意味着音乐、演出、声优表演等所有方面都要有更高水准，在此基础上玩家也更容易感受到作品中蕴含的创作者的野心，或者说他们的灵魂。这正是当时美少女游戏的魅力所在，我们在当下也应该珍视这些方面，并以此去创作新的作品。
 
-<figure class="article-figure">
-<img src="/images/blog/niijima-yu-long-interview/02.jpg" alt="插画" width="330" height="330" loading="lazy" decoding="async">
-</figure>
+![插画](/images/blog/niijima-yu-long-interview/02.jpg)
 
 ## 2. 作为导演，作为剧作者
 
@@ -131,9 +126,7 @@ tags:
 
 当时我还在 SAGAPLANETS 任职，也做着游戏导演的工作，而美术方面由其他人负责，所以我能专注于剧本写作。我非常清楚地记得，那是我第一次独自承担全部剧本，拼命完成的一部游戏。我当时抱着“如果这部作品得不到世间的认可，我可能就无法再作为剧本家走下去了”的，绝对不能输的决心。当时的我一无所有，所以怀着想要干出一番事业的心情拼命创作，而最终也确实有所收获，从这个意义上说，我的代表作非此莫属了。
 
-<figure class="article-figure">
-<img src="/images/blog/niijima-yu-long-interview/03.jpg" alt="插画" width="800" height="1114" loading="lazy" decoding="async">
-</figure>
+![插画](/images/blog/niijima-yu-long-interview/03.jpg)
 
 ## 3. 关于作品的主题与意象
 
@@ -183,9 +176,7 @@ tags:
 
 而在长大成人之后，没有答案的问题也还是会接踵而至。说到底，无法充分适应又将这份不顺看得过分重要……也就是还存留着“青春期”那份感性的人，大概才会做剧作者这种工作吧（笑）。
 
-<figure class="article-figure">
-<img src="/images/blog/niijima-yu-long-interview/04.jpg" alt="插画" width="482" height="680" loading="lazy" decoding="async">
-</figure>
+![插画](/images/blog/niijima-yu-long-interview/04.jpg)
 
 ## 4. 关于角色
 
@@ -246,10 +237,7 @@ tags:
 
 个人渣翻，欢迎批评指正
 
-<figure class="article-figure">
-<img src="/images/blog/niijima-yu-long-interview/05.jpg" alt="《新島夕トリビュート》书影与执笔阵容" width="1024" height="686" loading="lazy" decoding="async">
-<figcaption class="article-figure__caption">《新島夕トリビュート》书影与执笔阵容</figcaption>
-</figure>
+![《新島夕トリビュート》书影与执笔阵容](/images/blog/niijima-yu-long-interview/05.jpg "《新島夕トリビュート》书影与执笔阵容")
 
 [^1]: 《尼尔斯骑鹅旅行记》：以瑞典女作家赛尔玛·拉格洛夫同名童话为原作改编的电视动画。1980–1981 年于NHK综合台播出。讲述调皮少年尼尔斯被妖精变成小人后骑在大雁背上旅行、并在旅途中成长的故事。
 [^2]: 《蓝宝石之谜》：1990–1991年由庵野秀明执导，在NHK播出的动画。以凡尔纳《海底两万里》为基础加入原创要素的作品，曾经人气颇高。

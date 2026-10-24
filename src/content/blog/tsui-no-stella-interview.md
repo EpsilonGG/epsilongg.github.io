@@ -20,10 +20,7 @@ tags:
 
 《星之终途》是发售于2022年9月30日的电脑端视觉小说，描绘了游于末世中的裘德·格雷和仿生人少女菲莉娅的旅途与交际。本次访谈通过邮件采访的形式，同时穿插了佐雪隼监督的提问，向作为剧作者的田中罗密欧老师请教了制作秘闻。[^1]
 
-<figure class="article-figure">
-<img src="/images/blog/tsui-no-stella-interview/01.jpg" alt="《星之终途》主视觉图：持枪的菲莉娅" width="1400" height="788" loading="lazy" decoding="async">
-<figcaption class="article-figure__caption">《星之终途》主视觉图</figcaption>
-</figure>
+![《星之终途》主视觉图：持枪的菲莉娅](/images/blog/tsui-no-stella-interview/01.jpg "《星之终途》主视觉图")
 
 ## 故事简介
 
@@ -35,10 +32,7 @@ tags:
 
 ### 如同“在拉面店研制新款拉面”！？
 
-<figure class="article-figure">
-<img src="/images/blog/tsui-no-stella-interview/02.jpg" alt="插图：海浪中的菲莉娅" width="1200" height="675" loading="lazy" decoding="async">
-<figcaption class="article-figure__caption">插图：菲莉娅</figcaption>
-</figure>
+![插图：海浪中的菲莉娅](/images/blog/tsui-no-stella-interview/02.jpg "插图：菲莉娅")
 
 ——您上次和Key的合作还要追溯到《Rewrite》《Rewrite Harvest festa!》了吧，接到为本作撰写剧本的委托时有何感受呢？
 
@@ -56,10 +50,7 @@ tags:
 
 **田中** 我最初就被告知“这边有‘仿生机器人(Android)三部曲’的企划”，因此我在写剧本时非常留心于上述两部作品。但我没有过多顾虑，只是注意避免在表现手法、设定和主题上有所重复。企划阶段其已有所区别，所以我没什么负担。
 
-<figure class="article-figure">
-<img src="/images/blog/tsui-no-stella-interview/03.jpg" alt="《planetarian》游戏画面" width="600" height="450" loading="lazy" decoding="async">
-<figcaption class="article-figure__caption">《planetarian》游戏画面</figcaption>
-</figure>
+![《planetarian》游戏画面](/images/blog/tsui-no-stella-interview/03.jpg "《planetarian》游戏画面")
 
 ——您在执笔时“写得最畅快”的是哪段剧情呢？
 
@@ -73,37 +64,25 @@ tags:
 
 **田中** 我在写剧本的时候是完全不会去想象声音或外表的，因此听完声音小样后会有一种抓住重点的感觉。我每次都是在听到声音的瞬间有了更深刻的印象。原本我就认识饰演威廉的郷田ほづみ老师[^3]，看到他名字的时候吓了一跳。
 
-<figure class="article-figure">
-<img src="/images/blog/tsui-no-stella-interview/04.jpg" alt="威廉·格罗夫纳的角色设计" width="1000" height="1268" loading="lazy" decoding="async">
-<figcaption class="article-figure__caption">威廉·格罗夫纳的角色设计</figcaption>
-</figure>
+![威廉·格罗夫纳的角色设计](/images/blog/tsui-no-stella-interview/04.jpg "威廉·格罗夫纳的角色设计")
 
 ——角色设计由SWAV老师负责，佐雪监督评价其笔触 “有科幻电影的感觉”。您对SWAV老师的笔触及本作的角色设计有什么感受吗？
 
 **田中** 确实，在SWAV老师的画作里，人物置于都市、大自然、遗迹或巨型建筑之类的背景中，似是在故事中截取的一帧般抓人眼球。其作品往往带有赛博朋克的感觉，和本作挺匹配的。
 
-<figure class="article-figure">
-<img src="/images/blog/tsui-no-stella-interview/05.jpg" alt="插图：菲莉娅与奇点机器" width="1280" height="720" loading="lazy" decoding="async">
-<figcaption class="article-figure__caption">插图：菲莉娅与奇点机器</figcaption>
-</figure>
+![插图：菲莉娅与奇点机器](/images/blog/tsui-no-stella-interview/05.jpg "插图：菲莉娅与奇点机器")
 
 ——您对负责机械设定的からます老师提出过关于奇点机器或无人机之类的设计要求吗？此外，您在看到机械设计的完稿时感想如何呢？
 
 **田中** 关于奇点机器的设计，我只传达了（设计方面的）必要项目和设计理念，也就是“虽然人类无法理解，但AI还是带有某种目的性地将奇点机器建成了那种模样”之类的内容，完稿很好地表现出了异于人类圈而产生的异形感。全交给对方很轻松。
 
-<figure class="article-figure">
-<img src="/images/blog/tsui-no-stella-interview/06.jpg" alt="奇点机器的 CG" width="1280" height="720" loading="lazy" decoding="async">
-<figcaption class="article-figure__caption">奇点机器的 CG</figcaption>
-</figure>
+![奇点机器的 CG](/images/blog/tsui-no-stella-interview/06.jpg "奇点机器的 CG")
 
 ## 人何而为人？
 
 ### 田中老师对“人类性”的定义
 
-<figure class="article-figure">
-<img src="/images/blog/tsui-no-stella-interview/07.jpg" alt="插图：举枪的少女" width="1280" height="720" loading="lazy" decoding="async">
-<figcaption class="article-figure__caption">插图：举枪的少女</figcaption>
-</figure>
+![插图：举枪的少女](/images/blog/tsui-no-stella-interview/07.jpg "插图：举枪的少女")
 
 **佐雪** 能看出来本作对一些科幻小说作品有直接的引用，或是以各种形式予以致敬，包括阿西莫夫的“机器人三大定律”[^4]，“埃瓦德的哈达莉”也就是利尔·亚当的《未来的伊娃》[^5]，以及电影《极乐空间》[^6]等。除了这些之外，本作还引用或致敬了哪些作品吗？
 
@@ -141,10 +120,7 @@ tags:
 
 ### 新的故事也在构思中
 
-<figure class="article-figure">
-<img src="/images/blog/tsui-no-stella-interview/08.jpg" alt="插图：伸出手的菲莉娅" width="1280" height="675" loading="lazy" decoding="async">
-<figcaption class="article-figure__caption">插图：伸出手的菲莉娅</figcaption>
-</figure>
+![插图：伸出手的菲莉娅](/images/blog/tsui-no-stella-interview/08.jpg "插图：伸出手的菲莉娅")
 
 ——本作的舞台设定于遥远未来的地球上。可否请您介绍一下彼时世界地图的格局，以及剩余人口数量等方面的设定呢？
 
@@ -154,10 +130,7 @@ tags:
 
 **田中** 这句话是Visual Art's公司添置的，我不太想作过分解读。所以我只发表一下个人观点——比起“人工智能接管了文明。而人类将灭亡”的说辞，我更欣赏“新的物种（即Ae）加入进来。人类失势，但仍生存于世。之后的故事则还有变数”这种观点。
 
-<figure class="article-figure">
-<img src="/images/blog/tsui-no-stella-interview/09.jpg" alt="《星之终途》的日文标题 logo" width="1000" height="444" loading="lazy" decoding="async">
-<figcaption class="article-figure__caption">《星之终途》的日文标题 logo</figcaption>
-</figure>
+![《星之终途》的日文标题 logo](/images/blog/tsui-no-stella-interview/09.jpg "《星之终途》的日文标题 logo")
 
 ——本作限定版包含了田中老师亲笔撰写的后日谈《Diary of a Faint Hope》。请介绍一下这个故事的构思和意图吧。
 
@@ -175,10 +148,7 @@ tags:
 
 **田中** 种种原因让制作大型视觉小说变得愈发困难的当下，采用低价策略出品游戏给我带来了相当大的成就感。如果“Kinetic Novel”能够延续下去的话，我也能有更多机会在此推出全新的作品。为此，大家的支持不可或缺。希望各位多多支持！
 
-<figure class="article-figure">
-<img src="/images/blog/tsui-no-stella-interview/10.jpg" alt="《星之终途》主视觉图（英文标题版）" width="1400" height="1056" loading="lazy" decoding="async">
-<figcaption class="article-figure__caption">《星之终途》主视觉图（英文标题版）</figcaption>
-</figure>
+![《星之终途》主视觉图（英文标题版）](/images/blog/tsui-no-stella-interview/10.jpg "《星之终途》主视觉图（英文标题版）")
 
 ©VISUAL ARTS / Key / KineticNovel / visualstyle ©WFS Developed by WRIGHT FLYER STUDIOS
 

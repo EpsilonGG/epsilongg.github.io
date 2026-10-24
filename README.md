@@ -54,5 +54,15 @@ Life Science ｜ Vibe Coding ｜ Galgame ｜ Doujin ASMR
 
 ---
 
+## 授权
+
+**代码**（`src/`、`scripts/`、`tests/`、配置文件、工作流）用 [MIT](LICENSE)，随便拿去改、拿去用，保留版权声明即可。
+
+**内容**（文章、译文、图片、文档）用 [CC BY-NC-SA 4.0](LICENSE-CONTENT)：署名、非商业、相同方式共享。
+
+一句话：**代码随便用，内容不许商用。** 细节和译文/图片的特殊说明见 [LICENSE-CONTENT](LICENSE-CONTENT)。
+
+---
+
 <sub>Some Rights Reserved · 站点内容均来自于公开网络或博主自行创建，
 未获得创作者本人同意时禁止以任意形式转载、分发。</sub>

@@ -10,6 +10,11 @@
     python scripts/check_remote_images.py
     python scripts/check_remote_images.py --proxy http://127.0.0.1:7897
     python scripts/check_remote_images.py --only mages-asada-makoto-interview
+    python scripts/check_remote_images.py --write-dims   # 顺便记录宽高，供构建期用
+
+`--write-dims` 会把每张远程图的宽高写进 `src/data/remote-images.json`，
+构建时 `src/lib/markdown-images.mjs` 读它给远程图补 `width` / `height`，
+避免图片加载前页面高度为 0 导致的跳动（CLS）。
 
 退出码：全部正常为 0，有坏链为 1（便于以后接进 CI）。
 """
@@ -17,14 +22,18 @@
 from __future__ import annotations
 
 import argparse
+import json
 import re
+import struct
 import sys
 import urllib.error
 import urllib.request
+from datetime import datetime, timezone
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 BLOG_DIR = ROOT / "src" / "content" / "blog"
+DIMS_PATH = ROOT / "src" / "data" / "remote-images.json"
 
 UA = (
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
@@ -97,12 +106,111 @@ def human_size(size: int | None) -> str:
     return f"{size // 1024} KB"
 
 
+# JPEG 里带尺寸的 SOF 标记（SOF0..SOF15，排除 DHT/JPG/DAC）
+_JPEG_SOF = {0xC0, 0xC1, 0xC2, 0xC3, 0xC5, 0xC6, 0xC7, 0xC9, 0xCA, 0xCB, 0xCD, 0xCE, 0xCF}
+
+
+def image_size(data: bytes) -> tuple[int, int] | None:
+    """从图片字节里读出宽高，不依赖 Pillow。
+
+    支持 PNG / JPEG / GIF / WebP（VP8X、VP8、VP8L）。认不出来返回 None。
+    """
+    if len(data) < 32:
+        return None
+
+    if data[:8] == b"\x89PNG\r\n\x1a\n":
+        width, height = struct.unpack(">II", data[16:24])
+        return int(width), int(height)
+
+    if data[:6] in (b"GIF87a", b"GIF89a"):
+        width, height = struct.unpack("<HH", data[6:10])
+        return int(width), int(height)
+
+    if data[:4] == b"RIFF" and data[8:12] == b"WEBP":
+        chunk = data[12:16]
+        if chunk == b"VP8X":
+            width = int.from_bytes(data[24:27], "little") + 1
+            height = int.from_bytes(data[27:30], "little") + 1
+            return width, height
+        if chunk == b"VP8L":
+            bits = int.from_bytes(data[21:25], "little")
+            return (bits & 0x3FFF) + 1, ((bits >> 14) & 0x3FFF) + 1
+        if chunk == b"VP8 ":
+            # 帧头：3 字节起始码 + 2 字节宽 + 2 字节高（低 14 位）
+            width = int.from_bytes(data[26:28], "little") & 0x3FFF
+            height = int.from_bytes(data[28:30], "little") & 0x3FFF
+            return width, height
+        return None
+
+    if data[:2] == b"\xff\xd8":
+        pos = 2
+        while pos + 9 < len(data):
+            if data[pos] != 0xFF:
+                pos += 1
+                continue
+            marker = data[pos + 1]
+            if marker in _JPEG_SOF:
+                height, width = struct.unpack(">HH", data[pos + 5 : pos + 9])
+                return int(width), int(height)
+            if marker in (0xD8, 0xD9) or 0xD0 <= marker <= 0xD7:
+                pos += 2
+                continue
+            seg_len = struct.unpack(">H", data[pos + 2 : pos + 4])[0]
+            pos += 2 + seg_len
+        return None
+
+    return None
+
+
+def fetch_bytes(opener: urllib.request.OpenerDirector, url: str, timeout: float) -> bytes | None:
+    """整张图下载下来（`--write-dims` 需要完整字节才能读到尺寸）。"""
+    request = urllib.request.Request(
+        url,
+        headers={"User-Agent": UA, "Accept": "image/*,*/*;q=0.8"},
+        method="GET",
+    )
+    try:
+        with opener.open(request, timeout=timeout) as response:
+            if response.status >= 400:
+                return None
+            return response.read()
+    except Exception:  # noqa: BLE001 - 网络异常种类多
+        return None
+
+
+def write_dimensions(entries: list[tuple[str, bytes]], path: Path = DIMS_PATH) -> int:
+    """把 [(url, 字节)] 的宽高写进 JSON，返回成功条数。"""
+    images: dict[str, dict[str, int]] = {}
+    for url, data in entries:
+        size = image_size(data)
+        if not size:
+            continue
+        width, height = size
+        if width <= 0 or height <= 0:
+            continue
+        images[url] = {"w": width, "h": height, "bytes": len(data)}
+
+    payload = {
+        "$comment": "由 scripts/check_remote_images.py --write-dims 生成，请勿手改。",
+        "generatedAt": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+        "images": images,
+    }
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    return len(images)
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="检查文章里引用的远程图片是否可访问")
     parser.add_argument("--only", help="只检查文件名包含该字符串的文章")
     parser.add_argument("--timeout", type=float, default=20.0, help="单张图的超时秒数")
     parser.add_argument("--proxy", help="走代理，例如 http://127.0.0.1:7897")
     parser.add_argument("--quiet", action="store_true", help="只输出有问题的条目")
+    parser.add_argument(
+        "--write-dims",
+        action="store_true",
+        help="顺便把远程图的宽高写进 src/data/remote-images.json",
+    )
     args = parser.parse_args(argv)
 
     if not BLOG_DIR.is_dir():
@@ -122,6 +230,7 @@ def main(argv: list[str] | None = None) -> int:
     big: list[str] = []
     only_no_referer: list[str] = []
     raw_html: list[str] = []
+    downloaded: dict[str, bytes] = {}
 
     for path in files:
         entries = find_remote_images(path.read_text(encoding="utf-8"))
@@ -161,6 +270,17 @@ def main(argv: list[str] | None = None) -> int:
             if args.quiet and ok and is_image and not note:
                 continue
             print(f"  {mark}  {str(status or '—'):>4}  {ctype.split(';')[0] or '—':<16} {human_size(size):>8}  L{lineno}  {url}{note}")
+
+            if args.write_dims and ok and is_image and url not in downloaded:
+                data = fetch_bytes(opener, url, args.timeout)
+                if data:
+                    downloaded[url] = data
+
+    if args.write_dims:
+        written = write_dimensions(list(downloaded.items()))
+        print(f"\n已把 {written} 张远程图的宽高写入 {DIMS_PATH.relative_to(ROOT)}。")
+        if written < len(downloaded):
+            print("有部分图片读不出宽高（格式不支持），构建时会退化成不带 width/height。")
 
     print("\n" + "-" * 72)
     print(f"共检查 {total} 张远程图，坏链 {len(broken)} 张。")

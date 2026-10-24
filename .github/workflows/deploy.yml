@@ -29,7 +29,8 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: 22
+          # 必须是 22.23.4 以上：astro 7.4 起 engines 有这个下限
+          node-version: '24'
           cache: npm
 
       - name: Install dependencies
@@ -38,8 +39,15 @@ jobs:
       - name: Type check
         run: npm run check
 
+      - name: Markdown plugin tests
+        run: npm run test:md
+
       - name: Build site
         run: npm run build
+
+      # 放在构建之后：图片清单和 WebP 变体是构建时生成的，测试要对着产物验
+      - name: Script tests
+        run: npm test
 
       - name: Configure Pages
         uses: actions/configure-pages@v5

@@ -3,6 +3,10 @@ node_modules/
 dist/
 .astro/
 
+# 文章图片的 WebP 变体是派生产物：由 scripts/optimize_images.mjs 在 dev/build 前生成
+# （src/data/image-manifest.json 记录了尺寸与清单，那个要提交）
+public/images/blog/**/*.webp
+
 # 环境变量与密钥（永远不要提交）
 .env
 .env.*

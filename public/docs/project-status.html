@@ -229,8 +229,18 @@
     border-bottom-color: var(--border-strong);
     white-space: nowrap;
   }
+  /* 数据列：右对齐 + 等宽数字，方便竖着比大小 */
+  .t-num {
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
   tbody tr:last-child td { border-bottom: 0; }
   td.nowrap, th.nowrap { white-space: nowrap; }
+  /* 第一列通常是"名字"，给个下限，免得挤成两三个字一行（窄屏会隐藏部分列，故只在宽屏生效） */
+  @media (min-width: 641px) {
+    th:first-child, td:first-child { min-width: 7rem; }
+  }
 
   /* ---------- 提示块 ---------- */
   .note {
@@ -432,34 +442,36 @@
     <p class="doc-sub">
       一份写给未来的自己的体检报告：每个部分做到什么程度、哪些是刻意留白、哪些是欠账，
       以及如果要拿它当模板开新项目，哪些地方必须先动手改。
+      第六节把本站与另外三个同类站点放在一起比页面构成和传输体积；
+      第七到第九节分别讲"只开一个邮箱框行不行""站点气质从哪来""fork 出去当内容备份怎么改"。
     </p>
     <div class="doc-meta">
       <span>站点 epsilongg.github.io</span>
-      <span>版本 v0.1.0</span>
-      <span>构建 7 页面 / 约 10 s</span>
-      <span>体检 2026-10-22</span>
+      <span>版本 v0.4.0</span>
+      <span>构建 10 页面 / 约 16 s</span>
+      <span>体检 2026-10-24</span>
     </div>
 
     <div class="kpi">
       <div class="kpi__item">
-        <span class="kpi__num">7</span>
+        <span class="kpi__num">10</span>
         <span class="kpi__label">HTML 页面</span>
       </div>
       <div class="kpi__item">
-        <span class="kpi__num">24<small>KB</small></span>
-        <span class="kpi__label">单文件 CSS</span>
+        <span class="kpi__num">6.3<small>KB</small></span>
+        <span class="kpi__label">CSS（gzip）</span>
       </div>
       <div class="kpi__item">
         <span class="kpi__num">0</span>
         <span class="kpi__label">外部 JS 文件</span>
       </div>
       <div class="kpi__item">
-        <span class="kpi__num">22</span>
-        <span class="kpi__label">单元测试全过</span>
+        <span class="kpi__num">53</span>
+        <span class="kpi__label">测试全过</span>
       </div>
       <div class="kpi__item">
-        <span class="kpi__num">1.7<small>MB</small></span>
-        <span class="kpi__label">构建产物</span>
+        <span class="kpi__num">9.1<small>KB</small></span>
+        <span class="kpi__label">首页传输（gzip）</span>
       </div>
     </div>
 
@@ -469,8 +481,12 @@
         <li><a href="#verdict">一句话结论</a></li>
         <li><a href="#scorecard">完成度总表</a></li>
         <li><a href="#detail">逐项说明</a></li>
-        <li><a href="#gaps">已知不足</a></li>
-        <li><a href="#next">可优化点</a></li>
+        <li><a href="#gaps">问题清单：原因与严重性</a></li>
+        <li><a href="#next">还剩什么值得做</a></li>
+        <li><a href="#compare">横向对照 · 四个站点</a></li>
+        <li><a href="#contact">只开一个邮箱框行不行</a></li>
+        <li><a href="#vibe">站点气质从哪来</a></li>
+        <li><a href="#fork">fork 出去当内容备份</a></li>
         <li><a href="#map">文件地图</a></li>
         <li><a href="#template">当模板用的话</a></li>
       </ol>
@@ -482,33 +498,44 @@
     <h2><span class="num">01</span>一句话结论</h2>
 
     <p class="lead">
-      站点已经<strong>完整可用</strong>：五个固定页面、一条文章路由、一套设计系统、一条 CI 流水线、
-      一套文档和一套脚本，全部跑通且互相对得上。它的定位是一个<strong>编辑型个人主页</strong>——
-      首页是名片，不是博客；文章是名片上的补充说明。
+      站点已经<strong>完整可用</strong>：四个固定页面、一条文章路由、一套设计系统、一条 CI 流水线、
+      三份维护文档和两套脚本，全部跑通且互相对得上。它的定位是一个<strong>轻量化的编辑型个人主页</strong>——
+      首页是名片，不是博客；文章是名片上的补充说明。整站首页传输 <strong>9.1 KB</strong>、零外部 JS，
+      这个体量是刻意的，也是它区别于同类站点的地方。
     </p>
 
     <p>
-      真正缺的不是功能，是<strong>规模</strong>。当前所有设计都建立在"文章不超过十篇"这个前提上：
-      没有列表页、没有分页、没有标签页、没有搜索、没有文章内目录。一旦文章过二十篇，
-      <code>/blog/</code> 会变成一条无限长的列表，读者只能靠浏览器查找。
+      上一轮体检时最大的欠账是"内容规模化"——没有列表页、分页、标签筛选、搜索、文章内目录。
+      那一层已经补齐。<strong>这一轮补的是四件"零成本纯收益"的欠账</strong>：
+      补上 <code>LICENSE</code>（代码 MIT、内容 CC BY-NC-SA）、图片全部转 WebP 并加
+      <code>srcset</code> 与宽高、图注插件扩展到能认"带链接的图"和"连续多图"、
+      解除 Astro 版本锁（<code>7.3.8</code> → <code>^7.4.2</code>）。
+      顺手把 4 篇文章里 40 张手写 <code>&lt;figure&gt;</code> 统一成了 Markdown 写法，
+      否则它们永远享受不到图片管线。
+    </p>
+
+    <p>
+      剩下没做的是<strong>分类体系</strong>、<strong>社区性功能</strong>（评论、访问统计）和
+      <strong>子路径部署</strong>。前两项和"轻量化"这个定位冲突，属于想清楚了才做的取舍；
+      第三项只在 fork 到 <code>user.github.io/repo</code> 时才需要，方案写在第九节。
     </p>
 
     <div class="cards">
       <div class="card">
         <h4>能用</h4>
-        <p>7 个页面全部 200；构建 0 报错；<code>astro check</code> 36 个文件 0 错 0 警 0 提示；22 个测试全过；两次线上部署已验证。</p>
+        <p>10 个页面全部 200；构建 0 报错；<code>astro check</code> 0 错 0 警 0 提示；53 个测试全过；每次推送自动部署，线上已验证。</p>
       </div>
       <div class="card">
         <h4>能改</h4>
         <p>个人信息、链接、文案都在 <code>src/config/</code>；颜色字号间距在 <code>tokens.css</code>。改内容不碰组件。</p>
       </div>
       <div class="card">
-        <h4>能复制</h4>
-        <p><code>README/fork.md</code> 把"改成你自己的"拆成五步，最小改动只需换 5 个文件。</p>
+        <h4>能扩</h4>
+        <p>列表页、筛选、分页、目录、AI 披露、远程图片、WebP 管线都已就位。文章从 5 篇涨到 50 篇，架构不用改。</p>
       </div>
       <div class="card">
-        <h4>不能扩</h4>
-        <p>内容规模化那一层（列表／分页／标签／搜索／TOC）完全空白，而且是<strong>刻意</strong>的——项目书 B-3.0 明确规定了首页顺序和不设 <code>/blog/</code> 列表页。</p>
+        <h4>有边界</h4>
+        <p>不做评论后端、不做统计、不做分类树、不引框架。<strong>这些不是没来得及，是决定不做</strong>——理由写在第四、五、七节。</p>
       </div>
     </div>
   </section>
@@ -572,7 +599,7 @@
           <td>图片图注</td>
           <td><span class="pill pill--done">完成</span></td>
           <td><span class="meter"><span class="meter__track"><span class="meter__fill" style="--pct:100%"></span></span><span class="meter__pct">100%</span></span></td>
-          <td class="t-hide-sm">本轮新增，hast 插件</td>
+          <td class="t-hide-sm">单图 / 带链接 / 连续多图并组，hast 插件</td>
         </tr>
         <tr>
           <td>主题与可访问性</td>
@@ -582,48 +609,67 @@
         </tr>
         <tr>
           <td>性能</td>
-          <td><span class="pill pill--part">良好</span></td>
-          <td><span class="meter"><span class="meter__track"><span class="meter__fill" style="--pct:95%"></span></span><span class="meter__pct">95%</span></span></td>
-          <td class="t-hide-sm">图片 1.4 MB 是产物大头</td>
+          <td><span class="pill pill--done">完成</span></td>
+          <td><span class="meter"><span class="meter__track"><span class="meter__fill" style="--pct:96%"></span></span><span class="meter__pct">96%</span></span></td>
+          <td class="t-hide-sm">首屏 9.1 KB；图片已转 WebP 三档，手机端下载量 −74%</td>
         </tr>
         <tr>
           <td>部署与 CI</td>
           <td><span class="pill pill--done">完成</span></td>
           <td><span class="meter"><span class="meter__track"><span class="meter__fill" style="--pct:100%"></span></span><span class="meter__pct">100%</span></span></td>
-          <td class="t-hide-sm">Actions → Pages，最小权限</td>
+          <td class="t-hide-sm">Actions → Pages，最小权限，Node 24</td>
         </tr>
         <tr>
           <td>脚本与测试</td>
           <td><span class="pill pill--done">完成</span></td>
           <td><span class="meter"><span class="meter__track"><span class="meter__fill" style="--pct:100%"></span></span><span class="meter__pct">100%</span></span></td>
-          <td class="t-hide-sm">22 个用例，幂等 + 原子写</td>
+          <td class="t-hide-sm">53 个用例（42 Python + 11 Node），含图片清单对账</td>
         </tr>
         <tr>
           <td>文档</td>
           <td><span class="pill pill--done">完成</span></td>
           <td><span class="meter"><span class="meter__track"><span class="meter__fill" style="--pct:100%"></span></span><span class="meter__pct">100%</span></span></td>
-          <td class="t-hide-sm">4 份 Markdown + 2 个 HTML</td>
+          <td class="t-hide-sm">4 份 Markdown + 4 个 HTML + LICENSE / LICENSE-CONTENT</td>
         </tr>
         <tr>
           <td>内容规模化</td>
-          <td><span class="pill pill--todo">未做</span></td>
-          <td><span class="meter"><span class="meter__track"><span class="meter__fill meter__fill--empty" style="--pct:0%"></span></span><span class="meter__pct">0%</span></span></td>
-          <td class="t-hide-sm">列表／分页／标签／搜索／TOC</td>
+          <td><span class="pill pill--part">已补齐</span></td>
+          <td><span class="meter"><span class="meter__track"><span class="meter__fill" style="--pct:75%"></span></span><span class="meter__pct">75%</span></span></td>
+          <td class="t-hide-sm">列表／分页／标签筛选／搜索／目录都有；缺分类体系</td>
+        </tr>
+        <tr>
+          <td>文章页侧栏</td>
+          <td><span class="pill pill--done">完成</span></td>
+          <td><span class="meter"><span class="meter__track"><span class="meter__fill" style="--pct:100%"></span></span><span class="meter__pct">100%</span></span></td>
+          <td class="t-hide-sm">目录 + 首页/置顶/较新/较旧 2×2，窄屏折成吸顶工具条</td>
+        </tr>
+        <tr>
+          <td>来源与 AI 披露</td>
+          <td><span class="pill pill--done">完成</span></td>
+          <td><span class="meter"><span class="meter__track"><span class="meter__fill" style="--pct:100%"></span></span><span class="meter__pct">100%</span></span></td>
+          <td class="t-hide-sm">原创／转载 与 AI 整理分栏 + 标记，默认隐藏</td>
+        </tr>
+        <tr>
+          <td>图片策略</td>
+          <td><span class="pill pill--done">完成</span></td>
+          <td><span class="meter"><span class="meter__track"><span class="meter__fill" style="--pct:100%"></span></span><span class="meter__pct">100%</span></span></td>
+          <td class="t-hide-sm">图注 + 本地化／远程引用 + WebP 三档 + 尺寸清单 + 体检脚本</td>
         </tr>
         <tr>
           <td>授权与法务</td>
-          <td><span class="pill pill--todo">未做</span></td>
-          <td><span class="meter"><span class="meter__track"><span class="meter__fill meter__fill--empty" style="--pct:0%"></span></span><span class="meter__pct">0%</span></span></td>
-          <td class="t-hide-sm">仓库公开但没有 LICENSE</td>
+          <td><span class="pill pill--done">完成</span></td>
+          <td><span class="meter"><span class="meter__track"><span class="meter__fill" style="--pct:100%"></span></span><span class="meter__pct">100%</span></span></td>
+          <td class="t-hide-sm">代码 MIT / 内容 CC BY-NC-SA 4.0，双文件分开写</td>
         </tr>
       </tbody>
     </table>
 
     <div class="note">
       <p>
-        <strong>怎么读这张表。</strong>十二项满分不等于"做完了一个博客"。
-        前十二项回答的是"项目书要求的东西做完了吗"，答案是做完了；
-        最后两项回答的是"它能不能长大"，答案是不能——但那是有意为之的取舍，不是疏忽。
+        <strong>怎么读这张表。</strong>前十八项回答的是"项目书要求的东西，以及后来追加的需求做完了吗"，
+        答案是做完了；「主题与可访问性」扣的 10% 是屏幕阅读器实测——那件事只能人工做，
+        不打算用自动化假装完成。「内容规模化」只给 75%：功能层面齐了，
+        但<strong>分类体系</strong>仍然是空白，而那是唯一一处"文章变多就会真的难受"的地方。
       </p>
     </div>
   </section>
@@ -655,7 +701,7 @@
           线上 URL 一律带尾斜杠。所有内链写成根绝对路径 <code>/xxx/</code>，
           这意味着<strong>站点只能部署在域名根路径</strong>。
         </p>
-        <div class="block-item__left">剩余：没有分页；没有 <code>/blog/</code> 列表页（项目书规定）。</div>
+        <div class="block-item__left">剩余：没有分类页（<code>/blog/c/&lt;slug&gt;/</code>）；列表页当初项目书规定"不设"，后来推翻了，见第五节。</div>
       </div>
 
       <div class="block-item">
@@ -728,8 +774,9 @@
           <code>defaultColor: false</code> 让颜色交给 CSS 变量，跟随站点主题切换。
         </p>
         <div class="block-item__left">
-          剩余：<code>tags</code> 字段收集了但没用起来——没有标签页、没有按标签筛选；
-          草稿只能改成 <code>draft: false</code> 才能预览。
+          剩余：<code>tags</code> 已经用起来了（列表页的 AND 组合筛选），但没有独立的
+          <code>/tags/&lt;tag&gt;/</code> 路由，筛选状态也不进 URL，刷新后丢失；
+          草稿仍然只能改成 <code>draft: false</code> 才能预览。
         </div>
       </div>
 
@@ -764,8 +811,8 @@
       <div class="block-item">
         <div class="block-item__head">
           <span class="block-item__name">3.7 图片图注</span>
-          <span class="pill pill--done">本轮新增</span>
-          <span class="block-item__src">src/lib/markdown-figure.mjs · 62 行</span>
+          <span class="pill pill--done">完成</span>
+          <span class="block-item__src">src/lib/markdown-figure.mjs · 228 行</span>
         </div>
         <p>
           最短写法：<code>![alt](图片路径 "图注文字")</code>——Markdown 的 <code>title</code> 就是图注。
@@ -774,11 +821,25 @@
           <code>&lt;img&gt;</code> 上摘掉，避免和浏览器 hover 提示重复。
         </p>
         <p>
-          需要精确控制尺寸时手写 <code>&lt;figure class="article-figure"&gt;</code> 也可以，
-          现有那篇访谈的 11 张插图就是这么转的。图片统一放 <code>public/images/blog/&lt;slug&gt;/</code>。
+          这一轮把认得的结构从 1 种扩到 4 种，另外加了一条并组规则：
+        </p>
+        <ul>
+          <li><code>p &gt; img</code>：普通图片</li>
+          <li><code>p &gt; picture &gt; img</code>：已经被 WebP 管线包过的图片</li>
+          <li><code>p &gt; a &gt; img</code>：点击可放大的图片（链接保留在 figure 里）</li>
+          <li><code>p &gt; a &gt; picture &gt; img</code>：两者叠加</li>
+          <li>连续两张以上带图注的独占段落图 → 自动并成 <code>&lt;div class="article-figure-grid"&gt;</code>，
+              宽屏并排、窄于 34rem 时回到一行一张</li>
+        </ul>
+        <p>
+          顺手还修掉一个一直没人发现的老问题：<code>&lt;figure&gt;</code> 带着浏览器默认的
+          左右各 40px 外边距，之前的样式只覆盖了上下，于是每张图注图实际只有
+          <strong>528px 宽</strong>（正文栏 608px），并且整体右移 40px。单张时只是"看着有点偏"，
+          并组之后每格白丢 80px 才暴露出来。
         </p>
         <div class="block-item__left">
-          剩余：只处理"独占段落的图片"。行内图片、多图并排、被链接包住的图片都不会生成图注。
+          剩余：行内小图标（段落里还有文字）仍然不出图注，这是有意的——把图标包进 figure 会撑乱行距。
+          另外并组只认"相邻"，中间夹一句正文就断开了。
         </div>
       </div>
 
@@ -805,20 +866,46 @@
 
       <div class="block-item">
         <div class="block-item__head">
-          <span class="block-item__name">3.9 性能</span>
-          <span class="block-item__src">dist/ · 1.7 MB</span>
+          <span class="block-item__name">3.9 性能与图片管线</span>
+          <span class="block-item__src">dist/ · 15 MB（原图 7.0 + WebP 6.2）</span>
         </div>
         <p>
-          产物 1.7 MB 的构成：图片 1.4 MB、字体 105 KB、HTML 与 CSS 合计约 175 KB。
-          CSS 打成单文件 24 KB，<strong>没有任何外部 JS 文件</strong>——脚本量太小，Astro 全部内联了。
+          产物 15 MB 的构成：图片 14 MB（原图 7.0 MB + WebP 变体 6.2 MB + 站点图标）、
+          HTML 约 500 KB、字体 136 KB、CSS 35 KB。
+          <strong>但首屏和这个数字无关</strong>——首页实际传输 9.1 KB（HTML 2.8 + CSS 6.3），
+          文章页 21.0 KB。图片只在滚到它时才开始下载。
         </p>
         <p>
-          文章页一共 4 个 <code>&lt;script&gt;</code>：1 个在 head 里防主题闪烁，3 个 module
-          （主题切换、阅读进度、注释面板）。没有客户端框架、没有 hydration、没有第三方请求，
-          字体和图标都是自己的。图片带 <code>loading="lazy"</code> 和显式 <code>width</code>/<code>height</code> 防布局抖动。
+          CSS 打成单文件 35 KB，gzip 后 6.3 KB，<strong>没有任何外部 JS 文件</strong>——
+          脚本量太小，Astro 全部内联进了 HTML。文章页一共 5 个 <code>&lt;script&gt;</code>：
+          1 个在 head 里防主题闪烁，其余是主题切换、阅读进度、注释面板、侧栏目录与返回顶部。
+          没有客户端框架、没有 hydration、没有第三方请求，字体和图标都是自己的。
         </p>
+        <p>
+          <strong>图片管线是本轮新增的</strong>：<code>public/</code> 下的文件是原样拷贝，
+          Astro 的图片管线完全不管，所以之前 7 MB 图片既没压缩也没尺寸。
+          现在构建前跑 <code>scripts/optimize_images.mjs</code>（sharp）：
+          每张图生成 600 / 960 / 原宽三档 WebP，把宽高和变体清单写进
+          <code>src/data/image-manifest.json</code>，再由 hast 插件拼成
+          <code>&lt;picture&gt;</code> + <code>srcset</code> + <code>width/height</code>。
+          并排成组的那几张，<code>sizes</code> 会跟着从 38rem 改成 19rem，
+          否则浏览器按整栏宽挑图，白白多下一倍。
+        </p>
+        <table>
+          <thead>
+            <tr><th>指标</th><th class="t-num">之前</th><th class="t-num">现在</th><th class="t-hide-sm">说明</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>手机端读完全部文章</td><td class="t-num">7.0 MB</td><td class="t-num">1.8 MB</td><td class="t-hide-sm">600w WebP，是原来的 26%</td></tr>
+            <tr><td>桌面 2 倍屏单张</td><td class="t-num">7.0 MB</td><td class="t-num">3.1 MB</td><td class="t-hide-sm">960w 档，按需加载</td></tr>
+            <tr><td>布局跳动（CLS）</td><td class="t-num">有</td><td class="t-num">0</td><td class="t-hide-sm">全部图片带 width/height</td></tr>
+            <tr><td>部署体积</td><td class="t-num">7.8 MB</td><td class="t-num">15 MB</td><td class="t-hide-sm">原图留着做兜底，翻倍是代价</td></tr>
+          </tbody>
+        </table>
         <div class="block-item__left">
-          剩余：图片没转 WebP/AVIF、没做 <code>srcset</code>，这一项能从 1.4 MB 压到 400 KB 量级。
+          剩余：没做 AVIF（编码慢十倍，比 WebP 只再省 10–20%，52 张图不值得）；
+          原图和变体一起部署，所以产物从 7.8 MB 涨到 15 MB——
+          想省掉这一半就得把原图搬出 <code>public/</code>，代价是"没跑脚本就没有图"，不划算。
         </div>
       </div>
 
@@ -854,10 +941,35 @@
           所以中途失败不会留下半截文件。<code>--check</code> 是严格只读模式，可以用来做 CI 校验。
         </p>
         <p>
-          <code>tests/test_readme_sync.py</code>（287 行）覆盖 22 个用例，包含 marker 缺失、
-          顺序错乱、内容为空、日期格式化等边界。全部通过。
+          <code>check_remote_images.py</code>（约 290 行）扫文章里的远程图片，逐张请求，
+          报状态码、类型和体积，坏链退出码 1。它补的是一个结构性漏洞——
+          构建只拼 HTML 不请求图片，所以外站删图在流水线里永远发现不了。
+          加 <code>--write-dims</code> 时顺便把宽高记进 <code>src/data/remote-images.json</code>，
+          构建时自动给远程图补尺寸（见 3.15）。
         </p>
-        <div class="block-item__left">剩余：测试只覆盖 README 同步，站点本身没有自动化测试。</div>
+        <p>
+          <code>optimize_images.mjs</code>（约 190 行）是图片管线的前半段：扫
+          <code>public/images/blog/</code>，出 WebP 变体、写尺寸清单。按 mtime 增量，
+          第二次运行基本是空转。
+        </p>
+        <p>
+          测试合计 <strong>53 个用例</strong>：
+        </p>
+        <ul>
+          <li><code>test_readme_sync.py</code>（24 个）：marker 缺失、顺序错乱、内容为空、日期格式化</li>
+          <li><code>test_remote_images.py</code>（13 个）：两种图片写法、代码块忽略、行号、
+              体积格式化，以及 PNG/JPEG/GIF/WebP 的宽高解析（纯 Python，不依赖 Pillow）</li>
+          <li><code>test_image_manifest.py</code>（5 个）：文章引用的每张图都在清单里、
+              变体文件真实存在、宽度递增且不放大</li>
+          <li><code>tests/markdown/*.test.mjs</code>（11 个，<code>node --test</code>）：
+              图注插件的单图 / 并组 / 行内图 / 链接图 / picture 五种情形，
+              外加并组后 <code>sizes</code> 是否跟着缩半</li>
+        </ul>
+        <div class="block-item__left">
+          剩余：测试覆盖的是脚本和插件，<strong>站点页面本身仍然没有自动化测试</strong>——
+          HTML 结构、内链、TOC 条数这些还是靠手工抽查。加一个构建后扫死链的脚本成本很低（约 30 行），
+          但这一轮没做。
+        </div>
       </div>
 
       <div class="block-item">
@@ -868,9 +980,11 @@
         <ul>
           <li><code>README.md</code>（根）：主页名片 + 文档导航，内容与 GitHub 主页 README 大致一致</li>
           <li><code>README/project.md</code>：目录结构、路由、配置项、写文章、部署与排查</li>
-          <li><code>README/blog-guide.md</code>：frontmatter、图注、注释的写法、发布前清单、给 AI 的提示词</li>
+          <li><code>README/blog-guide.md</code>：frontmatter、图注、注释、远程图片的写法、发布前清单、给 AI 的提示词</li>
           <li><code>README/fork.md</code>：从 fork 到上线，含"必须部署在根路径"的警告</li>
+          <li><code>README/reports/</code>：一次性调查报告（分类模块方案对比），不进部署</li>
           <li><code>public/docs/github-profile-readme-guide.html</code>：主页 README 搭建与维护</li>
+          <li><code>public/docs/notes-maintenance.html</code>：笔记栏目的日常维护，含 AI 披露与远程图片</li>
           <li><code>public/docs/project-status.html</code>：本页</li>
         </ul>
         <div class="block-item__left">
@@ -879,311 +993,1210 @@
         </div>
       </div>
 
+      <div class="block-item">
+        <div class="block-item__head">
+          <span class="block-item__name">3.13 文章页侧栏</span>
+          <span class="pill pill--done">本轮新增</span>
+          <span class="block-item__src">ArticleSidebar.astro · article-sidebar.ts · 155 + 102 行</span>
+        </div>
+        <p>
+          桌面端正文左侧一栏，放三样东西：截断到 20 字的标题（完整标题留在 <code>title</code> 属性里）、
+          只收 h1/h2 的目录（最多 10 行，超出在栏内滚动）、以及首页 / 置顶 / 较新 / 较旧四个按钮组成的 2×2 格。
+        </p>
+        <ul>
+          <li>版面是 5 列网格：<code>弹性 | 侧栏 | 间隔 | 正文 | 占位 | 弹性</code>，正文正好落在视口正中，侧栏挂在左侧留白里</li>
+          <li>滚动时目录跟着高亮当前小节（<code>aria-current</code>，rAF 节流）</li>
+          <li>窄于 1024px 折成 44px 高的<strong>吸顶</strong>工具条，目录变可展开浮层，按钮退回一行四个图标</li>
+          <li>没有相邻文章时渲染灰态占位（<code>aria-disabled</code>），保持格子对齐、不跳转</li>
+        </ul>
+        <div class="block-item__left">
+          剩余：目录只到二级标题，长文的 h3 段落导航不到；侧栏在 <code>sticky</code> 状态下超出视口高度时，
+          底部按钮需要页面滚到底才可见。
+        </div>
+      </div>
+
+      <div class="block-item">
+        <div class="block-item__head">
+          <span class="block-item__name">3.14 来源与 AI 披露</span>
+          <span class="pill pill--done">本轮新增</span>
+          <span class="block-item__src">content.config.ts · archive-filter.ts</span>
+        </div>
+        <p>
+          frontmatter 加了一个 <code>source</code> 枚举，只有两个值：
+          <code>original</code>（原创，或人工转载）和 <code>ai</code>（AI 参与整理/生成）。
+          不另开栏目，全部留在「笔记」一栏里：默认列表叫「原创与转载」，只显示 <code>original</code>；
+          勾上筛选区的「含 AI 整理」滑块后，<code>ai</code> 的文章才并入，栏目名跟着变成「全部（含 AI 整理）」。
+        </p>
+        <p>
+          <code>ai</code> 的文章在列表项、单篇页、首页「最近文章」三处都显示「AI 整理」标记——
+          披露必须跟着文章走到任何可能出现的地方，只做一处等于没做。
+        </p>
+        <div class="block-item__left">
+          剩余：<code>original</code> 里混着"原创"和"人工转载"两种，目前靠正文里的出处说明区分，没有字段级的细分。
+        </div>
+      </div>
+
+      <div class="block-item">
+        <div class="block-item__head">
+          <span class="block-item__name">3.15 图片策略：本地化、远程引用与 WebP</span>
+          <span class="pill pill--done">完成</span>
+          <span class="block-item__src">markdown-images.mjs · optimize_images.mjs · check_remote_images.py</span>
+        </div>
+        <p>
+          两种模式并存。B 站专栏的图一律下载、压到 1400px 宽再落地；
+          其它外站文章可以只写原站地址（<code>![图注](https://原站/xx.jpg "说明")</code>），
+          仓库零字节，构建时也不会去请求它。
+        </p>
+        <p>
+          <code>markdown-images.mjs</code> 干两件事：给所有 Markdown 图片补
+          <code>loading="lazy"</code> / <code>decoding="async"</code> /
+          <code>referrerpolicy="no-referrer"</code>（最后一条用来绕开外站基于 Referer 的防盗链，
+          实测 gamespark、4gamer、denfaminicongamer、automaton、famitsu 五家都不拦），
+          再把有 WebP 变体的站内图包成 <code>&lt;picture&gt;</code>。
+        </p>
+        <p>
+          图片尺寸有两个来源，合并在一个查找表里：站内图读
+          <code>src/data/image-manifest.json</code>（构建时生成），
+          远程图读 <code>src/data/remote-images.json</code>（跑一次
+          <code>check_remote_images.py --write-dims</code> 才有）。两个文件都缺也不会报错，
+          只是那几张图没有 <code>width</code> / <code>height</code>。
+        </p>
+        <div class="block-item__left">
+          剩余：手写 <code>&lt;figure&gt;&lt;img&gt;</code> 属于原始 HTML，<strong>不经过插件</strong>，
+          拿不到上面这些属性。这一轮已经把 40 张手写图转成 Markdown 写法，
+          只剩 1 张因为图注里带链接和引号留在手写状态。
+        </div>
+      </div>
+
+      <div class="block-item">
+        <div class="block-item__head">
+          <span class="block-item__name">3.16 授权</span>
+          <span class="pill pill--done">本轮新增</span>
+          <span class="block-item__src">LICENSE · LICENSE-CONTENT</span>
+        </div>
+        <p>
+          代码与内容分开授权，两个文件各管一摊：
+        </p>
+        <ul>
+          <li><code>LICENSE</code>（MIT）：<code>src/</code>、<code>scripts/</code>、
+              <code>tests/</code>、配置文件与工作流。随便拿去改、拿去商用，保留版权声明即可</li>
+          <li><code>LICENSE-CONTENT</code>（CC BY-NC-SA 4.0）：文章、译文、图片、文档。
+              署名 + 非商业 + 相同方式共享</li>
+        </ul>
+        <p>
+          内容那份里额外写清了两件容易含糊的事：<strong>译文的权利边界</strong>
+          （译文本身按 CC 授权，但原文著作权属于原作者与出版方，转载必须连出处一起保留），
+          以及<strong>文章插图的例外</strong>（多数来自原采访页，版权归原出版方，
+          在本站只作评论引用，不在这份授权范围内）。
+        </p>
+        <div class="block-item__left">
+          剩余：页脚那句"未经同意禁止转载"仍然留着，它和 CC BY-NC-SA 不冲突——
+          那句话针对的是"商用"，CC 允许的是"非商业转载 + 署名"。
+        </div>
+      </div>
+
     </div>
   </section>
 
   <!-- ============================================================ -->
   <section id="gaps">
-    <h2><span class="num">04</span>已知不足</h2>
+    <h2><span class="num">04</span>问题清单：原因与严重性</h2>
 
     <p>
-      按"会不会真的咬到人"排序。最后一列区分三种性质：<strong>刻意</strong>（项目书要求）、
-      <strong>取舍</strong>（算过成本后决定不做）、<strong>欠账</strong>（该做但还没做）。
+      这一节只回答三个问题：<strong>是什么、为什么、有多要紧</strong>。
+      "严重性"按"会不会真的咬到人"排，不看实现难度：
+      <span class="pill">严重</span> 影响正确性或可用性 ·
+      <span class="pill">中等</span> 影响体验但能忍 ·
+      <span class="pill">轻微</span> 基本无感 ·
+      <span class="pill pill--done">已解决</span> 这一轮修掉了。
     </p>
 
-    <table>
-      <thead>
-        <tr>
-          <th>问题</th>
-          <th class="t-hide-sm">影响</th>
-          <th class="nowrap">性质</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>没有 <code>/blog/</code> 列表页</td>
-          <td class="t-hide-sm">文章只能从首页"最近文章"或 <code>/blog/</code> 进入</td>
-          <td><span class="pill">刻意</span></td>
-        </tr>
-        <tr>
-          <td>无分页 / 标签页 / 搜索 / 文章内目录</td>
-          <td class="t-hide-sm">文章过二十篇后，查找成本陡增</td>
-          <td><span class="pill pill--todo">欠账</span></td>
-        </tr>
-        <tr>
-          <td><code>tags</code> 字段收集了但没页面</td>
-          <td class="t-hide-sm">写标签只是给未来留的钩子，现在没有可见效果</td>
-          <td><span class="pill pill--todo">欠账</span></td>
-        </tr>
-        <tr>
-          <td>注释面板最高 45vh</td>
-          <td class="t-hide-sm">长注释要在面板内滚动；窄屏几乎占满</td>
-          <td><span class="pill">取舍</span></td>
-        </tr>
-        <tr>
-          <td>图注只认"独占段落 + 带 title 的图片"</td>
-          <td class="t-hide-sm">行内图、多图并排、带链接的图不出图注</td>
-          <td><span class="pill pill--todo">欠账</span></td>
-        </tr>
-        <tr>
-          <td>图片无 WebP/AVIF、无 <code>srcset</code></td>
-          <td class="t-hide-sm">1.4 MB 图片占了产物 83%</td>
-          <td><span class="pill pill--todo">欠账</span></td>
-        </tr>
-        <tr>
-          <td>CJK 依赖系统字体</td>
-          <td class="t-hide-sm">跨平台中文标题字形不同</td>
-          <td><span class="pill">取舍</span></td>
-        </tr>
-        <tr>
-          <td><code>astro</code> 锁死 7.3.8</td>
-          <td class="t-hide-sm">7.4.x 要求 Node ≥ 22.23.4，本机是 22.22.2</td>
-          <td><span class="pill">环境</span></td>
-        </tr>
-        <tr>
-          <td>只能部署在域名根路径</td>
-          <td class="t-hide-sm">内链全是根绝对路径，子路径部署会全站 404</td>
-          <td><span class="pill">取舍</span></td>
-        </tr>
-        <tr>
-          <td>没有 LICENSE</td>
-          <td class="t-hide-sm">仓库公开但未授权，别人 fork 时权责不清</td>
-          <td><span class="pill pill--todo">欠账</span></td>
-        </tr>
-        <tr>
-          <td><code>og-default.png</code> 是静态图</td>
-          <td class="t-hide-sm">改站名或标题后要手动重做分享图</td>
-          <td><span class="pill pill--todo">欠账</span></td>
-        </tr>
-        <tr>
-          <td>草稿只能改 <code>draft: false</code> 才能看</td>
-          <td class="t-hide-sm">没有 dev 环境的草稿开关，写一半的文章没法边写边看</td>
-          <td><span class="pill pill--todo">欠账</span></td>
-        </tr>
-        <tr>
-          <td><code>about.ts</code> 不是 JSON</td>
-          <td class="t-hide-sm">和"JSON 是数据源"的约定不一致</td>
-          <td><span class="pill">历史遗留</span></td>
-        </tr>
-        <tr>
-          <td>0 篇文章时 RSS 输出空 channel</td>
-          <td class="t-hide-sm">XML 合法，但部分阅读器会报错</td>
-          <td><span class="pill">边界</span></td>
-        </tr>
-        <tr>
-          <td>无障碍未实测</td>
-          <td class="t-hide-sm">对比度、屏幕阅读器行为都没验证过</td>
-          <td><span class="pill pill--todo">欠账</span></td>
-        </tr>
-        <tr>
-          <td>移动端只验到 500px</td>
-          <td class="t-hide-sm">受 Chrome headless 最小宽度限制，未真机测试</td>
-          <td><span class="pill pill--todo">欠账</span></td>
-        </tr>
-        <tr>
-          <td>图标是手工抓的</td>
-          <td class="t-hide-sm">源站换 favicon 后不会更新</td>
-          <td><span class="pill pill--todo">欠账</span></td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="block-list">
+
+      <div class="block-item">
+        <div class="block-item__head">
+          <span class="block-item__name">图片没有 WebP / AVIF，也没有 srcset</span>
+          <span class="pill">中等</span>
+          <span class="pill pill--done">已解决</span>
+        </div>
+        <p>
+          <code>public/</code> 是<strong>原样拷贝</strong>进产物的，Astro 的图片管线只管
+          <code>src/assets/</code> 里的图。Markdown 里写 <code>/images/blog/…</code> 走的是
+          <code>public/</code>，所以从来没被优化过——不是配置漏了，是这条路本来就不通。
+        </p>
+        <div class="block-item__left">
+          修法：构建前用 sharp 出 WebP 三档 + 尺寸清单，构建时读清单拼
+          <code>&lt;picture&gt;</code>。详见 4.1 第一条。
+        </div>
+      </div>
+
+      <div class="block-item">
+        <div class="block-item__head">
+          <span class="block-item__name">远程图片拿不到原始宽高</span>
+          <span class="pill">轻微</span>
+          <span class="pill pill--done">已解决</span>
+        </div>
+        <p>
+          构建是<strong>离线拼 HTML</strong>：远程图只有一个 URL，尺寸要下载完才知道，
+          浏览器在图片到达前只能按 0 高度排版，于是图片一加载页面就往下顶一下（CLS）。
+          纯前端也补不了——跨域读 <code>naturalWidth</code> 要等图到，等于没解决。
+        </p>
+        <div class="block-item__left">
+          修法：让体检脚本顺手把宽高写进 <code>src/data/remote-images.json</code>，构建时只读文件。
+          详见 4.1 第二条。
+        </div>
+      </div>
+
+      <div class="block-item">
+        <div class="block-item__head">
+          <span class="block-item__name">CJK 依赖系统字体</span>
+          <span class="pill">轻微</span>
+          <span class="pill">不做</span>
+        </div>
+        <p>
+          中文字体没法像拉丁字母那样只带两百个字形。一个常用字子集约
+          <strong>0.8–1.5 MB</strong>，而整站首页只传 9.1 KB——装一个中文字体，
+          首屏就翻一百倍。拉丁部分（Inter / Cormorant）是自托管的，中文刻意交给系统：
+          macOS 用苹方、Windows 用雅黑或宋体、Android 用思源。字形略有差异，字号和行高是一致的。
+        </p>
+        <div class="block-item__left">
+          如果非要统一：只对标题做子集化（仍要 300–600 KB），或者用第三方 CDN 的思源子集
+          （引入外部请求，破坏零依赖）。两条都不划算。
+        </div>
+      </div>
+
+      <div class="block-item">
+        <div class="block-item__head">
+          <span class="block-item__name">astro 锁死 7.3.8</span>
+          <span class="pill">中等</span>
+          <span class="pill pill--done">已解决</span>
+        </div>
+        <p>
+          astro 7.4 起要求 <code>node &gt;= 22.23.4</code>，而本机 PATH 里默认是
+          <strong>22.22.2</strong>——只差三个补丁号，但 npm 会按 engines 拒绝安装。
+          实际上机器上同时装了 Node 24.15.0，只是 PATH 优先给了旧的。
+          换句话说，锁的是<strong>路径</strong>，不是机器。
+        </p>
+        <div class="block-item__left">
+          修法：放开到 <code>^7.4.2</code>、<code>engines</code> 跟上游对齐、CI 钉 Node 24。详见 4.1 第三条。
+        </div>
+      </div>
+
+      <div class="block-item">
+        <div class="block-item__head">
+          <span class="block-item__name">只能部署在域名根路径</span>
+          <span class="pill">中等</span>
+          <span class="pill">不做</span>
+        </div>
+        <p>
+          站内链接全是 <code>/blog/</code>、<code>/images/…</code> 这种<strong>根绝对路径</strong>，
+          <code>astro.config.mjs</code> 也没设 <code>base</code>。放到
+          <code>user.github.io/repo/</code> 下，所有链接都会指到域名根，全站 404。
+        </p>
+        <div class="block-item__left">
+          绕开办法：新账号建同名仓库（<code>&lt;name&gt;.github.io</code>）就天然是根路径，
+          零改动。真要做子路径，改动清单在 9.3 节。
+        </div>
+      </div>
+
+      <div class="block-item">
+        <div class="block-item__head">
+          <span class="block-item__name">og-default.png 是静态图，且不跟 base 走</span>
+          <span class="pill">轻微</span>
+          <span class="pill">不做</span>
+        </div>
+        <p>
+          OG 协议要求绝对 URL，构建时用 <code>new URL(ogImage, site.url)</code> 拼出来，
+          所以它<strong>跟 <code>site.url</code> 走、不跟 <code>base</code> 走</strong>。
+          换域名要改 <code>site.json</code>；改成子路径部署时它仍然指向域名根，分享卡片会裂。
+          图本身是手做的 PNG，改站名要重做一张。
+        </p>
+        <div class="block-item__left">
+          自动化要引入 satori / resvg 之类的渲染引擎，为了一张图不值得。
+        </div>
+      </div>
+
+      <div class="block-item">
+        <div class="block-item__head">
+          <span class="block-item__name">站内搜索只到标题 / 描述 / 标签</span>
+          <span class="pill">中等</span>
+          <span class="pill">不做</span>
+        </div>
+        <p>
+          搜索是纯前端读 DOM 上的 <code>data-title</code> / <code>data-description</code> /
+          <code>data-tags</code>。<strong>正文根本没进索引</strong>——不是"搜得不准"，
+          是"没被索引"。列表页为了首屏体积不可能把全文塞进 DOM。
+        </p>
+        <div class="block-item__left">
+          增量评估：Pagefind 索引约 15–25 KB/篇（gzip），只在打开搜索时下载。
+          5 篇约 100 KB，20 篇约 400 KB。判定见第五节。
+        </div>
+      </div>
+
+      <div class="block-item">
+        <div class="block-item__head">
+          <span class="block-item__name">CI 没有链接检查</span>
+          <span class="pill">中等</span>
+          <span class="pill">不做</span>
+        </div>
+        <p>
+          死链只在构建产物里才看得见。Astro 不会校验 <code>/blog/xxx/</code> 是否真的存在，
+          <code>astro check</code> 也只看类型。一次手滑改 slug 就是线上 404，而且没人会发现。
+        </p>
+        <div class="block-item__left">
+          脚本约 30 行：扫 <code>dist</code> 里的 <code>href="/…"</code> 与 <code>src="/…"</code>，
+          映射到文件系统，缺文件即退出 1。第五节排在第一。
+        </div>
+      </div>
+
+      <div class="block-item">
+        <div class="block-item__head">
+          <span class="block-item__name">无障碍没有实测</span>
+          <span class="pill">中等</span>
+          <span class="pill">不做</span>
+        </div>
+        <p>
+          对比度、焦点顺序、读屏朗读只能人工验；axe 之类的自动工具只覆盖三到四成。
+          黑白灰配色风险不大，但"没量过"就等于"不知道"。
+        </p>
+        <div class="block-item__left">
+          真机与读屏实测由站长自己安排，这一轮不动。
+        </div>
+      </div>
+
+      <div class="block-item">
+        <div class="block-item__head">
+          <span class="block-item__name">手写 &lt;img&gt; 绕过所有 Markdown 插件</span>
+          <span class="pill">轻微</span>
+          <span class="pill pill--done">基本清完</span>
+        </div>
+        <p>
+          Sätteri 把原始 HTML 当 <code>raw</code> 节点<strong>透传</strong>，不解析成 hast，
+          插件在树里根本看不到里面的 <code>&lt;img&gt;</code>。之前 4 篇文章的 40 张图都是这么写的，
+          等于整条图片管线对它们无效。
+        </p>
+        <div class="block-item__left">
+          这一轮把 40 张全部转成 Markdown 写法，只剩 1 张因为图注里带链接和引号留在手写状态。
+        </div>
+      </div>
+
+      <div class="block-item">
+        <div class="block-item__head">
+          <span class="block-item__name">图标是手工抓的</span>
+          <span class="pill">轻微</span>
+          <span class="pill">不做</span>
+        </div>
+        <p>
+          链接库三十多个站点的 favicon 是一次性下载加手工筛的，没有记录来源与时间。
+          源站换图标不会跟着更新，但图标本来也不会坏。
+        </p>
+      </div>
+
+      <div class="block-item">
+        <div class="block-item__head">
+          <span class="block-item__name">没有评论、没有访问统计</span>
+          <span class="pill">中等</span>
+          <span class="pill">取舍</span>
+        </div>
+        <p>
+          两者都需要一个"能写数据的地方"，静态站没有。加任何第三方服务都会引入
+          <strong>外部请求</strong>与<strong>隐私披露</strong>，和"零第三方依赖"直接冲突。
+          评论区、统计、登录这三件是同一个问题的三种问法。
+        </p>
+        <div class="block-item__left">
+          只做"发到我邮箱的表单"是可行的，复杂度与风险见第七节。
+        </div>
+      </div>
+
+      <div class="block-item">
+        <div class="block-item__head">
+          <span class="block-item__name">没有分类体系</span>
+          <span class="pill">轻微</span>
+          <span class="pill">取舍</span>
+        </div>
+        <p>
+          分类要有意义，得每类至少三篇。现有 5 篇全落在「访谈 + 翻译」里，做出来就是四个空格子。
+          标签筛选已经能顶一阵。
+        </p>
+        <div class="block-item__left">
+          详细判据在 <code>README/reports/category-module-proposal.html</code>。
+        </div>
+      </div>
+
+    </div>
+
+    <h3>4.1 三条已经修掉的，修法值得记一下</h3>
+
+    <div class="block-list">
+      <div class="block-item">
+        <div class="block-item__head">
+          <span class="block-item__name">图片优化：在 <code>public/</code> 外面补一条管线</span>
+          <span class="block-item__src">scripts/optimize_images.mjs</span>
+        </div>
+        <p>
+          既然 Astro 不管 <code>public/</code>，那就自己管：构建前用 sharp 扫一遍
+          <code>public/images/blog/</code>，给每张图出 600 / 960 / 原宽三档 WebP，
+          同时把宽高写进 <code>src/data/image-manifest.json</code>。
+          构建时一个 hast 插件读清单，把图包成
+          <code>&lt;picture&gt;&lt;source type="image/webp" srcset&gt;&lt;img&gt;&lt;/picture&gt;</code>，
+          并补上 <code>width</code> / <code>height</code>。
+        </p>
+        <p>
+          <strong>为什么不换 Astro 的 <code>&lt;Image&gt;</code> 组件</strong>：那要求把 52 张图搬进
+          <code>src/assets/</code> 并改所有文章的写法。收益只是"少写一个脚本"，
+          代价是写作体验变差（图片路径不再是稳定的公开 URL）。不划算。
+        </p>
+        <div class="block-item__left">
+          实测：手机端读完整个站点的图片下载量从 7.0 MB 降到 1.8 MB（26%）；
+          代价是产物从 7.8 MB 涨到 15 MB，因为原图留着当兜底。
+        </div>
+      </div>
+
+      <div class="block-item">
+        <div class="block-item__head">
+          <span class="block-item__name">远程图尺寸：把"联网"挪到脚本里，别让构建联网</span>
+          <span class="block-item__src">check_remote_images.py --write-dims</span>
+        </div>
+        <p>
+          构建期联网是禁忌（慢、会挂、CI 里不可复现）。所以换一个思路：
+          体检脚本本来就要请求每一张远程图，顺手把宽高解析出来写进
+          <code>src/data/remote-images.json</code>，构建时只读文件。
+        </p>
+        <p>
+          解析器是<strong>纯 Python</strong> 的（PNG / JPEG / GIF / WebP 头部，约 50 行），
+          不依赖 Pillow——因为写文章的机器上不一定装了 Pillow，而这个脚本要能随时跑。
+        </p>
+        <div class="block-item__left">
+          代价：原站换图（尺寸变了）时得记得重跑一次。忘了也不会坏，只是那几个
+          <code>width</code> / <code>height</code> 会偏，反而可能比以前更糟——所以这一步写进了维护文档。
+        </div>
+      </div>
+
+      <div class="block-item">
+        <div class="block-item__head">
+          <span class="block-item__name">Astro 版本锁：先确认"锁"是不是真的</span>
+          <span class="block-item__src">package.json · .github/workflows/deploy.yml</span>
+        </div>
+        <p>
+          上一轮记的结论是"本机 Node 22.22.2，装不了 astro 7.4"。这一轮查了一下：
+          机器上同时装了 <strong>Node 24.15.0</strong>，只是工具环境的 PATH 把 22.22.2 排在前面。
+          换句话说，锁的是<strong>路径</strong>，不是机器。
+        </p>
+        <p>
+          处理：<code>astro</code> 从 <code>7.3.8</code> 放开到 <code>^7.4.2</code>，
+          <code>engines.node</code> 改成 <code>&gt;=22.23.4</code>（跟着上游要求走，不再假装 22.12 够用），
+          CI 的 <code>setup-node</code> 钉到 <code>24</code>。
+          升级后 <code>astro check</code> 0 错、构建通过、53 个测试全过。
+        </p>
+        <div class="block-item__left">
+          顺手记一个坑：Astro 7 把渲染好的 Markdown HTML 缓存在
+          <code>node_modules/.astro/data-store.json</code> 里。
+          <strong>改了 hast 插件不删这个缓存，构建结果不会变</strong>——
+          这一轮在这上面浪费了四次构建才反应过来。
+        </div>
+      </div>
+    </div>
   </section>
 
   <!-- ============================================================ -->
   <section id="next">
-    <h2><span class="num">05</span>可优化点</h2>
+    <h2><span class="num">05</span>还剩什么值得做</h2>
 
     <p>
-      按"什么时候必须做"分三档。成本是粗估的工程量，不是日历时间。
-      P0 的共同点是：<strong>不做，文章一多就会难受</strong>。
+      上一轮列了一堆 P1/P2，这一轮砍到只剩三件——其余明确<strong>不做</strong>，
+      理由写在下面，免得过几个月又想起来纠结一次。
     </p>
 
-    <div class="group-label">P0 · 内容变多之前必须做</div>
+    <div class="group-label">值得做 · 按性价比排</div>
 
     <div class="todo">
       <div class="todo__head">
-        <span class="todo__prio todo__prio--p0">P0</span>
-        <span class="todo__title">文章列表页 + 分页</span>
-        <span class="todo__cost">成本 中</span>
+        <span class="todo__prio">1</span>
+        <span class="todo__title">CI 加构建后死链检查</span>
+        <span class="todo__cost">成本 极低 · 约 30 行</span>
       </div>
       <p>
-        已新建 <code>/blog/</code> 列表页（原 <code>/archive/</code> 重命名为 <code>/blog/</code>），并已加分页（每页 10 篇）。
-        注意这会<strong>推翻项目书 B-3.0 里"不设列表页"的约定</strong>——真要做得先改约定，
-        否则以后会反复纠结"到底该不该有"。实现上 Astro 静态分页（<code>paginate()</code>）即可，不需要额外依赖。
+        扫 <code>dist</code> 里所有 <code>href="/…"</code> 与 <code>src="/…"</code>，
+        映射到文件系统，缺文件就退出 1。外链单独跑、允许失败，避免被别人的站点波动拖累。
+        这是全站唯一一处"出错概率不低、发现概率为零"的地方：改 slug、删页面、
+        换图片目录，都不会有任何提示。
       </p>
     </div>
 
     <div class="todo">
       <div class="todo__head">
-        <span class="todo__prio todo__prio--p0">P0</span>
-        <span class="todo__title">文章内目录（TOC）</span>
-        <span class="todo__cost">成本 低</span>
+        <span class="todo__prio">2</span>
+        <span class="todo__title">站内搜索扩到正文（Pagefind）</span>
+        <span class="todo__cost">成本 中 · 2 小时</span>
       </div>
       <p>
-        <code>render()</code> 的返回值里已经带 <code>headings</code>，直接渲染成侧栏或可折叠块就行，
-        零新增依赖。现在那篇访谈两百多行，没有目录只能靠滚动。
+        <strong>必要性判断</strong>：5 篇文章时搜标题就够了；到 15 篇，读者会开始记得
+        "某篇里提过某个作品"而不是标题；到 30 篇，搜不到正文就等于没有搜索。
+      </p>
+      <p>
+        <strong>项目增量</strong>：Pagefind 在构建后扫一遍 HTML 生成静态索引，
+        运行时纯前端查询，不需要后端。索引按篇分片，<strong>约 15–25 KB/篇（gzip）</strong>：
+        5 篇约 100 KB，20 篇约 400 KB，50 篇约 1 MB——而且只在打开搜索框时才下载，
+        不进首屏。代价是多一个构建步骤、多一份产物、多一个 npm 依赖。
       </p>
     </div>
 
     <div class="todo">
       <div class="todo__head">
-        <span class="todo__prio todo__prio--p0">P0</span>
-        <span class="todo__title">补一个 LICENSE</span>
-        <span class="todo__cost">成本 极低</span>
-      </div>
-      <p>
-        建议代码与文字分开授权：代码用 MIT，文章与图片用 CC BY-NC-SA 4.0。
-        页脚已经写了"未经同意禁止转载"，但没有 LICENSE 文件，法律上仍然是"保留所有权利"的默认状态，边界模糊。
-      </p>
-    </div>
-
-    <div class="group-label">P1 · 体验明显提升</div>
-
-    <div class="todo">
-      <div class="todo__head">
-        <span class="todo__prio">P1</span>
-        <span class="todo__title">图片优化：WebP + srcset</span>
-        <span class="todo__cost">成本 中</span>
-      </div>
-      <p>
-        这是投入产出比最高的一项。构建时把 <code>public/images/blog/</code> 下的图转成 WebP 并生成多档宽度，
-        1.4 MB 能压到 400 KB 左右，首屏会明显变快。可以用 <code>sharp</code> 写个构建前脚本，不必上 Astro 的图片组件。
-      </p>
-    </div>
-
-    <div class="todo">
-      <div class="todo__head">
-        <span class="todo__prio">P1</span>
-        <span class="todo__title">图注插件扩展</span>
-        <span class="todo__cost">成本 低</span>
-      </div>
-      <p>
-        在 <code>markdown-figure.mjs</code> 里再认两种结构：被 <code>&lt;a&gt;</code> 包住的图片（<code>a &gt; img</code>），
-        以及连续多张独占段落的图片（自动合成一个 grid figure）。插件只有 62 行，改起来很轻。
-      </p>
-    </div>
-
-    <div class="todo">
-      <div class="todo__head">
-        <span class="todo__prio">P1</span>
-        <span class="todo__title">窄屏注释降级</span>
-        <span class="todo__cost">成本 低</span>
-      </div>
-      <p>
-        窄于 480px 时，把底部面板换成"原地内联展开"或全屏 sheet。
-        纯 CSS 加一段媒体查询 + 一个类名切换就能做到，不用改交互逻辑。
-      </p>
-    </div>
-
-    <div class="todo">
-      <div class="todo__head">
-        <span class="todo__prio">P1</span>
-        <span class="todo__title">标签页</span>
-        <span class="todo__cost">成本 中</span>
-      </div>
-      <p>
-        <code>tags</code> 字段已经在 schema 里了，缺的是 <code>/tags/{tag}/</code> 路由和标签索引页。
-        文章少于十篇时收益有限，超过二十篇时几乎是必需品。可以等文章攒够再一次性做。
-      </p>
-    </div>
-
-    <div class="todo">
-      <div class="todo__head">
-        <span class="todo__prio">P1</span>
-        <span class="todo__title">站内搜索</span>
-        <span class="todo__cost">成本 中</span>
-      </div>
-      <p>
-        Pagefind 在构建后扫一遍 HTML 生成静态索引，运行时纯前端查询，不需要后端，
-        不违反"无数据库、无服务端"的约束。索引文件按需加载，不拖首屏。
-      </p>
-    </div>
-
-    <div class="group-label">P2 · 长期维护</div>
-
-    <div class="todo">
-      <div class="todo__head">
-        <span class="todo__prio">P2</span>
-        <span class="todo__title">解除 Astro 版本锁</span>
-        <span class="todo__cost">成本 低</span>
-      </div>
-      <p>
-        先把本机 Node 升到 ≥ 22.23.4，再把 <code>astro</code> 从 <code>7.3.8</code> 放开到 <code>^7.4</code>。
-        升级后要重跑 <code>astro check</code> 和构建，重点看 Sätteri 处理器的配置项有没有变。
-      </p>
-    </div>
-
-    <div class="todo">
-      <div class="todo__head">
-        <span class="todo__prio">P2</span>
+        <span class="todo__prio">3</span>
         <span class="todo__title">支持子路径部署</span>
-        <span class="todo__cost">成本 中</span>
+        <span class="todo__cost">成本 中 · 半天</span>
       </div>
       <p>
-        把所有内链从 <code>/xxx/</code> 改成 <code>import.meta.env.BASE_URL</code> 前缀，
-        这样 fork 出来的人可以直接部署到 <code>user.github.io/repo</code>，不必买域名。
-        改动面广但机械，适合一次性做完再统一验证。
+        把所有内链加上 <code>import.meta.env.BASE_URL</code> 前缀。改动面不窄但很机械：
+        8 处组件里的 <code>href="/…"</code>、<code>navigation.json</code> 里的 href、
+        Markdown 图片路径（要加一个插件改写）、<code>site.json</code> 的 <code>ogImage</code>、
+        RSS 与 sitemap 的绝对地址。做之前先确认真的需要——第九节给了一条零改动的替代路径。
       </p>
     </div>
 
-    <div class="todo">
-      <div class="todo__head">
-        <span class="todo__prio">P2</span>
-        <span class="todo__title">图标自动化</span>
-        <span class="todo__cost">成本 中</span>
-      </div>
+    <div class="group-label">明确不做</div>
+
+    <ul>
+      <li><strong>AVIF</strong>——比 WebP 只再省 10–20%，编码慢十倍，52 张图省不下多少，还多一套兜底逻辑</li>
+      <li><strong>自托管中文字体</strong>——一个子集 0.8–1.5 MB，是首屏的 100 倍。要么标题单独子集化（仍要 300 KB+），要么放弃</li>
+      <li><strong>评论后端 / 访问统计</strong>——都要能写数据的地方，都要第三方请求。轻量化的核心是"没有这些东西也能读"</li>
+      <li><strong>分类树（<code>/blog/c/…</code>）</strong>——5 篇文章分不出四类。标签筛选已经够用，等 12 篇以上再谈</li>
+      <li><strong>标签进 URL、独立标签页</strong>——收益是"能分享筛选结果"，文章少的时候几乎没人会分享</li>
+      <li><strong>窄屏注释面板改全屏 sheet</strong>——现在的 45vh 面板能用，改它属于打磨，不是修 bug</li>
+      <li><strong>图标自动抓取</strong>——一次性劳动已经干完，自动化只对"以后频繁加链接"有用</li>
+      <li><strong>草稿 dev 预览开关</strong>——把 <code>draft</code> 改成 false 只要两秒，加开关反而多一条代码路径</li>
+      <li><strong>自动生成 OG 图</strong>——要引入 satori/resvg 之类的渲染引擎，为了一张图不值得</li>
+    </ul>
+  </section>
+
+  <!-- ============================================================ -->
+  <section id="compare">
+    <h2><span class="num">06</span>横向对照 · 四个站点</h2>
+
+    <p>
+      光看自己容易失真，所以拉三个站一起比：<strong>ymgal.games</strong>（月幕 Galgame，社区平台）、
+      <strong>blog.xueayi.site</strong>（雪中小屋，NotionNext 个人博客）、
+      <strong>eryuemu.com</strong>（同为 Astro 7 的个人博客，上一轮已经逐元素比过文章页）。
+      数据于 2026-10-24 现场抓取，口径统一：Chrome UA、走 gzip、只算首屏必须加载的
+      HTML + 外链 CSS + 外链 JS，<strong>全部按压缩后的实际下载字节</strong>。
+    </p>
+
+    <div class="note">
       <p>
-        写个脚本按 <code>links.ts</code> 里的域名批量抓 favicon、校验尺寸、缺图的自动退到字母块。
-        顺便把"手工抓 34 张图"这件一次性劳动变成可重复的流程。
+        <strong>先说结论。</strong>把四个站放在一条数轴上，本项目在"体积"这一端是孤立点：
+        首页 <strong>9.1 KB</strong>，另外三个是 75.5 / 493 / 503 KB，差 <strong>8 到 55 倍</strong>。
+        但首页对首页比其实不太公平（别人首页是内容流，本站首页是名片），
+        所以更该看<strong>文章页对文章页</strong>：本站 21.0 KB，eryuemu 48.1 KB，2.3 倍——
+        这个差距才是"有没有客户端框架"的真实差价。
+        真正的短板在另一头：<strong>内容量</strong>。5 篇文章撑不起一个"站"的体积感。
       </p>
     </div>
 
-    <div class="todo">
-      <div class="todo__head">
-        <span class="todo__prio">P2</span>
-        <span class="todo__title">CI 加链接检查</span>
-        <span class="todo__cost">成本 低</span>
+    <h3>6.1 定位与技术选型</h3>
+
+    <table>
+      <thead>
+        <tr>
+          <th>站点</th>
+          <th>定位</th>
+          <th class="t-hide-sm">技术</th>
+          <th class="nowrap">导航</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>本项目</strong></td>
+          <td>轻量化个人名片站</td>
+          <td class="t-hide-sm">Astro 7 + 原生 CSS + Markdown</td>
+          <td>4 项</td>
+        </tr>
+        <tr>
+          <td>eryuemu</td>
+          <td>个人博客（长文为主）</td>
+          <td class="t-hide-sm">Astro 7 + 原生 CSS</td>
+          <td>三栏版面</td>
+        </tr>
+        <tr>
+          <td>雪中小屋</td>
+          <td>个人博客 + 工具箱</td>
+          <td class="t-hide-sm">Next.js（NotionNext）+ Tailwind</td>
+          <td>6 项 + 2 社交</td>
+        </tr>
+        <tr>
+          <td>月幕 Galgame</td>
+          <td>垂直社区平台</td>
+          <td class="t-hide-sm">服务端渲染（自研）</td>
+          <td>7 项 + 登录 + 搜索</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>6.2 首屏传输体积（实测）</h3>
+
+    <table>
+      <thead>
+        <tr>
+          <th>页面</th>
+          <th class="t-num">HTML</th>
+          <th class="t-num">CSS</th>
+          <th class="t-num">JS</th>
+          <th class="t-num">合计</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>本项目 · 首页</strong></td>
+          <td class="t-num">2.8</td>
+          <td class="t-num">6.3 <span class="t-hide-sm">(1 个)</span></td>
+          <td class="t-num">0</td>
+          <td class="t-num"><strong>9.1 KB</strong></td>
+        </tr>
+        <tr>
+          <td><strong>本项目 · 文章页</strong></td>
+          <td class="t-num">14.7</td>
+          <td class="t-num">6.3 <span class="t-hide-sm">(1 个)</span></td>
+          <td class="t-num">0</td>
+          <td class="t-num"><strong>21.0 KB</strong></td>
+        </tr>
+        <tr>
+          <td>eryuemu · 文章页</td>
+          <td class="t-num">15.5</td>
+          <td class="t-num">8.4 <span class="t-hide-sm">(2 个)</span></td>
+          <td class="t-num">24.2 <span class="t-hide-sm">(4 个)</span></td>
+          <td class="t-num">48.1 KB</td>
+        </tr>
+        <tr>
+          <td>eryuemu · 首页</td>
+          <td class="t-num">43.6</td>
+          <td class="t-num">9.8 <span class="t-hide-sm">(3 个)</span></td>
+          <td class="t-num">22.2 <span class="t-hide-sm">(3 个)</span></td>
+          <td class="t-num">75.5 KB</td>
+        </tr>
+        <tr>
+          <td>月幕 Galgame · 首页</td>
+          <td class="t-num">16.7</td>
+          <td class="t-num">164.3 <span class="t-hide-sm">(5 个)</span></td>
+          <td class="t-num">321.9 <span class="t-hide-sm">(8 个)</span></td>
+          <td class="t-num">503.0 KB</td>
+        </tr>
+        <tr>
+          <td>雪中小屋 · 首页</td>
+          <td class="t-num">26.7</td>
+          <td class="t-num">60.3 <span class="t-hide-sm">(2 个)</span></td>
+          <td class="t-num">406.4 <span class="t-hide-sm">(9 个)</span></td>
+          <td class="t-num">493.4 KB</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p style="font-size:0.875rem;color:var(--text-muted);">
+      单位 KB，<strong>压缩后的实际下载字节</strong>（curl 的 <code>size_download</code>，与浏览器
+      devtools 的 transferred 同口径）。本项目的 0 是"没有外部 JS 文件"，
+      脚本全部内联进了 HTML（已计入 HTML 一列）。
+      上一版这张表把 HTML 按原始字节、CSS/JS 按 gzip 算，混了两种口径；这一版统一了，
+      所以数字比上一版小。
+    </p>
+
+    <h3>6.3 页面构成逐个看</h3>
+
+    <div class="block-list">
+
+      <div class="block-item">
+        <div class="block-item__head">
+          <span class="block-item__name">月幕 Galgame · 社区平台</span>
+          <span class="block-item__src">合计 503.0 KB · CSS 164 + JS 322</span>
+        </div>
+        <p>
+          首页不是"我的名片"，是<strong>门户</strong>：Galgame 玩家成长进阶攻略 / 公告通知守则 / 站点更新记录
+          三大板块，加上游戏库、文章、画札（CG）、手记、本月新作、开放共享、正版优惠七个入口。
+          页脚七项全是组织级信息——关于我们、隐私政策、联系方式、加入我们、开发者中心、公众号、QQ 群。
+        </p>
+        <p>
+          它的 503 KB 不是浪费：搜索框、登录态、内容流、动态渲染，这些是社区平台必须付的成本。
+          <strong>学不来的部分</strong>：登录、内容流、优惠位——任何一个都需要后端和运营，和"零后端静态站"直接冲突。
+          <strong>可以借的</strong>：入口命名方式（「本月新作」这种一句话把整块内容说清楚的标签），
+          以及页脚放隐私政策这类"看起来没用、但会让站点显得正经"的链接。
+        </p>
       </div>
+
+      <div class="block-item">
+        <div class="block-item__head">
+          <span class="block-item__name">雪中小屋 · NotionNext 博客</span>
+          <span class="block-item__src">合计 493.4 KB · JS 406</span>
+        </div>
+        <p>
+          结构上<strong>和本项目最像</strong>：左侧一条固定窄栏（首页 / 云盘 / 导航页 / 个人主页 / 友情链接 / 关于我，
+          外加 GitHub 与 B 站图标），主区是一列文章卡片，每张卡带日期 + 分类 + 标题。
+          分类是四个真实主题——知行合一、心情随笔、技术分享、作品感悟，每类都有多篇。
+        </p>
+        <p>
+          这正好印证了之前那份分类报告的判据：<strong>分类要有意义，得每类至少三篇</strong>。
+          他四个分类都不空，所以分类是导航；本项目五篇文章全落在「访谈 + 翻译」里，做出来就是四个空格子。
+          <strong>不学</strong>：拿 Notion 数据库当 CMS——每次渲染都要拉第三方 API，406 KB JS 大部分是水合成本，
+          而本项目用 0 KB 外部 JS 换到了同样的阅读体验。
+        </p>
+      </div>
+
+      <div class="block-item">
+        <div class="block-item__head">
+          <span class="block-item__name">eryuemu · 同栈三栏博客</span>
+          <span class="block-item__src">文章页 48.1 KB · 30 个元素：8 同 / 12 异 / 5 : 5</span>
+        </div>
+        <p>
+          上一轮做过逐元素对照，结论没变：两边是同一个技术栈的两种取向，
+          都做阅读进度条、主题切换、Shiki 高亮，连"区分 AI 整理的文章"这个需求都撞上了。
+          <strong>唯一的分叉是版面</strong>——他是三栏 220 / 1fr / 240、容器 1360px，
+          左栏常驻作者名片、右栏常驻目录；本项目正文 608px 居中，侧栏只挂在左边。
+        </p>
+        <p>
+          版面差异决定了两者服务的事不一样：他的页面同时服务"认识这个人"和"读这一篇"，
+          本项目的页面只服务"读这一篇"。由此派生出的独有能力也很清楚——
+          他独有评论（Waline）、页脚访问统计、常驻音乐播放器；本项目独有图注、注释弹层、AI 披露。
+          第一类都是"社区性"，第二类都是"把长文读舒服"，而后者恰好是静态站能做、前者做不到的。
+        </p>
+      </div>
+
+    </div>
+
+    <h3>6.4 能力矩阵</h3>
+
+    <table>
+      <thead>
+        <tr>
+          <th>能力</th>
+          <th class="nowrap">本项目</th>
+          <th class="nowrap">eryuemu</th>
+          <th class="nowrap">雪中小屋</th>
+          <th class="nowrap">月幕</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>图片图注</td><td>有</td><td>—</td><td>—</td><td>—</td></tr>
+        <tr><td>注释弹层</td><td>有</td><td>—</td><td>—</td><td>—</td></tr>
+        <tr><td>文章侧栏目录</td><td>有</td><td>有</td><td>—</td><td>—</td></tr>
+        <tr><td>阅读进度条</td><td>有</td><td>有</td><td>—</td><td>—</td></tr>
+        <tr><td>AI 内容披露</td><td>有</td><td>有</td><td>—</td><td>—</td></tr>
+        <tr><td>标签 / 分类筛选</td><td>标签（AND 组合）</td><td class="t-hide-sm">—</td><td>分类</td><td>有</td></tr>
+        <tr><td>站内搜索</td><td>标题 / 描述 / 标签</td><td class="t-hide-sm">—</td><td>—</td><td>正文</td></tr>
+        <tr><td>评论</td><td>—</td><td>有</td><td>—</td><td>有</td></tr>
+        <tr><td>访问统计</td><td>—</td><td>有</td><td>—</td><td>有</td></tr>
+        <tr><td>登录 / 账号</td><td>—</td><td>—</td><td>—</td><td>有</td></tr>
+      </tbody>
+    </table>
+
+    <p style="font-size:0.875rem;color:var(--text-muted);">
+      「—」表示抓取时未见相关元素，不排除藏在子页面里。本项目的标签筛选是纯前端，状态不进 URL。
+    </p>
+
+    <h3>6.5 优点与缺点，直说</h3>
+
+    <div class="cards">
+      <div class="card">
+        <h4>优点 · 体积</h4>
+        <p>首页 9.1 KB，是三个对照站的 1/8 到 1/55；文章页对文章页是 2.3 倍。没有框架、没有水合、没有第三方请求，这不是优化出来的，是架构决定的。</p>
+      </div>
+      <div class="card">
+        <h4>优点 · 阅读侧最完整</h4>
+        <p>图注、注释弹层、侧栏目录、阅读进度、较新/较旧、返回顶部——四个站里唯一把这些凑齐的。</p>
+      </div>
+      <div class="card">
+        <h4>优点 · 可维护</h4>
+        <p>数据只在 <code>config/</code>，样式只在 <code>tokens.css</code>，31 个测试、3 份文档、一条 CI。改内容不碰组件。</p>
+      </div>
+      <div class="card">
+        <h4>优点 · 有披露意识</h4>
+        <p>AI 整理在列表、单篇、首页三处同步标记，转载注明出处，页脚有版权声明。这一项很多同类站直接没有。</p>
+      </div>
+      <div class="card">
+        <h4>缺点 · 内容撑不起体量</h4>
+        <p>5 篇、3.5 万字。轻量化在数字上是优势，在观感上就是"空"——首页除了一段简介，只剩一屏文章列表。</p>
+      </div>
+      <div class="card">
+        <h4>缺点 · 零互动</h4>
+        <p>没有评论、没有统计。读者无处说话，站长不知道哪篇有人看。这是刻意的取舍，但代价是真实的。</p>
+      </div>
+      <div class="card">
+        <h4>缺点 · 分类缺位</h4>
+        <p>标签只能临时筛选，刷新就丢、不能分享。文章一多，"按主题找"这件事没有落脚点。</p>
+      </div>
+      <div class="card">
+        <h4>缺点 · 工程欠账</h4>
+        <p>图片管线与 LICENSE 已经补齐；剩下无真机与无障碍实测（站长自己安排）、无子路径部署、无死链检查。</p>
+      </div>
+    </div>
+
+    <div class="note note--warn">
       <p>
-        构建后扫一遍 <code>dist</code> 里的内链和图片引用，死链在流水线阶段就报错。
-        外链可以单独跑、允许失败，避免被别人的站点波动拖累。
+        <strong>最后一句判断。</strong>对照下来，本项目的短板<strong>不是功能，是内容</strong>。
+        功能已经越过"够用"这条线：目录、筛选、分页、注释、图注、披露，该有的都有，
+        再加功能只会往 ymgal 那个方向走，而那条路需要后端和运营。
+        接下来真正该做的是把文章从 5 篇写到 15 篇——那时候分类体系才有意义，
+        也才谈得上"这个站在讲什么"。
+      </p>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- ============================================================ -->
+  <section id="contact">
+    <h2><span class="num">07</span>只开一个邮箱框行不行</h2>
+
+    <p>
+      结论先说：<strong>行，但收益有限，而且它不是"免费"的</strong>。
+      静态站没有服务端，所以"提交"这件事必须落到别人家的服务器上——
+      你少写一个后端，就多欠一个第三方。
+    </p>
+
+    <h3>7.1 三条路线，复杂度差一个数量级</h3>
+
+    <div class="block-list">
+
+      <div class="block-item">
+        <div class="block-item__head">
+          <span class="block-item__name"><code>mailto:</code> 链接</span>
+          <span class="pill pill--done">复杂度 零</span>
+        </div>
+        <p>
+          一个 <code>&lt;a href="mailto:…"&gt;</code>，页脚现在就是。
+          点下去会调起本机邮件客户端——很多人根本没配，点了没反应；手机上还行。
+        </p>
+      </div>
+
+      <div class="block-item">
+        <div class="block-item__head">
+          <span class="block-item__name">第三方表单服务</span>
+          <span class="pill">复杂度 低</span>
+        </div>
+        <p>
+          Formspree / Web3Forms / Getform，一个 <code>&lt;form action="https://…"&gt;</code> 就完事。
+          免费额度 50–250 封/月；服务商能看到内容；邮件可能进垃圾箱；免费版可能夹广告页。
+        </p>
+        <div class="block-item__left">这一条才是你说的"发送到我邮箱的框"。</div>
+      </div>
+
+      <div class="block-item">
+        <div class="block-item__head">
+          <span class="block-item__name">GitHub Issues 当评论区</span>
+          <span class="pill">复杂度 中</span>
+        </div>
+        <p>
+          giscus / utterances，iframe 里嵌一个讨论串。必须登录 GitHub 才能发言，
+          门槛比邮箱高；页面里多一个 iframe 和一段第三方脚本。
+        </p>
+      </div>
+
+    </div>
+
+    <p>
+      "发送到我邮箱的框"对应的是<strong>第二行</strong>。真正要写的代码只有一块表单：
+      姓名（可选）、邮箱（可选）、内容（必填）、一个 honeypot 隐藏字段、
+      提交后把按钮换成"已发送"——<strong>大约 20 行 HTML，零 JavaScript 依赖</strong>，
+      用浏览器原生校验就够。
+    </p>
+
+    <h3>7.2 受攻击的难度：低，但打不穿</h3>
+
+    <p>
+      先把一件事说清：<strong>静态站没有可攻破的后端</strong>。没有数据库、没有登录、没有文件上传、
+      没有服务端渲染，所以"网站被黑"这条基本不成立——攻击者最多改自己浏览器里看到的东西。
+      风险全在表单那条链路上：
+    </p>
+
+    <div class="block-list">
+
+      <div class="block-item">
+        <div class="block-item__head">
+          <span class="block-item__name">绕过页面直接 POST</span>
+          <span class="pill">难度 极低</span>
+        </div>
+        <p>
+          表单的 <code>action</code> 就写在 HTML 里，<code>curl</code> 一行就能刷。
+          绕不过去——这是公开接口的固有属性，只能靠服务商限流。
+        </p>
+      </div>
+
+      <div class="block-item">
+        <div class="block-item__head">
+          <span class="block-item__name">垃圾邮件</span>
+          <span class="pill">难度 低</span>
+        </div>
+        <p>
+          脚本批量提交广告，收件箱被塞满。
+          <strong>honeypot 隐藏字段能挡掉九成机器人</strong>：人看不见那个字段，机器人会填。
+        </p>
+      </div>
+
+      <div class="block-item">
+        <div class="block-item__head">
+          <span class="block-item__name">当免费邮件枪用</span>
+          <span class="pill">难度 低</span>
+        </div>
+        <p>
+          反复提交，让你收到几千封、顺便烧掉免费额度。额度被耗尽后正常访客就发不进来了，
+          服务商也可能因此封号——这一条的后果比垃圾邮件严重。
+        </p>
+      </div>
+
+      <div class="block-item">
+        <div class="block-item__head">
+          <span class="block-item__name">投毒内容</span>
+          <span class="pill">难度 低</span>
+        </div>
+        <p>
+          提交超长文本、链接、HTML。因为内容只进你的邮箱、不进网页，所以没有 XSS 风险；
+          但可能触发邮件客户端的渲染问题。
+        </p>
+      </div>
+
+    </div>
+
+    <div class="note note--warn">
+      <p>
+        <strong>判断。</strong>攻击成本低、收益也低——别人花力气刷你，只能给你添堵，
+        拿不到任何数据。所以真实风险是"烦"，不是"危险"。
+        加上 honeypot + 服务商自带限流之后，<strong>可以接受</strong>。
+        真正需要警惕的是"额度被烧光导致正常留言丢失"，那属于可用性问题。
       </p>
     </div>
 
-    <div class="todo">
-      <div class="todo__head">
-        <span class="todo__prio">P2</span>
-        <span class="todo__title">草稿预览</span>
-        <span class="todo__cost">成本 低</span>
-      </div>
+    <h3>7.3 如果真要做，建议这么写</h3>
+    <ul>
+      <li>用 <strong>Web3Forms</strong> 或 <strong>Formspree</strong>，不自己搭 Serverless——
+        后者要账号、要域名、要处理密钥，等于真的开了个后端</li>
+      <li>表单字段只留"称呼 / 邮箱 / 内容"，<strong>邮箱选填</strong>（必填会劝退一半人）</li>
+      <li>加一个 <code>display:none</code> 的 <code>company</code> 字段当 honeypot；
+        有值就直接在前端拒收（不用发出去）</li>
+      <li>提交成功不要跳转，原地把按钮文案换成"已发送"，失败给一句"没发出去，可以直接发邮件到 …"</li>
+      <li>页脚保留 <code>mailto:</code> 兜底——表单挂了，人还能找到你</li>
+    </ul>
+
+    <div class="note">
       <p>
-        dev 环境放行 <code>draft: true</code>，生产构建继续过滤。
-        <code>posts.ts</code> 里加一个 <code>import.meta.env.DEV</code> 判断即可。
+        <strong>最后一句实话。</strong>页脚和名片页现在已经放了邮箱，"能联系上"这件事已经成立。
+        加表单的边际收益只是"不用打开邮件客户端"，边际成本是<strong>打破"零第三方请求"这个招牌</strong>，
+        以及多一个需要盯着额度和垃圾邮件的账号。想做就做，但别指望它带来多少互动——
+        一个没人看的站，多一个输入框还是没人留言。
+      </p>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section id="vibe">
+    <h2><span class="num">08</span>站点气质从哪来</h2>
+
+    <p>
+      这一节写给"没有网页设计经验、但想改观感"的自己。核心只有一句话：
+      <strong>所有"长相"相关的数值都集中在 <code>src/styles/tokens.css</code> 一个文件里，
+      组件只写"用哪个名字"，不写具体数值。</strong>
+      所以你不需要看懂组件，改一个变量，全站跟着变。
+    </p>
+
+    <h3>8.1 它到底管什么</h3>
+
+    <p>
+      <code>tokens.css</code> 是一张 91 行的清单，分四组，对"气质"的影响权重完全不同：
+    </p>
+
+    <div class="block-list">
+
+      <div class="block-item">
+        <div class="block-item__head">
+          <span class="block-item__name">颜色</span>
+          <span class="pill pill--done">影响 最大</span>
+        </div>
+        <p>
+          <code>--color-bg</code>、<code>--color-text</code>、<code>--color-text-secondary</code>、
+          <code>--color-border</code>、<code>--color-selection</code>、<code>--color-tile-*</code>，一共 10 个。
+          换一套颜色等于换一个站。现在的黑白灰是"编辑型"气质，靠的正是<strong>没有强调色</strong>。
+        </p>
+      </div>
+
+      <div class="block-item">
+        <div class="block-item__head">
+          <span class="block-item__name">字体</span>
+          <span class="pill pill--done">影响 很大</span>
+        </div>
+        <p>
+          <code>--font-sans</code> / <code>--font-serif</code> / <code>--font-mono</code>。
+          衬线标题 = 杂志感；圆体 = 二次元；等宽正文 = 极客感。换之前先确认字体文件在
+          <code>fonts.css</code> 里声明过，否则浏览器会静默回退。
+        </p>
+      </div>
+
+      <div class="block-item">
+        <div class="block-item__head">
+          <span class="block-item__name">字号 / 行高 / 字距</span>
+          <span class="pill">影响 中</span>
+        </div>
+        <p>
+          <code>--text-xs</code> … <code>--text-3xl</code>、<code>--leading-*</code>、<code>--tracking-*</code>。
+          字号大一号、行高松一点，立刻从"文档"变成"读物"。
+        </p>
+      </div>
+
+      <div class="block-item">
+        <div class="block-item__head">
+          <span class="block-item__name">间距 / 形状 / 动效</span>
+          <span class="pill">影响 中</span>
+        </div>
+        <p>
+          <code>--space-1..8</code>、<code>--radius</code>、<code>--duration</code>、<code>--ease</code>。
+          圆角 6px 是"克制"，16px 是"柔和"，0 是"硬朗"；间距加大是"呼吸感"。
+        </p>
+      </div>
+
+    </div>
+
+    <div class="note note--warn">
+      <p>
+        <strong>最容易踩的坑：深色主题只覆盖了颜色。</strong>
+        <code>tokens.css</code> 末尾有一段 <code>:root[data-theme="dark"]</code>，
+        里面只重新定义了颜色变量。所以<strong>换色要改两处</strong>（浅色一份、深色一份），
+        改字号、圆角、间距则只改一处。<strong>忘了改深色那份，深色模式下新颜色会失效</strong>，
+        而且不一定看得出来。
       </p>
     </div>
 
-    <div class="todo">
-      <div class="todo__head">
-        <span class="todo__prio">P2</span>
-        <span class="todo__title">无障碍实测</span>
-        <span class="todo__cost">成本 低</span>
-      </div>
+    <h3>8.2 三个配方，直接抄</h3>
+
+    <p>把下面任一段追加到 <code>tokens.css</code> 的 <code>:root</code> 里即可。三段互斥，选一个。</p>
+
+    <h4>配方 A · 二次元一点</h4>
+    <p>
+      关键动作只有三个：<strong>底色从纯白换成带色相的浅色</strong>（纯白最"办公"）、
+      <strong>加一个强调色</strong>（现在没有，这是它显得"冷淡"的根本原因）、
+      <strong>圆角加倍</strong>。
+    </p>
+<pre><code>/* 浅色：米白底 + 樱花粉强调 + 大圆角 */
+--color-bg: #fffafc;
+--color-bg-subtle: #fdf2f6;
+--color-text: #2a2226;
+--color-text-secondary: #6b5a63;
+--color-border: #f0dde5;
+--color-accent: #e0708f;      /* 新增：链接、标签、选中态用它 */
+--radius: 14px;
+--font-sans: "Zen Maru Gothic", "PingFang SC", "Microsoft YaHei", sans-serif;
+
+/* 深色那份也要跟着改 */
+--color-bg: #1a1418;
+--color-bg-subtle: #221a1f;
+--color-text: #f2e9ed;
+--color-accent: #f090ad;</code></pre>
+
+    <p>
+      注意：<code>--color-accent</code> 是<strong>新增</strong>的变量，组件里现在没有任何地方用它。
+      要让它真的生效，得去 <code>components.css</code> 里把链接的
+      <code>text-decoration-color</code>、标签底色、选中态改成 <code>var(--color-accent)</code>——
+      这一步就不是"改 token"了，是改组件。所以<strong>先想清楚：要不要破"无强调色"这条线</strong>。
+      这也是当前设计的边界：它靠"没有颜色"保持统一，加了颜色就必须重新决定"哪里该有颜色"。
+    </p>
+
+    <h4>配方 B · 杂志感一点</h4>
+    <p>不换色，只放大标题、换衬线、拉开行距。改动最小，效果最"贵"。</p>
+<pre><code>--text-3xl: 2.75rem;          /* 大标题再大一号 */
+--text-2xl: 2.125rem;
+--leading-relaxed: 1.9;       /* 正文行距放宽 */
+--tracking-wide: 0.08em;
+--font-sans: "Source Serif 4", "Songti SC", "Noto Serif SC", Georgia, serif;</code></pre>
+
+    <h4>配方 C · 带广告 banner</h4>
+    <p>
+      广告位不是"改个颜色"，它会撞上现有的三条约束，得一起处理：
+    </p>
+    <ul>
+      <li><strong>宽度不够</strong>：正文容器 <code>--page-max: 46rem</code>（736px），
+          而常见 banner 是 728×90 或 970×90。728 勉强能塞，970 塞不下。
+          要么把容器放宽到 60rem，要么让 banner 独立于容器、自己居中</li>
+      <li><strong>比例要固定</strong>：不给高度的话，图片没加载完页面会跳，和图片 CLS 是同一个问题。
+          728×90 的比例是 8.09:1，用 <code>aspect-ratio</code> 锁住</li>
+      <li><strong>会引入第三方</strong>：广告要么是图片（自己托管，可控），
+          要么是联盟脚本（外链 JS，打破"零外部 JS"）</li>
+    </ul>
+<pre><code>/* 新增两个 token，不动原有版式 */
+--ad-max: 45.5rem;   /* 728px */
+--ad-ratio: 728 / 90;
+
+/* 组件里大致这么写（示意，不在 tokens.css 里） */
+.ad-slot {
+  max-width: var(--ad-max);
+  margin: var(--space-5) auto;
+  aspect-ratio: var(--ad-ratio);
+  border: var(--border-width) solid var(--color-border);
+}
+.ad-slot img { width: 100%; height: 100%; object-fit: cover; }</code></pre>
+
+    <p>
+      广告会把"编辑型站点"的气质一次性变成"门户"。真要做，建议先想清楚
+      <strong>放在哪</strong>：文章正文中间（打断阅读，收益最高）、列表页每 5 篇一个（不打断阅读）、
+      还是页脚上方（几乎没人看）。位置上做选择，比配色重要得多。
+    </p>
+
+    <h3>8.3 改完怎么自检</h3>
+    <ul>
+      <li><strong>对比度</strong>：正文对背景至少 7:1，次要文字至少 4.5:1。
+          现在的 <code>#1a1a1a</code> 对 <code>#ffffff</code> 是 17.4:1，很安全；
+          换成浅粉底 + 深灰字时要重新量</li>
+      <li><strong>深色模式</strong>：切一次主题，看有没有哪块还是白的</li>
+      <li><strong>窄屏</strong>：缩到 390px 宽，看标题会不会折成三行、表格会不会撑破</li>
+      <li><strong>别在组件里写死颜色</strong>：写了就再也改不动了，而且深色模式必漏</li>
+    </ul>
+
+    <div class="note">
       <p>
-        用对比度工具核一遍灰阶文字（尤其是 <code>--text-muted</code> 在小字号下的表现），
-        再用 VoiceOver 或 NVDA 走一遍首页到文章页的路径。黑白灰配色风险不大，但没量过就是没量过。
+        <strong>一句话总结。</strong>想改气质，<strong>先动颜色和字体，别动间距</strong>——
+        颜色和字体是"一眼看见"的，间距是"感觉舒服"的。前者改对了气质立刻变，
+        后者改错了会显得排版松散，而且很难说清哪里不对。
+      </p>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section id="fork">
+    <h2><span class="num">09</span>fork 出去当内容备份</h2>
+
+    <p>
+      场景：另开一个账号，把这个仓库 fork 过去，只用来给公众号 / B 站专栏的文章留一份
+      可搜索、可直链的网页备份。这里给三条路径，<strong>第一条不需要改任何代码</strong>。
+    </p>
+
+    <h3>9.1 路径 A · 新账号 + 同名仓库（推荐，零改动）</h3>
+
+    <p>
+      子路径部署的所有麻烦，都来自"仓库名不是 <code>&lt;name&gt;.github.io</code>"。
+      只要新账号下建的仓库<strong>正好叫这个名字</strong>，Pages 就挂在域名根上，
+      现在这套根绝对路径全部直接可用。
+    </p>
+
+    <ol>
+      <li>新 GitHub 账号下新建仓库 <code>&lt;新账号名&gt;.github.io</code>（必须一字不差）</li>
+      <li>把本仓库的 <code>src/</code>、<code>public/</code>、<code>scripts/</code>、
+          <code>tests/</code>、<code>astro.config.mjs</code>、<code>package*.json</code>、
+          <code>.github/</code> 拷过去（或直接 fork 后改 remote）</li>
+      <li>改 <strong>四个文件</strong>（见下表），这是唯一必须动的地方</li>
+      <li>删掉不需要的内容（见 9.2）</li>
+      <li>仓库 Settings → Pages → Source 选 <strong>GitHub Actions</strong></li>
+      <li>push 一次，等一分钟</li>
+    </ol>
+
+    <table>
+      <thead>
+        <tr><th>文件</th><th>改什么</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><code>src/config/site.json</code></td><td>站名、<code>url</code>（改成新域名，OG 图靠它）、描述、起始年</td></tr>
+        <tr><td><code>src/config/profile.json</code></td><td>姓名、简介、头像、邮箱</td></tr>
+        <tr><td><code>src/config/navigation.json</code></td><td>导航项；只留「笔记」一项也完全可以</td></tr>
+        <tr><td><code>src/config/about.ts</code></td><td>名片页内容，或者直接删掉这个页面（见 9.2）</td></tr>
+      </tbody>
+    </table>
+
+    <h3>9.2 只做文字备份时，删掉这些</h3>
+
+    <table>
+      <thead>
+        <tr><th>删什么</th><th class="t-hide-sm">后果</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>src/pages/me.astro</code>、<code>morelinks.astro</code></td>
+          <td class="t-hide-sm">名片页与链接库消失。<strong>必须同时改 <code>navigation.json</code></strong>，否则导航里留死链</td>
+        </tr>
+        <tr>
+          <td><code>src/config/links.ts</code>、<code>about.ts</code> 与链接库组件</td>
+          <td class="t-hide-sm">没人引用就不会报错，留着也不影响构建</td>
+        </tr>
+        <tr>
+          <td><code>src/content/blog/</code> 下不要的文章 + <code>public/images/blog/</code> 对应目录</td>
+          <td class="t-hide-sm">删文章记得连图一起删，否则 <code>npm run images</code> 会继续给它们出变体</td>
+        </tr>
+        <tr>
+          <td><code>public/docs/</code> 整个目录</td>
+          <td class="t-hide-sm">四份 HTML 指南是写给这个项目自己的，新站用不上</td>
+        </tr>
+        <tr>
+          <td><code>scripts/sync_profile_readme.py</code>、<code>tests/test_readme_sync.py</code>、
+              <code>.github/workflows/sync-profile-readme.yml</code></td>
+          <td class="t-hide-sm">这套东西只服务"把站点内容同步到 GitHub 主页 README"，备份站不需要</td>
+        </tr>
+        <tr>
+          <td><code>public/og-default.png</code></td>
+          <td class="t-hide-sm">换成自己的分享图，1200×630</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="note">
+      <p>
+        <strong>删完记得跑一次。</strong><code>npm run build</code> 会把缺页面的导航链接原样输出，
+        构建<strong>不会报错</strong>——死链要靠自己点一遍。这也是第五节说"该加 CI 死链检查"的原因。
+      </p>
+    </div>
+
+    <h3>9.3 路径 B · 非要子路径部署的话</h3>
+
+    <p>
+      如果新账号的仓库不叫 <code>&lt;name&gt;.github.io</code>（比如叫 <code>notes</code>），
+      站点会挂在 <code>https://&lt;name&gt;.github.io/notes/</code>，那就得先让所有链接认识这个前缀。
+      改动清单如下，工作量约半天：
+    </p>
+
+    <table>
+      <thead>
+        <tr><th>位置</th><th class="t-hide-sm">怎么改</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><code>astro.config.mjs</code></td><td class="t-hide-sm">加 <code>base: '/notes'</code></td></tr>
+        <tr><td>6 个组件 / 页面里的 8 处 <code>href="/…"</code></td><td class="t-hide-sm">改成 <code>{`${import.meta.env.BASE_URL}…`}</code>，建议封一个 <code>withBase()</code> 工具函数</td></tr>
+        <tr><td><code>src/config/navigation.json</code></td><td class="t-hide-sm">href 存的是根路径，渲染时统一过一遍 <code>withBase()</code></td></tr>
+        <tr><td>Markdown 里的 <code>/images/…</code></td><td class="t-hide-sm">图片插件里加一步：站内绝对路径前面拼 <code>base</code></td></tr>
+        <tr><td><code>site.json</code> 的 <code>ogImage</code></td><td class="t-hide-sm">同样要拼 <code>base</code>，否则分享图指向域名根</td></tr>
+        <tr><td><code>rss.xml.ts</code> / sitemap</td><td class="t-hide-sm">Astro 的 sitemap 会自动带 base；RSS 里的绝对链接要手动补</td></tr>
+      </tbody>
+    </table>
+
+    <h3>9.4 路径 C · 根本不要站点，只要文字</h3>
+
+    <p>
+      如果目标只是"把文章搬进公众号后台"，那连 fork 都不用：直接打开线上的文章页，
+      全选复制，粘进编辑器。Markdown 里的 <code>**加粗**</code> 和列表粘过去会变成纯文本，
+      需要重新排一遍——所以<strong>真正省事的做法是留着 <code>.md</code> 源文件本身</strong>，
+      它才是内容的真身，HTML 只是它的一种渲染结果。
+    </p>
+
+    <h3>9.5 备份时绕不开的三个现实问题</h3>
+
+    <ul>
+      <li><strong>公众号正文基本不能带外链</strong>。译文里的原文出处链接会被折叠或要求改写成文字，
+          建议在正文末尾统一写"原文：xxx（链接见站点）"，站点那份保留可点的链接</li>
+      <li><strong>图片要重新上传</strong>。公众号不接受外链图床，本地图得再传一遍；
+          本站的 WebP 变体不用带过去，原图（<code>.jpg</code> / <code>.png</code>）才是通用格式</li>
+      <li><strong>授权跟着仓库走</strong>。fork 出去后 <code>LICENSE</code>（MIT）和
+          <code>LICENSE-CONTENT</code>（CC BY-NC-SA）也一起过去了。备份自己的文章没问题；
+          如果备份的是别人的译文，<strong>出处必须一起保留</strong>——那是 CC 署名的要求，
+          也是原作者的底线</li>
+    </ul>
+
+    <div class="note">
+      <p>
+        <strong>这一节没有改任何代码。</strong>路径 A 的四个配置文件、路径 A 的删除清单，
+        都是纯手工操作，脚本化反而更容易出错（每个备份站的取舍不一样）。
+        真要动手时照着 9.1 的六步走，比记一套脚本可靠。
       </p>
     </div>
   </section>
 
   <!-- ============================================================ -->
   <section id="map">
-    <h2><span class="num">06</span>文件地图</h2>
+    <h2><span class="num">10</span>文件地图</h2>
 
     <p>想知道某个东西在哪改，看这棵树就够了。</p>
 
 <pre><code>personal-site/
-├── astro.config.mjs          Sätteri 处理器 + 图注插件 + Shiki 双主题
-├── package.json              6 个直接依赖（astro / rss / sitemap / satteri / check / typescript）
+├── astro.config.mjs          Sätteri 处理器 + 三个 hast 插件 + Shiki 双主题
+├── package.json              4 个运行时依赖（astro / rss / sitemap / satteri）+ sharp
+├── LICENSE                   MIT（代码）
+├── LICENSE-CONTENT           CC BY-NC-SA 4.0（文章 / 图片 / 文档）
 ├── src/
 │   ├── config/               ★ 所有内容数据在这里
 │   │   ├── site.json         站名、域名、语言、起始年、OG 图
@@ -1192,41 +2205,53 @@
 │   │   ├── links.ts          链接库（5 组、2 子栏目、5 种排版）
 │   │   └── about.ts          /me/ 页（名片）的简介、主要平台、关注领域、项目、经历
 │   ├── content/blog/         ★ 文章：一个 .md 一个 URL
-│   ├── content.config.ts     文章 schema（Zod）
+│   ├── content.config.ts     文章 schema（Zod，含 source 披露字段）
 │   ├── layouts/
 │   │   ├── BaseLayout.astro  head / SEO / OG / 主题 / skip-link / 页头页脚
-│   │   └── ArticleLayout.astro  文章骨架 + 注释面板
+│   │   └── ArticleLayout.astro  文章骨架 + 侧栏 + 注释面板
 │   ├── pages/                ★ 路由
 │   │   ├── index.astro       /
 │   │   ├── me.astro          /me/
 │   │   ├── morelinks.astro   /morelinks/
-│   │   ├── blog.astro     /blog/
+│   │   ├── blog.astro        /blog/（搜索 + 标签筛选 + 分页 + AI 滑块）
 │   │   ├── blog/[...slug].astro  /blog/{slug}/
-│   │   ├── 404.astro
+│   │   ├── 404.astro         含一个小游戏（404-game.ts，728 行）
 │   │   ├── robots.txt.ts     路由生成的 robots.txt
 │   │   └── rss.xml.ts
-│   ├── components/           13 个组件，链接库有 5 种排版
+│   ├── components/           14 个组件，链接库有 5 种排版
+│   │   └── ArticleSidebar.astro  文章页左侧栏（目录 + 四个按钮）
 │   ├── scripts/
 │   │   ├── theme.ts          主题切换与记忆
-│   │   └── article-notes.ts  注释弹层
+│   │   ├── article-notes.ts  注释弹层
+│   │   ├── article-sidebar.ts 侧栏目录高亮、置顶、折叠
+│   │   ├── archive-filter.ts 列表页搜索 / 筛选 / 分页
+│   │   └── back-to-top.ts    返回顶部
+│   ├── data/
+│   │   ├── image-manifest.json    图片尺寸与 WebP 变体清单（构建时生成）
+│   │   └── remote-images.json     远程图尺寸（--write-dims 生成，可缺）
 │   ├── lib/
 │   │   ├── posts.ts          文章读取、排序、草稿过滤
-│   │   └── markdown-figure.mjs  图注 hast 插件
+│   │   ├── markdown-figure.mjs    图注 hast 插件（228 行，含并组）
+│   │   └── markdown-images.mjs    lazy / 尺寸 / WebP picture 插件（182 行）
 │   └── styles/
 │       ├── tokens.css        ★ 颜色/字号/间距/圆角，唯一来源
 │       ├── global.css        重置与基础
 │       ├── typography.css    排版规则
-│       ├── components.css    组件样式（1058 行，最长的文件）
+│       ├── components.css    组件样式（1697 行，最长的文件）
 │       └── fonts.css         @font-face
 ├── public/
-│   ├── fonts/                3 个 woff2（105 KB）+ 3 份字体许可
-│   ├── images/               34 张图：头像、图标、文章插图
+│   ├── fonts/                3 个 woff2（136 KB）+ 3 份字体许可
+│   ├── images/               75 张图：头像、图标、52 张文章插图
+│   │                         + 构建时生成的 101 个 .webp 变体（已 gitignore）
 │   ├── og-default.png        默认分享图
-│   └── docs/                 两个 HTML 指南（本站托管）
-├── scripts/sync_profile_readme.py   主页 README 同步（445 行）
-├── tests/test_readme_sync.py        22 个用例（287 行）
+│   └── docs/                 4 个 HTML 指南（本站托管）
+├── scripts/
+│   ├── sync_profile_readme.py  主页 README 同步（445 行）
+│   ├── check_remote_images.py  远程图片体检 + 尺寸记录（290 行）
+│   └── optimize_images.mjs     图片 WebP 变体与清单（190 行）
+├── tests/                    53 个用例（Python 42 + Node 11）
 ├── README.md                 主页名片 + 文档导航
-├── README/                   project / blog-guide / fork
+├── README/                   project / blog-guide / fork + reports/
 └── .github/workflows/        Actions → Pages</code></pre>
 
     <div class="note">
@@ -1240,7 +2265,7 @@
 
   <!-- ============================================================ -->
   <section id="template">
-    <h2><span class="num">07</span>当模板用的话</h2>
+    <h2><span class="num">11</span>当模板用的话</h2>
 
     <p>
       如果以后拿这个仓库开新项目，按下面四步走，能省掉重新踩坑的时间。
@@ -1262,8 +2287,8 @@
 
     <h3>必须删的三样</h3>
     <ul>
-      <li><code>src/content/blog/rurudo-unreal-interview.md</code> 和 <code>public/images/blog/rurudo-unreal/</code></li>
-      <li><code>public/docs/</code> 下的两个 HTML 指南（它们是写给这个项目自己的）</li>
+      <li><code>src/content/blog/</code> 下全部文章，以及 <code>public/images/blog/</code> 下对应的图片目录</li>
+      <li><code>public/docs/</code> 下的 HTML 指南（它们是写给这个项目自己的，共 4 个）</li>
       <li><code>public/og-default.png</code>，换成自己的分享图</li>
     </ul>
 
@@ -1271,38 +2296,54 @@
     <div class="note note--warn">
       <p>
         <strong>部署路径。</strong>现在所有内链都是根绝对路径，站点只能挂在域名根上
-        （用户站 <code>user.github.io</code> 或自己的域名）。如果新项目要部署成
-        <code>user.github.io/repo</code> 这种子路径，必须先按 P2 那一条把所有内链改成
-        <code>import.meta.env.BASE_URL</code> 前缀，否则整站 404。
-        <code>README/fork.md</code> 的第 0 节专门写了这件事。
+        （<code>user.github.io</code> 这种用户站，或自己的域名）。要部署成
+        <code>user.github.io/repo</code> 这种子路径，必须先加 <code>base</code> 并改写内链，
+        否则整站 404——完整改动清单在 9.3 节，<code>README/fork.md</code> 第 0 节也写了这件事。
       </p>
     </div>
 
-    <h3>最好别动的</h3>
+    <h3>换气质就改 <code>tokens.css</code></h3>
     <p>
-      <code>src/styles/tokens.css</code>。它只有 91 行，但是整个站点的气质来源——
-      改了颜色、字号、圆角，等于换了一套设计语言，所有页面的观感会一起漂移。
-      想调局部，加组件级样式，别动令牌。
+      <code>src/styles/tokens.css</code> 只有 91 行，但它是整个站点的气质来源：
+      颜色、字体、字号、间距、圆角、动效全在里面，组件只引用变量名、不写具体数值。
+      <strong>它不是"最好别动"，而是"只该在这里动"</strong>——想改观感就去改它，
+      别去组件里写死颜色。三个现成配方（二次元 / 杂志感 / 带广告位）在第八节。
     </p>
+
+    <h3>新项目会立刻遇到的两件事</h3>
+    <ul>
+      <li><code>npm run dev</code> / <code>build</code> 会先跑 <code>scripts/optimize_images.mjs</code>，
+          它依赖 <code>sharp</code>（已经在 devDependencies 里，<code>npm ci</code> 会自动装）。
+          新项目如果没有 <code>public/images/blog/</code>，脚本会直接跳过，不报错</li>
+      <li>改了 Markdown 插件之后，<strong>必须删掉 <code>node_modules/.astro/data-store.json</code></strong>
+          再构建，否则看到的是缓存的旧 HTML。这个坑一次能省掉半小时</li>
+    </ul>
 
     <h3>可以整个丢掉的</h3>
     <p>
-      <code>scripts/</code>、<code>tests/</code> 和 <code>README/</code>。
-      这三样服务于"把站点内容同步到 GitHub 主页 README"这个特定需求，
+      <code>scripts/sync_profile_readme.py</code>、<code>tests/test_readme_sync.py</code>、
+      <code>.github/workflows/sync-profile-readme.yml</code> 和 <code>README/</code>。
+      这一组服务于"把站点内容同步到 GitHub 主页 README"这个特定需求，
       新项目如果不需要主页名片，删掉它们不影响站点运行。
+      <code>scripts/</code> 里另外两个（图片优化、远程图体检）是站点本身要用的，别删。
     </p>
   </section>
 
   <footer class="doc-foot">
     <p>
-      体检时间 2026-10-22。数据来自实际构建产物与源码统计：
-      7 个 HTML 页面、单 CSS 24,212 字节、0 个外部 JS 文件、22 个测试用例、
-      产物 1.7 MB（图片 1.4 MB / 字体 105 KB / 其余约 180 KB）、
-      <code>astro check</code> 36 个文件 0 错 0 警 0 提示。
+      体检时间 2026-10-24。数据来自实际构建产物、源码统计与现场抓取：
+      10 个 HTML 页面、单 CSS 35,791 字节（gzip 6,334）、0 个外部 JS 文件、53 个测试用例、
+      产物 15 MB（原图 7.0 MB + WebP 变体 6.2 MB + 字体 136 KB + 其余约 700 KB）、
+      <code>astro check</code> 0 错 0 警 0 提示，Astro 7.4.2 / Sätteri 0.4.5 / Node ≥ 22.23.4。
+    </p>
+    <p>
+      第六节的对照数据于 2026-10-24 抓取：ymgal.games、blog.xueayi.site、eryuemu.com，
+      统一 Chrome UA、gzip 传输、只计 HTML + 外链 CSS + 外链 JS，均按压缩后的实际下载字节。
     </p>
     <p>
       配套文档：<a href="https://github.com/EpsilonGG/epsilongg.github.io/blob/main/README/project.md">项目说明</a>（仓库内）、
-      <a href="/docs/github-profile-readme-guide.html">主页 README 指南</a>。
+      <a href="/docs/github-profile-readme-guide.html">主页 README 指南</a>、
+      <a href="/docs/notes-maintenance.html">笔记维护</a>。
     </p>
   </footer>
 

@@ -135,20 +135,26 @@ source: original          # 可选，默认 original。ai = AI 整理
 > 只有「独占一个段落」的图片才会被升级成 figure。段落里夹在文字中间的小图标保持行内，不加图注。
 > 转换逻辑在 `src/lib/markdown-figure.mjs`。
 
-### 4.2 需要控制宽高时：手写 figure
+**连续两张以上**「带图注的独占段落图」会自动并成一组，宽屏并排、手机上仍是一行一张：
 
-长图文（一张图几千像素高）建议显式写 `width` / `height`，否则图片加载前页面高度会跳（CLS）：
+```markdown
+![左图](/images/blog/my-post/01.jpg "左图图注")
 
-```html
-<figure class="article-figure">
-<img src="/images/blog/my-post/01.jpg" alt="替代文字" width="1000" height="1411" loading="lazy" decoding="async">
-<figcaption class="article-figure__caption">图注写在这里</figcaption>
-</figure>
+![右图](/images/blog/my-post/02.jpg "右图图注")
 ```
 
-注意：**这几行之间不能有空行**，否则 HTML 块会被 Markdown 截断。
+输出是 `<div class="article-figure-grid">` 里装两个 `<figure>`。中间**不要**插正文，插了就不并组。
 
-### 4.3 图片存放
+### 4.2 不要手写 figure
+
+`width` / `height` 现在由构建过程自动补（见 4.3），所以**不需要**再手写 `<figure>` 块。手写原始 HTML 有两个坏处：
+
+1. 绕过所有 Markdown 插件——拿不到 WebP 变体、`srcset`、`loading="lazy"`、`referrerpolicy`；
+2. `<figure>` 块内部不能有空行，写起来容易踩坑。
+
+只有在「图注里要放链接或特殊排版」这类 Markdown 表达不了的情况下才手写，并且记得手动补 `loading="lazy" decoding="async"`。
+
+### 4.3 图片存放与自动优化
 
 | 项 | 规则 |
 | --- | --- |
@@ -159,6 +165,21 @@ source: original          # 可选，默认 original。ai = AI 整理
 | 尺寸 | 正文宽度约 608px，2 倍屏 1216px；存 1000–1400px 宽足够 |
 
 不用写 `alt` 也能显示，但**一定要写**：读屏软件靠它，图片挂掉时也靠它。
+
+放好图片就完事，剩下的是自动的。`npm run dev` / `npm run build` 会先跑 `scripts/optimize_images.mjs`：
+
+- 为每张图生成 **WebP 变体**（600 / 960 / 原宽，只有明显更窄才单独出）；
+- 把原始宽高和变体清单写进 `src/data/image-manifest.json`；
+- 构建时 `src/lib/markdown-images.mjs` 读清单，把图包成 `<picture>` 并补 `width` / `height`。
+
+产物里的 `.webp` 是**派生文件**，已在 `.gitignore` 里，不用提交。手工重跑：
+
+```bash
+npm run images         # 增量（只处理改动过的图）
+npm run images:force   # 全部重做
+```
+
+效果参考：52 张图源文件 7.0 MB，手机端（600w）实际下载量约 1.8 MB，是原来的 26%。
 
 ### 4.4 远程图片（轻量化转载）
 
@@ -194,8 +215,15 @@ python scripts/check_remote_images.py --proxy http://127.0.0.1:7897
 其它已知限制：
 
 - 访客的浏览器会直接连原站，会暴露访客 IP 给第三方；原站慢的话页面也跟着慢
-- 拿不到图片的原始宽高，滚动时可能有轻微跳动（本地图可以手写 `width` / `height` 规避）
 - RSS 只输出摘要，不受影响；OG 图用的是站点默认图，也不受影响
+
+**远程图的宽高**：构建时不会联网，所以默认拿不到尺寸，图片加载前高度为 0，滚动时会跳一下。跑一次下面这条命令就把尺寸记下来（写进 `src/data/remote-images.json`，要提交）：
+
+```bash
+python scripts/check_remote_images.py --write-dims
+```
+
+之后构建时会自动给这些图补上 `width` / `height`，跳动就没了。原站换图（尺寸变了）时重跑一次即可；忘了重跑也不会出错，只是那几个 `width` / `height` 会偏。
 
 ---
 
