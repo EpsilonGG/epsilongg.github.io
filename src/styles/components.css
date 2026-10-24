@@ -512,6 +512,9 @@ a.link-row:hover .link-row__label {
   margin-top: var(--space-3);
   max-width: var(--measure);
   color: var(--color-text-secondary);
+  /* 摘要紧挨着正文，正文两端对齐之后这里不跟就会在接缝处露出参差；
+     一行以内不受影响（最后一行本来就左对齐） */
+  text-align: justify;
 }
 
 .tag-list {
@@ -1109,6 +1112,9 @@ a.link-row:hover .link-row__label {
   line-height: var(--leading-relaxed);
   color: var(--color-text-secondary);
   overflow-wrap: anywhere;
+  /* 和正文保持一致的两端对齐：面板里的注释是从文末克隆过来的，
+     不写这一条就还是左对齐，和正文放在一起看会明显不齐 */
+  text-align: justify;
 }
 
 .note-popover__body > * + * {

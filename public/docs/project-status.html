@@ -719,10 +719,15 @@
           中文走系统字体栈，不下载中文字体。
         </p>
         <p>
-          正文两端对齐（<code>text-align: justify</code>，只加在 <code>.prose p</code> 与
-          <code>.prose li</code> 上，标题和图注不动）。中文每个字一样宽，一行放得下多少字是固定的，
+          正文两端对齐（<code>text-align: justify</code>）。中文每个字一样宽，一行放得下多少字是固定的，
           不对齐时行末会差一两个字，三十几行读下来右边缘就是一条锯齿；对齐之后右边缘是一条直线。
           最后一行浏览器按默认规则左对齐，不会被拉成稀稀拉拉的一行。
+        </p>
+        <p>
+          加了这条的一共四处，标题和图注不动：<code>.prose p</code>、<code>.prose li</code>
+          （文末注释列表也是 <code>.prose p</code>，自动跟上）、<code>.article-description</code>
+          （摘要紧挨正文，不跟就会在接缝处露出参差）、<code>.note-popover__body</code>
+          （注释弹层是文末注释的克隆，但它挂在 <code>.prose</code> 之外，不单独写就还是左对齐）。
         </p>
         <p>
           没有写 <code>text-justify</code>：标准里的 <code>inter-ideograph</code> 在 Chrome 里已经不认
