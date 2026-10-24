@@ -707,7 +707,7 @@
       <div class="block-item">
         <div class="block-item__head">
           <span class="block-item__name">3.2 设计与排版</span>
-          <span class="block-item__src">src/styles/tokens.css · 91 行</span>
+          <span class="block-item__src">src/styles/tokens.css · 110 行</span>
         </div>
         <p>
           所有颜色、字号、间距、圆角、行宽都只在 <code>tokens.css</code> 定义，组件里不允许写死数值。
@@ -1092,6 +1092,49 @@
         <div class="block-item__left">
           剩余：页脚那句"未经同意禁止转载"仍然留着，它和 CC BY-NC-SA 不冲突——
           那句话针对的是"商用"，CC 允许的是"非商业转载 + 署名"。
+        </div>
+      </div>
+
+      <div class="block-item">
+        <div class="block-item__head">
+          <span class="block-item__name">3.17 页头与背景图</span>
+          <span class="pill pill--done">本轮新增</span>
+          <span class="block-item__src">SiteHeader.astro · background.ts · global.css</span>
+        </div>
+        <p>
+          页头改成三栏网格 <code>1fr auto 1fr</code>：左边站名、中间四个导航、右边两个开关。
+          两边等宽，导航才落在正中间——用 <code>justify-content: space-between</code>
+          做不到这一点，站名和开关的宽度差多少，导航就偏多少。
+          窄屏（≤ 640px）放不下三栏，站名和开关占第一行，导航整条折到第二行。
+        </p>
+        <p>
+          背景图是可选功能，默认关闭，只有宽于 1280px 才生效（开关本身也只在那个宽度出现）。
+          实现上<strong>不碰任何布局</strong>：照片、纱、纸面三层全部画在 <code>&lt;html&gt;</code>
+          的背景上，从上到下是
+          <code>linear-gradient(纸色)</code> → <code>linear-gradient(纱)</code> → 照片，
+          纸面那一层用 <code>background-size: var(--paper-w) 100%</code> 收成一条居中的竖带。
+          于是照片只在两侧露出来，正中间永远是一张干净的纸，页面版式一行没改。
+        </p>
+        <p>
+          为什么不用 <code>body { max-width }</code> 收窄纸面：文章页的容器是 68rem 的网格，
+          body 一窄，正文那一列（<code>minmax(0, 38rem)</code>）会被挤成 200px 出头，
+          整篇字竖着排。背景层不参与布局，所以没有这个问题。
+        </p>
+        <ul>
+          <li>纸面宽 <code>--paper-w</code>（默认 46rem，即正文栏宽）、纱的浓度
+              <code>--bg-veil</code>（浅色 0.8 / 深色 0.86）都在 tokens.css 里调</li>
+          <li>照片先过一遍 sharp：1920 宽、饱和度 0.82、亮度 1.04，
+              WebP 159 KB / JPEG 226 KB，<code>image-set()</code> 二选一</li>
+          <li>照片用 <code>background-attachment: fixed</code>：滚动时不动，像窗外</li>
+          <li>页头页脚的横线原本通栏，开启后会横穿照片，改成只画纸面宽的一段</li>
+          <li>阅读进度条同样收进纸面宽度</li>
+          <li>文章页的目录栏正好挂在纸面之外，是页面上唯一压在照片上的东西：
+              给它一块 92% 不透明度的毛玻璃（<code>backdrop-filter: blur(14px)</code>），
+              照片隐约透出来，文字仍然清楚。关掉背景图时这块玻璃不存在</li>
+        </ul>
+        <div class="block-item__left">
+          剩余：背景图只在浅色/深色各调过一次浓度，没有做"随滚动渐变"或"多张轮换"；
+          纸面宽度是固定的，屏幕再宽也不会变宽，所以 4K 上两侧留白会比较大。
         </div>
       </div>
 
@@ -1898,7 +1941,7 @@
     <h3>8.1 它到底管什么</h3>
 
     <p>
-      <code>tokens.css</code> 是一张 91 行的清单，分四组，对"气质"的影响权重完全不同：
+      <code>tokens.css</code> 是一张 110 行的清单，分四组，对"气质"的影响权重完全不同：
     </p>
 
     <div class="block-list">
@@ -2225,6 +2268,7 @@
 │   │   └── ArticleSidebar.astro  文章页左侧栏（目录 + 四个按钮）
 │   ├── scripts/
 │   │   ├── theme.ts          主题切换与记忆
+│   │   ├── background.ts     背景图开关与记忆
 │   │   ├── article-notes.ts  注释弹层
 │   │   ├── article-sidebar.ts 侧栏目录高亮、置顶、折叠
 │   │   ├── archive-filter.ts 列表页搜索 / 筛选 / 分页
@@ -2240,11 +2284,11 @@
 │       ├── tokens.css        ★ 颜色/字号/间距/圆角，唯一来源
 │       ├── global.css        重置与基础
 │       ├── typography.css    排版规则
-│       ├── components.css    组件样式（1697 行，最长的文件）
+│       ├── components.css    组件样式（1786 行，最长的文件）
 │       └── fonts.css         @font-face
 ├── public/
 │   ├── fonts/                3 个 woff2（136 KB）+ 3 份字体许可
-│   ├── images/               75 张图：头像、图标、52 张文章插图
+│   ├── images/               77 张图：头像、图标、52 张文章插图、2 张背景图
 │   │                         + 构建时生成的 101 个 .webp 变体（已 gitignore）
 │   ├── og-default.png        默认分享图
 │   └── docs/                 4 个 HTML 指南（本站托管）
@@ -2307,7 +2351,7 @@
 
     <h3>换气质就改 <code>tokens.css</code></h3>
     <p>
-      <code>src/styles/tokens.css</code> 只有 91 行，但它是整个站点的气质来源：
+      <code>src/styles/tokens.css</code> 只有 110 行，但它是整个站点的气质来源：
       颜色、字体、字号、间距、圆角、动效全在里面，组件只引用变量名、不写具体数值。
       <strong>它不是"最好别动"，而是"只该在这里动"</strong>——想改观感就去改它，
       别去组件里写死颜色。三个现成配方（二次元 / 杂志感 / 带广告位）在第八节。

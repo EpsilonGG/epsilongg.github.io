@@ -2,12 +2,16 @@
 import { site } from '../config/site';
 import SiteNavigation from './SiteNavigation.astro';
 import ThemeToggle from './ThemeToggle.astro';
+import BackgroundToggle from './BackgroundToggle.astro';
 ---
 
 <header class="site-header">
   <div class="container site-header__inner">
     <a class="site-title" href="/">{site.name}</a>
     <SiteNavigation />
-    <ThemeToggle />
+    <div class="site-header__actions">
+      <ThemeToggle />
+      <BackgroundToggle />
+    </div>
   </div>
 </header>

@@ -80,6 +80,17 @@ const ogImageUrl = image ? absoluteUrl(image) : '';
           theme = 'light';
         }
         document.documentElement.dataset.theme = theme;
+
+        /* 背景图开关同理：默认关闭，只有明确存过 'on' 才开 */
+        var bg = 'off';
+        try {
+          if (window.localStorage.getItem('bg') === 'on') {
+            bg = 'on';
+          }
+        } catch (error) {
+          bg = 'off';
+        }
+        document.documentElement.dataset.bg = bg;
       })();
     </script>
   </head>

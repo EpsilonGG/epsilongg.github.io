@@ -22,7 +22,7 @@
  *   node scripts/optimize_images.mjs --dry    只报告，不写文件
  */
 
-import { readdir, stat, writeFile, mkdir } from 'node:fs/promises';
+import { readdir, stat, writeFile, mkdir, readFile } from 'node:fs/promises';
 import path from 'node:path';
 import sharp from 'sharp';
 
@@ -160,9 +160,29 @@ async function main() {
     images: manifest,
   };
 
+  let manifestWritten = false;
+
   if (!DRY) {
     await mkdir(path.dirname(MANIFEST_PATH), { recursive: true });
-    await writeFile(MANIFEST_PATH, `${JSON.stringify(payload, null, 2)}\n`, 'utf8');
+    /*
+      内容没变就不写：清单里带着 generatedAt，每次构建都重写会让工作区永远是脏的。
+      比对时忽略时间戳，只在图片真的变了的时候才落盘。
+    */
+    let previous = null;
+    try {
+      previous = JSON.parse(await readFile(MANIFEST_PATH, 'utf8'));
+    } catch {
+      previous = null;
+    }
+    const same =
+      previous &&
+      JSON.stringify(previous.images) === JSON.stringify(manifest) &&
+      previous.$comment === payload.$comment;
+
+    if (!same) {
+      await writeFile(MANIFEST_PATH, `${JSON.stringify(payload, null, 2)}\n`, 'utf8');
+      manifestWritten = true;
+    }
   }
 
   const count = Object.keys(manifest).length;
@@ -172,7 +192,8 @@ async function main() {
       `生成 ${written} 个变体 / 命中缓存 ${skipped} 个 · ` +
       `变体合计 ${formatKb(variantBytes)}（相对原图 ${saving >= 0 ? '-' : '+'}${Math.abs(saving).toFixed(0)}%）`,
   );
-  if (!DRY) console.log(`[images] 清单写入 ${path.relative(ROOT, MANIFEST_PATH)}`);
+  if (manifestWritten) console.log(`[images] 清单写入 ${path.relative(ROOT, MANIFEST_PATH)}`);
+  else if (!DRY) console.log('[images] 清单无变化，跳过写入');
 }
 
 await main();

@@ -46,6 +46,7 @@ npm test         # Python 单元测试（README 同步脚本）
 │   ├── fonts/                 本地字体（Inter / Cormorant Garamond / Fira Code）+ 许可文本
 │   ├── images/
 │   │   ├── avatar.jpg         头像（460×460，与 GitHub 头像同步）
+│   │   ├── bg/sky.jpg|webp    可选背景图（1920 宽，webp 159 KB / jpg 226 KB）
 │   │   ├── blog/rurudo-unreal/  第一篇真实文章用的 11 张插图
 │   │   ├── links/icons/       常用链接的小图标（按 22×22 显示，存 64×64）
 │   │   ├── people/            GitHub 朋友的头像（按 22×22 显示，存 64×64）
@@ -53,7 +54,7 @@ npm test         # Python 单元测试（README 同步脚本）
 │   ├── favicon.svg
 │   └── og-default.png         默认 Open Graph 分享图（1200×630）
 ├── src/
-│   ├── components/            Header / Footer / 导航 / 链接行 / 链接列表 / 卡片 / 图标网格 / 徽章墙 / 最近文章 / 主题切换 / 阅读进度条
+│   ├── components/            Header / Footer / 导航 / 链接行 / 链接列表 / 卡片 / 图标网格 / 徽章墙 / 最近文章 / 主题切换 / 背景开关 / 阅读进度条
 │   ├── config/                站点、个人资料、导航、链接、名片页的全部数据
 │   ├── content/blog/          Markdown 文章
 │   │   ├── rurudo-unreal-interview.md   第一篇真实文章
@@ -63,6 +64,7 @@ npm test         # Python 单元测试（README 同步脚本）
 │   ├── lib/posts.ts           读取、排序、按年分组文章
 │   ├── pages/                 路由：/ /me/ /morelinks/ /blog/ /blog/[slug]/ /404 /rss.xml /robots.txt
 │   ├── scripts/theme.ts       主题状态的唯一实现
+│   ├── scripts/background.ts  背景图开关状态的唯一实现
 │   └── styles/                tokens / global / typography / components / fonts
 ├── scripts/sync_profile_readme.py   README 同步脚本
 ├── tests/test_readme_sync.py        同步脚本单元测试（22 个用例）
@@ -77,6 +79,8 @@ npm test         # Python 单元测试（README 同步脚本）
 - 个人信息只存在 `src/config/*.json` / `*.ts`，页面组件不保存任何个人资料。
 - 数据用 JSON（`site.json`、`profile.json`、`navigation.json`）是因为 README 同步脚本（Python）也要读取同一份数据，避免出现两份互相冲突的配置。
 - 站内链接一律写成根绝对路径（`/blog/` 等），所以站点**必须部署在域名根路径**。这条限制的具体影响见 [Fork 指南](fork.md#0-站点必须部署在域名根路径)。
+- 页头是 `1fr auto 1fr` 三栏网格：站名 / 导航 / 开关。两边等宽导航才会真正居中，**不要**改回 `space-between`。
+- 背景图（`/images/bg/sky.*`）是可选功能，默认关闭，宽于 1280px 才生效。它由 `<html>` 上的三层背景画出来（纸面 → 纱 → 照片），**不参与布局**；纸面宽度 `--paper-w`、纱的浓度 `--bg-veil` 都在 tokens.css。不要改成给 `body` 设 `max-width`——那会把文章页 68rem 的网格挤坏。
 
 ### 路由说明
 

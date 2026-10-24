@@ -1,0 +1,56 @@
+---
+/**
+ * 背景图开关。
+ *
+ * - 只在宽屏（≥ 1280px）出现：窄屏没有两侧留白，开了也看不出区别。
+ * - 用 aria-pressed 表达开关状态，标签随状态更新。
+ * - 默认关闭，选择记在 localStorage 的 `bg` 键上。
+ */
+---
+
+<button
+  class="bg-toggle"
+  type="button"
+  data-bg-toggle
+  aria-pressed="false"
+  aria-label="显示背景图"
+  title="显示背景图"
+>
+  <svg
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="1.6"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    aria-hidden="true"
+    focusable="false"
+  >
+    <rect x="3" y="4.5" width="18" height="15" rx="2"></rect>
+    <circle cx="8.6" cy="9.6" r="1.5"></circle>
+    <path d="M21 15.6 15.9 10.5 9.4 17.4"></path>
+  </svg>
+</button>
+
+<script>
+  import { getCurrentBackground, toggleBackground } from '../scripts/background';
+
+  const button = document.querySelector<HTMLButtonElement>('[data-bg-toggle]');
+
+  if (button) {
+    const sync = () => {
+      const on = getCurrentBackground() === 'on';
+      const label = on ? '关闭背景图' : '显示背景图';
+      button.setAttribute('aria-pressed', String(on));
+      button.setAttribute('aria-label', label);
+      button.setAttribute('title', label);
+    };
+
+    sync();
+
+    button.addEventListener('click', () => {
+      toggleBackground();
+      sync();
+    });
+  }
+</script>

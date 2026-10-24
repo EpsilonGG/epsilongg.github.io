@@ -49,6 +49,64 @@ main {
   flex: 1 0 auto;
 }
 
+/* --------------------------------------------------------------------------
+   背景图（可选，默认关闭，只有宽屏生效）
+
+   三层背景全部画在 <html>（整块画布）上，从上到下：
+     1. 纸面：一条居中的、不透明的 --paper-w 宽竖带
+     2. 纱：--bg-veil 把照片压淡
+     3. 照片本身
+   于是照片只在左右两侧的留白露出来，正中间永远是一张干净的纸。
+
+   为什么用背景层而不是给 body 设 max-width：文章页的容器是 68rem 的网格，
+   body 一收窄，正文那一列（minmax(0, 38rem)）就会被挤成 200px 出头。
+   画成背景层则完全不参与布局，任何页面的版式都不动。
+
+   窄屏不生效：手机上没有两侧留白，开了只会变成"文字压在照片上"，
+   所以连开关都不显示（见 components.css 的 .bg-toggle）。
+   -------------------------------------------------------------------------- */
+@media (min-width: 1280px) {
+  :root[data-bg="on"] {
+    background-color: var(--color-bg);
+    background-image: linear-gradient(var(--color-bg), var(--color-bg)),
+      linear-gradient(var(--bg-veil), var(--bg-veil)), url("/images/bg/sky.webp");
+    /* 支持 image-set 的浏览器走这一条：WebP 优先，不认 WebP 时退回 JPEG */
+    background-image: linear-gradient(var(--color-bg), var(--color-bg)),
+      linear-gradient(var(--bg-veil), var(--bg-veil)),
+      image-set(
+        url("/images/bg/sky.webp") type("image/webp"),
+        url("/images/bg/sky.jpg") type("image/jpeg")
+      );
+    background-size: var(--paper-w) 100%, cover, cover;
+    background-position: center top, center, center;
+    background-repeat: no-repeat;
+    /* 固定住：滚动时照片不动，像窗外而不是像壁纸 */
+    background-attachment: fixed;
+  }
+
+  /* 纸面已经在背景里画好了，body 再铺一层白就把两侧照片盖住了 */
+  :root[data-bg="on"] body {
+    background-color: transparent;
+  }
+
+  /* 页头页脚的横线原本通栏，会横穿照片；改成只画纸面宽的一段 */
+  :root[data-bg="on"] .site-header {
+    border-bottom-color: transparent;
+    background-image: linear-gradient(var(--color-border), var(--color-border));
+    background-size: var(--paper-w) var(--border-width);
+    background-position: center bottom;
+    background-repeat: no-repeat;
+  }
+
+  :root[data-bg="on"] .site-footer {
+    border-top-color: transparent;
+    background-image: linear-gradient(var(--color-border), var(--color-border));
+    background-size: var(--paper-w) var(--border-width);
+    background-position: center top;
+    background-repeat: no-repeat;
+  }
+}
+
 ::selection {
   background-color: var(--color-selection);
   color: var(--color-text);
