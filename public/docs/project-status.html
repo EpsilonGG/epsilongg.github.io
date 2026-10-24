@@ -458,7 +458,7 @@
         <span class="kpi__label">HTML 页面</span>
       </div>
       <div class="kpi__item">
-        <span class="kpi__num">6.3<small>KB</small></span>
+        <span class="kpi__num">6.4<small>KB</small></span>
         <span class="kpi__label">CSS（gzip）</span>
       </div>
       <div class="kpi__item">
@@ -470,7 +470,7 @@
         <span class="kpi__label">测试全过</span>
       </div>
       <div class="kpi__item">
-        <span class="kpi__num">9.1<small>KB</small></span>
+        <span class="kpi__num">9.2<small>KB</small></span>
         <span class="kpi__label">首页传输（gzip）</span>
       </div>
     </div>
@@ -872,11 +872,11 @@
         <p>
           产物 15 MB 的构成：图片 14 MB（原图 7.0 MB + WebP 变体 6.2 MB + 站点图标）、
           HTML 约 500 KB、字体 136 KB、CSS 35 KB。
-          <strong>但首屏和这个数字无关</strong>——首页实际传输 9.1 KB（HTML 2.8 + CSS 6.3），
-          文章页 21.0 KB。图片只在滚到它时才开始下载。
+          <strong>但首屏和这个数字无关</strong>——首页实际传输 9.2 KB（HTML 2.8 + CSS 6.4），
+          文章页 19–30 KB（按篇幅）。图片只在滚到它时才开始下载。
         </p>
         <p>
-          CSS 打成单文件 35 KB，gzip 后 6.3 KB，<strong>没有任何外部 JS 文件</strong>——
+          CSS 打成单文件 35 KB，gzip 后 6.4 KB，<strong>没有任何外部 JS 文件</strong>——
           脚本量太小，Astro 全部内联进了 HTML。文章页一共 5 个 <code>&lt;script&gt;</code>：
           1 个在 head 里防主题闪烁，其余是主题切换、阅读进度、注释面板、侧栏目录与返回顶部。
           没有客户端框架、没有 hydration、没有第三方请求，字体和图标都是自己的。
@@ -1485,9 +1485,10 @@
     <div class="note">
       <p>
         <strong>先说结论。</strong>把四个站放在一条数轴上，本项目在"体积"这一端是孤立点：
-        首页 <strong>9.1 KB</strong>，另外三个是 75.5 / 493 / 503 KB，差 <strong>8 到 55 倍</strong>。
+        首页 <strong>9.2 KB</strong>，另外三个是 75.5 / 493 / 503 KB，差 <strong>8 到 55 倍</strong>。
         但首页对首页比其实不太公平（别人首页是内容流，本站首页是名片），
-        所以更该看<strong>文章页对文章页</strong>：本站 21.0 KB，eryuemu 48.1 KB，2.3 倍——
+        所以更该看<strong>文章页对文章页</strong>：本站 19–30 KB（五篇，中位 24.5），
+        eryuemu 48.1 KB，差<strong>一倍左右</strong>——
         这个差距才是"有没有客户端框架"的真实差价。
         真正的短板在另一头：<strong>内容量</strong>。5 篇文章撑不起一个"站"的体积感。
       </p>
@@ -1554,10 +1555,10 @@
         </tr>
         <tr>
           <td><strong>本项目 · 文章页</strong></td>
-          <td class="t-num">14.7</td>
-          <td class="t-num">6.3 <span class="t-hide-sm">(1 个)</span></td>
+          <td class="t-num">12.4–23.8</td>
+          <td class="t-num">6.5 <span class="t-hide-sm">(1 个)</span></td>
           <td class="t-num">0</td>
-          <td class="t-num"><strong>21.0 KB</strong></td>
+          <td class="t-num"><strong>19–30 KB</strong></td>
         </tr>
         <tr>
           <td>eryuemu · 文章页</td>
@@ -1596,6 +1597,8 @@
       脚本全部内联进了 HTML（已计入 HTML 一列）。
       上一版这张表把 HTML 按原始字节、CSS/JS 按 gzip 算，混了两种口径；这一版统一了，
       所以数字比上一版小。
+      文章页那一行是<strong>五篇实测的区间</strong>（12.4 / 15.6 / 18.0 / 18.8 / 23.8），
+      不是单篇——正文长度差别很大，取一篇代表不了；中位数是 24.5 KB。
     </p>
 
     <h3>6.3 页面构成逐个看</h3>
@@ -2332,7 +2335,7 @@
   <footer class="doc-foot">
     <p>
       体检时间 2026-10-24。数据来自实际构建产物、源码统计与现场抓取：
-      10 个 HTML 页面、单 CSS 35,791 字节（gzip 6,334）、0 个外部 JS 文件、53 个测试用例、
+      10 个 HTML 页面、单 CSS 35,791 字节（gzip 6,539）、0 个外部 JS 文件、53 个测试用例、
       产物 15 MB（原图 7.0 MB + WebP 变体 6.2 MB + 字体 136 KB + 其余约 700 KB）、
       <code>astro check</code> 0 错 0 警 0 提示，Astro 7.4.2 / Sätteri 0.4.5 / Node ≥ 22.23.4。
     </p>
