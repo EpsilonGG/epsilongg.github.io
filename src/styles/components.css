@@ -1009,15 +1009,30 @@ a.link-row:hover .link-row__label {
 /* --------------------------------------------------------------------------
    文章 · 目录栏在背景图模式下的样子
 
-   纸面（body）只有 --paper-w 宽，而目录栏挂在正文左边、正好落在纸面之外，
+   纸面只有 --paper-w 宽，而目录栏挂在正文左边、正好落在纸面之外，
    是页面上唯一压在照片上的东西。给它一块高不透明度的玻璃：
    照片从下面隐约透出来，文字仍然清楚。关掉背景图时这块玻璃不存在，
    目录还是原来的裸文字。
+
+   **玻璃画在 ::before 上，不是给元素加 padding。**
+   加 padding 会让目录的内容盒变窄（border-box 下 208 → 182），
+   于是开关背景时整列目录会横向滑 13px、长标题跟着重新折行——
+   开个背景图不该改变版式。::before 用负 inset 向外长，
+   元素本身一个像素都不动，两种模式下目录的位置完全一致。
    -------------------------------------------------------------------------- */
 @media (min-width: 1280px) {
   :root[data-bg="on"] .article-sidebar,
   :root[data-bg="on"] .article-rail {
-    padding: var(--space-3);
+    /* 两者本来就是 sticky（已定位），这里只要关住 z-index:-1 的作用域 */
+    isolation: isolate;
+  }
+
+  :root[data-bg="on"] .article-sidebar::before,
+  :root[data-bg="on"] .article-rail::before {
+    content: "";
+    position: absolute;
+    inset: calc(var(--space-3) * -1);
+    z-index: -1;
     border: var(--border-width) solid var(--color-border);
     border-radius: var(--radius);
     background-color: color-mix(in srgb, var(--color-bg) 92%, transparent);
