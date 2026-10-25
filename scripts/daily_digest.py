@@ -4,12 +4,13 @@
 这是混合方案里"无 LLM"的那一半：读取 X-Reader 产出的 NormalizedItem JSONL
 （data/items/<source_id>.jsonl），确定性地组装出：
 
-    * <out>/<date>.briefing.txt  — 喂给 LLM 的原始事实摘要
+    * <out>/<date>.briefing.txt  — 喂给 LLM 的原始事实摘要（含推文原文与互动数）
   * <date>.md                 — 写入站点 src/content/daily/<date>.md
-                                的日报正文（frontmatter + AI 摘要占位 +
-                                按账号分组的推文列表）
+                                的日报骨架（frontmatter 三段：今日看点 / 互动 /
+                                名单，全部留空待填）
 
-"AI 摘要"这一段由**本地 WorkBuddy（LLM）**填写，本脚本不碰 LLM / 不调 API。
+三段内容由**本地 WorkBuddy（LLM）**填写，本脚本不碰 LLM / 不调 API。
+站点只渲染 frontmatter，不展示互动数——那些数字只留在 briefing 里供模型判断轻重。
 
 用法：
     # 直接生成当日日报（md-out 默认指向仓库内的 src/content/daily/<今天>.md）
@@ -106,62 +107,58 @@ def build_briefing(records: list[dict], report_date: date_cls) -> str:
 
 
 def build_markdown(records: list[dict], report_date: date_cls) -> str:
-    """站点 src/content/daily/<date>.md 的正文：frontmatter + 摘要占位 + 分组推文。
+    """站点 src/content/daily/<date>.md 的骨架：frontmatter 三段 + 待填提示。
 
-    推文媒体渲染为纯链接（[媒体](url)），避免触发站点的本地图片优化流水线。
+    三段全部是结构化字段（highlights / interactions / people），不写进 Markdown 正文：
+    链接由 handle 拼（模型写不错网址）、summary 为空自动省略（天然满足「当日没活动就不列」）、
+    上百人时还要拿去做分类视图与 JSON 输出。
+
+    这里只产出「事实」——今天谁发了多少条；具体写什么由本地 WorkBuddy 填。
+    推文原文与互动数只进 briefing.txt（本地中间产物），不再进站点内容。
     """
     by_acc: dict[str, list[dict]] = {}
     for r in records:
         by_acc.setdefault(_display_handle(r), []).append(r)
 
-    accounts = list(sorted(by_acc.keys()))
-    lines: list[str] = []
-    lines.append("---")
+    # 当日推文多的排前面：人读起来有主次，LLM 也更容易抓住重点
+    ordered = sorted(by_acc.items(), key=lambda kv: (-len(kv[1]), kv[0]))
+    accounts = [acc for acc, _ in ordered]
+
+    if len(accounts) <= 6:
+        who = " / ".join(f"@{a}" for a in accounts)
+    else:
+        who = f"共 {len(accounts)} 位"
+    desc = f"{report_date.isoformat()} 的 X 动态摘要（{who}）"
+
+    lines: list[str] = ["---"]
     lines.append(f'title: "X 日报 · {report_date.isoformat()}"')
-    desc = (
-        f"{report_date.isoformat()} 的 X 动态摘要（"
-        + " / ".join(f"@{a}" for a in accounts)
-        + "）"
-    )
     lines.append(f'description: "{desc}"')
     lines.append(f"pubDate: {report_date.isoformat()}")
     lines.append("source: ai")
     lines.append("accounts:")
     for a in accounts:
         lines.append(f"  - {a}")
+    lines.append("")
+    lines.append("# 今日看点：今日热点概括，2–4 段，每项一段（第一顺位）")
+    lines.append("highlights: []")
+    lines.append("")
+    lines.append("# 名单内多人之间的互动，每项一条；没有就保持空数组")
+    lines.append("interactions: []")
+    lines.append("")
+    lines.append("# 每人一句话（句子本身要能看出是谁）；summary 留空 = 当日无活动，不渲染")
+    lines.append("people:")
+    for a in accounts:
+        lines.append(f"  - handle: {a}")
+        lines.append('    summary: ""')
     lines.append("---")
     lines.append("")
-    lines.append("## 今日 AI 摘要")
-    lines.append("")
-    lines.append("<!--AI_SUMMARY-->")
-    lines.append("")
-    for acc, recs in sorted(by_acc.items(), key=lambda kv: -len(kv[1])):
-        recs_sorted = sorted(
-            recs,
-            key=lambda r: (r.get("published_at") or r.get("fetched_at") or ""),
-            reverse=True,
-        )
-        lines.append(f"## @{acc}（{len(recs)} 条）")
-        lines.append("")
-        for r in recs_sorted:
-            meta = r.get("metadata") or {}
-            stats = meta.get("stats") or {}
-            content = (r.get("content") or r.get("title") or "").replace("\n", " ")
-            body = f"- {content}"
-            url = r.get("canonical_url")
-            suffix = ""
-            if url:
-                suffix += f" ([原文]({url}))"
-            if stats:
-                suffix += f" · ❤{_fmt_stat(stats.get('likes'))} 🔁{_fmt_stat(stats.get('retweets'))}"
-            if suffix:
-                body += suffix
-            lines.append(body)
-            for m in (r.get("media") or [])[:4]:
-                murl = m.get("url") or ""
-                if murl:
-                    lines.append(f"  - [媒体]({murl})")
-        lines.append("")
+    lines.append("<!--")
+    lines.append("待填（本地 WorkBuddy 完成，脚本不调 LLM）：")
+    lines.append("  highlights        今日看点，2–4 段")
+    lines.append("  interactions      多人互动，每项一条")
+    lines.append("  people[].summary  每人一句话")
+    lines.append("依据：out/<date>.briefing.txt（推文原文 + 互动数都在那里）")
+    lines.append("-->")
     return "\n".join(lines)
 
 
@@ -207,7 +204,10 @@ def main() -> int:
     md_out.parent.mkdir(parents=True, exist_ok=True)
     md_out.write_text(build_markdown(day_records, report_date), encoding="utf-8")
     print(f"Wrote Markdown -> {md_out}")
-    print("下一步：把 briefing / 该 .md 交给本地 WorkBuddy 填写 AI 摘要（替换 <!--AI_SUMMARY-->）。")
+    print(
+        "下一步：让本地 WorkBuddy 读 briefing，填写该 .md 里的 "
+        "highlights（今日看点）/ interactions（互动）/ people[].summary（每人一句）三段。"
+    )
     return 0
 
 

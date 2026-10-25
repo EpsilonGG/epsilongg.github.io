@@ -742,6 +742,16 @@
           （实测 <code>CSS.supports</code> 返回 false），而默认的 <code>auto</code> 对中文按字、
           对英文按词分配余量，正好是想要的行为；硬改成 <code>inter-character</code> 反而会把英文单词拆开。
         </p>
+        <p>
+          <strong>窄屏（≤ 640px）退回左对齐。</strong>
+          对齐的好处靠"一行字数多"才成立：608px 一行能放三十来个汉字，每行要补的余量不到半个字，
+          看起来还是均匀的。到 390px 一行只剩二十字上下，再碰上 <code>@handle</code>、
+          英文作品名这种不能拆的长词，余量只能摊到字间，于是出现
+          「汇总了明天「FIRST ／ FLIGHT」线下活动」这样的豁口。
+          这个宽度下右边缘本来也看不出来，不值得为它牺牲行内节奏。
+          实测断点落在 641px 与 640px 之间：641px 时正文 593px、仍是 <code>justify</code>，
+          640px 时变成 <code>start</code>，各宽度都没有横向溢出。
+        </p>
         <div class="block-item__left">剩余：CJK 字形在 macOS / Windows / Linux 上不一致，标题观感会飘。</div>
       </div>
 
@@ -1239,14 +1249,27 @@
         <div class="block-item__head">
           <span class="block-item__name">3.19 日报栏目</span>
           <span class="pill pill--done">完成</span>
-          <span class="block-item__src">DailyLayout.astro · lib/daily.ts · 73 + 19 行</span>
+          <span class="block-item__src">DailyLayout.astro · lib/daily.ts · 158 + 19 行</span>
         </div>
         <p>
           第五个固定栏目：<code>/daily/</code> 是列表，<code>/daily/&lt;date&gt;/</code> 是单篇，
           路由用动态段 <code>[...date]</code>，<code>date</code> 就是文件名，所以"加一期"= 加一个
           <code>src/content/daily/2026-10-25.md</code>。schema 与 blog 同构
-          （<code>title</code> / <code>pubDate</code> 必填、<code>draft</code> 过滤、草稿不发布），
-          多了 <code>accounts</code> 记录这一期覆盖了哪些账号。
+          （<code>title</code> / <code>pubDate</code> 必填、<code>draft</code> 过滤、草稿不发布）。
+        </p>
+        <p>
+          <strong>版式是三段，顺序固定</strong>：
+          <code>highlights</code>（今日看点，2–4 段概括）→
+          <code>interactions</code>（名单内多人之间的互动，每项一条）→
+          <code>people</code>（每人一句话，渲染成
+          <code>[一句话](https://x.com/handle)</code>）。前两段可以为空，
+          空的时候整节不渲染、只在构建日志里 warn 一句。
+        </p>
+        <p>
+          <strong>正文内容写在 frontmatter 而不是 Markdown 正文里</strong>，为的是三件事：
+          链接由 <code>handle</code> 拼出来，模型没有机会把 URL 写错；
+          <code>summary</code> 留空就等于"当日没有动态"，不渲染那一行，不用另外维护一份删人清单；
+          同一份数据以后要按分类重新分组时不用重写正文。代价是这一栏的 Markdown 正文是空的。
         </p>
         <p>
           <strong>与笔记栏目最大的不同：这里不设「含 AI 整理」滑块。</strong>
@@ -1258,14 +1281,25 @@
           数据流分三段，<strong>CI 里不跑 LLM、不要 API key、不要服务器</strong>：
           X-Reader 的 Actions 每日 17:10 UTC 抓推文写成 <code>data/items/*.jsonl</code> →
           本机 <code>scripts/daily_digest.py</code> 把 items 确定性组装成
-          <code>src/content/daily/&lt;date&gt;.md</code>（留一个 <code>&lt;!--AI_SUMMARY--&gt;</code> 占位）→
-          本机 WorkBuddy 写摘要替换占位 → push → 站点 Actions 照常构建部署。
-          只有"写摘要"这一步需要模型，留在本机跑一次。
+          <code>src/content/daily/&lt;date&gt;.md</code>：<code>accounts</code> 按发推数排好、
+          <code>highlights</code> / <code>interactions</code> 留空数组、
+          <code>people</code> 逐个列出但 <code>summary</code> 为空 →
+          本机 WorkBuddy 填这三段 → push → 站点 Actions 照常构建部署。
+          只有"填这三段"需要模型，留在本机跑一次。
+        </p>
+        <p>
+          正文里的 <code>@handle</code> 只在<strong>名单内</strong>才自动变链接：
+          <code>accounts</code> 与 <code>people[].handle</code> 先拼成一张白名单表，
+          命中才替换成 <code>&lt;a&gt;</code>，没命中的 <code>@xxx</code> 保持纯文本——
+          免得提到站外的人时凭空长出一个指向陌生账号的链接。
+          替换前先手工 HTML 转义，再替换成锚点；顺序反了会把锚点自己的 <code>&lt;</code> 也转义掉。
         </p>
         <div class="block-item__left">
           剩余：列表页没有分页与搜索（一天一篇，暂时不需要）；日报<strong>不进 RSS</strong>——
           <code>rss.xml.ts</code> 只遍历 blog 集合，要让订阅者收到日报得另开一条 feed 或把两个集合合并，
           那会改变现有订阅者的收件内容，属于要想清楚再做的事。
+          扩到几十上百人之后的分类/综合两套视图、map-reduce 摘要、增量缓存，
+          方案写在 <code>docs/daily-scaling-plan.md</code>。
         </div>
       </div>
 

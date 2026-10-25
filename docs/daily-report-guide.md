@@ -15,7 +15,7 @@
 | 角色 | 位置 | 负责什么 |
 | --- | --- | --- |
 | **X-Reader（抓取侧）** | GitHub 上的 X-Reader 仓库；本机 checkout 在 `X-rss-workspace/X-Reader` | 每日自动抓取 X 推文，规范化为 `NormalizedItem`，写入并提交 `data/items/*.jsonl` |
-| **本地组装 + 本地 LLM** | 站点仓库 `scripts/daily_digest.py` + `scripts/daily.sh`，外加本机 WorkBuddy | 把 `data/items` 确定性组装成 `src/content/daily/<date>.md`；由 WorkBuddy 填写 `<!--AI_SUMMARY-->` |
+| **本地组装 + 本地 LLM** | 站点仓库 `scripts/daily_digest.py` + `scripts/daily.sh`，外加本机 WorkBuddy | 把 `data/items` 确定性组装成 `src/content/daily/<date>.md` 骨架；由 WorkBuddy 填 `highlights` / `interactions` / `people` |
 | **站点仓库（发布侧）** | `Desktop\github page work` = `epsilongg.github.io` | 存放脚本与产出 `.md`；`git push` 后 Actions 自动构建部署到 GitHub Pages |
 
 **数据流（每天一次）：**
@@ -27,9 +27,9 @@ X-Reader CI (每日 17:10 UTC)
    本地：git pull X-Reader 仓库（拿到最新 data/items）
         │
    本地：python scripts/daily_digest.py --items-dir <X-Reader>/data/items
-        └─ 产出 src/content/daily/<date>.md（含 <!--AI_SUMMARY--> 占位）
+        └─ 产出 src/content/daily/<date>.md（三段全空的骨架）
         │
-   本地 WorkBuddy：读取 briefing / .md，写中文摘要，替换 <!--AI_SUMMARY-->
+   本地 WorkBuddy：读 briefing，填今日看点 / 互动 / 每人一句
         │
    本地：git add src/content/daily/<date>.md && commit && push
         │
@@ -39,6 +39,28 @@ X-Reader CI (每日 17:10 UTC)
 **为什么这么设计：** X-Reader 与站点的 Actions 都在 GitHub 免费额度内；CI 里**不跑 LLM**、不需要 API key、不需要 VPS。只有"写摘要"这一步在你本机 WorkBuddy 完成一次，零额外成本。
 
 > ⚠️ **Sotwe 作为补充 X 源：** 已做过可行性评估，结论为**不可行**（时间线为 JS 渲染，`selectolax` 无法提取；无公开 API；无头浏览器违反项目约束）。按规范已 STOP，未改动任何代码。扩充来源请优先在 X-Reader 内加 provider/route。
+
+---
+
+## 日报的版式（三段，顺序固定）
+
+站点只渲染 frontmatter，不渲染 Markdown 正文。三段的顺序和格式都是定死的：
+
+| 顺位 | 字段 | 内容 | 没有内容时 |
+| --- | --- | --- | --- |
+| 1 | `highlights` | **今日看点**：当天热点的概括性文本，2–4 段，每项一段 | 页面显示「今日看点待补充」，构建日志警告 |
+| 2 | `interactions` | **互动**：名单内多人之间的互动，每项一条，写成文字 | 整段不渲染 |
+| 3 | `people` | **名单**：每人一句话 + 主页链接 | `summary` 为空的条目自动不渲染 |
+
+几条硬规则：
+
+- **名单里的一行就是 `[一句话概括](推特主页网址)`**。链接由 `handle` 拼成 `https://x.com/<handle>`，**不要让模型写网址**——写成字段后模型只负责句子，网址不可能错。
+- **句子本身要能看出是谁**（"@322yui3：一整天录音…"），因为链接文本就是这句话，页面上不会再单独显示账号。
+- **当日没有活动的人直接省略**：`summary` 留空即可，不需要删条目。
+- **不展示互动量**（点赞、转发、阅读数）。这些数字只在 `out/<date>.briefing.txt` 里给模型判断轻重用，不进站点内容。
+- 正文里的 `@handle` 会自动变成主页链接，但**只认名单里的人**（`accounts` + `people` 里的 handle），名单外的 @ 保持纯文本。
+
+> 为什么三段全放 frontmatter 而不是写进 Markdown 正文：上百人时这些字段要拿去做分类视图、JSON 输出和筛选，藏在正文里就取不出来。详见 [日报扩容方案](daily-scaling-plan.md)。
 
 ---
 
@@ -64,19 +86,24 @@ python scripts/daily_digest.py --items-dir "<X-rss-workspace>/X-Reader/data/item
 
 - `--date YYYY-MM-DD`：可选，指定报告日期（默认取数据里最新一天）。
 - 产出：
-  - `src/content/daily/<date>.md` —— 站点内容（frontmatter + `<!--AI_SUMMARY-->` 占位 + 按账号分组的推文列表）。
-  - `out/<date>.briefing.txt` —— 喂给 LLM 的事实摘要（已被 `.gitignore` 忽略，属本地中间产物）。
+  - `src/content/daily/<date>.md` —— 站点内容的**骨架**：frontmatter 里 `accounts` 已按当日推文数排好序，`highlights` / `interactions` 是空数组，`people` 每人一条 `summary: ""`，正文只有一个待填说明的注释。
+  - `out/<date>.briefing.txt` —— 喂给 LLM 的事实摘要（推文原文 + 互动数都在这里，已被 `.gitignore` 忽略，属本地中间产物）。
+- **注意：脚本不再把推文原文写进 `.md`**，只写骨架。要写摘要必须看 `briefing.txt`。
 - **空跑预览（无真实数据）：** 直接 `./scripts/daily.sh 2026-10-24`，会用仓库内的 `scripts/sample_items/` 样例数据生成一份预览，方便测试流程。
 
-### 步骤 2 — 让本地 WorkBuddy 填写 AI 摘要（唯一需要 LLM 的地方）
+### 步骤 2 — 让本地 WorkBuddy 填写日报内容（唯一需要 LLM 的地方）
 
-对 WorkBuddy 说：**"填写今天的日报 AI 摘要"**。它会：
+对 WorkBuddy 说：**"填写今天的日报"**。它会：
 
-1. 读取 `out/<date>.briefing.txt`（或 `src/content/daily/<date>.md` 里的分组列表）；
-2. 用中文写出当日要点摘要（谁发了什么、重点、值得关注的数据）；
-3. 把 `src/content/daily/<date>.md` 中的 `<!--AI_SUMMARY-->` 替换为该摘要。
+1. 读 `out/<date>.briefing.txt`（推文原文与互动数都在这里）；
+2. 填 `src/content/daily/<date>.md` 的**三个字段**：
+   - `highlights`：今日看点，2–4 段，把当天最值得说的几件事概括出来（第一顺位）；
+   - `interactions`：名单内谁和谁有互动、互动内容是什么，每项一条；**没有就留空数组**；
+   - `people[].summary`：每人一句话，句子要能看出是谁；**当日没活动的留空**；
+3. 不改 `title` / `pubDate` / `accounts` / `people[].handle`——这些是脚本从数据推导的，手改会跟抓取数据对不上。
 
 > 这一步就是"用 WorkBuddy 本地跑完需要 LLM 的部分"。LLM 不碰 API、不进 CI。
+> 填完可以直接构建预览：`npm run dev` 看 `/daily/<date>/`。
 
 ### 步骤 3 — 提交并推送站点仓库
 
@@ -93,13 +120,13 @@ git push
 部署完成后访问：
 - 列表页：`/daily/`
 - 详情页：`/daily/<date>/`
-确认摘要渲染、推文链接、互动数正常。
+确认三段都渲染了：今日看点在前、互动其次、名单每行都能点到主页；名单里没有空链接。
 
 ### 日常常见问题
 
 | 情况 | 处理 |
 | --- | --- |
-| 某天没有新推文 | digest 仍会生成当天 `.md`，但分组可能为空；可跳过当天，或手写一篇简短摘要 |
+| 某天没有新推文 | digest 仍会生成骨架，但 `accounts` 为空；这种日子直接跳过、不发布即可（骨架页会显示「今日看点待补充」） |
 | 数据还没抓到 | 先 `git pull` X-Reader 仓库，或等 CI（17:10 UTC）跑完再操作 |
 | 想补过去的某天 | 用 `--date YYYY-MM-DD`；digest 会筛那一天的记录（数据 append-only 会保留历史） |
 | 想换 Python 解释器 | `daily.sh` 顶部 `PY="${PYTHON:-python3}"`，可改为本机 Python 路径；或直接用 `PY=... bash scripts/daily.sh` |
@@ -140,7 +167,10 @@ git push
   description?: string;          // 可选
   pubDate: Date;                 // 必填（Zod coerce）
   source: 'original' | 'ai';     // 默认 'ai'
-  accounts: string[];            // 默认 []
+  accounts: string[];            // 默认 []，当天有活动的账号（脚本推导）
+  highlights: string[];          // 默认 []，今日看点，每项一段
+  interactions: string[];        // 默认 []，多人互动，每项一条
+  people: { handle: string; summary: string }[];  // 默认 []，summary 为空即不渲染
   draft: boolean;                // 默认 false
 }
 ```
@@ -159,7 +189,7 @@ digest 实际使用的字段：
 | 推文正文 | `content`（回退 `title`） |
 | 账号显示名 | `publisher`（回退 `metadata.account`） |
 | "原文"链接 | `canonical_url` |
-| 互动数（排序+展示） | `metadata.stats.{likes,retweets,replies,views}` |
+| 互动数（仅排序 + briefing） | `metadata.stats.{likes,retweets,replies,views}` |
 | 媒体 | `media[].url` → 渲染为纯链接 `[媒体](url)`（**不**触发本地图片优化流水线） |
 | 按日期分组 | `published_at`（回退 `fetched_at`） |
 | 过滤 | `is_meaningful === false` 的条目会被跳过 |
@@ -204,6 +234,6 @@ digest 实际使用的字段：
 每天：
   1) git -C X-rss-workspace/X-Reader pull        # 拿 CI 抓的数据
   2) python scripts/daily_digest.py --items-dir X-rss-workspace/X-Reader/data/items
-  3) 让 WorkBuddy 填 <!--AI_SUMMARY-->
+  3) 让 WorkBuddy 填 highlights / interactions / people[].summary
   4) git add src/content/daily/<date>.md && git commit -m "daily: <date>" && git push
 ```

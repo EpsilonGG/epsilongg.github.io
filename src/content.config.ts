@@ -42,6 +42,11 @@ const blog = defineCollection({
 /**
  * 日报集合：由本地 WorkBuddy（LLM）基于 X-Reader 抓取的推文生成的每日摘要。
  * 与 blog 分离，避免混入「笔记」归档；内容来源默认标记为 `ai`（AI 整理）。
+ *
+ * 正文三段全部是结构化字段，不写进 Markdown 正文——原因有三：
+ * 1. 链接由 `handle` 拼出来（`https://x.com/<handle>`），模型不可能写错网址；
+ * 2. `summary` 为空的条目自动不渲染，天然满足「当日没有活动就省略」；
+ * 3. 上百人时这些字段要拿去做分类视图和 JSON 输出，藏在正文里就取不出来。
  */
 const daily = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/daily' }),
@@ -50,7 +55,24 @@ const daily = defineCollection({
     description: z.string().trim().min(1, 'description 不能是空字符串').optional(),
     pubDate: z.coerce.date(),
     source: z.enum(['original', 'ai']).default('ai'),
+    /** 当天有活动的账号（由抓取数据推导，不需要手写） */
     accounts: z.array(z.string().trim().min(1)).default([]),
+    /**
+     * 今日看点：排在最前面的概括性文本，每项一段。
+     * 为空时页面会显示「待补充」提示，提醒还没跑完 LLM 那一步。
+     */
+    highlights: z.array(z.string().trim().min(1)).default([]),
+    /** 名单内多人之间的互动，每项一条；为空则整段不渲染 */
+    interactions: z.array(z.string().trim().min(1)).default([]),
+    /** 名单：每人一句话，链接由 handle 生成；summary 为空即视为当日无活动 */
+    people: z
+      .array(
+        z.object({
+          handle: z.string().trim().min(1),
+          summary: z.string().trim().default(''),
+        }),
+      )
+      .default([]),
     draft: z.boolean().default(false),
   }),
 });

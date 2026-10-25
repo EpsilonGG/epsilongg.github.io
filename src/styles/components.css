@@ -426,6 +426,43 @@ a.link-row:hover .link-row__label {
   margin-top: var(--space-3);
 }
 
+/* --------------------------------------------------------------------------
+   日报 · 正文三段（今日看点 / 互动 / 名单）
+
+   三段都由 frontmatter 渲染，顺序固定：看点在先，名单在后。
+   互动与名单没有内容时整段不输出；只有看点留一个占位，
+   因为「今天什么都没发生」本身也是需要说清楚的事。
+   -------------------------------------------------------------------------- */
+.daily-block + .daily-block {
+  margin-top: var(--space-6);
+}
+
+/* 名单是「一人一行、整行即链接」，不用圆点更好扫读 */
+.daily-roster {
+  padding-left: 0;
+  list-style: none;
+}
+
+.daily-roster li + li {
+  margin-top: var(--space-2);
+}
+
+/* 正文里的 @提及：只给名单内的人加链接，视觉上不要抢过正文 */
+.daily-mention {
+  text-decoration: none;
+  border-bottom: var(--border-width) solid var(--color-border-strong);
+}
+
+.daily-mention:hover {
+  border-bottom-color: var(--color-text);
+}
+
+/* 忘了跑 LLM 那一步时的占位，灰一点但看得见 */
+.daily-pending {
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+}
+
 /* 笔记列表栏目名：默认「原创与转载」，开启滑块后切到「全部（含 AI 整理）」 */
 .archive-list-heading {
   margin: var(--space-6) 0 var(--space-3);
@@ -1192,6 +1229,15 @@ a.link-row:hover .link-row__label {
 
 .note-popover__body > * + * {
   margin-top: var(--space-2);
+}
+
+/* 窄屏退回左对齐，理由同 typography.css 里那条：一行只剩二十字上下，
+   两端对齐只能靠拉大字间补余量，碰上长英文词就会出现明显豁口 */
+@media (max-width: 640px) {
+  .article-description,
+  .note-popover__body {
+    text-align: start;
+  }
 }
 
 .note-popover__body a {

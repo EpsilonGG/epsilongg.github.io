@@ -12,7 +12,49 @@ interface Props {
 }
 
 const { post, newer = null, older = null } = Astro.props;
-const { title, description, pubDate, source } = post.data;
+const { title, description, pubDate, source, accounts, highlights, interactions, people } = post.data;
+
+/**
+ * 名单只渲染「当日确实有活动」的人：summary 为空即视为没有值得写的一句话。
+ * 这样 digest 脚本可以放心把抓到的账号全列进来，不必自己判断谁该出现。
+ */
+const roster = people.filter((p) => p.summary.trim().length > 0);
+
+/**
+ * 正文里的 `@handle` 自动变成主页链接，但只认名单里的人。
+ * 先转义再加链接——顺序反了会把文字里的 `<` 当成标签。
+ */
+const canonicalHandle = new Map<string, string>();
+for (const handle of [...accounts, ...people.map((p) => p.handle)]) {
+  canonicalHandle.set(handle.toLowerCase(), handle);
+}
+
+const HTML_ESCAPES: Record<string, string> = {
+  '&': '&amp;',
+  '<': '&lt;',
+  '>': '&gt;',
+  '"': '&quot;',
+  "'": '&#39;',
+};
+
+function withMentions(text: string): string {
+  const escaped = text.replace(/[&<>"']/g, (char) => HTML_ESCAPES[char] ?? char);
+  return escaped.replace(/@([A-Za-z0-9_]+)/g, (whole, handle: string) => {
+    const canonical = canonicalHandle.get(handle.toLowerCase());
+    if (!canonical) return whole;
+    return `<a class="daily-mention" href="https://x.com/${canonical}" target="_blank" rel="noopener noreferrer">@${canonical}</a>`;
+  });
+}
+
+const profileUrl = (handle: string) => `https://x.com/${handle}`;
+
+// 忘了跑 LLM 那一步时别静默少一段——构建日志里要看得见
+if (highlights.length === 0) {
+  console.warn(`[daily] ${post.id} 的 highlights 为空，页面会显示「待补充」`);
+}
+if (roster.length === 0) {
+  console.warn(`[daily] ${post.id} 的 people 全为空摘要，名单不会渲染`);
+}
 ---
 
 <BaseLayout title={title} description={description ?? `${title} · ${post.id}`} ogType="article">
@@ -42,6 +84,51 @@ const { title, description, pubDate, source } = post.data;
         </header>
 
         <div class="prose">
+          <section class="daily-block">
+            <h2>今日看点</h2>
+            {
+              highlights.length > 0 ? (
+                highlights.map((text) => <p set:html={withMentions(text)} />)
+              ) : (
+                <p class="daily-pending">今日看点待补充。</p>
+              )
+            }
+          </section>
+
+          {
+            interactions.length > 0 ? (
+              <section class="daily-block">
+                <h2>互动</h2>
+                <ul>
+                  {interactions.map((text) => (
+                    <li set:html={withMentions(text)} />
+                  ))}
+                </ul>
+              </section>
+            ) : null
+          }
+
+          {
+            roster.length > 0 ? (
+              <section class="daily-block">
+                <h2>名单</h2>
+                <ul class="daily-roster">
+                  {roster.map((person) => (
+                    <li>
+                      <a
+                        href={profileUrl(person.handle)}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        {person.summary}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </section>
+            ) : null
+          }
+
           <slot />
         </div>
 

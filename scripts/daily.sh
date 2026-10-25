@@ -31,9 +31,12 @@ else
 fi
 
 echo
-echo "=== 步骤 3：让本地 WorkBuddy 填写 AI 摘要 ==="
-echo "对 WorkBuddy 说：\"填写今天的日报 AI 摘要\"，它会读取 briefing 并把"
-echo "  $REPO_ROOT/src/content/daily/$DATE.md  里的 <!--AI_SUMMARY--> 替换为中文摘要。"
+echo "=== 步骤 3：让本地 WorkBuddy 填写日报内容 ==="
+echo "对 WorkBuddy 说：\"填写今天的日报\"，它会读 out/$DATE.briefing.txt，然后填"
+echo "  $REPO_ROOT/src/content/daily/$DATE.md  里的三段："
+echo "    highlights        今日看点（2–4 段，排第一）"
+echo "    interactions      名单内多人互动（没有就留空数组）"
+echo "    people[].summary  每人一句话（留空 = 当日无活动，不渲染）"
 echo
 echo "=== 步骤 4：提交并推送 ==="
 echo "  git add src/content/daily/$DATE.md && git commit -m \"daily: $DATE\" && git push"
