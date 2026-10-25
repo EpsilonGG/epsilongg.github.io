@@ -9,11 +9,9 @@ interface Props {
   newer?: Daily | null;
   /** 较旧的一篇，可为空 */
   older?: Daily | null;
-  /** 正文标题，用于左侧栏目录 */
-  headings?: { depth: number; slug: string; text: string }[];
 }
 
-const { post, newer = null, older = null, headings = [] } = Astro.props;
+const { post, newer = null, older = null } = Astro.props;
 const { title, description, pubDate, source } = post.data;
 ---
 

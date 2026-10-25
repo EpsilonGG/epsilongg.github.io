@@ -455,7 +455,7 @@
 
     <div class="kpi">
       <div class="kpi__item">
-        <span class="kpi__num">10</span>
+        <span class="kpi__num">13</span>
         <span class="kpi__label">HTML 页面</span>
       </div>
       <div class="kpi__item">
@@ -471,7 +471,7 @@
         <span class="kpi__label">测试全过</span>
       </div>
       <div class="kpi__item">
-        <span class="kpi__num">9.9<small>KB</small></span>
+        <span class="kpi__num">10.1<small>KB</small></span>
         <span class="kpi__label">首页传输（gzip）</span>
       </div>
     </div>
@@ -499,9 +499,9 @@
     <h2><span class="num">01</span>一句话结论</h2>
 
     <p class="lead">
-      站点已经<strong>完整可用</strong>：四个固定页面、一条文章路由、一套设计系统、一条 CI 流水线、
-      三份维护文档和两套脚本，全部跑通且互相对得上。它的定位是一个<strong>轻量化的编辑型个人主页</strong>——
-      首页是名片，不是博客；文章是名片上的补充说明。整站首页传输 <strong>9.9 KB</strong>、零外部 JS，
+      站点已经<strong>完整可用</strong>：五个固定页面、两条内容路由（笔记与日报）、一套设计系统、一条 CI 流水线、
+      六份维护文档和七套脚本，全部跑通且互相对得上。它的定位是一个<strong>轻量化的编辑型个人主页</strong>——
+      首页是名片，不是博客；文章是名片上的补充说明。整站首页传输 <strong>10.1 KB</strong>、零外部 JS，
       这个体量是刻意的，也是它区别于同类站点的地方。
     </p>
 
@@ -518,13 +518,14 @@
     <p>
       剩下没做的是<strong>分类体系</strong>、<strong>社区性功能</strong>（评论、访问统计）和
       <strong>子路径部署</strong>。前两项和"轻量化"这个定位冲突，属于想清楚了才做的取舍；
-      第三项只在 fork 到 <code>user.github.io/repo</code> 时才需要，方案写在第九节。
+      第三项只在 fork 到 <code>user.github.io/repo</code> 时才需要，改动清单在
+      <code>README/fork.md</code> 第 0.1 节。
     </p>
 
     <div class="cards">
       <div class="card">
         <h4>能用</h4>
-        <p>10 个页面全部 200；构建 0 报错；<code>astro check</code> 0 错 0 警 0 提示；71 个测试全过、426 个站内链接零死链；每次推送自动部署，线上已验证。</p>
+        <p>13 个页面全部 200；构建 0 报错；<code>astro check</code> 0 错 0 警 0 提示；71 个测试全过、473 个站内链接零死链；每次推送自动部署，线上已验证。</p>
       </div>
       <div class="card">
         <h4>能改</h4>
@@ -532,7 +533,7 @@
       </div>
       <div class="card">
         <h4>能扩</h4>
-        <p>列表页、筛选、分页、目录、AI 披露、远程图片、WebP 管线都已就位。文章从 5 篇涨到 50 篇，架构不用改。</p>
+        <p>列表页、筛选、分页、目录、AI 披露、远程图片、WebP 管线都已就位。文章从 6 篇涨到 50 篇，架构不用改。</p>
       </div>
       <div class="card">
         <h4>有边界</h4>
@@ -612,7 +613,7 @@
           <td>性能</td>
           <td><span class="pill pill--done">完成</span></td>
           <td><span class="meter"><span class="meter__track"><span class="meter__fill" style="--pct:96%"></span></span><span class="meter__pct">96%</span></span></td>
-          <td class="t-hide-sm">首屏 9.9 KB；图片已转 WebP 三档，手机端下载量 −74%</td>
+          <td class="t-hide-sm">首屏 10.1 KB；图片已转 WebP 三档，手机端下载量 −74%</td>
         </tr>
         <tr>
           <td>部署与 CI</td>
@@ -630,7 +631,13 @@
           <td>文档</td>
           <td><span class="pill pill--done">完成</span></td>
           <td><span class="meter"><span class="meter__track"><span class="meter__fill" style="--pct:100%"></span></span><span class="meter__pct">100%</span></span></td>
-          <td class="t-hide-sm">4 份 Markdown + 4 个 HTML + LICENSE / LICENSE-CONTENT</td>
+          <td class="t-hide-sm">6 份 Markdown + 4 个 HTML + LICENSE / LICENSE-CONTENT</td>
+        </tr>
+        <tr>
+          <td>日报栏目</td>
+          <td><span class="pill pill--done">完成</span></td>
+          <td><span class="meter"><span class="meter__track"><span class="meter__fill" style="--pct:100%"></span></span><span class="meter__pct">100%</span></span></td>
+          <td class="t-hide-sm">/daily/ 列表 + 按日期详情，全站唯一"整栏都是 AI"的栏目</td>
         </tr>
         <tr>
           <td>内容规模化</td>
@@ -688,7 +695,7 @@
           <span class="block-item__name">3.1 页面与路由</span>
           <span class="block-item__src">src/pages/</span>
         </div>
-        <p>四个固定页面加一条动态路由，全部静态预渲染：</p>
+        <p>五个固定页面加两条动态路由，全部静态预渲染：</p>
         <ul>
           <li><code>/</code> 首页：简介 → 站点导航 → 最近文章 → Footer，顺序固定</li>
           <li><code>/me/</code> 名片：简介、主要平台、关注领域、项目、经历</li>
@@ -898,7 +905,7 @@
         <p>
           产物 15 MB 的构成：图片 14 MB（原图 7.0 MB + WebP 变体 6.2 MB + 站点图标）、
           HTML 约 500 KB、字体 136 KB、CSS 35 KB。
-          <strong>但首屏和这个数字无关</strong>——首页实际传输 9.9 KB（HTML 3.1 + CSS 6.8），
+          <strong>但首屏和这个数字无关</strong>——首页实际传输 10.1 KB（HTML 3.4 + CSS 6.8），
           文章页 19–30 KB（按篇幅）。图片只在滚到它时才开始下载。
         </p>
         <p>
@@ -1017,7 +1024,7 @@
       <div class="block-item">
         <div class="block-item__head">
           <span class="block-item__name">3.12 文档</span>
-          <span class="block-item__src">README/ · public/docs/</span>
+          <span class="block-item__src">README/ · docs/ · public/docs/</span>
         </div>
         <ul>
           <li><code>README.md</code>（根）：主页名片 + 文档导航，内容与 GitHub 主页 README 大致一致</li>
@@ -1031,6 +1038,9 @@
           <li><code>README/ads.md</code>：<strong>本轮新增</strong>。右侧广告位怎么开、放得下什么尺寸、
               联盟分成计划的形态、合规要求、副作用</li>
           <li><code>README/reports/</code>：一次性调查报告（分类模块方案对比），不进部署</li>
+          <li><code>docs/daily-report-guide.md</code>：日报的运营与维护——数据流、每天四步、脚本参数、
+              故障排查。放在仓库根的 <code>docs/</code> 而不是 <code>README/</code>，因为它描述的是
+              一条跨仓库的流水线（X-Reader → 本地 → 本站），不属于"怎么改这个站"</li>
           <li><code>public/docs/github-profile-readme-guide.html</code>：主页 README 搭建与维护</li>
           <li><code>public/docs/notes-maintenance.html</code>：笔记栏目的日常维护，含 AI 披露与远程图片</li>
           <li><code>public/docs/project-status.html</code>：本页</li>
@@ -1150,7 +1160,7 @@
           <span class="block-item__src">SiteHeader.astro · background.ts · global.css</span>
         </div>
         <p>
-          页头改成三栏网格 <code>1fr auto 1fr</code>：左边站名、中间四个导航、右边两个开关。
+          页头改成三栏网格 <code>1fr auto 1fr</code>：左边站名、中间五个导航、右边两个开关。
           两边等宽，导航才落在正中间——用 <code>justify-content: space-between</code>
           做不到这一点，站名和开关的宽度差多少，导航就偏多少。
           窄屏（≤ 640px）放不下三栏，站名和开关占第一行，导航整条折到第二行。
@@ -1218,10 +1228,44 @@
           这个站没有外部流量，也没有需要导流的内容产品，开着只会拖慢首屏、破坏气质。
         </p>
         <div class="block-item__left">
-          联盟计划（DLsite 那类成果报酬型（CPS））的形态就是"固定像素的横幅图 + 一个带 affiliate_id 的链接"，
+          联盟计划（DLsite 那类成果报酬型联盟，按成交付费）的形态就是"固定像素的横幅图 + 一个带 affiliate_id 的链接"，
           正好对应 <code>image</code> + <code>href</code>，填配置即可；
           给 JS 脚本的平台（A8 之类）要粘进组件并写死容器高度。尺寸表、合规要求（广告标注）、
           与背景图模式同时开的注意事项，都在 <code>README/ads.md</code>。
+        </div>
+      </div>
+
+      <div class="block-item">
+        <div class="block-item__head">
+          <span class="block-item__name">3.19 日报栏目</span>
+          <span class="pill pill--done">完成</span>
+          <span class="block-item__src">DailyLayout.astro · lib/daily.ts · 73 + 19 行</span>
+        </div>
+        <p>
+          第五个固定栏目：<code>/daily/</code> 是列表，<code>/daily/&lt;date&gt;/</code> 是单篇，
+          路由用动态段 <code>[...date]</code>，<code>date</code> 就是文件名，所以"加一期"= 加一个
+          <code>src/content/daily/2026-10-25.md</code>。schema 与 blog 同构
+          （<code>title</code> / <code>pubDate</code> 必填、<code>draft</code> 过滤、草稿不发布），
+          多了 <code>accounts</code> 记录这一期覆盖了哪些账号。
+        </p>
+        <p>
+          <strong>与笔记栏目最大的不同：这里不设「含 AI 整理」滑块。</strong>
+          滑块存在的理由是笔记栏原创与 AI 混排、读者有权选择不看 AI 稿；日报栏整栏都是 AI 整理的，
+          没有可切换的东西，所以列表项和单篇页<strong>无条件</strong>挂「AI 整理」标记——
+          栏目本身即是披露，再加一个默认关掉的开关只会让人以为里面有非 AI 内容。
+        </p>
+        <p>
+          数据流分三段，<strong>CI 里不跑 LLM、不要 API key、不要服务器</strong>：
+          X-Reader 的 Actions 每日 17:10 UTC 抓推文写成 <code>data/items/*.jsonl</code> →
+          本机 <code>scripts/daily_digest.py</code> 把 items 确定性组装成
+          <code>src/content/daily/&lt;date&gt;.md</code>（留一个 <code>&lt;!--AI_SUMMARY--&gt;</code> 占位）→
+          本机 WorkBuddy 写摘要替换占位 → push → 站点 Actions 照常构建部署。
+          只有"写摘要"这一步需要模型，留在本机跑一次。
+        </p>
+        <div class="block-item__left">
+          剩余：列表页没有分页与搜索（一天一篇，暂时不需要）；日报<strong>不进 RSS</strong>——
+          <code>rss.xml.ts</code> 只遍历 blog 集合，要让订阅者收到日报得另开一条 feed 或把两个集合合并，
+          那会改变现有订阅者的收件内容，属于要想清楚再做的事。
         </div>
       </div>
 
@@ -1285,7 +1329,7 @@
         </div>
         <p>
           中文字体没法像拉丁字母那样只带两百个字形。一个常用字子集约
-          <strong>0.8–1.5 MB</strong>，而整站首页只传 9.9 KB——装一个中文字体，
+          <strong>0.8–1.5 MB</strong>，而整站首页只传 10.1 KB——装一个中文字体，
           首屏就翻一百倍。拉丁部分（Inter / Cormorant）是自托管的，中文刻意交给系统：
           macOS 用苹方、Windows 用雅黑或宋体、Android 用思源。字形略有差异，字号和行高是一致的。
         </p>
@@ -1359,7 +1403,7 @@
         </p>
         <div class="block-item__left">
           增量评估：Pagefind 索引约 15–25 KB/篇（gzip），只在打开搜索时下载。
-          5 篇约 100 KB，20 篇约 400 KB。判定见第五节。
+          6 篇约 120 KB，20 篇约 400 KB。判定见第五节。
         </div>
       </div>
 
@@ -1445,7 +1489,7 @@
           <span class="pill">取舍</span>
         </div>
         <p>
-          分类要有意义，得每类至少三篇。现有 5 篇全落在「访谈 + 翻译」里，做出来就是四个空格子。
+          分类要有意义，得每类至少三篇。现有 6 篇全落在「访谈 + 翻译」里，做出来就是四个空格子。
           标签筛选已经能顶一阵。
         </p>
         <div class="block-item__left">
@@ -1550,7 +1594,7 @@
           扫 <code>dist</code> 里所有 <code>href</code> / <code>src</code> / <code>srcset</code>，
           映射回文件系统，缺文件就退出 1；顺带查 <code>#锚点</code> 指向的 id 是否真的存在。
           只查站内（本地比对），外链默认跳过——外站限流、挡爬虫、偶发超时都会让流水线莫名变红，
-          那是另一件事，该用定时任务查。现在跑一遍：14 个页面、426 个站内链接、538 处引用，
+          那是另一件事，该用定时任务查。现在跑一遍：17 个页面、473 个站内链接、628 处引用，
           全部通过。
         </div>
         <div class="block-item__left">
@@ -1573,8 +1617,8 @@
         <div class="block-item__left">
           技术上可行：Pagefind 在构建后扫一遍 HTML 生成静态索引，运行时纯前端查询，不要后端。
           问题是<strong>索引按篇分片，约 15–25 KB/篇</strong>，而且是独立产物，不能像 CSS 那样
-          一次加载全站共用。5 篇文章换来一份几百 KB 的索引，只为了让"搜某个作品名"能命中正文——
-          而现在总共就五篇，标题 + 描述 + 标签已经够翻。
+          一次加载全站共用。6 篇文章换来一份几百 KB 的索引，只为了让"搜某个作品名"能命中正文——
+          而现在总共就六篇，标题 + 描述 + 标签已经够翻。
           <strong>结论：太费空间，不做。</strong>文章数上去了再重新算这笔账。
         </div>
       </div>
@@ -1600,7 +1644,7 @@
       <li><strong>AVIF</strong>——比 WebP 只再省 10–20%，编码慢十倍，52 张图省不下多少，还多一套兜底逻辑</li>
       <li><strong>自托管中文字体</strong>——一个子集 0.8–1.5 MB，是首屏的 100 倍。要么标题单独子集化（仍要 300 KB+），要么放弃</li>
       <li><strong>评论后端 / 访问统计</strong>——都要能写数据的地方，都要第三方请求。轻量化的核心是"没有这些东西也能读"</li>
-      <li><strong>分类树（<code>/blog/c/…</code>）</strong>——5 篇文章分不出四类。标签筛选已经够用，等 12 篇以上再谈</li>
+      <li><strong>分类树（<code>/blog/c/…</code>）</strong>——6 篇文章分不出四类。标签筛选已经够用，等 12 篇以上再谈</li>
       <li><strong>标签进 URL、独立标签页</strong>——收益是"能分享筛选结果"，文章少的时候几乎没人会分享</li>
       <li><strong>窄屏注释面板改全屏 sheet</strong>——现在的 45vh 面板能用，改它属于打磨，不是修 bug</li>
       <li><strong>图标自动抓取</strong>——一次性劳动已经干完，自动化只对"以后频繁加链接"有用</li>
@@ -1611,7 +1655,7 @@
     <div class="note">
       <p>
         <strong>工程侧到此为止。</strong>剩下的短板只有一条，而且不是代码问题：
-        <strong>5 篇文章撑不起一个"站"的体积感</strong>。再优化下去就是拿 1% 的性能
+        <strong>6 篇文章撑不起一个"站"的体积感</strong>。再优化下去就是拿 1% 的性能
         换 10% 的可读性下降，不划算。
       </p>
     </div>
@@ -1632,9 +1676,9 @@
     <div class="note">
       <p>
         <strong>先说结论。</strong>把四个站放在一条数轴上，本项目在"体积"这一端是孤立点：
-        首页 <strong>9.9 KB</strong>，另外三个是 75.5 / 493 / 503 KB，差 <strong>7.6 到 51 倍</strong>。
+        首页 <strong>10.1 KB</strong>，另外三个是 75.5 / 493 / 503 KB，差 <strong>7.5 到 50 倍</strong>。
         但首页对首页比其实不太公平（别人首页是内容流，本站首页是名片），
-        所以更该看<strong>文章页对文章页</strong>：本站 19–30 KB（五篇，中位 24.5），
+        所以更该看<strong>文章页对文章页</strong>：本站 19–30 KB（六篇，中位 23.4），
         eryuemu 48.1 KB，差<strong>一倍左右</strong>——
         这个差距才是"有没有客户端框架"的真实差价。
         真正的短板在另一头：<strong>内容量</strong>。5 篇文章撑不起一个"站"的体积感。
@@ -1698,7 +1742,7 @@
           <td class="t-num">2.8</td>
           <td class="t-num">6.4 <span class="t-hide-sm">(1 个)</span></td>
           <td class="t-num">0</td>
-          <td class="t-num"><strong>9.9 KB</strong></td>
+          <td class="t-num"><strong>10.1 KB</strong></td>
         </tr>
         <tr>
           <td><strong>本项目 · 文章页</strong></td>
@@ -1744,7 +1788,7 @@
       脚本全部内联进了 HTML（已计入 HTML 一列）。
       上一版这张表把 HTML 按原始字节、CSS/JS 按 gzip 算，混了两种口径；这一版统一了，
       所以数字比上一版小。
-      文章页那一行是<strong>五篇实测的区间</strong>（12.4 / 15.6 / 18.0 / 18.8 / 23.8），
+      文章页那一行是<strong>六篇实测的区间</strong>（12.3 / 12.3 / 15.4 / 17.8 / 18.4 / 23.3），
       不是单篇——正文长度差别很大，取一篇代表不了；中位数是 24.5 KB。
     </p>
 
@@ -1782,7 +1826,7 @@
         </p>
         <p>
           这正好印证了之前那份分类报告的判据：<strong>分类要有意义，得每类至少三篇</strong>。
-          他四个分类都不空，所以分类是导航；本项目五篇文章全落在「访谈 + 翻译」里，做出来就是四个空格子。
+          他四个分类都不空，所以分类是导航；本项目六篇文章全落在「访谈 + 翻译」里，做出来就是四个空格子。
           <strong>不学</strong>：拿 Notion 数据库当 CMS——每次渲染都要拉第三方 API，406 KB JS 大部分是水合成本，
           而本项目用 0 KB 外部 JS 换到了同样的阅读体验。
         </p>
@@ -1844,7 +1888,7 @@
     <div class="cards">
       <div class="card">
         <h4>优点 · 体积</h4>
-        <p>首页 9.9 KB，是三个对照站的 1/7.6 到 1/51；文章页对文章页差一倍左右。没有框架、没有水合、没有第三方请求，这不是优化出来的，是架构决定的。</p>
+        <p>首页 10.1 KB，是三个对照站的 1/7.5 到 1/50；文章页对文章页差一倍左右。没有框架、没有水合、没有第三方请求，这不是优化出来的，是架构决定的。</p>
       </div>
       <div class="card">
         <h4>优点 · 阅读侧最完整</h4>
@@ -1860,7 +1904,7 @@
       </div>
       <div class="card">
         <h4>缺点 · 内容撑不起体量</h4>
-        <p>5 篇、3.5 万字。轻量化在数字上是优势，在观感上就是"空"——首页除了一段简介，只剩一屏文章列表。</p>
+        <p>6 篇、3.9 万字。轻量化在数字上是优势，在观感上就是"空"——首页除了一段简介，只剩一屏文章列表。</p>
       </div>
       <div class="card">
         <h4>缺点 · 零互动</h4>
@@ -1881,7 +1925,7 @@
         <strong>最后一句判断。</strong>对照下来，本项目的短板<strong>不是功能，是内容</strong>。
         功能已经越过"够用"这条线：目录、筛选、分页、注释、图注、披露，该有的都有，
         再加功能只会往 ymgal 那个方向走，而那条路需要后端和运营。
-        接下来真正该做的是把文章从 5 篇写到 15 篇——那时候分类体系才有意义，
+        接下来真正该做的是把文章从 6 篇写到 15 篇——那时候分类体系才有意义，
         也才谈得上"这个站在讲什么"。
       </p>
     </div>
@@ -2280,16 +2324,20 @@
 │   │   ├── ads.ts            广告位类型包装 + hasAds 判定
 │   │   └── about.ts          /me/ 页（名片）的简介、主要平台、关注领域、项目、经历
 │   ├── content/blog/         ★ 文章：一个 .md 一个 URL
-│   ├── content.config.ts     文章 schema（Zod，含 source 披露字段）
+│   ├── content/daily/        ★ 日报：一个 .md 一期，文件名即日期
+│   ├── content.config.ts     blog / daily 两个集合的 schema（Zod）
 │   ├── layouts/
 │   │   ├── BaseLayout.astro  head / SEO / OG / 主题 / skip-link / 页头页脚
-│   │   └── ArticleLayout.astro  文章骨架 + 侧栏 + 注释面板
+│   │   ├── ArticleLayout.astro  文章骨架 + 侧栏 + 注释面板
+│   │   └── DailyLayout.astro    日报骨架（较新/较旧 + 无条件 AI 标记）
 │   ├── pages/                ★ 路由
 │   │   ├── index.astro       /
 │   │   ├── me.astro          /me/
 │   │   ├── morelinks.astro   /morelinks/
 │   │   ├── blog.astro        /blog/（搜索 + 标签筛选 + 分页 + AI 滑块）
 │   │   ├── blog/[...slug].astro  /blog/{slug}/
+│   │   ├── daily/index.astro     /daily/（列表）
+│   │   ├── daily/[...date].astro /daily/{date}/
 │   │   ├── 404.astro         含一个小游戏（404-game.ts，728 行）
 │   │   ├── robots.txt.ts     路由生成的 robots.txt
 │   │   └── rss.xml.ts
@@ -2308,6 +2356,7 @@
 │   │   └── remote-images.json     远程图尺寸（--write-dims 生成，可缺）
 │   ├── lib/
 │   │   ├── posts.ts          文章读取、排序、草稿过滤
+│   │   ├── daily.ts          日报读取、排序、草稿过滤
 │   │   ├── markdown-figure.mjs    图注 hast 插件（228 行，含并组）
 │   │   └── markdown-images.mjs    lazy / 尺寸 / WebP picture 插件（182 行）
 │   └── styles/
@@ -2318,24 +2367,29 @@
 │       └── fonts.css         @font-face
 ├── public/
 │   ├── fonts/                3 个 woff2（136 KB）+ 3 份字体许可
-│   ├── images/               77 张图：头像、图标、52 张文章插图、2 张背景图
-│   │                         + 构建时生成的 101 个 .webp 变体（已 gitignore）
+│   ├── images/               76 张图：头像、图标、52 张文章插图、2 张背景图
+│   │                         + 构建时生成的 102 个 .webp 变体（已 gitignore）
 │   ├── og-default.png        默认分享图
 │   └── docs/                 4 个 HTML 指南（本站托管）
 ├── scripts/
 │   ├── sync_profile_readme.py  主页 README 同步（489 行）
 │   ├── check_remote_images.py  远程图片体检 + 尺寸记录（308 行）
 │   ├── check_links.py          站内死链检查（277 行，CI 必跑）
-│   └── optimize_images.mjs     图片 WebP 变体与清单（199 行）
+│   ├── optimize_images.mjs     图片 WebP 变体与清单（199 行）
+│   ├── daily_digest.py         把 X-Reader 的 items 组装成日报 .md（215 行）
+│   ├── rss_to_items.py         把 RSS 规范化成同一种 items 格式（171 行）
+│   ├── daily.sh                一键：pull → digest → 提示写摘要（39 行）
+│   └── sample_items/           离线样例，供脚本自测
 ├── tests/                    71 个用例（Python 60 + Node 11）
 ├── README.md                 主页名片 + 文档导航
 ├── README/                   quickstart / project / blog-guide / fork / ads + reports/
+├── docs/                     daily-report-guide.md（跨仓库的日报流水线，不进部署）
 └── .github/workflows/        Actions → Pages</code></pre>
 
     <div class="note">
       <p>
-        <strong>三个星号是改动的入口。</strong>改内容去 <code>src/config/</code>，写文章去
-        <code>src/content/blog/</code>，加页面去 <code>src/pages/</code>。
+        <strong>带星号的目录是改动的入口。</strong>改内容去 <code>src/config/</code>，写文章去
+        <code>src/content/blog/</code>，写日报去 <code>src/content/daily/</code>，加页面去 <code>src/pages/</code>。
         其余目录基本只在"改功能"时才需要碰。
       </p>
     </div>
@@ -2409,9 +2463,9 @@
 
   <footer class="doc-foot">
     <p>
-      体检时间 2026-10-24。数据来自实际构建产物、源码统计与现场抓取：
-      10 个 HTML 页面、单 CSS 38,825 字节（gzip 6,948）、0 个外部 JS 文件、71 个测试用例、
-      产物 15 MB（原图 7.0 MB + WebP 变体 6.2 MB + 字体 136 KB + 其余约 700 KB）、
+      体检时间 2026-10-25（页面、链接、体积数字为本次构建实测；第六节的外部站点对照仍是 2026-10-24 抓取）。数据来自实际构建产物、源码统计与现场抓取：
+      13 个 HTML 页面、单 CSS 38,825 字节（gzip 6,948）、0 个外部 JS 文件、71 个测试用例、
+      产物 15 MB（原图 7.2 MB + WebP 变体 6.3 MB + 字体 136 KB + 其余约 700 KB）、
       <code>astro check</code> 0 错 0 警 0 提示，Astro 7.4.2 / Sätteri 0.4.5 / Node ≥ 22.23.4。
     </p>
     <p>
