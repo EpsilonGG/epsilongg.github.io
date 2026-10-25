@@ -1,0 +1,2278 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>日报代码基础 · 六里程碑计划 · EpsilonGG</title>
+<style>
+  :root {
+    color-scheme: light;
+    --bg: #ffffff;
+    --bg-subtle: #f7f7f7;
+    --bg-code: #f4f4f4;
+    --text: #1a1a1a;
+    --text-secondary: #555555;
+    --text-muted: #767676;
+    --border: #e5e5e5;
+    --border-strong: #cfcfcf;
+    --accent: #1a1a1a;
+    --mark: #fff8c5;
+    --warn: #b45309;
+    --sans: "Inter", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", system-ui, -apple-system, "Segoe UI", sans-serif;
+    --serif: "Cormorant Garamond", "Songti SC", "Noto Serif SC", Georgia, "Times New Roman", serif;
+    --mono: "Fira Code", ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      color-scheme: dark;
+      --bg: #101010;
+      --bg-subtle: #191919;
+      --bg-code: #171717;
+      --text: #ededed;
+      --text-secondary: #b3b3b3;
+      --text-muted: #909090;
+      --border: #2a2a2a;
+      --border-strong: #3d3d3d;
+      --accent: #ededed;
+      --mark: #3a3410;
+      --warn: #d9a05b;
+    }
+  }
+
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 1.75;
+    letter-spacing: 0.01em;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .page {
+    max-width: 46rem;
+    margin: 0 auto;
+    padding: 3.5rem 1.5rem 6rem;
+  }
+
+  /* ---------- 头部 ---------- */
+  .doc-head { padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+  .doc-kicker {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+  h1 {
+    margin: 0.75rem 0 0;
+    font-family: var(--serif);
+    font-size: clamp(1.9rem, 5vw, 2.6rem);
+    font-weight: 500;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+  }
+  .doc-sub {
+    margin: 0.9rem 0 0;
+    color: var(--text-secondary);
+    font-size: 1rem;
+    max-width: 36rem;
+  }
+  .doc-meta {
+    margin-top: 1.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.25rem;
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    color: var(--text-muted);
+  }
+
+  /* ---------- 指标条 ---------- */
+  .kpi {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    margin: 1.75rem 0 0;
+    border: 1px solid var(--border);
+    border-radius: 2px;
+  }
+  .kpi__item { padding: 0.85rem 0.9rem; border-right: 1px solid var(--border); }
+  .kpi__item:last-child { border-right: 0; }
+  .kpi__num {
+    display: block;
+    font-family: var(--mono);
+    font-size: 1.05rem;
+    line-height: 1.3;
+    letter-spacing: -0.01em;
+  }
+  .kpi__num small { font-size: 0.7rem; color: var(--text-muted); margin-left: 0.15em; }
+  .kpi__label {
+    display: block;
+    margin-top: 0.15rem;
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    letter-spacing: 0.02em;
+  }
+
+  /* ---------- 目录 ---------- */
+  .toc {
+    margin: 2rem 0 0;
+    padding: 1.25rem 1.25rem 1rem;
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    background: var(--bg-subtle);
+  }
+  .toc-title {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 0.75rem;
+  }
+  .toc ol {
+    margin: 0;
+    padding-left: 1.2rem;
+    columns: 2;
+    column-gap: 1.5rem;
+    font-size: 0.875rem;
+  }
+  .toc li { margin: 0.15rem 0; break-inside: avoid; }
+  .toc a { color: var(--text-secondary); text-decoration: none; }
+  .toc a:hover { color: var(--text); text-decoration: underline; text-underline-offset: 0.2em; }
+
+  /* ---------- 正文 ---------- */
+  section { margin-top: 3.5rem; scroll-margin-top: 1.5rem; }
+
+  h2 {
+    margin: 0 0 1rem;
+    font-size: 1.35rem;
+    font-weight: 600;
+    letter-spacing: -0.005em;
+    display: flex;
+    align-items: baseline;
+    gap: 0.6rem;
+  }
+  h2 .num {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    font-weight: 400;
+    color: var(--text-muted);
+    letter-spacing: 0.06em;
+  }
+  h3 {
+    margin: 2rem 0 0.6rem;
+    font-size: 1.02rem;
+    font-weight: 600;
+  }
+  h4 {
+    margin: 1.5rem 0 0.4rem;
+    font-size: 0.92rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+  }
+  p { margin: 0.75rem 0; }
+  ul, ol { margin: 0.75rem 0; padding-left: 1.4rem; }
+  li { margin: 0.35rem 0; }
+  li > ul, li > ol { margin: 0.3rem 0; }
+
+  a { color: var(--text); text-decoration: underline; text-underline-offset: 0.2em; text-decoration-color: var(--border-strong); }
+  a:hover { text-decoration-color: currentColor; }
+
+  strong { font-weight: 600; }
+  em { font-style: italic; color: var(--text-secondary); }
+
+  .lead { font-size: 1.02rem; line-height: 1.8; }
+
+  code {
+    font-family: var(--mono);
+    font-size: 0.86em;
+    background: var(--bg-code);
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    padding: 0.1em 0.35em;
+    word-break: break-word;
+  }
+  pre {
+    margin: 1rem 0;
+    padding: 1rem 1.1rem;
+    background: var(--bg-code);
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    font-size: 0.8rem;
+    line-height: 1.65;
+    white-space: pre;
+    overflow-x: auto;
+  }
+  pre code { background: none; border: 0; padding: 0; font-size: 1em; }
+
+  table {
+    width: 100%;
+    margin: 1.1rem 0;
+    border-collapse: collapse;
+    font-size: 0.875rem;
+  }
+  th, td {
+    text-align: left;
+    padding: 0.55rem 0.7rem;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+  th {
+    font-weight: 600;
+    color: var(--text-secondary);
+    border-bottom-color: var(--border-strong);
+    white-space: nowrap;
+  }
+  .t-num {
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+  tbody tr:last-child td { border-bottom: 0; }
+  td.nowrap, th.nowrap { white-space: nowrap; }
+  @media (min-width: 641px) {
+    th:first-child, td:first-child { min-width: 6.5rem; }
+  }
+
+  /* 表格里的路径列：给足宽度，并在 / 后面插入 <wbr> 让断行落在目录边界上，
+     否则会像 scripts/daily/__in + it__.py 这样从词中间劈开 */
+  td code { font-size: 0.82em; }
+  .t-files td:nth-child(2) { width: 15rem; }
+  .t-out td:nth-child(3) { width: 13rem; }
+  .t-ms td:first-child { min-width: 9.5rem; }
+  @media (max-width: 640px) {
+    .t-files td:nth-child(2),
+    .t-out td:nth-child(3) { width: auto; }
+    .t-ms td:first-child { min-width: 0; }
+  }
+
+  /* ---------- 提示块 ---------- */
+  .note {
+    margin: 1.25rem 0;
+    padding: 0.9rem 1.1rem;
+    border-left: 2px solid var(--border-strong);
+    background: var(--bg-subtle);
+    font-size: 0.92rem;
+    color: var(--text-secondary);
+  }
+  .note strong { color: var(--text); }
+  .note--warn { border-left-color: var(--warn); }
+  .note p:first-child { margin-top: 0; }
+  .note p:last-child { margin-bottom: 0; }
+
+  .mark { background: var(--mark); padding: 0 0.15em; }
+
+  /* ---------- 卡片 ---------- */
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(15.5rem, 1fr));
+    gap: 0.9rem;
+    margin: 1.5rem 0;
+  }
+  .card {
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    padding: 1rem 1.1rem;
+    background: var(--bg-subtle);
+  }
+  .card h4 { margin: 0 0 0.35rem; font-size: 0.92rem; color: var(--text); }
+  .card p { margin: 0; font-size: 0.85rem; color: var(--text-muted); line-height: 1.6; }
+
+  kbd {
+    font-family: var(--mono);
+    font-size: 0.78em;
+    border: 1px solid var(--border-strong);
+    border-bottom-width: 2px;
+    border-radius: 3px;
+    padding: 0.05em 0.35em;
+    color: var(--text-secondary);
+    background: var(--bg-subtle);
+  }
+
+  /* ---------- 状态标签 ---------- */
+  .pill {
+    display: inline-block;
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.04em;
+    line-height: 1.6;
+    padding: 0 0.4rem;
+    border: 1px solid var(--border-strong);
+    border-radius: 2px;
+    color: var(--text-secondary);
+    white-space: nowrap;
+  }
+  .pill--done { background: var(--text); color: var(--bg); border-color: var(--text); }
+  .pill--todo { border-style: dashed; }
+  .pill--part { border-color: var(--text-secondary); color: var(--text); }
+  .pill--skip { color: var(--text-muted); border-style: dashed; }
+  .pill--p1 { background: var(--text); color: var(--bg); border-color: var(--text); }
+  .pill--p2 { border-color: var(--text); color: var(--text); }
+  .pill--p3 { border-style: dashed; color: var(--text-muted); }
+
+  /* ---------- 进度条 ---------- */
+  .meter { display: flex; align-items: center; gap: 0.55rem; min-width: 7rem; }
+  .meter__track {
+    flex: 1;
+    height: 4px;
+    background: var(--border);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+  .meter__fill {
+    display: block;
+    height: 100%;
+    width: var(--pct, 0%);
+    background: var(--text);
+  }
+  .meter__fill--empty { background: transparent; }
+  .meter__pct {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    min-width: 2.4rem;
+    text-align: right;
+  }
+
+  /* ---------- 里程碑头 ---------- */
+  .ms {
+    margin: 1.5rem 0 1.25rem;
+    padding: 1rem 1.15rem;
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--text);
+    background: var(--bg-subtle);
+  }
+  .ms__row { display: flex; align-items: baseline; gap: 0.6rem; flex-wrap: wrap; }
+  .ms__id {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    color: var(--text-muted);
+  }
+  .ms__name { font-size: 1rem; font-weight: 600; }
+  .ms__goal {
+    margin: 0.55rem 0 0;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    line-height: 1.7;
+  }
+  .ms__goal::before {
+    content: "验收 ";
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.08em;
+    color: var(--text-muted);
+    margin-right: 0.35rem;
+  }
+
+  /* ---------- 闸门 ---------- */
+  .gate {
+    margin: 1.5rem 0 0;
+    padding: 0.95rem 1.15rem;
+    border: 1px solid var(--text);
+    border-radius: 2px;
+  }
+  .gate__title {
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin: 0 0 0.5rem;
+    color: var(--text);
+  }
+  .gate p { margin: 0.4rem 0; font-size: 0.88rem; color: var(--text-secondary); }
+  .gate p:first-of-type { margin-top: 0; }
+  .gate p:last-child { margin-bottom: 0; }
+
+  /* ---------- 命令流 ---------- */
+  .flow {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.4rem;
+    margin: 1.25rem 0;
+    font-size: 0.78rem;
+  }
+  .flow__step {
+    border: 1px solid var(--border-strong);
+    border-radius: 2px;
+    padding: 0.3rem 0.5rem;
+    background: var(--bg);
+    line-height: 1.4;
+  }
+  .flow__step b {
+    display: block;
+    font-family: var(--mono);
+    font-size: 0.66rem;
+    font-weight: 400;
+    letter-spacing: 0.06em;
+    color: var(--text-muted);
+  }
+  .flow__arrow { color: var(--text-muted); font-family: var(--mono); }
+
+  /* ---------- 图 ---------- */
+  .diagram {
+    margin: 1.5rem 0;
+    padding: 1.1rem 1rem;
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    background: var(--bg-subtle);
+  }
+  .diagram svg { display: block; width: 100%; height: auto; max-width: 40rem; margin: 0 auto; }
+  .diagram__cap {
+    margin: 0.75rem 0 0;
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    text-align: center;
+  }
+
+  /* ---------- 页脚 ---------- */
+  .doc-foot {
+    margin-top: 4rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+    font-size: 0.82rem;
+    color: var(--text-muted);
+  }
+
+  @media (max-width: 720px) {
+    .kpi { grid-template-columns: repeat(2, 1fr); }
+    .kpi__item { border-bottom: 1px solid var(--border); }
+    .kpi__item:nth-child(2n) { border-right: 0; }
+    .kpi__item:last-child {
+      grid-column: 1 / -1;
+      border-right: 0;
+      border-bottom: 0;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .page { padding: 2.5rem 1.15rem 4rem; }
+    .toc ol { columns: 1; }
+    table { font-size: 0.82rem; }
+    th, td { padding: 0.45rem 0.5rem; }
+    .t-hide-sm { display: none; }
+    .meter { min-width: 5.5rem; }
+    pre { font-size: 0.74rem; padding: 0.8rem 0.85rem; }
+  }
+
+  @media print {
+    body { font-size: 11pt; }
+    section { break-inside: avoid-page; }
+    .toc { break-inside: avoid; }
+    .gate { break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header class="doc-head">
+    <div class="doc-kicker">Plan · Daily Report Codebase</div>
+    <h1>日报的代码地基<br />怎么分六步打完</h1>
+    <p class="doc-sub">
+      六个里程碑的拆解书，不是成品说明书。每个里程碑拆成若干可以单独收尾的工作包，
+      每个工作包写明产出哪个文件、怎么验证、过不了闸门不许往下走。
+      范围只到<strong>代码基础</strong>：谁值得放进日报（账号群选择）不在本文档里。
+    </p>
+    <div class="doc-meta">
+      <span>仓库 epsilongg.github.io</span>
+      <span>栏目 /daily/</span>
+      <span>范围 M1–M6</span>
+      <span>计划 2026-10-25</span>
+    </div>
+
+    <div class="kpi">
+      <div class="kpi__item">
+        <span class="kpi__num">6</span>
+        <span class="kpi__label">里程碑</span>
+      </div>
+      <div class="kpi__item">
+        <span class="kpi__num">4<small>+1+1</small></span>
+        <span class="kpi__label">三期分布</span>
+      </div>
+      <div class="kpi__item">
+        <span class="kpi__num">213</span>
+        <span class="kpi__label">样例条目</span>
+      </div>
+      <div class="kpi__item">
+        <span class="kpi__num">11</span>
+        <span class="kpi__label">样例账号</span>
+      </div>
+      <div class="kpi__item">
+        <span class="kpi__num">9</span>
+        <span class="kpi__label">现有日报测试</span>
+      </div>
+    </div>
+
+    <nav class="toc">
+      <div class="toc-title">目录</div>
+      <ol>
+        <li><a href="#s0">这份文档管什么、不管什么</a></li>
+        <li><a href="#s1">现状盘点：905 行，缺的是骨架</a></li>
+        <li><a href="#s2">六个里程碑的关系</a></li>
+        <li><a href="#s3">M1 · 架构与数据协议</a></li>
+        <li><a href="#s4">M2 · 采集、增量与排序</a></li>
+        <li><a href="#s5">M3 · 本地生成与人工审校</a></li>
+        <li><a href="#s6">M4 · 网站、RSS 与 JSON</a></li>
+        <li><a href="#s7">M5 · 图片生产</a></li>
+        <li><a href="#s8">M6 · 视频稿与后续自动化</a></li>
+        <li><a href="#s9">推进协议：一个里程碑一次</a></li>
+        <li><a href="#s10">目标目录结构</a></li>
+        <li><a href="#s11">红线与反模式</a></li>
+        <li><a href="#s12">风险与待定问题</a></li>
+      </ol>
+    </nav>
+  </header>
+
+  <!-- ============================================================ -->
+  <section id="s0">
+    <h2><span class="num">00</span>这份文档管什么、不管什么</h2>
+
+    <p class="lead">
+      范围就是你给的那句话：<strong>「日报的代码基础（即除了数据源账号群选择之外的内容）」</strong>。
+      把这句话翻译成能验收的东西，就是下面这张表。
+    </p>
+
+    <table>
+      <thead>
+        <tr><th>在范围内</th><th>在范围外</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>源适配器接口、统一内容模型、日报 Schema、增量状态、输出路径、版本规则</td>
+          <td>决定关注谁、关注多少人、怎么分组</td>
+        </tr>
+        <tr>
+          <td>跨源去重、增量筛选、确定性排序、分类字段、待生成数据导出</td>
+          <td>每个账号属于哪个分类（结构由 M2 定义，<strong>内容是数据</strong>）</td>
+        </tr>
+        <tr>
+          <td>分类摘要 / 今日看点 / 全局洞察的生成通道、校验、确认、缓存</td>
+          <td>摘要写成什么调性（那是提示词和审校的事，不是代码的事）</td>
+        </tr>
+        <tr>
+          <td>站点、独立 Feed、JSON、文字导出</td>
+          <td>页面视觉改版（现有版式够用，M4 只换数据源）</td>
+        </tr>
+        <tr>
+          <td>图片生产、视频稿的结构与导出</td>
+          <td>配音、视频渲染（M6 明确不做，见 8.4）</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="note">
+      <p>
+        <strong>为什么要把这条边界写死。</strong>「选谁」和「怎么生产」是两件耦合度极低的事，
+        但混在一起做就会互相拖：名单还没定，采集就没法测；采集没测，名单也没法验证。
+        先把机器造完，名单是一份 JSON，填进去就能跑。机器对名单的要求只有一条：
+        <strong>每个 handle 必须能映射到一个分类</strong>，映射不上就进「其他」并告警。
+      </p>
+    </div>
+
+    <h3>三个贯穿全程的约束</h3>
+    <div class="cards">
+      <div class="card">
+        <h4>脚本不调模型</h4>
+        <p>模型是外部角色。脚本负责「出题」和「判卷」，不负责答题。CI 里零 API key、零服务器这条不能破。</p>
+      </div>
+      <div class="card">
+        <h4>构建期不联网</h4>
+        <p>抓取发生在别处，构建只读仓库里的文件。构建慢一点可以，构建时断网必须还能出站。</p>
+      </div>
+      <div class="card">
+        <h4>每个里程碑可独立发布</h4>
+        <p>做完 M2 的站点要和做完 M1 的一模一样，不能出现「等 M3 完成才能上线」的中间态。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section id="s1">
+    <h2><span class="num">01</span>现状盘点：905 行，缺的是骨架</h2>
+
+    <p>
+      先说清楚已经有什么。日报不是从零开始——期号、单期页、归档页、独立 Feed 都已经在线上跑，
+      缺的是这些页面上游的那一层：采集、去重、增量、生成、审校。
+    </p>
+
+    <table class="t-files">
+      <thead>
+        <tr><th>部分</th><th>位置</th><th class="nowrap">状态</th><th>说明</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>期号与 URL</td>
+          <td><code>src/<wbr>lib/<wbr>daily.ts</code></td>
+          <td><span class="pill pill--done">已有</span></td>
+          <td><code>YYMMDDHH</code>（JST），文件名即发布时间，同一天可多期</td>
+        </tr>
+        <tr>
+          <td>单期页面</td>
+          <td><code>src/<wbr>pages/<wbr>daily/<wbr>[...id].astro</code><br /><code>src/<wbr>layouts/<wbr>DailyLayout.astro</code></td>
+          <td><span class="pill pill--done">已有</span></td>
+          <td>三段：今日看点 / 互动 / 详细；<code>@handle</code> 只对名单内变链接</td>
+        </tr>
+        <tr>
+          <td>归档列表</td>
+          <td><code>src/<wbr>pages/<wbr>daily/<wbr>index.astro</code></td>
+          <td><span class="pill pill--done">已有</span></td>
+          <td>按月分组，行内显示 <code>10-23 22:00</code></td>
+        </tr>
+        <tr>
+          <td>独立 Feed</td>
+          <td><code>src/<wbr>pages/<wbr>daily/<wbr>rss.xml.ts</code></td>
+          <td><span class="pill pill--done">已有</span></td>
+          <td>与 <code>/<wbr>rss.xml</code> 分开，不动既有订阅者</td>
+        </tr>
+        <tr>
+          <td>本地组装</td>
+          <td><code>scripts/<wbr>daily_digest.py</code>（265 行）</td>
+          <td><span class="pill pill--part">半成品</span></td>
+          <td>单文件、单数据源内联、无去重、无状态、无分类</td>
+        </tr>
+        <tr>
+          <td>一键入口</td>
+          <td><code>scripts/<wbr>daily.sh</code>（62 行）</td>
+          <td><span class="pill pill--part">半成品</span></td>
+          <td>本质是把三步的提示打印出来，没有编排能力</td>
+        </tr>
+        <tr>
+          <td>源适配器</td>
+          <td>内联在 <code>_load_items()</code></td>
+          <td><span class="pill pill--skip">缺</span></td>
+          <td>换数据源要改主流程，加第二个源就得复制粘贴</td>
+        </tr>
+        <tr>
+          <td>统一内容模型</td>
+          <td>无</td>
+          <td><span class="pill pill--skip">缺</span></td>
+          <td>下游直接吃 X-Reader 的原始字段，字段一改名全崩</td>
+        </tr>
+        <tr>
+          <td>增量状态</td>
+          <td>无</td>
+          <td><span class="pill pill--skip">缺</span></td>
+          <td>每次全量重算，无法回答「这条上次是不是已经用过了」</td>
+        </tr>
+        <tr>
+          <td>去重</td>
+          <td>无</td>
+          <td><span class="pill pill--skip">缺</span></td>
+          <td>同一条推文被两个账号收录时会被算成两件事</td>
+        </tr>
+        <tr>
+          <td>分类</td>
+          <td>无</td>
+          <td><span class="pill pill--skip">缺</span></td>
+          <td>只有「人」，没有「类」；分类视图无从谈起</td>
+        </tr>
+        <tr>
+          <td>生成与审校</td>
+          <td>纯手工</td>
+          <td><span class="pill pill--skip">缺</span></td>
+          <td>模型输出没有校验、没有版本、没有缓存、没有来源</td>
+        </tr>
+        <tr>
+          <td>JSON / 文字导出</td>
+          <td>无</td>
+          <td><span class="pill pill--skip">缺</span></td>
+          <td>只有 HTML 和 RSS，第三方拿不到结构化数据</td>
+        </tr>
+        <tr>
+          <td>图片 / 视频稿</td>
+          <td>无</td>
+          <td><span class="pill pill--skip">缺</span></td>
+          <td>M5 / M6 的全部内容</td>
+        </tr>
+        <tr>
+          <td>测试</td>
+          <td><code>tests/<wbr>test_daily_digest.py</code></td>
+          <td><span class="pill pill--part">9 个</span></td>
+          <td>只覆盖期号解析和骨架文本，没有覆盖数据链路</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p>
+      八个文件合计 905 行，全部服务于「渲染」，没有一行服务于「数据从哪来、算不算数」。
+      所以这六个里程碑不是重写，是<strong>在现有渲染层下面补一层数据层</strong>，
+      再把渲染层的数据源换过去（M4 只做这一件事）。
+    </p>
+
+    <h3>盘点时发现的三个既有问题</h3>
+
+    <p>
+      这三个不是假设，是拿仓库里的 213 条样例数据实测出来的。写在这里是因为它们正好各自对应
+      M2 的一个工作包——里程碑不是凭空排的，是从具体毛病倒推的。
+    </p>
+
+    <h4>① 按 UTC 分天，边界上的推文进错日报</h4>
+    <p>
+      <code>_date_of()</code> 拿到带时区的时间戳后直接 <code>.date()</code>，取的是 UTC 日期；
+      但期号用的是 JST，脚本顶部也写着「用 JST 才不会把深夜的推分错天」。两者对不上。
+    </p>
+    <p>
+      实测：以 2026-10-23 为例，正确窗口（JST 自然日）有 <strong>28 条</strong>，
+      脚本实际取到 <strong>26 条</strong>——数量看着只差 2，但集合差 8 条：
+      <span class="mark">5 条被漏掉</span>（10-23 凌晨 00:10–07:53 JST 发的），
+      <span class="mark">3 条被错收</span>（其实是 10-24 凌晨的）。
+    </p>
+
+    <h4>② 同一条推文被两个账号收录，被当成「互相扩散」</h4>
+    <p>
+      样例里 <code>item_id 2113601516565311503</code> 出现两次，<code>publisher</code> 分别是
+      <code>re_re_tsubame</code> 和 <code>mirai_chiroru</code>，<code>canonical_url</code> 却指向不同账号，
+      两条的 <code>is_retweet</code> 都是 <code>true</code>、<code>retweeted_by</code> 都是自己。
+      也就是说：<strong>同一条推文，两个账号各转发了一次</strong>。
+    </p>
+    <p>
+      现有链路把它算成两件独立的事，于是 26102322 那期写下了「两位发了同一段说明，等于互相帮着扩散」——
+      读者会以为是两个人在互相呼应，实际是同一条内容被转了两次。
+      正确的模型是<strong>一条内容 + 一组传播者</strong>（<code>amplifiers</code>），
+      这样「谁帮着扩散」照样能写出来，但不会被误读成两个独立发言。
+    </p>
+
+    <h4>③ 「按互动排序」实际上等于按文件行序</h4>
+    <p>
+      <code>build_briefing()</code> 用 <code>likes + retweets</code> 排序取前 5 条，
+      但样例里 <code>metadata.stats</code> 全是 <code>{}</code>，等于全部 0 分。
+      Python 的排序是稳定的，全 0 就原样保留输入顺序——<strong>实际顺序就是 JSONL 的行序</strong>，
+      而 JSONL 的行序取决于抓取时的返回顺序，不是任何有意义的东西。
+    </p>
+    <p>
+      这条的教训不是「排序写错了」，而是<strong>排序键必须在文档里写死，并且不能依赖一个可能为空的字段</strong>。
+      M2 的排序键定为 <code>(published_at, source, native_id)</code>，互动数只作为同一秒内的次级参考。
+    </p>
+
+    <div class="note note--warn">
+      <p>
+        <strong>这三条现在都不修。</strong>它们全部落在 M2 的工作包里（M2.1 / M2.2 / M2.4），
+        现在改等于在旧结构上打补丁，M1 一换模型又得重来一遍。
+        这也是「按里程碑推进」的意义：<strong>先修结构，再修行为</strong>。
+      </p>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section id="s2">
+    <h2><span class="num">02</span>六个里程碑的关系</h2>
+
+    <table class="t-ms">
+      <thead>
+        <tr>
+          <th>里程碑</th>
+          <th class="nowrap">期</th>
+          <th>依赖</th>
+          <th>出口产物</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>M1</strong> 架构与数据协议</td>
+          <td><span class="pill pill--p1">1</span></td>
+          <td>—</td>
+          <td><code>scripts/<wbr>daily/<wbr></code> 包、<code>schemas/<wbr>*.json</code>、<code>data/<wbr>daily/<wbr>state.json</code></td>
+        </tr>
+        <tr>
+          <td><strong>M2</strong> 采集、增量与排序</td>
+          <td><span class="pill pill--p1">1</span></td>
+          <td>M1</td>
+          <td><code>out/<wbr>&lt;id&gt;/<wbr>generate.json</code>、规范化条目库</td>
+        </tr>
+        <tr>
+          <td><strong>M3</strong> 本地生成与人工审校</td>
+          <td><span class="pill pill--p1">1</span></td>
+          <td>M2</td>
+          <td><code>data/<wbr>daily/<wbr>&lt;id&gt;/<wbr>report.json</code>（含 <code>status</code>）</td>
+        </tr>
+        <tr>
+          <td><strong>M4</strong> 网站、RSS 与 JSON</td>
+          <td><span class="pill pill--p1">1</span></td>
+          <td>M3</td>
+          <td>站点改读 JSON、<code>/<wbr>daily/<wbr>&lt;id&gt;.json</code>、<code>.txt</code></td>
+        </tr>
+        <tr>
+          <td><strong>M5</strong> 图片生产</td>
+          <td><span class="pill pill--p2">2</span></td>
+          <td>M3（要正式版）、M4（要素材路径）</td>
+          <td>摘要图、图文卡片、<code>manifest.json</code></td>
+        </tr>
+        <tr>
+          <td><strong>M6</strong> 视频稿与后续自动化</td>
+          <td><span class="pill pill--p3">3</span></td>
+          <td>M3、M5</td>
+          <td><code>script.json</code> / <code>.md</code> / <code>.srt</code> / 素材清单</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="diagram">
+      <svg viewBox="0 0 640 208" role="img" aria-label="六个里程碑的依赖关系：M1 到 M4 依次串联为第一期，M3 之后分出第二期的 M5 与第三期的 M6">
+        <defs>
+          <marker id="ar" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M0,0 L8,4 L0,8 z" fill="var(--border-strong)" />
+          </marker>
+        </defs>
+
+        <text x="8" y="12" font-size="9.5" font-family="monospace" letter-spacing="1.4" fill="var(--text-muted)">第 1 期 · 代码地基</text>
+
+        <rect x="8" y="24" width="126" height="50" rx="2" fill="var(--bg)" stroke="var(--border-strong)" />
+        <text x="71" y="43" text-anchor="middle" font-size="9.5" font-family="monospace" fill="var(--text-muted)">M1</text>
+        <text x="71" y="61" text-anchor="middle" font-size="12" fill="var(--text)">架构与数据协议</text>
+
+        <rect x="158" y="24" width="126" height="50" rx="2" fill="var(--bg)" stroke="var(--border-strong)" />
+        <text x="221" y="43" text-anchor="middle" font-size="9.5" font-family="monospace" fill="var(--text-muted)">M2</text>
+        <text x="221" y="61" text-anchor="middle" font-size="12" fill="var(--text)">采集与增量排序</text>
+
+        <rect x="308" y="24" width="126" height="50" rx="2" fill="var(--bg)" stroke="var(--border-strong)" />
+        <text x="371" y="43" text-anchor="middle" font-size="9.5" font-family="monospace" fill="var(--text-muted)">M3</text>
+        <text x="371" y="61" text-anchor="middle" font-size="12" fill="var(--text)">生成与审校</text>
+
+        <rect x="458" y="24" width="126" height="50" rx="2" fill="var(--bg)" stroke="var(--border-strong)" />
+        <text x="521" y="43" text-anchor="middle" font-size="9.5" font-family="monospace" fill="var(--text-muted)">M4</text>
+        <text x="521" y="61" text-anchor="middle" font-size="12" fill="var(--text)">网站与出口</text>
+
+        <line x1="134" y1="49" x2="153" y2="49" stroke="var(--border-strong)" stroke-width="1.2" marker-end="url(#ar)" />
+        <line x1="284" y1="49" x2="303" y2="49" stroke="var(--border-strong)" stroke-width="1.2" marker-end="url(#ar)" />
+        <line x1="434" y1="49" x2="453" y2="49" stroke="var(--border-strong)" stroke-width="1.2" marker-end="url(#ar)" />
+
+        <text x="8" y="106" font-size="9.5" font-family="monospace" letter-spacing="1.4" fill="var(--text-muted)">第 2 期 / 第 3 期</text>
+
+        <rect x="308" y="118" width="126" height="50" rx="2" fill="var(--bg)" stroke="var(--border-strong)" stroke-dasharray="0" />
+        <text x="371" y="137" text-anchor="middle" font-size="9.5" font-family="monospace" fill="var(--text-muted)">M5 · 第 2 期</text>
+        <text x="371" y="155" text-anchor="middle" font-size="12" fill="var(--text)">图片生产</text>
+
+        <rect x="458" y="118" width="126" height="50" rx="2" fill="var(--bg)" stroke="var(--border-strong)" stroke-dasharray="3 3" />
+        <text x="521" y="137" text-anchor="middle" font-size="9.5" font-family="monospace" fill="var(--text-muted)">M6 · 第 3 期</text>
+        <text x="521" y="155" text-anchor="middle" font-size="12" fill="var(--text)">视频稿</text>
+
+        <line x1="371" y1="74" x2="371" y2="113" stroke="var(--border-strong)" stroke-width="1.2" marker-end="url(#ar)" />
+        <line x1="434" y1="143" x2="453" y2="143" stroke="var(--border-strong)" stroke-width="1.2" marker-end="url(#ar)" />
+
+        <text x="380" y="96" font-size="9" font-family="monospace" fill="var(--text-muted)">只要正式版数据</text>
+        <text x="308" y="188" font-size="9" font-family="monospace" fill="var(--text-muted)">M5 另外软依赖 M4 的素材路径约定</text>
+      </svg>
+      <p class="diagram__cap">实线 = 硬依赖（缺了做不下去）；虚线框 = 第 3 期，做不做看实际使用情况</p>
+    </div>
+
+    <h3>三条排序原则</h3>
+    <ol>
+      <li>
+        <strong>单向依赖。</strong>只允许后面的里程碑依赖前面的，不允许回改前面已验收的接口。
+        发现前面设计错了，就改<em>接口 + 版本号</em>，不要在调用方打补丁。
+      </li>
+      <li>
+        <strong>每个里程碑结束时站点必须能发布。</strong>M1–M4 期间站点一直读旧数据，
+        直到 M4 一次性切换。中间任何一步停下来，线上都是好的。
+      </li>
+      <li>
+        <strong>数据向后兼容。</strong>每个里程碑都要能读上一个里程碑写出的文件。
+        <code>schema_version</code> 只在<strong>破坏性</strong>变更时加一，加字段不算。
+      </li>
+    </ol>
+  </section>
+
+  <!-- ============================================================ -->
+  <section id="s3">
+    <h2><span class="num">03</span>M1 · 架构与数据协议</h2>
+
+    <div class="ms">
+      <div class="ms__row">
+        <span class="ms__id">M1</span>
+        <span class="ms__name">架构与数据协议</span>
+        <span class="pill pill--p1">第 1 期</span>
+      </div>
+      <p class="ms__goal">输入相同的标准化数据，能够生成结构一致的日报数据。</p>
+    </div>
+
+    <h3>为什么先做这个</h3>
+    <p>
+      现在所有的「数据」都以两种形态同时存在：X-Reader 的原始 JSONL，和手写在 Markdown frontmatter 里的三段。
+      中间没有协议，所以每一环都只能靠人眼对齐。M1 要做的就是把这个中间层固定下来——
+      一旦「一个条目长什么样」「一份日报长什么样」被写进 schema，
+      后面五个里程碑就都变成「按协议填内容」，而不是「再想一遍数据结构」。
+    </p>
+    <p>
+      这一步不产生任何用户可见的变化。这是刻意的：<strong>M1 的正确性只能用测试证明，不能用浏览器证明。</strong>
+    </p>
+
+    <h3>工作包</h3>
+    <table class="t-out">
+      <thead>
+        <tr><th>编号</th><th>工作内容</th><th>产出</th><th class="nowrap">依赖</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>M1.1</td>
+          <td>建包骨架：<code>scripts/<wbr>daily/<wbr></code> 目录、子命令分发。<code>daily_digest.py</code> 改成薄壳，保持现有命令行参数不变</td>
+          <td><code>scripts/<wbr>daily/<wbr>{__init__,cli}.py</code></td>
+          <td>—</td>
+        </tr>
+        <tr>
+          <td>M1.2</td>
+          <td>统一内容模型：<code>Item</code> / <code>Account</code> / <code>Issue</code> / <code>Claim</code> / <code>Report</code>，序列化时键序固定</td>
+          <td><code>scripts/<wbr>daily/<wbr>model.py</code></td>
+          <td>M1.1</td>
+        </tr>
+        <tr>
+          <td>M1.3</td>
+          <td>源适配器接口：<code>SourceAdapter</code>（<code>name</code> / <code>fingerprint()</code> / <code>iter_items()</code>）。X-Reader 适配器迁入，另加一个读 fixture 的适配器供测试</td>
+          <td><code>scripts/<wbr>daily/<wbr>adapters/<wbr>base.py</code><br /><code>xreader.py</code><br /><code>fixture.py</code></td>
+          <td>M1.2</td>
+        </tr>
+        <tr>
+          <td>M1.4</td>
+          <td>契约文件与校验器：三份 JSON Schema + 只实现用到的关键字的极简校验器（零依赖）</td>
+          <td><code>schemas/<wbr>*.schema.json</code><br /><code>scripts/<wbr>daily/<wbr>schema.py</code></td>
+          <td>M1.2</td>
+        </tr>
+        <tr>
+          <td>M1.5</td>
+          <td>增量状态：读写、<code>seen</code> 裁剪到 90 天、可从 <code>issues</code> 重建</td>
+          <td><code>scripts/<wbr>daily/<wbr>state.py</code></td>
+          <td>M1.4</td>
+        </tr>
+        <tr>
+          <td>M1.6</td>
+          <td>版本规则：<code>schema_version</code> 读写校验，读到更高的主版本直接报错退出</td>
+          <td><code>scripts/<wbr>daily/<wbr>migrate.py</code></td>
+          <td>M1.4</td>
+        </tr>
+        <tr>
+          <td>M1.7</td>
+          <td>确定性契约：固定键序、<code>now()</code> 只能进 <code>provenance.generated_at</code> 且比对时排除；<code>daily build --check-reproducible</code></td>
+          <td>CLI + 测试</td>
+          <td>M1.5</td>
+        </tr>
+        <tr>
+          <td>M1.8</td>
+          <td>测试：schema 正反例、适配器契约测试（每个适配器过同一套）、可复现测试</td>
+          <td><code>tests/<wbr>test_daily_model.py</code><br /><code>tests/<wbr>test_daily_adapters.py</code></td>
+          <td>M1.7</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>关键设计</h3>
+
+    <h4>统一内容模型（一个条目）</h4>
+    <p>
+      下游只认这个形状，不认 X-Reader 的字段名。X-Reader 改字段只影响
+      <code>adapters/xreader.py</code> 一个文件。
+    </p>
+<pre><code>{
+  "key": "x:2113601516565311503",     // 稳定身份：source:native_id
+  "source": "x",
+  "native_id": "2113601516565311503",
+  "account": "re_re_tsubame",          // 内容作者
+  "amplifiers": ["re_re_tsubame", "mirai_chiroru"],  // 传播过这条的人
+  "published_at": "2026-10-23T12:00:45+00:00",
+  "precision": "second",               // second | minute | day
+  "text": "…",
+  "url": "https://x.com/re_re_tsubame/status/…",
+  "kind": "post",                      // post | repost | reply | quote
+  "reply_to": null,
+  "quote_of": null,
+  "repost_of": null,
+  "engagement": { "likes": 0, "reposts": 0, "replies": 0, "views": null },
+  "media": [],
+  "content_hash": "sha256:…",
+  "first_seen": "2026-10-24T17:07:15Z",
+  "raw_ref": "x.jsonl#128"             // 回溯用，不参与逻辑
+}</code></pre>
+
+    <p>
+      <code>amplifiers</code> 就是给 §1 问题②留的位置：一条内容只存一份，谁转发过记在数组里。
+      这样「A 和 B 都转了这条」仍然写得出，但不会被当成两个独立发言。
+    </p>
+
+    <h4>一份日报（report.json）</h4>
+    <p>
+      注意 <code>people</code> 是<strong>扁平的</strong>，每个人带 <code>category</code>；
+      分类视图靠 filter 得到，不另存一份。这是「一份数据多种视图」的落地方式，
+      否则同一句话在综合视图和分类视图里会各存一遍，改一处忘一处。
+    </p>
+<pre><code>{
+  "schema_version": 1,
+  "issue": {
+    "id": "26102322",
+    "published_at": "2026-10-23T22:00:00+09:00",
+    "window": { "start": "2026-10-23T00:00:00+09:00",
+                "end":   "2026-10-24T00:00:00+09:00" },
+    "status": "draft",                 // draft | confirmed
+    "confirmed_at": null
+  },
+  "counts": { "items": 28, "accounts": 6, "late": 0, "skipped_duplicate": 1 },
+  "description": "…≤50 字…",
+  "highlights":   [ { "text": "…", "sources": ["x:2113…"] } ],
+  "insights":     [ { "text": "…", "sources": ["x:2113…"] } ],
+  "interactions": [ { "text": "…", "sources": ["x:2113…"] } ],
+  "categories": [
+    { "id": "seiyuu", "label": "声优",
+      "summary": "…",
+      "highlights":   [ { "text": "…", "sources": [] } ],
+      "interactions": [ { "text": "…", "sources": [] } ] }
+  ],
+  "people": [
+    { "handle": "asuparama40", "category": "seiyuu",
+      "summary": "…", "sources": ["x:2113…"] }
+  ],
+  "provenance": {
+    "generator": "local-workbuddy",
+    "prompt_version": 1,
+    "cache_key": "…",
+    "generated_at": "2026-10-23T23:10:00+09:00"
+  }
+}</code></pre>
+
+    <h4>三份 schema 各自管什么</h4>
+    <table>
+      <thead>
+        <tr><th>文件</th><th>管</th><th>谁写</th><th>谁读</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>item.schema.json</code></td>
+          <td>一个标准化条目</td>
+          <td>适配器</td>
+          <td>M2 采集、去重</td>
+        </tr>
+        <tr>
+          <td><code>report.schema.json</code></td>
+          <td>一份日报的全部字段</td>
+          <td>M3 合并、M4 迁移</td>
+          <td>M4 站点、M5 图片、M6 视频稿</td>
+        </tr>
+        <tr>
+          <td><code>generation.schema.json</code></td>
+          <td>模型回答的形状（M3 用）</td>
+          <td>模型</td>
+          <td>M3 校验</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="note">
+      <p>
+        <strong>为什么不装 <code>jsonschema</code>。</strong>整套脚本目前零第三方依赖，
+        这是它能被 CI 在任意机器上跑起来的原因。三份 schema 只用到 <code>type</code> /
+        <code>required</code> / <code>enum</code> / <code>minLength</code> / <code>maxLength</code> /
+        <code>pattern</code> / <code>items</code> / <code>properties</code> 这八个关键字，
+        写一个 120 行的校验器比引一个依赖划算——而且报错信息可以写成中文、带上文件路径。
+        schema 文件仍然是标准 JSON Schema，以后想换库随时能换。
+      </p>
+    </div>
+
+    <div class="gate">
+      <p class="gate__title">出口闸门 · M1</p>
+      <p><code>python -m unittest discover -s tests</code> 全绿，新增测试 ≥ 12 个。</p>
+      <p>
+        <code>python scripts/daily_digest.py --items-dir scripts/sample_items --date 2026-10-23 --md-out /tmp/a.md</code>
+        跑两次到两个不同目录，<code>--check-reproducible</code> 判定字节相同。
+      </p>
+      <p><code>npm run check</code> 0 错 0 警 0 提示；<code>npm run build</code> 仍是 13 页（M1 不改站点）。</p>
+      <p>现有 9 个日报测试一个都不许改，必须继续通过——这是「命令行参数不变」的证据。</p>
+    </div>
+
+    <h3>本里程碑不做</h3>
+    <ul>
+      <li>不做去重、不做增量判断——M1 只定义「存什么」，不定义「怎么筛」。</li>
+      <li>不做分类——<code>category</code> 字段在 schema 里留好，值由 M2 填。</li>
+      <li>不删 <code>src/content/daily/*.md</code>。站点在 M4 之前一直读它。</li>
+    </ul>
+  </section>
+
+  <!-- ============================================================ -->
+  <section id="s4">
+    <h2><span class="num">04</span>M2 · 采集、增量与排序</h2>
+
+    <div class="ms">
+      <div class="ms__row">
+        <span class="ms__id">M2</span>
+        <span class="ms__name">采集、增量与排序</span>
+        <span class="pill pill--p1">第 1 期</span>
+      </div>
+      <p class="ms__goal">重复运行不会产生重复条目；迟到数据与旧内容可以正确区分。</p>
+    </div>
+
+    <h3>为什么这一步最难</h3>
+    <p>
+      「去重」听起来是个技术活，实际上是个<strong>语义决定</strong>：同一条推文被两个人转发，
+      算一件事还是两件事？昨天发但今天才抓到的推，算今天的还是昨天的？
+      这些决定一旦写错，后面 M3 写出来的摘要会跟着错，而且错得很自然——
+      读者看不出来，只有对过原始数据的人才知道。
+    </p>
+    <p>
+      §1 的三个问题全部落在这一步。M2 结束之后，它们应该都消失。
+    </p>
+
+    <h3>工作包</h3>
+    <table class="t-out">
+      <thead>
+        <tr><th>编号</th><th>工作内容</th><th>产出</th><th class="nowrap">依赖</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>M2.1</td>
+          <td>时间窗：<code>IssueWindow</code> 按 JST 自然日切，<strong>修掉 UTC 分桶</strong>；精度不足（<code>precision: day</code>）的条目单独标记</td>
+          <td><code>scripts/<wbr>daily/<wbr>window.py</code></td>
+          <td>M1.2</td>
+        </tr>
+        <tr>
+          <td>M2.2</td>
+          <td>跨源去重：<code>key</code> 派生、<code>amplifiers</code> 合并、<code>content_hash</code> 计算与变更检测</td>
+          <td><code>scripts/<wbr>daily/<wbr>dedupe.py</code></td>
+          <td>M2.1</td>
+        </tr>
+        <tr>
+          <td>M2.3</td>
+          <td>增量分类：new / duplicate / late / future / updated 五态，各自落盘到哪</td>
+          <td><code>scripts/<wbr>daily/<wbr>incremental.py</code></td>
+          <td>M2.2、M1.5</td>
+        </tr>
+        <tr>
+          <td>M2.4</td>
+          <td>确定性排序：条目按 <code>(published_at, source, native_id)</code>；账号按名单序，<strong>不按当日条数</strong></td>
+          <td><code>scripts/<wbr>daily/<wbr>order.py</code></td>
+          <td>M2.2</td>
+        </tr>
+        <tr>
+          <td>M2.5</td>
+          <td>名单与分类：读 <code>src/<wbr>config/<wbr>daily-roster.json</code>；未知 handle 归 <code>other</code> 并告警，不静默丢弃</td>
+          <td><code>src/<wbr>config/<wbr>daily-roster.json</code><br /><code>scripts/<wbr>daily/<wbr>roster.py</code></td>
+          <td>M1.4</td>
+        </tr>
+        <tr>
+          <td>M2.6</td>
+          <td>导出待生成数据：按分类分组 + 互动候选（只在名单内建边）+ 每条的低价值标记</td>
+          <td><code>scripts/<wbr>daily/<wbr>export.py</code></td>
+          <td>M2.3–M2.5</td>
+        </tr>
+        <tr>
+          <td>M2.7</td>
+          <td>测试：重复运行零新增、迟到与旧内容区分、同一推文两账号合并、排序稳定、未知 handle 告警</td>
+          <td><code>tests/<wbr>test_daily_incremental.py</code></td>
+          <td>M2.6</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>关键设计</h3>
+
+    <h4>五种状态，各自有去处</h4>
+    <p>
+      「增量」不是「只要新的」，而是<strong>把每一条都归到一个可解释的类别里</strong>，
+      然后决定这一类进不进今天的日报。这个表就是 M2 的验收标准。
+    </p>
+    <table>
+      <thead>
+        <tr><th>状态</th><th>判定</th><th>进日报？</th><th>去处</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>new</strong></td>
+          <td>在窗口内，<code>key</code> 未见过</td>
+          <td>进</td>
+          <td>正常条目</td>
+        </tr>
+        <tr>
+          <td><strong>duplicate</strong></td>
+          <td>在窗口内，<code>key</code> 已见过且内容 hash 未变</td>
+          <td>不进</td>
+          <td>计入 <code>counts.skipped_duplicate</code></td>
+        </tr>
+        <tr>
+          <td><strong>updated</strong></td>
+          <td>在窗口内，<code>key</code> 已见过但 hash 变了（编辑、补图）</td>
+          <td>进</td>
+          <td>覆盖旧版本，留 <code>previous_hash</code></td>
+        </tr>
+        <tr>
+          <td><strong>late</strong></td>
+          <td>发布时间早于窗口起点，但<strong>第一次</strong>见到</td>
+          <td>不进当天</td>
+          <td><code>late[]</code> 记录，可补进对应日期的未确认期</td>
+        </tr>
+        <tr>
+          <td><strong>future</strong></td>
+          <td>发布时间晚于窗口终点（时钟偏差或时区写错）</td>
+          <td>不进</td>
+          <td>隔离到 <code>quarantine[]</code>，构建日志告警</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="note">
+      <p>
+        <strong>「迟到」和「旧内容」的区别就是 <code>first_seen</code>。</strong>
+        一条 10 月 1 日的推，如果 10 月 1 日就抓到了，那它是「旧内容」，属于 10 月 1 日那一期，今天重跑应该判 duplicate；
+        如果 10 月 25 日才第一次抓到，那它是「迟到数据」，<strong>不能塞进 10 月 25 日的日报</strong>——
+        读者会以为今天发生了什么旧事。正确做法是进 <code>late[]</code>，由人决定要不要补一期历史。
+      </p>
+    </div>
+
+    <h4>去重的身份键</h4>
+    <p>按优先级取第一个可用的：</p>
+    <ol>
+      <li><code>source + native_id</code>——最强，同一条推就是同一个 <code>native_id</code></li>
+      <li><code>canonical_url</code> 归一化后——给没有稳定 id 的数据源兜底</li>
+      <li><code>sha256(account + normalized_text + published_at 到分钟)</code>——最后一道，只用于无 id 无 url 的情况</li>
+    </ol>
+    <p>
+      前两条命中时，<strong>不丢弃重复项</strong>，而是把它的 <code>account</code> 追加进 <code>amplifiers</code>。
+      §1 问题②里的那条推文，去重后是「1 条内容、2 个传播者」，而不是「2 条内容、0 个互动」。
+    </p>
+
+    <h4>排序键</h4>
+<pre><code>items  : (published_at, source, native_id)      # 三级，保证同一秒内也稳定
+accounts: roster.index(handle)                  # 名单序，不按当日条数
+people  : (category.index, roster.index)        # 类内按名单序
+categories: roster.categories 的声明顺序</code></pre>
+    <p>
+      刻意<strong>不把互动数放进主排序键</strong>。样例数据的 <code>stats</code> 全是空的，
+      真数据里也经常缺失；把一个可能为空的字段放进排序键，等于让输出顺序随抓取质量漂移。
+      互动数只在 M3 选「哪几条值得写」时作为参考，不影响输出的结构。
+    </p>
+
+    <h4>名单文件（结构由 M2 定义，内容由你填）</h4>
+<pre><code>{
+  "schema_version": 1,
+  "categories": [
+    { "id": "seiyuu", "label": "声优" },
+    { "id": "vtuber", "label": "VTuber" }
+  ],
+  "accounts": [
+    { "handle": "asuparama40", "name": "アスパラ", "category": "seiyuu", "active": true }
+  ]
+}</code></pre>
+    <p>
+      规则：<code>active: false</code> 暂停某人但历史日报不动；一个人只给一个 <code>category</code>
+      （跨类用 <code>tags</code> 补充，多分类会让综合视图重复计数）；
+      名单顺序即显示顺序。<strong>文件内容不在本文档范围内</strong>，这里只定结构。
+    </p>
+
+    <div class="gate">
+      <p class="gate__title">出口闸门 · M2</p>
+      <p>
+        用 <code>scripts/sample_items</code> 连跑两次：第二次 <code>counts.new == 0</code>、
+        <code>counts.skipped_duplicate == 28</code>。
+      </p>
+      <p>
+        fixture 里放一条 10-01 的推、<code>first_seen</code> 设成 10-25，跑 10-25 的窗口 →
+        判 <code>late</code>，不进 <code>items</code>。
+      </p>
+      <p>
+        拿 <code>2113601516565311503</code> 跑：条目数 <strong>1</strong>，
+        <code>amplifiers</code> 长度 <strong>2</strong>。
+      </p>
+      <p>
+        10-23 窗口的条目数从 <strong>26 变 28</strong>，账号集合不变——这就是 §1 问题①被修好的证据。
+      </p>
+      <p>未知 handle 进 <code>other</code> 且 stderr 有一行告警，不抛异常。</p>
+    </div>
+
+    <h3>本里程碑不做</h3>
+    <ul>
+      <li>不调模型。M2 的产物是「待生成数据」，不是「已生成内容」。</li>
+      <li>不做分类视图页面——那是 M4 之后的事，而且要先有分类数据。</li>
+      <li>不做互动候选的自然语言化，只抽结构（谁 → 谁、哪条推）。写成句子是 M3。</li>
+    </ul>
+  </section>
+
+  <!-- ============================================================ -->
+  <section id="s5">
+    <h2><span class="num">05</span>M3 · 本地生成与人工审校</h2>
+
+    <div class="ms">
+      <div class="ms__row">
+        <span class="ms__id">M3</span>
+        <span class="ms__name">本地生成与人工审校</span>
+        <span class="pill pill--p1">第 1 期</span>
+      </div>
+      <p class="ms__goal">模型输出可以校验；重新生成不会覆盖已经确认的版本。</p>
+    </div>
+
+    <h3>这一步的形态：出题与判卷分离</h3>
+    <p>
+      整套方案的前提是「CI 里不跑模型」。所以脚本不能自己调用模型，只能做两件事：
+      <strong>把该问的问题整理成文件</strong>，和<strong>把回答验一遍再合并</strong>。
+      模型（本地 WorkBuddy）是夹在中间的一个外部角色，它读文件、写文件，脚本对它一无所知。
+    </p>
+
+    <div class="flow">
+      <span class="flow__step"><b>M2 产物</b>generate.json</span>
+      <span class="flow__arrow">→</span>
+      <span class="flow__step"><b>daily prompt</b>出题</span>
+      <span class="flow__arrow">→</span>
+      <span class="flow__step"><b>WorkBuddy</b>答题</span>
+      <span class="flow__arrow">→</span>
+      <span class="flow__step"><b>daily apply</b>判卷</span>
+      <span class="flow__arrow">→</span>
+      <span class="flow__step"><b>daily confirm</b>定稿</span>
+    </div>
+
+    <p>
+      这个形状有个副作用，而且是好的：<strong>整个生成过程可以被完整重放</strong>。
+      <code>out/&lt;id&gt;/prompt/</code> 和 <code>answer/</code> 都在，出了问题能查到
+      是题出错了还是答错了，而不是「模型今天状态不好」。
+    </p>
+
+    <h3>工作包</h3>
+    <table class="t-out">
+      <thead>
+        <tr><th>编号</th><th>工作内容</th><th>产出</th><th class="nowrap">依赖</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>M3.1</td>
+          <td>出题：按分类各出一份（map），再出一份全局的（reduce）。每份同时写 <code>.md</code>（给人贴）和 <code>.json</code>（算指纹）</td>
+          <td><code>scripts/<wbr>daily/<wbr>prompt.py</code></td>
+          <td>M2.6</td>
+        </tr>
+        <tr>
+          <td>M3.2</td>
+          <td>判卷：按 <code>generation.schema.json</code> 校验，报错要指到字段路径</td>
+          <td><code>scripts/<wbr>daily/<wbr>validate.py</code></td>
+          <td>M1.4</td>
+        </tr>
+        <tr>
+          <td>M3.3</td>
+          <td>合并：把回答写进 <code>report.json</code>，保留 <code>sources</code>，不动未涉及的字段</td>
+          <td><code>scripts/<wbr>daily/<wbr>apply.py</code></td>
+          <td>M3.2</td>
+        </tr>
+        <tr>
+          <td>M3.4</td>
+          <td>来源关联：每条 claim 至少 1 个存在的 item key；孤儿 claim 直接判卷失败</td>
+          <td>同 M3.2</td>
+          <td>M3.3</td>
+        </tr>
+        <tr>
+          <td>M3.5</td>
+          <td>定稿：<code>confirm</code> / <code>--reopen</code> / 旧版本进 <code>history/<wbr></code></td>
+          <td><code>scripts/<wbr>daily/<wbr>confirm.py</code></td>
+          <td>M3.3</td>
+        </tr>
+        <tr>
+          <td>M3.6</td>
+          <td>重跑缓存：<code>input_hash</code> 没变就跳过；变了标 <code>stale</code> 但不自动覆盖</td>
+          <td><code>scripts/<wbr>daily/<wbr>cache.py</code></td>
+          <td>M3.1</td>
+        </tr>
+        <tr>
+          <td>M3.7</td>
+          <td>三段产出分开：分类摘要（map）、今日看点（reduce）、全局洞察（reduce）。三者在 schema 里是不同字段，不许混写</td>
+          <td>schema + 提示词模板</td>
+          <td>M3.1</td>
+        </tr>
+        <tr>
+          <td>M3.8</td>
+          <td>测试：坏回答被拒、confirm 后 apply 被拒、reopen 后旧版进 history、缓存命中不重算</td>
+          <td><code>tests/<wbr>test_daily_review.py</code></td>
+          <td>M3.4–M3.6</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>关键设计</h3>
+
+    <h4>模型回答的形状</h4>
+    <p>
+      回答是<strong>纯 JSON</strong>，不是 Markdown。原因：要校验就得有结构；
+      Markdown 里抽结构等于用正则解析自然语言，迟早出错。
+    </p>
+<pre><code>{
+  "category": "seiyuu",
+  "summary": "…",                                  // 分类摘要
+  "highlights":   [ { "text": "…", "sources": ["x:2113…"] } ],
+  "interactions": [ { "text": "…", "sources": ["x:2113…", "x:2114…"] } ],
+  "people": [
+    { "handle": "asuparama40", "summary": "…", "sources": ["x:2113…"] }
+  ]
+}</code></pre>
+
+    <h4>三条硬规则（校验器执行）</h4>
+    <ol>
+      <li>
+        <strong>没有来源的句子不收。</strong><code>sources</code> 为空、或引用了不存在的 item key，
+        整份回答判失败。这条防的是模型「补一句听起来合理的话」——
+        日报是转述，不是创作，每句话都得能指回一条推文。
+      </li>
+      <li>
+        <strong><code>handle</code> 必须在名单内。</strong>模型不许发明账号。
+        不在名单里的 handle 直接报错，而不是静默丢弃——静默丢弃会让一个账号连续几天消失而没人发现。
+      </li>
+      <li>
+        <strong>长度上限。</strong><code>description</code> ≤ 50 字（和现有 schema 一致）、
+        单条 <code>summary</code> ≤ 60 字、<code>highlights</code> 2–4 条。
+        超限报错，不自动截断——截断会把一句话截成语义不通的半句。
+      </li>
+    </ol>
+
+    <h4>定稿与重跑</h4>
+    <table>
+      <thead>
+        <tr><th>操作</th><th>对 draft</th><th>对 confirmed</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>apply</code></td>
+          <td>合并</td>
+          <td><strong>拒绝</strong>，提示先 <code>--reopen</code></td>
+        </tr>
+        <tr>
+          <td><code>confirm</code></td>
+          <td>全部分类已 apply 且校验通过 → 置 <code>confirmed</code></td>
+          <td>幂等，不改 <code>confirmed_at</code></td>
+        </tr>
+        <tr>
+          <td><code>reopen</code></td>
+          <td>无意义，拒绝</td>
+          <td>当前版本存进 <code>history/<wbr>&lt;n&gt;.json</code>，状态回 <code>draft</code></td>
+        </tr>
+        <tr>
+          <td><code>render-images</code> / <code>script</code>（M5 / M6）</td>
+          <td>拒绝</td>
+          <td>允许</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p>
+      <code>history/</code> 的意义是<strong>「确认过的版本永远不消失」</strong>。
+      定稿之后发现某句写错了，走 <code>reopen</code> 改完再 <code>confirm</code>，
+      旧版还在 <code>history/1.json</code> 里，能 diff 出改了什么。
+    </p>
+
+    <h4>缓存键</h4>
+<pre><code>input_hash = sha256(
+    category_id
+  + sorted(item.key + item.content_hash for item in 该分类条目)
+  + prompt_template_version
+)</code></pre>
+    <p>
+      只跟「输入内容」和「提示词版本」有关，跟时间无关。所以重跑同一份数据不会重算；
+      改了一句提示词会让所有分类失效（<code>prompt_template_version</code> 加一），这是想要的。
+    </p>
+
+    <div class="gate">
+      <p class="gate__title">出口闸门 · M3</p>
+      <p>
+        喂一份缺 <code>sources</code> 的回答 → 退出码非 0，错误信息里出现
+        <code>highlights[0].sources</code> 这样的字段路径。
+      </p>
+      <p>
+        <code>confirm</code> 之后 <code>apply</code> → 退出码非 0；
+        <code>reopen</code> 之后 <code>apply</code> → 成功，且 <code>history/1.json</code> 存在、内容等于 reopen 前的 report。
+      </p>
+      <p>
+        同一份 <code>generate.json</code> 连出两次题，<code>input_hash</code> 相同；
+        跑一次 <code>apply</code> 后再跑 <code>prompt</code> → 提示 <code>cached</code>，不重写 <code>.md</code>。
+      </p>
+      <p>把 <code>highlights</code> 写成 6 条 → 判卷失败，报「2–4 条」。</p>
+    </div>
+
+    <h3>本里程碑不做</h3>
+    <ul>
+      <li>不实现 map-reduce 的<em>并行</em>调度。串行跑 4–8 个分类已经够快，并行会把「哪一步失败」变复杂。</li>
+      <li>不做自动重试。判卷失败就把错误给人看，人改完再 apply——自动重试会把「模型理解错了」变成「多试几次碰对了」。</li>
+      <li>不做网页审校界面。审校在编辑器里看 JSON diff，比做一个界面快得多，而且 M4 之后 report.json 就是站点数据源，diff 即预览。</li>
+    </ul>
+  </section>
+
+  <!-- ============================================================ -->
+  <section id="s6">
+    <h2><span class="num">06</span>M4 · 网站、RSS 与 JSON</h2>
+
+    <div class="ms">
+      <div class="ms__row">
+        <span class="ms__id">M4</span>
+        <span class="ms__name">网站、RSS 与 JSON</span>
+        <span class="pill pill--p1">第 1 期</span>
+      </div>
+      <p class="ms__goal">本地预览与 GitHub Pages 发布结果一致，旧博客 Feed 不受影响。</p>
+    </div>
+
+    <h3>这一步只做一件事：换数据源</h3>
+    <p>
+      页面、路由、版式都已经在了。M4 的全部工作是让它们<strong>从 <code>report.json</code> 读</strong>，
+      而不是从 Markdown frontmatter 读，然后补两个新出口（JSON、纯文本）。
+      「今日看点 / 互动 / 详细」三段的顺序和样式不动——那是已经验收过的东西。
+    </p>
+    <p>
+      顺带解决一个技术债：<code>daily</code> 集合现在的正文是空的，collection 只被当成「带类型的文件存储」在用。
+      换成 JSON + Zod 之后，<code>draft</code> 过滤、<code>render()</code> 这些用不上的机制可以一起退掉。
+    </p>
+
+    <h3>工作包</h3>
+    <table class="t-out">
+      <thead>
+        <tr><th>编号</th><th>工作内容</th><th>产出</th><th class="nowrap">依赖</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>M4.1</td>
+          <td>迁移：<code>26102322.md</code> → <code>report.json</code>，<code>--check</code> 只读比对，<code>--write</code> 才落盘</td>
+          <td><code>scripts/<wbr>daily/<wbr>migrate.py</code></td>
+          <td>M3</td>
+        </tr>
+        <tr>
+          <td>M4.2</td>
+          <td>站点换源：新集合 <code>dailyReports</code>（glob 读 <code>data/<wbr>daily/<wbr>*/<wbr>report.json</code> + Zod），<code>src/<wbr>lib/<wbr>daily.ts</code> 改数据来源</td>
+          <td><code>src/<wbr>content.config.ts</code><br /><code>src/<wbr>lib/<wbr>daily.ts</code></td>
+          <td>M4.1</td>
+        </tr>
+        <tr>
+          <td>M4.3</td>
+          <td>渲染对齐：<code>DailyLayout</code> 接新字段，三段顺序不变；新增「分类摘要 / 全局洞察」按空则整节不渲染处理</td>
+          <td><code>src/<wbr>layouts/<wbr>DailyLayout.astro</code></td>
+          <td>M4.2</td>
+        </tr>
+        <tr>
+          <td>M4.4</td>
+          <td>JSON 出口：<code>/<wbr>daily/<wbr>&lt;id&gt;.json</code>，同一份数据、同一个 Zod 校验</td>
+          <td><code>src/<wbr>pages/<wbr>daily/<wbr>[id].json.ts</code></td>
+          <td>M4.2</td>
+        </tr>
+        <tr>
+          <td>M4.5</td>
+          <td>文字导出：<code>/<wbr>daily/<wbr>&lt;id&gt;.txt</code>，纯文本，给复制粘贴和 M6 复用</td>
+          <td><code>src/<wbr>pages/<wbr>daily/<wbr>[id].txt.ts</code></td>
+          <td>M4.2</td>
+        </tr>
+        <tr>
+          <td>M4.6</td>
+          <td>归档增强：月份加锚点、顶部加最新一期直达、空月份不渲染</td>
+          <td><code>src/<wbr>pages/<wbr>daily/<wbr>index.astro</code></td>
+          <td>M4.2</td>
+        </tr>
+        <tr>
+          <td>M4.7</td>
+          <td>Feed 隔离验证：<code>/<wbr>rss.xml</code> 条目 id 与条数不变；<code>/<wbr>daily/<wbr>rss.xml</code> 改读新源后条数一致</td>
+          <td>测试</td>
+          <td>M4.4</td>
+        </tr>
+        <tr>
+          <td>M4.8</td>
+          <td>金文件回归：迁移前后 <code>/<wbr>daily/<wbr>26102322/<wbr></code> 三段正文的<strong>纯文本</strong>逐字相同</td>
+          <td><code>tests/<wbr>golden/<wbr>daily-26102322.txt</code></td>
+          <td>M4.3</td>
+        </tr>
+        <tr>
+          <td>M4.9</td>
+          <td>出口检查：<code>npm run links</code> 覆盖新路由；<code>dist</code> 路径与 Pages 一致（无 <code>base</code>，根绝对路径）</td>
+          <td>脚本 + 记录</td>
+          <td>M4.4–M4.6</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>关键设计</h3>
+
+    <h4>数据放哪</h4>
+    <p>
+      选 <code>data/daily/&lt;id&gt;/report.json</code>，用 Astro 的 <code>glob()</code> 加载器读，
+      <code>base</code> 指到仓库根的 <code>./data/daily</code>：
+    </p>
+<pre><code>const dailyReports = defineCollection({
+  loader: glob({ base: './data/daily', pattern: '*/report.json',
+                 generateId: ({ entry }) =&gt; entry.split('/')[0] }),
+  schema: reportSchema,   // 和 report.schema.json 一一对应
+});</code></pre>
+    <p>
+      三个理由：<strong>①</strong> 构建期就是读文件，不联网、不需要额外 loader；
+      <strong>②</strong> Zod 校验在构建期跑，字段写错直接让 <code>npm run build</code> 失败并指出文件；
+      <strong>③</strong> <code>report.json</code> 进 git，改一句摘要就是一个可 review 的 diff。
+    </p>
+    <p>
+      中间产物（条目库、briefing、提示词、回答）全部不进 <code>data/</code>——
+      它们放 <code>data/items/</code>（gitignore）和 <code>out/</code>（已 gitignore）。
+      <strong><code>data/daily/</code> 只放要发布的东西。</strong>
+    </p>
+
+    <div class="note note--warn">
+      <p>
+        <strong>已知风险：<code>glob()</code> 的 base 在 <code>src/</code> 之外。</strong>
+        Astro 的 glob 加载器按路径读盘，理论上不限位置，但这一条要在 M4.1 之前用一个最小例子验证。
+        如果不支持，退路是把 <code>report.json</code> 放到 <code>src/data/daily/&lt;id&gt;/report.json</code>——
+        位置换了，其他设计一条都不用改。
+      </p>
+    </div>
+
+    <h4>新增的出口</h4>
+    <table>
+      <thead>
+        <tr><th>路由</th><th>形态</th><th>给谁</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><code>/<wbr>daily/<wbr></code></td><td>HTML 归档</td><td>读者</td></tr>
+        <tr><td><code>/<wbr>daily/<wbr>&lt;id&gt;/<wbr></code></td><td>HTML 单期</td><td>读者</td></tr>
+        <tr><td><code>/<wbr>daily/<wbr>rss.xml</code></td><td>RSS</td><td>阅读器（已存在，只换数据源）</td></tr>
+        <tr><td><code>/<wbr>daily/<wbr>&lt;id&gt;.json</code></td><td>JSON</td><td>第三方、以后的 App、自己写脚本</td></tr>
+        <tr><td><code>/<wbr>daily/<wbr>&lt;id&gt;.txt</code></td><td>纯文本</td><td>复制粘贴、M6 的视频稿输入</td></tr>
+      </tbody>
+    </table>
+    <p>
+      两个新出口都<strong>从同一份 <code>report.json</code> 渲染</strong>，不另存一份数据。
+      JSON 出口是「一份数据多种 encoding」的最小实现；纯文本出口的价值在 M6——
+      视频稿的口播稿要从「读者已经看到的那段文字」出发，而不是从另一份摘要出发。
+    </p>
+
+    <div class="gate">
+      <p class="gate__title">出口闸门 · M4</p>
+      <p>
+        <code>npm run build</code> 通过：HTML 页面<strong>仍是 13 个</strong>（页面没变），
+        新增两个非 HTML 出口 <code>/daily/&lt;id&gt;.json</code> 与 <code>.txt</code>。
+      </p>
+      <p>
+        金文件比对：<code>/daily/26102322/</code> 的三段正文纯文本与迁移前逐字相同
+        （<code>diff</code> 无输出）。
+      </p>
+      <p>
+        <code>curl /rss.xml | grep -c "&lt;item&gt;"</code> 与迁移前相同；
+        <code>/daily/rss.xml</code> 的条目数等于 <code>data/daily/*/report.json</code> 的个数。
+      </p>
+      <p><code>npm run links</code> 全过（新增两条路由要被检查到）。</p>
+      <p><code>npm run check</code> 0 错 0 警 0 提示。</p>
+      <p>
+        删掉 <code>src/content/daily/26102322.md</code> 后重新构建，页面内容不变——
+        证明它真的不再被读取。
+      </p>
+    </div>
+
+    <h3>本里程碑不做</h3>
+    <ul>
+      <li>不做 <code>/daily/&lt;category&gt;/</code> 分类页。scaling plan 里把它排在扩容二期，本文档的 M4 只保证「分类数据在 JSON 里」，页面留到真有需要时再加。</li>
+      <li>不改视觉。版式已经验收过，M4 只换数据源。</li>
+      <li>不合并两个 Feed。日报和笔记的订阅者不是同一批人，合并会改变既有订阅者收到的东西。</li>
+    </ul>
+  </section>
+
+  <!-- ============================================================ -->
+  <section id="s7">
+    <h2><span class="num">07</span>M5 · 图片生产</h2>
+
+    <div class="ms">
+      <div class="ms__row">
+        <span class="ms__id">M5</span>
+        <span class="ms__name">图片生产</span>
+        <span class="pill pill--p2">第 2 期</span>
+      </div>
+      <p class="ms__goal">从正式日报数据重复生成，图片内容和版式稳定，来源可追溯。</p>
+    </div>
+
+    <h3>先解决「渲染器」这个前置问题</h3>
+    <p>
+      现有文档里写过「不做图片版，因为要引入渲染引擎」。M5 要做，就必须先把这个矛盾解决掉，
+      否则第一个工作包就会卡住。<strong>结论：用 SVG 做版式、用 WASM 光栅化、用固定字体文件。</strong>
+    </p>
+
+    <table>
+      <thead>
+        <tr><th>方案</th><th>依赖</th><th>跨机一致</th><th>中文</th><th>结论</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>无头 Chrome 截图</td>
+          <td>本机已有</td>
+          <td>差（版本/字体都影响）</td>
+          <td>好</td>
+          <td><span class="pill pill--skip">否</span> 只适合人工预览</td>
+        </tr>
+        <tr>
+          <td><code>sharp</code> 渲染 SVG</td>
+          <td>已是 devDependency</td>
+          <td>差（走系统字体）</td>
+          <td>看机器</td>
+          <td><span class="pill pill--skip">否</span> 中文要系统装了字体</td>
+        </tr>
+        <tr>
+          <td><code>@resvg/<wbr>resvg-js</code></td>
+          <td>一个 devDependency（WASM）</td>
+          <td>好（可内嵌字体）</td>
+          <td>好（自带字体文件）</td>
+          <td><span class="pill pill--done">选它</span></td>
+        </tr>
+      </tbody>
+    </table>
+    <p>
+      关键在<strong>字体随仓库外置固定、按 SHA 校验</strong>，而不是「用系统里有什么就用什么」。
+      同一份数据 + 同一个模板 + 同一个字体文件 = 同一张图，这条是 M5 验收的全部内容。
+    </p>
+    <p>
+      仓库现有的 <code>public/fonts/</code> 只有拉丁字重（Inter / Cormorant / Fira Code），
+      <strong>没有中文字体</strong>。所以 M5.2 必须单独解决字体：下载到 <code>node_modules/.cache/</code>，
+      记 SHA，<strong>不进 git</strong>——一个完整的中文字体是几 MB 到十几 MB，不该躺在仓库里。
+    </p>
+
+    <h3>工作包</h3>
+    <table class="t-out">
+      <thead>
+        <tr><th>编号</th><th>工作内容</th><th>产出</th><th class="nowrap">依赖</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>M5.1</td>
+          <td>选型验证：在本机用 <code>resvg-js</code> 渲染一张带中文的 SVG，与浏览器截图对照，确认字形与断行可接受</td>
+          <td><code>docs/<wbr></code> 里的一段结论 + 对照图</td>
+          <td>—</td>
+        </tr>
+        <tr>
+          <td>M5.2</td>
+          <td>字体固定：<code>daily fonts --pin</code> 下载、校验 SHA、缓存到仓库外</td>
+          <td><code>scripts/<wbr>daily/<wbr>fonts.py</code></td>
+          <td>M5.1</td>
+        </tr>
+        <tr>
+          <td>M5.3</td>
+          <td>排版原语：<code>{{slot}}</code> 替换、CJK 宽度估算折行、超容量硬截断（不缩字号）</td>
+          <td><code>scripts/<wbr>daily/<wbr>render/<wbr>text.py</code></td>
+          <td>M5.2</td>
+        </tr>
+        <tr>
+          <td>M5.4</td>
+          <td>模板集：封面（1200×630）、内页卡片（1080×1440，多页）、引文页；每个模板声明槽位与容量</td>
+          <td><code>templates/<wbr>daily/<wbr>*.svg</code><br /><code>templates/<wbr>daily/<wbr>templates.json</code></td>
+          <td>M5.3</td>
+        </tr>
+        <tr>
+          <td>M5.5</td>
+          <td>生成：<code>daily render-images &lt;id&gt;</code> → 图片 + <code>manifest.json</code>（模板版本、内容 hash、来源 claim）</td>
+          <td><code>scripts/<wbr>daily/<wbr>render/<wbr>images.py</code></td>
+          <td>M5.4、M3</td>
+        </tr>
+        <tr>
+          <td>M5.6</td>
+          <td>只认正式版：<code>status !== confirmed</code> 直接拒绝；图片输出到 <code>dist</code> 之外再由构建拷贝</td>
+          <td>同 M5.5</td>
+          <td>M5.5</td>
+        </tr>
+        <tr>
+          <td>M5.7</td>
+          <td>稳定性测试：同输入两次 → PNG 字节相同；改一条 claim → 只有受影响的那页 hash 变</td>
+          <td><code>tests/<wbr>test_daily_images.py</code></td>
+          <td>M5.6</td>
+        </tr>
+        <tr>
+          <td>M5.8</td>
+          <td>OG 接线：日报页 <code>og:image</code> 指向封面图，缺失时退回默认分享图</td>
+          <td><code>DailyLayout.astro</code></td>
+          <td>M5.5、M4</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>关键设计</h3>
+
+    <h4>「版式稳定」怎么定义</h4>
+    <p>
+      不是「看起来差不多」，而是三条可以自动判定的性质：
+    </p>
+    <ol>
+      <li><strong>字节稳定。</strong>同一份 <code>report.json</code> + 同一模板 + 同一字体，两次渲染的 PNG 字节完全相同。</li>
+      <li><strong>局部性。</strong>改一条 claim，只有包含它的那一页图片 hash 变化，其余页不变。</li>
+      <li><strong>不溢出。</strong>任何一页的文字都在安全区内——靠模板容量上限 + 硬截断保证，不靠肉眼检查。</li>
+    </ol>
+    <p>
+      第 3 条是设计出来的，不是测出来的：每个槽位声明「最多几行、每行最多几字」，
+      超出就截断并加省略号。<strong>绝不用自动缩字号</strong>——那会让同一套模板出两种字号，
+      多页卡片翻起来像两种设计。
+    </p>
+
+    <h4>可追溯</h4>
+<pre><code>// manifest.json（和图片放在一起）
+{
+  "issue": "26102322",
+  "report_hash": "sha256:…",         // 渲染时 report.json 的指纹
+  "template_version": 3,
+  "font_sha": "…",
+  "images": [
+    { "file": "cover.png", "size": [1200, 630],
+      "claims": ["highlights[0]", "highlights[1]"] },
+    { "file": "card-01.png", "size": [1080, 1440],
+      "claims": ["categories[seiyuu].summary"] }
+  ]
+}</code></pre>
+    <p>
+      <code>claims</code> 记录「这一页的每个字是从哪条 claim 来的」，claim 又指向 item key。
+      所以任何一张图都能反查到推文——这就是「来源可追溯」在图片这一层的意思。
+    </p>
+
+    <div class="gate">
+      <p class="gate__title">出口闸门 · M5</p>
+      <p>对同一期连跑两次 <code>render-images</code> → 所有 PNG 的 sha256 相同。</p>
+      <p>改 <code>highlights[1].text</code> 再跑 → 只有封面图 hash 变，卡片图不变。</p>
+      <p>对 <code>status: draft</code> 的一期 → 退出码非 0，报「未定稿」。</p>
+      <p><code>manifest.json</code> 里每个 <code>claims</code> 路径都能在 <code>report.json</code> 里取到值。</p>
+      <p>任意一页图片的最长一行文字不超过模板声明的容量（用脚本数，不靠肉眼）。</p>
+    </div>
+
+    <h3>本里程碑不做</h3>
+    <ul>
+      <li>不做「自动配图」——不用模型生成插画、不抓账号头像做拼贴。图片只承载文字版式。</li>
+      <li>不做在线模板编辑器。模板是 SVG 文件，改模板就是改文件。</li>
+      <li>不把图片塞进 RSS。<code>&lt;enclosure&gt;</code> 会让部分阅读器把条目撑变形，收益不明。</li>
+    </ul>
+  </section>
+
+  <!-- ============================================================ -->
+  <section id="s8">
+    <h2><span class="num">08</span>M6 · 视频稿与后续自动化</h2>
+
+    <div class="ms">
+      <div class="ms__row">
+        <span class="ms__id">M6</span>
+        <span class="ms__name">视频稿与后续自动化</span>
+        <span class="pill pill--p3">第 3 期</span>
+      </div>
+      <p class="ms__goal">稿件结构完整，每段内容能关联来源，人工可以独立完成后续制作。</p>
+    </div>
+
+    <h3>这一步产出的是「稿」，不是「片」</h3>
+    <p>
+      M6 的边界要划得很清楚：<strong>输出五份文本，交给人去做视频</strong>。
+      口播稿、分镜、字幕文本、画面提示、素材清单——这五样齐了，一个没参与生成的人
+      拿着它们就能把片子剪出来。这既是验收标准，也是范围边界。
+    </p>
+
+    <h3>工作包</h3>
+    <table class="t-out">
+      <thead>
+        <tr><th>编号</th><th>工作内容</th><th>产出</th><th class="nowrap">依赖</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>M6.1</td>
+          <td>口播稿：从已定稿的 highlights / 分类摘要改写成口语，走同一套 prompt / apply 通道</td>
+          <td><code>scripts/<wbr>daily/<wbr>video/<wbr>narration.py</code></td>
+          <td>M3</td>
+        </tr>
+        <tr>
+          <td>M6.2</td>
+          <td>分镜：镜号、时长估计、画面类型、字幕文本</td>
+          <td><code>scripts/<wbr>daily/<wbr>video/<wbr>storyboard.py</code></td>
+          <td>M6.1</td>
+        </tr>
+        <tr>
+          <td>M6.3</td>
+          <td>字幕：按字/秒估算时间轴，导出 SRT 与 VTT</td>
+          <td><code>scripts/<wbr>daily/<wbr>video/<wbr>subtitle.py</code></td>
+          <td>M6.2</td>
+        </tr>
+        <tr>
+          <td>M6.4</td>
+          <td>画面提示与素材清单：引用 M5 的卡片图、账号主页截图位，标注 present / missing</td>
+          <td><code>scripts/<wbr>daily/<wbr>video/<wbr>assets.py</code></td>
+          <td>M5</td>
+        </tr>
+        <tr>
+          <td>M6.5</td>
+          <td>打包：<code>out/<wbr>&lt;id&gt;/<wbr>video/<wbr></code> 下五份文件 + 一份 <code>README</code> 说明制作顺序</td>
+          <td>CLI</td>
+          <td>M6.1–M6.4</td>
+        </tr>
+        <tr>
+          <td>M6.6</td>
+          <td>追溯测试：每段至少 1 个来源；素材清单里每个文件要么存在要么标 missing，不许「提到了但没列」</td>
+          <td><code>tests/<wbr>test_daily_video.py</code></td>
+          <td>M6.5</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>关键设计</h3>
+
+    <h4>一段稿子的结构</h4>
+<pre><code>{
+  "index": 3,
+  "kind": "highlight",          // open | category | highlight | outro
+  "narration": "…",             // 口播稿，口语，可直接念
+  "duration_est": 18.5,         // 按字数/语速估算，人工可改
+  "subtitle": ["…", "…"],       // 按呼吸点切成 1–2 行
+  "visual": {
+    "type": "card",             // card | quote | profile | blank
+    "ref": "images/daily/26102322/card-02.png"
+  },
+  "sources": ["x:2113…", "x:2114…"],
+  "notes": "…"                  // 给剪辑的人看的提示，不念
+}</code></pre>
+
+    <h4>时间轴怎么来</h4>
+    <p>
+      不做强制对齐（forced alignment），那是另一套工具链。用<strong>字数 ÷ 语速</strong>估算，
+      语速默认 5.2 字/秒，写进配置；估算值直接写进 <code>duration_est</code>，
+      人工改了就以人工的为准（重跑不覆盖已手改的字段）。
+    </p>
+    <p>
+      这意味着字幕<strong>不会自动对上真实音频</strong>。这是有意的取舍：自动对齐需要音频，
+      而 M6 不生成音频。字幕文件的作用是「给剪辑软件一个起点」，不是成品。
+    </p>
+
+    <div class="gate">
+      <p class="gate__title">出口闸门 · M6</p>
+      <p>对一期已定稿日报跑 <code>script</code> → <code>script.json</code> 通过 schema 校验，<code>segments</code> 非空。</p>
+      <p>每段的 <code>sources</code> 非空，且每个 key 都在对应 report 的条目集合里。</p>
+      <p><code>subs.srt</code> 能被 VLC / 剪辑软件识别，时间轴单调递增且无重叠。</p>
+      <p><code>assets.md</code> 里列出的每个路径，要么存在，要么明确标 <code>missing</code>。</p>
+      <p>
+        <strong>人工 dry-run：</strong>只看 <code>script.md</code> + <code>assets.md</code>，
+        写下「第一镜拍什么、第二镜配哪张图」，过程中不需要问任何问题。
+      </p>
+    </div>
+
+    <h3>本里程碑明确不做</h3>
+    <div class="note note--warn">
+      <p>
+        <strong>不做自动配音，不做视频渲染。</strong>这不是「以后再排」，是<strong>本轮不做</strong>。
+        理由：两者都会把项目从「静态站 + 本地脚本」推成「有渲染管线」，构建时间、机器要求、
+        失败模式全部换一套；而 M6 的产出（五份文本）已经能让人独立把片子做出来。
+      </p>
+      <p>
+        什么时候再评估：连续做满 <strong>10 期</strong>视频，且每期人工制作时间稳定超过 1 小时，
+        说明瓶颈确实在「配音 + 剪辑」而不是在「稿子」。到那时再谈，也只考虑配音，不考虑成片渲染。
+      </p>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section id="s9">
+    <h2><span class="num">09</span>推进协议：一个里程碑一次</h2>
+
+    <p class="lead">
+      这一节是给「怎么执行」定的规矩，比上面任何一节都重要。
+      六个里程碑一次性生成出来的东西，大概率是六个都能跑但彼此不兼容的半成品；
+      一个一个来，每个都能停在可用状态。
+    </p>
+
+    <h3>每个工作包的完成定义</h3>
+    <p>一个工作包算「做完」，要同时满足四条。少一条就是没做完，不许开下一个。</p>
+    <ol>
+      <li><strong>代码在仓库里，</strong>不是只在对话里。</li>
+      <li><strong>有测试覆盖，</strong>并且测试能因为「改坏了」而失败——不是只跑通一次。</li>
+      <li><strong>整套闸门通过：</strong><code>npm run check</code>、<code>npm run build</code>、<code>npm run links</code>、<code>npm test</code>、<code>npm run test:md</code>。</li>
+      <li><strong>写进构建日志：</strong><code>docs/daily-build-log.md</code> 追加一条，记工作包编号、实际命令输出、遗留问题。</li>
+    </ol>
+
+    <h3>每个里程碑的收尾</h3>
+    <table>
+      <thead>
+        <tr><th>动作</th><th>内容</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>跑验收</td>
+          <td>逐条执行本节里程碑里「出口闸门」列的判据，把<strong>实际输出</strong>贴进构建日志，不写「应该通过」</td>
+        </tr>
+        <tr>
+          <td>跑全量闸门</td>
+          <td>上面五条命令，全部贴输出。Python 测试数、Node 测试数、页面数都要记下来</td>
+        </tr>
+        <tr>
+          <td>提交</td>
+          <td>一个里程碑一个 commit，message 里写清「M&lt;n&gt; 完成」+ 验收结论</td>
+        </tr>
+        <tr>
+          <td>发布</td>
+          <td>推上去，等 GitHub Pages 生效，抽查一个真实 URL。M1–M3 站点不变，也要抽查——证明「没变」</td>
+        </tr>
+        <tr>
+          <td>回写本文档</td>
+          <td>把该里程碑的工作包表加一列「状态」，把闸门里的数字改成实测值</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>四条禁止</h3>
+    <div class="cards">
+      <div class="card">
+        <h4>不许跨里程碑预写</h4>
+        <p>做 M2 的时候不要顺手把 M3 的校验器写了。可以留 TODO 注释，不要留半成品实现——半成品比没写更危险，因为它看起来是能用的。</p>
+      </div>
+      <div class="card">
+        <h4>不许回改已验收的接口</h4>
+        <p>M1 定下的 <code>Item</code> 字段，M4 想加字段只能加，不能改名。要改名就升 <code>schema_version</code> 并写迁移。</p>
+      </div>
+      <div class="card">
+        <h4>不许让站点进入「等下一步」状态</h4>
+        <p>任何一次提交后 <code>npm run build</code> 都要能出站。M4 的切换是唯一一次「数据源换血」，它必须在一个 commit 里完成，不留中间态。</p>
+      </div>
+      <div class="card">
+        <h4>不许跳过闸门「先往下做」</h4>
+        <p>闸门不过就停下来修。跳过闸门省下的时间，会在下一个里程碑以三倍还回来——因为下游会开始依赖一个错的东西。</p>
+      </div>
+    </div>
+
+    <h3>如果中途要停</h3>
+    <p>
+      每个里程碑结束时都是干净的停点。停之前把构建日志写完，写清「下一个工作包是哪个、当时在想什么」。
+      重新开工时先读日志，不要靠回忆。
+    </p>
+    <p>
+      <strong>M1、M2、M3 结束时站点完全不变，M4 结束时站点换了数据源但页面一样。</strong>
+      所以哪怕只做到 M2 就停，得到的也是一个能用的、更可靠的老日报——不是一堆废代码。
+    </p>
+  </section>
+
+  <!-- ============================================================ -->
+  <section id="s10">
+    <h2><span class="num">10</span>目标目录结构</h2>
+
+    <p>上面是现在，下面是 M6 做完之后。<strong>新增的都是加号，没有一行是「重写」。</strong></p>
+
+    <h4>现在</h4>
+<pre class="tree"><code>scripts/
+  daily_digest.py          265 行，单文件，单数据源
+  daily.sh                  62 行，只打印提示
+  sample_items/x.jsonl     213 条样例
+src/
+  content/daily/26102322.md
+  lib/daily.ts             期号解析 + 排序 + 分组
+  layouts/DailyLayout.astro
+  pages/daily/{index,[...id],rss.xml}
+tests/test_daily_digest.py 9 个</code></pre>
+
+    <h4>M6 之后</h4>
+<pre class="tree"><code>schemas/                   ← 新增：三份契约
+  item.schema.json
+  report.schema.json
+  generation.schema.json
+
+data/                      ← 新增：只有要发布的东西进 git
+  daily/
+    state.json             增量状态（≤90 天）
+    26102322/
+      report.json          日报正本
+      history/1.json       被 reopen 的旧版
+  items/                   ← gitignore，规范化条目库
+
+out/                       ← 已 gitignore，本地中间产物
+  26102322/
+    briefing.txt
+    generate.json
+    prompt/{seiyuu,global}.{md,json}
+    answer/{seiyuu,global}.json
+    cache.json
+    video/{script.json,script.md,subs.srt,assets.md}
+
+templates/daily/           ← 新增：M5 的版式
+  cover.svg  card.svg  quote.svg  templates.json
+
+scripts/daily/             ← 新增：包
+  __init__.py  cli.py  model.py  schema.py  state.py  migrate.py
+  window.py  dedupe.py  incremental.py  order.py  roster.py  export.py
+  prompt.py  validate.py  apply.py  confirm.py  cache.py  fonts.py
+  adapters/{base,xreader,fixture}.py
+  render/{text,images}.py
+  video/{narration,storyboard,subtitle,assets}.py
+
+src/
+  config/daily-roster.json ← 新增：名单（结构定，内容你填）
+  lib/daily.ts             改：数据源从 md 换成 report.json
+  layouts/DailyLayout.astro 改：接新字段
+  pages/daily/
+    index.astro            改：加月份锚点
+    [...id].astro          改：读新数据
+    rss.xml.ts             改：读新数据
+    [id].json.ts           ← 新增
+    [id].txt.ts            ← 新增
+  content/daily/           ← 删除（M4 迁移验证通过后）
+
+docs/
+  daily-report-guide.md    运营手册（已有）
+  daily-scaling-plan.md    扩容方案（已有）
+  daily-build-log.md       ← 新增：推进日志</code></pre>
+
+    <div class="note">
+      <p>
+        <strong>为什么 <code>data/</code> 和 <code>src/data/</code> 是两个地方。</strong>
+        <code>data/daily/</code> 是「要发布的正本」，构建时读它；<code>src/data/</code> 是「构建用的派生数据」
+        （现在只有 <code>image-manifest.json</code>）。两者性质不同：前者是人写/脚本写的内容，
+        后者是机器算出来的索引。混在一起会让「哪些文件该 review」变得不清楚。
+      </p>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section id="s11">
+    <h2><span class="num">11</span>红线与反模式</h2>
+
+    <p>这些是「一旦做了就要推倒重来」的东西，写在这里当检查表用。</p>
+
+    <table>
+      <thead>
+        <tr><th>红线</th><th>为什么</th><th>违反的典型症状</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>脚本里不出现模型 API 调用</td>
+          <td>CI 零 key 零服务器是整套方案的前提</td>
+          <td>CI 需要配 secret；本地跑不动；构建时间随模型响应抖动</td>
+        </tr>
+        <tr>
+          <td>构建期不发起网络请求</td>
+          <td>断网必须还能出站</td>
+          <td>构建偶发失败；换网络就挂</td>
+        </tr>
+        <tr>
+          <td>模型不许写 URL</td>
+          <td>链接由 <code>handle</code> 拼，模型没机会写错</td>
+          <td>页面出现 404 的 <code>x.com</code> 链接；<code>npm run links</code> 报外链</td>
+        </tr>
+        <tr>
+          <td>已确认版本不被覆盖</td>
+          <td>存档的意义就是「发出去的东西不会变」</td>
+          <td>同一期 URL 前后内容不一致；读者看到的和 feed 里的不一样</td>
+        </tr>
+        <tr>
+          <td>中间产物不进 <code>public/<wbr></code></td>
+          <td><code>public/<wbr></code> 原样拷进 <code>dist</code>，会直接上线</td>
+          <td>线上出现 <code>/<wbr>out/<wbr>26102322/<wbr>briefing.txt</code></td>
+        </tr>
+        <tr>
+          <td><code>now()</code> 不进产物（除 <code>provenance</code>）</td>
+          <td>否则「同输入同输出」永远不成立</td>
+          <td>可复现测试永远失败，只好把它关掉</td>
+        </tr>
+        <tr>
+          <td>输出顺序不依赖文件系统顺序</td>
+          <td>不同机器 <code>glob()</code> 返回顺序不同</td>
+          <td>同一份数据在两台机器上生成不同顺序的日报</td>
+        </tr>
+        <tr>
+          <td>不引入数据库</td>
+          <td>纯静态 + 纯文件是这套方案能被维护的原因</td>
+          <td>需要备份、需要迁移、需要服务</td>
+        </tr>
+        <tr>
+          <td>不在 <code>dist</code> 里手写文件</td>
+          <td>下次构建会被清掉，且绕过校验</td>
+          <td>「本地好的，推上去就没了」</td>
+        </tr>
+        <tr>
+          <td>M4 验证通过前不删 <code>src/<wbr>content/<wbr>daily</code></td>
+          <td>它是当前唯一的线上数据源</td>
+          <td>删早了，站点构建直接失败或日报全空</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- ============================================================ -->
+  <section id="s12">
+    <h2><span class="num">12</span>风险与待定问题</h2>
+
+    <h3>已知风险</h3>
+    <table>
+      <thead>
+        <tr><th>风险</th><th>触发条件</th><th>影响</th><th>缓解</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>样例数据缺 reply / quote</td>
+          <td>现在就有：213 条里 <code>is_reply</code> 与 <code>is_quote</code> 全为 false</td>
+          <td>M2 的互动候选提取没有正样本，写完也不知道对不对</td>
+          <td>M2.6 之前手工造 3–5 条 fixture，覆盖 reply / quote / 互相 reply</td>
+        </tr>
+        <tr>
+          <td><code>stats</code> 全为空</td>
+          <td>现在就有：<code>metadata.stats</code> 全是 <code>{}</code></td>
+          <td>按互动排序没有意义（见 §1 问题③）</td>
+          <td>排序键不含互动数；互动数只作 M3 选材参考</td>
+        </tr>
+        <tr>
+          <td><code>glob()</code> 的 base 在 <code>src/<wbr></code> 外</td>
+          <td>M4.2 首次尝试</td>
+          <td>站点读不到 <code>report.json</code></td>
+          <td>M4.1 之前用最小例子验证；不支持就搬到 <code>src/<wbr>data/<wbr>daily/<wbr></code></td>
+        </tr>
+        <tr>
+          <td>中文字体跨机不一致</td>
+          <td>M5 渲染时用了系统字体</td>
+          <td>同一份数据在不同机器出不同图</td>
+          <td>字体外置 + SHA 校验；<code>manifest</code> 里记 <code>font_sha</code></td>
+        </tr>
+        <tr>
+          <td>页面数线性增长</td>
+          <td>每天 1 期，一年 365 页</td>
+          <td>构建和 <code>npm run links</code> 变慢</td>
+          <td>可接受（估 1–2 分钟）；超过 1000 页时再给 links 加 <code>--since</code></td>
+        </tr>
+        <tr>
+          <td><code>state.json</code> 膨胀</td>
+          <td>每天 ~300 条</td>
+          <td>git diff 变噪音，读写变慢</td>
+          <td><code>seen</code> 裁到 90 天，可从 <code>issues</code> 重建</td>
+        </tr>
+        <tr>
+          <td>模型输出不稳定</td>
+          <td>同一份输入两次生成不同</td>
+          <td>审校工作量不可预测</td>
+          <td>缓存键固定 + 判卷严格 + 只认 confirmed；不追求「模型每次都一样」，追求「定稿后不变」</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>待定问题（不影响开工，但要有人定）</h3>
+    <ol>
+      <li>
+        <strong>分类体系最终几个类？</strong>M2 只需要结构，可以先给 2–4 个占位类。
+        真名单进来之前定不下来，也不该现在定。
+      </li>
+      <li>
+        <strong>目标规模是 30 人还是 100 人？</strong>影响 M3 要不要一次就上 map-reduce。
+        现在的设计两个都能跑（分类数决定 map 次数），但 100 人时单分类内的条目量要再压一次。
+      </li>
+      <li>
+        <strong>要不要 <code>/daily/&lt;category&gt;/</code> 分类页？</strong>
+        scaling plan 把它排在扩容二期，本文档的 M4 没排。
+        如果确定要，它属于 M4 之后的独立小里程碑，不塞进现有六个里。
+      </li>
+      <li>
+        <strong>视频稿的时长目标是多少？</strong>M6 的 <code>segments</code> 数量和语速都受它影响。
+        先按「3–5 分钟」写，真做一期再校准。
+      </li>
+      <li>
+        <strong><code>data/daily/&lt;id&gt;/history/</code> 要不要设上限？</strong>
+        一期改三五次是常态，无限累积会让仓库变大。倾向保留最近 5 个版本。
+      </li>
+    </ol>
+
+    <div class="note">
+      <p>
+        <strong>这五个问题都不用现在回答。</strong>它们的共同点是：答案会随真实使用变化，
+        现在猜一个反而会把设计锁死。每个里程碑的闸门里都留了「回写本文档」这一步，
+        到时候一起改。
+      </p>
+    </div>
+  </section>
+
+  <footer class="doc-foot">
+    <p>
+      计划拟定 2026-10-25。现状数字来自本次实测：<code>scripts/daily_digest.py</code> 265 行、
+      <code>scripts/daily.sh</code> 62 行、<code>src/lib/daily.ts</code> 168 行、<code>DailyLayout.astro</code> 170 行、
+      日报相关三页 146 行、<code>src/content.config.ts</code> 94 行，合计 905 行；
+      样例数据 <code>scripts/sample_items/x.jsonl</code> 213 条、11 个账号、覆盖 2026-04-04 至 2026-10-23；
+      现有日报测试 9 个；站点 13 个 HTML 页面 + 5 个 <code>public/docs</code> 页面。
+    </p>
+    <p>
+      §1 的三个问题均为本次实测：UTC 分桶导致 10-23 窗口应为 28 条实取 26 条（漏 5 条、错收 3 条）；
+      <code>item_id 2113601516565311503</code> 在样例中出现两次、<code>publisher</code> 不同、
+      两条 <code>is_retweet</code> 均为 <code>true</code>；<code>metadata.stats</code> 213 条全为空对象。
+    </p>
+    <p>
+      配套文档：<a href="/docs/project-status.html">项目现状</a>、
+      <a href="https://github.com/EpsilonGG/epsilongg.github.io/blob/main/docs/daily-report-guide.md">日报运营手册</a>、
+      <a href="https://github.com/EpsilonGG/epsilongg.github.io/blob/main/docs/daily-scaling-plan.md">日报扩容方案</a>。
+    </p>
+  </footer>
+
+</div>
+</body>
+</html>
