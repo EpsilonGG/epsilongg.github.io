@@ -15,7 +15,7 @@
 | 角色 | 位置 | 负责什么 |
 | --- | --- | --- |
 | **X-Reader（抓取侧）** | GitHub 上的 X-Reader 仓库；本机 checkout 在 `X-rss-workspace/X-Reader` | 每日自动抓取 X 推文，规范化为 `NormalizedItem`，写入并提交 `data/items/*.jsonl` |
-| **本地组装 + 本地 LLM** | 站点仓库 `scripts/daily_digest.py` + `scripts/daily.sh`，外加本机 WorkBuddy | 把 `data/items` 确定性组装成 `src/content/daily/<期号>.md` 骨架；由 WorkBuddy 填 `highlights` / `interactions` / `people` |
+| **本地组装 + 本地 LLM** | 站点仓库 `scripts/daily_digest.py` + `scripts/daily.sh`，外加本机 WorkBuddy | 把 `data/items` 确定性组装成 `src/content/daily/<期号>.md` 骨架；由 WorkBuddy 填 `highlights` / `works` / `interactions` / `people` |
 | **站点仓库（发布侧）** | `Desktop\github page work` = `epsilongg.github.io` | 存放脚本与产出 `.md`；`git push` 后 Actions 自动构建部署到 GitHub Pages |
 
 **数据流（每天一次）：**
@@ -27,9 +27,9 @@ X-Reader CI (每日 17:10 UTC)
    本地：git pull X-Reader 仓库（拿到最新 data/items）
         │
    本地：python scripts/daily_digest.py --items-dir <X-Reader>/data/items
-        └─ 产出 src/content/daily/<期号>.md（三段全空的骨架）
+        └─ 产出 src/content/daily/<期号>.md（四段全空的骨架）
         │
-   本地 WorkBuddy：读 briefing，填今日看点 / 互动 / 每人一句
+   本地 WorkBuddy：读 briefing，填今日看点 / 作品动态 / 互动 / 每人一句
         │
    本地：git add src/content/daily/<期号>.md && commit && push
         │
@@ -78,15 +78,16 @@ src/content/daily/26103122.md   →   /daily/26103122/
 
 ---
 
-## 日报的版式（三段，顺序固定）
+## 日报的版式（四段，顺序固定）
 
-站点只渲染 frontmatter，不渲染 Markdown 正文。三段的顺序和格式都是定死的：
+站点只渲染 frontmatter，不渲染 Markdown 正文。四段的顺序和格式都是定死的：
 
 | 顺位 | 字段 | 内容 | 没有内容时 |
 | --- | --- | --- | --- |
-| 1 | `highlights` | **今日看点**：当天热点的概括性文本，2–4 段，每项一段 | 页面显示「今日看点待补充」，构建日志警告 |
-| 2 | `interactions` | **互动**：名单内多人之间的互动，每项一条，写成文字 | 整段不渲染 |
-| 3 | `people` | **详细**：每人一句话 + 主页链接 | `summary` 为空的条目自动不渲染 |
+| 1 | `highlights` | **今日看点**：只写三样东西——①名单前 9 的声优提到的重点 ②内容里本人对自己热度／排行的讨论 ③特别活动（生誕祭、线下活动、销量里程碑） | 页面显示「今日看点待补充」，构建日志警告 |
+| 2 | `works` | **作品动态**：**一段话**汇总账号提到的作品进度（制作中 / 正式发售 / 销量里程碑 / 上架）。可以点名是谁说的，**不加来源链接** | 整段不渲染 |
+| 3 | `interactions` | **互动**：名单内多人之间的互动，每项一条，写成文字 | 整段不渲染 |
+| 4 | `people` | **详细**：每人一句话，渲染成 `[声优名](主号链接) ：一句话` | `summary` 为空的条目自动不渲染 |
 
 另有一个副标题字段 `description`，显示在标题下方：
 
@@ -96,14 +97,16 @@ src/content/daily/26103122.md   →   /daily/26103122/
 
 几条硬规则：
 
+- **看点不是「详细」的加长版**。它只负责挑出当天最该被看见的 2–3 件事：前 9 名（按作品数）的人说了什么、有没有人聊自己的热度／排行、有没有特别活动。**其余全部下沉到「详细」**——一条一条写在那儿，读者想细看再往下翻。以前把五个人塞进一段（「其余几位各有各的节奏：……」）正是这次要修掉的问题。
+- **作品动态必须是一段话，且不带链接**。它是横向汇总：同一个促销会牵涉好几个人，按人写会重复，按段写一句就够。**不要加来源网址**——人名在「详细」里已经链到主号，再给每条加引用会让这一段变成链接堆。
 - **副标题不是「日期 + 摘要（@账号1 / @账号2）」**。日期在标题和「发布于」里已经有了，账号名读者扫一眼「详细」就知道，占掉这 50 字很浪费。写成 `柚木つばめ生誕祭前夜，「FIRST FLIGHT」明日会场生配信，几位放出新作预告` 这样。
-- **「详细」里的一行就是 `[一句话概括](推特主页网址)`**。链接由 `handle` 拼成 `https://x.com/<handle>`，**不要让模型写网址**——写成字段后模型只负责句子，网址不可能错。
-- **句子本身要能看出是谁**（"@322yui3：一整天录音…"），因为链接文本就是这句话，页面上不会再单独显示账号。
+- **「详细」里的一行是 `声优名（链接） ：一句话`**。名字由名单 `src/config/daily-roster.json` 的 `name` 提供，链接由 `handle` 拼成 `https://x.com/<handle>`，**模型既不写名字也不写网址**——写成字段后模型只负责句子，两样都不可能错。
+- **`summary` 里不要再写 `@handle`**。名字已经显示在行首了，句子里再写一遍等于同一行出现两次账号。
 - **当日没有活动的人直接省略**：`summary` 留空即可，不需要删条目。
 - **不展示互动量**（点赞、转发、阅读数）。这些数字只在 `out/<期号>.briefing.txt` 里给模型判断轻重用，不进站点内容。
 - 正文里的 `@handle` 会自动变成主页链接，但**只认名单里的人**（`accounts` + `people` 里的 handle），名单外的 @ 保持纯文本。
 
-> 为什么三段全放 frontmatter 而不是写进 Markdown 正文：上百人时这些字段要拿去做分类视图、JSON 输出和筛选，藏在正文里就取不出来。详见 [日报扩容方案](daily-scaling-plan.md)。
+> 为什么四段全放 frontmatter 而不是写进 Markdown 正文：上百人时这些字段要拿去做分类视图、JSON 输出和筛选，藏在正文里就取不出来。详见 [日报扩容方案](daily-scaling-plan.md)。
 
 ---
 
@@ -131,7 +134,7 @@ python scripts/daily_digest.py --items-dir "<X-rss-workspace>/X-Reader/data/item
 - `--at "2026-10-31 22:00"`：可选，**指定发布时间**（JST），决定期号。不写就取当前小时。
 - `--force`：默认**拒绝覆盖已存在的期号**——覆盖等于删掉一期存档。确实要重写同一期时才加。
 - 产出：
-  - `src/content/daily/<期号>.md` —— 站点内容的**骨架**：frontmatter 里 `accounts` 已按当日推文数排好序，`highlights` / `interactions` 是空数组，`people` 每人一条 `summary: ""`，正文只有一个待填说明的注释。
+  - `src/content/daily/<期号>.md` —— 站点内容的**骨架**：frontmatter 里 `accounts` 已按名单序排好，`highlights` / `interactions` 是空数组、`works` 是空串，`people` 每人一条 `summary: ""`，正文只有一个待填说明的注释。
   - `out/<期号>.briefing.txt` —— 喂给 LLM 的事实摘要（推文原文 + 互动数都在这里，已被 `.gitignore` 忽略，属本地中间产物）。
 - **注意：脚本不再把推文原文写进 `.md`**，只写骨架。要写摘要必须看 `briefing.txt`。
 - **空跑预览（无真实数据）：** 直接 `./scripts/daily.sh 2026-10-24`，会用仓库内的 `scripts/sample_items/` 样例数据生成一份预览，方便测试流程。补一期过去的用 `AT="2026-10-24 21:00" ./scripts/daily.sh 2026-10-24`。
@@ -143,9 +146,10 @@ python scripts/daily_digest.py --items-dir "<X-rss-workspace>/X-Reader/data/item
 1. 读 `out/<期号>.briefing.txt`（推文原文与互动数都在这里）；
 2. 填 `src/content/daily/<期号>.md` 的**四个地方**：
    - `description`：副标题，**今日看点的 50 字以内简报**（脚本留的是「今日 N 位账号有更新，看点待补」占位，必须改写）；
-   - `highlights`：今日看点，2–4 段，把当天最值得说的几件事概括出来（第一顺位）；
+   - `highlights`：今日看点，**只写前 9 的重点 / 自述热度 / 特别活动**，其余下沉到「详细」；
+   - `works`：作品动态，**一段话**，不带来源链接；
    - `interactions`：名单内谁和谁有互动、互动内容是什么，每项一条；**没有就留空数组**；
-   - `people[].summary`：每人一句话，句子要能看出是谁；**当日没活动的留空**；
+   - `people[].summary`：每人一句话，**不写 @handle**（行首已经显示名字了）；**当日没活动的留空**；
 3. 不改 `accounts` / `people[].handle`——这些是脚本从数据推导的，手改会跟抓取数据对不上。`title` 与 `pubDate` 已经不在 frontmatter 里了，标题和发布时间都由文件名推导。
 
 > 这一步就是"用 WorkBuddy 本地跑完需要 LLM 的部分"。LLM 不碰 API、不进 CI。
@@ -166,7 +170,7 @@ git push
 部署完成后访问：
 - 列表页：`/daily/`
 - 详情页：`/daily/<期号>/`
-确认三段都渲染了：今日看点在前、互动其次、「详细」每行都能点到主页；「详细」里没有空链接；副标题是一句 50 字以内的看点简报，不是「日期 + 账号名」。
+确认四段都渲染了：今日看点在前、作品动态其次、互动再次、「详细」每行都能点到主页；「详细」里没有空链接、句子开头不再重复 @handle；副标题是一句 50 字以内的看点简报，不是「日期 + 账号名」。
 
 ### 日常常见问题
 
@@ -214,7 +218,8 @@ git push
   description?: string;          // 可选，但一旦写了必须 ≤50 字（今日看点简报）
   source: 'original' | 'ai';     // 默认 'ai'
   accounts: string[];            // 默认 []，当天有活动的账号（脚本推导）
-  highlights: string[];          // 默认 []，今日看点，每项一段
+  highlights: string[];          // 默认 []，今日看点：前 9 重点 / 自述热度 / 特别活动
+  works: string;                 // 默认 ''，作品动态：一段话，不带来源链接
   interactions: string[];        // 默认 []，多人互动，每项一条
   people: { handle: string; summary: string }[];  // 默认 []，summary 为空即不渲染
   draft: boolean;                // 默认 false
@@ -281,7 +286,7 @@ digest 实际使用的字段：
   1) git -C X-rss-workspace/X-Reader pull        # 拿 CI 抓的数据
   2) python scripts/daily_digest.py --items-dir X-rss-workspace/X-Reader/data/items
      （期号自动取当前 JST 小时；补旧的可加 --at "2026-10-24 21:00"）
-  3) 让 WorkBuddy 填 description（≤50 字）/ highlights / interactions / people[].summary
+  3) 让 WorkBuddy 填 description（≤50 字）/ highlights / works / interactions / people[].summary
   4) git add src/content/daily/<期号>.md && git commit -m "daily: <期号>" && git push
 
 期号：YYMMDDHH（JST）。2026-10-31 22:00 → 26103122 → /daily/26103122/

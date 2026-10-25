@@ -1,0 +1,584 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>近三年作品数 &gt; 5 的同人音声社团与 X 账号清单</title>
+<style>
+  :root {
+    --ink: #111;
+    --ink-2: #555;
+    --ink-3: #888;
+    --line: #e3e3e3;
+    --line-2: #cfcfcf;
+    --bg: #fff;
+    --bg-2: #fafafa;
+    --radius: 6px;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    padding: 0 20px 96px;
+    background: var(--bg);
+    color: var(--ink);
+    font: 15px/1.75 -apple-system, BlinkMacSystemFont, "Segoe UI", "Hiragino Sans",
+      "Noto Sans CJK SC", "Microsoft YaHei", sans-serif;
+  }
+  .wrap { max-width: 1080px; margin: 0 auto; }
+  header.top { padding: 56px 0 28px; border-bottom: 1px solid var(--line); }
+  h1 { font-size: 26px; line-height: 1.4; margin: 0 0 10px; letter-spacing: -0.01em; }
+  .sub { color: var(--ink-2); margin: 0; }
+  .meta { margin-top: 14px; color: var(--ink-3); font-size: 13px; }
+  h2 {
+    font-size: 19px; margin: 48px 0 14px; padding-bottom: 8px;
+    border-bottom: 1px solid var(--line); letter-spacing: -0.01em;
+  }
+  h3 { font-size: 15px; margin: 26px 0 8px; }
+  p { margin: 0 0 12px; }
+  ul, ol { margin: 0 0 14px; padding-left: 22px; }
+  li { margin: 4px 0; }
+  code {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: 0.9em; background: var(--bg-2);
+    border: 1px solid var(--line); border-radius: 4px; padding: 1px 5px;
+  }
+  a { color: var(--ink); text-decoration-color: var(--line-2); }
+  a:hover { text-decoration-color: var(--ink); }
+  .note {
+    background: var(--bg-2); border: 1px solid var(--line);
+    border-radius: var(--radius); padding: 14px 18px; margin: 18px 0;
+  }
+  .note strong { font-weight: 600; }
+  .warn { border-left: 3px solid var(--ink); }
+  .scroll { overflow-x: auto; margin: 16px 0; border: 1px solid var(--line); border-radius: var(--radius); }
+  table { border-collapse: collapse; width: 100%; font-size: 13.5px; }
+  th, td { padding: 7px 10px; text-align: left; border-bottom: 1px solid var(--line); white-space: nowrap; }
+  thead th {
+    position: sticky; top: 0; background: var(--bg);
+    font-weight: 600; font-size: 12.5px; color: var(--ink-2);
+    border-bottom: 1px solid var(--line-2); z-index: 1;
+  }
+  tbody tr:nth-child(even) { background: #fcfcfc; }
+  tbody tr:hover { background: var(--bg-2); }
+  td.num { text-align: right; font-variant-numeric: tabular-nums; color: var(--ink-2); }
+  td.rank { color: var(--ink-3); font-variant-numeric: tabular-nums; }
+  td.handle { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 12.5px; }
+  td.pending { color: var(--ink-3); }
+  .tag {
+    display: inline-block; font-size: 11px; line-height: 1.6;
+    padding: 0 6px; border: 1px solid var(--line-2); border-radius: 4px;
+    color: var(--ink-2); vertical-align: 1px;
+  }
+  .tag.ok { border-color: #111; color: #111; }
+  .kpi { display: flex; gap: 32px; flex-wrap: wrap; margin: 18px 0 8px; }
+  .kpi div { min-width: 120px; }
+  .kpi b { display: block; font-size: 22px; font-variant-numeric: tabular-nums; }
+  .kpi span { font-size: 12.5px; color: var(--ink-3); }
+  table.roster { font-size: 12.5px; }
+  table.roster th, table.roster td { padding: 6px 8px; }
+  table.roster td .cname { display: inline-block; max-width: 11em; white-space: normal; line-height: 1.4; }
+  td.tags { white-space: nowrap; }
+  td.tags .tag { margin-right: 3px; }
+  .legend { color: var(--ink-3); font-size: 12.5px; }
+  footer { margin-top: 56px; padding-top: 20px; border-top: 1px solid var(--line); color: var(--ink-3); font-size: 12.5px; }
+  table.roster td .dim { color: var(--ink-3); }
+  table.roster td.cast { font-size: 12px; color: var(--ink-2); max-width: 16em; white-space: normal; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="top">
+  <h1>近三年作品数 &gt; 5 的同人音声社团与 X 账号</h1>
+  <p class="sub">从 swsem 的 1,450 个社团里筛出 344 家 · 逐家找社团或掌控者的 X 账号 · 附三条来源各自的边界</p>
+  <p class="meta">整理日期 2026-10-25 · 作品数与 cast 来自 swsem · X 账号来自 Ci-en 创作者页（本人填写）· 只收录能溯源的，猜的一律留空</p>
+</header>
+
+<h2>0. 先说结论</h2>
+
+<p>按「近三年（2023-10-25 之后）作品数 &gt; 5」筛，1,450 个社团里合格的有 <strong>344 家</strong>
+（原始 390 条，同一社团在 swsem 里有多个 maker_id，按名称合并掉 46 条）。
+其中 <strong>112 家拿到了 X 账号</strong>，占 33%。</p>
+
+<div class="kpi">
+  <div><b>344</b><span>合格社团</span></div>
+  <div><b>112</b><span>已确认 X 账号</span></div>
+  <div><b>11</b><span>搜到线索但没采信</span></div>
+  <div><b>221</b><span>仍待补</span></div>
+  <div><b>252</b><span>cast 已在初代声优名单里</span></div>
+</div>
+
+<div class="note warn">
+<p><strong>1. 「近三年作品数」是下限，不是精确值。</strong>swsem 的社团页每页 24 条作品，
+脚本只读第一页，所以 <code>24</code> 的意思是「第一页 24 条全部落在这三年内，实际可能更多」，
+<code>6</code>–<code>23</code> 则是数出来的确切值。用来做「&gt; 5」这个筛选够用，别当成销量或热度。</p>
+<p><strong>2. 只采信 Ci-en 创作者页上的链接。</strong>那一栏是<strong>本人自己填的</strong>，
+一个社团一个资料页，错了也是本人写错，不是我们猜错。11 家搜索能搜到候选，
+但<strong>没有采信</strong>——理由见第 3 节，那 4 个例子说明为什么「搜到」不等于「是」。</p>
+<p><strong>3. 剩下的 221 家不是没查，是查不到。</strong>其中 11 家是「作品里只挂一个 cast、
+而那个 cast 就在初代声优名单里」的单人社团——这种社团大概率就是那位声优自己的品牌，
+但「大概率」不是证据，所以只在表里标「单人」，不替她填账号。</p>
+</div>
+
+<h2>1. 筛选口径</h2>
+
+<table>
+<thead><tr><th>项</th><th>怎么算</th><th>为什么这么定</th></tr></thead>
+<tbody>
+<tr>
+  <td>社团范围</td>
+  <td><a href="https://swsem.com/circles/">swsem 社团一览</a>的全部 1,450 行</td>
+  <td>API 的列表接口忽略分页参数（永远只回 20 条），只能从索引页枚举</td>
+</tr>
+<tr>
+  <td>近三年</td>
+  <td><code>release_date &gt;= 2023-10-25</code>，且只数社团页第一页（≤24 条）</td>
+  <td>只看「最近还在出作品」的社团；第一页就够判断，全量翻页对 1450 家不现实</td>
+</tr>
+<tr>
+  <td>合格线</td>
+  <td>近三年作品数 <strong>&gt; 5</strong></td>
+  <td>一年不到两部的社团，日报里一年也碰不到几次，不值得单独维护账号</td>
+</tr>
+<tr>
+  <td>合并</td>
+  <td>同名社团按名称归一后合并，作品数取最大值</td>
+  <td>同一个社团在 swsem 里常有两个 maker_id（旧号/新号），不合并会在表里出现两次</td>
+</tr>
+</tbody>
+</table>
+
+<h2>2. 社团表</h2>
+
+<p>按近三年作品数排序。<strong>代表 cast</strong> 取 swsem 记的前三位（不是全部，也不代表谁是这个社团的老板）。
+标「单人」的是作品里只挂一个 cast 的社团（全表 28 家）——大概率是那位声优自己的品牌，但没当证据用。</p>
+
+<div class="scroll">
+<table class="roster">
+<thead>
+<tr><th>#</th><th>社团</th><th>近三年</th><th>总作品</th><th>代表 cast</th><th>X 账号</th><th>依据</th></tr>
+</thead>
+<tbody>
+<tr><td class="rank">1</td><td>テグラユウキ</td><td class="num">24</td><td class="num">386</td><td class="cast">柚木つばめ、秋野かえで、逢坂成美 <span class="dim">+3</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">2</td><td>いたずらえっち 〜性癖よ恍惚なれ〜</td><td class="num">24</td><td class="num">380</td><td class="cast"><span class="dim">—</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">3</td><td>巨乳大好き屋</td><td class="num">24</td><td class="num">344</td><td class="cast">星野天、春乃つくし、すずらん <span class="dim">+3</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">4</td><td>Whisp</td><td class="num">24</td><td class="num">341</td><td class="cast">古都ことり、佐倉江美、奏谷しはる <span class="dim">+3</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">5</td><td>スタジオりふれぼ</td><td class="num">24</td><td class="num">305</td><td class="cast">陽向葵ゅか、柚木つばめ、逢坂成美 <span class="dim">+3</span></td><td class="handle"><a href="https://x.com/studio_ref" target="_blank" rel="noopener">@studio_ref</a></td><td><span class="tag ok">Ci-en</span></td></tr>
+<tr><td class="rank">6</td><td>RaRo</td><td class="num">24</td><td class="num">264</td><td class="cast">大西沙織、和氣あず未、永井真衣 <span class="dim">+3</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">7</td><td>ぼっちえっちLAB</td><td class="num">24</td><td class="num">226</td><td class="cast">宮内りるる、由比かのん</td><td class="handle"><a href="https://x.com/bocchilab2" target="_blank" rel="noopener">@bocchilab2</a></td><td><span class="tag ok">Ci-en</span></td></tr>
+<tr><td class="rank">8</td><td>ガールズコレクション</td><td class="num">24</td><td class="num">218</td><td class="cast"><span class="dim">—</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">9</td><td>G-Sound</td><td class="num">24</td><td class="num">165</td><td class="cast">藤羽くるみ、めりい、初春まう <span class="dim">+3</span></td><td class="handle"><a href="https://x.com/G_Sound0721" target="_blank" rel="noopener">@G_Sound0721</a></td><td><span class="tag ok">Ci-en</span></td></tr>
+<tr><td class="rank">10</td><td>空心菜館</td><td class="num">24</td><td class="num">159</td><td class="cast">柚木つばめ、小石川うに、秋野かえで <span class="dim">+3</span></td><td class="handle"><a href="https://x.com/kuhxincai" target="_blank" rel="noopener">@kuhxincai</a></td><td><span class="tag ok">Ci-en</span></td></tr>
+<tr><td class="rank">11</td><td>B-bishop</td><td class="num">24</td><td class="num">151</td><td class="cast">秋山はるる、陽向葵ゅか、分倍河原シホ <span class="dim">+3</span></td><td class="handle"><a href="https://x.com/pawnlank7" target="_blank" rel="noopener">@pawnlank7</a></td><td><span class="tag ok">Ci-en</span></td></tr>
+<tr><td class="rank">12</td><td>あとりえスターズ</td><td class="num">24</td><td class="num">149</td><td class="cast">涼花みなせ、陽向葵ゅか、御子柴泉 <span class="dim">+3</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">13</td><td>あぶそりゅ～と</td><td class="num">24</td><td class="num">144</td><td class="cast">天知遥、柚木つばめ、餅梨あむ <span class="dim">+3</span></td><td class="handle"><a href="https://x.com/abs_voice" target="_blank" rel="noopener">@abs_voice</a></td><td><span class="tag ok">Ci-en</span></td></tr>
+<tr><td class="rank">14</td><td>シロイルカ</td><td class="num">24</td><td class="num">143</td><td class="cast">柚木つばめ、秋野かえで、涼花みなせ <span class="dim">+3</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">15</td><td>生ハメ堕ち部★LACK</td><td class="num">24</td><td class="num">133</td><td class="cast">御苑生メイ、分倍河原シホ、柚木つばめ <span class="dim">+3</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">16</td><td>あくあぽけっと</td><td class="num">24</td><td class="num">131</td><td class="cast">陽向葵ゅか、みもりあいの、柚木つばめ <span class="dim">+3</span></td><td class="handle"><a href="https://x.com/aquapktDL" target="_blank" rel="noopener">@aquapktDL</a></td><td><span class="tag ok">Ci-en</span></td></tr>
+<tr><td class="rank">17</td><td>Diebrust(ディーブルスト)</td><td class="num">24</td><td class="num">129</td><td class="cast">癒丹こまり、浅見ゆい、輝月さくら <span class="dim">+3</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">18</td><td>シルトクレーテ</td><td class="num">24</td><td class="num">124</td><td class="cast">大山チロル、涼花みなせ、陽向葵ゅか <span class="dim">+3</span></td><td class="handle"><a href="https://x.com/schildkrote00" target="_blank" rel="noopener">@schildkrote00</a></td><td><span class="tag ok">Ci-en</span></td></tr>
+<tr><td class="rank">19</td><td>エモイ堂</td><td class="num">24</td><td class="num">122</td><td class="cast">杏仁らいち、西瓜すいか、小花衣こっこ <span class="dim">+3</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">20</td><td>じつおな</td><td class="num">24</td><td class="num">118</td><td class="cast">七瀬ゆな、進藤あずさ、双葉すずね <span class="dim">+3</span></td><td class="handle"><a href="https://x.com/jitsuona" target="_blank" rel="noopener">@jitsuona</a></td><td><span class="tag ok">Ci-en</span></td></tr>
+<tr><td class="rank">21</td><td>ふぁっちゅ</td><td class="num">24</td><td class="num">114</td><td class="cast"><span class="dim">—</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">22</td><td>いちのや</td><td class="num">24</td><td class="num">110</td><td class="cast">一之瀬りと、陽向葵ゅか、涼花みなせ <span class="dim">+3</span></td><td class="handle"><a href="https://x.com/1_rito" target="_blank" rel="noopener">@1_rito</a></td><td><span class="tag">Ci-en·包含</span></td></tr>
+<tr><td class="rank">23</td><td>あまとろすいーつ</td><td class="num">24</td><td class="num">109</td><td class="cast">未想可みいろ、神代そら、蘭世 <span class="dim">+3</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">24</td><td>近未来のふわふわ</td><td class="num">24</td><td class="num">105</td><td class="cast">園宮さつき、とおのおと、花城かざり</td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">25</td><td>しゃーぷ</td><td class="num">24</td><td class="num">95</td><td class="cast">陽向葵ゅか、柚木つばめ、涼花みなせ <span class="dim">+3</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">26</td><td>制服days(旧:甘声)</td><td class="num">24</td><td class="num">95</td><td class="cast">餅梨あむ、乙倉ゆい、秋野かえで <span class="dim">+3</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">27</td><td>072LABO</td><td class="num">24</td><td class="num">88</td><td class="cast">小石川うに、森野りりか、砂糖しお <span class="dim">+3</span></td><td class="handle"><a href="https://x.com/072labo" target="_blank" rel="noopener">@072labo</a></td><td><span class="tag ok">Ci-en</span></td></tr>
+<tr><td class="rank">28</td><td>ありみえASMRワールド</td><td class="num">24</td><td class="num">88</td><td class="cast">ありみえ</td><td class="handle"><a href="https://x.com/arimie_asmr" target="_blank" rel="noopener">@arimie_asmr</a></td><td><span class="tag ok">Ci-en</span></td></tr>
+<tr><td class="rank">29</td><td>ピンク世紀</td><td class="num">24</td><td class="num">87</td><td class="cast">宮内りるる、由比かのん、はらぺこちゃん</td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">30</td><td>超究極</td><td class="num">24</td><td class="num">87</td><td class="cast">七瀬ゆな、皆乃あな、初春まう <span class="dim">+3</span></td><td class="handle"><a href="https://x.com/okkun_2" target="_blank" rel="noopener">@okkun_2</a></td><td><span class="tag ok">Ci-en</span></td></tr>
+<tr><td class="rank">31</td><td>Deep;Dahlia</td><td class="num">24</td><td class="num">81</td><td class="cast">涼花みなせ、浅木式、陽向葵ゅか <span class="dim">+3</span></td><td class="handle"><a href="https://x.com/deep_dahlia" target="_blank" rel="noopener">@deep_dahlia</a></td><td><span class="tag ok">Ci-en</span></td></tr>
+<tr><td class="rank">32</td><td>J〇ほんぽ</td><td class="num">24</td><td class="num">81</td><td class="cast">涼花みなせ、みもりあいの、陽向葵ゅか <span class="dim">+3</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">33</td><td>LoveVoice研究所(旧ヤンデレシチュボ研究所)</td><td class="num">24</td><td class="num">81</td><td class="cast">いばら</td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">34</td><td>インゴヒゴ</td><td class="num">24</td><td class="num">79</td><td class="cast">陽向葵ゅか、天知遥、こやまはる <span class="dim">+3</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">35</td><td>性為の戯れ</td><td class="num">24</td><td class="num">79</td><td class="cast">西瓜すいか、餅梨あむ、乙倉ゆい <span class="dim">+3</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">36</td><td>パースペクティブ少女幻奏</td><td class="num">24</td><td class="num">78</td><td class="cast">陽向葵ゅか、天知遥、藍沢夏癒 <span class="dim">+3</span></td><td class="handle"><a href="https://x.com/info_psg2019" target="_blank" rel="noopener">@info_psg2019</a></td><td><span class="tag ok">Ci-en</span></td></tr>
+<tr><td class="rank">37</td><td>スタジオレイン</td><td class="num">24</td><td class="num">75</td><td class="cast"><span class="dim">—</span></td><td class="handle"><a href="https://x.com/fukahiredon12" target="_blank" rel="noopener">@fukahiredon12</a></td><td><span class="tag ok">Ci-en</span></td></tr>
+<tr><td class="rank">38</td><td>雪見だいふくらぶ <span class="tag ok">单人</span></td><td class="num">24</td><td class="num">75</td><td class="cast">雪見だいふく</td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">39</td><td>一番乳搾り</td><td class="num">24</td><td class="num">72</td><td class="cast">乙倉ゆい、琴音有波(紅月ことね)、山田じぇみ子 <span class="dim">+3</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">40</td><td>きみりんこ。</td><td class="num">24</td><td class="num">71</td><td class="cast">口谷亜夜</td><td class="handle"><a href="https://x.com/circlekimirinko" target="_blank" rel="noopener">@circlekimirinko</a></td><td><span class="tag ok">Ci-en</span></td></tr>
+<tr><td class="rank">41</td><td>ブラックマの嫁(伊ヶ崎綾香)</td><td class="num">24</td><td class="num">69</td><td class="cast">伊ヶ崎綾香、逢坂成美、天知遥 <span class="dim">+3</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">42</td><td>放課後チャイム</td><td class="num">24</td><td class="num">69</td><td class="cast">餅梨あむ、乙倉ゆい、秋野かえで <span class="dim">+3</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">43</td><td>M屋</td><td class="num">24</td><td class="num">68</td><td class="cast">田中、蘭世、氷上のあ <span class="dim">+3</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">44</td><td>青春×フェティシズム</td><td class="num">24</td><td class="num">64</td><td class="cast">逢坂成美、柚木つばめ、みたかりん <span class="dim">+3</span></td><td class="handle"><a href="https://x.com/aohachannel" target="_blank" rel="noopener">@aohachannel</a></td><td><span class="tag ok">Ci-en</span></td></tr>
+<tr><td class="rank">45</td><td>ゆめねこキャンディ <span class="tag ok">单人</span></td><td class="num">24</td><td class="num">62</td><td class="cast">猫視ねこ</td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">46</td><td>いんぱろぼいす</td><td class="num">24</td><td class="num">59</td><td class="cast">由比かのん、華夢しえる、うぢゅ <span class="dim">+3</span></td><td class="handle"><a href="https://x.com/inparovoice" target="_blank" rel="noopener">@inparovoice</a></td><td><span class="tag ok">Ci-en</span></td></tr>
+<tr><td class="rank">47</td><td>アトリエTODO</td><td class="num">24</td><td class="num">59</td><td class="cast">西瓜すいか、雲八はち、乙倉ゆい <span class="dim">+3</span></td><td class="handle"><a href="https://x.com/TodoTodoproduce" target="_blank" rel="noopener">@TodoTodoproduce</a></td><td><span class="tag ok">Ci-en</span></td></tr>
+<tr><td class="rank">48</td><td>めすぷれ♪</td><td class="num">24</td><td class="num">55</td><td class="cast">山田じぇみ子、琴音有波(紅月ことね)、藤村莉央 <span class="dim">+3</span></td><td class="handle"><a href="https://x.com/mesupule" target="_blank" rel="noopener">@mesupule</a></td><td><span class="tag ok">Ci-en</span></td></tr>
+<tr><td class="rank">49</td><td>オナニーの恋人</td><td class="num">24</td><td class="num">55</td><td class="cast"><span class="dim">—</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">50</td><td>せみなっつ</td><td class="num">24</td><td class="num">54</td><td class="cast">小机永遠</td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">51</td><td>バイコーンの森</td><td class="num">24</td><td class="num">54</td><td class="cast">小花衣こっこ、杏仁らいち、涼花みなせ <span class="dim">+3</span></td><td class="handle"><a href="https://x.com/VicornF" target="_blank" rel="noopener">@VicornF</a></td><td><span class="tag">Ci-en·包含</span></td></tr>
+<tr><td class="rank">52</td><td>かずたまそふと</td><td class="num">24</td><td class="num">52</td><td class="cast">涼花みなせ、雲八はち、恋鈴桃歌 <span class="dim">+3</span></td><td class="handle"><a href="https://x.com/kazutamadoujin" target="_blank" rel="noopener">@kazutamadoujin</a></td><td><span class="tag">Ci-en·包含</span></td></tr>
+<tr><td class="rank">53</td><td>DragonMango</td><td class="num">24</td><td class="num">51</td><td class="cast">七瀬ゆな、夏野華、悪魔つかさ <span class="dim">+3</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">54</td><td>ソコにはまだ知らないアナがあった <span class="tag ok">单人</span></td><td class="num">24</td><td class="num">50</td><td class="cast">逢坂成美</td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">55</td><td>プロダクションみかん</td><td class="num">24</td><td class="num">49</td><td class="cast">餅梨あむ、水野七海、逢坂成美</td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">56</td><td>実演オホ声</td><td class="num">24</td><td class="num">49</td><td class="cast">あめち、とろぴこ、はらぺこちゃん <span class="dim">+3</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">57</td><td>脳イキASMR</td><td class="num">24</td><td class="num">49</td><td class="cast"><span class="dim">—</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">58</td><td>See you.</td><td class="num">24</td><td class="num">48</td><td class="cast">涼花みなせ、御子柴泉、浅木式 <span class="dim">+3</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">59</td><td>ゆうとぴゅあ</td><td class="num">24</td><td class="num">48</td><td class="cast">葉月ゆう、柚木つばめ、川乃瀬由羽 <span class="dim">+3</span></td><td class="handle"><a href="https://x.com/10ru00" target="_blank" rel="noopener">@10ru00</a></td><td><span class="tag ok">Ci-en</span></td></tr>
+<tr><td class="rank">60</td><td>コロコエ</td><td class="num">24</td><td class="num">48</td><td class="cast">秋野かえで、涼花みなせ、柚木つばめ <span class="dim">+3</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">61</td><td>JKギルティ♥</td><td class="num">24</td><td class="num">47</td><td class="cast">双葉すずね、伊月れん、姫宮ぬく美 <span class="dim">+3</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">62</td><td>寝取り寝取られ爆乳ボイス</td><td class="num">24</td><td class="num">47</td><td class="cast">豊川ゆき、STELLA、春乃つくし <span class="dim">+3</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">63</td><td>うこんちゃん☆かんぱにぃ</td><td class="num">24</td><td class="num">46</td><td class="cast">恋鈴桃歌、麦咲輪紫葵、都みみち <span class="dim">+3</span></td><td class="handle"><a href="https://x.com/ukonchan_com" target="_blank" rel="noopener">@ukonchan_com</a></td><td><span class="tag ok">Ci-en</span></td></tr>
+<tr><td class="rank">64</td><td>でぃすとぴあ</td><td class="num">24</td><td class="num">44</td><td class="cast"><span class="dim">—</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">65</td><td>才色兼ビッチ</td><td class="num">24</td><td class="num">43</td><td class="cast">飴屋ぺろり、乙倉ゆい、恋鈴桃歌</td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">66</td><td>UZMR</td><td class="num">24</td><td class="num">42</td><td class="cast">涼花みなせ、みもりあいの、浅木式 <span class="dim">+3</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">67</td><td>いすこの音喘</td><td class="num">24</td><td class="num">41</td><td class="cast">七瀬ゆな、あんどりーな、たまね <span class="dim">+3</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">68</td><td>バタリンコちゃん</td><td class="num">24</td><td class="num">41</td><td class="cast">一条ひらめ、田中、金森幸雅 <span class="dim">+3</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">69</td><td>来世猫と未来の大富豪 <span class="tag ok">单人</span></td><td class="num">24</td><td class="num">40</td><td class="cast">梵雪音</td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">70</td><td>ぱちぱちぼいす</td><td class="num">24</td><td class="num">39</td><td class="cast">陽向葵ゅか、鳴瀬なごみ、そよかぜみらい <span class="dim">+3</span></td><td class="handle"><a href="https://x.com/pachipachisoft" target="_blank" rel="noopener">@pachipachisoft</a></td><td><span class="tag ok">Ci-en</span></td></tr>
+<tr><td class="rank">71</td><td>ろまあぽ</td><td class="num">24</td><td class="num">39</td><td class="cast">秋山はるる、御子柴泉、浅木式 <span class="dim">+3</span></td><td class="handle"><a href="https://x.com/romaapoinfo" target="_blank" rel="noopener">@romaapoinfo</a></td><td><span class="tag ok">Ci-en</span></td></tr>
+<tr><td class="rank">72</td><td>ホロクサミドリ</td><td class="num">24</td><td class="num">38</td><td class="cast">陽向葵ゅか、柚木つばめ、大山チロル <span class="dim">+3</span></td><td class="handle"><a href="https://x.com/MidoriHorokusa" target="_blank" rel="noopener">@MidoriHorokusa</a></td><td><span class="tag ok">Ci-en</span></td></tr>
+<tr><td class="rank">73</td><td>にゅうにゅう</td><td class="num">24</td><td class="num">35</td><td class="cast">山田じぇみ子、乙倉ゆい、小花衣こっこ <span class="dim">+3</span></td><td class="handle"><a href="https://x.com/nyu_nyu_fantasy" target="_blank" rel="noopener">@nyu_nyu_fantasy</a></td><td><span class="tag ok">Ci-en</span></td></tr>
+<tr><td class="rank">74</td><td>劇團近未来</td><td class="num">24</td><td class="num">34</td><td class="cast">涼花みなせ、室井かなめ、秋山はるる <span class="dim">+3</span></td><td class="handle"><a href="https://x.com/kin_mirai" target="_blank" rel="noopener">@kin_mirai</a></td><td><span class="tag ok">Ci-en</span></td></tr>
+<tr><td class="rank">75</td><td>マヨタマ</td><td class="num">24</td><td class="num">33</td><td class="cast">柚木つばめ、陽向葵ゅか、大山チロル <span class="dim">+2</span></td><td class="handle"><a href="https://x.com/_mayotama_" target="_blank" rel="noopener">@_mayotama_</a></td><td><span class="tag ok">Ci-en</span></td></tr>
+<tr><td class="rank">76</td><td>東京録音堂</td><td class="num">24</td><td class="num">33</td><td class="cast">餅梨あむ、秋野かえで、乙倉ゆい <span class="dim">+3</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">77</td><td>お小水くらぶ</td><td class="num">24</td><td class="num">32</td><td class="cast">柊木めぐ</td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">78</td><td>ドライオーガズム研究会</td><td class="num">24</td><td class="num">32</td><td class="cast"><span class="dim">—</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">79</td><td>こいねいろ(旧:三色だんご屋)</td><td class="num">24</td><td class="num">31</td><td class="cast">みもりあいの、御子柴泉、分倍河原シホ <span class="dim">+3</span></td><td class="handle"><a href="https://x.com/koi_neiro" target="_blank" rel="noopener">@koi_neiro</a></td><td><span class="tag ok">Ci-en</span></td></tr>
+<tr><td class="rank">80</td><td>快音Club</td><td class="num">24</td><td class="num">31</td><td class="cast"><span class="dim">—</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">81</td><td>桃色みんと</td><td class="num">24</td><td class="num">31</td><td class="cast">柚木つばめ、陽向葵ゅか、MOMOKA。 <span class="dim">+3</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">82</td><td>ネジ企画</td><td class="num">24</td><td class="num">29</td><td class="cast">西瓜すいか、もちづきみなみ、麦咲輪紫葵</td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">83</td><td>mosoundworks</td><td class="num">24</td><td class="num">28</td><td class="cast"><span class="dim">—</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">84</td><td>末期偶想</td><td class="num">24</td><td class="num">28</td><td class="cast">和泉美鈴、天羽リケ、永園たのしぃ <span class="dim">+3</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">85</td><td>アオハルすぷりっと</td><td class="num">24</td><td class="num">27</td><td class="cast"><span class="dim">—</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">86</td><td>蛍日亭</td><td class="num">24</td><td class="num">27</td><td class="cast">みやぢ、浅見ゆい、陽向葵ゅか <span class="dim">+3</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">87</td><td>ふわふわみるく</td><td class="num">24</td><td class="num">25</td><td class="cast"><span class="dim">—</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">88</td><td>デュオナほ!</td><td class="num">24</td><td class="num">25</td><td class="cast">乙倉ゆい、藤村莉央、琴音有波(紅月ことね) <span class="dim">+3</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">89</td><td>即ヌキ研究会</td><td class="num">24</td><td class="num">25</td><td class="cast"><span class="dim">—</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">90</td><td>スタジオライム</td><td class="num">24</td><td class="num">24</td><td class="cast"><span class="dim">—</span></td><td class="handle"><a href="https://x.com/StudioLime_" target="_blank" rel="noopener">@StudioLime_</a></td><td><span class="tag">Ci-en·包含</span></td></tr>
+<tr><td class="rank">91</td><td>モシモセカイ</td><td class="num">24</td><td class="num">24</td><td class="cast"><span class="dim">—</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">92</td><td>音Este</td><td class="num">24</td><td class="num">24</td><td class="cast">なぎ♪、七瀬ゆな、進藤あずさ <span class="dim">+3</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">93</td><td>シロクマの嫁(伊ヶ崎綾香)</td><td class="num">23</td><td class="num">87</td><td class="cast">伊ヶ崎綾香、天知遥、藍沢夏癒 <span class="dim">+3</span></td><td class="handle"><a href="https://x.com/ayakaigasaki" target="_blank" rel="noopener">@ayakaigasaki</a></td><td><span class="tag ok">Ci-en</span></td></tr>
+<tr><td class="rank">94</td><td>ももゆ屋</td><td class="num">23</td><td class="num">23</td><td class="cast">桃湯うがい</td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">95</td><td>ヒトづまパラダイス</td><td class="num">23</td><td class="num">23</td><td class="cast"><span class="dim">—</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">96</td><td>少女クロイスタ</td><td class="num">23</td><td class="num">23</td><td class="cast">涼花みなせ、陽向葵ゅか、みもりあいの <span class="dim">+3</span></td><td class="handle"><a href="https://x.com/Girls_Cloister" target="_blank" rel="noopener">@Girls_Cloister</a></td><td><span class="tag ok">Ci-en</span></td></tr>
+<tr><td class="rank">97</td><td>防鯖潤滑剤</td><td class="num">22</td><td class="num">112</td><td class="cast">天知遥、陽向葵ゅか、みもりあいの <span class="dim">+3</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">98</td><td>ラムネ屋</td><td class="num">22</td><td class="num">64</td><td class="cast">柚木つばめ、大山チロル、陽向葵ゅか <span class="dim">+3</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">99</td><td>サークル名ao</td><td class="num">22</td><td class="num">42</td><td class="cast">涼花みなせ、神代そら、秋野かえで <span class="dim">+3</span></td><td class="handle"><a href="https://x.com/Circlename_ao_" target="_blank" rel="noopener">@Circlename_ao_</a></td><td><span class="tag ok">Ci-en</span></td></tr>
+<tr><td class="rank">100</td><td>PINK PUNK PRO</td><td class="num">22</td><td class="num">38</td><td class="cast">園原あいり、流川らき</td><td class="handle"><a href="https://x.com/PinkPunkPro" target="_blank" rel="noopener">@PinkPunkPro</a></td><td><span class="tag ok">Ci-en</span></td></tr>
+<tr><td class="rank">101</td><td>みずたま工房 <span class="tag ok">单人</span></td><td class="num">22</td><td class="num">22</td><td class="cast">佐々木サキ</td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">102</td><td>桃色まんごー</td><td class="num">22</td><td class="num">22</td><td class="cast"><span class="dim">—</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">103</td><td>ドリームファクトリー</td><td class="num">21</td><td class="num">40</td><td class="cast">恋鈴桃歌、西瓜すいか、乙倉ゆい <span class="dim">+3</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">104</td><td>お漏らしふぇち部</td><td class="num">21</td><td class="num">24</td><td class="cast">西瓜すいか、御子柴泉、鳴宮なる <span class="dim">+3</span></td><td class="handle"><a href="https://x.com/omoomo8818" target="_blank" rel="noopener">@omoomo8818</a></td><td><span class="tag ok">Ci-en</span></td></tr>
+<tr><td class="rank">105</td><td>すいーとみるく</td><td class="num">20</td><td class="num">41</td><td class="cast">小花衣こっこ、MOMOKA。、姫華にちか <span class="dim">+3</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">106</td><td>黒月商会</td><td class="num">20</td><td class="num">38</td><td class="cast">御子柴泉、餅梨あむ、ありがた～い私 <span class="dim">+3</span></td><td class="handle"><a href="https://x.com/kurotukisyoukai" target="_blank" rel="noopener">@kurotukisyoukai</a></td><td><span class="tag ok">Ci-en</span></td></tr>
+<tr><td class="rank">107</td><td>ネコミミトーキョー</td><td class="num">20</td><td class="num">36</td><td class="cast">伊ヶ崎綾香、山田じぇみ子、秋山はるる <span class="dim">+1</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">108</td><td>マッド・ヴィーナス</td><td class="num">20</td><td class="num">33</td><td class="cast">恋鈴桃歌、御子柴泉、西瓜すいか <span class="dim">+3</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">109</td><td>バイノーラルサンド</td><td class="num">20</td><td class="num">26</td><td class="cast">こやまはる、分倍河原シホ、秋山はるる <span class="dim">+3</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">110</td><td>オトヨメ</td><td class="num">20</td><td class="num">20</td><td class="cast">みもりあいの、陽向葵ゅか、涼花みなせ <span class="dim">+2</span></td><td class="handle"><a href="https://x.com/otoyome_18" target="_blank" rel="noopener">@otoyome_18</a></td><td><span class="tag ok">Ci-en</span></td></tr>
+<tr><td class="rank">111</td><td>ワサビ屋</td><td class="num">19</td><td class="num">41</td><td class="cast">陽向葵ゅか、大山チロル、そらまめ。 <span class="dim">+3</span></td><td class="handle"><a href="https://x.com/wasabi_maru09" target="_blank" rel="noopener">@wasabi_maru09</a></td><td><span class="tag ok">Ci-en</span></td></tr>
+<tr><td class="rank">112</td><td>ディーブルスト</td><td class="num">19</td><td class="num">38</td><td class="cast"><span class="dim">—</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">113</td><td>汁次元</td><td class="num">19</td><td class="num">30</td><td class="cast">綾川ちゆき、逢瀬ふらち</td><td class="handle"><a href="https://x.com/zyuzigen" target="_blank" rel="noopener">@zyuzigen</a></td><td><span class="tag">Ci-en·包含</span></td></tr>
+<tr><td class="rank">114</td><td>Mermaid Labo</td><td class="num">19</td><td class="num">22</td><td class="cast"><span class="dim">—</span></td><td class="handle"><a href="https://x.com/MermaidLabo" target="_blank" rel="noopener">@MermaidLabo</a></td><td><span class="tag">Ci-en·包含</span></td></tr>
+<tr><td class="rank">115</td><td>イタズラ屋</td><td class="num">19</td><td class="num">19</td><td class="cast">あかり</td><td class="handle"><a href="https://x.com/itazuraya2025" target="_blank" rel="noopener">@itazuraya2025</a></td><td><span class="tag ok">Ci-en</span></td></tr>
+<tr><td class="rank">116</td><td>悪女名鑑(常世常闇所々)</td><td class="num">18</td><td class="num">43</td><td class="cast">陽向葵ゅか、野上菜月、涼花みなせ <span class="dim">+3</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">117</td><td>ぎゃっぷスタジオ</td><td class="num">18</td><td class="num">41</td><td class="cast">篠守ゆきこ、分倍河原シホ、まさきふぁん <span class="dim">+3</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">118</td><td>戦国百花伝【公式】</td><td class="num">18</td><td class="num">40</td><td class="cast"><span class="dim">—</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">119</td><td>甘幸冬水</td><td class="num">18</td><td class="num">40</td><td class="cast">大山チロル、秋野かえで、柚木つばめ <span class="dim">+3</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">120</td><td>Rad.Revel</td><td class="num">18</td><td class="num">31</td><td class="cast">柚木つばめ、大山チロル、陽向葵ゅか <span class="dim">+1</span></td><td class="handle"><a href="https://x.com/RadRevel" target="_blank" rel="noopener">@RadRevel</a></td><td><span class="tag ok">Ci-en</span></td></tr>
+<tr><td class="rank">121</td><td>さめはだ出版</td><td class="num">18</td><td class="num">22</td><td class="cast">山田じぇみ子、恋鈴桃歌、琴音有波(紅月ことね) <span class="dim">+3</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">122</td><td>rabits</td><td class="num">18</td><td class="num">21</td><td class="cast">こやまはる、陽向葵ゅか、天知遥 <span class="dim">+3</span></td><td class="handle"><a href="https://x.com/rabitsaudio" target="_blank" rel="noopener">@rabitsaudio</a></td><td><span class="tag ok">Ci-en</span></td></tr>
+<tr><td class="rank">123</td><td>シコリテック∞ジョイント</td><td class="num">18</td><td class="num">21</td><td class="cast">御子柴泉、柚木つばめ、大山チロル <span class="dim">+3</span></td><td class="handle"><a href="https://x.com/sikoly45" target="_blank" rel="noopener">@sikoly45</a></td><td><span class="tag">Ci-en·包含</span></td></tr>
+<tr><td class="rank">124</td><td>ASMR風俗館</td><td class="num">18</td><td class="num">18</td><td class="cast">餅梨あむ、御子柴泉、乙倉ゆい <span class="dim">+3</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">125</td><td>SnowCable</td><td class="num">18</td><td class="num">18</td><td class="cast">佐京柚音、都みみち、川乃瀬由羽 <span class="dim">+3</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">126</td><td>ぐらまらす工房</td><td class="num">18</td><td class="num">18</td><td class="cast">御子柴泉、秋野かえで、秋山はるる <span class="dim">+3</span></td><td class="handle"><a href="https://x.com/glamorous_ko_pr" target="_blank" rel="noopener">@glamorous_ko_pr</a></td><td><span class="tag ok">Ci-en</span></td></tr>
+<tr><td class="rank">127</td><td>こねくとぴあ</td><td class="num">18</td><td class="num">18</td><td class="cast">天砕めてお、夜美月どくろ、裏庭うめる</td><td class="handle"><a href="https://x.com/umeru_main" target="_blank" rel="noopener">@umeru_main</a></td><td><span class="tag">Ci-en·包含</span></td></tr>
+<tr><td class="rank">128</td><td>シンアイ。</td><td class="num">18</td><td class="num">18</td><td class="cast">乙倉ゆい、恋鈴桃歌、飴屋ぺろり <span class="dim">+3</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">129</td><td>実演メロン</td><td class="num">18</td><td class="num">18</td><td class="cast">七瀬ゆな、双葉すずね、彼氏持ちOLちゃん <span class="dim">+2</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">130</td><td>はっすん</td><td class="num">17</td><td class="num">30</td><td class="cast">御子柴泉、秋山はるる、ありのりあ <span class="dim">+3</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">131</td><td>裏垢スタジオ</td><td class="num">17</td><td class="num">28</td><td class="cast">涼花みなせ、みもりあいの、堀米玲音 <span class="dim">+3</span></td><td class="handle"><a href="https://x.com/uraaka_studio" target="_blank" rel="noopener">@uraaka_studio</a></td><td><span class="tag ok">Ci-en</span></td></tr>
+<tr><td class="rank">132</td><td>Yostar</td><td class="num">17</td><td class="num">25</td><td class="cast">夏吉ゆうこ、ゆかな、三浦千幸 <span class="dim">+3</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">133</td><td>Lilith [リリス]</td><td class="num">17</td><td class="num">18</td><td class="cast">氷室百合、蒼乃むすび、ももぞの薫 <span class="dim">+3</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">134</td><td>Lilith ［リリス］</td><td class="num">17</td><td class="num">17</td><td class="cast">蒼乃むすび、ももぞの薫、榊木春乃 <span class="dim">+3</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">135</td><td>永井監督</td><td class="num">17</td><td class="num">17</td><td class="cast">柚木つばめ、陽向葵ゅか、逢坂成美 <span class="dim">+2</span></td><td class="handle"><a href="https://x.com/NagaiKantoku" target="_blank" rel="noopener">@NagaiKantoku</a></td><td><span class="tag ok">Ci-en</span></td></tr>
+<tr><td class="rank">136</td><td>みるくめろん</td><td class="num">16</td><td class="num">100</td><td class="cast"><span class="dim">—</span></td><td class="handle"><a href="https://x.com/Milk_Melon21" target="_blank" rel="noopener">@Milk_Melon21</a></td><td><span class="tag ok">Ci-en</span></td></tr>
+<tr><td class="rank">137</td><td>チームランドセル</td><td class="num">16</td><td class="num">79</td><td class="cast">美吹ゆうさ、小花衣こっこ、七瀬真結 <span class="dim">+3</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">138</td><td>電撃G&#39;s magazine</td><td class="num">16</td><td class="num">50</td><td class="cast">小原好美、石見舞菜香、上田麗奈 <span class="dim">+3</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">139</td><td>ひなぎく亭</td><td class="num">16</td><td class="num">34</td><td class="cast">狼ノ宮ヒナギク、本多ぽこ、来栖なむる <span class="dim">+2</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">140</td><td>のの庵</td><td class="num">16</td><td class="num">33</td><td class="cast">秋野かえで、陽向葵ゅか、みもりあいの <span class="dim">+3</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">141</td><td>ヤドナーズcafe</td><td class="num">16</td><td class="num">27</td><td class="cast">桜音のん</td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">142</td><td>つばめいと</td><td class="num">16</td><td class="num">21</td><td class="cast">柚木つばめ、椎名るな</td><td class="handle"><a href="https://x.com/re_re_tsubame" target="_blank" rel="noopener">@re_re_tsubame</a></td><td><span class="tag">Ci-en·包含</span></td></tr>
+<tr><td class="rank">143</td><td>grandmenu</td><td class="num">16</td><td class="num">19</td><td class="cast"><span class="dim">—</span></td><td class="handle"><a href="https://x.com/grandmenu3373" target="_blank" rel="noopener">@grandmenu3373</a></td><td><span class="tag ok">Ci-en</span></td></tr>
+<tr><td class="rank">144</td><td>工画堂スタジオ</td><td class="num">16</td><td class="num">19</td><td class="cast">土屋李央、薄井友里、篠原侑 <span class="dim">+3</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">145</td><td>えもこ本舗</td><td class="num">16</td><td class="num">18</td><td class="cast">えもこ、裏垢女子あむちゃん</td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">146</td><td>TigerGateProject</td><td class="num">16</td><td class="num">16</td><td class="cast">柚木つばめ、大山チロル、秋山はるる</td><td class="handle"><a href="https://x.com/commons0229" target="_blank" rel="noopener">@commons0229</a></td><td><span class="tag ok">Ci-en</span></td></tr>
+<tr><td class="rank">147</td><td>すとろべりぃたると <span class="tag ok">单人</span></td><td class="num">16</td><td class="num">16</td><td class="cast">山田じぇみ子</td><td class="handle"><a href="https://x.com/asmr_strawberr" target="_blank" rel="noopener">@asmr_strawberr</a></td><td><span class="tag">Ci-en·包含</span></td></tr>
+<tr><td class="rank">148</td><td>キャンディタフト</td><td class="num">16</td><td class="num">16</td><td class="cast">38、皆乃あな</td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">149</td><td>バニーゲームス</td><td class="num">16</td><td class="num">16</td><td class="cast">陽向葵ゅか、天知遥、海音ミヅチ <span class="dim">+3</span></td><td class="handle"><a href="https://x.com/bunnygames0303" target="_blank" rel="noopener">@bunnygames0303</a></td><td><span class="tag ok">Ci-en</span></td></tr>
+<tr><td class="rank">150</td><td>バーチャルメイド喫茶『ますかれーど』</td><td class="num">16</td><td class="num">16</td><td class="cast">猫田ぺぺろ、夢宮ありす、萌々嫁もか</td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">151</td><td>ミクロパレット</td><td class="num">16</td><td class="num">16</td><td class="cast">ななぽ、初春まう、双葉すずね <span class="dim">+3</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">152</td><td>とろとろすたじお</td><td class="num">15</td><td class="num">48</td><td class="cast">眠音りま、伊倉える、篠守ゆきこ <span class="dim">+3</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">153</td><td>シロクマの嫁</td><td class="num">15</td><td class="num">40</td><td class="cast">伊ヶ崎綾香、かの仔、そらまめ。 <span class="dim">+3</span></td><td class="handle"><a href="https://x.com/ayakaigasaki" target="_blank" rel="noopener">@ayakaigasaki</a></td><td><span class="tag">Ci-en·包含</span></td></tr>
+<tr><td class="rank">154</td><td>恋楽屋</td><td class="num">15</td><td class="num">37</td><td class="cast">涼花みなせ、秋野かえで、MOMOKA。 <span class="dim">+3</span></td><td class="handle"><a href="https://x.com/koigakuya" target="_blank" rel="noopener">@koigakuya</a></td><td><span class="tag ok">Ci-en</span></td></tr>
+<tr><td class="rank">155</td><td>がんまりちゃんねる</td><td class="num">15</td><td class="num">32</td><td class="cast"><span class="dim">—</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">156</td><td>ふわふわ将軍</td><td class="num">15</td><td class="num">31</td><td class="cast">柚木つばめ、ごま豆乳、大山チロル <span class="dim">+3</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">157</td><td>しこたまちゃれんじ</td><td class="num">15</td><td class="num">28</td><td class="cast">秋山はるる、陽向葵ゅか、御子柴泉 <span class="dim">+3</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">158</td><td>スタジオスモーク</td><td class="num">15</td><td class="num">24</td><td class="cast">餅梨あむ、涼花みなせ、乙倉ゆい <span class="dim">+3</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">159</td><td>おいしいおこめ</td><td class="num">15</td><td class="num">17</td><td class="cast">御子柴泉、餅梨あむ、西瓜すいか <span class="dim">+3</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">160</td><td>rino</td><td class="num">15</td><td class="num">15</td><td class="cast"><span class="dim">—</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">161</td><td>かにかに小屋</td><td class="num">15</td><td class="num">15</td><td class="cast"><span class="dim">—</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">162</td><td>すがのわーくす</td><td class="num">14</td><td class="num">89</td><td class="cast"><span class="dim">—</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">163</td><td>SweetNightmare</td><td class="num">14</td><td class="num">48</td><td class="cast">MOMOKA。、天知遥、陽向葵ゅか <span class="dim">+3</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">164</td><td>Lover&#39;sHand</td><td class="num">14</td><td class="num">47</td><td class="cast">恋鈴桃歌、手塚りょうこ、涼花みなせ <span class="dim">+3</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">165</td><td>アールグレイ</td><td class="num">14</td><td class="num">33</td><td class="cast">日高里菜、丹下桜、河瀬茉希 <span class="dim">+3</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">166</td><td>STK</td><td class="num">14</td><td class="num">27</td><td class="cast"><span class="dim">—</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">167</td><td>バナナ解放軍</td><td class="num">14</td><td class="num">19</td><td class="cast">秋山はるる、大山チロル、浅木式 <span class="dim">+3</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">168</td><td>ウタカタ</td><td class="num">14</td><td class="num">18</td><td class="cast">有栖川みや美</td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">169</td><td>Snow Prism</td><td class="num">14</td><td class="num">15</td><td class="cast">陽向葵ゅか、まさきふぁん、みもりあいの <span class="dim">+3</span></td><td class="handle"><a href="https://x.com/snopri220" target="_blank" rel="noopener">@snopri220</a></td><td><span class="tag ok">Ci-en</span></td></tr>
+<tr><td class="rank">170</td><td>かえでの木</td><td class="num">14</td><td class="num">14</td><td class="cast"><span class="dim">—</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">171</td><td>ちゃんとぴ発電所 <span class="tag ok">单人</span></td><td class="num">14</td><td class="num">14</td><td class="cast">麦咲輪紫葵</td><td class="handle"><a href="https://x.com/chantopi_hd" target="_blank" rel="noopener">@chantopi_hd</a></td><td><span class="tag ok">Ci-en</span></td></tr>
+<tr><td class="rank">172</td><td>ロマンスすとーりー</td><td class="num">14</td><td class="num">14</td><td class="cast">みもりあいの、伊ヶ崎綾香、逢坂成美 <span class="dim">+3</span></td><td class="handle"><a href="https://x.com/RomaPro_CR" target="_blank" rel="noopener">@RomaPro_CR</a></td><td><span class="tag ok">Ci-en</span></td></tr>
+<tr><td class="rank">173</td><td>美女音声研究所</td><td class="num">14</td><td class="num">14</td><td class="cast"><span class="dim">—</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">174</td><td>性癖博物館</td><td class="num">14</td><td class="num">7</td><td class="cast">喘にゃんこ、あくび、ああ林さん <span class="dim">+3</span></td><td class="handle"><a href="https://x.com/MSH_DLsite" target="_blank" rel="noopener">@MSH_DLsite</a></td><td><span class="tag ok">Ci-en</span></td></tr>
+<tr><td class="rank">175</td><td>ひだまりみるくてぃ</td><td class="num">13</td><td class="num">57</td><td class="cast">伊ヶ崎綾香、逢坂成美、藍沢夏癒 <span class="dim">+3</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">176</td><td>CANDY VOICE</td><td class="num">13</td><td class="num">55</td><td class="cast">茅野愛衣、東山奈央、上坂すみれ <span class="dim">+3</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">177</td><td>F・A・S</td><td class="num">13</td><td class="num">49</td><td class="cast">野上菜月、沢野ぽぷら、そらまめ。 <span class="dim">+3</span></td><td class="handle"><a href="https://x.com/tareme4569" target="_blank" rel="noopener">@tareme4569</a></td><td><span class="tag ok">Ci-en</span></td></tr>
+<tr><td class="rank">178</td><td>ろんりーわん</td><td class="num">13</td><td class="num">40</td><td class="cast">柚木つばめ、浪実みお、高梨はなみ <span class="dim">+3</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">179</td><td>失楽少女</td><td class="num">13</td><td class="num">20</td><td class="cast">陽向葵ゅか、涼花みなせ、秋野かえで <span class="dim">+3</span></td><td class="handle"><a href="https://x.com/ShitsurakuGirl" target="_blank" rel="noopener">@ShitsurakuGirl</a></td><td><span class="tag ok">Ci-en</span></td></tr>
+<tr><td class="rank">180</td><td>でぶり</td><td class="num">13</td><td class="num">19</td><td class="cast">麦咲輪紫葵、森野めぐむ、つばきりむ <span class="dim">+3</span></td><td class="handle"><a href="https://x.com/eardebris" target="_blank" rel="noopener">@eardebris</a></td><td><span class="tag ok">Ci-en</span></td></tr>
+<tr><td class="rank">181</td><td>はだか抱きまくら係</td><td class="num">13</td><td class="num">17</td><td class="cast">餅梨あむ、天知遥、甘包いちづ <span class="dim">+3</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">182</td><td>はにぃらばぁず</td><td class="num">13</td><td class="num">13</td><td class="cast">雲八はち、陽向葵ゅか、佐京柚音 <span class="dim">+3</span></td><td class="handle"><a href="https://x.com/honeylovers_sbe" target="_blank" rel="noopener">@honeylovers_sbe</a></td><td><span class="tag ok">Ci-en</span></td></tr>
+<tr><td class="rank">183</td><td>アルギュロスの寝室</td><td class="num">13</td><td class="num">13</td><td class="cast">アルギュロス</td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">184</td><td>貞操観念逆転世界</td><td class="num">13</td><td class="num">13</td><td class="cast">恋鈴桃歌、雲八はち、海音ミヅチ <span class="dim">+3</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">185</td><td>VOICE LOVER</td><td class="num">12</td><td class="num">126</td><td class="cast">琴音有波(紅月ことね)、陽向葵ゅか、ニャルぽむぽむ <span class="dim">+3</span></td><td class="handle"><a href="https://x.com/voicelover" target="_blank" rel="noopener">@voicelover</a></td><td><span class="tag ok">Ci-en</span></td></tr>
+<tr><td class="rank">186</td><td>うえぶんり</td><td class="num">12</td><td class="num">34</td><td class="cast">柚木つばめ、涼花みなせ、高梨はなみ <span class="dim">+3</span></td><td class="handle"><a href="https://x.com/uebunri" target="_blank" rel="noopener">@uebunri</a></td><td><span class="tag ok">Ci-en</span></td></tr>
+<tr><td class="rank">187</td><td>Delivery Voice</td><td class="num">12</td><td class="num">27</td><td class="cast">涼花みなせ、秋山はるる、御子柴泉 <span class="dim">+3</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">188</td><td>ありがた屋</td><td class="num">12</td><td class="num">19</td><td class="cast">ありがた～い私、雪見だいふく、餅梨あむ <span class="dim">+3</span></td><td class="handle"><a href="https://x.com/kanzinowatashi" target="_blank" rel="noopener">@kanzinowatashi</a></td><td><span class="tag">Ci-en·包含</span></td></tr>
+<tr><td class="rank">189</td><td>ジツエン</td><td class="num">12</td><td class="num">15</td><td class="cast"><span class="dim">—</span></td><td class="handle"><a href="https://x.com/jitsuen_voice" target="_blank" rel="noopener">@jitsuen_voice</a></td><td><span class="tag">Ci-en·包含</span></td></tr>
+<tr><td class="rank">190</td><td>かにかに小屋（堕）</td><td class="num">12</td><td class="num">12</td><td class="cast">涼貴涼、風慈宮ユキ</td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">191</td><td>さくら屋</td><td class="num">12</td><td class="num">12</td><td class="cast">摘木さくら</td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">192</td><td>しっぽとしましま</td><td class="num">12</td><td class="num">12</td><td class="cast">餅梨あむ、高梨はなみ</td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">193</td><td>イデアリズム少女人形</td><td class="num">12</td><td class="num">12</td><td class="cast">涼花みなせ、高梨はなみ、餅梨あむ <span class="dim">+3</span></td><td class="handle"><a href="https://x.com/ohshimap_new" target="_blank" rel="noopener">@ohshimap_new</a></td><td><span class="tag">Ci-en·包含</span></td></tr>
+<tr><td class="rank">194</td><td>ヨルガオ亭</td><td class="num">12</td><td class="num">12</td><td class="cast">小花衣こっこ、思ちぽ、みもりあいの <span class="dim">+3</span></td><td class="handle"><a href="https://x.com/hotarubi00101" target="_blank" rel="noopener">@hotarubi00101</a></td><td><span class="tag">Ci-en·包含</span></td></tr>
+<tr><td class="rank">195</td><td>猫耳屋</td><td class="num">12</td><td class="num">12</td><td class="cast">みもりあいの、大山チロル、柚木つばめ <span class="dim">+1</span></td><td class="handle"><a href="https://x.com/cielo20245" target="_blank" rel="noopener">@cielo20245</a></td><td><span class="tag ok">Ci-en</span></td></tr>
+<tr><td class="rank">196</td><td>にゃまれっと</td><td class="num">12</td><td class="num">8</td><td class="cast">藤村莉央、乙倉ゆい、月山岳 <span class="dim">+3</span></td><td class="handle"><a href="https://x.com/Nyamaretto" target="_blank" rel="noopener">@Nyamaretto</a></td><td><span class="tag">Ci-en·包含</span></td></tr>
+<tr><td class="rank">197</td><td>HORNET</td><td class="num">11</td><td class="num">34</td><td class="cast">遊佐ミコト、陽向葵ゅか、乙倉ゆい <span class="dim">+3</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">198</td><td>居酒屋少女</td><td class="num">11</td><td class="num">34</td><td class="cast">高梨はなみ、天知遥、陽向葵ゅか <span class="dim">+3</span></td><td class="handle"><a href="https://x.com/ohshimap_new" target="_blank" rel="noopener">@ohshimap_new</a></td><td><span class="tag">Ci-en·包含</span></td></tr>
+<tr><td class="rank">199</td><td>しましま亭</td><td class="num">11</td><td class="num">28</td><td class="cast">涼花みなせ、分倍河原シホ、大山チロル <span class="dim">+3</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">200</td><td>アンスリウム</td><td class="num">11</td><td class="num">28</td><td class="cast">御崎ひより、陽向葵ゅか、砂糖しお <span class="dim">+1</span></td><td class="handle"><a href="https://x.com/Anthurium_azami" target="_blank" rel="noopener">@Anthurium_azami</a></td><td><span class="tag ok">Ci-en</span></td></tr>
+<tr><td class="rank">201</td><td>ふわとろ☆ギャラクシー</td><td class="num">11</td><td class="num">22</td><td class="cast">陽向葵ゅか、南めいび、天知遥 <span class="dim">+3</span></td><td class="handle"><a href="https://x.com/FuwatoroGalaxy" target="_blank" rel="noopener">@FuwatoroGalaxy</a></td><td><span class="tag">Ci-en·包含</span></td></tr>
+<tr><td class="rank">202</td><td>清楚工房</td><td class="num">11</td><td class="num">16</td><td class="cast">陽向葵ゅか、涼花みなせ、逢坂成美 <span class="dim">+3</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">203</td><td>スタジオ拘束少女図鑑</td><td class="num">11</td><td class="num">13</td><td class="cast">MOMOKA。、涼花みなせ、篠守ゆきこ <span class="dim">+3</span></td><td class="handle"><a href="https://x.com/kousoku1118" target="_blank" rel="noopener">@kousoku1118</a></td><td><span class="tag">Ci-en·包含</span></td></tr>
+<tr><td class="rank">204</td><td>だしまき屋</td><td class="num">11</td><td class="num">12</td><td class="cast">まあ油るる、逢坂成美、山田じぇみ子 <span class="dim">+3</span></td><td class="handle"><a href="https://x.com/Dash_i_Maki" target="_blank" rel="noopener">@Dash_i_Maki</a></td><td><span class="tag ok">Ci-en</span></td></tr>
+<tr><td class="rank">205</td><td>potte</td><td class="num">11</td><td class="num">11</td><td class="cast">歩サラ、奏雨、逢真井もこ</td><td class="handle"><a href="https://x.com/potte1919" target="_blank" rel="noopener">@potte1919</a></td><td><span class="tag">Ci-en·包含</span></td></tr>
+<tr><td class="rank">206</td><td>ふぇらんふぇらん</td><td class="num">11</td><td class="num">11</td><td class="cast">奥ノ澄子、竹咲羽海</td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">207</td><td>シングルママの日常</td><td class="num">11</td><td class="num">11</td><td class="cast"><span class="dim">—</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">208</td><td>性癖孫の手研究室</td><td class="num">11</td><td class="num">11</td><td class="cast">つばきりむ、真白真雪</td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">209</td><td>ホワイト×ラバーズ</td><td class="num">10</td><td class="num">62</td><td class="cast">MOMOKA。、来夢ふらん、篠守ゆきこ <span class="dim">+3</span></td><td class="handle"><a href="https://x.com/WhiteLovers_R18" target="_blank" rel="noopener">@WhiteLovers_R18</a></td><td><span class="tag ok">Ci-en</span></td></tr>
+<tr><td class="rank">210</td><td>脳汁ドロップ</td><td class="num">10</td><td class="num">35</td><td class="cast">星羅あかね、ねこのみみ子、乙倉碧 <span class="dim">+3</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">211</td><td>Crescendo</td><td class="num">10</td><td class="num">30</td><td class="cast">和鳴るせ、小山ハル、綿雪 <span class="dim">+3</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">212</td><td>牛乳ソフト</td><td class="num">10</td><td class="num">30</td><td class="cast">大山チロル、涼貴涼、分倍河原シホ <span class="dim">+3</span></td><td class="handle"><a href="https://x.com/milkhuuka" target="_blank" rel="noopener">@milkhuuka</a></td><td><span class="tag ok">Ci-en</span></td></tr>
+<tr><td class="rank">213</td><td>マキシマムスペック</td><td class="num">10</td><td class="num">19</td><td class="cast">秋野かえで、御子柴泉、リユウ</td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">214</td><td>Clover Voice</td><td class="num">10</td><td class="num">15</td><td class="cast">夏和小、夜夜るり、高野零 <span class="dim">+3</span></td><td class="handle"><a href="https://x.com/cube_staff" target="_blank" rel="noopener">@cube_staff</a></td><td><span class="tag ok">Ci-en</span></td></tr>
+<tr><td class="rank">215</td><td>Vぱれっと</td><td class="num">10</td><td class="num">15</td><td class="cast">逢坂成美、浅木式、涼花みなせ <span class="dim">+3</span></td><td class="handle"><a href="https://x.com/Voice_Palette" target="_blank" rel="noopener">@Voice_Palette</a></td><td><span class="tag">Ci-en·包含</span></td></tr>
+<tr><td class="rank">216</td><td>仮性旅団</td><td class="num">10</td><td class="num">15</td><td class="cast">山田じぇみ子、海音ミヅチ、継守ことは <span class="dim">+1</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">217</td><td>みずのちょう</td><td class="num">10</td><td class="num">13</td><td class="cast">涼花みなせ、陽向葵ゅか、野上菜月 <span class="dim">+3</span></td><td class="handle"><a href="https://x.com/mizuno_cho" target="_blank" rel="noopener">@mizuno_cho</a></td><td><span class="tag ok">Ci-en</span></td></tr>
+<tr><td class="rank">218</td><td>パステル×トリップ</td><td class="num">10</td><td class="num">13</td><td class="cast">みもりあいの、天知遥、餅梨あむ</td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">219</td><td>VoiceFestaオリジナル</td><td class="num">10</td><td class="num">12</td><td class="cast"><span class="dim">—</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">220</td><td>めろん堂</td><td class="num">10</td><td class="num">12</td><td class="cast">柚木つばめ、大山チロル、陽向葵ゅか <span class="dim">+2</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">221</td><td>岩盤浴</td><td class="num">10</td><td class="num">12</td><td class="cast">天知遥、こやまはる、乙倉ゆい <span class="dim">+3</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">222</td><td>STUDIO ORBIT ASMR</td><td class="num">10</td><td class="num">11</td><td class="cast">ニャルぽむぽむ、KOSAJI、みじかいねこ <span class="dim">+3</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">223</td><td>ピンクオパール</td><td class="num">10</td><td class="num">11</td><td class="cast">御子柴泉、御崎ひより、かの仔 <span class="dim">+3</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">224</td><td>Chuchoter</td><td class="num">10</td><td class="num">10</td><td class="cast">五行なずな、桃山いおん</td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">225</td><td>G-Studio</td><td class="num">10</td><td class="num">10</td><td class="cast">初春まう、双葉すずね、進藤あずさ <span class="dim">+3</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">226</td><td>おなにーメロン</td><td class="num">10</td><td class="num">10</td><td class="cast">しぃ、みあ、みくしぃ <span class="dim">+3</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">227</td><td>ぱれっとちゃんねる</td><td class="num">10</td><td class="num">10</td><td class="cast">藤村莉央、逢坂成美、乙倉ゆい <span class="dim">+3</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">228</td><td>めうちゃんねる</td><td class="num">10</td><td class="num">10</td><td class="cast">ツナツナ、猫舐つな</td><td class="handle"><a href="https://x.com/akatsukimeu" target="_blank" rel="noopener">@akatsukimeu</a></td><td><span class="tag">Ci-en·包含</span></td></tr>
+<tr><td class="rank">229</td><td>アンコロール</td><td class="num">10</td><td class="num">10</td><td class="cast">高野麻里佳、夏吉ゆうこ、Lynn <span class="dim">+3</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">230</td><td>ラプランド</td><td class="num">10</td><td class="num">10</td><td class="cast">御子柴泉、恋鈴桃歌、篠守ゆきこ</td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">231</td><td>刹那的モンタージュ</td><td class="num">10</td><td class="num">10</td><td class="cast"><span class="dim">—</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">232</td><td>勝利の女神:NIKKE</td><td class="num">10</td><td class="num">10</td><td class="cast">上田麗奈、伊藤彩沙、岡咲美保 <span class="dim">+3</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">233</td><td>ふぇち部</td><td class="num">9</td><td class="num">26</td><td class="cast">大山チロル、秋山はるる、御子柴泉 <span class="dim">+3</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">234</td><td>ドM女史団</td><td class="num">9</td><td class="num">23</td><td class="cast">海音ミヅチ、兎月りりむ。、山田じぇみ子 <span class="dim">+3</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">235</td><td>スマート挿入</td><td class="num">9</td><td class="num">21</td><td class="cast">涼花みなせ、陽向葵ゅか、逢坂成美 <span class="dim">+1</span></td><td class="handle"><a href="https://x.com/Smart_Insert" target="_blank" rel="noopener">@Smart_Insert</a></td><td><span class="tag ok">Ci-en</span></td></tr>
+<tr><td class="rank">236</td><td>ヒット&amp;アウェイ</td><td class="num">9</td><td class="num">21</td><td class="cast">篠守ゆきこ、陽向葵ゅか、琴音有波 <span class="dim">+3</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">237</td><td>ねこじた結社</td><td class="num">9</td><td class="num">20</td><td class="cast">大山チロル、そらまめ。、秋山はるる <span class="dim">+3</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">238</td><td>べけす工房</td><td class="num">9</td><td class="num">20</td><td class="cast">分倍河原シホ、陽向葵ゅか、MOMOKA。 <span class="dim">+3</span></td><td class="handle"><a href="https://x.com/bekesubeya" target="_blank" rel="noopener">@bekesubeya</a></td><td><span class="tag ok">Ci-en</span></td></tr>
+<tr><td class="rank">239</td><td>プルシアン ブルー</td><td class="num">9</td><td class="num">18</td><td class="cast">佐月ユーリ、涼貴涼、ありのりあ <span class="dim">+3</span></td><td class="handle"><a href="https://x.com/niinashinjou" target="_blank" rel="noopener">@niinashinjou</a></td><td><span class="tag">Ci-en·包含</span></td></tr>
+<tr><td class="rank">240</td><td>雪荷風ノ宿</td><td class="num">9</td><td class="num">18</td><td class="cast">雲八はち、佐月ユーリ、分倍河原シホ <span class="dim">+3</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">241</td><td>ラブラブチュール</td><td class="num">9</td><td class="num">15</td><td class="cast">分倍河原シホ、大山チロル、秋山はるる <span class="dim">+3</span></td><td class="handle"><a href="https://x.com/lovelove_tyuuru" target="_blank" rel="noopener">@lovelove_tyuuru</a></td><td><span class="tag ok">Ci-en</span></td></tr>
+<tr><td class="rank">242</td><td>宙果てスタジオ</td><td class="num">9</td><td class="num">14</td><td class="cast">陽向葵ゅか、みもりあいの、まあ油るる <span class="dim">+2</span></td><td class="handle"><a href="https://x.com/sorahatestudio_" target="_blank" rel="noopener">@sorahatestudio_</a></td><td><span class="tag ok">Ci-en</span></td></tr>
+<tr><td class="rank">243</td><td>ざくろ裁縫店</td><td class="num">9</td><td class="num">13</td><td class="cast"><span class="dim">—</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">244</td><td>逆説パラドクス</td><td class="num">9</td><td class="num">12</td><td class="cast">秋山はるる、大山チロル、涼貴涼 <span class="dim">+3</span></td><td class="handle"><a href="https://x.com/yurika_koishite" target="_blank" rel="noopener">@yurika_koishite</a></td><td><span class="tag">Ci-en·包含</span></td></tr>
+<tr><td class="rank">245</td><td>いるま☆うさぎ</td><td class="num">9</td><td class="num">11</td><td class="cast">浅木式、柚木つばめ、涼貴涼 <span class="dim">+3</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">246</td><td>アルカンジオル</td><td class="num">9</td><td class="num">11</td><td class="cast">御子柴泉、分倍河原シホ、大山チロル <span class="dim">+3</span></td><td class="handle"><a href="https://x.com/alkan_c6" target="_blank" rel="noopener">@alkan_c6</a></td><td><span class="tag ok">Ci-en</span></td></tr>
+<tr><td class="rank">247</td><td>ナンジャモンジャノキ</td><td class="num">9</td><td class="num">11</td><td class="cast"><span class="dim">—</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">248</td><td>秘密色工房どろっぷ</td><td class="num">9</td><td class="num">11</td><td class="cast"><span class="dim">—</span></td><td class="handle"><a href="https://x.com/himitsu_drop222" target="_blank" rel="noopener">@himitsu_drop222</a></td><td><span class="tag ok">Ci-en</span></td></tr>
+<tr><td class="rank">249</td><td>ゆきんこ王国</td><td class="num">9</td><td class="num">9</td><td class="cast">涼花みなせ、分倍河原シホ、柚木つばめ <span class="dim">+3</span></td><td class="handle"><a href="https://x.com/yukinkokingdom" target="_blank" rel="noopener">@yukinkokingdom</a></td><td><span class="tag ok">Ci-en</span></td></tr>
+<tr><td class="rank">250</td><td>よもまつふぁくとりー</td><td class="num">9</td><td class="num">9</td><td class="cast">御子柴泉、そらまめ。、分倍河原シホ <span class="dim">+3</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">251</td><td>ルルイエエリジウム</td><td class="num">9</td><td class="num">9</td><td class="cast">伊倉える、​彩夢ひな、兎幽々ゆる <span class="dim">+2</span></td><td class="handle"><a href="https://x.com/Elysium_ASMR" target="_blank" rel="noopener">@Elysium_ASMR</a></td><td><span class="tag ok">Ci-en</span></td></tr>
+<tr><td class="rank">252</td><td>劇団チェリー</td><td class="num">9</td><td class="num">9</td><td class="cast">浪実みお、分倍河原シホ、小倉結衣 <span class="dim">+3</span></td><td class="handle"><a href="https://x.com/hikaru_neko2222" target="_blank" rel="noopener">@hikaru_neko2222</a></td><td><span class="tag">Ci-en·包含</span></td></tr>
+<tr><td class="rank">253</td><td>秘密のマリア。</td><td class="num">9</td><td class="num">9</td><td class="cast"><span class="dim">—</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">254</td><td>おほ声の館</td><td class="num">8</td><td class="num">22</td><td class="cast">御子柴泉、涼貴涼、海音ミヅチ <span class="dim">+3</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">255</td><td>桜色ピアノ</td><td class="num">8</td><td class="num">20</td><td class="cast">涼花みなせ、みもりあいの、陽向葵ゅか <span class="dim">+3</span></td><td class="handle"><a href="https://x.com/skp175" target="_blank" rel="noopener">@skp175</a></td><td><span class="tag">Ci-en·包含</span></td></tr>
+<tr><td class="rank">256</td><td>甘々と毒々</td><td class="num">8</td><td class="num">20</td><td class="cast">架月らみゅ、餅梨あむ、神代そら</td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">257</td><td>ふたなりかる特異点</td><td class="num">8</td><td class="num">17</td><td class="cast">恋鈴桃歌、篠守ゆきこ、MOMOKA。 <span class="dim">+3</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">258</td><td>Cubic</td><td class="num">8</td><td class="num">16</td><td class="cast">陽向葵ゅか、涼花みなせ、逢坂成美 <span class="dim">+3</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">259</td><td>びゅくびゅく亭</td><td class="num">8</td><td class="num">15</td><td class="cast">陽向葵ゅか、大山チロル、野上菜月 <span class="dim">+2</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">260</td><td>この祭には終わりがないといわれていた</td><td class="num">8</td><td class="num">12</td><td class="cast">乙倉ゆい、堀米玲音、御子柴泉 <span class="dim">+2</span></td><td class="handle"><a href="https://x.com/aijo_machine" target="_blank" rel="noopener">@aijo_machine</a></td><td><span class="tag ok">Ci-en</span></td></tr>
+<tr><td class="rank">261</td><td>リリムワークス/兎月りりむ。 <span class="tag ok">单人</span></td><td class="num">8</td><td class="num">10</td><td class="cast">兎月りりむ。</td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">262</td><td>舌ノ音工房 <span class="tag ok">单人</span></td><td class="num">8</td><td class="num">10</td><td class="cast">天知遥</td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">263</td><td>ぬすみみみ。</td><td class="num">8</td><td class="num">9</td><td class="cast">柚木つばめ、小花衣こっこ、逢坂成美 <span class="dim">+3</span></td><td class="handle"><a href="https://x.com/0rderr" target="_blank" rel="noopener">@0rderr</a></td><td><span class="tag">Ci-en·包含</span></td></tr>
+<tr><td class="rank">264</td><td>HONEY∞PARADE GAMES</td><td class="num">8</td><td class="num">8</td><td class="cast">井澤詩織、今井麻美、原由実 <span class="dim">+3</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">265</td><td>しこフェス</td><td class="num">8</td><td class="num">8</td><td class="cast"><span class="dim">—</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">266</td><td>ぶっ壊れおなにー</td><td class="num">8</td><td class="num">8</td><td class="cast">お猫、かりん、ここあ <span class="dim">+3</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">267</td><td>まほろばきゃらめ</td><td class="num">8</td><td class="num">8</td><td class="cast">涼花みなせ、こやまはる、伊倉える <span class="dim">+3</span></td><td class="handle"><a href="https://x.com/mahorobaasmr" target="_blank" rel="noopener">@mahorobaasmr</a></td><td><span class="tag">Ci-en·包含</span></td></tr>
+<tr><td class="rank">268</td><td>みいろのぉと♪ <span class="tag ok">单人</span></td><td class="num">8</td><td class="num">8</td><td class="cast">未想可みいろ</td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">269</td><td>キミトソイネ <span class="tag ok">单人</span></td><td class="num">8</td><td class="num">8</td><td class="cast">みもりあいの</td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">270</td><td>プラチナミサイル</td><td class="num">8</td><td class="num">8</td><td class="cast">分倍河原シホ、浅木式、逢坂成美 <span class="dim">+1</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">271</td><td>甘堕落</td><td class="num">8</td><td class="num">8</td><td class="cast">まあ油るる、縁側こより、こやまはる <span class="dim">+3</span></td><td class="handle"><a href="https://x.com/make_nai_man" target="_blank" rel="noopener">@make_nai_man</a></td><td><span class="tag">Ci-en·包含</span></td></tr>
+<tr><td class="rank">272</td><td>逢縁喜縁</td><td class="num">8</td><td class="num">8</td><td class="cast">逢坂成美、秋野かえで、陽向葵ゅか</td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">273</td><td>音声工房DigZap</td><td class="num">8</td><td class="num">8</td><td class="cast">そらまめ。、御子柴泉、御崎ひより</td><td class="handle"><a href="https://x.com/digzap_voice" target="_blank" rel="noopener">@digzap_voice</a></td><td><span class="tag ok">Ci-en</span></td></tr>
+<tr><td class="rank">274</td><td>Chastity Fancier(性的禁欲愛好家)</td><td class="num">7</td><td class="num">33</td><td class="cast">分倍河原シホ、陽向葵ゅか、柚木朱莉 <span class="dim">+3</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">275</td><td>star sign cafe</td><td class="num">7</td><td class="num">25</td><td class="cast">八乙女しゃむ、鮎乃さしみ</td><td class="handle"><a href="https://x.com/Amamiya_mei" target="_blank" rel="noopener">@Amamiya_mei</a></td><td><span class="tag">Ci-en·包含</span></td></tr>
+<tr><td class="rank">276</td><td>はーとこれくと</td><td class="num">7</td><td class="num">25</td><td class="cast">MOMOKA。、乙倉ゆい、天知遥 <span class="dim">+3</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">277</td><td>上海飯店</td><td class="num">7</td><td class="num">25</td><td class="cast">みたかりん、秋野かえで、涼花みなせ <span class="dim">+3</span></td><td class="handle"><a href="https://x.com/quiquiqui" target="_blank" rel="noopener">@quiquiqui</a></td><td><span class="tag">Ci-en·包含</span></td></tr>
+<tr><td class="rank">278</td><td>.␣ [Dot-Space]</td><td class="num">7</td><td class="num">22</td><td class="cast">逢坂成美、みもりあいの、井上果林 <span class="dim">+3</span></td><td class="handle"><a href="https://x.com/MarKuS_D_S" target="_blank" rel="noopener">@MarKuS_D_S</a></td><td><span class="tag ok">Ci-en</span></td></tr>
+<tr><td class="rank">279</td><td>シコらnight</td><td class="num">7</td><td class="num">21</td><td class="cast">分倍河原シホ、柚木つばめ、野上菜月 <span class="dim">+3</span></td><td class="handle"><a href="https://x.com/sikoraKnight" target="_blank" rel="noopener">@sikoraKnight</a></td><td><span class="tag ok">Ci-en</span></td></tr>
+<tr><td class="rank">280</td><td>枕木製作所</td><td class="num">7</td><td class="num">18</td><td class="cast">涼花みなせ、逢坂成美、秋山はるる <span class="dim">+3</span></td><td class="handle"><a href="https://x.com/kneepillow1" target="_blank" rel="noopener">@kneepillow1</a></td><td><span class="tag">Ci-en·包含</span></td></tr>
+<tr><td class="rank">281</td><td>G線上の牡丹雪</td><td class="num">7</td><td class="num">15</td><td class="cast">砂糖しお、浅木式、小花衣こっこ <span class="dim">+3</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">282</td><td>ふぁいばーどろっぷ</td><td class="num">7</td><td class="num">11</td><td class="cast">みもりあいの、陽向葵ゅか、こやまはる <span class="dim">+2</span></td><td class="handle"><a href="https://x.com/fiberdrop" target="_blank" rel="noopener">@fiberdrop</a></td><td><span class="tag">Ci-en·包含</span></td></tr>
+<tr><td class="rank">283</td><td>みにょって</td><td class="num">7</td><td class="num">11</td><td class="cast"><span class="dim">—</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">284</td><td>Little Oasis</td><td class="num">7</td><td class="num">10</td><td class="cast">御崎ひより、そらまめ。、君野りるる <span class="dim">+3</span></td><td class="handle"><a href="https://x.com/C_Little_Oasis" target="_blank" rel="noopener">@C_Little_Oasis</a></td><td><span class="tag">Ci-en·包含</span></td></tr>
+<tr><td class="rank">285</td><td>まよアニ</td><td class="num">7</td><td class="num">10</td><td class="cast"><span class="dim">—</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">286</td><td>りんご★まし〜ん</td><td class="num">7</td><td class="num">9</td><td class="cast">MOMOKA。、秋野かえで</td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">287</td><td>オーガミニュータウン</td><td class="num">7</td><td class="num">9</td><td class="cast">浅木式、海音ミヅチ、みたかりん <span class="dim">+1</span></td><td class="handle"><a href="https://x.com/ogami_nt" target="_blank" rel="noopener">@ogami_nt</a></td><td><span class="tag ok">Ci-en</span></td></tr>
+<tr><td class="rank">288</td><td>暗黒あずまや</td><td class="num">7</td><td class="num">9</td><td class="cast">来夢ふらん、都みみち</td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">289</td><td>アルファートリル</td><td class="num">7</td><td class="num">8</td><td class="cast">陽向葵ゅか、大山チロル、そらまめ。 <span class="dim">+1</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">290</td><td>スーパーデューパーかさんか水素(旧:ふたなりアナリティクス)</td><td class="num">7</td><td class="num">8</td><td class="cast">御子柴泉、分倍河原シホ、篠守ゆきこ <span class="dim">+1</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">291</td><td>天使なの</td><td class="num">7</td><td class="num">8</td><td class="cast">天使なの</td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">292</td><td>怪淫堂</td><td class="num">7</td><td class="num">8</td><td class="cast">分倍河原シホ、御崎ひより、恋鈴桃歌 <span class="dim">+3</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">293</td><td>耳乃ささくれ</td><td class="num">7</td><td class="num">8</td><td class="cast">そらまめ。、まあ油るる、具羅津ちえ <span class="dim">+3</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">294</td><td>Atelier Honey* <span class="tag ok">单人</span></td><td class="num">7</td><td class="num">7</td><td class="cast">野上菜月</td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">295</td><td>FemdomAtelier</td><td class="num">7</td><td class="num">7</td><td class="cast">沢野ぽぷら、かの仔、ありのりあ <span class="dim">+1</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">296</td><td>うさねまい</td><td class="num">7</td><td class="num">7</td><td class="cast">沢野ぽぷら、かの仔、まあ油るる <span class="dim">+3</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">297</td><td>さときだけ</td><td class="num">7</td><td class="num">7</td><td class="cast">佐々木サキ、まあ油るる、神宮泰知</td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">298</td><td>どーなつほぉる</td><td class="num">7</td><td class="num">7</td><td class="cast">中井みのる、噂野ほたる</td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">299</td><td>ネレンシア <span class="tag ok">单人</span></td><td class="num">7</td><td class="num">7</td><td class="cast">餅梨あむ</td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">300</td><td>星乃すぴか</td><td class="num">7</td><td class="num">7</td><td class="cast">星乃すぴか</td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">301</td><td>東方耳舐めカンパニー</td><td class="num">7</td><td class="num">7</td><td class="cast">佐京柚音、雲八はち、麦咲輪紫葵 <span class="dim">+3</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">302</td><td>裏はちわぁるど</td><td class="num">7</td><td class="num">7</td><td class="cast"><span class="dim">—</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">303</td><td>カモネギちゃんねる</td><td class="num">6</td><td class="num">36</td><td class="cast">そらまめ。、分倍河原シホ、大山チロル <span class="dim">+3</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">304</td><td>ほわいとばーど</td><td class="num">6</td><td class="num">29</td><td class="cast">秋野かえで、陽向葵ゅか、涼花みなせ <span class="dim">+3</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">305</td><td>龍宮の使い(闇)</td><td class="num">6</td><td class="num">23</td><td class="cast">陽向葵ゅか、涼花みなせ、柚木つばめ <span class="dim">+3</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">306</td><td>デカスイカ3号</td><td class="num">6</td><td class="num">21</td><td class="cast">秋野かえで、藤村莉央、陽向葵ゅか <span class="dim">+3</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">307</td><td>レジスタンス和歌山</td><td class="num">6</td><td class="num">21</td><td class="cast">陽向葵ゅか、秋野かえで、大山チロル <span class="dim">+3</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">308</td><td>じゅじゅっとウェルダン</td><td class="num">6</td><td class="num">19</td><td class="cast">のぐちゆり、上田瞳、会沢紗弥 <span class="dim">+3</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">309</td><td>幸福少女</td><td class="num">6</td><td class="num">17</td><td class="cast">縁側こより、こやまはる、小花衣こっこ <span class="dim">+3</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">310</td><td>あまがみドロップ</td><td class="num">6</td><td class="num">16</td><td class="cast">陽向葵ゅか、御崎ひより、秋野かえで <span class="dim">+2</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">311</td><td>F. PRODUCTIONS</td><td class="num">6</td><td class="num">15</td><td class="cast">柚木つばめ、浅木式</td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">312</td><td>帽子屋</td><td class="num">6</td><td class="num">15</td><td class="cast">陽向葵ゅか、nit、秋野かえで <span class="dim">+3</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">313</td><td>Deep；Dahlia</td><td class="num">6</td><td class="num">14</td><td class="cast">涼花みなせ、こやまはる、陽向葵ゅか</td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">314</td><td>CKD&#39;s</td><td class="num">6</td><td class="num">13</td><td class="cast">大山チロル、浅木式、秋山はるる <span class="dim">+3</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">315</td><td>にゃんにゃんぼいす</td><td class="num">6</td><td class="num">13</td><td class="cast">涼花みなせ、陽向葵ゅか、大山チロル <span class="dim">+3</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">316</td><td>一事が万事</td><td class="num">6</td><td class="num">12</td><td class="cast">餅梨あむ、乙倉ゆい、秋山はるる <span class="dim">+3</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">317</td><td>CRAVEALL</td><td class="num">6</td><td class="num">11</td><td class="cast">餅梨あむ、御子柴泉、猫乃緒みみ <span class="dim">+2</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">318</td><td>おいなりボイス(肩引こ)</td><td class="num">6</td><td class="num">11</td><td class="cast">秋野かえで、恋鈴桃歌、涼花みなせ <span class="dim">+3</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">319</td><td>黒月堂</td><td class="num">6</td><td class="num">11</td><td class="cast">かなせ</td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">320</td><td>えむおな</td><td class="num">6</td><td class="num">10</td><td class="cast">陽向葵ゅか、かの仔、そらまめ。 <span class="dim">+1</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">321</td><td>色情補正.</td><td class="num">6</td><td class="num">10</td><td class="cast">秋山はるる、御子柴泉、不破ふわり <span class="dim">+3</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">322</td><td>あいちゅうーぶ!</td><td class="num">6</td><td class="num">9</td><td class="cast">中井みのる、陽向葵ゅか、みもりあいの <span class="dim">+3</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">323</td><td>やぶいぬ製糖</td><td class="num">6</td><td class="num">9</td><td class="cast">浪実みお、MOMOKA。、双葉なつき <span class="dim">+3</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">324</td><td>ケレン堂</td><td class="num">6</td><td class="num">9</td><td class="cast">こやまはる、そらまめ。、乙倉ゆい <span class="dim">+3</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">325</td><td>足跡の水たまり</td><td class="num">6</td><td class="num">9</td><td class="cast"><span class="dim">—</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">326</td><td>センチネルな倉庫</td><td class="num">6</td><td class="num">8</td><td class="cast">分倍河原シホ、さくら真咲、佐々木サキ <span class="dim">+3</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">327</td><td>MapleSyrupps</td><td class="num">6</td><td class="num">7</td><td class="cast">御子柴泉、佐久間のの、恋鈴桃歌 <span class="dim">+1</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">328</td><td>紳士の教養</td><td class="num">6</td><td class="num">7</td><td class="cast">乙倉ゆい、分倍河原シホ、星乃りこ <span class="dim">+2</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">329</td><td>AIアイデアラボ</td><td class="num">6</td><td class="num">6</td><td class="cast"><span class="dim">—</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">330</td><td>HerbPear</td><td class="num">6</td><td class="num">6</td><td class="cast"><span class="dim">—</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">331</td><td>KOTOBUKIYA</td><td class="num">6</td><td class="num">6</td><td class="cast">本渡楓、M・A・O、加隈亜衣 <span class="dim">+2</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">332</td><td>studio&#39;K</td><td class="num">6</td><td class="num">6</td><td class="cast">恋鈴桃歌、乙倉ゆい、山田じぇみ子 <span class="dim">+3</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">333</td><td>いっしんふらん</td><td class="num">6</td><td class="num">6</td><td class="cast">来夢ふらん、思ちぽ</td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">334</td><td>のあの深夜のひとりえっち</td><td class="num">6</td><td class="num">6</td><td class="cast">のあ</td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">335</td><td>るるくりえいと</td><td class="num">6</td><td class="num">6</td><td class="cast">みもりあいの、秋野かえで、分倍河原シホ <span class="dim">+2</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">336</td><td>オナサポ本舗</td><td class="num">6</td><td class="num">6</td><td class="cast">恋鈴桃歌、涼花みなせ、西瓜すいか <span class="dim">+1</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">337</td><td>セイニジ</td><td class="num">6</td><td class="num">6</td><td class="cast">分倍河原シホ、柚木つばめ、秋山はるる <span class="dim">+1</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">338</td><td>ヨルノベ</td><td class="num">6</td><td class="num">6</td><td class="cast">柚木つばめ、伊倉える、浪実みお <span class="dim">+2</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">339</td><td>リアトリス</td><td class="num">6</td><td class="num">6</td><td class="cast"><span class="dim">—</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">340</td><td>夢散歩</td><td class="num">6</td><td class="num">6</td><td class="cast">乙倉ゆい、分倍河原シホ、雲八はち <span class="dim">+3</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">341</td><td>深夜の吐息 サークル</td><td class="num">6</td><td class="num">6</td><td class="cast">まどのことり、世界ひよ、愛病ねこ <span class="dim">+1</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">342</td><td>猫麦</td><td class="num">6</td><td class="num">6</td><td class="cast">陽向葵ゅか、柚木つばめ、大山チロル</td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">343</td><td>眠音館</td><td class="num">6</td><td class="num">6</td><td class="cast">夏吉ゆうこ、天海由梨奈、幸村恵理 <span class="dim">+3</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">344</td><td>花珠園</td><td class="num">6</td><td class="num">6</td><td class="cast">麦咲輪紫葵、Ah-ya、御子柴泉 <span class="dim">+2</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+</tbody>
+</table>
+</div>
+
+<h2>3. 搜索能搜到，为什么没采信</h2>
+
+<p>用 Yahoo 搜「社团名 + twitter」，把结果标题里的显示名和社团名比对，
+再按「完全一致 / 包含 / 最长公共子串占比」打分。这一套在 11 家上给出了候选，
+但抽查就发现明显错的，所以<strong>整列都没进表</strong>。四个典型：</p>
+
+<div class="scroll">
+<table>
+<thead><tr><th>社团</th><th>近三年</th><th>搜索给出的</th><th>问题</th></tr></thead>
+<tbody>
+<tr><td>テグラユウキ</td><td class="num">24</td><td class="handle">@guraguraworks</td><td>显示名确实叫「テグラユウキ」，但同一个搜索结果里还有 <code>@t_tegura</code>（显示名「テグラ」）。两个都像，机器分不出哪个是本家</td></tr>
+<tr><td>ガールズコレクション</td><td class="num">24</td><td class="handle">@TGCnews</td><td>命中的是「東京ガールズコレクション」——同名不同业，靠子串匹配永远会踩到</td></tr>
+<tr><td>生ハメ堕ち部★LACK</td><td class="num">24</td><td class="handle">@lalalalack</td><td>只是显示名里带「lack」，和社团无关；真正的社团号在结果里是另一个（<code>@ochiB_LACK</code>，显示名「堕ち部 LACK 同人音声サークル」）</td></tr>
+<tr><td>RaRo</td><td class="num">24</td><td class="handle">@Raro_accessory</td><td>大小写归一后完全一致，但那是个饰品店。短名字（4 字符以内）几乎无法靠名字验证</td></tr>
+</tbody>
+</table>
+</div>
+
+<p class="legend">这 11 家的候选留在下面这张小表里，<strong>没有写进主表</strong>。
+要用的話逐个点开确认显示名与置顶推文，确认一个填一个。</p>
+
+<div class="scroll">
+<table>
+<thead><tr><th>社团</th><th>近三年</th><th>候选</th><th>搜索看到的显示名</th></tr></thead>
+<tbody>
+<tr><td>テグラユウキ</td><td class="num">24</td><td class="handle">@guraguraworks</td><td>テグラユウキ</td></tr>
+<tr><td>巨乳大好き屋</td><td class="num">24</td><td class="handle">@Kyonyu0821</td><td>巨乳大好き屋(ASMR販売サークル)</td></tr>
+<tr><td>Whisp</td><td class="num">24</td><td class="handle">@Whisp90</td><td>Whisp</td></tr>
+<tr><td>RaRo</td><td class="num">24</td><td class="handle">@Raro_accessory</td><td>Raro</td></tr>
+<tr><td>ガールズコレクション</td><td class="num">24</td><td class="handle">@TGCnews</td><td>東京ガールズコレクション（TGC）</td></tr>
+<tr><td>シロイルカ</td><td class="num">24</td><td class="handle">@shiro_iruka_s</td><td>シロイルカ</td></tr>
+<tr><td>生ハメ堕ち部★LACK</td><td class="num">24</td><td class="handle">@lalalalack</td><td>lack</td></tr>
+<tr><td>Diebrust(ディーブルスト)</td><td class="num">24</td><td class="handle">@uninimu</td><td>うにーん@Diebrust(ディーブルスト)</td></tr>
+<tr><td>エモイ堂</td><td class="num">24</td><td class="handle">@emoi_do_lite</td><td>エモイ堂（わっしょい）＠公式二代目</td></tr>
+<tr><td>ふぁっちゅ</td><td class="num">24</td><td class="handle">@Fachufaccchu</td><td>ふぁっちゅ！！｜</td></tr>
+<tr><td>あまとろすいーつ</td><td class="num">24</td><td class="handle">@Koedaisuki_4713</td><td>チ в X: „サークル：あまとろすいーつ 様 (@amatorotoro ) 声優 ...Xhttps://x.com&gt;@Koedaisuki_4713</td></tr>
+</tbody>
+</table>
+</div>
+
+<h2>4. 剩下 221 家怎么补</h2>
+
+<div class="scroll">
+<table>
+<thead><tr><th>情况</th><th>家数</th><th>可行做法</th></tr></thead>
+<tbody>
+<tr><td>有 Ci-en 页但没填 X</td><td class="num">65</td><td>本人没填就是没有。等他们自己加，或者从作品页的 <code>■クレジット</code> 里找 <code>制作:</code> 行</td></tr>
+<tr><td>Ci-en 上搜不到这个社团</td><td class="num">145</td><td>多半只做 DLsite 不做 Ci-en。可查社团的 DLsite 主页简介，少数会写 X</td></tr>
+<tr><td>单人社团，cast 在声优名单里</td><td class="num">11</td><td>直接用那位声优的主号试跑，日报里看她转不转自己社团的作品，能转就说明是同一个运营</td></tr>
+</tbody>
+</table>
+</div>
+
+<p><strong>建议的用法：</strong>先把 112 家已确认的挂进日报名单的 <code>circle</code> 分类跑一段时间，
+看哪些社团真的在发推；剩下的按「日报里新出现的 handle」增量补。
+一次性把 344 家都填满既做不到，也没必要——大部分社团一个月发不了几条。</p>
+
+<div class="note">
+<p><strong>和声优名单的关系：</strong>这 344 家里有 252 家的 cast 出现在
+<a href="dlsite-va-roster.html">初代声优名单</a>里。也就是说，<strong>日报现在已经在覆盖其中一部分人的动态</strong>，
+只是记在「声优」名下而不是「社团」名下。真要按社团做分类周报，第一步不是加账号，
+是先决定「同一条推文算声优的还是算社团的」——两边都算会重复计数。</p>
+</div>
+
+<footer>
+  <p>数据来源：<a href="https://swsem.com/circles/">swsem サークル一覧</a>（作品数与 cast）·
+  <a href="https://ci-en.dlsite.com/">Ci-en 创作者页</a>（X 账号）·
+  <a href="https://www.dlsite.com/maniax/">DLsite 作品页</a>（作品元数据）</p>
+  <p>同名社团已按名称合并；「近三年」以 2023-10-25 为界；X 账号只收 Ci-en 资料页上的，搜索候选单列、不采信。</p>
+</footer>
+
+</div>
+</body>
+</html>

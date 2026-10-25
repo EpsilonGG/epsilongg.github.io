@@ -3,6 +3,7 @@ import BaseLayout from './BaseLayout.astro';
 import ReadingProgress from '../components/ReadingProgress.astro';
 import { site } from '../config/site';
 import { formatIssueTime, type Daily } from '../lib/daily';
+import rosterData from '../config/daily-roster.json';
 
 interface Props {
   post: Daily;
@@ -13,7 +14,24 @@ interface Props {
 }
 
 const { post, newer = null, older = null } = Astro.props;
-const { title, description, pubDate, source, accounts, highlights, interactions, people } = post.data;
+const { title, description, pubDate, source, accounts, highlights, interactions, works, people } =
+  post.data;
+
+/**
+ * 「详细」每行渲染成 `[声优名](主号链接) ：一句话`。
+ * 名字来自名单（`src/config/daily-roster.json`），不写进 frontmatter——
+ * 同一个人有主号/小号/告知号，名字只有一处能改，才不会出现「同一人两个写法」。
+ * 名单里没有的 handle 退回显示 @handle，并在这里告警：那说明名单漏了人。
+ */
+const displayName = new Map<string, string>();
+for (const a of rosterData.accounts as { handle: string; name?: string }[]) {
+  if (a.name) displayName.set(a.handle.toLowerCase(), a.name);
+}
+function nameOf(handle: string): string {
+  const n = displayName.get(handle.toLowerCase());
+  if (!n) console.warn(`[daily] ${post.id} 的 @${handle} 不在名单里，详细栏会显示 handle`);
+  return n ?? `@${handle}`;
+}
 
 /**
  * 名单只渲染「当日确实有活动」的人：summary 为空即视为没有值得写的一句话。
@@ -108,6 +126,15 @@ if (!description) {
           </section>
 
           {
+            works.trim().length > 0 ? (
+              <section class="daily-block">
+                <h2>作品动态</h2>
+                <p>{works}</p>
+              </section>
+            ) : null
+          }
+
+          {
             interactions.length > 0 ? (
               <section class="daily-block">
                 <h2>互动</h2>
@@ -128,12 +155,15 @@ if (!description) {
                   {roster.map((person) => (
                     <li>
                       <a
+                        class="daily-roster__name"
                         href={profileUrl(person.handle)}
                         target="_blank"
                         rel="noopener noreferrer"
                       >
-                        {person.summary}
+                        {nameOf(person.handle)}
                       </a>
+                      <span class="daily-roster__sep">：</span>
+                      <span set:html={withMentions(person.summary)} />
                     </li>
                   ))}
                 </ul>

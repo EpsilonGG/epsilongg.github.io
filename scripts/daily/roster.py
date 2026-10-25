@@ -7,7 +7,10 @@
 
 * `active: false` 暂停某人，但**历史日报不动**——名单只影响以后怎么分组，不重写过去。
 * 一个人只给一个 `category`。跨类用 `tags` 补充：多分类会让综合视图重复计数。
+  初代名单里 101 行**全部**是 `["声优", "创作者"]`——同一个人既出演也做企划，
+  只打一个标签的话，以后按标签拆分类周报会把创作者视角的发言归错栏。
 * 名单顺序即显示顺序。所以「谁先谁后」是编辑决定，不是脚本按条数算出来的。
+  `role`（main/sub/announce/circle/other）只是给人看的元数据，脚本不据此过滤。
 
 **未知 handle 不丢弃、不报错**，归 `other` 并在 stderr 告警一行——
 数据里出现名单外的人是正常现象（转发、新账号、写错 handle），
@@ -51,6 +54,7 @@ class Roster:
                 category=str(a.get("category") or OTHER),
                 active=bool(a.get("active", True)),
                 tags=list(a.get("tags") or []),
+                role=str(a.get("role") or "main"),
             )
             for a in data.get("accounts") or []
             if str(a.get("handle") or "").strip()

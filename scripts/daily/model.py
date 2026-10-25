@@ -187,6 +187,11 @@ class Account:
     category: str = "other"
     active: bool = True
     tags: list[str] = field(default_factory=list)
+    # 账号身份：main / sub / announce / circle / other。
+    # 目前只是**给人看的元数据**（脚本不据此过滤），但缺了它名单里就分不出
+    # 谁是本人主号、谁是告知号——而「本人说的话」和「告知号转发」在写日报时
+    # 分量完全不同，早晚要按它筛。
+    role: str = "main"
 
     def to_dict(self) -> dict:
         return {
@@ -195,6 +200,7 @@ class Account:
             "category": self.category,
             "active": self.active,
             "tags": list(self.tags),
+            "role": self.role,
         }
 
 

@@ -630,7 +630,7 @@
           <td>单期页面</td>
           <td><code>src/<wbr>pages/<wbr>daily/<wbr>[...id].astro</code><br /><code>src/<wbr>layouts/<wbr>DailyLayout.astro</code></td>
           <td><span class="pill pill--done">已有</span></td>
-          <td>三段：今日看点 / 互动 / 详细；<code>@handle</code> 只对名单内变链接</td>
+          <td>四段：今日看点 / 作品动态 / 互动 / 详细；「详细」渲染成 <code>声优名（链接） ：一句话</code>，名字取自名单；<code>@handle</code> 只对名单内变链接</td>
         </tr>
         <tr>
           <td>归档列表</td>
@@ -924,7 +924,7 @@
 
     <h3>为什么先做这个</h3>
     <p>
-      现在所有的「数据」都以两种形态同时存在：X-Reader 的原始 JSONL，和手写在 Markdown frontmatter 里的三段。
+      现在所有的「数据」都以两种形态同时存在：X-Reader 的原始 JSONL，和手写在 Markdown frontmatter 里的四段。
       中间没有协议，所以每一环都只能靠人眼对齐。M1 要做的就是把这个中间层固定下来——
       一旦「一个条目长什么样」「一份日报长什么样」被写进 schema，
       后面五个里程碑就都变成「按协议填内容」，而不是「再想一遍数据结构」。
@@ -1041,6 +1041,7 @@
   },
   "counts": { "items": 28, "accounts": 6, "late": 0, "skipped_duplicate": 1 },
   "description": "…≤50 字…",
+  "works":        "…作品动态，一段话，不带来源链接…",
   "highlights":   [ { "text": "…", "sources": ["x:2113…"] } ],
   "insights":     [ { "text": "…", "sources": ["x:2113…"] } ],
   "interactions": [ { "text": "…", "sources": ["x:2113…"] } ],
@@ -1571,7 +1572,7 @@ categories: roster.categories 的声明顺序</code></pre>
     <p>
       页面、路由、版式都已经在了。M4 的全部工作是让它们<strong>从 <code>report.json</code> 读</strong>，
       而不是从 Markdown frontmatter 读，然后补两个新出口（JSON、纯文本）。
-      「今日看点 / 互动 / 详细」三段的顺序和样式不动——那是已经验收过的东西。
+      「今日看点 / 作品动态 / 互动 / 详细」四段的顺序和样式不动——那是已经验收过的东西。
     </p>
     <p>
       顺带解决一个技术债：<code>daily</code> 集合现在的正文是空的，collection 只被当成「带类型的文件存储」在用。

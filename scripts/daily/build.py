@@ -56,9 +56,9 @@ def build_briefing(items: list[Item], report_date: date, accounts: list[str] | N
 
 
 def build_markdown(items: list[Item], issue_id: str, accounts: list[str] | None = None) -> str:
-    """站点 `src/content/daily/<期号>.md` 的骨架：frontmatter 三段 + 待填提示。
+    """站点 `src/content/daily/<期号>.md` 的骨架：frontmatter 四段 + 待填提示。
 
-    三段全部是结构化字段（highlights / interactions / people），不写进 Markdown 正文：
+    四段全部是结构化字段（highlights / works / interactions / people），不写进 Markdown 正文：
     链接由 handle 拼（模型写不错网址）、summary 为空自动省略（当日没活动就不列）、
     上百人时还要拿去做分类视图与 JSON 输出。
 
@@ -87,13 +87,19 @@ def build_markdown(items: list[Item], issue_id: str, accounts: list[str] | None 
     for a in accounts:
         lines.append(f"  - {a}")
     lines.append("")
-    lines.append("# 今日看点：今日热点概括，2–4 段，每项一段（第一顺位）")
+    lines.append("# 今日看点：只写 ①名单前 9 的人提到的重点 ②本人对自己热度的讨论 ③特别活动")
+    lines.append("# 其余的不要往这里塞，写进下面的 people 就够；一段一件事，别把五个人挤进一段")
     lines.append("highlights: []")
+    lines.append("")
+    lines.append("# 作品动态：一段话，汇总账号提到的制作中 / 发售 / 销量里程碑。可以点名是谁说的，")
+    lines.append("# 但**不要加来源链接**——人名在「详细」里已经链到主号了")
+    lines.append("works: \"\"")
     lines.append("")
     lines.append("# 名单内多人之间的互动，每项一条；没有就保持空数组")
     lines.append("interactions: []")
     lines.append("")
-    lines.append("# 每人一句话（句子本身要能看出是谁）；summary 留空 = 当日无活动，不渲染")
+    lines.append("# 每人一句话。渲染成「声优名（链接） ：summary」，所以 summary 里不要再写 @handle")
+    lines.append("# summary 留空 = 当日无活动，不渲染")
     lines.append("people:")
     for a in accounts:
         lines.append(f"  - handle: {a}")
@@ -103,9 +109,10 @@ def build_markdown(items: list[Item], issue_id: str, accounts: list[str] | None 
     lines.append("<!--")
     lines.append(f"期号 {issue_id}（YYMMDDHH，JST），标题与发布时间由文件名推导，不用手写。")
     lines.append("待填（本地 WorkBuddy 完成，脚本不调 LLM）：")
-    lines.append("  highlights        今日看点，2–4 段")
+    lines.append("  highlights        今日看点：只写前 9 的重点、自述热度、特别活动")
+    lines.append("  works             作品动态：一段话，不带来源链接")
     lines.append("  interactions      多人互动，每项一条")
-    lines.append("  people[].summary  每人一句话")
+    lines.append("  people[].summary  每人一句话，不写 @handle")
     lines.append(f"依据：out/{issue_id}.briefing.txt（推文原文 + 互动数都在那里）")
     lines.append("-->")
     return "\n".join(lines)

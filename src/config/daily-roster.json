@@ -1,22 +1,1432 @@
 {
-  "schema_version": 1,
-  "note": "名单只决定分组与显示顺序，不决定谁进日报（进不进由数据决定）。handle 不带 @。category 只能取 categories 里的 id，跨类用 tags 补充；一个人只给一个 category，多分类会让综合视图重复计数。active=false 暂停某人，但历史日报不动。",
+  "schema_version": 2,
+  "note": "名单只决定分组与显示顺序，不决定谁进日报（进不进由数据决定）。handle 不带 @。category 只能取 categories 里的 id，跨类用 tags 补充；一个人只给一个 category，多分类会让综合视图重复计数。role 是账号身份（main/sub/announce/circle/other），供人工核对与以后按号筛选，脚本目前不据此过滤。active=false 暂停某人，但历史日报不动。",
   "categories": [
-    { "id": "seiyuu", "label": "声优" },
-    { "id": "circle", "label": "社团" },
-    { "id": "other", "label": "未归类" }
+    {
+      "id": "seiyuu",
+      "label": "声优"
+    },
+    {
+      "id": "circle",
+      "label": "社团"
+    },
+    {
+      "id": "other",
+      "label": "未归类"
+    }
   ],
   "accounts": [
-    { "handle": "asuparama40", "name": "", "category": "seiyuu", "active": true },
-    { "handle": "mimoriaino", "name": "", "category": "seiyuu", "active": true },
-    { "handle": "mimo_chorion", "name": "", "category": "seiyuu", "active": true },
-    { "handle": "suzuka_minase", "name": "", "category": "seiyuu", "active": true },
-    { "handle": "mirai_chiroru", "name": "", "category": "seiyuu", "active": true },
-    { "handle": "hiyori_voice", "name": "", "category": "seiyuu", "active": true },
-    { "handle": "322yui3", "name": "", "category": "seiyuu", "active": true },
-    { "handle": "re_re_tsubame", "name": "", "category": "seiyuu", "active": true },
-    { "handle": "M_chipo_O", "name": "", "category": "seiyuu", "active": true },
-    { "handle": "yuzuki_momoka", "name": "", "category": "seiyuu", "active": true },
-    { "handle": "momoka_vtuber", "name": "", "category": "seiyuu", "active": true }
+    {
+      "handle": "yukanyan2525",
+      "name": "陽向葵ゅか",
+      "category": "seiyuu",
+      "role": "main",
+      "active": true,
+      "tags": [
+        "声优",
+        "创作者"
+      ]
+    },
+    {
+      "handle": "yukanyan_2525",
+      "name": "陽向葵ゅか",
+      "category": "seiyuu",
+      "role": "sub",
+      "active": true,
+      "tags": [
+        "声优",
+        "创作者"
+      ]
+    },
+    {
+      "handle": "Hinatayuka_nyan",
+      "name": "陽向葵ゅか",
+      "category": "seiyuu",
+      "role": "announce",
+      "active": true,
+      "tags": [
+        "声优",
+        "创作者"
+      ]
+    },
+    {
+      "handle": "re_re_tsubame",
+      "name": "柚木つばめ",
+      "category": "seiyuu",
+      "role": "main",
+      "active": true,
+      "tags": [
+        "声优",
+        "创作者"
+      ]
+    },
+    {
+      "handle": "tsubame_kokuchi",
+      "name": "柚木つばめ",
+      "category": "seiyuu",
+      "role": "announce",
+      "active": true,
+      "tags": [
+        "声优",
+        "创作者"
+      ]
+    },
+    {
+      "handle": "suzuka_minase",
+      "name": "涼花みなせ",
+      "category": "seiyuu",
+      "role": "main",
+      "active": true,
+      "tags": [
+        "声优",
+        "创作者"
+      ]
+    },
+    {
+      "handle": "akinokaedevo",
+      "name": "秋野かえで",
+      "category": "seiyuu",
+      "role": "main",
+      "active": true,
+      "tags": [
+        "声优",
+        "创作者"
+      ]
+    },
+    {
+      "handle": "narumiaisaka",
+      "name": "逢坂成美",
+      "category": "seiyuu",
+      "role": "main",
+      "active": true,
+      "tags": [
+        "声优",
+        "创作者"
+      ]
+    },
+    {
+      "handle": "asuparama40",
+      "name": "御子柴泉",
+      "category": "seiyuu",
+      "role": "main",
+      "active": true,
+      "tags": [
+        "声优",
+        "创作者"
+      ]
+    },
+    {
+      "handle": "siokaraoi4",
+      "name": "御子柴泉",
+      "category": "seiyuu",
+      "role": "sub",
+      "active": true,
+      "tags": [
+        "声优",
+        "创作者"
+      ]
+    },
+    {
+      "handle": "mirai_chiroru",
+      "name": "大山チロル",
+      "category": "seiyuu",
+      "role": "main",
+      "active": true,
+      "tags": [
+        "声优",
+        "创作者"
+      ]
+    },
+    {
+      "handle": "chiroru_o_",
+      "name": "大山チロル",
+      "category": "seiyuu",
+      "role": "sub",
+      "active": true,
+      "tags": [
+        "声优",
+        "创作者"
+      ]
+    },
+    {
+      "handle": "devil_chiroru_v",
+      "name": "大山チロル",
+      "category": "seiyuu",
+      "role": "other",
+      "active": true,
+      "tags": [
+        "声优",
+        "创作者"
+      ]
+    },
+    {
+      "handle": "mochiri_0909",
+      "name": "餅梨あむ",
+      "category": "seiyuu",
+      "role": "main",
+      "active": true,
+      "tags": [
+        "声优",
+        "创作者"
+      ]
+    },
+    {
+      "handle": "mochiri_senden",
+      "name": "餅梨あむ",
+      "category": "seiyuu",
+      "role": "announce",
+      "active": true,
+      "tags": [
+        "声优",
+        "创作者"
+      ]
+    },
+    {
+      "handle": "mimo_chorion",
+      "name": "みもりあいの",
+      "category": "seiyuu",
+      "role": "main",
+      "active": true,
+      "tags": [
+        "声优",
+        "创作者"
+      ]
+    },
+    {
+      "handle": "mimoriaino",
+      "name": "みもりあいの",
+      "category": "seiyuu",
+      "role": "sub",
+      "active": true,
+      "tags": [
+        "声优",
+        "创作者"
+      ]
+    },
+    {
+      "handle": "melty_honey_pot",
+      "name": "みもりあいの",
+      "category": "seiyuu",
+      "role": "circle",
+      "active": true,
+      "tags": [
+        "声优",
+        "创作者"
+      ],
+      "note": "melty_honey_pot"
+    },
+    {
+      "handle": "harurupanda0827",
+      "name": "秋山はるる",
+      "category": "seiyuu",
+      "role": "main",
+      "active": true,
+      "tags": [
+        "声优",
+        "创作者"
+      ]
+    },
+    {
+      "handle": "ryonarab",
+      "name": "秋山はるる",
+      "category": "seiyuu",
+      "role": "other",
+      "active": true,
+      "tags": [
+        "声优",
+        "创作者"
+      ]
+    },
+    {
+      "handle": "shiho_moai",
+      "name": "分倍河原シホ",
+      "category": "seiyuu",
+      "role": "main",
+      "active": true,
+      "tags": [
+        "声优",
+        "创作者"
+      ]
+    },
+    {
+      "handle": "__amachi",
+      "name": "天知遥",
+      "category": "seiyuu",
+      "role": "main",
+      "active": true,
+      "tags": [
+        "声优",
+        "创作者"
+      ]
+    },
+    {
+      "handle": "322yui3",
+      "name": "乙倉ゆい",
+      "category": "seiyuu",
+      "role": "main",
+      "active": true,
+      "tags": [
+        "声优",
+        "创作者"
+      ]
+    },
+    {
+      "handle": "ayakaigasaki",
+      "name": "伊ヶ崎綾香",
+      "category": "seiyuu",
+      "role": "main",
+      "active": true,
+      "tags": [
+        "声优",
+        "创作者"
+      ]
+    },
+    {
+      "handle": "ayakaigasaki69",
+      "name": "伊ヶ崎綾香",
+      "category": "seiyuu",
+      "role": "sub",
+      "active": true,
+      "tags": [
+        "声优",
+        "创作者"
+      ]
+    },
+    {
+      "handle": "gemiko_voice",
+      "name": "山田じぇみ子",
+      "category": "seiyuu",
+      "role": "main",
+      "active": true,
+      "tags": [
+        "声优",
+        "创作者"
+      ]
+    },
+    {
+      "handle": "momokar181",
+      "name": "恋鈴桃歌",
+      "category": "seiyuu",
+      "role": "main",
+      "active": true,
+      "tags": [
+        "声优",
+        "创作者"
+      ]
+    },
+    {
+      "handle": "mame_ruse",
+      "name": "そらまめ。",
+      "category": "seiyuu",
+      "role": "main",
+      "active": true,
+      "tags": [
+        "声优",
+        "创作者"
+      ]
+    },
+    {
+      "handle": "asagishiki00",
+      "name": "浅木式",
+      "category": "seiyuu",
+      "role": "main",
+      "active": true,
+      "tags": [
+        "声优",
+        "创作者"
+      ]
+    },
+    {
+      "handle": "suikauriko",
+      "name": "西瓜すいか",
+      "category": "seiyuu",
+      "role": "main",
+      "active": true,
+      "tags": [
+        "声优",
+        "创作者"
+      ]
+    },
+    {
+      "handle": "urichansuika",
+      "name": "西瓜すいか",
+      "category": "seiyuu",
+      "role": "sub",
+      "active": true,
+      "tags": [
+        "声优",
+        "创作者"
+      ]
+    },
+    {
+      "handle": "yuzuki_momoka",
+      "name": "MOMOKA。",
+      "category": "seiyuu",
+      "role": "main",
+      "active": true,
+      "tags": [
+        "声优",
+        "创作者"
+      ]
+    },
+    {
+      "handle": "momoka_vtuber",
+      "name": "MOMOKA。",
+      "category": "seiyuu",
+      "role": "other",
+      "active": true,
+      "tags": [
+        "声优",
+        "创作者"
+      ]
+    },
+    {
+      "handle": "koyama9haru",
+      "name": "こやまはる",
+      "category": "seiyuu",
+      "role": "main",
+      "active": true,
+      "tags": [
+        "声优",
+        "创作者"
+      ]
+    },
+    {
+      "handle": "fujimura_rio",
+      "name": "藤村莉央",
+      "category": "seiyuu",
+      "role": "main",
+      "active": true,
+      "tags": [
+        "声优",
+        "创作者"
+      ]
+    },
+    {
+      "handle": "nashihanami",
+      "name": "高梨はなみ",
+      "category": "seiyuu",
+      "role": "main",
+      "active": true,
+      "tags": [
+        "声优",
+        "创作者"
+      ]
+    },
+    {
+      "handle": "bee_ryo",
+      "name": "涼貴涼",
+      "category": "seiyuu",
+      "role": "main",
+      "active": true,
+      "tags": [
+        "声优",
+        "创作者"
+      ]
+    },
+    {
+      "handle": "1_rito",
+      "name": "一之瀬りと",
+      "category": "seiyuu",
+      "role": "main",
+      "active": true,
+      "tags": [
+        "声优",
+        "创作者"
+      ]
+    },
+    {
+      "handle": "p_o_g_s2",
+      "name": "野上菜月",
+      "category": "seiyuu",
+      "role": "main",
+      "active": true,
+      "tags": [
+        "声优",
+        "创作者"
+      ]
+    },
+    {
+      "handle": "poplar_berm",
+      "name": "沢野ぽぷら",
+      "category": "seiyuu",
+      "role": "main",
+      "active": true,
+      "tags": [
+        "声优",
+        "创作者"
+      ]
+    },
+    {
+      "handle": "hiyori_voice",
+      "name": "御崎ひより",
+      "category": "seiyuu",
+      "role": "main",
+      "active": true,
+      "tags": [
+        "声优",
+        "创作者"
+      ]
+    },
+    {
+      "handle": "aizawa_nachu",
+      "name": "藍沢夏癒",
+      "category": "seiyuu",
+      "role": "main",
+      "active": true,
+      "tags": [
+        "声优",
+        "创作者"
+      ]
+    },
+    {
+      "handle": "CV_kumoyahachi",
+      "name": "雲八はち",
+      "category": "seiyuu",
+      "role": "main",
+      "active": true,
+      "tags": [
+        "声优",
+        "创作者"
+      ]
+    },
+    {
+      "handle": "badgirlshop8",
+      "name": "雲八はち",
+      "category": "seiyuu",
+      "role": "circle",
+      "active": true,
+      "tags": [
+        "声优",
+        "创作者"
+      ],
+      "note": "わるいこ屋さん"
+    },
+    {
+      "handle": "otonopusco",
+      "name": "かの仔",
+      "category": "seiyuu",
+      "role": "main",
+      "active": true,
+      "tags": [
+        "声优",
+        "创作者"
+      ]
+    },
+    {
+      "handle": "oOYuKiKoOo",
+      "name": "篠守ゆきこ",
+      "category": "seiyuu",
+      "role": "main",
+      "active": true,
+      "tags": [
+        "声优",
+        "创作者"
+      ]
+    },
+    {
+      "handle": "oOYuKiKo_NewsOo",
+      "name": "篠守ゆきこ",
+      "category": "seiyuu",
+      "role": "announce",
+      "active": true,
+      "tags": [
+        "声优",
+        "创作者"
+      ]
+    },
+    {
+      "handle": "saku_mix_voice",
+      "name": "篠守ゆきこ",
+      "category": "seiyuu",
+      "role": "other",
+      "active": true,
+      "tags": [
+        "声优",
+        "创作者"
+      ]
+    },
+    {
+      "handle": "kotone_akv",
+      "name": "琴音有波",
+      "category": "seiyuu",
+      "role": "main",
+      "active": true,
+      "tags": [
+        "声优",
+        "创作者"
+      ]
+    },
+    {
+      "handle": "jiaomidsu3187",
+      "name": "海音ミヅチ",
+      "category": "seiyuu",
+      "role": "main",
+      "active": true,
+      "tags": [
+        "声优",
+        "创作者"
+      ]
+    },
+    {
+      "handle": "kuroseimu_000",
+      "name": "海音ミヅチ",
+      "category": "seiyuu",
+      "role": "other",
+      "active": true,
+      "tags": [
+        "声优",
+        "创作者"
+      ]
+    },
+    {
+      "handle": "kokko_kohanai",
+      "name": "小花衣こっこ",
+      "category": "seiyuu",
+      "role": "main",
+      "active": true,
+      "tags": [
+        "声优",
+        "创作者"
+      ]
+    },
+    {
+      "handle": "flanklm",
+      "name": "来夢ふらん",
+      "category": "seiyuu",
+      "role": "main",
+      "active": true,
+      "tags": [
+        "声优",
+        "创作者"
+      ]
+    },
+    {
+      "handle": "Unicolony_uni",
+      "name": "小石川うに",
+      "category": "seiyuu",
+      "role": "main",
+      "active": true,
+      "tags": [
+        "声优",
+        "创作者"
+      ]
+    },
+    {
+      "handle": "y_asm",
+      "name": "浅見ゆい",
+      "category": "seiyuu",
+      "role": "main",
+      "active": true,
+      "tags": [
+        "声优",
+        "创作者"
+      ]
+    },
+    {
+      "handle": "sato_sioo",
+      "name": "砂糖しお",
+      "category": "seiyuu",
+      "role": "main",
+      "active": true,
+      "tags": [
+        "声优",
+        "创作者"
+      ]
+    },
+    {
+      "handle": "yuzukiakari",
+      "name": "柚木朱莉",
+      "category": "seiyuu",
+      "role": "main",
+      "active": true,
+      "tags": [
+        "声优",
+        "创作者"
+      ]
+    },
+    {
+      "handle": "akaritta_news",
+      "name": "柚木朱莉",
+      "category": "seiyuu",
+      "role": "announce",
+      "active": true,
+      "tags": [
+        "声优",
+        "创作者"
+      ]
+    },
+    {
+      "handle": "anninninraichi",
+      "name": "杏仁らいち",
+      "category": "seiyuu",
+      "role": "main",
+      "active": true,
+      "tags": [
+        "声优",
+        "创作者"
+      ]
+    },
+    {
+      "handle": "DLyukimidaifuku",
+      "name": "雪見だいふく",
+      "category": "seiyuu",
+      "role": "main",
+      "active": true,
+      "tags": [
+        "声优",
+        "创作者"
+      ]
+    },
+    {
+      "handle": "KAMiSiRO_cast",
+      "name": "神代そら",
+      "category": "seiyuu",
+      "role": "main",
+      "active": true,
+      "tags": [
+        "声优",
+        "创作者"
+      ]
+    },
+    {
+      "handle": "namimimiobot",
+      "name": "浪実みお",
+      "category": "seiyuu",
+      "role": "main",
+      "active": true,
+      "tags": [
+        "声优",
+        "创作者"
+      ]
+    },
+    {
+      "handle": "mitakarin",
+      "name": "みたかりん",
+      "category": "seiyuu",
+      "role": "main",
+      "active": true,
+      "tags": [
+        "声优",
+        "创作者"
+      ]
+    },
+    {
+      "handle": "hoshinora1212",
+      "name": "星野天",
+      "category": "seiyuu",
+      "role": "main",
+      "active": true,
+      "tags": [
+        "声优",
+        "创作者"
+      ]
+    },
+    {
+      "handle": "mugisawa727",
+      "name": "麦咲輪紫葵",
+      "category": "seiyuu",
+      "role": "main",
+      "active": true,
+      "tags": [
+        "声优",
+        "创作者"
+      ]
+    },
+    {
+      "handle": "kotoritoko_1015",
+      "name": "古都ことり",
+      "category": "seiyuu",
+      "role": "main",
+      "active": true,
+      "tags": [
+        "声优",
+        "创作者"
+      ]
+    },
+    {
+      "handle": "mei_misonoo",
+      "name": "御苑生メイ",
+      "category": "seiyuu",
+      "role": "main",
+      "active": true,
+      "tags": [
+        "声优",
+        "创作者"
+      ]
+    },
+    {
+      "handle": "ria_arino0707",
+      "name": "ありのりあ",
+      "category": "seiyuu",
+      "role": "main",
+      "active": true,
+      "tags": [
+        "声优",
+        "创作者"
+      ]
+    },
+    {
+      "handle": "nemurinerima",
+      "name": "眠音りま",
+      "category": "seiyuu",
+      "role": "main",
+      "active": true,
+      "tags": [
+        "声优",
+        "创作者"
+      ]
+    },
+    {
+      "handle": "lilim404",
+      "name": "兎月りりむ。",
+      "category": "seiyuu",
+      "role": "main",
+      "active": true,
+      "tags": [
+        "声优",
+        "创作者"
+      ]
+    },
+    {
+      "handle": "DoujinOnseiCom",
+      "name": "兎月りりむ。",
+      "category": "seiyuu",
+      "role": "other",
+      "active": true,
+      "tags": [
+        "声优",
+        "创作者"
+      ]
+    },
+    {
+      "handle": "LilimUzuki",
+      "name": "兎月りりむ。",
+      "category": "seiyuu",
+      "role": "other",
+      "active": true,
+      "tags": [
+        "声优",
+        "创作者"
+      ]
+    },
+    {
+      "handle": "koyoring54",
+      "name": "縁側こより",
+      "category": "seiyuu",
+      "role": "main",
+      "active": true,
+      "tags": [
+        "声优",
+        "创作者"
+      ]
+    },
+    {
+      "handle": "koyoring55",
+      "name": "縁側こより",
+      "category": "seiyuu",
+      "role": "sub",
+      "active": true,
+      "tags": [
+        "声优",
+        "创作者"
+      ]
+    },
+    {
+      "handle": "girlscreationpr",
+      "name": "佐倉江美",
+      "category": "seiyuu",
+      "role": "main",
+      "active": true,
+      "tags": [
+        "声优",
+        "创作者"
+      ]
+    },
+    {
+      "handle": "sakuraemi2",
+      "name": "佐倉江美",
+      "category": "seiyuu",
+      "role": "sub",
+      "active": true,
+      "tags": [
+        "声优",
+        "创作者"
+      ]
+    },
+    {
+      "handle": "nekomi_hime",
+      "name": "猫視ねこ",
+      "category": "seiyuu",
+      "role": "main",
+      "active": true,
+      "tags": [
+        "声优",
+        "创作者"
+      ]
+    },
+    {
+      "handle": "mzn773",
+      "name": "水野七海",
+      "category": "seiyuu",
+      "role": "main",
+      "active": true,
+      "tags": [
+        "声优",
+        "创作者"
+      ]
+    },
+    {
+      "handle": "mmegumu",
+      "name": "森野めぐむ",
+      "category": "seiyuu",
+      "role": "main",
+      "active": true,
+      "tags": [
+        "声优",
+        "创作者"
+      ]
+    },
+    {
+      "handle": "yu_hadki",
+      "name": "葉月ゆう",
+      "category": "seiyuu",
+      "role": "main",
+      "active": true,
+      "tags": [
+        "声优",
+        "创作者"
+      ]
+    },
+    {
+      "handle": "ikuraeru",
+      "name": "伊倉える",
+      "category": "seiyuu",
+      "role": "main",
+      "active": true,
+      "tags": [
+        "声优",
+        "创作者"
+      ]
+    },
+    {
+      "handle": "yukirinrin1191",
+      "name": "豊川ゆき",
+      "category": "seiyuu",
+      "role": "main",
+      "active": true,
+      "tags": [
+        "声优",
+        "创作者"
+      ]
+    },
+    {
+      "handle": "my_mimichinchin",
+      "name": "都みみち",
+      "category": "seiyuu",
+      "role": "main",
+      "active": true,
+      "tags": [
+        "声优",
+        "创作者"
+      ]
+    },
+    {
+      "handle": "mymy_mimichinchin",
+      "name": "都みみち",
+      "category": "seiyuu",
+      "role": "other",
+      "active": true,
+      "tags": [
+        "声优",
+        "创作者"
+      ]
+    },
+    {
+      "handle": "mymy_mimichi",
+      "name": "都みみち",
+      "category": "seiyuu",
+      "role": "other",
+      "active": true,
+      "tags": [
+        "声优",
+        "创作者"
+      ]
+    },
+    {
+      "handle": "Setsune_Soyogi",
+      "name": "梵雪音",
+      "category": "seiyuu",
+      "role": "main",
+      "active": true,
+      "tags": [
+        "声优",
+        "创作者"
+      ]
+    },
+    {
+      "handle": "jtjitkub5r_uuka",
+      "name": "まあ油るる",
+      "category": "seiyuu",
+      "role": "main",
+      "active": true,
+      "tags": [
+        "声优",
+        "创作者"
+      ]
+    },
+    {
+      "handle": "ndk39",
+      "name": "西浦のどか",
+      "category": "seiyuu",
+      "role": "main",
+      "active": true,
+      "tags": [
+        "声优",
+        "创作者"
+      ]
+    },
+    {
+      "handle": "phan_work",
+      "name": "まさきふぁん",
+      "category": "seiyuu",
+      "role": "main",
+      "active": true,
+      "tags": [
+        "声优",
+        "创作者"
+      ]
+    },
+    {
+      "handle": "Suzune_2816",
+      "name": "双葉すずね",
+      "category": "seiyuu",
+      "role": "main",
+      "active": true,
+      "tags": [
+        "声优",
+        "创作者"
+      ]
+    },
+    {
+      "handle": "shiharuuun",
+      "name": "奏谷しはる",
+      "category": "seiyuu",
+      "role": "main",
+      "active": true,
+      "tags": [
+        "声优",
+        "创作者"
+      ]
+    },
+    {
+      "handle": "haruno_tsukushi",
+      "name": "春乃つくし",
+      "category": "seiyuu",
+      "role": "main",
+      "active": true,
+      "tags": [
+        "声优",
+        "创作者"
+      ]
+    },
+    {
+      "handle": "shimotsukiyuu",
+      "name": "霜月優",
+      "category": "seiyuu",
+      "role": "main",
+      "active": true,
+      "tags": [
+        "声优",
+        "创作者"
+      ]
+    },
+    {
+      "handle": "sakissaki_voice",
+      "name": "佐々木サキ",
+      "category": "seiyuu",
+      "role": "main",
+      "active": true,
+      "tags": [
+        "声优",
+        "创作者"
+      ]
+    },
+    {
+      "handle": "AMAKARAsyndrome",
+      "name": "佐々木サキ",
+      "category": "seiyuu",
+      "role": "other",
+      "active": true,
+      "tags": [
+        "声优",
+        "创作者"
+      ]
+    },
+    {
+      "handle": "hekilab",
+      "name": "佐々木サキ",
+      "category": "seiyuu",
+      "role": "circle",
+      "active": true,
+      "tags": [
+        "声优",
+        "创作者"
+      ],
+      "note": "新人同人サークルへきらぼ"
+    },
+    {
+      "handle": "ayanemako",
+      "name": "綾音まこ",
+      "category": "seiyuu",
+      "role": "main",
+      "active": true,
+      "tags": [
+        "声优",
+        "创作者"
+      ]
+    },
+    {
+      "handle": "yuna_na7se",
+      "name": "七瀬ゆな",
+      "category": "seiyuu",
+      "role": "main",
+      "active": true,
+      "tags": [
+        "声优",
+        "创作者"
+      ]
+    },
+    {
+      "handle": "mashiro_mayuki_",
+      "name": "真白真雪",
+      "category": "seiyuu",
+      "role": "main",
+      "active": true,
+      "tags": [
+        "声优",
+        "创作者"
+      ]
+    },
+    {
+      "handle": "__yukimichi__",
+      "name": "真白真雪",
+      "category": "seiyuu",
+      "role": "other",
+      "active": true,
+      "tags": [
+        "声优",
+        "创作者"
+      ]
+    },
+    {
+      "handle": "ayumi_sarah",
+      "name": "歩サラ",
+      "category": "seiyuu",
+      "role": "main",
+      "active": true,
+      "tags": [
+        "声优",
+        "创作者"
+      ]
+    },
+    {
+      "handle": "potte1919",
+      "name": "歩サラ",
+      "category": "seiyuu",
+      "role": "circle",
+      "active": true,
+      "tags": [
+        "声优",
+        "创作者"
+      ],
+      "note": "音声サークル『potte』"
+    },
+    {
+      "handle": "IMOSAKA_B_C_",
+      "name": "堀米玲音",
+      "category": "seiyuu",
+      "role": "main",
+      "active": true,
+      "tags": [
+        "声优",
+        "创作者"
+      ]
+    },
+    {
+      "handle": "aoitokio",
+      "name": "葵時緒",
+      "category": "seiyuu",
+      "role": "main",
+      "active": true,
+      "tags": [
+        "声优",
+        "创作者"
+      ]
+    },
+    {
+      "handle": "tanaka_osushi",
+      "name": "田中",
+      "category": "seiyuu",
+      "role": "main",
+      "active": true,
+      "tags": [
+        "声优",
+        "创作者"
+      ]
+    },
+    {
+      "handle": "mskmiro316",
+      "name": "未想可みいろ",
+      "category": "seiyuu",
+      "role": "main",
+      "active": true,
+      "tags": [
+        "声优",
+        "创作者"
+      ]
+    },
+    {
+      "handle": "refle_ookami",
+      "name": "狼ノ宮ヒナギク",
+      "category": "seiyuu",
+      "role": "main",
+      "active": true,
+      "tags": [
+        "声优",
+        "创作者"
+      ]
+    },
+    {
+      "handle": "kiruu_1",
+      "name": "狼ノ宮ヒナギク",
+      "category": "seiyuu",
+      "role": "other",
+      "active": true,
+      "tags": [
+        "声优",
+        "创作者"
+      ]
+    },
+    {
+      "handle": "M_chipo_O",
+      "name": "思ちぽ",
+      "category": "seiyuu",
+      "role": "main",
+      "active": true,
+      "tags": [
+        "声优",
+        "创作者"
+      ]
+    },
+    {
+      "handle": "maihal_yuu",
+      "name": "川乃瀬由羽",
+      "category": "seiyuu",
+      "role": "main",
+      "active": true,
+      "tags": [
+        "声优",
+        "创作者"
+      ]
+    },
+    {
+      "handle": "ran_ran_ranze25",
+      "name": "蘭世",
+      "category": "seiyuu",
+      "role": "main",
+      "active": true,
+      "tags": [
+        "声优",
+        "创作者"
+      ]
+    },
+    {
+      "handle": "kanojo_nyui",
+      "name": "由比かのん",
+      "category": "seiyuu",
+      "role": "main",
+      "active": true,
+      "tags": [
+        "声优",
+        "创作者"
+      ]
+    },
+    {
+      "handle": "Hina_ayame_vo",
+      "name": "彩夢ひな",
+      "category": "seiyuu",
+      "role": "main",
+      "active": true,
+      "tags": [
+        "声优",
+        "创作者"
+      ]
+    },
+    {
+      "handle": "mi_ru_ku88",
+      "name": "夢咲みるく",
+      "category": "seiyuu",
+      "role": "main",
+      "active": true,
+      "tags": [
+        "声优",
+        "创作者"
+      ]
+    },
+    {
+      "handle": "sakuramomoka710",
+      "name": "佐倉もも花",
+      "category": "seiyuu",
+      "role": "main",
+      "active": true,
+      "tags": [
+        "声优",
+        "创作者"
+      ]
+    },
+    {
+      "handle": "shirosawasayaka",
+      "name": "白沢サヤカ",
+      "category": "seiyuu",
+      "role": "main",
+      "active": true,
+      "tags": [
+        "声优",
+        "创作者"
+      ]
+    },
+    {
+      "handle": "seiraakane",
+      "name": "星羅あかね",
+      "category": "seiyuu",
+      "role": "main",
+      "active": true,
+      "tags": [
+        "声优",
+        "创作者"
+      ]
+    },
+    {
+      "handle": "hotaoctenten",
+      "name": "神在ほたる",
+      "category": "seiyuu",
+      "role": "main",
+      "active": true,
+      "tags": [
+        "声优",
+        "创作者"
+      ]
+    },
+    {
+      "handle": "ogurayui1017",
+      "name": "小倉結衣",
+      "category": "seiyuu",
+      "role": "main",
+      "active": true,
+      "tags": [
+        "声优",
+        "创作者"
+      ]
+    },
+    {
+      "handle": "ogubit_ASMR",
+      "name": "小倉結衣",
+      "category": "seiyuu",
+      "role": "other",
+      "active": true,
+      "tags": [
+        "声优",
+        "创作者"
+      ]
+    },
+    {
+      "handle": "runhanami",
+      "name": "花見るん",
+      "category": "seiyuu",
+      "role": "main",
+      "active": true,
+      "tags": [
+        "声优",
+        "创作者"
+      ]
+    },
+    {
+      "handle": "kimiiromizu",
+      "name": "雨音いろみず",
+      "category": "seiyuu",
+      "role": "main",
+      "active": true,
+      "tags": [
+        "声优",
+        "创作者"
+      ]
+    },
+    {
+      "handle": "Noa_Hikami",
+      "name": "氷上のあ",
+      "category": "seiyuu",
+      "role": "main",
+      "active": true,
+      "tags": [
+        "声优",
+        "创作者"
+      ]
+    },
+    {
+      "handle": "shindo_azusa",
+      "name": "進藤あずさ",
+      "category": "seiyuu",
+      "role": "main",
+      "active": true,
+      "tags": [
+        "声优",
+        "创作者"
+      ]
+    },
+    {
+      "handle": "kanzinowatashi",
+      "name": "ありがた～い私",
+      "category": "seiyuu",
+      "role": "main",
+      "active": true,
+      "tags": [
+        "声优",
+        "创作者"
+      ]
+    },
+    {
+      "handle": "hako_noah",
+      "name": "箱河ノア",
+      "category": "seiyuu",
+      "role": "main",
+      "active": true,
+      "tags": [
+        "声优",
+        "创作者"
+      ]
+    },
+    {
+      "handle": "anzumitsu",
+      "name": "杏子御津",
+      "category": "seiyuu",
+      "role": "main",
+      "active": true,
+      "tags": [
+        "声优",
+        "创作者"
+      ]
+    },
+    {
+      "handle": "ricca_kitami",
+      "name": "北見六花",
+      "category": "seiyuu",
+      "role": "main",
+      "active": true,
+      "tags": [
+        "声优",
+        "创作者"
+      ]
+    }
   ]
 }
