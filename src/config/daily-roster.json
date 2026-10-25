@@ -1,6 +1,6 @@
 {
-  "schema_version": 2,
-  "note": "名单只决定分组与显示顺序，不决定谁进日报（进不进由数据决定）。handle 不带 @。category 只能取 categories 里的 id，跨类用 tags 补充；一个人只给一个 category，多分类会让综合视图重复计数。role 是账号身份（main/sub/announce/circle/other），供人工核对与以后按号筛选，脚本目前不据此过滤。active=false 暂停某人，但历史日报不动。",
+  "schema_version": 3,
+  "note": "名单只决定分组与显示顺序，不决定谁进日报（进不进由数据决定）。handle 不带 @。category 只能取 categories 里的 id，跨类用 tags 补充；一个人只给一个 category，多分类会让综合视图重复计数。role 是账号身份（main/sub/announce/circle/other）。active=false 表示「在名单里但暂不参与日报」——脚本跳过它的条目与展示；社团号现在全部是 false，等分类视图做出来再逐个打开。",
   "categories": [
     {
       "id": "seiyuu",
@@ -57,7 +57,8 @@
       "active": true,
       "tags": [
         "声优",
-        "创作者"
+        "创作者",
+        "音声"
       ]
     },
     {
@@ -68,7 +69,8 @@
       "active": true,
       "tags": [
         "声优",
-        "创作者"
+        "创作者",
+        "音声"
       ]
     },
     {
@@ -189,7 +191,8 @@
       "active": true,
       "tags": [
         "声优",
-        "创作者"
+        "创作者",
+        "音声"
       ]
     },
     {
@@ -200,7 +203,8 @@
       "active": true,
       "tags": [
         "声优",
-        "创作者"
+        "创作者",
+        "音声"
       ]
     },
     {
@@ -211,9 +215,9 @@
       "active": true,
       "tags": [
         "声优",
-        "创作者"
-      ],
-      "note": "melty_honey_pot"
+        "创作者",
+        "音声"
+      ]
     },
     {
       "handle": "harurupanda0827",
@@ -278,7 +282,8 @@
       "active": true,
       "tags": [
         "声优",
-        "创作者"
+        "创作者",
+        "音声"
       ]
     },
     {
@@ -289,7 +294,8 @@
       "active": true,
       "tags": [
         "声优",
-        "创作者"
+        "创作者",
+        "音声"
       ]
     },
     {
@@ -410,7 +416,8 @@
       "active": true,
       "tags": [
         "声优",
-        "创作者"
+        "创作者",
+        "音声"
       ]
     },
     {
@@ -432,7 +439,8 @@
       "active": true,
       "tags": [
         "声优",
-        "创作者"
+        "创作者",
+        "音声"
       ]
     },
     {
@@ -487,7 +495,8 @@
       "active": true,
       "tags": [
         "声优",
-        "创作者"
+        "创作者",
+        "音声"
       ]
     },
     {
@@ -498,9 +507,9 @@
       "active": true,
       "tags": [
         "声优",
-        "创作者"
-      ],
-      "note": "わるいこ屋さん"
+        "创作者",
+        "音声"
+      ]
     },
     {
       "handle": "otonopusco",
@@ -1049,7 +1058,8 @@
       "active": true,
       "tags": [
         "声优",
-        "创作者"
+        "创作者",
+        "音声"
       ]
     },
     {
@@ -1060,7 +1070,8 @@
       "active": true,
       "tags": [
         "声优",
-        "创作者"
+        "创作者",
+        "音声"
       ]
     },
     {
@@ -1071,9 +1082,9 @@
       "active": true,
       "tags": [
         "声优",
-        "创作者"
-      ],
-      "note": "新人同人サークルへきらぼ"
+        "创作者",
+        "音声"
+      ]
     },
     {
       "handle": "ayanemako",
@@ -1127,7 +1138,8 @@
       "active": true,
       "tags": [
         "声优",
-        "创作者"
+        "创作者",
+        "音声"
       ]
     },
     {
@@ -1138,9 +1150,9 @@
       "active": true,
       "tags": [
         "声优",
-        "创作者"
-      ],
-      "note": "音声サークル『potte』"
+        "创作者",
+        "音声"
+      ]
     },
     {
       "handle": "IMOSAKA_B_C_",
@@ -1392,7 +1404,8 @@
       "active": true,
       "tags": [
         "声优",
-        "创作者"
+        "创作者",
+        "音声"
       ]
     },
     {
@@ -1427,6 +1440,1314 @@
         "声优",
         "创作者"
       ]
+    },
+    {
+      "handle": "Kyonyu0821",
+      "name": "巨乳大好き屋",
+      "category": "circle",
+      "role": "circle",
+      "active": false,
+      "tags": [
+        "创作者",
+        "音声"
+      ],
+      "note": "近三年 24 部 / 累计 344 部"
+    },
+    {
+      "handle": "studio_ref",
+      "name": "スタジオりふれぼ",
+      "category": "circle",
+      "role": "circle",
+      "active": false,
+      "tags": [
+        "创作者",
+        "音声"
+      ],
+      "note": "近三年 24 部 / 累计 305 部"
+    },
+    {
+      "handle": "bocchilab2",
+      "name": "ぼっちえっちLAB",
+      "category": "circle",
+      "role": "circle",
+      "active": false,
+      "tags": [
+        "创作者",
+        "音声"
+      ],
+      "note": "近三年 24 部 / 累计 226 部"
+    },
+    {
+      "handle": "G_Sound0721",
+      "name": "G-Sound",
+      "category": "circle",
+      "role": "circle",
+      "active": false,
+      "tags": [
+        "创作者",
+        "音声"
+      ],
+      "note": "近三年 24 部 / 累计 165 部"
+    },
+    {
+      "handle": "kuhxincai",
+      "name": "空心菜館",
+      "category": "circle",
+      "role": "circle",
+      "active": false,
+      "tags": [
+        "创作者",
+        "音声"
+      ],
+      "note": "近三年 24 部 / 累计 159 部"
+    },
+    {
+      "handle": "pawnlank7",
+      "name": "B-bishop",
+      "category": "circle",
+      "role": "circle",
+      "active": false,
+      "tags": [
+        "创作者",
+        "音声"
+      ],
+      "note": "近三年 24 部 / 累计 151 部"
+    },
+    {
+      "handle": "abs_voice",
+      "name": "あぶそりゅ～と",
+      "category": "circle",
+      "role": "circle",
+      "active": false,
+      "tags": [
+        "创作者",
+        "音声"
+      ],
+      "note": "近三年 24 部 / 累计 144 部"
+    },
+    {
+      "handle": "aquapktDL",
+      "name": "あくあぽけっと",
+      "category": "circle",
+      "role": "circle",
+      "active": false,
+      "tags": [
+        "创作者",
+        "音声"
+      ],
+      "note": "近三年 24 部 / 累计 131 部"
+    },
+    {
+      "handle": "uninimu",
+      "name": "Diebrust(ディーブルスト)",
+      "category": "circle",
+      "role": "circle",
+      "active": false,
+      "tags": [
+        "创作者",
+        "音声"
+      ],
+      "note": "近三年 24 部 / 累计 129 部"
+    },
+    {
+      "handle": "schildkrote00",
+      "name": "シルトクレーテ",
+      "category": "circle",
+      "role": "circle",
+      "active": false,
+      "tags": [
+        "创作者",
+        "音声"
+      ],
+      "note": "近三年 24 部 / 累计 124 部"
+    },
+    {
+      "handle": "emoi_do_lite",
+      "name": "エモイ堂",
+      "category": "circle",
+      "role": "circle",
+      "active": false,
+      "tags": [
+        "创作者",
+        "音声"
+      ],
+      "note": "近三年 24 部 / 累计 122 部"
+    },
+    {
+      "handle": "jitsuona",
+      "name": "じつおな",
+      "category": "circle",
+      "role": "circle",
+      "active": false,
+      "tags": [
+        "创作者",
+        "音声"
+      ],
+      "note": "近三年 24 部 / 累计 118 部"
+    },
+    {
+      "handle": "amatorotoro",
+      "name": "あまとろすいーつ",
+      "category": "circle",
+      "role": "circle",
+      "active": false,
+      "tags": [
+        "创作者",
+        "音声"
+      ],
+      "note": "近三年 24 部 / 累计 109 部"
+    },
+    {
+      "handle": "072labo",
+      "name": "072LABO",
+      "category": "circle",
+      "role": "circle",
+      "active": false,
+      "tags": [
+        "创作者",
+        "音声"
+      ],
+      "note": "近三年 24 部 / 累计 88 部"
+    },
+    {
+      "handle": "arimie_asmr",
+      "name": "ありみえASMRワールド",
+      "category": "circle",
+      "role": "circle",
+      "active": false,
+      "tags": [
+        "创作者",
+        "音声"
+      ],
+      "note": "近三年 24 部 / 累计 88 部"
+    },
+    {
+      "handle": "okkun_2",
+      "name": "超究極",
+      "category": "circle",
+      "role": "circle",
+      "active": false,
+      "tags": [
+        "创作者",
+        "音声"
+      ],
+      "note": "近三年 24 部 / 累计 87 部"
+    },
+    {
+      "handle": "deep_dahlia",
+      "name": "Deep;Dahlia",
+      "category": "circle",
+      "role": "circle",
+      "active": false,
+      "tags": [
+        "创作者",
+        "音声"
+      ],
+      "note": "近三年 24 部 / 累计 81 部"
+    },
+    {
+      "handle": "info_psg2019",
+      "name": "パースペクティブ少女幻奏",
+      "category": "circle",
+      "role": "circle",
+      "active": false,
+      "tags": [
+        "创作者",
+        "音声"
+      ],
+      "note": "近三年 24 部 / 累计 78 部"
+    },
+    {
+      "handle": "fukahiredon12",
+      "name": "スタジオレイン",
+      "category": "circle",
+      "role": "circle",
+      "active": false,
+      "tags": [
+        "创作者",
+        "音声"
+      ],
+      "note": "近三年 24 部 / 累计 75 部"
+    },
+    {
+      "handle": "circlekimirinko",
+      "name": "きみりんこ。",
+      "category": "circle",
+      "role": "circle",
+      "active": false,
+      "tags": [
+        "创作者",
+        "音声"
+      ],
+      "note": "近三年 24 部 / 累计 71 部"
+    },
+    {
+      "handle": "aohachannel",
+      "name": "青春×フェティシズム",
+      "category": "circle",
+      "role": "circle",
+      "active": false,
+      "tags": [
+        "创作者",
+        "音声"
+      ],
+      "note": "近三年 24 部 / 累计 64 部"
+    },
+    {
+      "handle": "inparovoice",
+      "name": "いんぱろぼいす",
+      "category": "circle",
+      "role": "circle",
+      "active": false,
+      "tags": [
+        "创作者",
+        "音声"
+      ],
+      "note": "近三年 24 部 / 累计 59 部"
+    },
+    {
+      "handle": "TodoTodoproduce",
+      "name": "アトリエTODO",
+      "category": "circle",
+      "role": "circle",
+      "active": false,
+      "tags": [
+        "创作者",
+        "音声"
+      ],
+      "note": "近三年 24 部 / 累计 59 部"
+    },
+    {
+      "handle": "mesupule",
+      "name": "めすぷれ♪",
+      "category": "circle",
+      "role": "circle",
+      "active": false,
+      "tags": [
+        "创作者",
+        "音声"
+      ],
+      "note": "近三年 24 部 / 累计 55 部"
+    },
+    {
+      "handle": "VicornF",
+      "name": "バイコーンの森",
+      "category": "circle",
+      "role": "circle",
+      "active": false,
+      "tags": [
+        "创作者",
+        "音声"
+      ],
+      "note": "近三年 24 部 / 累计 54 部"
+    },
+    {
+      "handle": "kazutamadoujin",
+      "name": "かずたまそふと",
+      "category": "circle",
+      "role": "circle",
+      "active": false,
+      "tags": [
+        "创作者",
+        "音声"
+      ],
+      "note": "近三年 24 部 / 累计 52 部"
+    },
+    {
+      "handle": "10ru00",
+      "name": "ゆうとぴゅあ",
+      "category": "circle",
+      "role": "circle",
+      "active": false,
+      "tags": [
+        "创作者",
+        "音声"
+      ],
+      "note": "近三年 24 部 / 累计 48 部"
+    },
+    {
+      "handle": "ukonchan_com",
+      "name": "うこんちゃん☆かんぱにぃ",
+      "category": "circle",
+      "role": "circle",
+      "active": false,
+      "tags": [
+        "创作者",
+        "音声"
+      ],
+      "note": "近三年 24 部 / 累计 46 部"
+    },
+    {
+      "handle": "pachipachisoft",
+      "name": "ぱちぱちぼいす",
+      "category": "circle",
+      "role": "circle",
+      "active": false,
+      "tags": [
+        "创作者",
+        "音声"
+      ],
+      "note": "近三年 24 部 / 累计 39 部"
+    },
+    {
+      "handle": "romaapoinfo",
+      "name": "ろまあぽ",
+      "category": "circle",
+      "role": "circle",
+      "active": false,
+      "tags": [
+        "创作者",
+        "音声"
+      ],
+      "note": "近三年 24 部 / 累计 39 部"
+    },
+    {
+      "handle": "MidoriHorokusa",
+      "name": "ホロクサミドリ",
+      "category": "circle",
+      "role": "circle",
+      "active": false,
+      "tags": [
+        "创作者",
+        "音声"
+      ],
+      "note": "近三年 24 部 / 累计 38 部"
+    },
+    {
+      "handle": "nyu_nyu_fantasy",
+      "name": "にゅうにゅう",
+      "category": "circle",
+      "role": "circle",
+      "active": false,
+      "tags": [
+        "创作者",
+        "音声"
+      ],
+      "note": "近三年 24 部 / 累计 35 部"
+    },
+    {
+      "handle": "kin_mirai",
+      "name": "劇團近未来",
+      "category": "circle",
+      "role": "circle",
+      "active": false,
+      "tags": [
+        "创作者",
+        "音声"
+      ],
+      "note": "近三年 24 部 / 累计 34 部"
+    },
+    {
+      "handle": "_mayotama_",
+      "name": "マヨタマ",
+      "category": "circle",
+      "role": "circle",
+      "active": false,
+      "tags": [
+        "创作者",
+        "音声"
+      ],
+      "note": "近三年 24 部 / 累计 33 部"
+    },
+    {
+      "handle": "koi_neiro",
+      "name": "こいねいろ(旧:三色だんご屋)",
+      "category": "circle",
+      "role": "circle",
+      "active": false,
+      "tags": [
+        "创作者",
+        "音声"
+      ],
+      "note": "近三年 24 部 / 累计 31 部"
+    },
+    {
+      "handle": "StudioLime_",
+      "name": "スタジオライム",
+      "category": "circle",
+      "role": "circle",
+      "active": false,
+      "tags": [
+        "创作者",
+        "音声"
+      ],
+      "note": "近三年 24 部 / 累计 24 部"
+    },
+    {
+      "handle": "Girls_Cloister",
+      "name": "少女クロイスタ",
+      "category": "circle",
+      "role": "circle",
+      "active": false,
+      "tags": [
+        "创作者",
+        "音声"
+      ],
+      "note": "近三年 23 部 / 累计 23 部"
+    },
+    {
+      "handle": "Circlename_ao_",
+      "name": "サークル名ao",
+      "category": "circle",
+      "role": "circle",
+      "active": false,
+      "tags": [
+        "创作者",
+        "音声"
+      ],
+      "note": "近三年 22 部 / 累计 42 部"
+    },
+    {
+      "handle": "PinkPunkPro",
+      "name": "PINK PUNK PRO",
+      "category": "circle",
+      "role": "circle",
+      "active": false,
+      "tags": [
+        "创作者",
+        "音声"
+      ],
+      "note": "近三年 22 部 / 累计 38 部"
+    },
+    {
+      "handle": "omoomo8818",
+      "name": "お漏らしふぇち部",
+      "category": "circle",
+      "role": "circle",
+      "active": false,
+      "tags": [
+        "创作者",
+        "音声"
+      ],
+      "note": "近三年 21 部 / 累计 24 部"
+    },
+    {
+      "handle": "kurotukisyoukai",
+      "name": "黒月商会",
+      "category": "circle",
+      "role": "circle",
+      "active": false,
+      "tags": [
+        "创作者",
+        "音声"
+      ],
+      "note": "近三年 20 部 / 累计 38 部"
+    },
+    {
+      "handle": "otoyome_18",
+      "name": "オトヨメ",
+      "category": "circle",
+      "role": "circle",
+      "active": false,
+      "tags": [
+        "创作者",
+        "音声"
+      ],
+      "note": "近三年 20 部 / 累计 20 部"
+    },
+    {
+      "handle": "wasabi_maru09",
+      "name": "ワサビ屋",
+      "category": "circle",
+      "role": "circle",
+      "active": false,
+      "tags": [
+        "创作者",
+        "音声"
+      ],
+      "note": "近三年 19 部 / 累计 41 部"
+    },
+    {
+      "handle": "zyuzigen",
+      "name": "汁次元",
+      "category": "circle",
+      "role": "circle",
+      "active": false,
+      "tags": [
+        "创作者",
+        "音声"
+      ],
+      "note": "近三年 19 部 / 累计 30 部"
+    },
+    {
+      "handle": "MermaidLabo",
+      "name": "Mermaid Labo",
+      "category": "circle",
+      "role": "circle",
+      "active": false,
+      "tags": [
+        "创作者",
+        "音声"
+      ],
+      "note": "近三年 19 部 / 累计 22 部"
+    },
+    {
+      "handle": "itazuraya2025",
+      "name": "イタズラ屋",
+      "category": "circle",
+      "role": "circle",
+      "active": false,
+      "tags": [
+        "创作者",
+        "音声"
+      ],
+      "note": "近三年 19 部 / 累计 19 部"
+    },
+    {
+      "handle": "RadRevel",
+      "name": "Rad.Revel",
+      "category": "circle",
+      "role": "circle",
+      "active": false,
+      "tags": [
+        "创作者",
+        "音声"
+      ],
+      "note": "近三年 18 部 / 累计 31 部"
+    },
+    {
+      "handle": "rabitsaudio",
+      "name": "rabits",
+      "category": "circle",
+      "role": "circle",
+      "active": false,
+      "tags": [
+        "创作者",
+        "音声"
+      ],
+      "note": "近三年 18 部 / 累计 21 部"
+    },
+    {
+      "handle": "sikoly45",
+      "name": "シコリテック∞ジョイント",
+      "category": "circle",
+      "role": "circle",
+      "active": false,
+      "tags": [
+        "创作者",
+        "音声"
+      ],
+      "note": "近三年 18 部 / 累计 21 部"
+    },
+    {
+      "handle": "glamorous_ko_pr",
+      "name": "ぐらまらす工房",
+      "category": "circle",
+      "role": "circle",
+      "active": false,
+      "tags": [
+        "创作者",
+        "音声"
+      ],
+      "note": "近三年 18 部 / 累计 18 部"
+    },
+    {
+      "handle": "umeru_main",
+      "name": "こねくとぴあ",
+      "category": "circle",
+      "role": "circle",
+      "active": false,
+      "tags": [
+        "创作者",
+        "音声"
+      ],
+      "note": "近三年 18 部 / 累计 18 部"
+    },
+    {
+      "handle": "uraaka_studio",
+      "name": "裏垢スタジオ",
+      "category": "circle",
+      "role": "circle",
+      "active": false,
+      "tags": [
+        "创作者",
+        "音声"
+      ],
+      "note": "近三年 17 部 / 累计 28 部"
+    },
+    {
+      "handle": "NagaiKantoku",
+      "name": "永井監督",
+      "category": "circle",
+      "role": "circle",
+      "active": false,
+      "tags": [
+        "创作者",
+        "音声"
+      ],
+      "note": "近三年 17 部 / 累计 17 部"
+    },
+    {
+      "handle": "Milk_Melon21",
+      "name": "みるくめろん",
+      "category": "circle",
+      "role": "circle",
+      "active": false,
+      "tags": [
+        "创作者",
+        "音声"
+      ],
+      "note": "近三年 16 部 / 累计 100 部"
+    },
+    {
+      "handle": "grandmenu3373",
+      "name": "grandmenu",
+      "category": "circle",
+      "role": "circle",
+      "active": false,
+      "tags": [
+        "创作者",
+        "音声"
+      ],
+      "note": "近三年 16 部 / 累计 19 部"
+    },
+    {
+      "handle": "commons0229",
+      "name": "TigerGateProject",
+      "category": "circle",
+      "role": "circle",
+      "active": false,
+      "tags": [
+        "创作者",
+        "音声"
+      ],
+      "note": "近三年 16 部 / 累计 16 部"
+    },
+    {
+      "handle": "asmr_strawberr",
+      "name": "すとろべりぃたると",
+      "category": "circle",
+      "role": "circle",
+      "active": false,
+      "tags": [
+        "创作者",
+        "音声"
+      ],
+      "note": "近三年 16 部 / 累计 16 部"
+    },
+    {
+      "handle": "bunnygames0303",
+      "name": "バニーゲームス",
+      "category": "circle",
+      "role": "circle",
+      "active": false,
+      "tags": [
+        "创作者",
+        "音声"
+      ],
+      "note": "近三年 16 部 / 累计 16 部"
+    },
+    {
+      "handle": "koigakuya",
+      "name": "恋楽屋",
+      "category": "circle",
+      "role": "circle",
+      "active": false,
+      "tags": [
+        "创作者",
+        "音声"
+      ],
+      "note": "近三年 15 部 / 累计 37 部"
+    },
+    {
+      "handle": "snopri220",
+      "name": "Snow Prism",
+      "category": "circle",
+      "role": "circle",
+      "active": false,
+      "tags": [
+        "创作者",
+        "音声"
+      ],
+      "note": "近三年 14 部 / 累计 15 部"
+    },
+    {
+      "handle": "chantopi_hd",
+      "name": "ちゃんとぴ発電所",
+      "category": "circle",
+      "role": "circle",
+      "active": false,
+      "tags": [
+        "创作者",
+        "音声"
+      ],
+      "note": "近三年 14 部 / 累计 14 部"
+    },
+    {
+      "handle": "RomaPro_CR",
+      "name": "ロマンスすとーりー",
+      "category": "circle",
+      "role": "circle",
+      "active": false,
+      "tags": [
+        "创作者",
+        "音声"
+      ],
+      "note": "近三年 14 部 / 累计 14 部"
+    },
+    {
+      "handle": "MSH_DLsite",
+      "name": "性癖博物館",
+      "category": "circle",
+      "role": "circle",
+      "active": false,
+      "tags": [
+        "创作者",
+        "音声"
+      ],
+      "note": "近三年 14 部 / 累计 7 部"
+    },
+    {
+      "handle": "tareme4569",
+      "name": "F・A・S",
+      "category": "circle",
+      "role": "circle",
+      "active": false,
+      "tags": [
+        "创作者",
+        "音声"
+      ],
+      "note": "近三年 13 部 / 累计 49 部"
+    },
+    {
+      "handle": "ShitsurakuGirl",
+      "name": "失楽少女",
+      "category": "circle",
+      "role": "circle",
+      "active": false,
+      "tags": [
+        "创作者",
+        "音声"
+      ],
+      "note": "近三年 13 部 / 累计 20 部"
+    },
+    {
+      "handle": "eardebris",
+      "name": "でぶり",
+      "category": "circle",
+      "role": "circle",
+      "active": false,
+      "tags": [
+        "创作者",
+        "音声"
+      ],
+      "note": "近三年 13 部 / 累计 19 部"
+    },
+    {
+      "handle": "honeylovers_sbe",
+      "name": "はにぃらばぁず",
+      "category": "circle",
+      "role": "circle",
+      "active": false,
+      "tags": [
+        "创作者",
+        "音声"
+      ],
+      "note": "近三年 13 部 / 累计 13 部"
+    },
+    {
+      "handle": "voicelover",
+      "name": "VOICE LOVER",
+      "category": "circle",
+      "role": "circle",
+      "active": false,
+      "tags": [
+        "创作者",
+        "音声"
+      ],
+      "note": "近三年 12 部 / 累计 126 部"
+    },
+    {
+      "handle": "uebunri",
+      "name": "うえぶんり",
+      "category": "circle",
+      "role": "circle",
+      "active": false,
+      "tags": [
+        "创作者",
+        "音声"
+      ],
+      "note": "近三年 12 部 / 累计 34 部"
+    },
+    {
+      "handle": "jitsuen_voice",
+      "name": "ジツエン",
+      "category": "circle",
+      "role": "circle",
+      "active": false,
+      "tags": [
+        "创作者",
+        "音声"
+      ],
+      "note": "近三年 12 部 / 累计 15 部"
+    },
+    {
+      "handle": "ohshimap_new",
+      "name": "イデアリズム少女人形",
+      "category": "circle",
+      "role": "circle",
+      "active": false,
+      "tags": [
+        "创作者",
+        "音声"
+      ],
+      "note": "近三年 12 部 / 累计 12 部"
+    },
+    {
+      "handle": "hotarubi00101",
+      "name": "ヨルガオ亭",
+      "category": "circle",
+      "role": "circle",
+      "active": false,
+      "tags": [
+        "创作者",
+        "音声"
+      ],
+      "note": "近三年 12 部 / 累计 12 部"
+    },
+    {
+      "handle": "cielo20245",
+      "name": "猫耳屋",
+      "category": "circle",
+      "role": "circle",
+      "active": false,
+      "tags": [
+        "创作者",
+        "音声"
+      ],
+      "note": "近三年 12 部 / 累计 12 部"
+    },
+    {
+      "handle": "Nyamaretto",
+      "name": "にゃまれっと",
+      "category": "circle",
+      "role": "circle",
+      "active": false,
+      "tags": [
+        "创作者",
+        "音声"
+      ],
+      "note": "近三年 12 部 / 累计 8 部"
+    },
+    {
+      "handle": "Anthurium_azami",
+      "name": "アンスリウム",
+      "category": "circle",
+      "role": "circle",
+      "active": false,
+      "tags": [
+        "创作者",
+        "音声"
+      ],
+      "note": "近三年 11 部 / 累计 28 部"
+    },
+    {
+      "handle": "FuwatoroGalaxy",
+      "name": "ふわとろ☆ギャラクシー",
+      "category": "circle",
+      "role": "circle",
+      "active": false,
+      "tags": [
+        "创作者",
+        "音声"
+      ],
+      "note": "近三年 11 部 / 累计 22 部"
+    },
+    {
+      "handle": "kousoku1118",
+      "name": "スタジオ拘束少女図鑑",
+      "category": "circle",
+      "role": "circle",
+      "active": false,
+      "tags": [
+        "创作者",
+        "音声"
+      ],
+      "note": "近三年 11 部 / 累计 13 部"
+    },
+    {
+      "handle": "Dash_i_Maki",
+      "name": "だしまき屋",
+      "category": "circle",
+      "role": "circle",
+      "active": false,
+      "tags": [
+        "创作者",
+        "音声"
+      ],
+      "note": "近三年 11 部 / 累计 12 部"
+    },
+    {
+      "handle": "WhiteLovers_R18",
+      "name": "ホワイト×ラバーズ",
+      "category": "circle",
+      "role": "circle",
+      "active": false,
+      "tags": [
+        "创作者",
+        "音声"
+      ],
+      "note": "近三年 10 部 / 累计 62 部"
+    },
+    {
+      "handle": "milkhuuka",
+      "name": "牛乳ソフト",
+      "category": "circle",
+      "role": "circle",
+      "active": false,
+      "tags": [
+        "创作者",
+        "音声"
+      ],
+      "note": "近三年 10 部 / 累计 30 部"
+    },
+    {
+      "handle": "cube_staff",
+      "name": "Clover Voice",
+      "category": "circle",
+      "role": "circle",
+      "active": false,
+      "tags": [
+        "创作者",
+        "音声"
+      ],
+      "note": "近三年 10 部 / 累计 15 部"
+    },
+    {
+      "handle": "Voice_Palette",
+      "name": "Vぱれっと",
+      "category": "circle",
+      "role": "circle",
+      "active": false,
+      "tags": [
+        "创作者",
+        "音声"
+      ],
+      "note": "近三年 10 部 / 累计 15 部"
+    },
+    {
+      "handle": "mizuno_cho",
+      "name": "みずのちょう",
+      "category": "circle",
+      "role": "circle",
+      "active": false,
+      "tags": [
+        "创作者",
+        "音声"
+      ],
+      "note": "近三年 10 部 / 累计 13 部"
+    },
+    {
+      "handle": "akatsukimeu",
+      "name": "めうちゃんねる",
+      "category": "circle",
+      "role": "circle",
+      "active": false,
+      "tags": [
+        "创作者",
+        "音声"
+      ],
+      "note": "近三年 10 部 / 累计 10 部"
+    },
+    {
+      "handle": "Smart_Insert",
+      "name": "スマート挿入",
+      "category": "circle",
+      "role": "circle",
+      "active": false,
+      "tags": [
+        "创作者",
+        "音声"
+      ],
+      "note": "近三年 9 部 / 累计 21 部"
+    },
+    {
+      "handle": "bekesubeya",
+      "name": "べけす工房",
+      "category": "circle",
+      "role": "circle",
+      "active": false,
+      "tags": [
+        "创作者",
+        "音声"
+      ],
+      "note": "近三年 9 部 / 累计 20 部"
+    },
+    {
+      "handle": "niinashinjou",
+      "name": "プルシアン ブルー",
+      "category": "circle",
+      "role": "circle",
+      "active": false,
+      "tags": [
+        "创作者",
+        "音声"
+      ],
+      "note": "近三年 9 部 / 累计 18 部"
+    },
+    {
+      "handle": "lovelove_tyuuru",
+      "name": "ラブラブチュール",
+      "category": "circle",
+      "role": "circle",
+      "active": false,
+      "tags": [
+        "创作者",
+        "音声"
+      ],
+      "note": "近三年 9 部 / 累计 15 部"
+    },
+    {
+      "handle": "sorahatestudio_",
+      "name": "宙果てスタジオ",
+      "category": "circle",
+      "role": "circle",
+      "active": false,
+      "tags": [
+        "创作者",
+        "音声"
+      ],
+      "note": "近三年 9 部 / 累计 14 部"
+    },
+    {
+      "handle": "yurika_koishite",
+      "name": "逆説パラドクス",
+      "category": "circle",
+      "role": "circle",
+      "active": false,
+      "tags": [
+        "创作者",
+        "音声"
+      ],
+      "note": "近三年 9 部 / 累计 12 部"
+    },
+    {
+      "handle": "alkan_c6",
+      "name": "アルカンジオル",
+      "category": "circle",
+      "role": "circle",
+      "active": false,
+      "tags": [
+        "创作者",
+        "音声"
+      ],
+      "note": "近三年 9 部 / 累计 11 部"
+    },
+    {
+      "handle": "himitsu_drop222",
+      "name": "秘密色工房どろっぷ",
+      "category": "circle",
+      "role": "circle",
+      "active": false,
+      "tags": [
+        "创作者",
+        "音声"
+      ],
+      "note": "近三年 9 部 / 累计 11 部"
+    },
+    {
+      "handle": "yukinkokingdom",
+      "name": "ゆきんこ王国",
+      "category": "circle",
+      "role": "circle",
+      "active": false,
+      "tags": [
+        "创作者",
+        "音声"
+      ],
+      "note": "近三年 9 部 / 累计 9 部"
+    },
+    {
+      "handle": "Elysium_ASMR",
+      "name": "ルルイエエリジウム",
+      "category": "circle",
+      "role": "circle",
+      "active": false,
+      "tags": [
+        "创作者",
+        "音声"
+      ],
+      "note": "近三年 9 部 / 累计 9 部"
+    },
+    {
+      "handle": "hikaru_neko2222",
+      "name": "劇団チェリー",
+      "category": "circle",
+      "role": "circle",
+      "active": false,
+      "tags": [
+        "创作者",
+        "音声"
+      ],
+      "note": "近三年 9 部 / 累计 9 部"
+    },
+    {
+      "handle": "skp175",
+      "name": "桜色ピアノ",
+      "category": "circle",
+      "role": "circle",
+      "active": false,
+      "tags": [
+        "创作者",
+        "音声"
+      ],
+      "note": "近三年 8 部 / 累计 20 部"
+    },
+    {
+      "handle": "aijo_machine",
+      "name": "この祭には終わりがないといわれていた",
+      "category": "circle",
+      "role": "circle",
+      "active": false,
+      "tags": [
+        "创作者",
+        "音声"
+      ],
+      "note": "近三年 8 部 / 累计 12 部"
+    },
+    {
+      "handle": "0rderr",
+      "name": "ぬすみみみ。",
+      "category": "circle",
+      "role": "circle",
+      "active": false,
+      "tags": [
+        "创作者",
+        "音声"
+      ],
+      "note": "近三年 8 部 / 累计 9 部"
+    },
+    {
+      "handle": "mahorobaasmr",
+      "name": "まほろばきゃらめ",
+      "category": "circle",
+      "role": "circle",
+      "active": false,
+      "tags": [
+        "创作者",
+        "音声"
+      ],
+      "note": "近三年 8 部 / 累计 8 部"
+    },
+    {
+      "handle": "make_nai_man",
+      "name": "甘堕落",
+      "category": "circle",
+      "role": "circle",
+      "active": false,
+      "tags": [
+        "创作者",
+        "音声"
+      ],
+      "note": "近三年 8 部 / 累计 8 部"
+    },
+    {
+      "handle": "digzap_voice",
+      "name": "音声工房DigZap",
+      "category": "circle",
+      "role": "circle",
+      "active": false,
+      "tags": [
+        "创作者",
+        "音声"
+      ],
+      "note": "近三年 8 部 / 累计 8 部"
+    },
+    {
+      "handle": "Amamiya_mei",
+      "name": "star sign cafe",
+      "category": "circle",
+      "role": "circle",
+      "active": false,
+      "tags": [
+        "创作者",
+        "音声"
+      ],
+      "note": "近三年 7 部 / 累计 25 部"
+    },
+    {
+      "handle": "quiquiqui",
+      "name": "上海飯店",
+      "category": "circle",
+      "role": "circle",
+      "active": false,
+      "tags": [
+        "创作者",
+        "音声"
+      ],
+      "note": "近三年 7 部 / 累计 25 部"
+    },
+    {
+      "handle": "MarKuS_D_S",
+      "name": ".␣ [Dot-Space]",
+      "category": "circle",
+      "role": "circle",
+      "active": false,
+      "tags": [
+        "创作者",
+        "音声"
+      ],
+      "note": "近三年 7 部 / 累计 22 部"
+    },
+    {
+      "handle": "sikoraKnight",
+      "name": "シコらnight",
+      "category": "circle",
+      "role": "circle",
+      "active": false,
+      "tags": [
+        "创作者",
+        "音声"
+      ],
+      "note": "近三年 7 部 / 累计 21 部"
+    },
+    {
+      "handle": "kneepillow1",
+      "name": "枕木製作所",
+      "category": "circle",
+      "role": "circle",
+      "active": false,
+      "tags": [
+        "创作者",
+        "音声"
+      ],
+      "note": "近三年 7 部 / 累计 18 部"
+    },
+    {
+      "handle": "fiberdrop",
+      "name": "ふぁいばーどろっぷ",
+      "category": "circle",
+      "role": "circle",
+      "active": false,
+      "tags": [
+        "创作者",
+        "音声"
+      ],
+      "note": "近三年 7 部 / 累计 11 部"
+    },
+    {
+      "handle": "C_Little_Oasis",
+      "name": "Little Oasis",
+      "category": "circle",
+      "role": "circle",
+      "active": false,
+      "tags": [
+        "创作者",
+        "音声"
+      ],
+      "note": "近三年 7 部 / 累计 10 部"
+    },
+    {
+      "handle": "ogami_nt",
+      "name": "オーガミニュータウン",
+      "category": "circle",
+      "role": "circle",
+      "active": false,
+      "tags": [
+        "创作者",
+        "音声"
+      ],
+      "note": "近三年 7 部 / 累计 9 部"
     }
   ]
 }

@@ -61,12 +61,13 @@ def _render(
     issue_id: str,
     roster: Roster,
     published_at: str,
+    per_account: int | None = None,
 ) -> dict[str, bytes]:
     """三个产物一起出。generate.json 也是可复现对象，所以放进同一份比对。"""
     export = build_export(issue_id, classification, merged, roster, published_at)
     return {
         f"{issue_id}.briefing.txt": build_briefing(
-            merged, classification.window.day, accounts
+            merged, classification.window.day, accounts, per_account
         ).encode("utf-8"),
         f"{issue_id}.md": build_markdown(merged, issue_id, accounts).encode("utf-8"),
         f"{issue_id}.generate.json": (
@@ -93,6 +94,18 @@ def _pipeline(
 
     classification = classify(raw, window, seen)
     merged = sort_items(merge(classification.items))
+
+    # 名单里 active=false 的账号（目前是全部社团号）先不进日报：
+    # 跳过的是**条目**，不是「当成未知账号」——它们在名单里，只是暂时不消化。
+    # 静默跳过会让「昨天还在的人今天不见了」无从查起，所以打一行日志。
+    idle = sorted({i.account for i in merged if not roster.is_active(i.account)})
+    if idle:
+        print(
+            f"注意：{len(idle)} 个账号标了 active=false，条目已跳过：" + "、".join(idle),
+            file=sys.stderr,
+        )
+        merged = [i for i in merged if roster.is_active(i.account)]
+
     accounts = sort_accounts({i.account for i in merged}, roster)
     roster.warn_unknown(accounts)
     return classification, merged, accounts
@@ -124,9 +137,11 @@ def _cmd_build(args: argparse.Namespace) -> int:
     if args.check_reproducible:
         # 纯函数检查：不读也不写账本，否则第二次运行会因为「都见过了」而不同
         first_c, first_items, first_acc = _pipeline(raw, window, roster, {})
-        first = _render(first_c, first_items, first_acc, issue_id, roster, published_at)
+        first = _render(first_c, first_items, first_acc, issue_id, roster, published_at,
+                        args.per_account)
         second_c, second_items, second_acc = _pipeline(raw, window, roster, {})
-        second = _render(second_c, second_items, second_acc, issue_id, roster, published_at)
+        second = _render(second_c, second_items, second_acc, issue_id, roster, published_at,
+                         args.per_account)
         if first != second:
             for name in sorted(set(first) | set(second)):
                 if first.get(name) != second.get(name):
@@ -153,7 +168,7 @@ def _cmd_build(args: argparse.Namespace) -> int:
         )
         return 3
 
-    files = _render(classification, merged, accounts, issue_id, roster, published_at)
+    files = _render(classification, merged, accounts, issue_id, roster, published_at, args.per_account)
     out = Path(args.out)
     out.mkdir(parents=True, exist_ok=True)
     for name, blob in files.items():
@@ -186,7 +201,7 @@ def _cmd_build(args: argparse.Namespace) -> int:
 
     print(
         "下一步：让本地 WorkBuddy 读 briefing 与 generate.json，填写该 .md 里的 "
-        "highlights（今日看点）/ interactions（互动）/ people[].summary（每人一句）三段。"
+        "highlights（今日看点）/ works（作品动态）/ interactions（互动）/ people[].summary（每人一句）四段。"
     )
     return 0
 
@@ -232,6 +247,12 @@ def main(argv: list[str] | None = None) -> int:
         help="补录历史：只取窗口内的条目，不读不写账本（late / future 恒为 0）",
     )
     build.add_argument("--roster", default=None, help="名单文件，默认 src/config/daily-roster.json")
+    build.add_argument(
+        "--per-account",
+        type=int,
+        default=None,
+        help="briefing 里每个账号最多写几条（默认全部）。给了数就按（互动, 时间）从高到低截断",
+    )
     build.add_argument("--force", action="store_true", help="允许覆盖已存在的期号")
     build.add_argument(
         "--check-reproducible",

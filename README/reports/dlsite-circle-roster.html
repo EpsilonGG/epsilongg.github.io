@@ -75,11 +75,14 @@
   .kpi div { min-width: 120px; }
   .kpi b { display: block; font-size: 22px; font-variant-numeric: tabular-nums; }
   .kpi span { font-size: 12.5px; color: var(--ink-3); }
+  td.tags { white-space: nowrap; }
+  td.tags .tag { margin-right: 3px; }
+  td.tags .tag { display: block; margin: 0 0 2px; text-align: center; }
   table.roster { font-size: 12.5px; }
   table.roster th, table.roster td { padding: 6px 8px; }
   table.roster td .cname { display: inline-block; max-width: 11em; white-space: normal; line-height: 1.4; }
-  td.tags { white-space: nowrap; }
-  td.tags .tag { margin-right: 3px; }
+  td.tags { white-space: normal; }
+  td.tags .tag { display: block; margin: 0 0 2px; text-align: center; white-space: nowrap; }
   .legend { color: var(--ink-3); font-size: 12.5px; }
   footer { margin-top: 56px; padding-top: 20px; border-top: 1px solid var(--line); color: var(--ink-3); font-size: 12.5px; }
   table.roster td .dim { color: var(--ink-3); }
@@ -99,12 +102,12 @@
 
 <p>按「近三年（2023-10-25 之后）作品数 &gt; 5」筛，1,450 个社团里合格的有 <strong>344 家</strong>
 （原始 390 条，同一社团在 swsem 里有多个 maker_id，按名称合并掉 46 条）。
-其中 <strong>112 家拿到了 X 账号</strong>，占 33%。</p>
+其中 <strong>116 家拿到了 X 账号</strong>，占 34%。</p>
 
 <div class="kpi">
   <div><b>344</b><span>合格社团</span></div>
-  <div><b>112</b><span>已确认 X 账号</span></div>
-  <div><b>11</b><span>搜到线索但没采信</span></div>
+  <div><b>116</b><span>已确认 X 账号</span></div>
+  <div><b>7</b><span>搜到线索但没采信</span></div>
   <div><b>221</b><span>仍待补</span></div>
   <div><b>252</b><span>cast 已在初代声优名单里</span></div>
 </div>
@@ -113,9 +116,10 @@
 <p><strong>1. 「近三年作品数」是下限，不是精确值。</strong>swsem 的社团页每页 24 条作品，
 脚本只读第一页，所以 <code>24</code> 的意思是「第一页 24 条全部落在这三年内，实际可能更多」，
 <code>6</code>–<code>23</code> 则是数出来的确切值。用来做「&gt; 5」这个筛选够用，别当成销量或热度。</p>
-<p><strong>2. 只采信 Ci-en 创作者页上的链接。</strong>那一栏是<strong>本人自己填的</strong>，
-一个社团一个资料页，错了也是本人写错，不是我们猜错。11 家搜索能搜到候选，
-但<strong>没有采信</strong>——理由见第 3 节，那 4 个例子说明为什么「搜到」不等于「是」。</p>
+<p><strong>2. 绝大多数账号来自 Ci-en 创作者页。</strong>那一栏是<strong>本人自己填的</strong>，
+一个社团一个资料页，错了也是本人写错，不是我们猜错。另有 4 家是搜索找到、你逐个确认过的，
+表里标「搜索·自述」「搜索·@提及」；剩下 7 家搜到了候选但<strong>没有采信</strong>——
+理由见第 3 节，那 4 个例子说明为什么「搜到」不等于「是」。</p>
 <p><strong>3. 剩下的 221 家不是没查，是查不到。</strong>其中 11 家是「作品里只挂一个 cast、
 而那个 cast 就在初代声优名单里」的单人社团——这种社团大概率就是那位声优自己的品牌，
 但「大概率」不是证据，所以只在表里标「单人」，不替她填账号。</p>
@@ -162,7 +166,7 @@
 <tbody>
 <tr><td class="rank">1</td><td>テグラユウキ</td><td class="num">24</td><td class="num">386</td><td class="cast">柚木つばめ、秋野かえで、逢坂成美 <span class="dim">+3</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
 <tr><td class="rank">2</td><td>いたずらえっち 〜性癖よ恍惚なれ〜</td><td class="num">24</td><td class="num">380</td><td class="cast"><span class="dim">—</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
-<tr><td class="rank">3</td><td>巨乳大好き屋</td><td class="num">24</td><td class="num">344</td><td class="cast">星野天、春乃つくし、すずらん <span class="dim">+3</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">3</td><td>巨乳大好き屋</td><td class="num">24</td><td class="num">344</td><td class="cast">星野天、春乃つくし、すずらん <span class="dim">+3</span></td><td class="handle"><a href="https://x.com/Kyonyu0821" target="_blank" rel="noopener">@Kyonyu0821</a></td><td><span class="tag ok">搜索·自述</span></td></tr>
 <tr><td class="rank">4</td><td>Whisp</td><td class="num">24</td><td class="num">341</td><td class="cast">古都ことり、佐倉江美、奏谷しはる <span class="dim">+3</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
 <tr><td class="rank">5</td><td>スタジオりふれぼ</td><td class="num">24</td><td class="num">305</td><td class="cast">陽向葵ゅか、柚木つばめ、逢坂成美 <span class="dim">+3</span></td><td class="handle"><a href="https://x.com/studio_ref" target="_blank" rel="noopener">@studio_ref</a></td><td><span class="tag ok">Ci-en</span></td></tr>
 <tr><td class="rank">6</td><td>RaRo</td><td class="num">24</td><td class="num">264</td><td class="cast">大西沙織、和氣あず未、永井真衣 <span class="dim">+3</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
@@ -176,13 +180,13 @@
 <tr><td class="rank">14</td><td>シロイルカ</td><td class="num">24</td><td class="num">143</td><td class="cast">柚木つばめ、秋野かえで、涼花みなせ <span class="dim">+3</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
 <tr><td class="rank">15</td><td>生ハメ堕ち部★LACK</td><td class="num">24</td><td class="num">133</td><td class="cast">御苑生メイ、分倍河原シホ、柚木つばめ <span class="dim">+3</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
 <tr><td class="rank">16</td><td>あくあぽけっと</td><td class="num">24</td><td class="num">131</td><td class="cast">陽向葵ゅか、みもりあいの、柚木つばめ <span class="dim">+3</span></td><td class="handle"><a href="https://x.com/aquapktDL" target="_blank" rel="noopener">@aquapktDL</a></td><td><span class="tag ok">Ci-en</span></td></tr>
-<tr><td class="rank">17</td><td>Diebrust(ディーブルスト)</td><td class="num">24</td><td class="num">129</td><td class="cast">癒丹こまり、浅見ゆい、輝月さくら <span class="dim">+3</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">17</td><td>Diebrust(ディーブルスト)</td><td class="num">24</td><td class="num">129</td><td class="cast">癒丹こまり、浅見ゆい、輝月さくら <span class="dim">+3</span></td><td class="handle"><a href="https://x.com/uninimu" target="_blank" rel="noopener">@uninimu</a></td><td><span class="tag ok">搜索·自述</span></td></tr>
 <tr><td class="rank">18</td><td>シルトクレーテ</td><td class="num">24</td><td class="num">124</td><td class="cast">大山チロル、涼花みなせ、陽向葵ゅか <span class="dim">+3</span></td><td class="handle"><a href="https://x.com/schildkrote00" target="_blank" rel="noopener">@schildkrote00</a></td><td><span class="tag ok">Ci-en</span></td></tr>
-<tr><td class="rank">19</td><td>エモイ堂</td><td class="num">24</td><td class="num">122</td><td class="cast">杏仁らいち、西瓜すいか、小花衣こっこ <span class="dim">+3</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">19</td><td>エモイ堂</td><td class="num">24</td><td class="num">122</td><td class="cast">杏仁らいち、西瓜すいか、小花衣こっこ <span class="dim">+3</span></td><td class="handle"><a href="https://x.com/emoi_do_lite" target="_blank" rel="noopener">@emoi_do_lite</a></td><td><span class="tag ok">搜索·自述</span></td></tr>
 <tr><td class="rank">20</td><td>じつおな</td><td class="num">24</td><td class="num">118</td><td class="cast">七瀬ゆな、進藤あずさ、双葉すずね <span class="dim">+3</span></td><td class="handle"><a href="https://x.com/jitsuona" target="_blank" rel="noopener">@jitsuona</a></td><td><span class="tag ok">Ci-en</span></td></tr>
 <tr><td class="rank">21</td><td>ふぁっちゅ</td><td class="num">24</td><td class="num">114</td><td class="cast"><span class="dim">—</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
 <tr><td class="rank">22</td><td>いちのや</td><td class="num">24</td><td class="num">110</td><td class="cast">一之瀬りと、陽向葵ゅか、涼花みなせ <span class="dim">+3</span></td><td class="handle"><a href="https://x.com/1_rito" target="_blank" rel="noopener">@1_rito</a></td><td><span class="tag">Ci-en·包含</span></td></tr>
-<tr><td class="rank">23</td><td>あまとろすいーつ</td><td class="num">24</td><td class="num">109</td><td class="cast">未想可みいろ、神代そら、蘭世 <span class="dim">+3</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
+<tr><td class="rank">23</td><td>あまとろすいーつ</td><td class="num">24</td><td class="num">109</td><td class="cast">未想可みいろ、神代そら、蘭世 <span class="dim">+3</span></td><td class="handle"><a href="https://x.com/amatorotoro" target="_blank" rel="noopener">@amatorotoro</a></td><td><span class="tag">搜索·@提及</span></td></tr>
 <tr><td class="rank">24</td><td>近未来のふわふわ</td><td class="num">24</td><td class="num">105</td><td class="cast">園宮さつき、とおのおと、花城かざり</td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
 <tr><td class="rank">25</td><td>しゃーぷ</td><td class="num">24</td><td class="num">95</td><td class="cast">陽向葵ゅか、柚木つばめ、涼花みなせ <span class="dim">+3</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
 <tr><td class="rank">26</td><td>制服days(旧:甘声)</td><td class="num">24</td><td class="num">95</td><td class="cast">餅梨あむ、乙倉ゆい、秋野かえで <span class="dim">+3</span></td><td class="handle pending">—</td><td><span class="tag">待补</span></td></tr>
@@ -511,8 +515,8 @@
 <h2>3. 搜索能搜到，为什么没采信</h2>
 
 <p>用 Yahoo 搜「社团名 + twitter」，把结果标题里的显示名和社团名比对，
-再按「完全一致 / 包含 / 最长公共子串占比」打分。这一套在 11 家上给出了候选，
-但抽查就发现明显错的，所以<strong>整列都没进表</strong>。四个典型：</p>
+再按「完全一致 / 包含 / 最长公共子串占比」打分。这一套在 7 家上还留着候选，
+但抽查就发现明显错的，所以<strong>这一批没有进表</strong>。四个典型：</p>
 
 <div class="scroll">
 <table>
@@ -526,7 +530,7 @@
 </table>
 </div>
 
-<p class="legend">这 11 家的候选留在下面这张小表里，<strong>没有写进主表</strong>。
+<p class="legend">这 7 家的候选留在下面这张小表里，<strong>没有写进主表</strong>。
 要用的話逐个点开确认显示名与置顶推文，确认一个填一个。</p>
 
 <div class="scroll">
@@ -534,16 +538,12 @@
 <thead><tr><th>社团</th><th>近三年</th><th>候选</th><th>搜索看到的显示名</th></tr></thead>
 <tbody>
 <tr><td>テグラユウキ</td><td class="num">24</td><td class="handle">@guraguraworks</td><td>テグラユウキ</td></tr>
-<tr><td>巨乳大好き屋</td><td class="num">24</td><td class="handle">@Kyonyu0821</td><td>巨乳大好き屋(ASMR販売サークル)</td></tr>
 <tr><td>Whisp</td><td class="num">24</td><td class="handle">@Whisp90</td><td>Whisp</td></tr>
 <tr><td>RaRo</td><td class="num">24</td><td class="handle">@Raro_accessory</td><td>Raro</td></tr>
 <tr><td>ガールズコレクション</td><td class="num">24</td><td class="handle">@TGCnews</td><td>東京ガールズコレクション（TGC）</td></tr>
 <tr><td>シロイルカ</td><td class="num">24</td><td class="handle">@shiro_iruka_s</td><td>シロイルカ</td></tr>
 <tr><td>生ハメ堕ち部★LACK</td><td class="num">24</td><td class="handle">@lalalalack</td><td>lack</td></tr>
-<tr><td>Diebrust(ディーブルスト)</td><td class="num">24</td><td class="handle">@uninimu</td><td>うにーん@Diebrust(ディーブルスト)</td></tr>
-<tr><td>エモイ堂</td><td class="num">24</td><td class="handle">@emoi_do_lite</td><td>エモイ堂（わっしょい）＠公式二代目</td></tr>
 <tr><td>ふぁっちゅ</td><td class="num">24</td><td class="handle">@Fachufaccchu</td><td>ふぁっちゅ！！｜</td></tr>
-<tr><td>あまとろすいーつ</td><td class="num">24</td><td class="handle">@Koedaisuki_4713</td><td>チ в X: „サークル：あまとろすいーつ 様 (@amatorotoro ) 声優 ...Xhttps://x.com&gt;@Koedaisuki_4713</td></tr>
 </tbody>
 </table>
 </div>
@@ -561,7 +561,7 @@
 </table>
 </div>
 
-<p><strong>建议的用法：</strong>先把 112 家已确认的挂进日报名单的 <code>circle</code> 分类跑一段时间，
+<p><strong>建议的用法：</strong>先把 116 家已确认的挂进日报名单的 <code>circle</code> 分类跑一段时间，
 看哪些社团真的在发推；剩下的按「日报里新出现的 handle」增量补。
 一次性把 344 家都填满既做不到，也没必要——大部分社团一个月发不了几条。</p>
 

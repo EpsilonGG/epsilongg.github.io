@@ -340,6 +340,34 @@ class CliTest(unittest.TestCase):
             self.assertIn("晚于窗口 0", out)
             self.assertFalse((tmp_path / "state.json").exists())
 
+class InactiveAccountTest(unittest.TestCase):
+    """名单里 active=false 的账号（现在的社团号）暂时不进日报。
+
+    跳过的是**条目**，不是当成未知账号：它们在名单里，只是不消化。
+    """
+
+    def test_inactive_items_are_dropped_from_the_issue(self) -> None:
+        from daily.model import Account
+
+        roster = Roster(
+            categories=[{"id": "seiyuu", "label": "声优"}],
+            accounts=[Account("alice"), Account("some_circle", category="circle", active=False)],
+        )
+        items = [make("1", "alice"), make("2", "some_circle")]
+        buf = io.StringIO()
+        with redirect_stderr(buf):
+            _, merged, accounts = cli._pipeline(items, WINDOW, roster, {})
+        self.assertEqual([i.account for i in merged], ["alice"])
+        self.assertEqual(accounts, ["alice"])
+        self.assertIn("some_circle", buf.getvalue())  # 静默跳过会让「人不见了」无从查起
+
+    def test_inactive_account_is_still_known(self) -> None:
+        roster = Roster.load()
+        circles = [a for a in roster.accounts if a.category == "circle"]
+        self.assertTrue(circles, "社团号应该已经在名单里")
+        self.assertTrue(all(not a.active for a in circles))
+        self.assertEqual(roster.category_of(circles[0].handle), "circle")
+
 
 if __name__ == "__main__":
     unittest.main()

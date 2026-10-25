@@ -9,7 +9,7 @@
     python scripts/daily_digest.py --items-dir ... --date 2026-10-24
     python scripts/daily_digest.py --items-dir ... --check-reproducible
 
-三段内容由**本地 WorkBuddy（LLM）**填写，脚本不碰 LLM / 不调 API。
+四段内容由**本地 WorkBuddy（LLM）**填写，脚本不碰 LLM / 不调 API。
 站点只渲染 frontmatter，不展示互动数——那些数字只留在 briefing 里供模型判断轻重。
 
 `tests/test_daily_digest.py` 仍然按老接口导入本文件，所以下面这些名字要留着：

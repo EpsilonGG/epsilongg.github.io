@@ -133,6 +133,8 @@ python scripts/daily_digest.py --items-dir "<X-rss-workspace>/X-Reader/data/item
 - `--date YYYY-MM-DD`：可选，**汇总哪一天的数据**（默认取数据里最新一天）。注意这和期号是两件事：`--date` 选数据，期号是发布时间。
 - `--at "2026-10-31 22:00"`：可选，**指定发布时间**（JST），决定期号。不写就取当前小时。
 - `--force`：默认**拒绝覆盖已存在的期号**——覆盖等于删掉一期存档。确实要重写同一期时才加。
+- `--per-account N`：可选，briefing 里每个账号最多写几条，**默认不截**（有几条写几条）。给了数就按（互动数, 发布时间）从高到低截。只在「某人一天刷了 30 条把 briefing 撑爆」时才用。
+- **`active: false` 的账号（社团号）照旧进名单，但条目不进这一期**：脚本会把跳过的账号名打到 stderr。社团号目前是 `active: false`，等日报要收社团作品动态时再逐个打开。
 - 产出：
   - `src/content/daily/<期号>.md` —— 站点内容的**骨架**：frontmatter 里 `accounts` 已按名单序排好，`highlights` / `interactions` 是空数组、`works` 是空串，`people` 每人一条 `summary: ""`，正文只有一个待填说明的注释。
   - `out/<期号>.briefing.txt` —— 喂给 LLM 的事实摘要（推文原文 + 互动数都在这里，已被 `.gitignore` 忽略，属本地中间产物）。
@@ -144,7 +146,7 @@ python scripts/daily_digest.py --items-dir "<X-rss-workspace>/X-Reader/data/item
 对 WorkBuddy 说：**"填写今天的日报"**。它会：
 
 1. 读 `out/<期号>.briefing.txt`（推文原文与互动数都在这里）；
-2. 填 `src/content/daily/<期号>.md` 的**四个地方**：
+2. 填 `src/content/daily/<期号>.md` 的**四段 + 副标题**：
    - `description`：副标题，**今日看点的 50 字以内简报**（脚本留的是「今日 N 位账号有更新，看点待补」占位，必须改写）；
    - `highlights`：今日看点，**只写前 9 的重点 / 自述热度 / 特别活动**，其余下沉到「详细」；
    - `works`：作品动态，**一段话**，不带来源链接；

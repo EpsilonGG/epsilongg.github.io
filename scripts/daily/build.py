@@ -1,7 +1,7 @@
 """从标准化条目生成两份产物（M1.1：从 `daily_digest.py` 迁入，输出逐字节不变）。
 
   * `<out>/<期号>.briefing.txt`   — 喂给 LLM 的原始事实摘要（含推文原文与互动数）
-  * `src/content/daily/<期号>.md` — 日报骨架（三段全空，等本地 WorkBuddy 填）
+  * `src/content/daily/<期号>.md` — 日报骨架（四段全空，等本地 WorkBuddy 填）
 
 这里**不调模型**，也不决定写什么。推文原文与互动数只进 briefing，不进站点内容。
 """
@@ -22,11 +22,35 @@ def _fmt_stat(n) -> str:
     return str(n)
 
 
-def build_briefing(items: list[Item], report_date: date, accounts: list[str] | None = None) -> str:
+def _pick(recs: list[Item], per_account: int | None) -> list[Item]:
+    """每个账号喂给模型的条目：按（互动, 发布时间）从高到低排，`per_account` 为空就不截。
+
+    **截断默认关掉**，因为它以前是个坑：写死 5 条、且只按互动数排。
+    互动数在抓取里经常全是 0，`sorted` 是稳定排序，于是「前 5 条」退化成
+    「当天最早的 5 条」——下午发的推全被丢掉，写日报时看到的事实是残的。
+    真要限流就显式给数，而且排序键里带上时间，至少丢的是「不重要且早」的。
+    """
+    ordered = sorted(
+        recs,
+        key=lambda it: (it.engagement.score(), it.published_at or ""),
+        reverse=True,
+    )
+    return ordered[:per_account] if per_account else ordered
+
+
+def build_briefing(
+    items: list[Item],
+    report_date: date,
+    accounts: list[str] | None = None,
+    per_account: int | None = None,
+) -> str:
     """喂给模型的原始事实摘要。
 
     `accounts` 是名单序（M2.4）。不传就退回「按当日条数」——那是 M1 的旧行为，
     只给老接口与测试用：条数顺序会随抓取顺序漂移，不适合当输出契约。
+
+    `per_account` 是每账号最多写几条，默认 `None` = 全写。传数字就截断，
+    截断规则见 `_pick()`——**别再用「按互动排前 N」当默认**，理由在那边。
     """
     lines: list[str] = []
     lines.append(f"# Daily briefing — {report_date.isoformat()}")
@@ -42,8 +66,7 @@ def build_briefing(items: list[Item], report_date: date, accounts: list[str] | N
         if not recs:
             continue
         lines.append(f"## @{acc}  ({len(recs)} tweets)")
-        top = sorted(recs, key=lambda it: it.engagement.score(), reverse=True)[:5]
-        for it in top:
+        for it in _pick(recs, per_account):
             lines.append(
                 f"- [❤{_fmt_stat(it.engagement.likes)} "
                 f"🔁{_fmt_stat(it.engagement.reposts)}] "

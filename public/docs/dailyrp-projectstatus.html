@@ -780,6 +780,12 @@
       M2.4（2026-10-25）：<code>order.py</code> 固定三级键；账号顺序改成<strong>名单序</strong>，
       不再按当日条数——同一天的账号顺序不该取决于谁话多。
     </p>
+    <p>
+      <span class="pill pill--done">已修</span>
+      2026-10-25：<code>build_briefing()</code> 的<strong>每账号 5 条上限整个拿掉</strong>。
+      抓取从来没截过，被截的只是喂给模型的那一段——一天发 10 条的人，模型只看得到 5 条。
+      现在默认全给，需要压 token 时用 <code>--per-account N</code> 显式收窄。
+    </p>
 
     <div class="note note--warn">
       <p>

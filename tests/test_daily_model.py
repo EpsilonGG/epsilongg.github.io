@@ -200,6 +200,21 @@ class ReproducibleTest(unittest.TestCase):
         build_briefing(items, date(2026, 10, 22))
         self.assertEqual([i.key for i in items], [low.key, high.key])
 
+    def test_briefing_keeps_every_tweet_by_default(self) -> None:
+        """以前写死「每账号 5 条」，一天发 10 条只喂进去 5 条，写出来的日报是残的。"""
+        items = [Item.from_xreader(dict(RAW, item_id=str(i))) for i in range(8)]
+        text = build_briefing(items, date(2026, 10, 22))
+        self.assertEqual(text.count("- [❤"), 8)
+
+    def test_per_account_keeps_the_most_engaged(self) -> None:
+        quiet = [Item.from_xreader(dict(RAW, item_id=str(i))) for i in range(4)]
+        loud = Item.from_xreader(
+            dict(RAW, item_id="hot", metadata=dict(RAW["metadata"], stats={"likes": 99}))
+        )
+        text = build_briefing(quiet + [loud], date(2026, 10, 22), per_account=2)
+        self.assertEqual(text.count("- [❤"), 2)
+        self.assertIn("❤99", text)
+
 
 if __name__ == "__main__":
     unittest.main()
