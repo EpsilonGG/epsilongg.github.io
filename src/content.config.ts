@@ -52,7 +52,18 @@ const daily = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/daily' }),
   schema: z.object({
     title: z.string().trim().min(1, 'title 不能为空'),
-    description: z.string().trim().min(1, 'description 不能是空字符串').optional(),
+    /**
+     * 副标题 = 今日看点的 50 字以内简报，显示在标题下方。
+     * 不要写日期和账号名——日期在标题与「发布于」里已经有了，
+     * 账号名读者扫一眼名单就知道，占掉这 50 字很浪费。
+     * 超长会直接让构建失败；缺失只在构建日志里 warn（允许先出骨架再补）。
+     */
+    description: z
+      .string()
+      .trim()
+      .min(1, 'description 不能是空字符串')
+      .max(50, 'description 是「今日看点」的简报，必须 ≤ 50 字')
+      .optional(),
     pubDate: z.coerce.date(),
     source: z.enum(['original', 'ai']).default('ai'),
     /** 当天有活动的账号（由抓取数据推导，不需要手写） */
@@ -64,7 +75,7 @@ const daily = defineCollection({
     highlights: z.array(z.string().trim().min(1)).default([]),
     /** 名单内多人之间的互动，每项一条；为空则整段不渲染 */
     interactions: z.array(z.string().trim().min(1)).default([]),
-    /** 名单：每人一句话，链接由 handle 生成；summary 为空即视为当日无活动 */
+    /** 每人一句话（页面上叫「详细」），链接由 handle 生成；summary 为空即视为当日无活动 */
     people: z
       .array(
         z.object({

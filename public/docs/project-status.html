@@ -1261,9 +1261,15 @@
           <strong>版式是三段，顺序固定</strong>：
           <code>highlights</code>（今日看点，2–4 段概括）→
           <code>interactions</code>（名单内多人之间的互动，每项一条）→
-          <code>people</code>（每人一句话，渲染成
+          <code>people</code>（小标题叫「详细」，每人一句话，渲染成
           <code>[一句话](https://x.com/handle)</code>）。前两段可以为空，
           空的时候整节不渲染、只在构建日志里 warn 一句。
+        </p>
+        <p>
+          标题下方的副标题是 <code>description</code>，写<strong>今日看点的 50 字以内简报</strong>，
+          不写「日期 + 摘要（@账号1 / @账号2）」——日期在标题和「发布于」里已经有了，
+          账号名扫一眼「详细」就知道。schema 里 <code>.max(50)</code> 是硬约束，超长直接构建失败；
+          构建期还会 warn 一次旧写法（以日期开头、或含「摘要（@」），防止模板改回去。
         </p>
         <p>
           <strong>正文内容写在 frontmatter 而不是 Markdown 正文里</strong>，为的是三件事：

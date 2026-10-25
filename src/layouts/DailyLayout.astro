@@ -53,7 +53,13 @@ if (highlights.length === 0) {
   console.warn(`[daily] ${post.id} 的 highlights 为空，页面会显示「待补充」`);
 }
 if (roster.length === 0) {
-  console.warn(`[daily] ${post.id} 的 people 全为空摘要，名单不会渲染`);
+  console.warn(`[daily] ${post.id} 的 people 全为空摘要，「详细」一段不会渲染`);
+}
+if (!description) {
+  console.warn(`[daily] ${post.id} 缺 description，副标题会退回标题拼接`);
+} else if (/^\d{4}-\d{2}-\d{2}|摘要（@/.test(description)) {
+  // 副标题要写「今日看点」的简报，不是日期 + 账号名——后者在标题和「详细」里已经有了
+  console.warn(`[daily] ${post.id} 的 description 仍是「日期 + 账号名」旧写法，应改成 ≤50 字看点简报`);
 }
 ---
 
@@ -111,7 +117,7 @@ if (roster.length === 0) {
           {
             roster.length > 0 ? (
               <section class="daily-block">
-                <h2>名单</h2>
+                <h2>详细</h2>
                 <ul class="daily-roster">
                   {roster.map((person) => (
                     <li>

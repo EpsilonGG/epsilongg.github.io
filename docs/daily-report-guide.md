@@ -50,11 +50,18 @@ X-Reader CI (每日 17:10 UTC)
 | --- | --- | --- | --- |
 | 1 | `highlights` | **今日看点**：当天热点的概括性文本，2–4 段，每项一段 | 页面显示「今日看点待补充」，构建日志警告 |
 | 2 | `interactions` | **互动**：名单内多人之间的互动，每项一条，写成文字 | 整段不渲染 |
-| 3 | `people` | **名单**：每人一句话 + 主页链接 | `summary` 为空的条目自动不渲染 |
+| 3 | `people` | **详细**：每人一句话 + 主页链接 | `summary` 为空的条目自动不渲染 |
+
+另有一个副标题字段 `description`，显示在标题下方：
+
+| 字段 | 内容 | 约束 |
+| --- | --- | --- |
+| `description` | **今日看点的简报**，一句话说清今天最值得看的事 | **≤ 50 字**；超长构建直接失败；不写日期、不罗列账号名 |
 
 几条硬规则：
 
-- **名单里的一行就是 `[一句话概括](推特主页网址)`**。链接由 `handle` 拼成 `https://x.com/<handle>`，**不要让模型写网址**——写成字段后模型只负责句子，网址不可能错。
+- **副标题不是「日期 + 摘要（@账号1 / @账号2）」**。日期在标题和「发布于」里已经有了，账号名读者扫一眼「详细」就知道，占掉这 50 字很浪费。写成 `柚木つばめ生誕祭前夜，「FIRST FLIGHT」明日会场生配信，几位放出新作预告` 这样。
+- **「详细」里的一行就是 `[一句话概括](推特主页网址)`**。链接由 `handle` 拼成 `https://x.com/<handle>`，**不要让模型写网址**——写成字段后模型只负责句子，网址不可能错。
 - **句子本身要能看出是谁**（"@322yui3：一整天录音…"），因为链接文本就是这句话，页面上不会再单独显示账号。
 - **当日没有活动的人直接省略**：`summary` 留空即可，不需要删条目。
 - **不展示互动量**（点赞、转发、阅读数）。这些数字只在 `out/<date>.briefing.txt` 里给模型判断轻重用，不进站点内容。
@@ -96,7 +103,8 @@ python scripts/daily_digest.py --items-dir "<X-rss-workspace>/X-Reader/data/item
 对 WorkBuddy 说：**"填写今天的日报"**。它会：
 
 1. 读 `out/<date>.briefing.txt`（推文原文与互动数都在这里）；
-2. 填 `src/content/daily/<date>.md` 的**三个字段**：
+2. 填 `src/content/daily/<date>.md` 的**四个地方**：
+   - `description`：副标题，**今日看点的 50 字以内简报**（脚本留的是「今日 N 位账号有更新，看点待补」占位，必须改写）；
    - `highlights`：今日看点，2–4 段，把当天最值得说的几件事概括出来（第一顺位）；
    - `interactions`：名单内谁和谁有互动、互动内容是什么，每项一条；**没有就留空数组**；
    - `people[].summary`：每人一句话，句子要能看出是谁；**当日没活动的留空**；
@@ -120,7 +128,7 @@ git push
 部署完成后访问：
 - 列表页：`/daily/`
 - 详情页：`/daily/<date>/`
-确认三段都渲染了：今日看点在前、互动其次、名单每行都能点到主页；名单里没有空链接。
+确认三段都渲染了：今日看点在前、互动其次、「详细」每行都能点到主页；「详细」里没有空链接；副标题是一句 50 字以内的看点简报，不是「日期 + 账号名」。
 
 ### 日常常见问题
 
@@ -164,7 +172,7 @@ git push
 ```ts
 {
   title: string;                 // 必填
-  description?: string;          // 可选
+  description?: string;          // 可选，但一旦写了必须 ≤50 字（今日看点简报）
   pubDate: Date;                 // 必填（Zod coerce）
   source: 'original' | 'ai';     // 默认 'ai'
   accounts: string[];            // 默认 []，当天有活动的账号（脚本推导）
@@ -234,6 +242,6 @@ digest 实际使用的字段：
 每天：
   1) git -C X-rss-workspace/X-Reader pull        # 拿 CI 抓的数据
   2) python scripts/daily_digest.py --items-dir X-rss-workspace/X-Reader/data/items
-  3) 让 WorkBuddy 填 highlights / interactions / people[].summary
+  3) 让 WorkBuddy 填 description（≤50 字）/ highlights / interactions / people[].summary
   4) git add src/content/daily/<date>.md && git commit -m "daily: <date>" && git push
 ```

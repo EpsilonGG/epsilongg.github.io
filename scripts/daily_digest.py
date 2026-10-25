@@ -7,7 +7,7 @@
     * <out>/<date>.briefing.txt  — 喂给 LLM 的原始事实摘要（含推文原文与互动数）
   * <date>.md                 — 写入站点 src/content/daily/<date>.md
                                 的日报骨架（frontmatter 三段：今日看点 / 互动 /
-                                名单，全部留空待填）
+                                详细，全部留空待填；副标题留一句占位简报）
 
 三段内容由**本地 WorkBuddy（LLM）**填写，本脚本不碰 LLM / 不调 API。
 站点只渲染 frontmatter，不展示互动数——那些数字只留在 briefing 里供模型判断轻重。
@@ -124,14 +124,13 @@ def build_markdown(records: list[dict], report_date: date_cls) -> str:
     ordered = sorted(by_acc.items(), key=lambda kv: (-len(kv[1]), kv[0]))
     accounts = [acc for acc, _ in ordered]
 
-    if len(accounts) <= 6:
-        who = " / ".join(f"@{a}" for a in accounts)
-    else:
-        who = f"共 {len(accounts)} 位"
-    desc = f"{report_date.isoformat()} 的 X 动态摘要（{who}）"
+    # 副标题是「今日看点」的 50 字以内简报，不是日期 + 账号名。
+    # 脚本还看不到内容，所以先放一句占位，由本地 WorkBuddy 连同 highlights 一起改写。
+    desc = f"今日 {len(accounts)} 位账号有更新，看点待补"
 
     lines: list[str] = ["---"]
     lines.append(f'title: "X 日报 · {report_date.isoformat()}"')
+    lines.append("# 副标题：≤50 字，概括今日看点；不要写日期，不要罗列账号名")
     lines.append(f'description: "{desc}"')
     lines.append(f"pubDate: {report_date.isoformat()}")
     lines.append("source: ai")
