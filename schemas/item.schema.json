@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://epsilongg.github.io/schemas/item.schema.json",
+  "title": "Item",
+  "description": "一个标准化条目。一条内容只存一份，转发过它的人记在 amplifiers。",
+  "type": "object",
+  "required": ["key", "source", "native_id", "account", "text", "kind", "content_hash"],
+  "properties": {
+    "key": {
+      "type": "string",
+      "pattern": "^[a-z0-9_]+:.+$",
+      "description": "稳定身份 source:native_id"
+    },
+    "source": { "type": "string", "minLength": 1 },
+    "native_id": { "type": "string", "minLength": 1 },
+    "account": { "type": "string", "minLength": 1, "description": "内容作者" },
+    "amplifiers": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "传播过这条的人（含作者自己转发）"
+    },
+    "published_at": { "type": "string" },
+    "precision": { "type": "string", "enum": ["second", "minute", "day"] },
+    "text": { "type": "string" },
+    "url": { "type": "string" },
+    "kind": { "type": "string", "enum": ["post", "repost", "reply", "quote"] },
+    "reply_to": { "type": ["string", "null"] },
+    "quote_of": { "type": ["string", "null"] },
+    "repost_of": { "type": ["string", "null"] },
+    "engagement": {
+      "type": "object",
+      "required": ["likes", "reposts", "replies"],
+      "properties": {
+        "likes": { "type": "integer" },
+        "reposts": { "type": "integer" },
+        "replies": { "type": "integer" },
+        "views": { "type": ["integer", "null"] }
+      }
+    },
+    "media": { "type": "array", "items": { "type": "object" } },
+    "content_hash": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+    "first_seen": { "type": "string" },
+    "raw_ref": { "type": "string", "description": "回溯用，不参与逻辑" }
+  }
+}

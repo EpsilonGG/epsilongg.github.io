@@ -505,9 +505,22 @@
         <span class="kpi__label">样例账号</span>
       </div>
       <div class="kpi__item">
-        <span class="kpi__num">9</span>
-        <span class="kpi__label">现有日报测试</span>
+        <span class="kpi__num">147</span>
+        <span class="kpi__label">测试（原 69 + 新增 78）</span>
       </div>
+    </div>
+
+    <div class="note">
+      <p>
+        <strong>进度：</strong>M1 已完成（2026-10-25）——统一内容模型、三份 schema、增量状态、
+        版本规则、可复现检查都落在 <code>scripts/<wbr>daily/<wbr></code>，
+        <code>daily_digest.py</code> 变成薄壳，命令行参数一个没变。
+        M2 已完成（2026-10-25）——JST 时间窗、五态增量、跨源去重、确定性排序、名单与分类、
+        待生成数据导出；§1 的三个既有问题全部关掉。
+        站点已按新链路补录 10-18 至 10-23 六期。M3–M6 未开始。
+        逐条验收输出见
+        <a href="https://github.com/EpsilonGG/epsilongg.github.io/blob/main/docs/daily-build-log.md">docs/<wbr>daily-build-log.md</a>。
+      </p>
     </div>
 
     <nav class="toc">
@@ -711,6 +724,7 @@
     <p>
       这三个不是假设，是拿仓库里的 213 条样例数据实测出来的。写在这里是因为它们正好各自对应
       M2 的一个工作包——里程碑不是凭空排的，是从具体毛病倒推的。
+      三条现在都已在 M2 修掉（① M2.1、② M2.2、③ M2.4），下面保留原始记录。
     </p>
 
     <h4>① 按 UTC 分天，边界上的推文进错日报</h4>
@@ -723,6 +737,12 @@
       脚本实际取到 <strong>26 条</strong>——数量看着只差 2，但集合差 8 条：
       <span class="mark">5 条被漏掉</span>（10-23 凌晨 00:10–07:53 JST 发的），
       <span class="mark">3 条被错收</span>（其实是 10-24 凌晨的）。
+    </p>
+    <p>
+      <span class="pill pill--done">已修</span>
+      M2.1（2026-10-25）：新增 <code>window.IssueWindow</code>，
+      <code>Item.date()</code> 一律换算到 JST 再取日期，窗口是半开区间
+      <code>[当天 00:00, 次日 00:00)</code>。同一个 10-23 现在是 28 条、账号集合不变。
     </p>
 
     <h4>② 同一条推文被两个账号收录，被当成「互相扩散」</h4>
@@ -738,6 +758,11 @@
       正确的模型是<strong>一条内容 + 一组传播者</strong>（<code>amplifiers</code>），
       这样「谁帮着扩散」照样能写出来，但不会被误读成两个独立发言。
     </p>
+    <p>
+      <span class="pill pill--done">已修</span>
+      M2.2（2026-10-25）：<code>dedupe.merge()</code> 按 <code>source + native_id</code> 合并，
+      重复项不丢、账号并进 <code>amplifiers</code>。这条推现在跑出来是 1 条内容、2 个传播者。
+    </p>
 
     <h4>③ 「按互动排序」实际上等于按文件行序</h4>
     <p>
@@ -750,12 +775,17 @@
       这条的教训不是「排序写错了」，而是<strong>排序键必须在文档里写死，并且不能依赖一个可能为空的字段</strong>。
       M2 的排序键定为 <code>(published_at, source, native_id)</code>，互动数只作为同一秒内的次级参考。
     </p>
+    <p>
+      <span class="pill pill--done">已修</span>
+      M2.4（2026-10-25）：<code>order.py</code> 固定三级键；账号顺序改成<strong>名单序</strong>，
+      不再按当日条数——同一天的账号顺序不该取决于谁话多。
+    </p>
 
     <div class="note note--warn">
       <p>
-        <strong>这三条现在都不修。</strong>它们全部落在 M2 的工作包里（M2.1 / M2.2 / M2.4），
-        现在改等于在旧结构上打补丁，M1 一换模型又得重来一遍。
-        这也是「按里程碑推进」的意义：<strong>先修结构，再修行为</strong>。
+        <strong>三条都关掉了，但不是同一天关的。</strong>① 在 M2.1 就能修，因为它不依赖任何新模型——
+        时间戳本来就在，只是被算错了。②③ 必须等去重与排序模型落定，先改等于在旧结构上打补丁。
+        这就是「先修结构，再修行为」的实际含义。
       </p>
     </div>
   </section>
@@ -906,7 +936,7 @@
     <h3>工作包</h3>
     <table class="t-out">
       <thead>
-        <tr><th>编号</th><th>工作内容</th><th>产出</th><th class="nowrap">依赖</th></tr>
+        <tr><th>编号</th><th>工作内容</th><th>产出</th><th class="nowrap">依赖</th><th class="nowrap">状态</th></tr>
       </thead>
       <tbody>
         <tr>
@@ -914,49 +944,49 @@
           <td>建包骨架：<code>scripts/<wbr>daily/<wbr></code> 目录、子命令分发。<code>daily_digest.py</code> 改成薄壳，保持现有命令行参数不变</td>
           <td><code>scripts/<wbr>daily/<wbr>{__init__,cli}.py</code></td>
           <td>—</td>
-        </tr>
+        <td><span class="pill pill--done">完成</span></td></tr>
         <tr>
           <td>M1.2</td>
           <td>统一内容模型：<code>Item</code> / <code>Account</code> / <code>Issue</code> / <code>Claim</code> / <code>Report</code>，序列化时键序固定</td>
           <td><code>scripts/<wbr>daily/<wbr>model.py</code></td>
           <td>M1.1</td>
-        </tr>
+        <td><span class="pill pill--done">完成</span></td></tr>
         <tr>
           <td>M1.3</td>
           <td>源适配器接口：<code>SourceAdapter</code>（<code>name</code> / <code>fingerprint()</code> / <code>iter_items()</code>）。X-Reader 适配器迁入，另加一个读 fixture 的适配器供测试</td>
           <td><code>scripts/<wbr>daily/<wbr>adapters/<wbr>base.py</code><br /><code>xreader.py</code><br /><code>fixture.py</code></td>
           <td>M1.2</td>
-        </tr>
+        <td><span class="pill pill--done">完成</span></td></tr>
         <tr>
           <td>M1.4</td>
           <td>契约文件与校验器：三份 JSON Schema + 只实现用到的关键字的极简校验器（零依赖）</td>
           <td><code>schemas/<wbr>*.schema.json</code><br /><code>scripts/<wbr>daily/<wbr>schema.py</code></td>
           <td>M1.2</td>
-        </tr>
+        <td><span class="pill pill--done">完成</span></td></tr>
         <tr>
           <td>M1.5</td>
           <td>增量状态：读写、<code>seen</code> 裁剪到 90 天、可从 <code>issues</code> 重建</td>
           <td><code>scripts/<wbr>daily/<wbr>state.py</code></td>
           <td>M1.4</td>
-        </tr>
+        <td><span class="pill pill--done">完成</span></td></tr>
         <tr>
           <td>M1.6</td>
           <td>版本规则：<code>schema_version</code> 读写校验，读到更高的主版本直接报错退出</td>
           <td><code>scripts/<wbr>daily/<wbr>migrate.py</code></td>
           <td>M1.4</td>
-        </tr>
+        <td><span class="pill pill--done">完成</span></td></tr>
         <tr>
           <td>M1.7</td>
           <td>确定性契约：固定键序、<code>now()</code> 只能进 <code>provenance.generated_at</code> 且比对时排除；<code>daily build --check-reproducible</code></td>
           <td>CLI + 测试</td>
           <td>M1.5</td>
-        </tr>
+        <td><span class="pill pill--done">完成</span></td></tr>
         <tr>
           <td>M1.8</td>
           <td>测试：schema 正反例、适配器契约测试（每个适配器过同一套）、可复现测试</td>
           <td><code>tests/<wbr>test_daily_model.py</code><br /><code>tests/<wbr>test_daily_adapters.py</code></td>
           <td>M1.7</td>
-        </tr>
+        <td><span class="pill pill--done">完成</span></td></tr>
       </tbody>
     </table>
 
@@ -1071,14 +1101,22 @@
     </div>
 
     <div class="gate">
-      <p class="gate__title">出口闸门 · M1</p>
-      <p><code>python -m unittest discover -s tests</code> 全绿，新增测试 ≥ 12 个。</p>
+      <p class="gate__title">出口闸门 · M1（2026-10-25 实测）</p>
+      <p><code>python -m unittest discover -s tests</code> → <code>Ran 98 tests ... OK</code>；原有 69 条一条未改，新增 29 条。</p>
       <p>
-        <code>python scripts/daily_digest.py --items-dir scripts/sample_items --date 2026-10-23 --md-out /tmp/a.md</code>
-        跑两次到两个不同目录，<code>--check-reproducible</code> 判定字节相同。
+        <code>python scripts/daily_digest.py --items-dir scripts/sample_items --date 2026-10-23 --at "2026-10-23 22:00" --check-reproducible</code>
+        → <code>可复现：2 个文件、8896 字节，两次运行完全相同（26102322）</code>，退出码 0。
       </p>
-      <p><code>npm run check</code> 0 错 0 警 0 提示；<code>npm run build</code> 仍是 13 页（M1 不改站点）。</p>
-      <p>现有 9 个日报测试一个都不许改，必须继续通过——这是「命令行参数不变」的证据。</p>
+      <p>
+        与重构前对拍：<code>git show HEAD:scripts/daily_digest.py</code> 与新版各跑一次，
+        <code>diff -r</code> 无输出——briefing 与 md 逐字节相同。
+      </p>
+      <p><code>npm run check</code> 0 错 0 警 0 提示（52 文件）；<code>npm run build</code> 仍是 13 页；<code>npm run links</code> 18 页 489 链接全过。</p>
+      <p>原有 9 个日报测试一个都没改，仍在 98 条里通过——这是「命令行参数不变」的证据。</p>
+      <p>
+        本节数字是 <strong>M1 收尾当时</strong>的口径。M2.1 把 10-23 窗口从 26 条改成 28 条之后，
+        同一条命令是 116 条测试、9685 字节——差别全部来自那 2 条条目，不是回归。
+      </p>
     </div>
 
     <h3>本里程碑不做</h3>
@@ -1113,10 +1151,31 @@
       §1 的三个问题全部落在这一步。M2 结束之后，它们应该都消失。
     </p>
 
+    <div class="note">
+      <p>
+        <strong>进度：</strong>M2 已完成（2026-10-25）。七个工作包全部落地，
+        新增 <code>window.py</code> / <code>dedupe.py</code> / <code>incremental.py</code> /
+        <code>order.py</code> / <code>roster.py</code> / <code>export.py</code> 六个模块，
+        外加 <code>src/config/daily-roster.json</code> 与 31 条测试。
+      </p>
+      <p>
+        <strong>顺序是刻意的：先切窗、再判态、最后去重。</strong>
+        判态必须在去重之前——账本按 <code>key</code> 记，同一条内容的多条记录要各自判一次，
+        否则「第二次运行跳过多少条」会随去重实现漂移（先合并的话 28 会变成 27）。
+      </p>
+      <p>
+        实测：<code>--date 2026-10-23</code> 从 26 条变 <strong>28 条</strong>（去重后 27 条内容），
+        连跑两次第二次 <code>skipped_duplicate</code> 正好 <strong>28</strong>；
+        <code>2113601516565311503</code> 现在是 1 条内容、<code>amplifiers</code> 长度 2；
+        未知 handle 归 <code>other</code> 且 stderr 一行告警，不抛异常。
+        全量 <code>Ran 147 tests ... OK</code>。
+      </p>
+    </div>
+
     <h3>工作包</h3>
     <table class="t-out">
       <thead>
-        <tr><th>编号</th><th>工作内容</th><th>产出</th><th class="nowrap">依赖</th></tr>
+        <tr><th>编号</th><th>工作内容</th><th>产出</th><th class="nowrap">依赖</th><th class="nowrap">状态</th></tr>
       </thead>
       <tbody>
         <tr>
@@ -1124,43 +1183,43 @@
           <td>时间窗：<code>IssueWindow</code> 按 JST 自然日切，<strong>修掉 UTC 分桶</strong>；精度不足（<code>precision: day</code>）的条目单独标记</td>
           <td><code>scripts/<wbr>daily/<wbr>window.py</code></td>
           <td>M1.2</td>
-        </tr>
+        <td><span class="pill pill--done">完成</span></td></tr>
         <tr>
           <td>M2.2</td>
           <td>跨源去重：<code>key</code> 派生、<code>amplifiers</code> 合并、<code>content_hash</code> 计算与变更检测</td>
           <td><code>scripts/<wbr>daily/<wbr>dedupe.py</code></td>
           <td>M2.1</td>
-        </tr>
+        <td><span class="pill pill--done">完成</span></td></tr>
         <tr>
           <td>M2.3</td>
           <td>增量分类：new / duplicate / late / future / updated 五态，各自落盘到哪</td>
           <td><code>scripts/<wbr>daily/<wbr>incremental.py</code></td>
           <td>M2.2、M1.5</td>
-        </tr>
+        <td><span class="pill pill--done">完成</span></td></tr>
         <tr>
           <td>M2.4</td>
           <td>确定性排序：条目按 <code>(published_at, source, native_id)</code>；账号按名单序，<strong>不按当日条数</strong></td>
           <td><code>scripts/<wbr>daily/<wbr>order.py</code></td>
           <td>M2.2</td>
-        </tr>
+        <td><span class="pill pill--done">完成</span></td></tr>
         <tr>
           <td>M2.5</td>
           <td>名单与分类：读 <code>src/<wbr>config/<wbr>daily-roster.json</code>；未知 handle 归 <code>other</code> 并告警，不静默丢弃</td>
-          <td><code>src/<wbr>config/<wbr>daily-roster.json</code><br /><code>scripts/<wbr>daily/<wbr>roster.py</code></td>
+          <td><code>src/<wbr>config/<wbr><span style="white-space: nowrap">daily-roster.json</span></code><br /><code>scripts/<wbr>daily/<wbr>roster.py</code></td>
           <td>M1.4</td>
-        </tr>
+        <td><span class="pill pill--done">完成</span></td></tr>
         <tr>
           <td>M2.6</td>
           <td>导出待生成数据：按分类分组 + 互动候选（只在名单内建边）+ 每条的低价值标记</td>
           <td><code>scripts/<wbr>daily/<wbr>export.py</code></td>
           <td>M2.3–M2.5</td>
-        </tr>
+        <td><span class="pill pill--done">完成</span></td></tr>
         <tr>
           <td>M2.7</td>
           <td>测试：重复运行零新增、迟到与旧内容区分、同一推文两账号合并、排序稳定、未知 handle 告警</td>
           <td><code>tests/<wbr>test_daily_incremental.py</code></td>
           <td>M2.6</td>
-        </tr>
+        <td><span class="pill pill--done">完成</span></td></tr>
       </tbody>
     </table>
 
@@ -1259,23 +1318,31 @@ categories: roster.categories 的声明顺序</code></pre>
     </p>
 
     <div class="gate">
-      <p class="gate__title">出口闸门 · M2</p>
+      <p class="gate__title">出口闸门 · M2（2026-10-25 实测）</p>
       <p>
-        用 <code>scripts/sample_items</code> 连跑两次：第二次 <code>counts.new == 0</code>、
-        <code>counts.skipped_duplicate == 28</code>。
+        连跑两次：第二次 <code>counts.new == 0</code>、<code>counts.skipped_duplicate == 28</code>。
+        实测 <code>窗口：0 条（去重后，原始 0）· 跳过重复 28 · 迟到 0 · 晚于窗口 3</code>，退出码 0。
       </p>
       <p>
-        fixture 里放一条 10-01 的推、<code>first_seen</code> 设成 10-25，跑 10-25 的窗口 →
-        判 <code>late</code>，不进 <code>items</code>。
+        10-01 的推、<code>first_seen</code> 设成 10-25，跑 10-25 窗口 → 判 <code>late</code>，不进 <code>items</code>。
+        实测 <code>items 0 / late 1</code>。
       </p>
       <p>
-        拿 <code>2113601516565311503</code> 跑：条目数 <strong>1</strong>，
-        <code>amplifiers</code> 长度 <strong>2</strong>。
+        <code>2113601516565311503</code>：条目数 <strong>1</strong>、<code>amplifiers</code> 长度 <strong>2</strong>
+        （<code>mirai_chiroru</code> 与 <code>re_re_tsubame</code>），并生成两条 <code>amplify</code> 互动边。
       </p>
       <p>
-        10-23 窗口的条目数从 <strong>26 变 28</strong>，账号集合不变——这就是 §1 问题①被修好的证据。
+        10-23 窗口 26 → <strong>28</strong>（去重后 27 条内容），账号集合不变（6 个）——§1 问题①的证据。
       </p>
-      <p>未知 handle 进 <code>other</code> 且 stderr 有一行告警，不抛异常。</p>
+      <p>
+        未知 handle：<code>注意：1 个 handle 不在名单里，已归入 other：stranger_danger</code>（stderr），
+        <code>generate.json</code> 里该条目落在 <code>other</code> 分类，无异常。
+      </p>
+      <p>
+        <code>python -m unittest discover -s tests</code> → <code>Ran 147 tests ... OK</code>；
+        <code>npm run check</code> 0 错 0 警 0 提示（52 文件）；<code>npm run build</code> 18 页；
+        <code>npm run links</code> 23 页 559 链接全过。
+      </p>
     </div>
 
     <h3>本里程碑不做</h3>
@@ -2259,7 +2326,7 @@ docs/
       <code>scripts/daily.sh</code> 62 行、<code>src/lib/daily.ts</code> 168 行、<code>DailyLayout.astro</code> 170 行、
       日报相关三页 146 行、<code>src/content.config.ts</code> 94 行，合计 905 行；
       样例数据 <code>scripts/sample_items/x.jsonl</code> 213 条、11 个账号、覆盖 2026-04-04 至 2026-10-23；
-      现有日报测试 9 个；站点 13 个 HTML 页面 + 5 个 <code>public/docs</code> 页面。
+      M2 收尾时测试 147 个（原 69 + 新增 78）；站点 18 个 HTML 页面 + 5 个 <code>public/docs</code> 页面。
     </p>
     <p>
       §1 的三个问题均为本次实测：UTC 分桶导致 10-23 窗口应为 28 条实取 26 条（漏 5 条、错收 3 条）；

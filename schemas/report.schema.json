@@ -1,0 +1,129 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://epsilongg.github.io/schemas/report.schema.json",
+  "title": "Report",
+  "description": "一份日报的正本。people 是扁平的，分类视图靠 filter 得到。claim = {text, sources}。",
+  "type": "object",
+  "required": ["schema_version", "issue", "counts", "description", "highlights", "interactions", "people", "provenance"],
+  "properties": {
+    "schema_version": { "type": "integer" },
+    "issue": {
+      "type": "object",
+      "required": ["id", "published_at", "status"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^[0-9]{8}$" },
+        "published_at": { "type": "string" },
+        "window": {
+          "type": "object",
+          "properties": {
+            "start": { "type": "string" },
+            "end": { "type": "string" }
+          }
+        },
+        "status": { "type": "string", "enum": ["draft", "confirmed"] },
+        "confirmed_at": { "type": ["string", "null"] }
+      }
+    },
+    "counts": {
+      "type": "object",
+      "required": ["items", "accounts"],
+      "properties": {
+        "items": { "type": "integer" },
+        "accounts": { "type": "integer" },
+        "late": { "type": "integer" },
+        "skipped_duplicate": { "type": "integer" }
+      }
+    },
+    "description": { "type": "string", "maxLength": 50 },
+    "highlights": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["text", "sources"],
+        "properties": {
+          "text": { "type": "string", "minLength": 1 },
+          "sources": { "type": "array", "items": { "type": "string" } }
+        }
+      }
+    },
+    "insights": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["text", "sources"],
+        "properties": {
+          "text": { "type": "string", "minLength": 1 },
+          "sources": { "type": "array", "items": { "type": "string" } }
+        }
+      }
+    },
+    "interactions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["text", "sources"],
+        "properties": {
+          "text": { "type": "string", "minLength": 1 },
+          "sources": { "type": "array", "items": { "type": "string" } }
+        }
+      }
+    },
+    "categories": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "label"],
+        "properties": {
+          "id": { "type": "string" },
+          "label": { "type": "string" },
+          "summary": { "type": "string" },
+          "highlights": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["text", "sources"],
+              "properties": {
+                "text": { "type": "string", "minLength": 1 },
+                "sources": { "type": "array", "items": { "type": "string" } }
+              }
+            }
+          },
+          "interactions": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["text", "sources"],
+              "properties": {
+                "text": { "type": "string", "minLength": 1 },
+                "sources": { "type": "array", "items": { "type": "string" } }
+              }
+            }
+          }
+        }
+      }
+    },
+    "people": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["handle"],
+        "properties": {
+          "handle": { "type": "string" },
+          "category": { "type": "string" },
+          "summary": { "type": "string" },
+          "sources": { "type": "array", "items": { "type": "string" } }
+        }
+      }
+    },
+    "provenance": {
+      "type": "object",
+      "required": ["generator"],
+      "properties": {
+        "generator": { "type": "string" },
+        "prompt_version": { "type": "integer" },
+        "cache_key": { "type": "string" },
+        "generated_at": { "type": "string" }
+      }
+    }
+  }
+}

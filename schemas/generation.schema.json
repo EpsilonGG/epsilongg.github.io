@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://epsilongg.github.io/schemas/generation.schema.json",
+  "title": "Generation",
+  "description": "模型回答的形状（M3 用）。纯 JSON，不是 Markdown——要校验就得有结构。",
+  "type": "object",
+  "required": ["category", "summary", "highlights", "interactions", "people"],
+  "properties": {
+    "category": { "type": "string", "minLength": 1 },
+    "summary": { "type": "string", "maxLength": 60 },
+    "highlights": {
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 4,
+      "items": {
+        "type": "object",
+        "required": ["text", "sources"],
+        "properties": {
+          "text": { "type": "string", "minLength": 1 },
+          "sources": { "type": "array", "minItems": 1, "items": { "type": "string" } }
+        }
+      }
+    },
+    "interactions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["text", "sources"],
+        "properties": {
+          "text": { "type": "string", "minLength": 1 },
+          "sources": { "type": "array", "minItems": 1, "items": { "type": "string" } }
+        }
+      }
+    },
+    "people": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["handle", "summary"],
+        "properties": {
+          "handle": { "type": "string", "minLength": 1 },
+          "summary": { "type": "string", "maxLength": 60 },
+          "sources": { "type": "array", "items": { "type": "string" } }
+        }
+      }
+    }
+  }
+}

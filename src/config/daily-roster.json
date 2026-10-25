@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "note": "名单只决定分组与显示顺序，不决定谁进日报（进不进由数据决定）。handle 不带 @。category 只能取 categories 里的 id，跨类用 tags 补充；一个人只给一个 category，多分类会让综合视图重复计数。active=false 暂停某人，但历史日报不动。",
+  "categories": [
+    { "id": "seiyuu", "label": "声优" },
+    { "id": "circle", "label": "社团" },
+    { "id": "other", "label": "未归类" }
+  ],
+  "accounts": [
+    { "handle": "asuparama40", "name": "", "category": "seiyuu", "active": true },
+    { "handle": "mimoriaino", "name": "", "category": "seiyuu", "active": true },
+    { "handle": "mimo_chorion", "name": "", "category": "seiyuu", "active": true },
+    { "handle": "suzuka_minase", "name": "", "category": "seiyuu", "active": true },
+    { "handle": "mirai_chiroru", "name": "", "category": "seiyuu", "active": true },
+    { "handle": "hiyori_voice", "name": "", "category": "seiyuu", "active": true },
+    { "handle": "322yui3", "name": "", "category": "seiyuu", "active": true },
+    { "handle": "re_re_tsubame", "name": "", "category": "seiyuu", "active": true },
+    { "handle": "M_chipo_O", "name": "", "category": "seiyuu", "active": true },
+    { "handle": "yuzuki_momoka", "name": "", "category": "seiyuu", "active": true },
+    { "handle": "momoka_vtuber", "name": "", "category": "seiyuu", "active": true }
+  ]
+}

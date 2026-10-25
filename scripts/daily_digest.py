@@ -1,264 +1,71 @@
 #!/usr/bin/env python3
-"""X-Reader 每日推特日报的「本地组装」脚本（站点仓库内唯一可信副本）。
+"""X-Reader 每日推特日报的「本地组装」脚本（薄壳）。
 
-这是混合方案里"无 LLM"的那一半：读取 X-Reader 产出的 NormalizedItem JSONL
-（data/items/<source_id>.jsonl），确定性地组装出：
+真正的实现已经搬到 `scripts/daily/`（见 `public/docs/dailyrp-projectstatus.html` 的 M1）。
+这个文件只保留**旧的导入路径与命令行参数**，一行逻辑都不写：
 
-  * <out>/<期号>.briefing.txt  — 喂给 LLM 的原始事实摘要（含推文原文与互动数）
-  * src/content/daily/<期号>.md — 日报骨架（frontmatter 三段：今日看点 / 互动 /
-                                详细，全部留空待填；副标题留一句占位简报）
+    python scripts/daily_digest.py --items-dir /path/to/X-Reader/data/items
+    python scripts/daily_digest.py --items-dir ... --at "2026-10-31 22:00"
+    python scripts/daily_digest.py --items-dir ... --date 2026-10-24
+    python scripts/daily_digest.py --items-dir ... --check-reproducible
 
-**期号 = 发布时间，精确到小时**，格式 `YYMMDDHH`（日本时间）。例如 2026-10-31
-22:00（JST）就是 `26103122`，文件名 `26103122.md`，网址 `/daily/26103122/`。
-只到天的话同一天只能有一期，重跑会覆盖上一期；精确到小时后每跑一次都是新文件，
-旧的一期自动留档——这就是"带存档"的实现方式。
-
-三段内容由**本地 WorkBuddy（LLM）**填写，本脚本不碰 LLM / 不调 API。
+三段内容由**本地 WorkBuddy（LLM）**填写，脚本不碰 LLM / 不调 API。
 站点只渲染 frontmatter，不展示互动数——那些数字只留在 briefing 里供模型判断轻重。
 
-用法：
-    # 直接生成当前这一小时的日报（期号取本机当前时间的 JST 小时）
-    python scripts/daily_digest.py --items-dir /path/to/X-Reader/data/items
-
-    # 指定发布时间（补一期过去的）
-    python scripts/daily_digest.py --items-dir ... --at "2026-10-31 22:00"
-
-    # 指定汇总哪一天的数据（默认取数据里最新的一天）
-    python scripts/daily_digest.py --items-dir ... --date 2026-10-24
+`tests/test_daily_digest.py` 仍然按老接口导入本文件，所以下面这些名字要留着：
+`JST` / `issue_id_for` / `_parse_at` / `build_markdown` / `build_briefing`。
 """
 from __future__ import annotations
 
-import argparse
-import json
 import sys
 from datetime import date as date_cls
-from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
-# 期号统一用日本时间：日报内容是日本声优的一天，用 JST 才不会把深夜的推分错天
-JST = timezone(timedelta(hours=9))
+SCRIPTS_DIR = Path(__file__).resolve().parent
+if str(SCRIPTS_DIR) not in sys.path:
+    sys.path.insert(0, str(SCRIPTS_DIR))
+
+from daily.adapters.xreader import load_raw  # noqa: E402
+from daily.build import build_briefing as _build_briefing  # noqa: E402
+from daily.build import build_markdown as _build_markdown  # noqa: E402
+from daily.cli import main as _cli_main  # noqa: E402
+from daily.issue import JST, issue_id_for  # noqa: E402
+from daily.issue import parse_at as _parse_at  # noqa: E402
+from daily.model import Item  # noqa: E402
+
+
+def _as_items(records: list) -> list[Item]:
+    """老接口吃的是原始 dict，这里统一转成 `Item`。"""
+    return [r if isinstance(r, Item) else Item.from_xreader(r) for r in records]
 
 
 def _load_items(items_dir: Path) -> list[dict]:
-    items: list[dict] = []
-    if not items_dir.exists():
-        return items
-    for path in sorted(items_dir.glob("*.jsonl")):
-        for raw_line in path.read_text(encoding="utf-8").splitlines():
-            raw_line = raw_line.strip()
-            if not raw_line:
-                continue
-            try:
-                data = json.loads(raw_line)
-            except json.JSONDecodeError:
-                continue
-            if data.get("is_meaningful") is False:
-                continue
-            items.append(data)
-    return items
+    """兼容旧接口：返回原始 dict 列表。"""
+    return load_raw(items_dir)
 
 
 def _display_handle(item: dict) -> str:
-    pub = (item.get("publisher") or "").strip()
-    if pub:
-        return pub
-    return (item.get("metadata") or {}).get("account") or item.get("source_id") or "unknown"
+    return Item.from_xreader(item).account
 
 
 def _date_of(item: dict, fallback: date_cls) -> date_cls:
-    for key in ("published_at", "fetched_at"):
-        val = item.get(key)
-        if val:
-            try:
-                return datetime.fromisoformat(val.replace("Z", "+00:00")).date()
-            except ValueError:
-                continue
-    return fallback
+    return Item.from_xreader(item).date() or fallback
 
 
 def _engagement(item: dict) -> int:
-    stats = (item.get("metadata") or {}).get("stats") or {}
-    return int(stats.get("likes") or 0) + int(stats.get("retweets") or 0)
+    return Item.from_xreader(item).engagement.score()
 
 
-def _fmt_stat(n) -> str:
-    try:
-        n = int(n)
-    except (TypeError, ValueError):
-        return "0"
-    if n >= 1000:
-        return f"{n/1000:.1f}k"
-    return str(n)
+def build_briefing(records: list, report_date: date_cls) -> str:
+    return _build_briefing(_as_items(records), report_date)
 
 
-def build_briefing(records: list[dict], report_date: date_cls) -> str:
-    lines: list[str] = []
-    lines.append(f"# Daily briefing — {report_date.isoformat()}")
-    lines.append(f"Total items: {len(records)}")
-    lines.append("")
-    by_acc: dict[str, list[dict]] = {}
-    for r in records:
-        by_acc.setdefault(_display_handle(r), []).append(r)
-    for acc, recs in sorted(by_acc.items(), key=lambda kv: -len(kv[1])):
-        lines.append(f"## @{acc}  ({len(recs)} tweets)")
-        top = sorted(recs, key=_engagement, reverse=True)[:5]
-        for r in top:
-            stats = (r.get("metadata") or {}).get("stats") or {}
-            lines.append(
-                f"- [❤{_fmt_stat(stats.get('likes'))} "
-                f"🔁{_fmt_stat(stats.get('retweets'))}] "
-                f"{(r.get('content') or r.get('title') or '')}".strip()
-            )
-            url = r.get("canonical_url") or ""
-            if url:
-                lines.append(f"    {url}")
-        lines.append("")
-    return "\n".join(lines)
-
-
-def issue_id_for(moment: datetime) -> str:
-    """把时刻写成期号 `YYMMDDHH`（JST）。"""
-    return moment.astimezone(JST).strftime("%y%m%d%H")
-
-
-def build_markdown(records: list[dict], issue_id: str) -> str:
-    """站点 src/content/daily/<期号>.md 的骨架：frontmatter 三段 + 待填提示。
-
-    三段全部是结构化字段（highlights / interactions / people），不写进 Markdown 正文：
-    链接由 handle 拼（模型写不错网址）、summary 为空自动省略（天然满足「当日没活动就不列」）、
-    上百人时还要拿去做分类视图与 JSON 输出。
-
-    标题与发布时间不在这里写——它们由文件名推导（`YYMMDDHH.md`），
-    少一个字段就少一处能和 URL 对不上的地方。
-
-    这里只产出「事实」——今天谁发了多少条；具体写什么由本地 WorkBuddy 填。
-    推文原文与互动数只进 briefing.txt（本地中间产物），不再进站点内容。
-    """
-    by_acc: dict[str, list[dict]] = {}
-    for r in records:
-        by_acc.setdefault(_display_handle(r), []).append(r)
-
-    # 当日推文多的排前面：人读起来有主次，LLM 也更容易抓住重点
-    ordered = sorted(by_acc.items(), key=lambda kv: (-len(kv[1]), kv[0]))
-    accounts = [acc for acc, _ in ordered]
-
-    # 副标题是「今日看点」的 50 字以内简报，不是日期 + 账号名。
-    # 脚本还看不到内容，所以先放一句占位，由本地 WorkBuddy 连同 highlights 一起改写。
-    desc = f"今日 {len(accounts)} 位账号有更新，看点待补"
-
-    lines: list[str] = ["---"]
-    lines.append("# 副标题：≤50 字，概括今日看点；不要写日期，不要罗列账号名")
-    lines.append(f'description: "{desc}"')
-    lines.append("source: ai")
-    lines.append("accounts:")
-    for a in accounts:
-        lines.append(f"  - {a}")
-    lines.append("")
-    lines.append("# 今日看点：今日热点概括，2–4 段，每项一段（第一顺位）")
-    lines.append("highlights: []")
-    lines.append("")
-    lines.append("# 名单内多人之间的互动，每项一条；没有就保持空数组")
-    lines.append("interactions: []")
-    lines.append("")
-    lines.append("# 每人一句话（句子本身要能看出是谁）；summary 留空 = 当日无活动，不渲染")
-    lines.append("people:")
-    for a in accounts:
-        lines.append(f"  - handle: {a}")
-        lines.append('    summary: ""')
-    lines.append("---")
-    lines.append("")
-    lines.append("<!--")
-    lines.append(f"期号 {issue_id}（YYMMDDHH，JST），标题与发布时间由文件名推导，不用手写。")
-    lines.append("待填（本地 WorkBuddy 完成，脚本不调 LLM）：")
-    lines.append("  highlights        今日看点，2–4 段")
-    lines.append("  interactions      多人互动，每项一条")
-    lines.append("  people[].summary  每人一句话")
-    lines.append(f"依据：out/{issue_id}.briefing.txt（推文原文 + 互动数都在那里）")
-    lines.append("-->")
-    return "\n".join(lines)
-
-
-def _parse_at(text: str) -> datetime:
-    """解析 --at，接受 `2026-10-31 22:00` / `2026-10-31T22:00` / `2026-10-31`。"""
-    raw = text.strip().replace("T", " ")
-    for fmt in ("%Y-%m-%d %H:%M", "%Y-%m-%d %H", "%Y-%m-%d"):
-        try:
-            return datetime.strptime(raw, fmt).replace(tzinfo=JST)
-        except ValueError:
-            continue
-    raise SystemExit(f"--at 解析不了：{text!r}（用 2026-10-31 22:00 这种写法）")
+def build_markdown(records: list, issue_id: str) -> str:
+    return _build_markdown(_as_items(records), issue_id)
 
 
 def main() -> int:
-    here = Path(__file__).resolve().parent
-    repo_root = here.parent  # scripts/.. = 仓库根
-
-    p = argparse.ArgumentParser(description="X-Reader 每日日报本地组装脚本")
-    p.add_argument("--items-dir", required=True, help="X-Reader data/items 目录")
-    p.add_argument("--date", help="汇总哪一天的数据 YYYY-MM-DD（默认：数据里最新的一天）")
-    p.add_argument(
-        "--at",
-        default=None,
-        help="发布时间（JST），决定期号，如 '2026-10-31 22:00'；默认取当前时间",
-    )
-    p.add_argument("--out", default="out", help="briefing 的输出目录")
-    p.add_argument(
-        "--md-out",
-        default=None,
-        help="日报 Markdown 输出路径（默认：<仓库>/src/content/daily/<期号>.md）",
-    )
-    p.add_argument(
-        "--force",
-        action="store_true",
-        help="允许覆盖已存在的期号。默认拒绝——覆盖等于删掉一期存档",
-    )
-    args = p.parse_args()
-
-    items_dir = Path(args.items_dir)
-    records = _load_items(items_dir)
-    if not records:
-        print("未找到任何条目。请先运行 X-Reader（CI 或本地），或检查 --items-dir。", file=sys.stderr)
-        return 2
-
-    if args.date:
-        report_date = date_cls.fromisoformat(args.date)
-    else:
-        report_date = max(_date_of(r, date_cls.today()) for r in records)
-
-    day_records = [r for r in records if _date_of(r, report_date) == report_date]
-    if not day_records:
-        day_records = records
-
-    moment = _parse_at(args.at) if args.at else datetime.now(JST)
-    issue_id = issue_id_for(moment)
-
-    md_out = Path(args.md_out) if args.md_out else (
-        repo_root / "src" / "content" / "daily" / f"{issue_id}.md"
-    )
-    # 存档保护：同一声明时间只允许有一期，重跑必须先 --force，避免手滑覆盖
-    if md_out.exists() and not args.force:
-        print(
-            f"已存在 {md_out}，拒绝覆盖（这一期已经在存档里了）。\n"
-            f"换一个小时（--at）或者加 --force 明确覆盖。",
-            file=sys.stderr,
-        )
-        return 3
-
-    out = Path(args.out)
-    out.mkdir(parents=True, exist_ok=True)
-    (out / f"{issue_id}.briefing.txt").write_text(
-        build_briefing(day_records, report_date), encoding="utf-8"
-    )
-    print(f"Wrote {out / issue_id}.briefing.txt ({len(day_records)} items)")
-
-    md_out.parent.mkdir(parents=True, exist_ok=True)
-    md_out.write_text(build_markdown(day_records, issue_id), encoding="utf-8")
-    print(f"Wrote Markdown -> {md_out}  (期号 {issue_id}，网址 /daily/{issue_id}/)")
-    print(
-        "下一步：让本地 WorkBuddy 读 briefing，填写该 .md 里的 "
-        "highlights（今日看点）/ interactions（互动）/ people[].summary（每人一句）三段。"
-    )
-    return 0
+    return _cli_main(["build"] + sys.argv[1:])
 
 
 if __name__ == "__main__":
