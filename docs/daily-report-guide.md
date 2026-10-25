@@ -134,7 +134,8 @@ python scripts/daily_digest.py --items-dir "<X-rss-workspace>/X-Reader/data/item
 - `--at "2026-10-31 22:00"`：可选，**指定发布时间**（JST），决定期号。不写就取当前小时。
 - `--force`：默认**拒绝覆盖已存在的期号**——覆盖等于删掉一期存档。确实要重写同一期时才加。
 - `--per-account N`：可选，briefing 里每个账号最多写几条，**默认不截**（有几条写几条）。给了数就按（互动数, 发布时间）从高到低截。只在「某人一天刷了 30 条把 briefing 撑爆」时才用。
-- **`active: false` 的账号（社团号）照旧进名单，但条目不进这一期**：脚本会把跳过的账号名打到 stderr。社团号目前是 `active: false`，等日报要收社团作品动态时再逐个打开。
+- **`active: false` 的账号（社团号、制造商号）照旧进名单，但条目不进这一期**：脚本会把跳过的账号名打到 stderr。这两类现在全是 `active: false`，等日报要收它们的动态时再逐个打开。
+- **名单三类实体**：`seiyuu`（声优，128 条 / 98 人）、`circle`（同人音声社团，109 条）、`manufacturer`（游戏厂商，173 条）。**一个 handle 只建一条**——同一个号既是厂商的又是社团的（`@cube_staff`、`@pachipachisoft`），或本来就是某位声优的主号（`@ayakaigasaki`），只保留已有那条，另一重身份写进 `note`。身份靠 `tags` 区分：声优 `["声优","创作者"]`、社团 `["创作者","音声"]`、厂商 `["创作者","游戏"]`，有社团号的声优补 `"音声"`，近十年拿过萌えゲーアワード的厂商补 `"Moe Award"`。
 - 产出：
   - `src/content/daily/<期号>.md` —— 站点内容的**骨架**：frontmatter 里 `accounts` 已按名单序排好，`highlights` / `interactions` 是空数组、`works` 是空串，`people` 每人一条 `summary: ""`，正文只有一个待填说明的注释。
   - `out/<期号>.briefing.txt` —— 喂给 LLM 的事实摘要（推文原文 + 互动数都在这里，已被 `.gitignore` 忽略，属本地中间产物）。

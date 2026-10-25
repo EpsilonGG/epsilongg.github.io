@@ -368,6 +368,32 @@ class InactiveAccountTest(unittest.TestCase):
         self.assertTrue(all(not a.active for a in circles))
         self.assertEqual(roster.category_of(circles[0].handle), "circle")
 
+    def test_manufacturers_are_collected_but_not_consumed(self) -> None:
+        """厂商号只收集、不进当期——跟社团号一个待遇。
+
+        厂商和社团是两套东西：社团号发「这部怎么卖」，厂商号发「下一部做什么」。
+        先挂进名单是为了以后按分类出周报，不是因为现在要消化它们。
+        """
+        roster = Roster.load()
+        makers = [a for a in roster.accounts if a.category == "manufacturer"]
+        self.assertTrue(makers, "制造商应该已经在名单里")
+        self.assertTrue(all(not a.active for a in makers), "制造商号一律 active=false")
+        self.assertTrue(all(a.role == "brand" for a in makers))
+        self.assertTrue(all("游戏" in a.tags for a in makers))
+        self.assertTrue(any("Moe Award" in a.tags for a in makers), "拿过萌奖的应该有标签")
+        self.assertIn("manufacturer", [c["id"] for c in roster.categories])
+
+    def test_handles_are_unique(self) -> None:
+        """一个 handle 只能有一条。
+
+        社团号、厂商号、声优号会撞车（同一个号既是厂商的又是社团的），
+        重复建条目会让「同一件事」在两个分类里各算一次。
+        """
+        roster = Roster.load()
+        handles = [a.handle.lower() for a in roster.accounts]
+        dupes = {h for h in handles if handles.count(h) > 1}
+        self.assertEqual(dupes, set())
+
 
 if __name__ == "__main__":
     unittest.main()
