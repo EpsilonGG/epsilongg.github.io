@@ -47,11 +47,15 @@ const blog = defineCollection({
  * 1. 链接由 `handle` 拼出来（`https://x.com/<handle>`），模型不可能写错网址；
  * 2. `summary` 为空的条目自动不渲染，天然满足「当日没有活动就省略」；
  * 3. 上百人时这些字段要拿去做分类视图和 JSON 输出，藏在正文里就取不出来。
+ *
+ * **文件名即发布时间**：`YYMMDDHH.md`（八位数字，JST），如 `26103122.md`
+ * 表示 2026-10-31 22:00。所以这里**没有 `pubDate` 字段**——时间只有文件名
+ * 一个来源，不存在「URL 和日期对不上」这种状态。精确到小时是为了存档：
+ * 同一天可以出多期，重跑不会覆盖上一期。
  */
 const daily = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/daily' }),
   schema: z.object({
-    title: z.string().trim().min(1, 'title 不能为空'),
     /**
      * 副标题 = 今日看点的 50 字以内简报，显示在标题下方。
      * 不要写日期和账号名——日期在标题与「发布于」里已经有了，
@@ -64,7 +68,6 @@ const daily = defineCollection({
       .min(1, 'description 不能是空字符串')
       .max(50, 'description 是「今日看点」的简报，必须 ≤ 50 字')
       .optional(),
-    pubDate: z.coerce.date(),
     source: z.enum(['original', 'ai']).default('ai'),
     /** 当天有活动的账号（由抓取数据推导，不需要手写） */
     accounts: z.array(z.string().trim().min(1)).default([]),

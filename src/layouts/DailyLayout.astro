@@ -1,7 +1,8 @@
 ---
 import BaseLayout from './BaseLayout.astro';
 import ReadingProgress from '../components/ReadingProgress.astro';
-import { formatDate, type Daily } from '../lib/daily';
+import { site } from '../config/site';
+import { formatIssueTime, type Daily } from '../lib/daily';
 
 interface Props {
   post: Daily;
@@ -63,7 +64,12 @@ if (!description) {
 }
 ---
 
-<BaseLayout title={title} description={description ?? `${title} · ${post.id}`} ogType="article">
+<BaseLayout
+  title={title}
+  description={description ?? `${title} · ${post.id}`}
+  ogType="article"
+  feeds={[{ title: `${site.name} · 日报`, href: '/daily/rss.xml' }]}
+>
   <ReadingProgress />
 
   <article class="page article-page">
@@ -78,7 +84,7 @@ if (!description) {
           <div class="article-meta">
             <span>
               发布于
-              <time datetime={pubDate.toISOString()}>{formatDate(pubDate)}</time>
+              <time datetime={pubDate.toISOString()}>{formatIssueTime(pubDate)}</time>
             </span>
           </div>
           {description ? <p class="article-description">{description}</p> : null}

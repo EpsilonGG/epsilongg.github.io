@@ -21,6 +21,8 @@ interface Props {
   image?: string;
   /** 是否允许搜索引擎索引 */
   noindex?: boolean;
+  /** 额外的订阅源，会追加 <link rel="alternate">；用于日报这类独立归档 */
+  feeds?: { title: string; href: string }[];
 }
 
 const {
@@ -29,6 +31,7 @@ const {
   ogType = 'website',
   image = site.ogImage,
   noindex = false,
+  feeds = [],
 } = Astro.props;
 
 // 首页标题使用「站点名 · 定位」，其余页面使用「页面标题 · 站点名」
@@ -65,6 +68,16 @@ const ogImageUrl = image ? absoluteUrl(image) : '';
 
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="alternate" type="application/rss+xml" title={`${site.name} · RSS`} href={absoluteUrl('/rss.xml')} />
+    {
+      feeds.map((feed) => (
+        <link
+          rel="alternate"
+          type="application/rss+xml"
+          title={feed.title}
+          href={absoluteUrl(feed.href)}
+        />
+      ))
+    }
     <meta name="generator" content={Astro.generator} />
 
     {/*

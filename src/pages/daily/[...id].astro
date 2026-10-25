@@ -3,12 +3,16 @@ import { render } from 'astro:content';
 import DailyLayout from '../../layouts/DailyLayout.astro';
 import { getDailyReports } from '../../lib/daily';
 
+/**
+ * 日报详情页。动态段是八位编号（`YYMMDDHH`），不是日期——
+ * 同一天可以有多期，只到天会互相覆盖。
+ */
 export async function getStaticPaths() {
   const reports = await getDailyReports();
 
-  // reports 已按发布日期倒序排列：索引更小的是较新的一篇
+  // reports 已按发布时间倒序排列：索引更小的是较新的一期
   return reports.map((report, index) => ({
-    params: { date: report.id },
+    params: { id: report.id },
     props: {
       post: report,
       newer: reports[index - 1] ?? null,

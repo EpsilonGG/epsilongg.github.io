@@ -75,6 +75,10 @@
   .kpi div { min-width: 120px; }
   .kpi b { display: block; font-size: 22px; font-variant-numeric: tabular-nums; }
   .kpi span { font-size: 12.5px; color: var(--ink-3); }
+  table.roster { font-size: 12.5px; }
+  table.roster th, table.roster td { padding: 6px 8px; }
+  table.roster td .cname { display: inline-block; max-width: 11em; white-space: normal; line-height: 1.4; }
+  .legend { color: var(--ink-3); font-size: 12.5px; }
   footer { margin-top: 56px; padding-top: 20px; border-top: 1px solid var(--line); color: var(--ink-3); font-size: 12.5px; }
 </style>
 </head>
@@ -82,239 +86,213 @@
 <div class="wrap">
 
 <header class="top">
-  <h1>DLsite 同人音声声优榜单与推特账号清单</h1>
-  <p class="sub">附：6 个轻量化日报项目的经验，以及「分类页只保留最新一期」到底指什么</p>
-  <p class="meta">整理日期 2026-10-25 · 数据口径：作品数榜 swsem（2026-09-04）／销量 proxy（2023-07，第三方推算）</p>
+  <h1>DLsite 同人音声声优名单与 X 账号清单</h1>
+  <p class="sub">作品数前 100（男性向）· 每人主号／小号／告知号／自有社团号 · 附 6 个轻量化日报项目的经验</p>
+  <p class="meta">整理日期 2026-10-25 · 作品数来自 swsem（2026-09-04）· 账号来自 Ci-en 创作者页与 DLsite 作品页，逐个实测抓取</p>
 </header>
 
 <h2>0. 先说结论</h2>
 
-<p>你要的是「销售额 + 发售作品数前 100 的声优」。这两件事的可获得性差很多，先说清楚：</p>
-
-<div class="note warn">
-<p><strong>1. 「按销售额排名的声优榜」不存在官方版本。</strong>
-DLsite 男性向（maniax）<strong>没有声优列表页</strong>，声优名只作为作品信息的一部分写在作品页里。
-这是 swsem 那篇统计文章自己写明的事实（「DLsiteの男性向け（同人）には、声優名の一覧ページがありません」），
-也是它能做起来的理由。所以没有任何官方数字能把「销售额」归到某个人头上。</p>
-<p><strong>2. 能拿到的只有两个替代口径。</strong>
-<strong>作品数</strong>（有现成数据库，可复现，2026 年数据）和 <strong>销量 proxy</strong>
-（有人拿「历史销量前 100 部作品」反推声优排名，2023 年数据，只列到 top15）。两者衡量的不是同一件事。</p>
-<p><strong>3. 推特三号（主号／小号／告知号）我只填核实过的。</strong>
-100 人 × 3 个号 = 300 个 handle，公开网络上没有这样一份清单，逐个搜也验证不了。
-<strong>我不会猜 handle</strong>——错的 handle 会让你的日报去抓陌生人的账号。目前核实到 12 人，
-其余留空并给出补齐方法。</p>
-</div>
+<p>这一版把上一版空着的账号列补上了，方法是<strong>换了一个信息源</strong>：上一版靠搜索结果猜，
+这一版走 <strong>Ci-en 创作者页 → 本人资料里自己写的 X</strong>，再用 DLsite 作品页的
+<code>■クレジット</code> 交叉印证。</p>
 
 <div class="kpi">
-  <div><b>100</b><span>作品数榜条目（去重后 97 人）</span></div>
-  <div><b>12</b><span>已核实推特主号</span></div>
-  <div><b>15</b><span>销量 proxy 榜条目</span></div>
+  <div><b>100</b><span>名单人数（去重后 97）</span></div>
+  <div><b>64</b><span>已确认主号</span></div>
+  <div><b>3</b><span>小号 + 告知号</span></div>
+  <div><b>8</b><span>社团号（其中 2 个推定自有）</span></div>
   <div><b>6</b><span>调研的日报项目</span></div>
 </div>
 
-<h2>1. 表 A：出演作品数前 100（男性向）</h2>
+<div class="note warn">
+<p><strong>1. 主号是「本人自己写的」，不是我猜的。</strong>
+Ci-en 创作者页是声优本人的资料页，X 链接由本人填写。100 人里有 61 人在 Ci-en 有创作者页，
+其中 49 人填了 X。这比搜索可靠一个数量级——上一版靠搜索只敢填 12 人。</p>
+<p><strong>2. 小号／告知号几乎拿不到，这是行业习惯，不是没查。</strong>
+裏垢（小号）大多<strong>故意不与主号互链</strong>，因为主号的关注者里有同行和出版社。
+所以公开资料里只有 1 个小号、2 个告知号——它们都是在 Ci-en 资料或作品クレジット里
+<strong>本人自己列出来</strong>的，其余一律留空，没有一个是猜的。</p>
+<p><strong>3. 销量 proxy 表（原表 B）已按你的要求删掉。</strong>
+上一版它是用来对照「高销量 ≠ 高产量」的，既然你说不用管，这版不再占篇幅。</p>
+</div>
 
-<p>来源 <a href="https://swsem.com/actors/">swsem 声優一覧</a>，页面明确标注「出演作品数の多い順」，
-男性向共 876 名。数据是 2026-09-04 的，比 2023 年那份销量榜新得多。
-「作品数」是它从 DLsite / FANZA 作品页机械抽取的出演记录条数，同一人的别名义会合并。</p>
+<h2>1. 名单</h2>
+
+<p>按出演作品数排序。<strong>主号</strong>优先取 Ci-en 资料页；没有 Ci-en 的取 DLsite 作品
+<code>■クレジット</code> 里制作方写的 <code>キャスト:</code> 那一行。<strong>社团号</strong>取作品クレジット里
+<code>制作:</code> / <code>サークル:</code> 那一行，标注「自有」的是同一声优在该社团的多部作品里
+都是唯一 cast（推定他/她自己就是社团主）。<strong>其他</strong>是同一个人名下查到的其余账号，
+不套小号/告知号的名字，留给你判断。</p>
+
+<p class="legend">判断规则：账号按 <code>_</code> / 大小写 / 数字切成 token，
+token 命中 <code>sub</code> <code>ura</code> <code>2nd</code> 等算小号，命中
+<code>news</code> <code>info</code> <code>告知</code> <code>おしらせ</code> 算告知号。
+<strong>只有一个号的，一律算主号</strong>——规则再漂亮也不该推翻这个事实。</p>
 
 <div class="scroll">
-<table>
+<table class="roster">
 <thead>
 <tr>
-  <th>#</th><th>人名</th><th>作品数</th><th>主号</th><th>小号</th><th>告知号</th><th>备注</th><th>作品页</th>
+  <th>#</th><th>人名 / 依据</th><th>作品数</th><th>主号</th><th>小号</th><th>告知号</th><th>社团号</th><th>其他</th>
 </tr>
 </thead>
 <tbody>
-<tr><td class="rank">1</td><td>陽向葵ゅか</td><td class="num">1,380</td><td class="handle"><a href="https://x.com/yukanyan2525" target="_blank" rel="noopener">@yukanyan2525</a></td><td class="handle pending">—</td><td class="handle pending">—</td><td>主号待确认：Ci-en 文章写 @yukanyan252，B 站写 yukanyan2525，差一位</td><td><a href="https://swsem.com/actors/9/" target="_blank" rel="noopener">swsem</a></td></tr>
-<tr><td class="rank">2</td><td>柚木つばめ</td><td class="num">1,089</td><td class="handle"><a href="https://x.com/re_re_tsubame" target="_blank" rel="noopener">@re_re_tsubame</a></td><td class="handle pending">—</td><td class="handle pending">—</td><td><span class="tag ok">已核实</span></td><td><a href="https://swsem.com/actors/16/" target="_blank" rel="noopener">swsem</a></td></tr>
-<tr><td class="rank">3</td><td>涼花みなせ</td><td class="num">881</td><td class="handle"><a href="https://x.com/suzuka_minase" target="_blank" rel="noopener">@suzuka_minase</a></td><td class="handle pending">—</td><td class="handle pending">—</td><td><span class="tag ok">已核实</span></td><td><a href="https://swsem.com/actors/20/" target="_blank" rel="noopener">swsem</a></td></tr>
-<tr><td class="rank">4</td><td>秋野かえで</td><td class="num">854</td><td class="handle"><a href="https://x.com/akinokaedevo" target="_blank" rel="noopener">@akinokaedevo</a></td><td class="handle pending">—</td><td class="handle pending">—</td><td><span class="tag ok">已核实</span></td><td><a href="https://swsem.com/actors/10/" target="_blank" rel="noopener">swsem</a></td></tr>
-<tr><td class="rank">5</td><td>逢坂成美</td><td class="num">628</td><td class="handle"><a href="https://x.com/narumiaisaka" target="_blank" rel="noopener">@narumiaisaka</a></td><td class="handle pending">—</td><td class="handle pending">—</td><td><span class="tag ok">已核实</span></td><td><a href="https://swsem.com/actors/35/" target="_blank" rel="noopener">swsem</a></td></tr>
-<tr><td class="rank">6</td><td>御子柴泉</td><td class="num">556</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td><span class="tag">待补</span></td><td><a href="https://swsem.com/actors/68/" target="_blank" rel="noopener">swsem</a></td></tr>
-<tr><td class="rank">7</td><td>大山チロル</td><td class="num">510</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td><span class="tag">待补</span></td><td><a href="https://swsem.com/actors/108/" target="_blank" rel="noopener">swsem</a></td></tr>
-<tr><td class="rank">8</td><td>餅梨あむ</td><td class="num">486</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td><span class="tag">待补</span></td><td><a href="https://swsem.com/actors/69/" target="_blank" rel="noopener">swsem</a></td></tr>
-<tr><td class="rank">9</td><td>みもりあいの</td><td class="num">464</td><td class="handle"><a href="https://x.com/mimo_chorion" target="_blank" rel="noopener">@mimo_chorion</a></td><td class="handle pending">—</td><td class="handle pending">—</td><td><span class="tag ok">已核实</span></td><td><a href="https://swsem.com/actors/65/" target="_blank" rel="noopener">swsem</a></td></tr>
-<tr><td class="rank">10</td><td>秋山はるる</td><td class="num">406</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td><span class="tag">待补</span></td><td><a href="https://swsem.com/actors/191/" target="_blank" rel="noopener">swsem</a></td></tr>
-<tr><td class="rank">11</td><td>分倍河原シホ</td><td class="num">399</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td><span class="tag">待补</span></td><td><a href="https://swsem.com/actors/157/" target="_blank" rel="noopener">swsem</a></td></tr>
-<tr><td class="rank">12</td><td>天知遥</td><td class="num">382</td><td class="handle"><a href="https://x.com/__amachi" target="_blank" rel="noopener">@__amachi</a></td><td class="handle pending">—</td><td class="handle pending">—</td><td><span class="tag ok">已核实</span></td><td><a href="https://swsem.com/actors/32/" target="_blank" rel="noopener">swsem</a></td></tr>
-<tr><td class="rank">13</td><td>乙倉ゆい</td><td class="num">342</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td><span class="tag">待补</span></td><td><a href="https://swsem.com/actors/83/" target="_blank" rel="noopener">swsem</a></td></tr>
-<tr><td class="rank">14</td><td>伊ヶ崎綾香</td><td class="num">331</td><td class="handle"><a href="https://x.com/ayakaigasaki" target="_blank" rel="noopener">@ayakaigasaki</a></td><td class="handle pending">—</td><td class="handle pending">—</td><td><span class="tag ok">已核实</span></td><td><a href="https://swsem.com/actors/12/" target="_blank" rel="noopener">swsem</a></td></tr>
-<tr><td class="rank">15</td><td>山田じぇみ子</td><td class="num">272</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td><span class="tag">待补</span></td><td><a href="https://swsem.com/actors/90/" target="_blank" rel="noopener">swsem</a></td></tr>
-<tr><td class="rank">16</td><td>恋鈴桃歌</td><td class="num">270</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td><span class="tag">待补</span></td><td><a href="https://swsem.com/actors/141/" target="_blank" rel="noopener">swsem</a></td></tr>
-<tr><td class="rank">17</td><td>そらまめ。</td><td class="num">264</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td><span class="tag">待补</span></td><td><a href="https://swsem.com/actors/152/" target="_blank" rel="noopener">swsem</a></td></tr>
-<tr><td class="rank">18</td><td>浅木式</td><td class="num">250</td><td class="handle"><a href="https://x.com/asagishiki00" target="_blank" rel="noopener">@asagishiki00</a></td><td class="handle pending">—</td><td class="handle pending">—</td><td><span class="tag ok">已核实</span></td><td><a href="https://swsem.com/actors/15/" target="_blank" rel="noopener">swsem</a></td></tr>
-<tr><td class="rank">19</td><td>西瓜すいか</td><td class="num">239</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td><span class="tag">待补</span></td><td><a href="https://swsem.com/actors/276/" target="_blank" rel="noopener">swsem</a></td></tr>
-<tr><td class="rank">20</td><td>MOMOKA。</td><td class="num">234</td><td class="handle"><a href="https://x.com/yuzuki_momoka" target="_blank" rel="noopener">@yuzuki_momoka</a></td><td class="handle pending">—</td><td class="handle pending">—</td><td>柚木桃香，已在现有日报名单里</td><td><a href="https://swsem.com/actors/296/" target="_blank" rel="noopener">swsem</a></td></tr>
-<tr><td class="rank">21</td><td>こやまはる</td><td class="num">229</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td><span class="tag">待补</span></td><td><a href="https://swsem.com/actors/211/" target="_blank" rel="noopener">swsem</a></td></tr>
-<tr><td class="rank">22</td><td>藤村莉央</td><td class="num">223</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td><span class="tag">待补</span></td><td><a href="https://swsem.com/actors/66/" target="_blank" rel="noopener">swsem</a></td></tr>
-<tr><td class="rank">23</td><td>高梨はなみ</td><td class="num">220</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td><span class="tag">待补</span></td><td><a href="https://swsem.com/actors/80/" target="_blank" rel="noopener">swsem</a></td></tr>
-<tr><td class="rank">24</td><td>涼貴涼</td><td class="num">210</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td><span class="tag">待补</span></td><td><a href="https://swsem.com/actors/282/" target="_blank" rel="noopener">swsem</a></td></tr>
-<tr><td class="rank">25</td><td>一之瀬りと</td><td class="num">205</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td><span class="tag">待补</span></td><td><a href="https://swsem.com/actors/6/" target="_blank" rel="noopener">swsem</a></td></tr>
-<tr><td class="rank">26</td><td>野上菜月</td><td class="num">201</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td><span class="tag">待补</span></td><td><a href="https://swsem.com/actors/210/" target="_blank" rel="noopener">swsem</a></td></tr>
-<tr><td class="rank">27</td><td>沢野ぽぷら</td><td class="num">199</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td><span class="tag">待补</span></td><td><a href="https://swsem.com/actors/217/" target="_blank" rel="noopener">swsem</a></td></tr>
-<tr><td class="rank">28</td><td>御崎ひより</td><td class="num">174</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td><span class="tag">待补</span></td><td><a href="https://swsem.com/actors/73/" target="_blank" rel="noopener">swsem</a></td></tr>
-<tr><td class="rank">29</td><td>藍沢夏癒</td><td class="num">164</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td><span class="tag">待补</span></td><td><a href="https://swsem.com/actors/242/" target="_blank" rel="noopener">swsem</a></td></tr>
-<tr><td class="rank">30</td><td>雲八はち</td><td class="num">158</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td><span class="tag">待补</span></td><td><a href="https://swsem.com/actors/70/" target="_blank" rel="noopener">swsem</a></td></tr>
-<tr><td class="rank">31</td><td>かの仔</td><td class="num">155</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td><span class="tag">待补</span></td><td><a href="https://swsem.com/actors/241/" target="_blank" rel="noopener">swsem</a></td></tr>
-<tr><td class="rank">32</td><td>篠守ゆきこ</td><td class="num">150</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td><span class="tag">待补</span></td><td><a href="https://swsem.com/actors/13/" target="_blank" rel="noopener">swsem</a></td></tr>
-<tr><td class="rank">33</td><td>琴音有波</td><td class="num">144</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td>与 #37 / #54 同一人（别名义，三行只留一个）</td><td><a href="https://swsem.com/actors/256/" target="_blank" rel="noopener">swsem</a></td></tr>
-<tr><td class="rank">34</td><td>小花衣こっこ</td><td class="num">137</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td><span class="tag">待补</span></td><td><a href="https://swsem.com/actors/72/" target="_blank" rel="noopener">swsem</a></td></tr>
-<tr><td class="rank">35</td><td>海音ミヅチ</td><td class="num">135</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td><span class="tag">待补</span></td><td><a href="https://swsem.com/actors/97/" target="_blank" rel="noopener">swsem</a></td></tr>
-<tr><td class="rank">36</td><td>来夢ふらん</td><td class="num">135</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td><span class="tag">待补</span></td><td><a href="https://swsem.com/actors/279/" target="_blank" rel="noopener">swsem</a></td></tr>
-<tr><td class="rank">37</td><td>琴音有波(紅月ことね)</td><td class="num">122</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td>与 #33 / #54 同一人（别名义）</td><td><a href="https://swsem.com/actors/186/" target="_blank" rel="noopener">swsem</a></td></tr>
-<tr><td class="rank">38</td><td>小石川うに</td><td class="num">113</td><td class="handle"><a href="https://x.com/Unicolony_uni" target="_blank" rel="noopener">@Unicolony_uni</a></td><td class="handle pending">—</td><td class="handle pending">—</td><td><span class="tag ok">已核实</span></td><td><a href="https://swsem.com/actors/187/" target="_blank" rel="noopener">swsem</a></td></tr>
-<tr><td class="rank">39</td><td>浅見ゆい</td><td class="num">96</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td><span class="tag">待补</span></td><td><a href="https://swsem.com/actors/311/" target="_blank" rel="noopener">swsem</a></td></tr>
-<tr><td class="rank">40</td><td>砂糖しお</td><td class="num">89</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td><span class="tag">待补</span></td><td><a href="https://swsem.com/actors/281/" target="_blank" rel="noopener">swsem</a></td></tr>
-<tr><td class="rank">41</td><td>柚木朱莉</td><td class="num">87</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td><span class="tag">待补</span></td><td><a href="https://swsem.com/actors/284/" target="_blank" rel="noopener">swsem</a></td></tr>
-<tr><td class="rank">42</td><td>杏仁らいち</td><td class="num">87</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td><span class="tag">待补</span></td><td><a href="https://swsem.com/actors/293/" target="_blank" rel="noopener">swsem</a></td></tr>
-<tr><td class="rank">43</td><td>雪見だいふく</td><td class="num">81</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td><span class="tag">待补</span></td><td><a href="https://swsem.com/actors/230/" target="_blank" rel="noopener">swsem</a></td></tr>
-<tr><td class="rank">44</td><td>神代そら</td><td class="num">79</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td><span class="tag">待补</span></td><td><a href="https://swsem.com/actors/252/" target="_blank" rel="noopener">swsem</a></td></tr>
-<tr><td class="rank">45</td><td>浪実みお</td><td class="num">79</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td><span class="tag">待补</span></td><td><a href="https://swsem.com/actors/218/" target="_blank" rel="noopener">swsem</a></td></tr>
-<tr><td class="rank">46</td><td>みたかりん</td><td class="num">78</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td><span class="tag">待补</span></td><td><a href="https://swsem.com/actors/165/" target="_blank" rel="noopener">swsem</a></td></tr>
-<tr><td class="rank">47</td><td>星野天</td><td class="num">78</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td><span class="tag">待补</span></td><td><a href="https://swsem.com/actors/260/" target="_blank" rel="noopener">swsem</a></td></tr>
-<tr><td class="rank">48</td><td>麦咲輪紫葵</td><td class="num">76</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td><span class="tag">待补</span></td><td><a href="https://swsem.com/actors/58/" target="_blank" rel="noopener">swsem</a></td></tr>
-<tr><td class="rank">49</td><td>古都ことり</td><td class="num">76</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td><span class="tag">待补</span></td><td><a href="https://swsem.com/actors/117/" target="_blank" rel="noopener">swsem</a></td></tr>
-<tr><td class="rank">50</td><td>御苑生メイ</td><td class="num">73</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td><span class="tag">待补</span></td><td><a href="https://swsem.com/actors/71/" target="_blank" rel="noopener">swsem</a></td></tr>
-<tr><td class="rank">51</td><td>ありのりあ</td><td class="num">70</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td><span class="tag">待补</span></td><td><a href="https://swsem.com/actors/236/" target="_blank" rel="noopener">swsem</a></td></tr>
-<tr><td class="rank">52</td><td>眠音りま</td><td class="num">68</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td><span class="tag">待补</span></td><td><a href="https://swsem.com/actors/64/" target="_blank" rel="noopener">swsem</a></td></tr>
-<tr><td class="rank">53</td><td>兎月りりむ。</td><td class="num">66</td><td class="handle"><a href="https://x.com/lilim404" target="_blank" rel="noopener">@lilim404</a></td><td class="handle pending">—</td><td class="handle pending">—</td><td><span class="tag ok">已核实</span></td><td><a href="https://swsem.com/actors/207/" target="_blank" rel="noopener">swsem</a></td></tr>
-<tr><td class="rank">54</td><td>紅月ことね</td><td class="num">65</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td>与 #33 / #37 同一人（别名义）</td><td><a href="https://swsem.com/actors/341/" target="_blank" rel="noopener">swsem</a></td></tr>
-<tr><td class="rank">55</td><td>縁側こより</td><td class="num">65</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td><span class="tag">待补</span></td><td><a href="https://swsem.com/actors/212/" target="_blank" rel="noopener">swsem</a></td></tr>
-<tr><td class="rank">56</td><td>佐倉江美</td><td class="num">64</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td><span class="tag">待补</span></td><td><a href="https://swsem.com/actors/220/" target="_blank" rel="noopener">swsem</a></td></tr>
-<tr><td class="rank">57</td><td>猫視ねこ</td><td class="num">64</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td><span class="tag">待补</span></td><td><a href="https://swsem.com/actors/292/" target="_blank" rel="noopener">swsem</a></td></tr>
-<tr><td class="rank">58</td><td>水野七海</td><td class="num">62</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td><span class="tag">待补</span></td><td><a href="https://swsem.com/actors/81/" target="_blank" rel="noopener">swsem</a></td></tr>
-<tr><td class="rank">59</td><td>森野めぐむ</td><td class="num">61</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td><span class="tag">待补</span></td><td><a href="https://swsem.com/actors/227/" target="_blank" rel="noopener">swsem</a></td></tr>
-<tr><td class="rank">60</td><td>葉月ゆう</td><td class="num">61</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td><span class="tag">待补</span></td><td><a href="https://swsem.com/actors/309/" target="_blank" rel="noopener">swsem</a></td></tr>
-<tr><td class="rank">61</td><td>伊倉える</td><td class="num">60</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td><span class="tag">待补</span></td><td><a href="https://swsem.com/actors/82/" target="_blank" rel="noopener">swsem</a></td></tr>
-<tr><td class="rank">62</td><td>結姫うさぎ</td><td class="num">55</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td><span class="tag">待补</span></td><td><a href="https://swsem.com/actors/201/" target="_blank" rel="noopener">swsem</a></td></tr>
-<tr><td class="rank">63</td><td>豊川ゆき</td><td class="num">55</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td><span class="tag">待补</span></td><td><a href="https://swsem.com/actors/105/" target="_blank" rel="noopener">swsem</a></td></tr>
-<tr><td class="rank">64</td><td>都みみち</td><td class="num">55</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td><span class="tag">待补</span></td><td><a href="https://swsem.com/actors/272/" target="_blank" rel="noopener">swsem</a></td></tr>
-<tr><td class="rank">65</td><td>梵雪音</td><td class="num">53</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td><span class="tag">待补</span></td><td><a href="https://swsem.com/actors/462/" target="_blank" rel="noopener">swsem</a></td></tr>
-<tr><td class="rank">66</td><td>まあ油るる</td><td class="num">52</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td><span class="tag">待补</span></td><td><a href="https://swsem.com/actors/84/" target="_blank" rel="noopener">swsem</a></td></tr>
-<tr><td class="rank">67</td><td>西浦のどか</td><td class="num">52</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td><span class="tag">待补</span></td><td><a href="https://swsem.com/actors/346/" target="_blank" rel="noopener">swsem</a></td></tr>
-<tr><td class="rank">68</td><td>まさきふぁん</td><td class="num">51</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td><span class="tag">待补</span></td><td><a href="https://swsem.com/actors/160/" target="_blank" rel="noopener">swsem</a></td></tr>
-<tr><td class="rank">69</td><td>双葉すずね</td><td class="num">50</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td><span class="tag">待补</span></td><td><a href="https://swsem.com/actors/112/" target="_blank" rel="noopener">swsem</a></td></tr>
-<tr><td class="rank">70</td><td>奏谷しはる</td><td class="num">49</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td><span class="tag">待补</span></td><td><a href="https://swsem.com/actors/268/" target="_blank" rel="noopener">swsem</a></td></tr>
-<tr><td class="rank">71</td><td>春乃つくし</td><td class="num">47</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td><span class="tag">待补</span></td><td><a href="https://swsem.com/actors/285/" target="_blank" rel="noopener">swsem</a></td></tr>
-<tr><td class="rank">72</td><td>霜月優</td><td class="num">47</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td><span class="tag">待补</span></td><td><a href="https://swsem.com/actors/361/" target="_blank" rel="noopener">swsem</a></td></tr>
-<tr><td class="rank">73</td><td>佐々木サキ</td><td class="num">46</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td><span class="tag">待补</span></td><td><a href="https://swsem.com/actors/595/" target="_blank" rel="noopener">swsem</a></td></tr>
-<tr><td class="rank">74</td><td>綾音まこ</td><td class="num">44</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td><span class="tag">待补</span></td><td><a href="https://swsem.com/actors/232/" target="_blank" rel="noopener">swsem</a></td></tr>
-<tr><td class="rank">75</td><td>七瀬ゆな</td><td class="num">44</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td><span class="tag">待补</span></td><td><a href="https://swsem.com/actors/167/" target="_blank" rel="noopener">swsem</a></td></tr>
-<tr><td class="rank">76</td><td>真白真雪</td><td class="num">44</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td><span class="tag">待补</span></td><td><a href="https://swsem.com/actors/123/" target="_blank" rel="noopener">swsem</a></td></tr>
-<tr><td class="rank">77</td><td>歩サラ</td><td class="num">43</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td><span class="tag">待补</span></td><td><a href="https://swsem.com/actors/263/" target="_blank" rel="noopener">swsem</a></td></tr>
-<tr><td class="rank">78</td><td>堀米玲音</td><td class="num">43</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td><span class="tag">待补</span></td><td><a href="https://swsem.com/actors/342/" target="_blank" rel="noopener">swsem</a></td></tr>
-<tr><td class="rank">79</td><td>葵時緒</td><td class="num">43</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td><span class="tag">待补</span></td><td><a href="https://swsem.com/actors/664/" target="_blank" rel="noopener">swsem</a></td></tr>
-<tr><td class="rank">80</td><td>未想可みいろ</td><td class="num">42</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td><span class="tag">待补</span></td><td><a href="https://swsem.com/actors/85/" target="_blank" rel="noopener">swsem</a></td></tr>
-<tr><td class="rank">81</td><td>田中</td><td class="num">41</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td><span class="tag">待补</span></td><td><a href="https://swsem.com/actors/106/" target="_blank" rel="noopener">swsem</a></td></tr>
-<tr><td class="rank">82</td><td>狼ノ宮ヒナギク</td><td class="num">38</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td><span class="tag">待补</span></td><td><a href="https://swsem.com/actors/319/" target="_blank" rel="noopener">swsem</a></td></tr>
-<tr><td class="rank">83</td><td>思ちぽ</td><td class="num">36</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td><span class="tag">待补</span></td><td><a href="https://swsem.com/actors/223/" target="_blank" rel="noopener">swsem</a></td></tr>
-<tr><td class="rank">84</td><td>MOMOKA。（柚木桃香）</td><td class="num">35</td><td class="handle"><a href="https://x.com/yuzuki_momoka" target="_blank" rel="noopener">@yuzuki_momoka</a></td><td class="handle pending">—</td><td class="handle pending">—</td><td>同上，#20 的别名条目</td><td><a href="https://swsem.com/actors/424/" target="_blank" rel="noopener">swsem</a></td></tr>
-<tr><td class="rank">85</td><td>川乃瀬由羽</td><td class="num">35</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td><span class="tag">待补</span></td><td><a href="https://swsem.com/actors/240/" target="_blank" rel="noopener">swsem</a></td></tr>
-<tr><td class="rank">86</td><td>蘭世</td><td class="num">34</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td><span class="tag">待补</span></td><td><a href="https://swsem.com/actors/441/" target="_blank" rel="noopener">swsem</a></td></tr>
-<tr><td class="rank">87</td><td>由比かのん</td><td class="num">34</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td><span class="tag">待补</span></td><td><a href="https://swsem.com/actors/113/" target="_blank" rel="noopener">swsem</a></td></tr>
-<tr><td class="rank">88</td><td>彩夢ひな</td><td class="num">33</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td><span class="tag">待补</span></td><td><a href="https://swsem.com/actors/163/" target="_blank" rel="noopener">swsem</a></td></tr>
-<tr><td class="rank">89</td><td>夢咲みるく</td><td class="num">32</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td><span class="tag">待补</span></td><td><a href="https://swsem.com/actors/286/" target="_blank" rel="noopener">swsem</a></td></tr>
-<tr><td class="rank">90</td><td>佐倉もも花</td><td class="num">32</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td><span class="tag">待补</span></td><td><a href="https://swsem.com/actors/570/" target="_blank" rel="noopener">swsem</a></td></tr>
-<tr><td class="rank">91</td><td>白沢サヤカ</td><td class="num">32</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td><span class="tag">待补</span></td><td><a href="https://swsem.com/actors/224/" target="_blank" rel="noopener">swsem</a></td></tr>
-<tr><td class="rank">92</td><td>星羅あかね</td><td class="num">31</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td><span class="tag">待补</span></td><td><a href="https://swsem.com/actors/243/" target="_blank" rel="noopener">swsem</a></td></tr>
-<tr><td class="rank">93</td><td>神在ほたる</td><td class="num">31</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td><span class="tag">待补</span></td><td><a href="https://swsem.com/actors/804/" target="_blank" rel="noopener">swsem</a></td></tr>
-<tr><td class="rank">94</td><td>小倉結衣</td><td class="num">31</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td><span class="tag">待补</span></td><td><a href="https://swsem.com/actors/343/" target="_blank" rel="noopener">swsem</a></td></tr>
-<tr><td class="rank">95</td><td>花見るん</td><td class="num">31</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td><span class="tag">待补</span></td><td><a href="https://swsem.com/actors/565/" target="_blank" rel="noopener">swsem</a></td></tr>
-<tr><td class="rank">96</td><td>雨音いろみず</td><td class="num">31</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td><span class="tag">待补</span></td><td><a href="https://swsem.com/actors/109/" target="_blank" rel="noopener">swsem</a></td></tr>
-<tr><td class="rank">97</td><td>氷上のあ</td><td class="num">30</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td><span class="tag">待补</span></td><td><a href="https://swsem.com/actors/645/" target="_blank" rel="noopener">swsem</a></td></tr>
-<tr><td class="rank">98</td><td>進藤あずさ</td><td class="num">30</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td><span class="tag">待补</span></td><td><a href="https://swsem.com/actors/470/" target="_blank" rel="noopener">swsem</a></td></tr>
-<tr><td class="rank">99</td><td>ありがた～い私</td><td class="num">29</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td><span class="tag">待补</span></td><td><a href="https://swsem.com/actors/465/" target="_blank" rel="noopener">swsem</a></td></tr>
-<tr><td class="rank">100</td><td>箱河ノア</td><td class="num">29</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td><span class="tag">待补</span></td><td><a href="https://swsem.com/actors/316/" target="_blank" rel="noopener">swsem</a></td></tr>
+<tr><td class="rank">1</td><td>陽向葵ゅか <span class="tag ok">Ci-en</span></td><td class="num">1,381</td><td class="handle"><a href="https://x.com/yukanyan2525" target="_blank" rel="noopener">@yukanyan2525</a></td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td></tr>
+<tr><td class="rank">2</td><td>柚木つばめ <span class="tag ok">Ci-en</span></td><td class="num">1,089</td><td class="handle"><a href="https://x.com/re_re_tsubame" target="_blank" rel="noopener">@re_re_tsubame</a></td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td></tr>
+<tr><td class="rank">3</td><td>涼花みなせ <span class="tag ok">Ci-en</span> <span class="tag">+DL</span></td><td class="num">882</td><td class="handle"><a href="https://x.com/suzuka_minase" target="_blank" rel="noopener">@suzuka_minase</a></td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td></tr>
+<tr><td class="rank">4</td><td>秋野かえで <span class="tag ok">上版核实</span></td><td class="num">855</td><td class="handle"><a href="https://x.com/akinokaedevo" target="_blank" rel="noopener">@akinokaedevo</a></td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td></tr>
+<tr><td class="rank">5</td><td>逢坂成美 <span class="tag ok">Ci-en</span></td><td class="num">629</td><td class="handle"><a href="https://x.com/narumiaisaka" target="_blank" rel="noopener">@narumiaisaka</a></td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td></tr>
+<tr><td class="rank">6</td><td>御子柴泉 <span class="tag ok">Ci-en</span></td><td class="num">557</td><td class="handle"><a href="https://x.com/asuparama40" target="_blank" rel="noopener">@asuparama40</a></td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td></tr>
+<tr><td class="rank">7</td><td>大山チロル <span class="tag">待补</span></td><td class="num">511</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td></tr>
+<tr><td class="rank">8</td><td>餅梨あむ <span class="tag">待补</span></td><td class="num">487</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td></tr>
+<tr><td class="rank">9</td><td>みもりあいの <span class="tag ok">上版核实</span></td><td class="num">464</td><td class="handle"><a href="https://x.com/mimo_chorion" target="_blank" rel="noopener">@mimo_chorion</a></td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td></tr>
+<tr><td class="rank">10</td><td>秋山はるる <span class="tag ok">Ci-en</span></td><td class="num">407</td><td class="handle"><a href="https://x.com/harurupanda0827" target="_blank" rel="noopener">@harurupanda0827</a></td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle"><a href="https://x.com/ryonarab" target="_blank" rel="noopener">@ryonarab</a></td></tr>
+<tr><td class="rank">11</td><td>分倍河原シホ <span class="tag ok">Ci-en</span></td><td class="num">402</td><td class="handle"><a href="https://x.com/shiho_moai" target="_blank" rel="noopener">@shiho_moai</a></td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td></tr>
+<tr><td class="rank">12</td><td>天知遥 <span class="tag ok">上版核实</span></td><td class="num">382</td><td class="handle"><a href="https://x.com/__amachi" target="_blank" rel="noopener">@__amachi</a></td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td></tr>
+<tr><td class="rank">13</td><td>乙倉ゆい <span class="tag">待补</span></td><td class="num">345</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td></tr>
+<tr><td class="rank">14</td><td>伊ヶ崎綾香 <span class="tag ok">上版核实</span></td><td class="num">331</td><td class="handle"><a href="https://x.com/ayakaigasaki" target="_blank" rel="noopener">@ayakaigasaki</a></td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td></tr>
+<tr><td class="rank">15</td><td>山田じぇみ子 <span class="tag">待补</span></td><td class="num">273</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td></tr>
+<tr><td class="rank">16</td><td>恋鈴桃歌 <span class="tag ok">Ci-en</span></td><td class="num">270</td><td class="handle"><a href="https://x.com/momokar181" target="_blank" rel="noopener">@momokar181</a></td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td></tr>
+<tr><td class="rank">17</td><td>そらまめ。 <span class="tag">待补</span></td><td class="num">264</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td></tr>
+<tr><td class="rank">18</td><td>浅木式 <span class="tag ok">Ci-en</span> <span class="tag">+DL</span></td><td class="num">250</td><td class="handle"><a href="https://x.com/asagishiki00" target="_blank" rel="noopener">@asagishiki00</a></td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle"><a href="https://x.com/uzuno_mori" target="_blank" rel="noopener">@uzuno_mori</a><br><span class="cname">UZMR</span></td><td class="handle pending">—</td></tr>
+<tr><td class="rank">19</td><td>西瓜すいか <span class="tag">待补</span></td><td class="num">239</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td></tr>
+<tr><td class="rank">20</td><td>MOMOKA。 <span class="tag ok">Ci-en</span></td><td class="num">234</td><td class="handle"><a href="https://x.com/yuzuki_momoka" target="_blank" rel="noopener">@yuzuki_momoka</a></td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle"><a href="https://x.com/momoka_vtuber" target="_blank" rel="noopener">@momoka_vtuber</a></td></tr>
+<tr><td class="rank">21</td><td>こやまはる <span class="tag ok">Ci-en</span></td><td class="num">229</td><td class="handle"><a href="https://x.com/koyama9haru" target="_blank" rel="noopener">@koyama9haru</a></td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td></tr>
+<tr><td class="rank">22</td><td>藤村莉央 <span class="tag">DLsite</span></td><td class="num">226</td><td class="handle"><a href="https://x.com/fujimura_rio" target="_blank" rel="noopener">@fujimura_rio</a></td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td></tr>
+<tr><td class="rank">23</td><td>高梨はなみ <span class="tag">DLsite</span></td><td class="num">223</td><td class="handle"><a href="https://x.com/nashihanami" target="_blank" rel="noopener">@nashihanami</a></td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle"><a href="https://x.com/ohshimap_new" target="_blank" rel="noopener">@ohshimap_new</a><br><span class="cname">居酒屋少女</span></td><td class="handle pending">—</td></tr>
+<tr><td class="rank">24</td><td>涼貴涼 <span class="tag">待补</span></td><td class="num">212</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td></tr>
+<tr><td class="rank">25</td><td>一之瀬りと <span class="tag ok">Ci-en</span></td><td class="num">205</td><td class="handle"><a href="https://x.com/1_rito" target="_blank" rel="noopener">@1_rito</a></td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td></tr>
+<tr><td class="rank">26</td><td>野上菜月 <span class="tag">待补</span></td><td class="num">201</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td></tr>
+<tr><td class="rank">27</td><td>沢野ぽぷら <span class="tag">待补</span></td><td class="num">199</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td></tr>
+<tr><td class="rank">28</td><td>御崎ひより <span class="tag ok">Ci-en</span> <span class="tag">+DL</span></td><td class="num">175</td><td class="handle"><a href="https://x.com/hiyori_voice" target="_blank" rel="noopener">@hiyori_voice</a></td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td></tr>
+<tr><td class="rank">29</td><td>藍沢夏癒 <span class="tag ok">Ci-en</span></td><td class="num">164</td><td class="handle"><a href="https://x.com/aizawa_nachu" target="_blank" rel="noopener">@aizawa_nachu</a></td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td></tr>
+<tr><td class="rank">30</td><td>雲八はち <span class="tag ok">Ci-en</span> <span class="tag">+DL</span></td><td class="num">158</td><td class="handle"><a href="https://x.com/CV_kumoyahachi" target="_blank" rel="noopener">@CV_kumoyahachi</a></td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle"><a href="https://x.com/uzuno_mori" target="_blank" rel="noopener">@uzuno_mori</a><br><span class="cname">UZMR</span></td><td class="handle pending">—</td></tr>
+<tr><td class="rank">31</td><td>かの仔 <span class="tag ok">Ci-en</span></td><td class="num">156</td><td class="handle"><a href="https://x.com/otonopusco" target="_blank" rel="noopener">@otonopusco</a></td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td></tr>
+<tr><td class="rank">32</td><td>篠守ゆきこ <span class="tag ok">Ci-en</span> <span class="tag">+DL</span></td><td class="num">150</td><td class="handle"><a href="https://x.com/oOYuKiKoOo" target="_blank" rel="noopener">@oOYuKiKoOo</a></td><td class="handle pending">—</td><td class="handle"><a href="https://x.com/oOYuKiKo_NewsOo" target="_blank" rel="noopener">@oOYuKiKo_NewsOo</a></td><td class="handle"><a href="https://x.com/rapurando23" target="_blank" rel="noopener">@rapurando23</a><br><span class="cname">ラプランド</span></td><td class="handle"><a href="https://x.com/saku_mix_voice" target="_blank" rel="noopener">@saku_mix_voice</a></td></tr>
+<tr><td class="rank">33</td><td>琴音有波 <span class="tag ok">Ci-en</span> <span class="tag">+DL</span></td><td class="num">145</td><td class="handle"><a href="https://x.com/kotone_akv" target="_blank" rel="noopener">@kotone_akv</a></td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td></tr>
+<tr><td class="rank">34</td><td>小花衣こっこ <span class="tag">待补</span></td><td class="num">137</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td></tr>
+<tr><td class="rank">35</td><td>海音ミヅチ <span class="tag ok">Ci-en</span></td><td class="num">138</td><td class="handle"><a href="https://x.com/jiaomidsu3187" target="_blank" rel="noopener">@jiaomidsu3187</a></td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle"><a href="https://x.com/kuroseimu_000" target="_blank" rel="noopener">@kuroseimu_000</a></td></tr>
+<tr><td class="rank">36</td><td>来夢ふらん <span class="tag ok">Ci-en</span></td><td class="num">135</td><td class="handle"><a href="https://x.com/flanklm" target="_blank" rel="noopener">@flanklm</a></td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td></tr>
+<tr><td class="rank">37</td><td>琴音有波(紅月ことね) <span class="tag">同 #33</span> <span class="tag">待补</span></td><td class="num">124</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td></tr>
+<tr><td class="rank">38</td><td>小石川うに <span class="tag ok">Ci-en</span></td><td class="num">113</td><td class="handle"><a href="https://x.com/Unicolony_uni" target="_blank" rel="noopener">@Unicolony_uni</a></td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td></tr>
+<tr><td class="rank">39</td><td>浅見ゆい <span class="tag">DLsite</span></td><td class="num">97</td><td class="handle"><a href="https://x.com/y_asm" target="_blank" rel="noopener">@y_asm</a></td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td></tr>
+<tr><td class="rank">40</td><td>砂糖しお <span class="tag">待补</span></td><td class="num">89</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td></tr>
+<tr><td class="rank">41</td><td>柚木朱莉 <span class="tag ok">Ci-en</span></td><td class="num">88</td><td class="handle"><a href="https://x.com/yuzukiakari" target="_blank" rel="noopener">@yuzukiakari</a></td><td class="handle pending">—</td><td class="handle"><a href="https://x.com/akaritta_news" target="_blank" rel="noopener">@akaritta_news</a></td><td class="handle pending">—</td><td class="handle pending">—</td></tr>
+<tr><td class="rank">42</td><td>杏仁らいち <span class="tag">待补</span></td><td class="num">87</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td></tr>
+<tr><td class="rank">43</td><td>雪見だいふく <span class="tag">待补</span></td><td class="num">81</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td></tr>
+<tr><td class="rank">44</td><td>神代そら <span class="tag ok">Ci-en</span> <span class="tag">+DL</span></td><td class="num">81</td><td class="handle"><a href="https://x.com/KAMiSiRO_cast" target="_blank" rel="noopener">@KAMiSiRO_cast</a></td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td></tr>
+<tr><td class="rank">45</td><td>浪実みお <span class="tag ok">Ci-en</span> <span class="tag">+DL</span></td><td class="num">79</td><td class="handle"><a href="https://x.com/namimimiobot" target="_blank" rel="noopener">@namimimiobot</a></td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle"><a href="https://x.com/yorunobe" target="_blank" rel="noopener">@yorunobe</a><br><span class="cname">ヨルノベ</span></td><td class="handle pending">—</td></tr>
+<tr><td class="rank">46</td><td>みたかりん <span class="tag">待补</span></td><td class="num">79</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td></tr>
+<tr><td class="rank">47</td><td>星野天 <span class="tag ok">Ci-en</span></td><td class="num">78</td><td class="handle"><a href="https://x.com/hoshinora1212" target="_blank" rel="noopener">@hoshinora1212</a></td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td></tr>
+<tr><td class="rank">48</td><td>麦咲輪紫葵 <span class="tag ok">Ci-en</span> <span class="tag">+DL</span></td><td class="num">77</td><td class="handle"><a href="https://x.com/mugisawa727" target="_blank" rel="noopener">@mugisawa727</a></td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td></tr>
+<tr><td class="rank">49</td><td>古都ことり <span class="tag">待补</span></td><td class="num">76</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td></tr>
+<tr><td class="rank">50</td><td>御苑生メイ <span class="tag">待补</span></td><td class="num">73</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td></tr>
+<tr><td class="rank">51</td><td>ありのりあ <span class="tag ok">Ci-en</span></td><td class="num">72</td><td class="handle"><a href="https://x.com/ria_arino0707" target="_blank" rel="noopener">@ria_arino0707</a></td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td></tr>
+<tr><td class="rank">52</td><td>眠音りま <span class="tag ok">Ci-en</span></td><td class="num">68</td><td class="handle"><a href="https://x.com/nemurinerima" target="_blank" rel="noopener">@nemurinerima</a></td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td></tr>
+<tr><td class="rank">53</td><td>兎月りりむ。 <span class="tag ok">Ci-en</span></td><td class="num">66</td><td class="handle"><a href="https://x.com/lilim404" target="_blank" rel="noopener">@lilim404</a></td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle"><a href="https://x.com/DoujinOnseiCom" target="_blank" rel="noopener">@DoujinOnseiCom</a> <a href="https://x.com/LilimUzuki" target="_blank" rel="noopener">@LilimUzuki</a></td></tr>
+<tr><td class="rank">54</td><td>紅月ことね <span class="tag">待补</span></td><td class="num">66</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td></tr>
+<tr><td class="rank">55</td><td>縁側こより <span class="tag">待补</span></td><td class="num">65</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td></tr>
+<tr><td class="rank">56</td><td>佐倉江美 <span class="tag ok">Ci-en</span></td><td class="num">64</td><td class="handle"><a href="https://x.com/girlscreationpr" target="_blank" rel="noopener">@girlscreationpr</a></td><td class="handle"><a href="https://x.com/sakuraemi2" target="_blank" rel="noopener">@sakuraemi2</a></td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td></tr>
+<tr><td class="rank">57</td><td>猫視ねこ <span class="tag">待补</span></td><td class="num">64</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td></tr>
+<tr><td class="rank">58</td><td>水野七海 <span class="tag">待补</span></td><td class="num">62</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td></tr>
+<tr><td class="rank">59</td><td>森野めぐむ <span class="tag ok">Ci-en</span></td><td class="num">61</td><td class="handle"><a href="https://x.com/mmegumu" target="_blank" rel="noopener">@mmegumu</a></td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td></tr>
+<tr><td class="rank">60</td><td>葉月ゆう <span class="tag">DLsite</span></td><td class="num">61</td><td class="handle"><a href="https://x.com/yu_hadki" target="_blank" rel="noopener">@yu_hadki</a></td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td></tr>
+<tr><td class="rank">61</td><td>伊倉える <span class="tag ok">Ci-en</span> <span class="tag">+DL</span></td><td class="num">60</td><td class="handle"><a href="https://x.com/ikuraeru" target="_blank" rel="noopener">@ikuraeru</a></td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle"><a href="https://x.com/yorunobe" target="_blank" rel="noopener">@yorunobe</a><br><span class="cname">ヨルノベ</span></td><td class="handle pending">—</td></tr>
+<tr><td class="rank">62</td><td>結姫うさぎ <span class="tag">待补</span></td><td class="num">55</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td></tr>
+<tr><td class="rank">63</td><td>豊川ゆき <span class="tag ok">Ci-en</span></td><td class="num">55</td><td class="handle"><a href="https://x.com/yukirinrin1191" target="_blank" rel="noopener">@yukirinrin1191</a></td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td></tr>
+<tr><td class="rank">64</td><td>都みみち <span class="tag ok">Ci-en</span></td><td class="num">55</td><td class="handle"><a href="https://x.com/my_mimichinchin" target="_blank" rel="noopener">@my_mimichinchin</a></td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle"><a href="https://x.com/mymy_mimichinchin" target="_blank" rel="noopener">@mymy_mimichinchin</a> <a href="https://x.com/mymy_mimichi" target="_blank" rel="noopener">@mymy_mimichi</a></td></tr>
+<tr><td class="rank">65</td><td>梵雪音 <span class="tag ok">Ci-en</span></td><td class="num">53</td><td class="handle"><a href="https://x.com/Setsune_Soyogi" target="_blank" rel="noopener">@Setsune_Soyogi</a></td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td></tr>
+<tr><td class="rank">66</td><td>まあ油るる <span class="tag">待补</span></td><td class="num">52</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td></tr>
+<tr><td class="rank">67</td><td>西浦のどか <span class="tag ok">Ci-en</span></td><td class="num">52</td><td class="handle"><a href="https://x.com/ndk39" target="_blank" rel="noopener">@ndk39</a></td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td></tr>
+<tr><td class="rank">68</td><td>まさきふぁん <span class="tag">待补</span></td><td class="num">51</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td></tr>
+<tr><td class="rank">69</td><td>双葉すずね <span class="tag">DLsite</span></td><td class="num">50</td><td class="handle"><a href="https://x.com/Suzune_2816" target="_blank" rel="noopener">@Suzune_2816</a></td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td></tr>
+<tr><td class="rank">70</td><td>奏谷しはる <span class="tag">待补</span></td><td class="num">49</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td></tr>
+<tr><td class="rank">71</td><td>春乃つくし <span class="tag ok">Ci-en</span></td><td class="num">47</td><td class="handle"><a href="https://x.com/haruno_tsukushi" target="_blank" rel="noopener">@haruno_tsukushi</a></td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td></tr>
+<tr><td class="rank">72</td><td>霜月優 <span class="tag">DLsite</span></td><td class="num">47</td><td class="handle"><a href="https://x.com/shimotsukiyuu" target="_blank" rel="noopener">@shimotsukiyuu</a></td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td></tr>
+<tr><td class="rank">73</td><td>佐々木サキ <span class="tag">DLsite</span></td><td class="num">46</td><td class="handle"><a href="https://x.com/sakissaki_voice" target="_blank" rel="noopener">@sakissaki_voice</a></td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle"><a href="https://x.com/hekilab" target="_blank" rel="noopener">@hekilab</a><br><span class="cname">新人同人サークルへきらぼ</span> <span class="tag ok">自有</span></td><td class="handle"><a href="https://x.com/AMAKARAsyndrome" target="_blank" rel="noopener">@AMAKARAsyndrome</a></td></tr>
+<tr><td class="rank">74</td><td>綾音まこ <span class="tag">DLsite</span></td><td class="num">45</td><td class="handle"><a href="https://x.com/ayanemako" target="_blank" rel="noopener">@ayanemako</a></td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td></tr>
+<tr><td class="rank">75</td><td>七瀬ゆな <span class="tag">待补</span></td><td class="num">44</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td></tr>
+<tr><td class="rank">76</td><td>真白真雪 <span class="tag ok">Ci-en</span></td><td class="num">44</td><td class="handle"><a href="https://x.com/mashiro_mayuki_" target="_blank" rel="noopener">@mashiro_mayuki_</a></td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle"><a href="https://x.com/__yukimichi__" target="_blank" rel="noopener">@__yukimichi__</a></td></tr>
+<tr><td class="rank">77</td><td>歩サラ <span class="tag">DLsite</span></td><td class="num">44</td><td class="handle"><a href="https://x.com/ayumi_sarah" target="_blank" rel="noopener">@ayumi_sarah</a></td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle"><a href="https://x.com/potte1919" target="_blank" rel="noopener">@potte1919</a><br><span class="cname">音声サークル『potte』</span> <span class="tag ok">自有</span></td><td class="handle pending">—</td></tr>
+<tr><td class="rank">78</td><td>堀米玲音 <span class="tag ok">Ci-en</span></td><td class="num">43</td><td class="handle"><a href="https://x.com/IMOSAKA_B_C_" target="_blank" rel="noopener">@IMOSAKA_B_C_</a></td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td></tr>
+<tr><td class="rank">79</td><td>葵時緒 <span class="tag">待补</span></td><td class="num">43</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td></tr>
+<tr><td class="rank">80</td><td>未想可みいろ <span class="tag">待补</span></td><td class="num">42</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td></tr>
+<tr><td class="rank">81</td><td>田中 <span class="tag">待补</span></td><td class="num">43</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td></tr>
+<tr><td class="rank">82</td><td>狼ノ宮ヒナギク <span class="tag ok">Ci-en</span></td><td class="num">38</td><td class="handle"><a href="https://x.com/refle_ookami" target="_blank" rel="noopener">@refle_ookami</a></td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle"><a href="https://x.com/kiruu_1" target="_blank" rel="noopener">@kiruu_1</a></td></tr>
+<tr><td class="rank">83</td><td>思ちぽ <span class="tag ok">Ci-en</span></td><td class="num">36</td><td class="handle"><a href="https://x.com/M_chipo_O" target="_blank" rel="noopener">@M_chipo_O</a></td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td></tr>
+<tr><td class="rank">84</td><td>MOMOKA。（柚木桃香） <span class="tag">同 #20</span> <span class="tag ok">Ci-en</span></td><td class="num">35</td><td class="handle"><a href="https://x.com/yuzuki_momoka" target="_blank" rel="noopener">@yuzuki_momoka</a></td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle"><a href="https://x.com/momoka_vtuber" target="_blank" rel="noopener">@momoka_vtuber</a></td></tr>
+<tr><td class="rank">85</td><td>川乃瀬由羽 <span class="tag ok">Ci-en</span> <span class="tag">+DL</span></td><td class="num">35</td><td class="handle"><a href="https://x.com/maihal_yuu" target="_blank" rel="noopener">@maihal_yuu</a></td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td></tr>
+<tr><td class="rank">86</td><td>蘭世 <span class="tag">待补</span></td><td class="num">35</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td></tr>
+<tr><td class="rank">87</td><td>由比かのん <span class="tag">待补</span></td><td class="num">34</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td></tr>
+<tr><td class="rank">88</td><td>彩夢ひな <span class="tag">DLsite</span></td><td class="num">33</td><td class="handle"><a href="https://x.com/Hina_ayame_vo" target="_blank" rel="noopener">@Hina_ayame_vo</a></td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle"><a href="https://x.com/hina_ayame_vo" target="_blank" rel="noopener">@hina_ayame_vo</a></td></tr>
+<tr><td class="rank">89</td><td>夢咲みるく <span class="tag">待补</span></td><td class="num">33</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td></tr>
+<tr><td class="rank">90</td><td>佐倉もも花 <span class="tag">待补</span></td><td class="num">32</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td></tr>
+<tr><td class="rank">91</td><td>白沢サヤカ <span class="tag">待补</span></td><td class="num">32</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td></tr>
+<tr><td class="rank">92</td><td>星羅あかね <span class="tag">DLsite</span></td><td class="num">32</td><td class="handle"><a href="https://x.com/seiraakane" target="_blank" rel="noopener">@seiraakane</a></td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td></tr>
+<tr><td class="rank">93</td><td>神在ほたる <span class="tag ok">Ci-en</span></td><td class="num">32</td><td class="handle"><a href="https://x.com/hotaoctenten" target="_blank" rel="noopener">@hotaoctenten</a></td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td></tr>
+<tr><td class="rank">94</td><td>小倉結衣 <span class="tag ok">Ci-en</span></td><td class="num">31</td><td class="handle"><a href="https://x.com/ogubit_ASMR" target="_blank" rel="noopener">@ogubit_ASMR</a></td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle"><a href="https://x.com/ogurayui1017" target="_blank" rel="noopener">@ogurayui1017</a></td></tr>
+<tr><td class="rank">95</td><td>花見るん <span class="tag ok">Ci-en</span></td><td class="num">31</td><td class="handle"><a href="https://x.com/runhanami" target="_blank" rel="noopener">@runhanami</a></td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td></tr>
+<tr><td class="rank">96</td><td>雨音いろみず <span class="tag ok">Ci-en</span></td><td class="num">31</td><td class="handle"><a href="https://x.com/kimiiromizu" target="_blank" rel="noopener">@kimiiromizu</a></td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td></tr>
+<tr><td class="rank">97</td><td>氷上のあ <span class="tag ok">Ci-en</span></td><td class="num">30</td><td class="handle"><a href="https://x.com/Noa_Hikami" target="_blank" rel="noopener">@Noa_Hikami</a></td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td></tr>
+<tr><td class="rank">98</td><td>進藤あずさ <span class="tag ok">Ci-en</span></td><td class="num">30</td><td class="handle"><a href="https://x.com/shindo_azusa" target="_blank" rel="noopener">@shindo_azusa</a></td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td></tr>
+<tr><td class="rank">99</td><td>ありがた～い私 <span class="tag">待补</span></td><td class="num">29</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td></tr>
+<tr><td class="rank">100</td><td>箱河ノア <span class="tag">待补</span></td><td class="num">29</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td><td class="handle pending">—</td></tr>
 </tbody>
 </table>
 </div>
 
-<div class="note">
-<p><strong>这张表有两处重复，不是数据错误。</strong>
-<code>琴音有波</code>（#33，144）／<code>琴音有波(紅月ことね)</code>（#37，122）／<code>紅月ことね</code>（#54，65）
-是同一个人在三个名下的记录；<code>MOMOKA。</code>（#20）与 <code>MOMOKA。（柚木桃香）</code>（#84）同理。
-swsem 自己写了这个限制：「別名義の対応付けは分かっている範囲のもので、網羅ではありません」。
-所以 100 行里实际约 <strong>97 个人</strong>。你要拿去建 roster 的话，这三行只留一个，
-把另外两个名字写进 <code>tags</code> 或别名字段。</p>
-</div>
+<h2>2. 三条来源，各自的边界</h2>
 
-<h2>2. 表 B：销量 proxy 前 15（2023-07）</h2>
+<table>
+<thead><tr><th>来源</th><th>拿到什么</th><th>可信度</th><th>边界</th></tr></thead>
+<tbody>
+<tr>
+  <td><a href="https://ci-en.dlsite.com/">Ci-en 创作者页</a></td>
+  <td>主号 + YouTube / BOOTH / niconico / 官网</td>
+  <td>高：本人填的资料</td>
+  <td>只有开了 Ci-en 的人才有；39 人没有</td>
+</tr>
+<tr>
+  <td>DLsite 作品页 <code>■クレジット</code></td>
+  <td><code>キャスト:</code> 行的 X、<code>制作:</code> 行的社团号</td>
+  <td>中高：制作方写的，可能过期</td>
+  <td>只有一部分社团会在作品简介里写账号；357 个作品页里 81 个有</td>
+</tr>
+<tr>
+  <td><a href="https://swsem.com/actors/">swsem</a></td>
+  <td>作品数、社团归属、别名</td>
+  <td>高：机械抽取</td>
+  <td>不含任何社交账号</td>
+</tr>
+</tbody>
+</table>
 
-<p>来源 <a href="https://www.bilibili.com/read/cv25226801/">B 站专栏「dlsite同人音声历史累计前一百名作品销量top声优排名」</a>。
-它的规则是：取同人音声分区历史销量前 100 部作品，按「出演数量」优先排名，数量相同再比总销量。
-<strong>这不是「声优的销售额」，是「她参演的作品卖了多少钱」</strong>，而且只列到 top15。</p>
+<p><strong>上一版为什么只填了 13 人：</strong>当时只有 swsem 一条线，而 swsem 的声优页
+<strong>不收录社交账号</strong>。靠搜索引擎逐个查 300 个 handle 既慢又验证不了，
+猜错的 handle 会让日报去抓陌生人的账号——所以当时选择留空。这一版找到了
+Ci-en 这条「本人自述」的线，覆盖率才从 13% 提到 64%。</p>
+
+<h2>3. 还缺什么，下一版怎么补</h2>
 
 <div class="scroll">
 <table>
-<thead>
-<tr><th>#</th><th>人名</th><th>出演</th><th>累计销量</th><th>平均</th><th>推特主号</th><th>在作品数榜的位置</th></tr>
-</thead>
+<thead><tr><th>项</th><th>已有</th><th>缺</th><th>下一版怎么补</th></tr></thead>
 <tbody>
-<tr><td class="rank">1</td><td>陽向葵ゅか</td><td class="num">14</td><td class="num">59.3 万</td><td class="num">4.2 万</td><td class="handle"><a href="https://x.com/yukanyan2525" target="_blank" rel="noopener">@yukanyan2525</a></td><td>#1</td></tr>
-<tr><td class="rank">2</td><td>伊ヶ崎綾香</td><td class="num">8</td><td class="num">23.5 万</td><td class="num">2.9 万</td><td class="handle"><a href="https://x.com/ayakaigasaki" target="_blank" rel="noopener">@ayakaigasaki</a></td><td>#14</td></tr>
-<tr><td class="rank">3</td><td>みもりあいの</td><td class="num">7</td><td class="num">20.9 万</td><td class="num">3.0 万</td><td class="handle"><a href="https://x.com/mimo_chorion" target="_blank" rel="noopener">@mimo_chorion</a></td><td>#9</td></tr>
-<tr><td class="rank">4</td><td>涼花みなせ</td><td class="num">6</td><td class="num">26.1 万</td><td class="num">4.3 万</td><td class="handle"><a href="https://x.com/suzuka_minase" target="_blank" rel="noopener">@suzuka_minase</a></td><td>#3</td></tr>
-<tr><td class="rank">5</td><td>花城かざり</td><td class="num">6</td><td class="num">23.3 万</td><td class="num">3.9 万</td><td class="handle"><a href="https://x.com/hana46kazari" target="_blank" rel="noopener">@hana46kazari</a></td><td><span class="tag">未进前 100</span></td></tr>
-<tr><td class="rank">6</td><td>小石川うに</td><td class="num">5</td><td class="num">18.5 万</td><td class="num">3.7 万</td><td class="handle"><a href="https://x.com/Unicolony_uni" target="_blank" rel="noopener">@Unicolony_uni</a></td><td>#38</td></tr>
-<tr><td class="rank">7</td><td>財木桜</td><td class="num">4</td><td class="num">15.6 万</td><td class="num">3.9 万</td><td class="handle"><a href="https://x.com/zaikisakura" target="_blank" rel="noopener">@zaikisakura</a></td><td><span class="tag">未进前 100</span></td></tr>
-<tr><td class="rank">8</td><td>秋野かえで</td><td class="num">4</td><td class="num">14.2 万</td><td class="num">3.6 万</td><td class="handle"><a href="https://x.com/akinokaedevo" target="_blank" rel="noopener">@akinokaedevo</a></td><td>#4</td></tr>
-<tr><td class="rank">9</td><td>周防パトラ</td><td class="num">3</td><td class="num">14.7 万</td><td class="num">4.9 万</td><td class="handle"><a href="https://x.com/Patra_HNST" target="_blank" rel="noopener">@Patra_HNST</a></td><td><span class="tag">未进前 100</span></td></tr>
-<tr><td class="rank">10</td><td>逢坂成美</td><td class="num">3</td><td class="num">14.7 万</td><td class="num">4.9 万</td><td class="handle"><a href="https://x.com/narumiaisaka" target="_blank" rel="noopener">@narumiaisaka</a></td><td>#5</td></tr>
-<tr><td class="rank">11</td><td>柚木つばめ</td><td class="num">3</td><td class="num">10.4 万</td><td class="num">3.5 万</td><td class="handle"><a href="https://x.com/re_re_tsubame" target="_blank" rel="noopener">@re_re_tsubame</a></td><td>#2</td></tr>
-<tr><td class="rank">12</td><td>浅木式</td><td class="num">3</td><td class="num">9.8 万</td><td class="num">3.3 万</td><td class="handle"><a href="https://x.com/asagishiki00" target="_blank" rel="noopener">@asagishiki00</a></td><td>#18</td></tr>
-<tr><td class="rank">13</td><td>天知遥</td><td class="num">3</td><td class="num">9.3 万</td><td class="num">3.1 万</td><td class="handle"><a href="https://x.com/__amachi" target="_blank" rel="noopener">@__amachi</a></td><td>#12</td></tr>
-<tr><td class="rank">14</td><td>とおのおと</td><td class="num">3</td><td class="num">9.2 万</td><td class="num">3.1 万</td><td class="handle"><a href="https://x.com/10noo10" target="_blank" rel="noopener">@10noo10</a></td><td><span class="tag">未进前 100</span></td></tr>
-<tr><td class="rank">15</td><td>兎月りりむ。</td><td class="num">3</td><td class="num">9.2 万</td><td class="num">3.1 万</td><td class="handle"><a href="https://x.com/lilim404" target="_blank" rel="noopener">@lilim404</a></td><td>#53</td></tr>
+<tr><td>主号</td><td class="num">64 / 100</td><td class="num">36</td><td>剩下的多半是没开 Ci-en 的；改走作品クレジット逐部翻，或人工按名字搜一次</td></tr>
+<tr><td>小号</td><td class="num">1</td><td class="num">99</td><td>公开渠道基本拿不到。可行做法：先用主号建 roster，日报里出现新 handle 时再人工确认</td></tr>
+<tr><td>告知号</td><td class="num">2</td><td class="num">98</td><td>同上。带 <code>news</code>/<code>告知</code> 字样的容易认，其余只能靠观察</td></tr>
+<tr><td>社团号</td><td class="num">8</td><td class="num">92</td><td>把剩下 92 人的作品页全部翻一遍 <code>制作:</code> 行；工作量线性，适合脚本慢慢跑</td></tr>
 </tbody>
 </table>
 </div>
 
-<div class="note">
-<p><strong>值得注意的差异：高销量 ≠ 高产量。</strong>
-<code>花城かざり</code>（销量 #5）、<code>財木桜</code>（#7）、<code>周防パトラ</code>（#9）、
-<code>とおのおと</code>（#14）<strong>都没进作品数前 100</strong>——
-她们参演的作品少但爆款集中。反过来 <code>御子柴泉</code>（作品数 #6，556 部）
-在两份销量榜里都没进 top15。</p>
-<p>这个差异直接决定你建 roster 时该用哪个口径：<strong>想做「谁今天发新作了」就用作品数榜</strong>
-（产量高＝更新频繁，日报才有内容）；<strong>想做「谁的作品值得买」才用销量榜</strong>。</p>
-</div>
+<p><strong>建议的推进顺序：</strong>先拿这 64 个主号把日报名单跑起来（前 20 名贡献了绝大部分动态），
+小号和告知号等日报跑顺了再按「新出现的 handle」增量补——这比一次性硬啃 300 个号现实得多。</p>
 
-<h2>3. 为什么「小号／告知号」几乎全是空的</h2>
-
-<p>不是没查，是这三类号的性质不同：</p>
-
-<ul>
-  <li><strong>主号</strong>相对好找：DLsite 作品页、Ci-en 创作者页、サークル 的推文里经常直接写。</li>
-  <li><strong>小号</strong>（裏垢／サブ垢）大多<strong>故意不与主号互链</strong>。能确认的路径只有两条：
-    本人在主号上公开说过，或两个号在同一时间发同一张图。<strong>靠名字相似度去猜是错的</strong>，
-    而且会把完全无关的人卷进来。</li>
-  <li><strong>告知号</strong>（告知専用／作品用）只有部分人有。很多人的做法是「主号 + Ci-en」，
-    没有第三个号——所以这一列空着往往是<strong>事实</strong>，不是缺数据。</li>
-</ul>
-
-<div class="note">
-<p><strong>还有一条我刻意没做的事：不把同人音声名義和现实身份对应起来。</strong>
-这个行业里很多人用与公开活动完全分开的名義，<strong>这是她们的劳动条件，不是待解谜题</strong>。
-清单只记「她本人公开用于宣传的账号」，不去做跨名義的身份归并。
-你建 roster 时也建议守同一条线：只加那些<strong>自己在公开场合挂出来的号</strong>。</p>
-</div>
-
-<h3>补齐剩下 88 人的三条路（按效率排）</h3>
-
-<ol>
-  <li><strong>先看 swsem 的作品页 → 找サークル → 看サークル的 X。</strong>
-    表 A 最后一列就是每个人的作品页，点进去能看到「よく出演するサークル」。
-    サークル 发新作时几乎一定 @ 声优，从那里能拿到最准的 handle。</li>
-  <li><strong>Ci-en 创作者页。</strong>很多声优自己开了 Ci-en，页面侧栏直接挂 X 链接。
-    搜 <code>site:ci-en.dlsite.com &lt;人名&gt;</code> 命中率很高。</li>
-  <li><strong>最后才用 X 搜索。</strong>直接搜人名，认「置顶／简介里写了作品名」的那个号。
-    注意同名不同人极多（尤其两三个汉字的名字），<strong>必须用作品名交叉验证</strong>。</li>
-</ol>
-
-<p>补完之后建议的落地方式：把这张表当成<strong>候选池</strong>，
-人工筛过的才写进 <code>src/config/daily-roster.json</code> 的 <code>accounts</code>，
-每个号加 <code>active</code> 与 <code>category</code> 两个字段——这样以后分类视图和增量抓取都能直接用。</p>
+<p class="legend">表里同一人出现两次的（<code>MOMOKA。</code> 与 <code>MOMOKA。（柚木桃香）</code>、
+<code>琴音有波</code> 与 <code>琴音有波(紅月ことね)</code>）是 swsem 的别名义没有完全合并，
+建 roster 时只留一行。</p>
 
 <h2>4. 六个轻量化日报项目，各自值得借什么</h2>
 
@@ -360,9 +338,10 @@ swsem 自己写了这个限制：「別名義の対応付けは分かってい�
   <li><strong>RSS 是一等输出</strong>，不是事后补的；</li>
   <li>零服务器（Vercel / serverless）。</li>
 </ul>
-<p><strong>能借：</strong>「RSS 一等公民」。你的日报现在不进 RSS，理由是怕改变现有订阅者的收件内容——
+<p><strong>能借：</strong>「RSS 一等公民」。日报不进主 <code>/rss.xml</code>（会改变现有订阅者的收件内容），
 那就<strong>另开一条 <code>/daily/rss.xml</code></strong>，和 blog 的 feed 分开，谁想订谁订。
-JSON 同理（<code>/daily/&lt;date&gt;.json</code>），对应 60s 的 encoding 思路。</p>
+<strong>这条已经做了</strong>——和期号精确到小时、归档页一起，在 2026-10-25 这一版落地。
+JSON 同理（<code>/daily/&lt;id&gt;.json</code>），对应 60s 的 encoding 思路。</p>
 
 <h3>4.5 <a href="https://github.com/YeeKal/ai-daily">YeeKal/ai-daily</a> — AI 新闻聚合与推送</h3>
 <ul>
@@ -412,13 +391,13 @@ JSON 同理（<code>/daily/&lt;date&gt;.json</code>），对应 60s 的 encoding
 <p><strong>分类页的路由里没有日期。</strong> <code>/daily/asmr/</code> 永远显示 ASMR 这一类
 <strong>最近一天</strong>的内容，第二天被覆盖，旧内容不另建页面。</p>
 
-<p>对比另一种做法 <code>/daily/&lt;date&gt;/&lt;category&gt;/</code>（每天每个分类各一页）：</p>
+<p>对比另一种做法 <code>/daily/&lt;id&gt;/&lt;category&gt;/</code>（每天每个分类各一页）：</p>
 
 <div class="scroll">
 <table>
 <thead><tr><th>做法</th><th>30 天 × 6 分类的页数</th><th>随天数</th></tr></thead>
 <tbody>
-<tr><td><code>/daily/&lt;date&gt;/&lt;category&gt;/</code></td><td class="num">30×6 + 30 + 1 = 211</td><td>线性增长</td></tr>
+<tr><td><code>/daily/&lt;id&gt;/&lt;category&gt;/</code></td><td class="num">30×6 + 30 + 1 = 211</td><td>线性增长</td></tr>
 <tr><td><code>/daily/&lt;category&gt;/</code>（最新一期）</td><td class="num">6 + 30 + 1 = 37</td><td>分类部分恒定</td></tr>
 </tbody>
 </table>
@@ -428,14 +407,15 @@ JSON 同理（<code>/daily/&lt;date&gt;.json</code>），对应 60s 的 encoding
 211 页里有 180 页是「上个月的分类」，实际没人翻。</p>
 
 <p><strong>代价</strong>是看不了「10 月 20 日那天 ASMR 分类都有什么」。
-补偿办法不是补页面，而是在 <code>/daily/&lt;date&gt;/</code> 上做<strong>客户端分类筛选</strong>——
+补偿办法不是补页面，而是在 <code>/daily/&lt;id&gt;/</code> 上做<strong>客户端分类筛选</strong>——
 和笔记页 <code>archive-filter.ts</code> 的标签筛选同一套思路，当天的内容本来就在那一页里。
 真要归档，JSON 输出里也有全量数据。</p>
 
 <footer>
   <p>数据来源：<a href="https://swsem.com/actors/">swsem 声優一覧</a>（作品数，2026-09-04）·
+  <a href="https://ci-en.dlsite.com/">Ci-en 创作者页</a>（主号）·
+  <a href="https://www.dlsite.com/maniax/">DLsite 作品页</a>（クレジット）·
   <a href="https://ci-en.dlsite.com/creator/40124/article/1945020">swsem 的 Ci-en 统计文章</a>（口径与限制说明）·
-  <a href="https://www.bilibili.com/read/cv25226801/">B 站销量 proxy 榜</a>（2023-07-24）·
   各项目 GitHub 仓库（2026-10-25 逐个确认可访问）。</p>
   <p>本文件是人工审阅用的内部报告，放在 <code>README/reports/</code>，不参与站点构建、不上线。</p>
 </footer>

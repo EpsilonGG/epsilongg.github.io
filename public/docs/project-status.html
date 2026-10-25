@@ -1249,13 +1249,26 @@
         <div class="block-item__head">
           <span class="block-item__name">3.19 日报栏目</span>
           <span class="pill pill--done">完成</span>
-          <span class="block-item__src">DailyLayout.astro · lib/daily.ts · 158 + 19 行</span>
+          <span class="block-item__src">DailyLayout.astro · lib/daily.ts · 170 + 168 行</span>
         </div>
         <p>
-          第五个固定栏目：<code>/daily/</code> 是列表，<code>/daily/&lt;date&gt;/</code> 是单篇，
-          路由用动态段 <code>[...date]</code>，<code>date</code> 就是文件名，所以"加一期"= 加一个
-          <code>src/content/daily/2026-10-25.md</code>。schema 与 blog 同构
-          （<code>title</code> / <code>pubDate</code> 必填、<code>draft</code> 过滤、草稿不发布）。
+          第五个固定栏目，三条路由：<code>/daily/</code> 是<strong>归档列表</strong>（按月分组，
+          一行一期），<code>/daily/&lt;期号&gt;/</code> 是单期，
+          <code>/daily/rss.xml</code> 是<strong>归档 feed</strong>。
+        </p>
+        <p>
+          <strong>文件名即发布时间。</strong>期号是 <code>YYMMDDHH</code>（八位数字，日本时间），
+          2026-10-31 22:00 就是 <code>26103122.md</code>，网址 <code>/daily/26103122/</code>。
+          精确到小时不是为了好看，是为了<strong>存档</strong>：只到天的话
+          <code>2026-10-31.md</code> 一天只能有一个，补一次就把上一期冲掉；
+          带小时后每跑一次都是新文件，旧的一期自动留档，同一天可以并存多期。
+        </p>
+        <p>
+          因为时间只有文件名一个来源，frontmatter 里<strong>没有 <code>title</code>、也没有
+          <code>pubDate</code></strong>：标题由期号推导成 <code>X 日报 · 2026-10-31 22:00</code>，
+          发布时间由 <code>parseDailyId()</code> 解析（固定 JST 偏移，不依赖运行环境时区），
+          手改日期不可能和 URL 对不上。文件名不合规、或 <code>26103231</code> 这种不存在的日期，
+          <strong>构建直接失败</strong>并指出是哪个文件。
         </p>
         <p>
           <strong>版式是三段，顺序固定</strong>：
@@ -1287,7 +1300,7 @@
           数据流分三段，<strong>CI 里不跑 LLM、不要 API key、不要服务器</strong>：
           X-Reader 的 Actions 每日 17:10 UTC 抓推文写成 <code>data/items/*.jsonl</code> →
           本机 <code>scripts/daily_digest.py</code> 把 items 确定性组装成
-          <code>src/content/daily/&lt;date&gt;.md</code>：<code>accounts</code> 按发推数排好、
+          <code>src/content/daily/&lt;期号&gt;.md</code>：<code>accounts</code> 按发推数排好、
           <code>highlights</code> / <code>interactions</code> 留空数组、
           <code>people</code> 逐个列出但 <code>summary</code> 为空 →
           本机 WorkBuddy 填这三段 → push → 站点 Actions 照常构建部署。
@@ -1301,11 +1314,12 @@
           替换前先手工 HTML 转义，再替换成锚点；顺序反了会把锚点自己的 <code>&lt;</code> 也转义掉。
         </p>
         <div class="block-item__left">
-          剩余：列表页没有分页与搜索（一天一篇，暂时不需要）；日报<strong>不进 RSS</strong>——
-          <code>rss.xml.ts</code> 只遍历 blog 集合，要让订阅者收到日报得另开一条 feed 或把两个集合合并，
-          那会改变现有订阅者的收件内容，属于要想清楚再做的事。
-          扩到几十上百人之后的分类/综合两套视图、map-reduce 摘要、增量缓存，
-          方案写在 <code>docs/daily-scaling-plan.md</code>。
+          剩余：归档列表没有分页与搜索（一年 365 行，暂时一页放得下；超过两年再按月分页）；
+          没有分类视图与单人页，方案见 <code>docs/daily-scaling-plan.md</code>。
+          <code>daily_digest.py</code> 默认<strong>拒绝覆盖已存在的期号</strong>，
+          覆盖等于删掉一期存档，确实要重写同一期得显式 <code>--force</code>。
+          日报的 feed 是独立的 <code>/daily/rss.xml</code>，主 <code>/rss.xml</code> 仍然只收「笔记」——
+          混进去会改变既有订阅者收到的东西。
         </div>
       </div>
 
@@ -2376,8 +2390,9 @@
 │   │   ├── morelinks.astro   /morelinks/
 │   │   ├── blog.astro        /blog/（搜索 + 标签筛选 + 分页 + AI 滑块）
 │   │   ├── blog/[...slug].astro  /blog/{slug}/
-│   │   ├── daily/index.astro     /daily/（列表）
-│   │   ├── daily/[...date].astro /daily/{date}/
+│   │   ├── daily/index.astro     /daily/（按月归档）
+│   │   ├── daily/[...id].astro   /daily/{期号}/
+│   │   ├── daily/rss.xml.ts      /daily/rss.xml（归档 feed）
 │   │   ├── 404.astro         含一个小游戏（404-game.ts，728 行）
 │   │   ├── robots.txt.ts     路由生成的 robots.txt
 │   │   └── rss.xml.ts

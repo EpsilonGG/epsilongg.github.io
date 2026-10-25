@@ -427,10 +427,10 @@ a.link-row:hover .link-row__label {
 }
 
 /* --------------------------------------------------------------------------
-   日报 · 正文三段（今日看点 / 互动 / 名单）
+   日报 · 正文三段（今日看点 / 互动 / 详细）
 
-   三段都由 frontmatter 渲染，顺序固定：看点在先，名单在后。
-   互动与名单没有内容时整段不输出；只有看点留一个占位，
+   三段都由 frontmatter 渲染，顺序固定：看点在先，详细在后。
+   互动与详细没有内容时整段不输出；只有看点留一个占位，
    因为「今天什么都没发生」本身也是需要说清楚的事。
    -------------------------------------------------------------------------- */
 .daily-block + .daily-block {
@@ -461,6 +461,78 @@ a.link-row:hover .link-row__label {
 .daily-pending {
   color: var(--color-text-muted);
   font-size: var(--text-sm);
+}
+
+/* --------------------------------------------------------------------------
+   日报 · 归档列表（/daily/）
+
+   按月分组，每行「时间 + 看点简报」。时间用等宽数字对齐，
+   方便一眼扫出「哪天出了几期」。同一天多期是这个列表存在的理由，
+   所以不按天合并。
+   -------------------------------------------------------------------------- */
+.daily-archive__month + .daily-archive__month {
+  margin-top: var(--space-7);
+}
+
+.daily-archive__month-title {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-2);
+  margin: 0;
+  font-size: var(--text-md);
+  font-weight: 600;
+  line-height: var(--leading-snug);
+}
+
+.daily-archive__count {
+  font-size: var(--text-xs);
+  font-weight: 400;
+  color: var(--color-text-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.daily-archive__list {
+  margin: var(--space-2) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.daily-archive__item + .daily-archive__item {
+  border-top: var(--border-width) solid var(--color-border);
+}
+
+.daily-archive__link {
+  display: grid;
+  grid-template-columns: 5.5rem minmax(0, 1fr);
+  align-items: baseline;
+  gap: var(--space-3);
+  padding-block: var(--space-3);
+  text-decoration: none;
+}
+
+.daily-archive__time {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.daily-archive__summary {
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+  overflow-wrap: anywhere;
+}
+
+.daily-archive__link:hover .daily-archive__summary {
+  color: var(--color-text);
+}
+
+@media (max-width: 640px) {
+  /* 窄屏一行放不下「时间 | 简报」两栏，改成上下两行 */
+  .daily-archive__link {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-1);
+  }
 }
 
 /* 笔记列表栏目名：默认「原创与转载」，开启滑块后切到「全部（含 AI 整理）」 */

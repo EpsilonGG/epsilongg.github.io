@@ -1,38 +1,84 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { getDailyReports, dailyPath } from '../../lib/daily';
-import { formatDate } from '../../lib/posts';
+import { site } from '../../config/site';
+import {
+  getDailyReports,
+  groupByMonth,
+  dailyPath,
+  formatIssueDay,
+  formatIssueTime,
+} from '../../lib/daily';
 
 const reports = await getDailyReports();
+const months = groupByMonth(reports);
+
+const latest = reports[0] ?? null;
+const earliest = reports[reports.length - 1] ?? null;
+
+/** 归档列表里省掉年份：分组标题已经写了月份，行里只要 `10-23 22:00`。 */
+function shortTime(date: Date): string {
+  return `${formatIssueDay(date).slice(5)} ${formatIssueTime(date).slice(-5)}`;
+}
+
+// 用模板字符串拼成一句，避免 JSX 换行在中文里塞进多余空格
+const note =
+  latest === null
+    ? ''
+    : `共 ${reports.length} 期，最新 ${formatIssueTime(latest.data.pubDate)}` +
+      (reports.length > 1 ? `，最早 ${formatIssueTime(earliest!.data.pubDate)}` : '') +
+      '（均为日本时间）。每期按小时编号，同一天可以有多期，旧的一期不会被覆盖。';
 ---
 
-<BaseLayout title="日报" description="每日 X（推特）动态摘要，由本地 WorkBuddy 整理">
+<BaseLayout
+  title="日报"
+  description="X（推特）声优动态日报存档，按小时编号，由本地 WorkBuddy 整理"
+  feeds={[{ title: `${site.name} · 日报`, href: '/daily/rss.xml' }]}
+>
   <div class="page">
     <div class="container">
       <header class="page-header">
         <h1 class="page-title">日报</h1>
+        {
+          note ? (
+            <p class="page-note">{note}</p>
+          ) : null
+        }
       </header>
 
       {
-        reports.length > 0 ? (
-          <ul class="article-list">
-            {reports.map((r) => (
-              <li class="article-list__item">
-                <a class="article-list__link" href={dailyPath(r)}>
-                  <span class="article-list__title">{r.data.title}</span>
-                  <span class="article-badge">AI 整理</span>
-                  <time class="article-list__meta" datetime={r.data.pubDate.toISOString()}>
-                    {formatDate(r.data.pubDate)}
-                  </time>
-                  {r.data.description ? (
-                    <span class="article-list__description">{r.data.description}</span>
-                  ) : null}
-                </a>
-              </li>
+        months.length > 0 ? (
+          <div class="daily-archive">
+            {months.map((month) => (
+              <section class="daily-archive__month">
+                <h2 class="daily-archive__month-title">
+                  {month.label}
+                  <span class="daily-archive__count">{month.items.length} 期</span>
+                </h2>
+                <ul class="daily-archive__list">
+                  {month.items.map((report) => (
+                    <li class="daily-archive__item">
+                      <a class="daily-archive__link" href={dailyPath(report)}>
+                        <time
+                          class="daily-archive__time"
+                          datetime={report.data.pubDate.toISOString()}
+                        >
+                          {shortTime(report.data.pubDate)}
+                        </time>
+                        <span class="daily-archive__summary">
+                          {report.data.description ?? '（本期还没有写看点简报）'}
+                        </span>
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </section>
             ))}
-          </ul>
+          </div>
         ) : (
-          <p class="empty-state">暂无日报。日报由本地 WorkBuddy 基于 X-Reader 抓取的推文生成。</p>
+          <p class="empty-state">
+            暂无日报。日报由本地 WorkBuddy 基于 X-Reader 抓取的推文生成，文件名即发布时间
+            （YYMMDDHH）。
+          </p>
         )
       }
     </div>

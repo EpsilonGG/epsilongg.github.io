@@ -2,7 +2,7 @@
 
 > 适用项目：EpsilonGG 个人站（`github.com/EpsilonGG/epsilongg.github.io`，本机路径 `Desktop\github page work`）
 > 配套工具：X-Reader（抓取+规范化）。X-rss 仓库的"储存地"= `X-rss-workspace`。
-> 最后更新：2026-10-24
+> 最后更新：2026-10-25
 
 ---
 
@@ -15,7 +15,7 @@
 | 角色 | 位置 | 负责什么 |
 | --- | --- | --- |
 | **X-Reader（抓取侧）** | GitHub 上的 X-Reader 仓库；本机 checkout 在 `X-rss-workspace/X-Reader` | 每日自动抓取 X 推文，规范化为 `NormalizedItem`，写入并提交 `data/items/*.jsonl` |
-| **本地组装 + 本地 LLM** | 站点仓库 `scripts/daily_digest.py` + `scripts/daily.sh`，外加本机 WorkBuddy | 把 `data/items` 确定性组装成 `src/content/daily/<date>.md` 骨架；由 WorkBuddy 填 `highlights` / `interactions` / `people` |
+| **本地组装 + 本地 LLM** | 站点仓库 `scripts/daily_digest.py` + `scripts/daily.sh`，外加本机 WorkBuddy | 把 `data/items` 确定性组装成 `src/content/daily/<期号>.md` 骨架；由 WorkBuddy 填 `highlights` / `interactions` / `people` |
 | **站点仓库（发布侧）** | `Desktop\github page work` = `epsilongg.github.io` | 存放脚本与产出 `.md`；`git push` 后 Actions 自动构建部署到 GitHub Pages |
 
 **数据流（每天一次）：**
@@ -27,11 +27,11 @@ X-Reader CI (每日 17:10 UTC)
    本地：git pull X-Reader 仓库（拿到最新 data/items）
         │
    本地：python scripts/daily_digest.py --items-dir <X-Reader>/data/items
-        └─ 产出 src/content/daily/<date>.md（三段全空的骨架）
+        └─ 产出 src/content/daily/<期号>.md（三段全空的骨架）
         │
    本地 WorkBuddy：读 briefing，填今日看点 / 互动 / 每人一句
         │
-   本地：git add src/content/daily/<date>.md && commit && push
+   本地：git add src/content/daily/<期号>.md && commit && push
         │
    站点 Actions (deploy.yml)：astro check → test:md → build → links → test → 部署
 ```
@@ -39,6 +39,42 @@ X-Reader CI (每日 17:10 UTC)
 **为什么这么设计：** X-Reader 与站点的 Actions 都在 GitHub 免费额度内；CI 里**不跑 LLM**、不需要 API key、不需要 VPS。只有"写摘要"这一步在你本机 WorkBuddy 完成一次，零额外成本。
 
 > ⚠️ **Sotwe 作为补充 X 源：** 已做过可行性评估，结论为**不可行**（时间线为 JS 渲染，`selectolax` 无法提取；无公开 API；无头浏览器违反项目约束）。按规范已 STOP，未改动任何代码。扩充来源请优先在 X-Reader 内加 provider/route。
+
+---
+
+## 日报的文件、期号与存档
+
+**文件名就是发布时间，也是网址。** 一期日报对应一个文件：
+
+```
+src/content/daily/26103122.md   →   /daily/26103122/
+                    ││││││││
+                    ││││││└┴─ 22 时（JST）
+                    │││└┴───── 31 日
+                    │└──────── 10 月
+                    └───────── 26 年
+```
+
+格式 `YYMMDDHH`，八位数字，**日本时间（JST）**。2026-10-31 22:00（JST）= `26103122`。
+
+**为什么精确到小时。** 只到天的话 `2026-10-31.md` 一天只能有一个，补一次就把上一期冲掉；精确到小时后每跑一次都是新文件，旧的一期自动留档——这就是「带存档」的实现方式。代价是同一天可能有多期，所以归档列表**按天不合并**，一行一期。
+
+因为时间只有文件名一个来源，frontmatter 里**没有 `title`、也没有 `pubDate`**：
+
+- 标题由期号推导：`X 日报 · 2026-10-31 22:00`；
+- 发布时间由期号推导（`src/lib/daily.ts` 的 `parseDailyId`），手改日期不可能和 URL 对不上。
+
+文件名不合规（不是八位数字、或 `26103231` 这种不存在的日期）会让**构建直接失败**并指出是哪个文件。
+
+### 三条路由
+
+| 路由 | 是什么 |
+| --- | --- |
+| `/daily/` | 归档列表，按月分组，一行一期（时间 + 看点简报） |
+| `/daily/<期号>/` | 单期详情，`getStaticPaths` 从内容集合生成，没有手写路由 |
+| `/daily/rss.xml` | **归档 feed**，独立于主 `/rss.xml`（那个只收「笔记」） |
+
+> 独立 feed 的理由：日报每天一期且是 AI 整理的，混进主 feed 会改变既有订阅者收到的东西。分开后，归档页能翻，feed 能被阅读器收走。
 
 ---
 
@@ -64,7 +100,7 @@ X-Reader CI (每日 17:10 UTC)
 - **「详细」里的一行就是 `[一句话概括](推特主页网址)`**。链接由 `handle` 拼成 `https://x.com/<handle>`，**不要让模型写网址**——写成字段后模型只负责句子，网址不可能错。
 - **句子本身要能看出是谁**（"@322yui3：一整天录音…"），因为链接文本就是这句话，页面上不会再单独显示账号。
 - **当日没有活动的人直接省略**：`summary` 留空即可，不需要删条目。
-- **不展示互动量**（点赞、转发、阅读数）。这些数字只在 `out/<date>.briefing.txt` 里给模型判断轻重用，不进站点内容。
+- **不展示互动量**（点赞、转发、阅读数）。这些数字只在 `out/<期号>.briefing.txt` 里给模型判断轻重用，不进站点内容。
 - 正文里的 `@handle` 会自动变成主页链接，但**只认名单里的人**（`accounts` + `people` 里的 handle），名单外的 @ 保持纯文本。
 
 > 为什么三段全放 frontmatter 而不是写进 Markdown 正文：上百人时这些字段要拿去做分类视图、JSON 输出和筛选，藏在正文里就取不出来。详见 [日报扩容方案](daily-scaling-plan.md)。
@@ -91,33 +127,35 @@ cd "Desktop/github page work"
 python scripts/daily_digest.py --items-dir "<X-rss-workspace>/X-Reader/data/items"
 ```
 
-- `--date YYYY-MM-DD`：可选，指定报告日期（默认取数据里最新一天）。
+- `--date YYYY-MM-DD`：可选，**汇总哪一天的数据**（默认取数据里最新一天）。注意这和期号是两件事：`--date` 选数据，期号是发布时间。
+- `--at "2026-10-31 22:00"`：可选，**指定发布时间**（JST），决定期号。不写就取当前小时。
+- `--force`：默认**拒绝覆盖已存在的期号**——覆盖等于删掉一期存档。确实要重写同一期时才加。
 - 产出：
-  - `src/content/daily/<date>.md` —— 站点内容的**骨架**：frontmatter 里 `accounts` 已按当日推文数排好序，`highlights` / `interactions` 是空数组，`people` 每人一条 `summary: ""`，正文只有一个待填说明的注释。
-  - `out/<date>.briefing.txt` —— 喂给 LLM 的事实摘要（推文原文 + 互动数都在这里，已被 `.gitignore` 忽略，属本地中间产物）。
+  - `src/content/daily/<期号>.md` —— 站点内容的**骨架**：frontmatter 里 `accounts` 已按当日推文数排好序，`highlights` / `interactions` 是空数组，`people` 每人一条 `summary: ""`，正文只有一个待填说明的注释。
+  - `out/<期号>.briefing.txt` —— 喂给 LLM 的事实摘要（推文原文 + 互动数都在这里，已被 `.gitignore` 忽略，属本地中间产物）。
 - **注意：脚本不再把推文原文写进 `.md`**，只写骨架。要写摘要必须看 `briefing.txt`。
-- **空跑预览（无真实数据）：** 直接 `./scripts/daily.sh 2026-10-24`，会用仓库内的 `scripts/sample_items/` 样例数据生成一份预览，方便测试流程。
+- **空跑预览（无真实数据）：** 直接 `./scripts/daily.sh 2026-10-24`，会用仓库内的 `scripts/sample_items/` 样例数据生成一份预览，方便测试流程。补一期过去的用 `AT="2026-10-24 21:00" ./scripts/daily.sh 2026-10-24`。
 
 ### 步骤 2 — 让本地 WorkBuddy 填写日报内容（唯一需要 LLM 的地方）
 
 对 WorkBuddy 说：**"填写今天的日报"**。它会：
 
-1. 读 `out/<date>.briefing.txt`（推文原文与互动数都在这里）；
-2. 填 `src/content/daily/<date>.md` 的**四个地方**：
+1. 读 `out/<期号>.briefing.txt`（推文原文与互动数都在这里）；
+2. 填 `src/content/daily/<期号>.md` 的**四个地方**：
    - `description`：副标题，**今日看点的 50 字以内简报**（脚本留的是「今日 N 位账号有更新，看点待补」占位，必须改写）；
    - `highlights`：今日看点，2–4 段，把当天最值得说的几件事概括出来（第一顺位）；
    - `interactions`：名单内谁和谁有互动、互动内容是什么，每项一条；**没有就留空数组**；
    - `people[].summary`：每人一句话，句子要能看出是谁；**当日没活动的留空**；
-3. 不改 `title` / `pubDate` / `accounts` / `people[].handle`——这些是脚本从数据推导的，手改会跟抓取数据对不上。
+3. 不改 `accounts` / `people[].handle`——这些是脚本从数据推导的，手改会跟抓取数据对不上。`title` 与 `pubDate` 已经不在 frontmatter 里了，标题和发布时间都由文件名推导。
 
 > 这一步就是"用 WorkBuddy 本地跑完需要 LLM 的部分"。LLM 不碰 API、不进 CI。
-> 填完可以直接构建预览：`npm run dev` 看 `/daily/<date>/`。
+> 填完可以直接构建预览：`npm run dev` 看 `/daily/<期号>/`。
 
 ### 步骤 3 — 提交并推送站点仓库
 
 ```bash
-git add src/content/daily/<date>.md
-git commit -m "daily: <date>"
+git add src/content/daily/<期号>.md
+git commit -m "daily: <期号>"
 git push
 ```
 
@@ -127,7 +165,7 @@ git push
 
 部署完成后访问：
 - 列表页：`/daily/`
-- 详情页：`/daily/<date>/`
+- 详情页：`/daily/<期号>/`
 确认三段都渲染了：今日看点在前、互动其次、「详细」每行都能点到主页；「详细」里没有空链接；副标题是一句 50 字以内的看点简报，不是「日期 + 账号名」。
 
 ### 日常常见问题
@@ -136,7 +174,7 @@ git push
 | --- | --- |
 | 某天没有新推文 | digest 仍会生成骨架，但 `accounts` 为空；这种日子直接跳过、不发布即可（骨架页会显示「今日看点待补充」） |
 | 数据还没抓到 | 先 `git pull` X-Reader 仓库，或等 CI（17:10 UTC）跑完再操作 |
-| 想补过去的某天 | 用 `--date YYYY-MM-DD`；digest 会筛那一天的记录（数据 append-only 会保留历史） |
+| 想补过去的某天 | 用 `--date YYYY-MM-DD` 选数据，`--at "2026-10-24 21:00"` 定发布期号；数据 append-only 会保留历史 |
 | 想换 Python 解释器 | `daily.sh` 顶部 `PY="${PYTHON:-python3}"`，可改为本机 Python 路径；或直接用 `PY=... bash scripts/daily.sh` |
 
 ---
@@ -151,13 +189,14 @@ git push
 | `scripts/daily.sh` | 一键流程包装：组装 → 提示用 WorkBuddy 填摘要 → 打印 git 命令 |
 | `scripts/rss_to_items.py` | 把 X-rss-main 的**真实** RSS feeds（`output/feeds_processed/*.xml`）转成 NormalizedItem JSONL（账号/原文链接/内容均为真实；该 RSS 源不含媒体与互动数） |
 | `scripts/sample_items/x.jsonl` | 预览/测试数据。现由 `rss_to_items.py` 从 X-rss-main 真实 feeds 生成（**真实推文**，非编造） |
-| `src/content.config.ts` | `daily` 内容集合的 Zod schema |
-| `src/lib/daily.ts` | `getDailyReports()`、`dailyPath()` 等取数函数 |
+| `src/content.config.ts` | `daily` 内容集合的 Zod schema（**没有** `title` / `pubDate`，两者由文件名推导） |
+| `src/lib/daily.ts` | 期号解析（`parseDailyId` / `toDailyId`）、`getDailyReports()`、按月分组、`dailyPath()` |
 | `src/layouts/DailyLayout.astro` | 日报详情页布局（复用 `BaseLayout`，含"AI 整理"徽章、上/下篇导航） |
-| `src/pages/daily/index.astro` | `/daily/` 列表页 |
-| `src/pages/daily/[...date].astro` | `/daily/<date>/` 详情页（`getStaticPaths`） |
+| `src/pages/daily/index.astro` | `/daily/` 归档列表（按月分组） |
+| `src/pages/daily/[...id].astro` | `/daily/<期号>/` 详情页（`getStaticPaths`） |
+| `src/pages/daily/rss.xml.ts` | `/daily/rss.xml` 归档 feed（独立于主 feed） |
 | `src/config/navigation.json` | 顶部导航的"日报"入口 |
-| `src/content/daily/<date>.md` | **产出**：每天的日报内容 |
+| `src/content/daily/<期号>.md` | **产出**：每期的日报内容，文件名即发布时间 |
 
 ### 2.2 X-Reader 端（抓取侧）
 
@@ -171,9 +210,8 @@ git push
 
 ```ts
 {
-  title: string;                 // 必填
+  // 没有 title / pubDate：标题和发布时间由文件名（YYMMDDHH）推导
   description?: string;          // 可选，但一旦写了必须 ≤50 字（今日看点简报）
-  pubDate: Date;                 // 必填（Zod coerce）
   source: 'original' | 'ai';     // 默认 'ai'
   accounts: string[];            // 默认 []，当天有活动的账号（脚本推导）
   highlights: string[];          // 默认 []，今日看点，每项一段
@@ -210,7 +248,7 @@ digest 实际使用的字段：
 
 | 阶段 | 常见原因 / 处理 |
 | --- | --- |
-| `astro check` 失败 | 多半是 `daily` schema 与某篇 `.md` 的 frontmatter 不符（如 `title` 为空、`pubDate` 无法解析）。修 frontmatter 或 schema |
+| `astro check` 失败 | 多半是 `daily` schema 与某篇 `.md` 的 frontmatter 不符（如 `description` 超过 50 字）。**文件名不是 `YYMMDDHH` 会在 `build` 阶段抛错**，报错信息里带文件名 |
 | `test:md` 失败 | 只跑 `tests/markdown/*.test.mjs`，**与日报无关**，基本不会因日报触发 |
 | `build` 失败 | 图片/链接语法问题；日报媒体只用纯链接，风险低 |
 | `links` 失败 | `check_links.py` 查站内死链。日报"原文"指向 `x.com`，一般可用；若个别帖子 404 会报死链——可在 links 配置把 `x.com` 加例外，或确认链接正确 |
@@ -242,6 +280,16 @@ digest 实际使用的字段：
 每天：
   1) git -C X-rss-workspace/X-Reader pull        # 拿 CI 抓的数据
   2) python scripts/daily_digest.py --items-dir X-rss-workspace/X-Reader/data/items
+     （期号自动取当前 JST 小时；补旧的可加 --at "2026-10-24 21:00"）
   3) 让 WorkBuddy 填 description（≤50 字）/ highlights / interactions / people[].summary
-  4) git add src/content/daily/<date>.md && git commit -m "daily: <date>" && git push
+  4) git add src/content/daily/<期号>.md && git commit -m "daily: <期号>" && git push
+
+期号：YYMMDDHH（JST）。2026-10-31 22:00 → 26103122 → /daily/26103122/
+存档：/daily/（按月分组） 订阅：/daily/rss.xml
 ```
+
+### 为什么同一天可以有多期
+
+期号带小时，所以「上午抓一次、晚上补一次」是两个文件、两个网址，互不覆盖。
+归档列表按天**不合并**，一行一期，时间用等宽数字对齐，扫一眼就知道某天出了几期。
+这也意味着重复运行 `daily_digest.py` 不会毁掉旧稿——除非显式 `--force`。
