@@ -97,12 +97,18 @@ const daily = defineCollection({
      * 每人一句话（页面上叫「详细」）。渲染成 `[声优名](主号链接) ：summary`——
      * 名字是链接，summary 只写事，**不要再把 @handle 写进句子里**。
      * summary 为空即视为当日无活动，不渲染该行。
+     *
+     * 一个人可能有主号、小号、社团号（名单里同 `name` 的多个 handle）。
+     * 内容合并到**一条**里叙述，`via` 记下还有哪些号参与了——
+     * 页面在句末渲染成小一号、颜色变淡的账号名链接（显示 handle，不显示人名）。
+     * 只列真正说了话的号；主号不重复进 `via`。
      */
     people: z
       .array(
         z.object({
           handle: z.string().trim().min(1),
           summary: z.string().trim().default(''),
+          via: z.array(z.string().trim().min(1)).default([]),
         }),
       )
       .default([]),

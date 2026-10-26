@@ -178,7 +178,23 @@ python scripts/daily_digest.py --items-dir "<X-rss-workspace>/X-Reader/data/item
    - `works`：作品动态，**一段话**，不带来源链接；
    - `interactions`：名单内谁和谁有互动、互动内容是什么，每项一条；**没有就留空数组**；
    - `people[].summary`：每人一句话，**不写 @handle**（行首已经显示名字了）；**当日没活动的留空**；
-3. 不改 `accounts` / `people[].handle`——这些是脚本从数据推导的，手改会跟抓取数据对不上。`title` 与 `pubDate` 已经不在 frontmatter 里了，标题和发布时间都由文件名推导。
+3. 不改 `accounts` / `people[].handle` / `people[].via`——这些是脚本从数据推导的，手改会跟抓取数据对不上。`title` 与 `pubDate` 已经不在 frontmatter 里了，标题和发布时间都由文件名推导。
+
+**一人一行，不管他今天用了几个号。** 名单里同 `name` 的主号、小号、社团号在
+`build_markdown` 里已经合成一行：行首是主号，其余号写进 `via`，页面在句末渲染成
+小一号、颜色变淡的 `@handle` 链接（显示账号名，不显示人名）。
+所以写摘要时要把几个号的内容**串成一句话**，别按号拆开：
+
+```
+- handle: ayumi_sarah
+  summary: "预告 potte 新作（与 北見六花 共演）…；社团号补上新作预告收藏破 200、11 月中旬发售。"
+  via:
+    - potte1919
+```
+
+**转发条目归到转发者名下。** 名单外的 handle 不会进 `people`——它们是名单内成员转发的
+原发账号（`metadata.retweeted_by` 可读）。写的时候挂在转发者那一行，用「转发了…的内容」
+「转发提到了…」「动态是…」这类说法，怎么通顺怎么来，不要生硬地一律「转发了」。
 
 > 这一步就是"用 WorkBuddy 本地跑完需要 LLM 的部分"。LLM 不碰 API、不进 CI。
 > 填完可以直接构建预览：`npm run dev` 看 `/daily/<期号>/`。

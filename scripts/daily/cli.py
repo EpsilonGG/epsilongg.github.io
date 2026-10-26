@@ -74,7 +74,7 @@ def _render(
         f"{issue_id}.briefing.txt": build_briefing(
             merged, classification.window.day, accounts, per_account
         ).encode("utf-8"),
-        f"{issue_id}.md": build_markdown(merged, issue_id, accounts).encode("utf-8"),
+        f"{issue_id}.md": build_markdown(merged, issue_id, accounts, roster).encode("utf-8"),
         f"{issue_id}.generate.json": (
             json.dumps(export, ensure_ascii=False, indent=1) + "\n"
         ).encode("utf-8"),

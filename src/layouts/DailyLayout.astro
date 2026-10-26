@@ -164,6 +164,19 @@ if (!description) {
                       </a>
                       <span class="daily-roster__sep">：</span>
                       <span set:html={withMentions(person.summary)} />
+                      {person.via.length > 0 ? (
+                        <span class="daily-roster__via">
+                          <span aria-hidden="true">·</span>
+                          {person.via.map((via, index) => (
+                            <>
+                              {index > 0 ? <span aria-hidden="true">、</span> : null}
+                              <a href={profileUrl(via)} target="_blank" rel="noopener noreferrer">
+                                @{via}
+                              </a>
+                            </>
+                          ))}
+                        </span>
+                      ) : null}
                     </li>
                   ))}
                 </ul>

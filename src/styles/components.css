@@ -456,6 +456,27 @@ a.link-row:hover .link-row__label {
   color: var(--color-text-muted);
 }
 
+/*
+  小号 / 社团号的出处。挂在句末，字号小一号、颜色变淡，显示 handle 而不是人名——
+  它是「这句话是哪个号说的」的注脚，不该和正文抢注意力，也不该冒充一个人名。
+*/
+.daily-roster__via {
+  margin-left: var(--space-1);
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+}
+
+.daily-roster__via a {
+  color: inherit;
+  text-decoration: none;
+  border-bottom: 1px dotted var(--color-border-strong);
+}
+
+.daily-roster__via a:hover {
+  color: var(--color-text-secondary);
+  border-bottom-color: var(--color-text-secondary);
+}
+
 /* 正文里的 @提及：只给名单内的人加链接，视觉上不要抢过正文 */
 .daily-mention {
   text-decoration: none;

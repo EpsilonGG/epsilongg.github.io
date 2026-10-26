@@ -10,6 +10,7 @@ from __future__ import annotations
 from datetime import date
 
 from .model import Item
+from .roster import Roster
 
 
 def _fmt_stat(n) -> str:
@@ -78,7 +79,12 @@ def build_briefing(
     return "\n".join(lines)
 
 
-def build_markdown(items: list[Item], issue_id: str, accounts: list[str] | None = None) -> str:
+def build_markdown(
+    items: list[Item],
+    issue_id: str,
+    accounts: list[str] | None = None,
+    roster: Roster | None = None,
+) -> str:
     """站点 `src/content/daily/<期号>.md` 的骨架：frontmatter 四段 + 待填提示。
 
     四段全部是结构化字段（highlights / works / interactions / people），不写进 Markdown 正文：
@@ -86,6 +92,10 @@ def build_markdown(items: list[Item], issue_id: str, accounts: list[str] | None 
     上百人时还要拿去做分类视图与 JSON 输出。
 
     标题与发布时间不在这里写——它们由文件名推导，少一个字段就少一处能和 URL 对不上的地方。
+
+    传了 `roster` 就**按人合并**：同一个人（名单里同 `name`）的主号、小号、社团号
+    只出一行，其余号记进 `via`，页面在句末渲染成小一号的账号名链接。
+    不传 `roster` 就退回「一个 handle 一行」——老的导入接口还这么用。
     """
     by_acc: dict[str, list[Item]] = {}
     for it in items:
@@ -97,6 +107,23 @@ def build_markdown(items: list[Item], issue_id: str, accounts: list[str] | None 
         accounts = [acc for acc, _ in sorted(by_acc.items(), key=lambda kv: (-len(kv[1]), kv[0]))]
     else:
         accounts = [a for a in accounts if a in by_acc]
+
+    # 按人分组：主号当行首，其余号进 via（只记真正有内容的号）
+    rows: list[tuple[str, list[str]]] = []
+    if roster is None:
+        rows = [(handle, []) for handle in accounts]
+    else:
+        groups: dict[str, list[str]] = {}
+        for handle in accounts:
+            account = roster.account(handle)
+            key = (account.name if account and account.name else handle)
+            groups.setdefault(key, []).append(handle)
+        for handles in groups.values():
+            main = next(
+                (h for h in handles if (roster.account(h) and roster.account(h).role == "main")),
+                handles[0],
+            )
+            rows.append((main, [h for h in handles if h != main]))
 
     # 副标题是「今日看点」的 50 字以内简报，不是日期 + 账号名。
     # 脚本还看不到内容，所以先放一句占位，由本地 WorkBuddy 连同 highlights 一起改写。
@@ -122,11 +149,16 @@ def build_markdown(items: list[Item], issue_id: str, accounts: list[str] | None 
     lines.append("interactions: []")
     lines.append("")
     lines.append("# 每人一句话。渲染成「声优名（链接） ：summary」，所以 summary 里不要再写 @handle")
+    lines.append("# 一个人的主号/小号/社团号合并成一条叙述，其余号写进 via（页面句末显示小号链接）")
     lines.append("# summary 留空 = 当日无活动，不渲染")
     lines.append("people:")
-    for a in accounts:
-        lines.append(f"  - handle: {a}")
+    for handle, via in rows:
+        lines.append(f"  - handle: {handle}")
         lines.append('    summary: ""')
+        if via:
+            lines.append("    via:")
+            for other in via:
+                lines.append(f"      - {other}")
     lines.append("---")
     lines.append("")
     lines.append("<!--")
