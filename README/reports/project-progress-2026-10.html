@@ -1,0 +1,674 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>个人主页项目进展报告 · 2026-10-26</title>
+<style>
+  :root {
+    --ink: #111;
+    --ink-2: #555;
+    --ink-3: #888;
+    --line: #e3e3e3;
+    --line-2: #cfcfcf;
+    --bg: #fff;
+    --bg-2: #fafafa;
+    --radius: 6px;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    padding: 0 20px 96px;
+    background: var(--bg);
+    color: var(--ink);
+    font: 15px/1.75 -apple-system, BlinkMacSystemFont, "Segoe UI", "Hiragino Sans",
+      "Noto Sans CJK SC", "Microsoft YaHei", sans-serif;
+  }
+  .wrap { max-width: 1080px; margin: 0 auto; }
+  header.top { padding: 56px 0 28px; border-bottom: 1px solid var(--line); }
+  h1 { font-size: 26px; line-height: 1.4; margin: 0 0 10px; letter-spacing: -0.01em; }
+  .sub { color: var(--ink-2); margin: 0; }
+  .meta { margin-top: 14px; color: var(--ink-3); font-size: 13px; }
+  h2 {
+    font-size: 19px; margin: 52px 0 14px; padding-bottom: 8px;
+    border-bottom: 1px solid var(--line); letter-spacing: -0.01em;
+  }
+  h2 .num { color: var(--ink-3); font-weight: 400; margin-right: 10px; font-variant-numeric: tabular-nums; }
+  h3 { font-size: 15px; margin: 28px 0 8px; }
+  h4 { font-size: 14px; margin: 20px 0 6px; color: var(--ink-2); }
+  p { margin: 0 0 12px; }
+  ul, ol { margin: 0 0 14px; padding-left: 22px; }
+  li { margin: 4px 0; }
+  code {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: 0.9em; background: var(--bg-2);
+    border: 1px solid var(--line); border-radius: 4px; padding: 1px 5px;
+    word-break: break-word;
+  }
+  a { color: var(--ink); text-decoration-color: var(--line-2); }
+  a:hover { text-decoration-color: var(--ink); }
+  .note {
+    background: var(--bg-2); border: 1px solid var(--line);
+    border-radius: var(--radius); padding: 14px 18px; margin: 18px 0;
+  }
+  .note p:last-child { margin-bottom: 0; }
+  .note strong { font-weight: 600; }
+  .warn { border-left: 3px solid var(--ink); }
+  .scroll { overflow-x: auto; margin: 16px 0; border: 1px solid var(--line); border-radius: var(--radius); }
+  table { border-collapse: collapse; width: 100%; font-size: 13.5px; }
+  th, td { padding: 7px 10px; text-align: left; border-bottom: 1px solid var(--line); white-space: nowrap; vertical-align: top; }
+  td.wrap, th.wrap { white-space: normal; min-width: 200px; }
+  thead th {
+    position: sticky; top: 0; background: var(--bg);
+    font-weight: 600; font-size: 12.5px; color: var(--ink-2);
+    border-bottom: 1px solid var(--line-2); z-index: 1;
+  }
+  tbody tr:last-child td { border-bottom: 0; }
+  td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+  td.name { font-weight: 600; }
+  .tag {
+    display: inline-block; font-size: 11px; line-height: 1.6; padding: 0 6px;
+    border: 1px solid var(--line-2); border-radius: 4px; color: var(--ink-2);
+    white-space: nowrap;
+  }
+  .tag.ok { border-color: var(--ink); color: var(--ink); }
+  .tag.bad { border-color: var(--ink-3); color: var(--ink-3); }
+  .tag.half { border-color: var(--line-2); color: var(--ink-2); border-style: dashed; }
+  .kpi {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 1px; background: var(--line); border: 1px solid var(--line);
+    border-radius: var(--radius); overflow: hidden; margin: 26px 0 8px;
+  }
+  .kpi > div { background: var(--bg); padding: 16px 18px; }
+  .kpi b { display: block; font-size: 23px; font-weight: 600; line-height: 1.3; font-variant-numeric: tabular-nums; }
+  .kpi span { display: block; color: var(--ink-3); font-size: 12.5px; margin-top: 2px; }
+  .dim { color: var(--ink-3); }
+  .bar { height: 6px; background: var(--line); border-radius: 3px; overflow: hidden; margin: 6px 0 0 auto; min-width: 90px; max-width: 140px; }
+  table.matrix th, table.matrix td { white-space: normal; }
+  table.matrix td.c, table.matrix th.c { text-align: center; }
+  table.matrix td:first-child { min-width: 132px; }
+  table.matrix td:first-child, table.matrix th:first-child { white-space: nowrap; }
+  .bar > i { display: block; height: 100%; background: var(--ink); }
+  .cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 14px; margin: 16px 0; }
+  .card { border: 1px solid var(--line); border-radius: var(--radius); padding: 14px 16px; }
+  .card h4 { margin-top: 0; }
+  .card p:last-child { margin-bottom: 0; }
+  pre {
+    margin: 14px 0; padding: 14px 16px; background: var(--bg-2);
+    border: 1px solid var(--line); border-radius: var(--radius);
+    overflow-x: auto; font-size: 12.5px; line-height: 1.7;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  }
+  pre code { background: none; border: 0; padding: 0; }
+  .toc { margin: 22px 0 0; font-size: 13.5px; color: var(--ink-2); }
+  .toc a { margin-right: 14px; white-space: nowrap; }
+  footer {
+    margin-top: 56px; padding-top: 20px; border-top: 1px solid var(--line);
+    color: var(--ink-3); font-size: 12.5px;
+  }
+  @media (max-width: 720px) {
+    body { padding: 0 14px 64px; font-size: 14px; }
+    h1 { font-size: 21px; }
+    th, td { padding: 6px 8px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="top">
+  <h1>个人主页项目进展报告（第二版）</h1>
+  <p class="sub">主页整体 · 笔记 · 日报 三个模块的完成度、同类项目对照、待办与计划</p>
+  <p class="meta">2026-10-26 深夜修订 ｜ 数据全部现场实测 ｜ 与第一版相比：补齐两篇 AI 译文配图、标签收敛为六个、日报列表去掉副标题、新增全文搜索与术语表实测、所有对照项目补上原地址与界面地址</p>
+  <p class="toc">
+    <a href="#diff">0 这次改了什么</a>
+    <a href="#score">1 完成度总表</a>
+    <a href="#home">2 主页整体</a>
+    <a href="#notes">3 笔记</a>
+    <a href="#daily">4 日报</a>
+    <a href="#appendix">5 附录</a>
+  </p>
+</header>
+
+<h2 id="diff"><span class="num">0</span>这次改了什么</h2>
+
+<p>第一版报告是「体检」，这一版是「体检 + 做完了几件事」。七处变化，前四处动了代码：</p>
+
+<div class="scroll">
+<table>
+<thead><tr><th>#</th><th class="wrap">变化</th><th class="wrap">落在哪</th><th>性质</th></tr></thead>
+<tbody>
+<tr><td class="num">1</td><td class="wrap">两篇 AI 译文补齐原文配图（nicolith 22 张、大河内 3 张），图注全部译成中文</td><td class="wrap"><code>public/images/blog/gamespark-*/</code>、两篇 <code>.md</code></td><td><span class="tag ok">已做完</span></td></tr>
+<tr><td class="num">2</td><td class="wrap">配图流程写成 AI 可直接读的规范，两处：skill 给人机共读、指南给人读</td><td class="wrap"><code>notes-maintenance/SKILL.md</code>、<code>README/blog-guide.md</code> §4.5</td><td><span class="tag ok">已做完</span></td></tr>
+<tr><td class="num">3</td><td class="wrap">标签收敛为六个，schema 硬拦，8 篇文章全部迁移</td><td class="wrap"><code>src/config/tags.json</code>、<code>src/content.config.ts</code></td><td><span class="tag ok">已做完</span></td></tr>
+<tr><td class="num">4</td><td class="wrap">日报列表去掉副标题，只留时间；顺带收掉两栏网格</td><td class="wrap"><code>src/pages/daily/index.astro</code>、<code>components.css</code></td><td><span class="tag ok">已做完</span></td></tr>
+<tr><td class="num">5</td><td class="wrap">术语表 + 一致性检查器 + 用语规范，三件套落地</td><td class="wrap"><code>data/glossary.json</code>、<code>scripts/check_glossary.py</code>、<code>README/translation-style.md</code></td><td><span class="tag ok">已做完</span></td></tr>
+<tr><td class="num">6</td><td class="wrap">全文搜索做了三档体积实测，给出结论与闸门</td><td class="wrap">本文 §3.5</td><td><span class="tag half">已判明，未实施</span></td></tr>
+<tr><td class="num">7</td><td class="wrap">14 个 Nitter 候选实例实测 + 探测脚本</td><td class="wrap"><code>X-Reader/scripts/probe_instances.py</code></td><td><span class="tag half">本机环境不可判定</span></td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="note warn">
+<p><strong>一句话：工程侧这一轮没有加功能，只把「已经欠的账」还了三笔（图、标签、术语），并给两件大决定（全文搜索、OG 图）配上了可执行的数据。</strong></p>
+</div>
+
+<h2 id="score"><span class="num">1</span>完成度总表</h2>
+
+<div class="kpi">
+  <div><b>92%</b><span>主页整体（工程）</span></div>
+  <div><b>97%</b><span>笔记（工程，含本轮配图）</span></div>
+  <div><b>47%</b><span>笔记（内容存量 7/15 篇）</span></div>
+  <div><b>71%</b><span>日报（34/48 工作包）</span></div>
+  <div><b>86%</b><span>全站加权</span></div>
+</div>
+
+<div class="scroll">
+<table>
+<thead><tr><th>模块</th><th class="wrap">这一轮的净变化</th><th>工程</th><th>内容</th><th class="wrap">扣分项</th></tr></thead>
+<tbody>
+<tr>
+  <td class="name">主页整体</td>
+  <td class="wrap">无代码变化；OG 动态生成从「一句话计划」变成「可开工的规格」</td>
+  <td class="num">92%</td><td class="num">—</td>
+  <td class="wrap">无障碍未实测（4）、OG 图仍是静态单图（2）、不支持子路径（2，已决定不做）</td>
+</tr>
+<tr>
+  <td class="name">笔记</td>
+  <td class="wrap">配图补齐 25 张、标签收敛、术语三件套 → 工程 +2%</td>
+  <td class="num">97%</td><td class="num">47%</td>
+  <td class="wrap">全文搜索仍是标题级（3）；内容 7/15 篇，仍是最大缺口</td>
+</tr>
+<tr>
+  <td class="name">日报</td>
+  <td class="wrap">列表去掉副标题；M5/M6 仍未开工；上游实例风险未解除</td>
+  <td class="num">71%</td><td class="num">88%</td>
+  <td class="wrap">M5 封面 + OG（4 包）、M6 归档检索（未开工）、Nitter 上游随时可能断</td>
+</tr>
+<tr>
+  <td class="name">全站</td>
+  <td class="wrap">26 个 HTML 全部产出，构建 21 路由 + 5 个 <code>public/docs</code></td>
+  <td class="num">86%</td><td class="num">—</td>
+  <td class="wrap">内容体量；OG 图；无障碍</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<p class="dim">口径同第一版：工程完成度按「计划里的工作包是否闭环」算，内容存量按「计划篇数/期数」算，全站按工作量加权。日报 48 个工作包里 M1–M4 完成 34 个，M5（封面与分享图）与 M6（归档检索）未开工。</p>
+
+<h2 id="home"><span class="num">2</span>主页整体</h2>
+
+<h3>2.1 这一块现在是什么状态</h3>
+
+<p>骨架已经稳定：26 个 HTML、构建 21 条路由、站内链接零死链、CI 五道闸门（类型检查 / 链接检查 / 日报三产物 / 金文件 / 远程图体检）、双许可证、15 份文档。设计系统集中在 <code>tokens.css</code>，组件里没有写死的颜色和圆角。</p>
+
+<p><strong>唯一还挂在「能看但不够好」上的，是分享卡片。</strong>现在 <code>BaseLayout</code> 的 <code>image</code> 参数默认取 <code>site.ogImage</code>，也就是 <code>public/og-default.png</code>（1200×630、19 KB）——所有页面共用同一张。8 篇笔记、8 期日报，在时间线上长得一模一样。</p>
+
+<h3>2.2 OG 图接动态生成：要做什么</h3>
+
+<p>目标：构建期为每个页面生成一张 1200×630 的 PNG，内容是该页的标题、描述、日期与栏目，写进 <code>og:image</code> 与 <code>twitter:image</code>。</p>
+
+<p>做法是一条 <strong>Astro 端点</strong>，不是脚本：</p>
+
+<pre><code>// src/pages/og/[...slug].png.ts
+export async function getStaticPaths() { /* 笔记 + 日报，两条来源合成一份列表 */ }
+export async function GET({ props }) {
+  const svg = renderCard(props);                 // 纯字符串拼 SVG
+  const png = new Resvg(svg, {
+    fitTo: { mode: 'width', value: 1200 },
+    font: {
+      fontFiles: ['./assets/fonts/NotoSansSC-subset.woff2'],
+      loadSystemFonts: false,                    // ← 关键，见下
+      defaultFontFamily: 'Noto Sans SC',
+    },
+  }).render().asPng();
+  return new Response(png, { headers: { 'content-type': 'image/png' } });
+}</code></pre>
+
+<p>五个动作，按依赖顺序：</p>
+
+<ol>
+<li><strong>模板</strong>：一个函数，输入 <code>{ kicker, title, description, date, site }</code>，输出 SVG 字符串。版面就是本站的语言：白底、黑字、一条细线、右下角站点名。不需要图片、不需要渐变。</li>
+<li><strong>固定字体</strong>：把思源黑体/Noto Sans SC 子集化后放进 <code>assets/fonts/</code>，构建时通过 <code>fontFiles</code> 传入，并<strong>关掉系统字体</strong>（<code>loadSystemFonts: false</code>）。</li>
+<li><strong>断行与截断</strong>：resvg 不会自动换行，<code>&lt;text&gt;</code> 一行就是一行。要自己按「字号 × 字数」估算宽度折行，标题最多 2 行、超出截断加省略号；描述最多 2 行。</li>
+<li><strong>接入 meta</strong>：把生成的路径作为 <code>image</code> 传给 <code>BaseLayout</code>。现有的 <code>og:image</code> / <code>twitter:card</code> 逻辑不用改，只要传对值就会自动切成 <code>summary_large_image</code>。</li>
+<li><strong>缓存</strong>：按「标题 + 描述 + 日期」算 hash 作文件名，未变则复用。现在 16 张图全量生成约 1 秒，<strong>暂时不需要缓存</strong>；超过 100 页再加。</li>
+</ol>
+
+<h4>四个会踩的坑</h4>
+
+<div class="scroll">
+<table>
+<thead><tr><th class="wrap">坑</th><th class="wrap">现象</th><th class="wrap">解法</th></tr></thead>
+<tbody>
+<tr><td class="wrap">系统字体</td><td class="wrap">本机渲染正常，CI 上全是方框（ubuntu-latest 没有中文字体）；或者本机与 CI 挑到不同字重，断行位置差一个字</td><td class="wrap"><code>loadSystemFonts: false</code> + 仓库内字体文件。这是「固定字体」四个字的全部意义</td></tr>
+<tr><td class="wrap">字体体积</td><td class="wrap">Noto Sans SC 全量约 10 MB，为了 16 张图把仓库撑大十倍</td><td class="wrap">子集化到「常用 3500 字 + ASCII + 中文标点」，约 1.2–1.8 MB；再狠一点按构建产物里实际出现的字符动态子集</td></tr>
+<tr><td class="wrap">不换行</td><td class="wrap">长标题直接溢出画布，右边被裁掉</td><td class="wrap">自己折行；中文按等宽估算即可（全角 1em、半角 0.5em），英文单词不能从中间断</td></tr>
+<tr><td class="wrap">字体族名</td><td class="wrap">SVG 里写 <code>font-family: "Noto Sans SC"</code>，渲染出来却是默认字体</td><td class="wrap">名字必须是字体文件内部的 family name，不是文件名。子集化后名字常被改掉，用 <code>fontkit</code> 读一遍确认</td></tr>
+</tbody>
+</table>
+</div>
+
+<p><strong>与日报 M5 共用什么：</strong>同一个 <code>renderCard()</code>、同一份字体、同一套断行函数。差别只在数据源——笔记读 frontmatter（标题 / 描述 / pubDate），日报读 <code>report.json</code>（期号推导的标题 / 今日看点第一条 / published_at）。所以 M5 的四个工作包（模板、字体子集、断行、接入）做完，主页的 OG 也就同时做完了；反过来也一样。这也是把它算成「一件事」而不是两件的原因。</p>
+
+<h3>2.3 这件事的意义</h3>
+
+<ol>
+<li><strong>分享卡片是本站唯一的站外门面。</strong>这个站是「长文归档」，读者多半从 X、QQ、Discord 的链接点进来，不是从首页逛进来。链接被贴出去时，卡片就是第一屏；现在 16 个页面共用一张默认图，等于放弃了这一屏。</li>
+<li><strong>日报尤其吃亏。</strong>日报的标题是「2026 年 10 月 25 日 22:00」——卡片上只有日期，信息量为零。动态图能把「今日看点」的第一条压上去，这才是能让人点进来的东西。</li>
+<li><strong>构建期生成，访客零成本。</strong>resvg 是 Rust 写的 SVG 渲染器，构建时把 SVG 渲染成 PNG，产物是静态文件。对比两条常见路线：Satori 要拖进 React/JSX 与 WASM，Playwright 要拖进一个 Chromium；resvg 两者都不要，构建时间增加约 1 秒。这符合「不引入运行时依赖」的铁律。</li>
+<li><strong>顺带满足平台格式要求。</strong>微信、X、Discord 对 <code>og:image</code> 只认 PNG/JPEG，不认 SVG。用 resvg 直接出 PNG，省掉「先生成 SVG 再想办法转换」这一层。</li>
+</ol>
+
+<div class="note">
+<p><strong>不做的部分：</strong>不做每篇文章的「封面大图」（那是另一件事，需要文章自带配图），不做动态文字排版（渐变、阴影、彩色标签）。这个站的视觉是黑白灰、无阴影、圆角 6px，卡片照抄这套即可；一旦开始给卡片上色，它就和站点不是一套东西了。</p>
+</div>
+
+<h3>2.4 对照项目：它们各自是什么定位</h3>
+
+<p>第一版只给了 star 数和一张能力矩阵，没写清「这些项目到底是干嘛的」。补上。表里两列地址分开：<strong>原地址</strong>是代码仓库，<strong>界面地址</strong>是作者自己部署的演示——后者才是能点开看的东西。</p>
+
+<div class="scroll">
+<table>
+<thead><tr><th>项目</th><th class="num">Star</th><th class="wrap">定位（一句话）</th><th class="wrap">原地址（代码）</th><th class="wrap">界面地址（可点开）</th></tr></thead>
+<tbody>
+<tr><td class="name">astro-paper</td><td class="num">5,155</td><td class="wrap">极简博客主题：clone 下来改配置就能开站，主打「少」</td><td class="wrap"><code>github.com/satnaing/astro-paper</code></td><td class="wrap"><code>astro-paper.pages.dev</code></td></tr>
+<tr><td class="name">AstroWind</td><td class="num">6,098</td><td class="wrap">落地页 + 博客模板：给「产品/服务」用的，首页是营销页</td><td class="wrap"><code>github.com/onwidget/astrowind</code></td><td class="wrap"><code>astrowind.vercel.app</code></td></tr>
+<tr><td class="name">fuwari</td><td class="num">5,121</td><td class="wrap">二次元风格静态博客模板，动效与配色是卖点</td><td class="wrap"><code>github.com/saicaca/fuwari</code></td><td class="wrap"><code>fuwari.vercel.app</code></td></tr>
+<tr><td class="name">tailwind-nextjs-starter-blog</td><td class="num">10,561</td><td class="wrap">Next.js 博客脚手架，主打 MDX 与内容工程</td><td class="wrap"><code>github.com/timlrx/tailwind-nextjs-starter-blog</code></td><td class="wrap"><code>tailwind-nextjs-starter-blog.vercel.app</code></td></tr>
+<tr><td class="name">leerob.io</td><td class="num">7,577</td><td class="wrap">某位开发者的个人站源码，被当成「现代个人站」范本</td><td class="wrap"><code>github.com/leerob/leerob.io</code></td><td class="wrap"><code>leerob.io</code></td></tr>
+<tr><td class="name">imsyy/home</td><td class="num">4,557</td><td class="wrap">中文圈最典型的「名片型个人主页」，已被作者归档</td><td class="wrap"><code>github.com/imsyy/home</code></td><td class="wrap"><code>imsyy.top</code></td></tr>
+<tr><td class="name">minimal-mistakes</td><td class="num">13,589</td><td class="wrap">Jekyll 全能主题：文档、博客、作品集通吃，配置项极多</td><td class="wrap"><code>github.com/mmistakes/minimal-mistakes</code></td><td class="wrap"><code>mmistakes.github.io/minimal-mistakes</code></td></tr>
+<tr><td class="name">chirpy</td><td class="num">10,308</td><td class="wrap">Jekyll 技术博客主题，中文圈使用量最大的之一</td><td class="wrap"><code>github.com/cotes2020/jekyll-theme-chirpy</code></td><td class="wrap"><code>chirpy.cotes.page</code></td></tr>
+<tr><td class="name">hugo-PaperMod</td><td class="num">14,012</td><td class="wrap">Hugo 极简主题，速度是卖点</td><td class="wrap"><code>github.com/adityatelange/hugo-PaperMod</code></td><td class="wrap"><code>adityatelange.github.io/hugo-PaperMod</code></td></tr>
+<tr><td class="name">hexo-theme-butterfly</td><td class="num">8,373</td><td class="wrap">Hexo 主题，功能与美化选项最全的一档</td><td class="wrap"><code>github.com/jerryc127/hexo-theme-butterfly</code></td><td class="wrap"><code>butterfly.js.org</code></td></tr>
+</tbody>
+</table>
+</div>
+
+<p class="dim">Star 数与 homepage 字段均为 2026-10-26 现场查 GitHub API。<code>imsyy/home</code> 已被作者归档，README 写明「代码相当杂乱」「遭到倒卖」；列它是因为它是中文圈「名片型主页」的原型，不是因为它好。</p>
+
+<h3>2.5 为什么比这些维度</h3>
+
+<p>第一版的矩阵列了「外部 JS / 搜索 / i18n / 动态 OG / 评论 / 日报栏目」。这六个维度不是随手挑的，它们各自对应本站的一条约束——换一个说法：<strong>每一列都在问「如果换成它，我会失去什么」</strong>。</p>
+
+<div class="scroll">
+<table>
+<thead><tr><th class="wrap">维度</th><th class="wrap">为什么比它</th><th class="wrap">对本项目意味着什么</th></tr></thead>
+<tbody>
+<tr><td class="wrap">外部 JS / 水合</td><td class="wrap">十个里八个是「主题/模板」，而模板的默认形态决定了访客要下载什么：Astro 系接近零 JS，Next.js 系则带一整套运行时</td><td class="wrap">本站零外部 JS、脚本全部内联（10.1 KB）。换成 Next.js 系，首屏立刻多几百 KB</td></tr>
+<tr><td class="wrap">搜索</td><td class="wrap">读者第一次来会搜；搜不到就会走。这是「内容多了以后」第一个暴露的能力缺口</td><td class="wrap">现在只有标题级。§3.5 用实测数据回答「要不要上全文」</td></tr>
+<tr><td class="wrap">i18n</td><td class="wrap">模板都带 i18n，因为它们的用户是「不知道自己要写什么语言」的人</td><td class="wrap">本站只有中文。带 i18n 的模板会引入一层「文案键值表」，改一句话要动两个文件</td></tr>
+<tr><td class="wrap">动态 OG</td><td class="wrap">astro-paper / AstroWind / leerob.io 都有，说明这是「现代个人站」的事实标准</td><td class="wrap">本站没有。§2.2 把它变成可开工的规格</td></tr>
+<tr><td class="wrap">评论</td><td class="wrap">minimal-mistakes 带 Disqus，Quartz 带 Giscus——都意味着把读者数据交给第三方</td><td class="wrap">本站不做。不是不会，是决定不做：无后端、无第三方脚本是铁律</td></tr>
+<tr><td class="wrap">日报类栏目</td><td class="wrap">十个里一个都没有。这是本站唯一「别人没有」的东西，也是唯一没法对标的东西</td><td class="wrap">§4.4 单独处理：日报没有对标物，只能自己和自己比</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>还有两条<strong>没有放进矩阵</strong>，因为放进去会失真：</p>
+
+<ul>
+<li><strong>Star 数本身不是维度。</strong>模板的 star 来自「clone 的人多」，个人站的 star 来自「作者有名」。两者不可比，所以本站那格留空。</li>
+<li><strong>代码行数不是维度。</strong>Quartz 有 4 万行，本站 <code>src</code> 约 6 千行；但 Quartz 要支撑几百种配置组合，本站只服务一个人。行数差异是定位差异，不是质量差异。</li>
+</ul>
+
+<h3>2.6 待完成与计划</h3>
+
+<div class="scroll">
+<table>
+<thead><tr><th>优先级</th><th class="wrap">事项</th><th class="wrap">工作量</th><th class="wrap">验收</th></tr></thead>
+<tbody>
+<tr><td><span class="tag ok">P0</span></td><td class="wrap">OG 动态生成（模板 + 字体子集 + 断行 + 接入）</td><td class="wrap">4 个包，2–3 天</td><td class="wrap">每篇文章、每期日报各有独立 PNG；CI 上渲染结果与本机逐字节一致</td></tr>
+<tr><td><span class="tag">P1</span></td><td class="wrap">无障碍走查（键盘 Tab 顺序、对比度、弹层焦点陷阱）</td><td class="wrap">1 天</td><td class="wrap">键盘可完成「筛选 → 打开文章 → 用目录跳转 → 关弹层」全流程</td></tr>
+<tr><td><span class="tag">P2</span></td><td class="wrap">首页加日报入口（现在日报只能从导航进）</td><td class="wrap">2 小时</td><td class="wrap">首页「最近文章」下方出现最近一期日报的一行</td></tr>
+</tbody>
+</table>
+</div>
+
+<p class="dim">不做：子路径部署（已决定）、评论（已决定）、i18n（已决定）、换框架（已决定）。这四项再讨论一次的成本高于收益。</p>
+
+<h2 id="notes"><span class="num">3</span>笔记</h2>
+
+<h3>3.1 配图补齐：这次实际做了什么</h3>
+
+<p>问题很具体：三篇 AI 译文里，两篇（nicolith 访谈、大河内访谈）正文一张图都没有——原文里的游戏截图、采访现场照全丢了。读者读到「《MOTHER2》让我震惊」时，屏幕上只有字。</p>
+
+<div class="scroll">
+<table>
+<thead><tr><th class="wrap">文章</th><th class="num">原文图</th><th class="num">已补</th><th class="wrap">处理</th></tr></thead>
+<tbody>
+<tr><td class="wrap">gamespark-nicolith-interview</td><td class="num">26</td><td class="num">22</td><td class="wrap">跳过 4 个 YouTube 嵌入（不是图）；图注全部译成中文；PNG 源图用调色板量化重压 4.1 MB → 1.3 MB</td></tr>
+<tr><td class="wrap">gamespark-tca-okuchi-interview</td><td class="num">6</td><td class="num">3</td><td class="wrap">6 张是同一场景的棚拍肖像，按「同一场景只留 2–3 张」留了开头、中段、结尾各一张</td></tr>
+<tr><td class="wrap">其余 6 篇</td><td class="num">—</td><td class="num">—</td><td class="wrap">本轮之前已有图（含 1 篇草稿），未动</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>产物核对：<code>dist/blog/gamespark-nicolith-interview/index.html</code> 里 22 个 <code>&lt;figure&gt;</code>、22 个 <code>&lt;picture&gt;</code>、0 个 <code>&lt;del&gt;</code>；三组连续图自动并成两列图版（沙加两作、魂系两作、银色事件 + killer7）。</p>
+
+<h3>3.2 规范落在哪：两处，一处给 AI 一处给人</h3>
+
+<div class="cols">
+  <div class="card">
+    <h4>给 AI：skill</h4>
+    <p><code>notes-maintenance/SKILL.md</code> 新增「图片获取与适配」一节：判断远程还是本地化、怎么定位正文容器、<code>src</code> 是单引号这个坑、懒加载的三个属性名、下载后必须过一遍尺寸、图注四条规则、<code>npm run images</code> 与两条 grep 自查。</p>
+    <p class="dim">这个文件是 AI 接到「加一篇文章」时最先读的东西，所以把流程写在里面，等于让它默认走对。</p>
+  </div>
+  <div class="card">
+    <h4>给人：写作指南</h4>
+    <p><code>README/blog-guide.md</code> 新增 §4.5「翻译/转载：把原文配图补齐」，六步流程 + 一段可复制的命令，比 skill 版本更啰嗦一点，带「为什么」。</p>
+    <p class="dim">两个文件不重复造轮子：skill 是操作清单，指南是解释。改流程时两处一起改，否则三个月后它们会互相矛盾。</p>
+  </div>
+</div>
+
+<h3>3.3 标签收敛为六个</h3>
+
+<p>之前 8 篇文章用了 11 个标签：访谈、翻译、声优、笔记、游戏、卡牌游戏、冒险游戏、剧作、画集、视觉小说、示例。每个标签平均不到一篇——这不是分类，是随手写。</p>
+
+<p>现在只留六个，<code>src/config/tags.json</code> 是唯一来源，<code>src/content.config.ts</code> 的 <code>superRefine</code> 会拦下白名单外的任何值，报错直接告诉你可用集合：</p>
+
+<div class="scroll">
+<table>
+<thead><tr><th>标签</th><th class="wrap">放什么</th><th class="num">现有</th></tr></thead>
+<tbody>
+<tr><td class="name">翻译访谈</td><td class="wrap">从外站翻译过来的访谈（本栏主体）</td><td class="num">7</td></tr>
+<tr><td class="name">视觉小说</td><td class="wrap">主题是视觉小说 / 文字冒险作品或它们的作者</td><td class="num">2</td></tr>
+<tr><td class="name">游戏</td><td class="wrap">主题是游戏本身（卡牌、独立游戏、厂商、发行）</td><td class="num">3</td></tr>
+<tr><td class="name">画集</td><td class="wrap">画集、插画、画师</td><td class="num">1</td></tr>
+<tr><td class="name">声优</td><td class="wrap">声优本人</td><td class="num">1</td></tr>
+<tr><td class="name">其它</td><td class="wrap">放不进上面五个的（目前只有示例草稿）</td><td class="num">1</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>迁移规则：一篇文章最多两个标签，第一个是「这是什么内容」（几乎都是「翻译访谈」），第二个是「讲的是哪块」。<code>卡牌游戏 / 冒险游戏 / 剧作</code> 这类细分全部并入「游戏」或「视觉小说」——细分靠标题和描述表达，不靠标签。</p>
+
+<h3>3.4 对照项目：笔记这条路的两极</h3>
+
+<p>笔记栏目的对照对象不是博客主题，是「知识库」。第一版只列了能力矩阵，这次把定位与地址补齐。</p>
+
+<div class="scroll">
+<table>
+<thead><tr><th>项目</th><th class="num">Star</th><th class="wrap">定位（一句话）</th><th class="wrap">原地址</th><th class="wrap">界面地址</th></tr></thead>
+<tbody>
+<tr><td class="name">Quartz</td><td class="num">13,453</td><td class="wrap">把 Markdown 笔记发布成「数字花园」：双链、反链、关系图谱、全文搜索、弹出预览一整套</td><td class="wrap"><code>github.com/jackyzha0/quartz</code></td><td class="wrap"><code>quartz.jzhao.xyz</code></td></tr>
+<tr><td class="name">Foam</td><td class="num">17,462</td><td class="wrap">VS Code 里的个人知识管理：不发布网站，先在编辑器里长出笔记网络</td><td class="wrap"><code>github.com/foambubble/foam</code></td><td class="wrap"><code>foam.md</code></td></tr>
+<tr><td class="name">Obsidian Digital Garden</td><td class="num">2,521</td><td class="wrap">把 Obsidian 库直接发布成站点：为「已经在 Obsidian 里写了几年」的人准备的</td><td class="wrap"><code>github.com/oleeskild/obsidian-digital-garden</code></td><td class="wrap"><code>dg-docs.ole.dev</code>（文档站；README 未给在线演示）</td></tr>
+<tr><td class="name">astro-paper</td><td class="num">5,155</td><td class="wrap">极简博客：一篇一篇排下来，不强调笔记之间的关系</td><td class="wrap"><code>github.com/satnaing/astro-paper</code></td><td class="wrap"><code>astro-paper.pages.dev</code></td></tr>
+<tr><td class="name">fuwari</td><td class="num">5,121</td><td class="wrap">静态博客模板：列表 + 文章页，视觉是重点</td><td class="wrap"><code>github.com/saicaca/fuwari</code></td><td class="wrap"><code>fuwari.vercel.app</code></td></tr>
+</tbody>
+</table>
+</div>
+
+<p><strong>一句话差异：Quartz 解决「笔记之间怎么连」，本项目解决「一篇长文怎么读」。</strong></p>
+
+<p>Quartz 的 13 项能力（双链、反链、图谱、弹出预览、全文搜索、文件夹页、RSS、i18n…）本项目一项都没有；本项目的 5 项（图注、注释弹层、阅读进度条、AI 披露、中文两端对齐），Quartz 一项都没有。这不是谁更强，是两种内容形态：<strong>笔记网络</strong> vs <strong>长文归档</strong>。译一篇八千字的访谈，读者要的是「读完」，不是「跳到相关笔记」。</p>
+
+<div class="note">
+<p><strong>不建议换栈。</strong>真要双链，加一个 <code>[[...]]</code> 的 Sätteri 插件（约 100 行）比换到 Quartz 便宜两个数量级——后者要放弃现有的注释弹层、图注管线、AI 披露、日报栏目，全部重做。</p>
+</div>
+
+<h3>3.5 全文搜索：三档实测，能不能不涨</h3>
+
+<p>你的约束是「不希望项目随文章增多而占的空间更大（更大太多）」。这个约束可以量化，所以我没有停留在估算，而是拿当前 <code>dist</code> 真跑了一遍 Pagefind（3 分钟，三种索引范围）。</p>
+
+<div class="scroll">
+<table>
+<thead><tr><th class="wrap">方案</th><th class="num">索引体积</th><th class="num">每篇</th><th class="num">100 篇时</th><th class="wrap">能力</th></tr></thead>
+<tbody>
+<tr><td class="wrap">现状：DOM 过滤标题 / 描述 / 标签</td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="wrap">只能按标题找，正文里的词搜不到</td></tr>
+<tr><td class="wrap">Pagefind：只索引正文 <code>.prose</code></td><td class="num">247 KB</td><td class="num">≈16 KB</td><td class="num">≈1.6 MB</td><td class="wrap">真全文，带高亮与片段</td></tr>
+<tr><td class="wrap">Pagefind：索引整页（含导航、目录、页脚）</td><td class="num">412 KB</td><td class="num">≈16 KB</td><td class="num">≈4 MB</td><td class="wrap">同上，但每页都把导航和目录重复索引一遍，噪声大</td></tr>
+<tr><td class="wrap">Pagefind：只索引小标题</td><td class="num">8.6 KB</td><td class="num">≈0.7 KB</td><td class="num">≈70 KB</td><td class="wrap">近似「目录搜索」，不是全文</td></tr>
+</tbody>
+</table>
+</div>
+
+<p class="dim">实测条件：<code>dist</code> 现状（15 个内容页 / 6,325 词 / 正文约 213 KB UTF-8），Pagefind 1.x，zh-cn。<code>index</code> + <code>fragment</code> 两个目录合计为「索引体积」，不含 <code>pagefind.js</code>（45 KB）与 <code>wasm</code>（68 KB）——那部分是固定成本，只加载一次。</p>
+
+<p><strong>三个关键结论：</strong></p>
+
+<ol>
+<li><strong>索引不进仓库。</strong><code>dist/</code> 在 <code>.gitignore</code> 里，Pagefind 的产物跟着构建走。所以「项目变重」这件事<strong>不会发生在 git 上</strong>，只会发生在发布产物与访客的一次性下载上。这一条直接解掉了你担心的那一半。</li>
+<li><strong>增长是线性的，约 16 KB/篇。</strong>15 页 247 KB，100 篇约 1.6 MB。作为参照：<code>public/images</code> 现在就有 9 MB 源图。真正让仓库变大的是图，不是索引。</li>
+<li><strong>「收窄索引范围」比「换工具」有效。</strong>整页 412 KB → 只索引正文 247 KB（−40%），再收到只剩小标题 8.6 KB（−98%），但那就不是全文搜索了。中间没有第三个档位：Pagefind 不支持「每段只索引第一句」这种裁剪。</li>
+</ol>
+
+<p><strong>建议：上 Pagefind，索引范围限定 <code>.prose</code>，并加一条预算闸门。</strong></p>
+
+<pre><code># package.json
+"search": "pagefind --site dist --output-subdir pagefind"
+# 构建后：index + fragment 超过 2 MB 就让 CI 红，逼着回头看要不要降档
+</code></pre>
+
+<p>降档预案（闸门红了才用）：把 <code>data-pagefind-body</code> 从 <code>.prose</code> 挪到「只包住 h2/h3」的容器上，体积掉到 70 KB 量级，代价是只能搜小标题。</p>
+
+<p><strong>两条已知短板，先说清楚：</strong>① Pagefind 对 <code>zh-cn</code> <strong>不做词干化</strong>（构建日志会明说），所以搜「翻译」不会自动命中「翻译者」，只能靠前缀匹配；② 首次搜索要下载 113 KB（js + wasm），在慢网下会有一次可感知的等待。这两条都不致命，但决定了「搜索框不要放在首屏最显眼的位置」——它该是辅助，不是入口。</p>
+
+<div class="note warn">
+<p><strong>一条不推荐的路线：</strong>「不建索引，搜索时按需 fetch 单页 HTML 做本地匹配」。听起来索引恒为 0，实际每次搜索要拉 8–15 个页面（0.5–1 MB），比 247 KB 的索引大一个量级，而且首字延迟从 0 变成 1–3 秒。省的是磁盘，赔的是体验，不划算。</p>
+</div>
+
+<h3>3.6 术语集与用语习惯：怎么随篇数积累</h3>
+
+<p>译到第 20 篇时，拖慢速度的不是生词，是「上次那个词我怎么译的来着」。所以这次不是写一份文档，是搭一个<strong>能自己发现漂移</strong>的三件套：</p>
+
+<div class="scroll">
+<table>
+<thead><tr><th class="wrap">件</th><th class="wrap">管什么</th><th class="wrap">怎么用</th></tr></thead>
+<tbody>
+<tr><td class="wrap"><code>data/glossary.json</code></td><td class="wrap">词：日文原词 → 统一译法 + 明确不该出现的写法</td><td class="wrap">译前当词表扫，译后补 3–5 条</td></tr>
+<tr><td class="wrap"><code>scripts/check_glossary.py</code></td><td class="wrap">一致性：统计每个词的出现次数，把「异形」列出来</td><td class="wrap"><code>npm run check:glossary</code>；<code>--strict</code> 可接 CI</td></tr>
+<tr><td class="wrap"><code>README/translation-style.md</code></td><td class="wrap">句子：标点、人称、敬语、台词、数字、中英混排</td><td class="wrap">很少改；改之前先想清楚</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>首次跑的结果就是它的价值证明——25 条术语、8 篇文章、81,597 字，抓出 4 条异形：<strong>1 条是真不一致，3 条是规则定得太严</strong>。后三条同样有价值，它们说明词表本身需要收，而不是正文需要改。</p>
+
+<div class="scroll">
+<table>
+<thead><tr><th class="wrap">异形</th><th class="num">出现</th><th class="wrap">处理</th></tr></thead>
+<tbody>
+<tr><td class="wrap">剧本家（应为「编剧」）</td><td class="num">2</td><td class="wrap">改正文。同一篇里既写「编剧」又写「剧本家」，读者会觉得是两个人译的</td></tr>
+<tr><td class="wrap">上市 / 开发方 / 设置</td><td class="num">1 / 2 / 2</td><td class="wrap">判定为<strong>规则太严</strong>，从词表里删掉——「线上市场」里的「上市」是误报，「让开发方细调」比「开发商」更自然，「图层设置」本来就该用「设置」</td></tr>
+</tbody>
+</table>
+</div>
+
+<p><strong>为什么只做检查、不做自动抽取：</strong>试过分词 + 频次提候选，结果是满屏「作品」「游戏」「先生」。术语的价值在「有争议」，而争议只有人知道。机器负责「你说过的和现在写的不一样」，人负责「哪个才对」。这条分工也写进了文档，避免以后有人想「优化」成自动抽取。</p>
+
+<p><strong>规模控制：</strong>词表的目标是 60–80 条，不是 500 条。判断标准一句话——<em>这个词如果下次译错，读者会觉得「前后不是一个人」吗？</em> 会，就补；不会，别补。膨胀的词表没人看，等于没建。</p>
+
+<h3>3.7 待完成与计划</h3>
+
+<div class="scroll">
+<table>
+<thead><tr><th>优先级</th><th class="wrap">事项</th><th class="wrap">工作量</th><th class="wrap">备注</th></tr></thead>
+<tbody>
+<tr><td><span class="tag ok">P0</span></td><td class="wrap">内容：补到 15 篇（现 7 篇）</td><td class="wrap">8 篇</td><td class="wrap">翻译产能优先；AI 初译 + 人工校对的流程已经跑通，瓶颈在校对</td></tr>
+<tr><td><span class="tag">P1</span></td><td class="wrap">全文搜索接入 Pagefind（限定 <code>.prose</code>）</td><td class="wrap">1 天</td><td class="wrap">含预算闸门与降档预案</td></tr>
+<tr><td><span class="tag">P2</span></td><td class="wrap">术语表补到 60 条</td><td class="wrap">每篇 3 分钟</td><td class="wrap">跟着新文章长，不单独排期</td></tr>
+<tr><td><span class="tag bad">不做</span></td><td class="wrap">双链 / 图谱 / 弹出预览</td><td class="wrap">—</td><td class="wrap">内容形态不匹配；真要，加 100 行插件，不换栈</td></tr>
+</tbody>
+</table>
+</div>
+
+<h2 id="daily"><span class="num">4</span>日报</h2>
+
+<h3>4.1 状态</h3>
+
+<p>主链路已经闭环：X-Reader 每日 03:00 / 15:00 UTC 两跑抓推文 → 本机 <code>daily_prepare.py</code> 出骨架 → 填四段 → <code>confirm</code> 定稿 → <code>publish</code> 搬到 <code>data/daily/</code> → push。站点读 JSON，五个出口（列表 / 单篇 / 独立 RSS / JSON / TXT）逐字节一致，有金文件守着。</p>
+
+<p>48 个工作包完成 34：M1 抓取 8、M2 归档 7、M3 生成 9、M4 站点 10。<strong>M5（封面与分享图）与 M6（归档检索）未开工</strong>——M5 就是 §2.2 那件事，M6 等文章/期数够多再说。</p>
+
+<h3>4.2 副标题已删</h3>
+
+<p>按你说的做了，没有补任何文字：</p>
+
+<ul>
+<li><code>src/pages/daily/index.astro</code>：列表项里的 <code>.daily-archive__summary</code> 整段删除，<code>&lt;a&gt;</code> 里只剩 <code>&lt;time&gt;</code>。</li>
+<li><code>src/styles/components.css</code>：<code>.daily-archive__link</code> 从两栏网格（<code>5.5rem minmax(0,1fr)</code>）收成单栏，<code>.daily-archive__summary</code> 的两条规则删掉，时间字号从 <code>xs</code> 提到 <code>sm</code>、颜色从 muted 提到 secondary——否则整行只剩一个灰点，看着像没加载完。</li>
+</ul>
+
+<p>数据层没动：<code>report.json</code> 里的 <code>description</code> 仍然存在，仍然用于单篇页的 meta description 与分享卡片。<strong>删的是「列表里显示」，不是「数据」</strong>——所以以后想恢复，改一行模板即可，不用重跑任何一期。</p>
+
+<h3>4.3 Frost 那个站，有什么值得抄</h3>
+
+<p>先给结论：<strong>它的视觉不能抄，它的信息结构可以抄一半，而且其中一半现在不该抄。</strong></p>
+
+<p><code>frost.cn.xueayi.site</code> 是一个「每日观察站」：左侧固定导航（工作空间 / 每日阅读 / 个人管理），右侧是分栏的日报（AI、科技前沿、人文社科、金融理财、健康与安全），外加一个「运行概览」和一个「订阅与额度」。配色是深藏青侧栏 + 米白纸面 + 薄荷绿强调色，圆角 6–12px，14px 正文。</p>
+
+<div class="scroll">
+<table>
+<thead><tr><th>它的做法</th><th class="wrap">值不值得抄</th><th class="wrap">理由</th></tr></thead>
+<tbody>
+<tr>
+  <td class="wrap"><strong>来源可回溯</strong>：每条结论都能点回原文（代码里有 <code>cited</code> / <code>provenance</code> / <code>source_coverage</code> 三层结构）</td>
+  <td><span class="tag ok">值得</span></td>
+  <td class="wrap">本站日报的 <code>sources</code> 现在是<strong>完全隐藏</strong>的（只用来内部回溯，页面不显示）。这是最该抄的一条：把每条「详细」末尾加一个可展开的「出处」，读者能自己验证，AI 整理的信任成本立刻降一档</td>
+</tr>
+<tr>
+  <td class="wrap"><strong>状态卡带日期</strong>：运行概览把「数据源 / 服务 / 备份 / 项目」做成卡片，每张都有时间戳，文案是「每个状态都有日期，未知也清晰可见」</td>
+  <td><span class="tag ok">值得</span></td>
+  <td class="wrap">本站的对应物是「抓取健康度」：最后一次成功抓取、当期条目数、跳过的账号数。<strong>但别放 <code>/daily/</code></strong>——你刚要求那里不要多余文字。放 <code>public/docs/</code> 的运维页，或 <code>/daily/rss.xml</code> 旁边的状态文件</td>
+</tr>
+<tr>
+  <td class="wrap"><strong>栏目自带一句话定位</strong>（每个分区顶部一句「这栏看什么」）</td>
+  <td><span class="tag half">现在别抄</span></td>
+  <td class="wrap">这正是你刚删掉的东西的另一种形式。等 M5 之后如果觉得列表太素，再考虑放在<strong>月份分组标题下</strong>而不是每期标题下</td>
+</tr>
+<tr>
+  <td class="wrap"><strong>卡片化条目 + 分区导航</strong></td>
+  <td><span class="tag bad">不抄</span></td>
+  <td class="wrap">它一天是多条短讯的聚合，卡片适合「扫一眼就关掉」；本站一期是一篇两千字上下的长文，卡片会把阅读切成碎片</td>
+</tr>
+<tr>
+  <td class="wrap"><strong>多栏目并列</strong>（AI / 科技 / 人文 / 金融 / 健康）</td>
+  <td><span class="tag bad">不抄</span></td>
+  <td class="wrap">它是聚合型产品，本站是单一主题的垂直记录。加栏目等于把「声优动态」稀释掉</td>
+</tr>
+<tr>
+  <td class="wrap"><strong>配色、圆角、阴影</strong></td>
+  <td><span class="tag bad">不抄</span></td>
+  <td class="wrap">与本站黑白灰铁律直接冲突。参考它只会让两套视觉打架</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<p>一句话：<strong>Frost 的强项是「让人相信这些结论有出处」，本站的强项是「把一天的事写成一篇能读的文章」。</strong>该抄的是前者，不是后者。</p>
+
+<h3>4.4 Nitter 实例：14 个候选，一次不太有结论的实测</h3>
+
+<p>先说方法，因为结论受方法限制很大。</p>
+
+<p>写了 <code>X-Reader/scripts/probe_instances.py</code>：对每个实例打两条路线（<code>/{handle}/rss</code> 与 <code>/{handle}</code>），判据不是 HTTP 200，而是<strong>响应形状</strong>——RSS 里有没有 <code>&lt;item&gt;</code>、HTML 里有没有 <code>timeline-item</code> / <code>tweet-content</code>，并单独识别验证页关键词（Cloudflare / Anubis / DDoS-Guard）。用 <code>re_re_tsubame</code> 作探针账号。</p>
+
+<div class="scroll">
+<table>
+<thead><tr><th class="wrap">实例</th><th>RSS</th><th>HTML</th><th class="wrap">判定</th></tr></thead>
+<tbody>
+<tr><td class="wrap">nitter.jaydenha.uk（你指定的优先项）</td><td>不可达</td><td>不可达</td><td class="wrap">代理 CONNECT 阶段 502</td></tr>
+<tr><td class="wrap">nitter.netbub.com</td><td>不可达</td><td>不可达</td><td class="wrap">同上</td></tr>
+<tr><td class="wrap">nitter.kareem.one</td><td>不可达</td><td>不可达</td><td class="wrap">同上</td></tr>
+<tr><td class="wrap">shi.meowing.monster</td><td>不可达</td><td>不可达</td><td class="wrap">同上（0.09 秒即失败，像是 DNS 层就断了）</td></tr>
+<tr><td class="wrap">x.n0g.xyz</td><td>不可达</td><td>不可达</td><td class="wrap">同上</td></tr>
+<tr><td class="wrap">tw.eir-nya.gay</td><td>不可达</td><td>不可达</td><td class="wrap">同上</td></tr>
+<tr><td class="wrap">shi.meowing.de</td><td>不可达</td><td>不可达</td><td class="wrap">同上</td></tr>
+<tr><td class="wrap">nitter.pp.ua</td><td>不可达</td><td>不可达</td><td class="wrap">同上</td></tr>
+<tr><td class="wrap">shitter.thepixora.com</td><td>不可达</td><td>不可达</td><td class="wrap">同上</td></tr>
+<tr><td class="wrap">nitter.click</td><td>不可达</td><td>不可达</td><td class="wrap">同上</td></tr>
+<tr><td class="wrap">nitter.space</td><td>不可达</td><td>不可达</td><td class="wrap">同上</td></tr>
+<tr><td class="wrap">nitter.cf</td><td>不可达</td><td>不可达</td><td class="wrap">同上</td></tr>
+<tr><td class="wrap">xnologin.com</td><td>不可达</td><td>不可达</td><td class="wrap">同上</td></tr>
+<tr><td class="wrap"><strong>goyimx.com</strong></td><td><span class="tag ok">首次可用</span></td><td>418</td><td class="wrap">见下，唯一有信息量的一条</td></tr>
+</tbody>
+</table>
+</div>
+
+<p><strong>这个结果不能用来说明实例的死活。</strong>同一轮里，现役唯一可用的 <code>nitter.meowing.monster</code> 也不可达；而 <code>github.com</code>、<code>gamespark.jp</code>、<code>frost.cn.xueayi.site</code> 都通。也就是说，这台开发机的出口代理对这些域名在 CONNECT 阶段就返回 502——<strong>是环境的判定，不是实例的判定</strong>。GitHub Actions 走的是另一条网络，结论可能完全不同。</p>
+
+<p>唯一有信息量的是 <code>goyimx.com</code>：</p>
+
+<ul>
+<li>第一次请求返回 <strong>200 + 38 KB 标准 RSS 2.0 + 20 条真实条目</strong>，<code>guid</code> 是推文 ID、<code>dc:creator</code> 是账号、<code>pubDate</code> 是绝对时间——X-Reader 的通用 RSS 解析器吃得下。</li>
+<li>几分钟后再请求，同一个 URL 返回 <strong>200 + 21 KB 的 HTML 拦截页</strong>（<code>&lt;title&gt;monument current&lt;/title&gt;</code>）。这是「200 不等于成功」的教科书案例，也正好验证了 <code>_looks_like_payload()</code> 那套形状判定的必要性。</li>
+<li>它<strong>不是 Nitter</strong>，是 Teapot 分支：HTML 路由直接 418；<code>t.co</code> 短链被改写成本站路径（<code>goyimx.com/t.co/…</code>），要用得先做 link 归一化；标题带 <code>Pinned:</code> 前缀，得过滤。</li>
+</ul>
+
+<p><strong>建议：</strong>不要把这 14 个直接塞进 <code>endpoints</code>——每个死实例都要付一次超时，抓取是「账号 × 实例」的双层循环，20 个账号 × 3 个死实例就是二十分钟白等。它们已经写进 <code>config.yaml</code> 的 <code>candidates</code> 段（运行时不读），并在注释里记下了这次的环境限制。下一步是在<strong>真正跑抓取的那台机器 / CI 上</strong>执行：</p>
+
+<pre><code>python scripts/probe_instances.py --from-candidates --json probe.json
+# 只把 rss_verdict == "ok" 的写进 endpoints，其余留在 candidates</code></pre>
+
+<p>关于你列的两个跳转入口（Twiiit、occupy-x）：它们是<strong>给人手动点的</strong>，不是给程序用的——每次跳转的域名都不同，脚本要么跟着重定向改基址，要么被跳到另一个同样会挂的实例上。不建议接进抓取链路，只适合当「人工找新实例」的入口。</p>
+
+<h3>4.5 待完成与计划</h3>
+
+<div class="scroll">
+<table>
+<thead><tr><th>优先级</th><th class="wrap">事项</th><th class="wrap">工作量</th><th class="wrap">备注</th></tr></thead>
+<tbody>
+<tr><td><span class="tag ok">P0</span></td><td class="wrap">M5 封面与分享图（4 包）</td><td class="wrap">2–3 天</td><td class="wrap">与主页 OG 是同一件事，做一次两边都受益</td></tr>
+<tr><td><span class="tag ok">P0</span></td><td class="wrap">在 CI 上跑一次实例探测，更新 <code>endpoints</code></td><td class="wrap">半小时</td><td class="wrap">本机结论无效，必须换网络重测</td></tr>
+<tr><td><span class="tag">P1</span></td><td class="wrap">每条「详细」加可展开的「出处」（抄 Frost）</td><td class="wrap">1 天</td><td class="wrap">数据已经在 <code>sources</code> 里，只差渲染</td></tr>
+<tr><td><span class="tag">P2</span></td><td class="wrap">M6 归档检索（按月 / 按人筛选）</td><td class="wrap">未排期</td><td class="wrap">等期数到 30 期再说</td></tr>
+<tr><td><span class="tag bad">不做</span></td><td class="wrap">卡片化版式、多栏目并列、彩色强调</td><td class="wrap">—</td><td class="wrap">见 §4.3</td></tr>
+</tbody>
+</table>
+</div>
+
+<h2 id="appendix"><span class="num">5</span>附录</h2>
+
+<h3>5.1 本轮改动的文件</h3>
+
+<pre><code>新增  src/config/tags.json            标签白名单（六个）
+新增  src/config/tags.ts              白名单的类型包装
+新增  data/glossary.json              术语表 25 条
+新增  scripts/check_glossary.py       术语一致性检查
+新增  README/translation-style.md     译文用语规范
+新增  X-Reader/scripts/probe_instances.py   Nitter 实例探测
+新增  public/images/blog/gamespark-nicolith-interview/   22 张
+新增  public/images/blog/gamespark-tca-okuchi-interview/ 3 张
+改    src/content.config.ts           标签白名单校验（superRefine）
+改    src/pages/daily/index.astro     去掉列表副标题
+改    src/styles/components.css       收掉两栏网格与 summary 样式
+改    src/content/blog/*.md           8 篇标签迁移；2 篇插图；1 篇术语修正
+改    package.json                    新增 check:glossary
+改    README/blog-guide.md            §2.0 标签、§4.5 配图流程
+改    notes-maintenance/SKILL.md      「图片获取与适配」整节
+改    X-Reader/config/config.yaml     candidates 段 + 环境限制注释</code></pre>
+
+<h3>5.2 复现命令</h3>
+
+<pre><code>npm run build              # 21 路由，26 个 HTML
+npm run images             # 增量生成 WebP 变体
+npm run check:glossary     # 术语一致性（--strict 可接 CI）
+npm run links              # 站内死链
+npm run check:daily        # 日报三产物 + Feed 隔离 + 金文件
+
+# 全文搜索体积实测（不写进仓库，只为取数）
+npx pagefind --site dist --output-subdir pagefind
+du -sb dist/pagefind/index dist/pagefind/fragment</code></pre>
+
+<h3>5.3 数据来源</h3>
+
+<ul>
+<li>Star 数、许可证、归档状态、homepage：GitHub API，2026-10-26 现场查询。</li>
+<li>Pagefind 体积：本机 <code>dist</code> 现状，三次不同索引范围，同一版本。</li>
+<li>Nitter 探测：本机代理环境，<code>re_re_tsubame</code> 作探针，超时 8–20 秒，两次独立复核。</li>
+<li>Frost 站点：<code>frost.cn.xueayi.site</code>，无头浏览器截图 + 读 <code>app.js</code> / <code>style.css</code>。</li>
+<li>笔记字数、标签分布、图片张数：脚本统计 <code>src/content/blog/*.md</code> 与 <code>public/images</code>。</li>
+</ul>
+
+<footer>
+<p>报告为一次性产物，放在 <code>README/reports/</code>，不参与构建、不被站点链接。第一版：<code>project-progress-2026-10.html</code>；本版：<code>project-progress-2026-10-v2.html</code>。</p>
+</footer>
+
+</div>
+</body>
+</html>

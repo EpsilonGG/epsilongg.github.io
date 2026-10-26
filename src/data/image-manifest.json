@@ -1,6 +1,6 @@
 {
   "$comment": "由 scripts/optimize_images.mjs 生成，请勿手改。",
-  "generatedAt": "2026-10-24T05:54:39.447Z",
+  "generatedAt": "2026-10-26T16:20:08.615Z",
   "images": {
     "/images/blog/busara-bugbug-interview/01.jpg": {
       "w": 900,
@@ -299,6 +299,306 @@
           "w": 1080,
           "src": "/images/blog/busara-bugbug-interview/15-1080.webp",
           "bytes": 32608
+        }
+      ]
+    },
+    "/images/blog/gamespark-nicolith-interview/01.png": {
+      "w": 670,
+      "h": 376,
+      "bytes": 99266,
+      "variants": [
+        {
+          "w": 670,
+          "src": "/images/blog/gamespark-nicolith-interview/01-670.webp",
+          "bytes": 35312
+        }
+      ]
+    },
+    "/images/blog/gamespark-nicolith-interview/02.png": {
+      "w": 500,
+      "h": 500,
+      "bytes": 76302,
+      "variants": [
+        {
+          "w": 500,
+          "src": "/images/blog/gamespark-nicolith-interview/02-500.webp",
+          "bytes": 33450
+        }
+      ]
+    },
+    "/images/blog/gamespark-nicolith-interview/03.png": {
+      "w": 670,
+      "h": 376,
+      "bytes": 104826,
+      "variants": [
+        {
+          "w": 670,
+          "src": "/images/blog/gamespark-nicolith-interview/03-670.webp",
+          "bytes": 49512
+        }
+      ]
+    },
+    "/images/blog/gamespark-nicolith-interview/04.png": {
+      "w": 670,
+      "h": 376,
+      "bytes": 99998,
+      "variants": [
+        {
+          "w": 670,
+          "src": "/images/blog/gamespark-nicolith-interview/04-670.webp",
+          "bytes": 36564
+        }
+      ]
+    },
+    "/images/blog/gamespark-nicolith-interview/05.png": {
+      "w": 670,
+      "h": 376,
+      "bytes": 54769,
+      "variants": [
+        {
+          "w": 670,
+          "src": "/images/blog/gamespark-nicolith-interview/05-670.webp",
+          "bytes": 18008
+        }
+      ]
+    },
+    "/images/blog/gamespark-nicolith-interview/06.png": {
+      "w": 670,
+      "h": 376,
+      "bytes": 46294,
+      "variants": [
+        {
+          "w": 670,
+          "src": "/images/blog/gamespark-nicolith-interview/06-670.webp",
+          "bytes": 18666
+        }
+      ]
+    },
+    "/images/blog/gamespark-nicolith-interview/07.png": {
+      "w": 670,
+      "h": 376,
+      "bytes": 75804,
+      "variants": [
+        {
+          "w": 670,
+          "src": "/images/blog/gamespark-nicolith-interview/07-670.webp",
+          "bytes": 15584
+        }
+      ]
+    },
+    "/images/blog/gamespark-nicolith-interview/08.jpg": {
+      "w": 670,
+      "h": 376,
+      "bytes": 43972,
+      "variants": [
+        {
+          "w": 670,
+          "src": "/images/blog/gamespark-nicolith-interview/08-670.webp",
+          "bytes": 16384
+        }
+      ]
+    },
+    "/images/blog/gamespark-nicolith-interview/09.png": {
+      "w": 670,
+      "h": 376,
+      "bytes": 129515,
+      "variants": [
+        {
+          "w": 670,
+          "src": "/images/blog/gamespark-nicolith-interview/09-670.webp",
+          "bytes": 24106
+        }
+      ]
+    },
+    "/images/blog/gamespark-nicolith-interview/10.jpg": {
+      "w": 670,
+      "h": 376,
+      "bytes": 73126,
+      "variants": [
+        {
+          "w": 670,
+          "src": "/images/blog/gamespark-nicolith-interview/10-670.webp",
+          "bytes": 29260
+        }
+      ]
+    },
+    "/images/blog/gamespark-nicolith-interview/11.png": {
+      "w": 670,
+      "h": 376,
+      "bytes": 145660,
+      "variants": [
+        {
+          "w": 670,
+          "src": "/images/blog/gamespark-nicolith-interview/11-670.webp",
+          "bytes": 24690
+        }
+      ]
+    },
+    "/images/blog/gamespark-nicolith-interview/12.png": {
+      "w": 670,
+      "h": 376,
+      "bytes": 131717,
+      "variants": [
+        {
+          "w": 670,
+          "src": "/images/blog/gamespark-nicolith-interview/12-670.webp",
+          "bytes": 23936
+        }
+      ]
+    },
+    "/images/blog/gamespark-nicolith-interview/13.png": {
+      "w": 670,
+      "h": 376,
+      "bytes": 108987,
+      "variants": [
+        {
+          "w": 670,
+          "src": "/images/blog/gamespark-nicolith-interview/13-670.webp",
+          "bytes": 22804
+        }
+      ]
+    },
+    "/images/blog/gamespark-nicolith-interview/14.jpg": {
+      "w": 670,
+      "h": 536,
+      "bytes": 55411,
+      "variants": [
+        {
+          "w": 670,
+          "src": "/images/blog/gamespark-nicolith-interview/14-670.webp",
+          "bytes": 18432
+        }
+      ]
+    },
+    "/images/blog/gamespark-nicolith-interview/15.jpg": {
+      "w": 670,
+      "h": 536,
+      "bytes": 98446,
+      "variants": [
+        {
+          "w": 670,
+          "src": "/images/blog/gamespark-nicolith-interview/15-670.webp",
+          "bytes": 40714
+        }
+      ]
+    },
+    "/images/blog/gamespark-nicolith-interview/16.png": {
+      "w": 544,
+      "h": 416,
+      "bytes": 88995,
+      "variants": [
+        {
+          "w": 544,
+          "src": "/images/blog/gamespark-nicolith-interview/16-544.webp",
+          "bytes": 32634
+        }
+      ]
+    },
+    "/images/blog/gamespark-nicolith-interview/17.jpg": {
+      "w": 670,
+      "h": 376,
+      "bytes": 83014,
+      "variants": [
+        {
+          "w": 670,
+          "src": "/images/blog/gamespark-nicolith-interview/17-670.webp",
+          "bytes": 36242
+        }
+      ]
+    },
+    "/images/blog/gamespark-nicolith-interview/18.png": {
+      "w": 670,
+      "h": 376,
+      "bytes": 23549,
+      "variants": [
+        {
+          "w": 670,
+          "src": "/images/blog/gamespark-nicolith-interview/18-670.webp",
+          "bytes": 8982
+        }
+      ]
+    },
+    "/images/blog/gamespark-nicolith-interview/19.png": {
+      "w": 670,
+      "h": 376,
+      "bytes": 73151,
+      "variants": [
+        {
+          "w": 670,
+          "src": "/images/blog/gamespark-nicolith-interview/19-670.webp",
+          "bytes": 34042
+        }
+      ]
+    },
+    "/images/blog/gamespark-nicolith-interview/20.png": {
+      "w": 670,
+      "h": 376,
+      "bytes": 120735,
+      "variants": [
+        {
+          "w": 670,
+          "src": "/images/blog/gamespark-nicolith-interview/20-670.webp",
+          "bytes": 39318
+        }
+      ]
+    },
+    "/images/blog/gamespark-nicolith-interview/21.jpg": {
+      "w": 670,
+      "h": 365,
+      "bytes": 54333,
+      "variants": [
+        {
+          "w": 670,
+          "src": "/images/blog/gamespark-nicolith-interview/21-670.webp",
+          "bytes": 19580
+        }
+      ]
+    },
+    "/images/blog/gamespark-nicolith-interview/22.jpg": {
+      "w": 670,
+      "h": 376,
+      "bytes": 49902,
+      "variants": [
+        {
+          "w": 670,
+          "src": "/images/blog/gamespark-nicolith-interview/22-670.webp",
+          "bytes": 19684
+        }
+      ]
+    },
+    "/images/blog/gamespark-tca-okuchi-interview/01.jpg": {
+      "w": 640,
+      "h": 427,
+      "bytes": 67057,
+      "variants": [
+        {
+          "w": 640,
+          "src": "/images/blog/gamespark-tca-okuchi-interview/01-640.webp",
+          "bytes": 27582
+        }
+      ]
+    },
+    "/images/blog/gamespark-tca-okuchi-interview/02.jpg": {
+      "w": 640,
+      "h": 427,
+      "bytes": 65513,
+      "variants": [
+        {
+          "w": 640,
+          "src": "/images/blog/gamespark-tca-okuchi-interview/02-640.webp",
+          "bytes": 26168
+        }
+      ]
+    },
+    "/images/blog/gamespark-tca-okuchi-interview/03.jpg": {
+      "w": 640,
+      "h": 427,
+      "bytes": 68238,
+      "variants": [
+        {
+          "w": 640,
+          "src": "/images/blog/gamespark-tca-okuchi-interview/03-640.webp",
+          "bytes": 28296
         }
       ]
     },

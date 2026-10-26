@@ -3,17 +3,20 @@ title: 《Mouthwashing》《No, I'm not a Human》《Arctic Eggs》的日文版�
 description: Game*Spark 访谈游戏翻译者 nicolith：从入行契机、翻译理念（"深读深写"、反意译），到《Mouthwashing》等作品的本地化取舍与字体考量。
 pubDate: 2026-10-25
 tags:
-  - 笔记
-  - 翻译
+  - 翻译访谈
   - 游戏
 source: ai
 ---
 
 那个翻译了某款游戏的人，究竟是怎样的家伙呢？
 
+![《CARIMARA: Beneath the forlorn limbs》游戏画面](/images/blog/gamespark-nicolith-interview/01.png "《CARIMARA: Beneath the forlorn limbs》（2025）")
+
 每天都有来自世界各地的游戏发布，其中支持日文的作品也不在少数。而我们能以日文游玩这些由外语制作的游戏，正是因为有了游戏翻译者的存在。
 
 本文是一档不仅聚焦游戏翻译、也把聚光灯打在翻译者本人身上的访谈企划。
+
+![游戏翻译者 nicolith](/images/blog/gamespark-nicolith-interview/02.png "游戏翻译者 nicolith。")
 
 第一回，我们采访了主要承担独立游戏发行商「CRITICAL REFLEX」旗下作品、并经手众多独立游戏翻译的 nicolith 氏——其代表作包括《Mouthwashing》《No, I'm not a Human》等。
 
@@ -31,11 +34,15 @@ nicolith：玩小型独立游戏比较多吧。与其说喜欢独立游戏，不
 
 **——如果要选一款"决定人生最佳"的游戏，会是哪款？**
 
+![《MOTHER2 基格的逆袭》画面](/images/blog/gamespark-nicolith-interview/03.png "《MOTHER2 基格的逆袭》（1994）。图为 Family Computer Nintendo Classics 版。")
+
 nicolith：我的最佳毫无疑问是《MOTHER2 ギーグ的逆袭》（以下简称《MOTHER2》）。而让我迷上电子游戏的契机是《最终幻想V》（以下简称《FF5》）。幼儿园时，半夜醒来看到母亲在玩《FF5》，那画面简直帅到不行。
 
 **——您母亲也是会玩游戏的人啊。**
 
 nicolith：相当会玩。当时家里有游戏机，是因为母亲有超级任天堂。母亲尤其喜欢《FF》系列，如今虽然已经退休，但一直玩《FFBE》，所以服务结束时她特别消沉。最近《FF レゾナンス（共鸣）》要出了，我觉得她挺走运的。
+
+![《MOTHER2》战斗画面](/images/blog/gamespark-nicolith-interview/04.png "《MOTHER2》的战斗画面。")
 
 就这样，我从小就接触游戏。《MOTHER2》发售时我还是小学生，当时真正让我震惊的，是它以现代社会的舞台、等身大的孩子用球棒殴打路边的人这种设定。我心想：原来游戏里也可以做这种事啊。
 
@@ -47,23 +54,41 @@ nicolith：它里面也有很多黑色幽默，所以我也很喜欢那一点。
 
 **——不限您翻译过的游戏，您觉得文本出色的游戏是哪些？**
 
+![《银色事件》画面](/images/blog/gamespark-nicolith-interview/05.png "《银色事件》（1999，重制版 2018 年）")
+
+![《killer7》画面](/images/blog/gamespark-nicolith-interview/06.png "《killer7》（2005）")
+
 nicolith：相当多，但首先果然还是《silver case（シルバー事件）》和《killer7》，真的很喜欢。我真的很喜欢须田刚一，尤其是这两部。很有冲击力，到现在也偶尔会玩。
 
 另外我是 Square 子弟（Square kid），所以《沙加》系列也是。尤其是《浪漫沙加》（以下简称《RoSaGa》）和《沙加 frontier》里河津秋敏那种独特的文本，真的很厉害。对话里著名的台词有很多，但《RoSaGa》的技能名就已经异常了。"高速ナブラ"的"ナブラ"到底是什么，我小时候可是想了很久。
 
+![《沙加 frontier》画面](/images/blog/gamespark-nicolith-interview/07.png "《沙加 frontier》（1997）。图为复刻版。")
+
+![《沙加 frontier2》画面](/images/blog/gamespark-nicolith-interview/08.jpg "《沙加 frontier2》（1999）。图为复刻版。")
+
 还有《沙加 frontier2》的"焼殺（烧杀）"，仅仅是"烧杀"这两个再普通不过的汉字，竟能组成如此帅气的技能名，让我很感动。
+
+![《黑暗之魂3》画面](/images/blog/gamespark-nicolith-interview/09.png "《黑暗之魂3》（2016）")
+
+![《只狼：影逝二度》画面](/images/blog/gamespark-nicolith-interview/10.jpg "《SEKIRO: SHADOWS DIE TWICE》（2019）")
 
 还有，我是相当晚近才玩《黑暗之魂》的，但《黑暗之魂》和《只狼》里宫崎英高的文本简直异常。我举的这些游戏，光读文本就很有趣。这一块真的很棒。
 
 抱歉，因为是御宅族所以能聊个没完，不过最近《paranormasight（死灵幻戏／Paranormasight）》让我很震撼。我是开始翻译游戏之后才玩了《paranormasight》第一部，可以说正因为自己开始写文本后才懂了——角色的立象和措辞都活灵活现。
 
+![《PARANORMASIGHT》画面](/images/blog/gamespark-nicolith-interview/11.png "《PARANORMASIGHT FILE23 本所七不思议》（2023）")
+
 我想这是因为石山贵也先生原本是写手游《学园少女突袭者（スクールガールストライカーズ）》剧本的，总之文章很好读。对标点符号和约物（引号、括号等）的用法也很巧妙，以至于我现在的工作也从中学习、受用。
+
+![澪说出「加油啊 国家公权力……！」的一幕](/images/blog/gamespark-nicolith-interview/12.png "「加油啊 国家公权力……！」这一幕。")
 
 **——《paranormasight》也很擅长用抓耳的词，比如"加油啊 国家公权力……！"之类的。**
 
 nicolith：没错，它举重若轻。那一块做得很好，我觉得很厉害。
 
 **——听您这么一说，确实感觉到您喜欢须田刚一这件事很说得通，很有说服力。**
+
+![《killer7》画面](/images/blog/gamespark-nicolith-interview/13.png "《killer7》（2005）")
 
 nicolith：须田刚一不光文本内容和呈现方式厉害，对吧。光是把文字显示出来，就让人想"这得写了多少脚本啊"。须田刚一是天才。
 
@@ -115,7 +140,11 @@ nicolith：是动画。怎么入坑的已经不记得了，但初中时我买齐
 
 **——有没有特别钟爱、或最喜欢的人物角色？**
 
+![《Chrono Cross》画面](/images/blog/gamespark-nicolith-interview/14.jpg "《Chrono Cross》（1999）。图为复刻版。")
+
 nicolith：我喜欢《Chrono Cross（クロノ・クロス）》里的"基德（Kid）"。首先，《Chrono Cross》是以平行世界为题材的游戏——《Chrono Trigger（クロノ・トリガー）》是时间旅行，所以一个世界里主角活着，另一个世界里主角死了。
+
+![基德邀主角同行的场景](/images/blog/gamespark-nicolith-interview/15.jpg "基德邀主角同行的场景。")
 
 故事是从主角死去的世界开始的，而在那份寂寥中把主角往前拉的那位好胜的女盗贼少女，就是"基德"这个角色。她说话粗鲁得要命，是个"俺系"女孩。真是忠实于欲望，满脑子"管他世界不世界的，先顾好自己"那种调调。
 
@@ -133,11 +162,17 @@ nicolith：是啊。那个站已经没了……不过靠缓存还能追溯。说
 
 **——那么，关于游戏翻译的问题。您是怎么想到要翻译游戏的？**
 
+![《Hello Charlotte》画面](/images/blog/gamespark-nicolith-interview/16.png "《Hello Charlotte EP2: Requiem Aeternam Deo》（2016）。引自商店页面。")
+
 nicolith：有一款叫《Hello Charlotte》的 RPG Maker 恐怖游戏，本篇 3 作、外传 2 作，可惜当时没有日文版。准确说只有 episode 1 有，2 和 3 没有。
 
 我非常喜欢这部作品，就想让更多住在日本的人知道它。于是 2022 年我做了同人翻译的技术调查。正做着，2022 年圣诞节我不得不做手术，住院一周。那时我带了 Switch 进去，圣诞节在病院玩了《VA-11 Hall-A: Cyberpunk Bartender Action（以下简称《VA-11 Hall-A》）》，心想要是能更多地思考游戏、以游戏为生就好了——因为成为上班族后，我几乎没机会玩游戏了。
 
+![《She Vomited Guns》画面](/images/blog/gamespark-nicolith-interview/18.png "《She Vomited Guns》（2023）")
+
 出院后过了些时日，我玩了由《VA-11 Hall-A》的美术 kiririn51 制作的视觉小说《She Vomited Guns》，内容好到炸裂，于是我问 kiririn51"我同人翻译来分发可以吗"，他说"搞"，我就搞了——这就是契机。
+
+![《VA-11 Hall-A》画面](/images/blog/gamespark-nicolith-interview/17.jpg "《VA-11 Hall-A: Cyberpunk Bartender Action》（2016）")
 
 **——《VA-11 Hall-A》的存在分量很重啊。**
 
@@ -167,6 +202,8 @@ nicolith：直说吧，我是相当"讲道理（理詰め）"地做翻译的那�
 
 读完之后，再去想"既然如此，按这个逻辑就只能这么办"，一步步推导。尤其是游戏翻译，和文艺不同，并不是只有文本。文本背后有背景，有画面，有画，有声音，有连续的一幕幕场景。文本在其中所承载的意义，说到底是有"功能"的。
 
+![《Burden Street Station》画面](/images/blog/gamespark-nicolith-interview/19.png "《Burden Street Station》（2026）")
+
 比如"在这里说这句台词，是为了给这个角色制造冲击力"，或"这句台词是伏笔"。把这些种种都纳入考量之后，再去想"那只能这样了"——我喜欢这样做，而对我来说翻译就是这样一份工作，所以大多是靠逻辑去推。
 
 我自己想的是"深读、深写"。但不管怎么说，认真去读，这件事很重要。与其说只是读字面意思，不如说要去想：它是带着怎样的意图写下来的，又是怎样被表达出来的，然后尽量在日语里把它再现出来——我想这就是我的工作。
@@ -174,6 +211,8 @@ nicolith：直说吧，我是相当"讲道理（理詰め）"地做翻译的那�
 **——关于因国家文化差异而改变台词、或原样保留的"本地化（Localization）"，虽然每部作品不同，您会考虑、如何处理？**
 
 nicolith：这一块有个大前提，就是每部作品都要和开发者、发行商商量"怎么做"。不过老实说，我做的独立游戏里，那种很具体的本地化其实不多。
+
+![《No, I'm not a Human》画面](/images/blog/gamespark-nicolith-interview/20.png "《No, I'm not a Human》（2025）")
 
 虽然我会一定程度地确认，但坦白讲我不太做本地化。我更想尽量把作品本身的舞台和风味展现出来，所以倾向于不做。
 
@@ -185,9 +224,13 @@ nicolith：这一块有个大前提，就是每部作品都要和开发者、发
 
 比如英语谚语"There's no such thing as a free lunch"……不对，举例说"The early bird gets the worm"（早起的鸟儿有虫吃）。它可以被"早起きは三文の徳（早起三朝当一工）"替换掉，但那样一来"bird（鸟）"和"worm（虫）"这些词的意象就掉了；而当这类意象对整部游戏很重要时，这种情况很多。所以我会老老实实直译成"早起き鳥は虫を捕まえる（早起的鸟捉虫子）"。光这样，意思也基本传达到了。
 
+![《Shooty Shooty Robot Invasion》画面](/images/blog/gamespark-nicolith-interview/21.jpg "《Shooty Shooty Robot Invasion》（2025）")
+
 归根结底，翻译不单是把眼前词语的意思搬过去，而是在这句、这段、这场面、乃至整体之中，把每个词的功能都保留下来。从近处看，哪怕变得稍微难懂一些，守住宏观上的意义才是重要的。
 
 从近处说，可以举"首字母大写（キャピトニム / Capitalization）"为例。比如指代神时，除了句首以外也用大写的"He""Him"。这在日语里没法原样采用，所以我自己多次采用的处理是：除了指代神之外，完全不用"彼（他）"这个词。不叫名字本身，就是一种敬意，对吧。嘛，反正我自己的翻译里"彼""彼女"几乎不出现，所以也不算难……
+
+![《Hell Maiden》画面](/images/blog/gamespark-nicolith-interview/22.jpg "《Hell Maiden》（2026）")
 
 再举一例：有部作品舞台是没有神的世界，实际上刻意不用"god"这个词。所以在日语里我也尽量不用"神"这个字。"精神""神经"之类一律禁止。跟文艺里做过的"煙滅""残像に口紅を（残像上涂口红）"那些实验比起来，这算是容易的。
 

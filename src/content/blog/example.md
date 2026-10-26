@@ -3,7 +3,7 @@ title: 示例文章（草稿）
 description: 这是一篇用于验证内容集合、文章路由与 Markdown 渲染的示例草稿，默认不会发布到正式站点。
 pubDate: 2026-01-01
 tags:
-  - 示例
+  - 其它
 draft: true
 ---
 

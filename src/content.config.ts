@@ -1,6 +1,7 @@
 import { defineCollection } from 'astro:content';
 import { glob } from 'astro/loaders';
 import { z } from 'astro/zod';
+import { BLOG_TAGS, BLOG_TAG_HINT } from './config/tags';
 
 /**
  * 文章集合。
@@ -36,6 +37,20 @@ const blog = defineCollection({
           path: ['updatedDate'],
         });
       }
+
+      /**
+       * 标签是封闭集合（见 `src/config/tags.json`）：六个大格子之外一律不许新增。
+       * 想加新标签，先改那份 JSON，而不是在文章里就地发明一个。
+       */
+      data.tags.forEach((tag, index) => {
+        if (!BLOG_TAGS.includes(tag)) {
+          ctx.addIssue({
+            code: 'custom',
+            message: `标签「${tag}」不在允许范围内。可用：${BLOG_TAG_HINT}。放不进去就写「其它」。`,
+            path: ['tags', index],
+          });
+        }
+      });
     }),
 });
 

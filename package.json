@@ -21,7 +21,8 @@
     "images": "node scripts/optimize_images.mjs",
     "images:force": "node scripts/optimize_images.mjs --force",
     "test": "python -m unittest discover -s tests -v",
-    "test:md": "node --test tests/markdown/*.test.mjs"
+    "test:md": "node --test tests/markdown/*.test.mjs",
+    "check:glossary": "python scripts/check_glossary.py"
   },
   "dependencies": {
     "@astrojs/markdown-satteri": "^0.4.3",

@@ -566,7 +566,7 @@ a.link-row:hover .link-row__label {
 
 .daily-archive__link {
   display: grid;
-  grid-template-columns: 5.5rem minmax(0, 1fr);
+  grid-template-columns: minmax(0, 1fr);
   align-items: baseline;
   gap: var(--space-3);
   padding-block: var(--space-3);
@@ -574,28 +574,15 @@ a.link-row:hover .link-row__label {
 }
 
 .daily-archive__time {
-  font-size: var(--text-xs);
-  color: var(--color-text-muted);
-  font-variant-numeric: tabular-nums;
-  white-space: nowrap;
-}
-
-.daily-archive__summary {
   font-size: var(--text-sm);
   color: var(--color-text-secondary);
-  overflow-wrap: anywhere;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  transition: color var(--duration-fast) var(--ease);
 }
 
-.daily-archive__link:hover .daily-archive__summary {
+.daily-archive__link:hover .daily-archive__time {
   color: var(--color-text);
-}
-
-@media (max-width: 640px) {
-  /* 窄屏一行放不下「时间 | 简报」两栏，改成上下两行 */
-  .daily-archive__link {
-    grid-template-columns: minmax(0, 1fr);
-    gap: var(--space-1);
-  }
 }
 
 /* 笔记列表栏目名：默认「原创与转载」，开启滑块后切到「全部（含 AI 整理）」 */

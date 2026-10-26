@@ -4,8 +4,7 @@ description: rurudo 首本画集《UNREAL》官方访谈的中文翻译：从自
 pubDate: 2022-01-07
 updatedDate: 2026-10-22
 tags:
-  - 访谈
-  - 翻译
+  - 翻译访谈
   - 画集
 ---
 
