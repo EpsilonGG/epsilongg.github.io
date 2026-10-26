@@ -8,3 +8,9 @@
 # 只约束这一个路径，不动全仓库：给所有文件加 `text=auto` 会触发一次全量规范化，
 # 那是一个和本次改动无关的大 diff。
 data/daily/**/report.json text eol=lf
+
+# 金文件同理，而且是同一类坑：`daily_golden.py` 拿快照和从 HTML 抽出来的纯文本
+# 按行比对（`splitlines(keepends=True)`），快照若是 CRLF，每行都会差一个 `\r`。
+# 快照由脚本以 `newline="\n"` 写出，仓库里也必须保持 LF。
+tests/golden/*.txt text eol=lf
+tests/golden/current.json text eol=lf
