@@ -1,0 +1,571 @@
+{
+  "schema_version": 1,
+  "issue": {
+    "id": "26102622",
+    "published_at": "2026-10-26T22:00:00+09:00",
+    "window": {
+      "start": "2026-10-26T00:00:00+09:00",
+      "end": "2026-10-27T00:00:00+09:00"
+    },
+    "status": "confirmed",
+    "confirmed_at": "2026-10-26T15:44:09+00:00"
+  },
+  "counts": {
+    "items": 92,
+    "accounts": 48,
+    "late": 2,
+    "skipped_duplicate": 0
+  },
+  "description": "多位声优集中放出新作与广播剧，收藏数与销量接连破线",
+  "highlights": [
+    {
+      "text": "秋野かえで一天内连发三作：广播第 84 回、广播剧《ケーキとさよならの時間です》与红帽世界观的狼娘配音。",
+      "sources": [
+        "x:2114378964013904316",
+        "x:2114379687338422751",
+        "x:2114380273718788108"
+      ]
+    },
+    {
+      "text": "御子柴泉在 Ci-en 盘点 10 月上旬发售的作品，并回应「不听她的声音会死」「姐姐系太棒」等粉丝热评。",
+      "sources": [
+        "x:2114547837832974571",
+        "x:2114557186622050543",
+        "x:2114557354067071361"
+      ]
+    },
+    {
+      "text": "雲八はち 26 日迎来生日，同日转发新作《ルミナ少佐の性指導》开卖的消息。",
+      "sources": [
+        "x:2114375823335813562",
+        "x:2114382758692974823"
+      ]
+    },
+    {
+      "text": "歩サラ的社团新作预告收藏破 350 件、登上预告榜第 45 位，作品定 11 月中旬发售。",
+      "sources": [
+        "x:2114523710673797339",
+        "x:2114523804265562158"
+      ]
+    }
+  ],
+  "insights": [],
+  "interactions": [
+    {
+      "text": "真白真雪与未想可みいろ的「まみかなコラボ」直播收官，两人互相道谢，未想可みいろ笑称茶爆初体验也被拿走了。",
+      "sources": [
+        "x:2114395169164509301",
+        "x:2114373248066740286",
+        "x:2114373738213126635"
+      ]
+    },
+    {
+      "text": "浅木式转发了雲八はち的生日推文以示祝贺。",
+      "sources": [
+        "x:2114378706487824893"
+      ]
+    }
+  ],
+  "works": "秋野かえで一天内放出广播第 84 回、广播剧《ケーキとさよならの時間です》与红帽狼娘配音；御子柴泉在 Ci-en 盘点 10 月上旬发售的作品，雲八はち的《ルミナ少佐の性指導》同日开卖；高梨はなみ出演的あくあぽけっと新作今日发售，まあ油るる的巫女题材作品定在 10 月 29 日，眠音りま为でぶり新作预告献声。歩サラ的社团新作预告收藏破 350 件、冲上预告榜第 45 位，11 月中旬发售；藤村莉央公布下月起每月 4～5 本的体制。折扣与里程碑方面，伊ヶ崎綾香开出 90% OFF 并更新 Ci-en 第 202 回，春乃つくし的作品 10% OFF 到 10 月 29 日，佐々木サキ的新作最快破 100 本，雪見だいふく的作品站上累计榜第 217 位，大山チロル的うさぎクラゲ受注 10 月底截止，餅梨あむ则录完了会员音声等月底上线。",
+  "categories": [],
+  "accounts": [
+    "yukanyan2525",
+    "yukanyan_2525",
+    "re_re_tsubame",
+    "suzuka_minase",
+    "akinokaedevo",
+    "narumiaisaka",
+    "asuparama40",
+    "mirai_chiroru",
+    "chiroru_o_",
+    "mochiri_0909",
+    "mimo_chorion",
+    "ryonarab",
+    "shiho_moai",
+    "__amachi",
+    "322yui3",
+    "ayakaigasaki",
+    "asagishiki00",
+    "fujimura_rio",
+    "nashihanami",
+    "p_o_g_s2",
+    "CV_kumoyahachi",
+    "oOYuKiKoOo",
+    "jiaomidsu3187",
+    "Unicolony_uni",
+    "DLyukimidaifuku",
+    "namimimiobot",
+    "mitakarin",
+    "hoshinora1212",
+    "nemurinerima",
+    "DoujinOnseiCom",
+    "girlscreationpr",
+    "mmegumu",
+    "ikuraeru",
+    "yukirinrin1191",
+    "Setsune_Soyogi",
+    "jtjitkub5r_uuka",
+    "haruno_tsukushi",
+    "shimotsukiyuu",
+    "AMAKARAsyndrome",
+    "mashiro_mayuki_",
+    "ayumi_sarah",
+    "potte1919",
+    "mskmiro316",
+    "refle_ookami",
+    "maihal_yuu",
+    "hotaoctenten",
+    "ogurayui1017",
+    "shindo_azusa"
+  ],
+  "people": [
+    {
+      "handle": "yukanyan2525",
+      "category": "",
+      "summary": "转发了粉丝夸她为コンパン着迷模样的推文，小号则懊恼错过ちいかわ圣诞市集抽选。",
+      "via": [
+        "yukanyan_2525"
+      ],
+      "sources": [
+        "x:2114407717892989072",
+        "x:2114509777036566687"
+      ]
+    },
+    {
+      "handle": "re_re_tsubame",
+      "category": "",
+      "summary": "只发了一句「早上好」和「笑一个！」，当天没有更多动态。",
+      "via": [],
+      "sources": [
+        "x:2114487538572501484"
+      ]
+    },
+    {
+      "handle": "suzuka_minase",
+      "category": "",
+      "summary": "感叹 10 月就要结束，本周ニコメロ定期配信挪到周六。",
+      "via": [],
+      "sources": [
+        "x:2114479829324362171"
+      ]
+    },
+    {
+      "handle": "akinokaedevo",
+      "category": "",
+      "summary": "一天放出广播第 84 回、广播剧与红帽狼娘配音，另接了ボイセキ大使的工作。",
+      "via": [],
+      "sources": [
+        "x:2114378964013904316",
+        "x:2114379687338422751",
+        "x:2114380273718788108",
+        "x:2114588294529085788"
+      ]
+    },
+    {
+      "handle": "narumiaisaka",
+      "category": "",
+      "summary": "开了一场短打作业配信，随后边喝葡萄酒边直播，自嘲要跟妈妈解释三杯的理由。",
+      "via": [],
+      "sources": [
+        "x:2114561441282068935",
+        "x:2114589034693705983",
+        "x:2114590590520484216"
+      ]
+    },
+    {
+      "handle": "asuparama40",
+      "category": "",
+      "summary": "在 Ci-en 盘点 10 月上旬发售的作品，并回应粉丝「不听她的声音会死」等热评。",
+      "via": [],
+      "sources": [
+        "x:2114547837832974571",
+        "x:2114557186622050543",
+        "x:2114557354067071361"
+      ]
+    },
+    {
+      "handle": "mirai_chiroru",
+      "category": "",
+      "summary": "转发提醒うさぎクラゲ受注 10 月底截止，小号晒出为ストグラ时装秀自制的咒术服。",
+      "via": [
+        "chiroru_o_"
+      ],
+      "sources": [
+        "x:2114387554946723892",
+        "x:2114389508930326979"
+      ]
+    },
+    {
+      "handle": "mochiri_0909",
+      "category": "",
+      "summary": "录完了会员音声，预告月底上线。",
+      "via": [],
+      "sources": [
+        "x:2114424330943971704"
+      ]
+    },
+    {
+      "handle": "mimo_chorion",
+      "category": "",
+      "summary": "结束提前补播的ニコ生安眠 ASMR 回，感谢观众后说要好好睡一觉。",
+      "via": [],
+      "sources": [
+        "x:2114376308893606271"
+      ]
+    },
+    {
+      "handle": "ryonarab",
+      "category": "",
+      "summary": "连着转发新作《Legacy of Atlantis》的黄金化场景对比，感慨当年为看这一幕买了 PS 版。",
+      "via": [],
+      "sources": [
+        "x:2114391566483960294",
+        "x:2114419570144678081",
+        "x:2114388547226702113"
+      ]
+    },
+    {
+      "handle": "shiho_moai",
+      "category": "",
+      "summary": "「早安周」结束后照旧打招呼，看完某场活动后感叹「活着真好」。",
+      "via": [],
+      "sources": [
+        "x:2114503423320277301",
+        "x:2114532674895503716"
+      ]
+    },
+    {
+      "handle": "__amachi",
+      "category": "",
+      "summary": "睡了 12 个小时。",
+      "via": [],
+      "sources": [
+        "x:2114553066854994286"
+      ]
+    },
+    {
+      "handle": "322yui3",
+      "category": "",
+      "summary": "以「今年还剩 67 天」开启 10 月最后一个周一，给自己和粉丝打气。",
+      "via": [],
+      "sources": [
+        "x:2114529027738440106"
+      ]
+    },
+    {
+      "handle": "ayakaigasaki",
+      "category": "",
+      "summary": "Ci-en 第 202 回更新，含 35 分钟新作、免费音声与 90% OFF 优惠，另晒了甜品照。",
+      "via": [],
+      "sources": [
+        "x:2114375933323018474",
+        "x:2114552609097089027"
+      ]
+    },
+    {
+      "handle": "asagishiki00",
+      "category": "",
+      "summary": "转发祝贺雲八はち生日，并报告一件 Skeb 委托已交付。",
+      "via": [],
+      "sources": [
+        "x:2114378706487824893",
+        "x:2114405762076410011"
+      ]
+    },
+    {
+      "handle": "fujimura_rio",
+      "category": "",
+      "summary": "公布下月起三个系列合计每月 4～5 本的新体制。",
+      "via": [],
+      "sources": [
+        "x:2114558013440966907"
+      ]
+    },
+    {
+      "handle": "nashihanami",
+      "category": "",
+      "summary": "あくあぽけっと新作今日发售，出演甘やかしギャル詩遠，时长超过 4 小时。",
+      "via": [],
+      "sources": [
+        "x:2114560820571258986"
+      ]
+    },
+    {
+      "handle": "p_o_g_s2",
+      "category": "",
+      "summary": "分享了一个搜来的「はよ」颜文字。",
+      "via": [],
+      "sources": [
+        "x:2114527134458990912"
+      ]
+    },
+    {
+      "handle": "CV_kumoyahachi",
+      "category": "",
+      "summary": "迎来生日，同日转发新作《ルミナ少佐の性指導》开卖，并感谢收到首次超级留言。",
+      "via": [],
+      "sources": [
+        "x:2114375823335813562",
+        "x:2114382758692974823",
+        "x:2114384069111009711"
+      ]
+    },
+    {
+      "handle": "oOYuKiKoOo",
+      "category": "",
+      "summary": "打了声招呼，转发提到自己活动休止中的推文并道歉。",
+      "via": [],
+      "sources": [
+        "x:2114492728377753870",
+        "x:2114509361418776616"
+      ]
+    },
+    {
+      "handle": "jiaomidsu3187",
+      "category": "",
+      "summary": "今天一件收录加两份台本调整，打算用拉面当奖励，还转发了新作音声剧。",
+      "via": [],
+      "sources": [
+        "x:2114548199566582268",
+        "x:2114575322784157736"
+      ]
+    },
+    {
+      "handle": "Unicolony_uni",
+      "category": "",
+      "summary": "转发了成瀬未亜为银城サイネ画的委托图，连称可爱。",
+      "via": [],
+      "sources": [
+        "x:2114526375310999815"
+      ]
+    },
+    {
+      "handle": "DLyukimidaifuku",
+      "category": "",
+      "summary": "作品拿下 DLsite 语音·ASMR·音乐累计榜第 217 位。",
+      "via": [],
+      "sources": [
+        "x:2114465803219481040"
+      ]
+    },
+    {
+      "handle": "namimimiobot",
+      "category": "",
+      "summary": "聊起参考上位卡表与大师报告、再看教学视频的打牌心得。",
+      "via": [],
+      "sources": [
+        "x:2114384759195615334"
+      ]
+    },
+    {
+      "handle": "mitakarin",
+      "category": "",
+      "summary": "去了《ディメンション凸ラバース!!》合作咖啡，吃了華淡设计的松饼还收了周边。",
+      "via": [],
+      "sources": [
+        "x:2114552602595561825"
+      ]
+    },
+    {
+      "handle": "hoshinora1212",
+      "category": "",
+      "summary": "认真讨论「就算背债也想要任意门」，还盘算独占使用时要怎么经营。",
+      "via": [],
+      "sources": [
+        "x:2114546411715097072"
+      ]
+    },
+    {
+      "handle": "nemurinerima",
+      "category": "",
+      "summary": "公布在でぶり新作里饰演みらい与あきら，请粉丝先加收藏。",
+      "via": [],
+      "sources": [
+        "x:2114386759694074088"
+      ]
+    },
+    {
+      "handle": "DoujinOnseiCom",
+      "category": "",
+      "summary": "向协助处理 X 相关事宜的人道谢。",
+      "via": [],
+      "sources": [
+        "x:2114373348088287380"
+      ]
+    },
+    {
+      "handle": "girlscreationpr",
+      "category": "",
+      "summary": "为《ガールズクリエイション》秋季活动做剧情预告，活动持续到 11 月 6 日。",
+      "via": [],
+      "sources": [
+        "x:2114552605540257932"
+      ]
+    },
+    {
+      "handle": "mmegumu",
+      "category": "",
+      "summary": "自认 INFP 聊起「狸猫」梗，又评测了罗森蟹味噌炒饭。",
+      "via": [],
+      "sources": [
+        "x:2114434481868407253",
+        "x:2114467118523838504",
+        "x:2114522504169758926"
+      ]
+    },
+    {
+      "handle": "ikuraeru",
+      "category": "",
+      "summary": "转发自家作品收到评价的消息，说自认会挨骂的第 4 轨意外好评。",
+      "via": [],
+      "sources": [
+        "x:2114452210373537840"
+      ]
+    },
+    {
+      "handle": "yukirinrin1191",
+      "category": "",
+      "summary": "雨天里起床打了声招呼。",
+      "via": [],
+      "sources": [
+        "x:2114491918923247812"
+      ]
+    },
+    {
+      "handle": "Setsune_Soyogi",
+      "category": "",
+      "summary": "因雷雨预警不敢用 KU100，把ニコ＋的档期挪到下周。",
+      "via": [],
+      "sources": [
+        "x:2114389946887004518"
+      ]
+    },
+    {
+      "handle": "jtjitkub5r_uuka",
+      "category": "",
+      "summary": "转发画着自己配音角色的插画，并预告 10 月 29 日发售的巫女题材新作。",
+      "via": [],
+      "sources": [
+        "x:2114376281139879951",
+        "x:2114527934816161792"
+      ]
+    },
+    {
+      "handle": "haruno_tsukushi",
+      "category": "",
+      "summary": "自家作品开 10% OFF 折扣，到 10 月 29 日 14 时。",
+      "via": [],
+      "sources": [
+        "x:2114533753347625365"
+      ]
+    },
+    {
+      "handle": "shimotsukiyuu",
+      "category": "",
+      "summary": "转发了一条「爸爸的胸膛是肌肉做的」的玩笑推文。",
+      "via": [],
+      "sources": [
+        "x:2114392098099405015"
+      ]
+    },
+    {
+      "handle": "AMAKARAsyndrome",
+      "category": "",
+      "summary": "新作最快突破 100 本，预告近期公布下一部。",
+      "via": [],
+      "sources": [
+        "x:2114383633905766650"
+      ]
+    },
+    {
+      "handle": "mashiro_mayuki_",
+      "category": "",
+      "summary": "与桜かなた、未想可みいろ的「まみかなコラボ」直播收官，感谢茶爆并说要准备特典。",
+      "via": [],
+      "sources": [
+        "x:2114372847523295566",
+        "x:2114395169164509301",
+        "x:2114400160264663461"
+      ]
+    },
+    {
+      "handle": "ayumi_sarah",
+      "category": "",
+      "summary": "社团新作预告收藏破 350 件、预告榜第 45 位，11 月中旬发售，本人感叹 10 月只剩最后一周。",
+      "via": [
+        "potte1919"
+      ],
+      "sources": [
+        "x:2114571199644901434",
+        "x:2114523710673797339",
+        "x:2114523804265562158"
+      ]
+    },
+    {
+      "handle": "mskmiro316",
+      "category": "",
+      "summary": "和真白真雪的四小时联动直播结束后道谢，笑称「茶爆初体验」也被拿走了。",
+      "via": [],
+      "sources": [
+        "x:2114373248066740286",
+        "x:2114373738213126635",
+        "x:2114397554641453395"
+      ]
+    },
+    {
+      "handle": "refle_ookami",
+      "category": "",
+      "summary": "转发「狼ノ宮さん是当下流行的易碎感女生」的调侃，自己吐槽与其说易碎不如说好笑。",
+      "via": [],
+      "sources": [
+        "x:2114371414329569403",
+        "x:2114425596533232039"
+      ]
+    },
+    {
+      "handle": "maihal_yuu",
+      "category": "",
+      "summary": "因副业时间临时变动改为晚些开工，顺带慰问 M3 参战者。",
+      "via": [],
+      "sources": [
+        "x:2114521316988793222"
+      ]
+    },
+    {
+      "handle": "hotaoctenten",
+      "category": "",
+      "summary": "连发第 31、32 道猜谜。",
+      "via": [],
+      "sources": [
+        "x:2114534152213254193",
+        "x:2114534240176247133"
+      ]
+    },
+    {
+      "handle": "ogurayui1017",
+      "category": "",
+      "summary": "公开 FANBOX 生日限定 Vlog，转发紫社上海 WePlay 参展的同人图，还晒出生日去的宝可梦咖啡。",
+      "via": [],
+      "sources": [
+        "x:2114376019520155739",
+        "x:2114390533410021685",
+        "x:2114489475229421928"
+      ]
+    },
+    {
+      "handle": "shindo_azusa",
+      "category": "",
+      "summary": "雨天里道早安，提醒别勉强自己。",
+      "via": [],
+      "sources": [
+        "x:2114502892912792016"
+      ]
+    }
+  ],
+  "provenance": {
+    "generator": "daily",
+    "prompt_version": 1,
+    "cache_key": "answers:1",
+    "generated_at": "2026-10-26T15:44:04+00:00"
+  }
+}
