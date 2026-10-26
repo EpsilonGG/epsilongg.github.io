@@ -222,14 +222,6 @@ samp {
   margin-bottom: var(--space-6);
 }
 
-/* 页面级说明：标题下面的一行小字，用来交代口径而不是装饰 */
-.page-note {
-  margin: var(--space-2) 0 0;
-  max-width: var(--measure);
-  color: var(--color-text-muted);
-  font-size: var(--text-sm);
-}
-
 .section {
   margin-top: var(--space-7);
 }

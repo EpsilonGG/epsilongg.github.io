@@ -12,21 +12,10 @@ import {
 const reports = await getDailyReports();
 const months = groupByMonth(reports);
 
-const latest = reports[0] ?? null;
-const earliest = reports[reports.length - 1] ?? null;
-
 /** 归档列表里省掉年份：分组标题已经写了月份，行里只要 `10-23 22:00`。 */
 function shortTime(date: Date): string {
   return `${formatIssueDay(date).slice(5)} ${formatIssueTime(date).slice(-5)}`;
 }
-
-// 用模板字符串拼成一句，避免 JSX 换行在中文里塞进多余空格
-const note =
-  latest === null
-    ? ''
-    : `共 ${reports.length} 期，最新 ${formatIssueTime(latest.data.pubDate)}` +
-      (reports.length > 1 ? `，最早 ${formatIssueTime(earliest!.data.pubDate)}` : '') +
-      '（均为日本时间）。每期按小时编号，同一天可以有多期，旧的一期不会被覆盖。';
 ---
 
 <BaseLayout
@@ -39,26 +28,14 @@ const note =
       <header class="page-header">
         <h1 class="page-title">日报</h1>
         {
-          note ? (
-            <p class="page-note">{note}</p>
-          ) : null
-        }
-        {
-          latest ? (
+          months.length > 1 ? (
             <p class="daily-archive__jump">
-              <a class="daily-archive__chip" href={dailyPath(latest)}>
-                看最新一期（{formatIssueTime(latest.data.pubDate)}）
-              </a>
-              {months.length > 1 ? (
-                <>
-                  <span class="daily-archive__jump-label">跳到</span>
-                  {months.map((month) => (
-                    <a class="daily-archive__chip" href={`#${month.key}`}>
-                      {month.label}
-                    </a>
-                  ))}
-                </>
-              ) : null}
+              <span class="daily-archive__jump-label">跳到</span>
+              {months.map((month) => (
+                <a class="daily-archive__chip" href={`#${month.key}`}>
+                  {month.label}
+                </a>
+              ))}
             </p>
           ) : null
         }
@@ -83,6 +60,9 @@ const note =
                         >
                           {shortTime(report.data.pubDate)}
                         </time>
+                        <span class="daily-archive__summary">
+                          {report.data.description ?? '（本期还没有写看点简报）'}
+                        </span>
                       </a>
                     </li>
                   ))}
