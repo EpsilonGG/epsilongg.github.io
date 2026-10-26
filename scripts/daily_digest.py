@@ -65,7 +65,12 @@ def build_markdown(records: list, issue_id: str) -> str:
 
 
 def main() -> int:
-    return _cli_main(["build"] + sys.argv[1:])
+    # 老接口是 `daily_digest.py --items-dir ...`（等于 build 的参数）。
+    # M3 之后多了 prompt / apply / confirm，这些子命令不能在前面塞 "build"。
+    argv = sys.argv[1:]
+    if argv and argv[0] in {"build", "prompt", "apply", "confirm", "state", "version"}:
+        return _cli_main(argv)
+    return _cli_main(["build"] + argv)
 
 
 if __name__ == "__main__":

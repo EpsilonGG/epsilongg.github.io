@@ -25,7 +25,11 @@ from datetime import datetime
 from pathlib import Path
 
 from . import SCHEMA_VERSION, __version__
+from . import confirm as confirm_mod
+from . import paths as path_mod
+from . import prompt as prompt_mod
 from .adapters.xreader import XReaderAdapter
+from .apply import ApplyError, apply
 from .build import build_briefing, build_markdown
 from .dedupe import merge
 from .export import build as build_export
@@ -35,6 +39,7 @@ from .model import Item
 from .order import sort_accounts, sort_items
 from .roster import Roster
 from .state import State
+from .validate import ValidationError, validate_answer
 from .window import IssueWindow
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
@@ -106,8 +111,13 @@ def _pipeline(
         )
         merged = [i for i in merged if roster.is_active(i.account)]
 
+    # 名单外的 handle 不进**页面**（`accounts` → frontmatter 的 people 行）。
+    # 条目本身留在 `merged` 里：briefing 与 export 照旧能看到，出问题才查得到。
+    # 名单外的人在页面上拿不到 `name`，只能渲染成裸 @handle，等于把品牌号当声优列出来。
     accounts = sort_accounts({i.account for i in merged}, roster)
-    roster.warn_unknown(accounts)
+    unknown = roster.warn_unknown(accounts)
+    if unknown:
+        accounts = [a for a in accounts if roster.is_known(a)]
     return classification, merged, accounts
 
 
@@ -206,6 +216,113 @@ def _cmd_build(args: argparse.Namespace) -> int:
     return 0
 
 
+def _load_generate(out_dir: str, issue_id: str) -> dict:
+    path = Path(out_dir) / f"{issue_id}.generate.json"
+    if not path.exists():
+        raise SystemExit(f"找不到 {path}，先跑 `daily build`。")
+    return json.loads(path.read_text(encoding="utf-8"))
+
+
+def _known(generate: dict) -> tuple[set[str], dict[str, set[str]]]:
+    """本期的合法来源 key，以及每个分类各自的 handles。"""
+    keys: set[str] = set()
+    handles: dict[str, set[str]] = {}
+    for category in generate.get("categories") or []:
+        cid = str(category.get("id") or "")
+        handles[cid] = {str(h) for h in category.get("handles") or []}
+        for item in category.get("items") or []:
+            keys.add(str(item.get("key") or ""))
+    return keys, handles
+
+
+def _cmd_prompt(args: argparse.Namespace) -> int:
+    generate = _load_generate(args.out, args.issue)
+    if args.reduce:
+        answer_dir = path_mod.answers(path_mod.workspace(args.out, args.issue))
+        answers = [json.loads(p.read_text(encoding="utf-8")) for p in sorted(answer_dir.glob("*.json"))]
+        if not answers:
+            raise SystemExit(f"{answer_dir} 里没有回答，先答分类题。")
+        prompt = prompt_mod.build_reduce(args.issue, answers, args.out, force=args.force)
+        print(f"{'跳过（输入未变）' if prompt.cached else '已写出'} {prompt.md_path}")
+        return 0
+
+    prompts = prompt_mod.build(args.issue, generate, args.out, force=args.force)
+    for prompt in prompts:
+        flag = "跳过（输入未变）" if prompt.cached else "已写出"
+        print(f"{flag} {prompt.md_path}  （{prompt.items} 条）")
+    return 0
+
+
+def _cmd_apply(args: argparse.Namespace) -> int:
+    generate = _load_generate(args.out, args.issue)
+    roster = Roster.load(args.roster)
+    keys, handles = _known(generate)
+
+    if args.answer:
+        files = [Path(p) for p in args.answer]
+    else:
+        files = sorted(path_mod.answers(path_mod.workspace(args.out, args.issue)).glob("*.json"))
+    if not files:
+        raise SystemExit("没有可合并的回答。先跑 `daily prompt`，把回答放进 answer/。")
+
+    answers = []
+    failed = 0
+    for path in files:
+        try:
+            answer = json.loads(path.read_text(encoding="utf-8"))
+        except json.JSONDecodeError as exc:
+            print(f"{path.name}: 不是合法 JSON（{exc}）", file=sys.stderr)
+            failed += 1
+            continue
+        cid = str(answer.get("category") or path.stem)
+        try:
+            validate_answer(
+                answer,
+                roster=roster,
+                known_keys=keys,
+                handles=handles.get(cid) if cid != "all" else None,
+                category=None if cid == "all" else cid,
+            )
+        except ValidationError as exc:
+            print(f"{path.name} 判卷失败\n{exc}", file=sys.stderr)
+            failed += 1
+            continue
+        answers.append(answer)
+
+    if failed:
+        print(f"{failed} 份回答不合格，未合并任何内容。", file=sys.stderr)
+        return 1
+
+    try:
+        report = apply(
+            args.issue, answers, roster=roster, generate=generate, out_dir=args.out, force=args.force
+        )
+    except ApplyError as exc:
+        print(str(exc), file=sys.stderr)
+        return 1
+
+    filled = sum(1 for p in report["people"] if p.get("summary"))
+    print(
+        f"已合并 {len(answers)} 份回答 → {path_mod.report(path_mod.workspace(args.out, args.issue))}"
+        f"（{filled}/{len(report['people'])} 人有摘要，状态 {report['issue']['status']}）"
+    )
+    return 0
+
+
+def _cmd_confirm(args: argparse.Namespace) -> int:
+    try:
+        if args.reopen:
+            report, saved = confirm_mod.reopen(args.issue, args.out)
+            print(f"已退回草稿；旧版存到 {saved}")
+        else:
+            report, saved = confirm_mod.confirm(args.issue, args.out)
+            print(f"已定稿（{report['issue']['confirmed_at']}）；旧版存到 {saved}")
+    except confirm_mod.ConfirmError as exc:
+        print(str(exc), file=sys.stderr)
+        return 1
+    return 0
+
+
 def _cmd_state(args: argparse.Namespace) -> int:
     state = State.load(args.path)
     if args.state_cmd == "info":
@@ -260,6 +377,29 @@ def main(argv: list[str] | None = None) -> int:
         help="同一份输入跑两次，逐字节比对（不落盘、不读账本）",
     )
     build.set_defaults(func=_cmd_build)
+
+    prompt_cmd = sub.add_parser("prompt", help="M3.1 出题：按分类各写一份题面（.md 给人贴、.json 算指纹）")
+    prompt_cmd.add_argument("--issue", required=True, help="期号，如 26102522")
+    prompt_cmd.add_argument("--out", default="out", help="工作目录（默认 out）")
+    prompt_cmd.add_argument("--reduce", action="store_true", help="出全局题（材料是已写好的分类回答）")
+    prompt_cmd.add_argument("--force", action="store_true", help="忽略缓存，强制重写题面")
+    prompt_cmd.set_defaults(func=_cmd_prompt)
+
+    apply_cmd = sub.add_parser("apply", help="M3.2–M3.4 判卷并合并进 report.json")
+    apply_cmd.add_argument("--issue", required=True)
+    apply_cmd.add_argument("--out", default="out")
+    apply_cmd.add_argument(
+        "--answer", action="append", default=None, help="回答文件（可重复）；默认取 answer/ 下全部"
+    )
+    apply_cmd.add_argument("--roster", default=None, help="名单文件，默认 src/config/daily-roster.json")
+    apply_cmd.add_argument("--force", action="store_true", help="已定稿也强行合并（正常流程请先 reopen）")
+    apply_cmd.set_defaults(func=_cmd_apply)
+
+    confirm_cmd = sub.add_parser("confirm", help="M3.5 定稿 / 退回草稿，旧版本进 history/")
+    confirm_cmd.add_argument("--issue", required=True)
+    confirm_cmd.add_argument("--out", default="out")
+    confirm_cmd.add_argument("--reopen", action="store_true", help="退回草稿（旧版进 history/）")
+    confirm_cmd.set_defaults(func=_cmd_confirm)
 
     state = sub.add_parser("state", help="增量状态的查看与维护")
     state_sub = state.add_subparsers(dest="state_cmd", required=True)

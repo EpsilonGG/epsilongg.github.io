@@ -139,13 +139,17 @@ class Item:
         meta = raw.get("metadata") or {}
         source = (raw.get("source_id") or "x").strip() or "x"
         native_id = str(raw.get("item_id") or raw.get("id") or "").strip()
-        account = (
-            (raw.get("publisher") or "").strip()
-            or (meta.get("account") or "").strip()
-            or source
-        )
+
+        # 条目归属：`publisher` 是**原发账号**，`metadata.account` 是**时间线主人**。
+        # 转发时两者不同——Nitter 的 `publisher` 指向被转的人，`account` 才是转发者。
+        # 以前优先取 `publisher`，于是 81 条转发全记到了品牌号名下，
+        # `26102522` 因此多出 66 个名单外的 people 行（页面只能渲染裸 @handle）。
+        author = (raw.get("publisher") or "").strip()
+        owner = (meta.get("account") or "").strip()
+        account = owner or author or source
+        is_repost = bool(meta.get("is_retweet"))
         text = raw.get("content") or raw.get("title") or ""
-        if meta.get("is_retweet"):
+        if is_repost:
             kind = "repost"
         elif meta.get("is_quote"):
             kind = "quote"
@@ -167,8 +171,9 @@ class Item:
             kind=kind,
             reply_to=(meta.get("reply_to") or None),
             quote_of=(meta.get("quoted_tweet_id") or None),
-            repost_of=(meta.get("retweeted_by") or None),
-            amplifiers=[account] if meta.get("is_retweet") else [],
+            # repost_of 记「转的是谁的」——原作者，不是转发者（转发者已经在 account 里）
+            repost_of=(author if is_repost and author and author.lower() != account.lower() else None),
+            amplifiers=[account] if is_repost else [],
             engagement=Engagement.from_stats(meta.get("stats")),
             media=list(raw.get("media") or []),
             content_hash=content_hash(text),

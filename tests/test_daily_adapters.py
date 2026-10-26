@@ -24,16 +24,19 @@ RECORD = {
     "source_id": "x",
     "item_id": "2113264805360677299",
     "content": "今日は配信です",
-    "publisher": "mimoriaino",
-    "canonical_url": "https://x.com/mimoriaino/status/2113264805360677299",
+    # 转发：publisher 是被转的原作者，metadata.account 才是时间线主人（转发者）。
+    # 真实数据里两者不同，按 publisher 归属会把品牌号当成人写进日报。
+    "publisher": "solfa_info",
+    "canonical_url": "https://x.com/solfa_info/status/2113264805360677299",
     "published_at": "2026-10-22T13:42:46+00:00",
     "published_precision": "second",
     "fetched_at": "2026-10-24T17:07:15+00:00",
     "media": [],
     "metadata": {
         "account": "mimoriaino",
+        "author_name": "solfa_info",
         "is_retweet": True,
-        "retweeted_by": "re_re_tsubame",
+        "retweeted_by": "mimoriaino",
         "is_reply": False,
         "is_quote": False,
         "stats": {"likes": 3, "retweets": 2},
@@ -61,7 +64,35 @@ class XReaderTest(unittest.TestCase):
         self.assertEqual(item.kind, "repost")
         self.assertEqual(item.engagement.score(), 5)
         self.assertEqual(item.amplifiers, ["mimoriaino"])
+        self.assertEqual(item.repost_of, "solfa_info")
         self.assertEqual(item.date().isoformat(), "2026-10-22")
+
+    def test_retweet_belongs_to_the_retweeter_not_the_author(self) -> None:
+        """转发的归属是转发者。按 publisher 归属会让品牌号变成 people 里的一行。"""
+        with tempfile.TemporaryDirectory() as tmp:
+            write_jsonl(Path(tmp) / "x.jsonl", [RECORD])
+            item = list(XReaderAdapter(tmp).iter_items())[0]
+        self.assertNotEqual(item.account, "solfa_info")
+        self.assertIn(item.account, item.amplifiers)
+
+    def test_original_post_belongs_to_its_author(self) -> None:
+        original = dict(RECORD)
+        original["metadata"] = {
+            "account": "solfa_info",
+            "author_name": "solfa_info",
+            "is_retweet": False,
+            "retweeted_by": None,
+            "is_reply": False,
+            "is_quote": False,
+            "stats": {},
+        }
+        with tempfile.TemporaryDirectory() as tmp:
+            write_jsonl(Path(tmp) / "x.jsonl", [original])
+            item = list(XReaderAdapter(tmp).iter_items())[0]
+        self.assertEqual(item.account, "solfa_info")
+        self.assertEqual(item.kind, "post")
+        self.assertEqual(item.amplifiers, [])
+        self.assertIsNone(item.repost_of)
 
     def test_fingerprint_is_stable_and_content_addressed(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:

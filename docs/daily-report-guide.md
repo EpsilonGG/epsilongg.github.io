@@ -183,6 +183,22 @@ python scripts/daily_digest.py --items-dir "<X-rss-workspace>/X-Reader/data/item
 > 这一步就是"用 WorkBuddy 本地跑完需要 LLM 的部分"。LLM 不碰 API、不进 CI。
 > 填完可以直接构建预览：`npm run dev` 看 `/daily/<期号>/`。
 
+### 步骤 2.5（M3 链路，可选）— 出题 / 判卷 / 定稿
+
+M3 把「让模型填四段」拆成三个可重放的步骤。脚本仍然不调模型，只读写文件：
+
+```bash
+python scripts/daily_digest.py prompt --issue <期号>      # 出题 → out/<期号>/prompt/<分类>.md + .json
+#   …把 .md 交给 WorkBuddy，回答存成 out/<期号>/answer/<分类>.json…
+python scripts/daily_digest.py apply  --issue <期号>      # 判卷（形状 + 来源 + 名单 + 长度）后并入 report.json
+python scripts/daily_digest.py prompt --issue <期号> --reduce   # 分类答完再出全局题（description + 今日看点）
+python scripts/daily_digest.py confirm --issue <期号>     # 定稿；--reopen 退回草稿，旧版进 out/<期号>/history/
+```
+
+三条硬规则由 `validate.py` 执行，违反即整份作废：每句话至少一个 `sources`（且必须是本期真实 item key）、
+`handle` 必须在名单内、长度超限不截断直接失败。**定稿之后 `apply` 会被拒绝**，要改先 `--reopen`。
+输入没变时 `prompt` 直接跳过（`input_hash` 命中），材料变了只标 stale、不覆盖正本。
+
 ### 步骤 3 — 提交并推送站点仓库
 
 ```bash

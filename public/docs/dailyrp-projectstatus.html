@@ -517,7 +517,10 @@
         <code>daily_digest.py</code> 变成薄壳，命令行参数一个没变。
         M2 已完成（2026-10-25）——JST 时间窗、五态增量、跨源去重、确定性排序、名单与分类、
         待生成数据导出；§1 的三个既有问题全部关掉。
-        站点已按新链路补录 10-18 至 10-23 六期。M3–M6 未开始。
+        M3 已完成（2026-10-26）——出题（<code>prompt.py</code>）、判卷（<code>validate.py</code>）、
+        合并（<code>apply.py</code>）、定稿（<code>confirm.py</code>）、重跑缓存（<code>cache.py</code>）
+        五个模块 + 16 条回归测试；<code>daily prompt / apply / confirm</code> 三条子命令。
+        站点已按新链路补录 10-18 至 10-23 六期。M4–M6 未开始。
         逐条验收输出见
         <a href="https://github.com/EpsilonGG/epsilongg.github.io/blob/main/docs/daily-build-log.md">docs/<wbr>daily-build-log.md</a>。
       </p>
@@ -1454,6 +1457,18 @@ categories: roster.categories 的声明顺序</code></pre>
         </tr>
       </tbody>
     </table>
+
+    <div class="note">
+      <strong>2026-10-26 已完成。</strong>八个工作包全部落地：
+      <code>scripts/<wbr>daily/<wbr>prompt.py</code>（分类题 + reduce 全局题，写
+      <code>.md</code> 与 <code>.json</code>）、<code>validate.py</code>（形状 + 三条硬规则，
+      报错带字段路径）、<code>apply.py</code>（只写回答里出现的字段）、
+      <code>confirm.py</code>（定稿 / <code>--reopen</code>，旧版进 <code>history/</code>）、
+      <code>cache.py</code>（<code>input_hash</code> 命中就不重写，变了只标 stale）。
+      命令是 <code>daily prompt</code> / <code>daily apply</code> / <code>daily confirm</code>，
+      <code>scripts/<wbr>daily_digest.py</code> 也认这三个子命令。
+      回归测试 <code>tests/<wbr>test_daily_review.py</code> 16 条，全量 111 条通过。
+    </div>
 
     <h3>关键设计</h3>
 
