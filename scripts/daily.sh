@@ -3,7 +3,7 @@
 # 注意：写摘要这一步由本地 WorkBuddy 完成（脚本只做无 LLM 的确定性组装）。
 #
 # 期号 = 发布时间，精确到小时，格式 YYMMDDHH（日本时间）。
-# 例：2026-10-31 22:00（JST）→ 26103122，文件 src/content/daily/26103122.md。
+# 例：2026-10-31 22:00（JST）→ 26103122，正本 out/26103122/report.json。
 # 精确到小时是为了存档：同一天可以出多期，重跑不会覆盖上一期。
 #
 # 用法：
@@ -51,14 +51,16 @@ fi
 echo
 echo "=== 步骤 3：让本地 WorkBuddy 填写日报内容 ==="
 echo "对 WorkBuddy 说：\"填写今天的日报\"，它会读 out/$ISSUE_ID.briefing.txt，然后填"
-echo "  $REPO_ROOT/src/content/daily/$ISSUE_ID.md  里的四个地方："
+echo "  $REPO_ROOT/out/$ISSUE_ID/report.json  里的四个地方："
 echo "    highlights        今日看点（2–4 段，排第一）"
 echo "    works             作品动态（一段话，不带来源链接）"
 echo "    interactions      名单内多人互动（没有就留空数组）"
 echo "    people[].summary  每人一句话（留空 = 当日无活动，不渲染）"
 echo
-echo "=== 步骤 4：提交并推送 ==="
-echo "  python scripts/push_site.py -m \"daily: $ISSUE_ID\" --path src/content/daily/"
+echo "=== 步骤 4：定稿、发布、提交 ==="
+echo "  python scripts/daily_digest.py confirm --issue $ISSUE_ID"
+echo "  python scripts/daily_digest.py publish --issue $ISSUE_ID   # 搬到 data/daily/，站点才读得到"
+echo "  python scripts/push_site.py -m \"daily: $ISSUE_ID\" --path data/daily/"
 echo "  （不要直接 git push：本机走到 credential-manager 会被 SIGTERM 掉；"
 echo "    带 --path 是为了只提交这一期，别把工作区里其它改动卷进来）"
 echo

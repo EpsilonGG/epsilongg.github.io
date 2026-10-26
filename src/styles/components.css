@@ -500,6 +500,39 @@ a.link-row:hover .link-row__label {
    方便一眼扫出「哪天出了几期」。同一天多期是这个列表存在的理由，
    所以不按天合并。
    -------------------------------------------------------------------------- */
+
+/* 顶部一行：最新一期直达 + 月份锚点。期数多了以后，「翻到底」不是浏览方式 */
+.daily-archive__jump {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--space-2) var(--space-3);
+  margin-top: var(--space-4);
+  font-size: var(--text-sm);
+}
+
+.daily-archive__jump-label {
+  color: var(--color-text-muted);
+  font-size: var(--text-xs);
+}
+
+.daily-archive__chip {
+  color: var(--color-text-secondary);
+  text-decoration: none;
+  border-bottom: var(--border-width) solid var(--color-border-strong);
+  font-variant-numeric: tabular-nums;
+}
+
+.daily-archive__chip:hover {
+  color: var(--color-text);
+  border-bottom-color: var(--color-text);
+}
+
+/* 锚点跳过来时别把月份标题顶到视口最上面 */
+.daily-archive__month {
+  scroll-margin-top: var(--space-4);
+}
+
 .daily-archive__month + .daily-archive__month {
   margin-top: var(--space-7);
 }

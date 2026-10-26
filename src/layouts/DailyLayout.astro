@@ -3,7 +3,7 @@ import BaseLayout from './BaseLayout.astro';
 import ReadingProgress from '../components/ReadingProgress.astro';
 import { site } from '../config/site';
 import { formatIssueTime, type Daily } from '../lib/daily';
-import rosterData from '../config/daily-roster.json';
+import { displayNameOf, nameOf } from '../lib/roster';
 
 interface Props {
   post: Daily;
@@ -14,37 +14,30 @@ interface Props {
 }
 
 const { post, newer = null, older = null } = Astro.props;
-const { title, description, pubDate, source, accounts, highlights, interactions, works, people } =
+const { title, description, pubDate, accounts, highlights, insights, interactions, works, people, categories } =
   post.data;
 
 /**
- * 「详细」每行渲染成 `[声优名](主号链接) ：一句话`。
- * 名字来自名单（`src/config/daily-roster.json`），不写进 frontmatter——
+ * 名单只渲染「当日确实有活动」的人：summary 为空即视为没有值得写的一句话。
+ * 这样生成端可以放心把抓到的账号全列进来，不必自己判断谁该出现。
+ *
+ * 名字来自名单（`src/config/daily-roster.json`），不写进数据——
  * 同一个人有主号/小号/告知号，名字只有一处能改，才不会出现「同一人两个写法」。
  * 名单里没有的 handle 退回显示 @handle，并在这里告警：那说明名单漏了人。
  */
-const displayName = new Map<string, string>();
-for (const a of rosterData.accounts as { handle: string; name?: string }[]) {
-  if (a.name) displayName.set(a.handle.toLowerCase(), a.name);
-}
-function nameOf(handle: string): string {
-  const n = displayName.get(handle.toLowerCase());
-  if (!n) console.warn(`[daily] ${post.id} 的 @${handle} 不在名单里，详细栏会显示 handle`);
-  return n ?? `@${handle}`;
-}
-
-/**
- * 名单只渲染「当日确实有活动」的人：summary 为空即视为没有值得写的一句话。
- * 这样 digest 脚本可以放心把抓到的账号全列进来，不必自己判断谁该出现。
- */
 const roster = people.filter((p) => p.summary.trim().length > 0);
+for (const person of roster) {
+  if (!displayNameOf(person.handle)) {
+    console.warn(`[daily] ${post.id} 的 @${person.handle} 不在名单里，详细栏会显示 handle`);
+  }
+}
 
 /**
- * 正文里的 `@handle` 自动变成主页链接，但只认名单里的人。
+ * 正文里的 `@handle` 自动变成主页链接，但只认这一期出现过的号。
  * 先转义再加链接——顺序反了会把文字里的 `<` 当成标签。
  */
 const canonicalHandle = new Map<string, string>();
-for (const handle of [...accounts, ...people.map((p) => p.handle)]) {
+for (const handle of [...accounts, ...people.flatMap((p) => [p.handle, ...p.via])]) {
   canonicalHandle.set(handle.toLowerCase(), handle);
 }
 
@@ -84,7 +77,7 @@ if (!description) {
 
 <BaseLayout
   title={title}
-  description={description ?? `${title} · ${post.id}`}
+  description={description || `${title} · ${post.id}`}
   ogType="article"
   feeds={[{ title: `${site.name} · 日报`, href: '/daily/rss.xml' }]}
 >
@@ -104,13 +97,21 @@ if (!description) {
               发布于
               <time datetime={pubDate.toISOString()}>{formatIssueTime(pubDate)}</time>
             </span>
+            {/*
+              纯文本出口。给读者「复制整期」用，也给 M6 的口播稿当输入。
+              JSON 出口不在这里链——那是给程序和脚本的，放出来只会让人点开一堆花括号。
+            */}
+            <span>
+              <a href={`/daily/${post.id}.txt`}>纯文本版</a>
+            </span>
           </div>
           {description ? <p class="article-description">{description}</p> : null}
-          {
-            source === 'ai' ? (
-              <p class="article-badge article-badge--page">AI 整理</p>
-            ) : null
-          }
+          {/*
+            整栏都是 AI 整理，所以标记是无条件的——M4 之前靠 frontmatter 的 `source`
+            判断，但那个字段每一期都是 `ai`，等于恒真。数据里删掉它，披露反而更明确：
+            不存在「这期不是 AI 写的」这种状态。
+          */}
+          <p class="article-badge article-badge--page">AI 整理</p>
         </header>
 
         <div class="prose">
@@ -118,12 +119,31 @@ if (!description) {
             <h2>今日看点</h2>
             {
               highlights.length > 0 ? (
-                highlights.map((text) => <p set:html={withMentions(text)} />)
+                highlights.map((claim) => <p set:html={withMentions(claim.text)} />)
               ) : (
                 <p class="daily-pending">今日看点待补充。</p>
               )
             }
           </section>
+
+          {
+            categories.some((category) => category.summary.trim().length > 0) ? (
+              <section class="daily-block">
+                <h2>分类摘要</h2>
+                <ul class="daily-roster">
+                  {categories
+                    .filter((category) => category.summary.trim().length > 0)
+                    .map((category) => (
+                      <li>
+                        <span class="daily-roster__name">{category.label}</span>
+                        <span class="daily-roster__sep">：</span>
+                        <span set:html={withMentions(category.summary)} />
+                      </li>
+                    ))}
+                </ul>
+              </section>
+            ) : null
+          }
 
           {
             works.trim().length > 0 ? (
@@ -139,8 +159,8 @@ if (!description) {
               <section class="daily-block">
                 <h2>互动</h2>
                 <ul>
-                  {interactions.map((text) => (
-                    <li set:html={withMentions(text)} />
+                  {interactions.map((claim) => (
+                    <li set:html={withMentions(claim.text)} />
                   ))}
                 </ul>
               </section>
@@ -184,7 +204,18 @@ if (!description) {
             ) : null
           }
 
-          <slot />
+          {
+            insights.length > 0 ? (
+              <section class="daily-block">
+                <h2>洞察</h2>
+                <ul>
+                  {insights.map((claim) => (
+                    <li set:html={withMentions(claim.text)} />
+                  ))}
+                </ul>
+              </section>
+            ) : null
+          }
         </div>
 
         {

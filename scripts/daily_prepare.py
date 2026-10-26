@@ -148,7 +148,7 @@ def main(argv: list[str] | None = None) -> int:
         return result.returncode
 
     issue_id = day.strftime("%y%m%d") + "22"
-    print(f"\n骨架：src/content/daily/{issue_id}.md")
+    print(f"\n骨架：out/{issue_id}/report.json（定稿后 publish 到 data/daily/）")
     print(f"简报：out/{day.isoformat()}.briefing.txt")
     return 0
 

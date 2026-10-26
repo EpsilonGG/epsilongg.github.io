@@ -1,0 +1,100 @@
+{
+  "schema_version": 1,
+  "issue": {
+    "id": "26102222",
+    "published_at": "2026-10-22T22:00:00+09:00",
+    "window": {
+      "start": "2026-10-22T00:00:00+09:00",
+      "end": "2026-10-23T00:00:00+09:00"
+    },
+    "status": "confirmed",
+    "confirmed_at": "2026-10-22T22:00:00+09:00"
+  },
+  "counts": {
+    "items": 0,
+    "accounts": 7,
+    "late": 0,
+    "skipped_duplicate": 0
+  },
+  "description": "柚木つばめ生誕祭零点开卖新作，涼花みなせ连播两场碧蓝航线",
+  "highlights": [
+    {
+      "text": "柚木つばめ的生誕祭这天，她的时间几乎全给了两件事：谢生日祝福，和转作品。零点新作音声开卖，生誕祭套组配了 50% OFF 的券，同期还有好几部 CV 是她自己的作品一起上架，她一条条转过来。因为 10/24 有线下活动「FIRST FLIGHT」，她提前说明当晚 20 点的直前配信只能做到 20:30 左右——护嗓优先。",
+      "sources": []
+    },
+    {
+      "text": "涼花みなせ和浅木式连播两场碧蓝航线（20:00 与 21:30）。她在收尾里说「自分の声がゲームから聞こえてくるのすごく実感がなくて不思議」——自己的声音从游戏里出来，还是觉得不真实；末了专门谢了しーちゃん的解说，点名セリミエ与メルクーリィ。",
+      "sources": []
+    }
+  ],
+  "insights": [],
+  "interactions": [],
+  "works": "零点开卖的新作之外，柚木つばめ的生誕祭套组还配了 50% OFF 的券，同期有好几部她担任 CV 的作品一起上架。大山チロル那边是秋季促销的两部作品分别破了 5000 与 3000 DL，她当天花了不少时间回晒单的听众；被问到「某大山チロル和某柚月つばめ的婚前婚后作品什么时候出」，只回了「ないよ？！」。",
+  "categories": [],
+  "accounts": [
+    "asuparama40",
+    "mimoriaino",
+    "suzuka_minase",
+    "mirai_chiroru",
+    "322yui3",
+    "re_re_tsubame",
+    "yuzuki_momoka"
+  ],
+  "people": [
+    {
+      "handle": "asuparama40",
+      "category": "",
+      "summary": "提议开一场「悪役やらせてください」campaign，说最近完全没接到恶役和堕落角色",
+      "via": [],
+      "sources": []
+    },
+    {
+      "handle": "mimoriaino",
+      "category": "",
+      "summary": "被ジェラピケ的联名击中，表示「只能买了」",
+      "via": [],
+      "sources": []
+    },
+    {
+      "handle": "suzuka_minase",
+      "category": "",
+      "summary": "与浅木式连播两场碧蓝航线，感叹自己的声音从游戏里出来很不真实",
+      "via": [],
+      "sources": []
+    },
+    {
+      "handle": "mirai_chiroru",
+      "category": "",
+      "summary": "秋季促销两部作品分别破 5000 与 3000 DL，回了一圈晒单的听众",
+      "via": [],
+      "sources": []
+    },
+    {
+      "handle": "322yui3",
+      "category": "",
+      "summary": "公开料金表，抱怨气压，下午与古都パイ喝生日下午茶",
+      "via": [],
+      "sources": []
+    },
+    {
+      "handle": "re_re_tsubame",
+      "category": "",
+      "summary": "生誕祭当天零点发新作，转发一圈同期上架的作品，为 10/24 线下活动护嗓",
+      "via": [],
+      "sources": []
+    },
+    {
+      "handle": "yuzuki_momoka",
+      "category": "",
+      "summary": "转了一条 FANZA 同人的作品宣传",
+      "via": [],
+      "sources": []
+    }
+  ],
+  "provenance": {
+    "generator": "daily.migrate",
+    "prompt_version": 1,
+    "cache_key": "",
+    "generated_at": "2026-10-22T22:00:00+09:00"
+  }
+}

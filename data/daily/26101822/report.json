@@ -1,0 +1,68 @@
+{
+  "schema_version": 1,
+  "issue": {
+    "id": "26101822",
+    "published_at": "2026-10-18T22:00:00+09:00",
+    "window": {
+      "start": "2026-10-18T00:00:00+09:00",
+      "end": "2026-10-19T00:00:00+09:00"
+    },
+    "status": "confirmed",
+    "confirmed_at": "2026-10-18T22:00:00+09:00"
+  },
+  "counts": {
+    "items": 0,
+    "accounts": 3,
+    "late": 0,
+    "skipped_duplicate": 0
+  },
+  "description": "涼花みなせ开播《Fields of Mistria》，御崎ひより为社团初作品开转发抽奖",
+  "highlights": [
+    {
+      "text": "涼花みなせ晚上 20:30 开播《Fields of Mistria》。她说这是几年前就一直惦记、一直压着没动的游戏，「玩之前就敢断言会入迷」——魔法、冒险、恋爱、慢生活，几个词全是她的口味。",
+      "sources": []
+    },
+    {
+      "text": "御崎ひより为社团「あまねパレット」的初作品《幽霊えっち》做发售预热：10/24 发售，关注并转发这条就抽 2 位送亲笔签名色纸，応募到 11/15 23:59。她在文末补了一句「初作品をぜひ応援していただけるとうれしいです」，看得出是真拿这件事当回事。",
+      "sources": []
+    }
+  ],
+  "insights": [],
+  "interactions": [],
+  "works": "御崎ひより的《幽霊えっち》定在 10/24 发售，这是社团「あまねパレット」的第一部作品，配套的转发抽奖送签名色纸、応募到 11/15。思ちぽ公开了 10/25「M3 秋 2026」的摊位（第二展示場 サ-23a，社团名 Akki），作品《お嫁さんになっちゃおっかな》已经放出 XFD 试听与 BOOTH 通販。",
+  "categories": [],
+  "accounts": [
+    "suzuka_minase",
+    "hiyori_voice",
+    "M_chipo_O"
+  ],
+  "people": [
+    {
+      "handle": "suzuka_minase",
+      "category": "",
+      "summary": "晚间开播《Fields of Mistria》，说是惦记了好几年、玩之前就敢断言会入迷",
+      "via": [],
+      "sources": []
+    },
+    {
+      "handle": "hiyori_voice",
+      "category": "",
+      "summary": "为社团初作品《幽霊えっち》开转发抽奖，奖品是亲笔签名色纸",
+      "via": [],
+      "sources": []
+    },
+    {
+      "handle": "M_chipo_O",
+      "category": "",
+      "summary": "公开 10/25 M3 秋的摊位，附《お嫁さんになっちゃおっかな》的试听与通販",
+      "via": [],
+      "sources": []
+    }
+  ],
+  "provenance": {
+    "generator": "daily.migrate",
+    "prompt_version": 1,
+    "cache_key": "",
+    "generated_at": "2026-10-18T22:00:00+09:00"
+  }
+}

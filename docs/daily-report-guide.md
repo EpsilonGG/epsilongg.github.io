@@ -2,7 +2,7 @@
 
 > 适用项目：EpsilonGG 个人站（`github.com/EpsilonGG/epsilongg.github.io`，本机路径 `Desktop\github page work`）
 > 配套工具：X-Reader（抓取+规范化）。X-rss 仓库的"储存地"= `X-rss-workspace`。
-> 最后更新：2026-10-25
+> 最后更新：2026-10-26（M4：数据源换成 `data/daily/<期号>/report.json`，新增 JSON / 纯文本两个出口）
 
 ---
 
@@ -15,25 +15,27 @@
 | 角色 | 位置 | 负责什么 |
 | --- | --- | --- |
 | **X-Reader（抓取侧）** | GitHub 上的 X-Reader 仓库；本机 checkout 在 `X-rss-workspace/X-Reader` | 每日自动抓取 X 推文，规范化为 `NormalizedItem`，写入并提交 `data/items/*.jsonl` |
-| **本地组装 + 本地 LLM** | 站点仓库 `scripts/daily_digest.py` + `scripts/daily.sh`，外加本机 WorkBuddy | 把 `data/items` 确定性组装成 `src/content/daily/<期号>.md` 骨架；由 WorkBuddy 填 `highlights` / `works` / `interactions` / `people` |
-| **站点仓库（发布侧）** | `Desktop\github page work` = `epsilongg.github.io` | 存放脚本与产出 `.md`；`git push` 后 Actions 自动构建部署到 GitHub Pages |
+| **本地组装 + 本地 LLM** | 站点仓库 `scripts/daily_digest.py` + `scripts/daily.sh`，外加本机 WorkBuddy | 把 `data/items` 确定性组装成 `out/<期号>/report.json` 骨架；由 WorkBuddy 填 `description` / `highlights` / `works` / `interactions` / `people` |
+| **站点仓库（发布侧）** | `Desktop\github page work` = `epsilongg.github.io` | 存放脚本与 `data/daily/<期号>/report.json`；`git push` 后 Actions 自动构建部署到 GitHub Pages |
 
 **数据流（每天一次）：**
 
 ```
-X-Reader CI (每日 17:10 UTC)
+X-Reader CI (每日 03:00 / 15:00 UTC)
    └─ fetch → 写 data/items/x.jsonl → git commit/push 进 X-Reader 仓库
         │
    本地：git pull X-Reader 仓库（拿到最新 data/items）
         │
    本地：python scripts/daily_digest.py --items-dir <X-Reader>/data/items
-        └─ 产出 src/content/daily/<期号>.md（四段全空的骨架）
+        └─ 产出 out/<期号>/report.json（四段全空的骨架）+ briefing
         │
    本地 WorkBuddy：读 briefing，填今日看点 / 作品动态 / 互动 / 每人一句
         │
-   本地：git add src/content/daily/<期号>.md && commit && push
+   本地：confirm 定稿 → publish 搬到 data/daily/<期号>/report.json
         │
-   站点 Actions (deploy.yml)：astro check → test:md → build → links → test → 部署
+   本地：git add data/daily/<期号>/ && commit && push
+        │
+   站点 Actions (deploy.yml)：astro check → test:md → build → links → check:daily → test → 部署
 ```
 
 **为什么这么设计：** X-Reader 与站点的 Actions 都在 GitHub 免费额度内；CI 里**不跑 LLM**、不需要 API key、不需要 VPS。只有"写摘要"这一步在你本机 WorkBuddy 完成一次，零额外成本。
@@ -44,43 +46,47 @@ X-Reader CI (每日 17:10 UTC)
 
 ## 日报的文件、期号与存档
 
-**文件名就是发布时间，也是网址。** 一期日报对应一个文件：
+**目录名就是发布时间，也是网址。** 一期日报对应一个目录（M4 之前是一个 `.md` 文件）：
 
 ```
-src/content/daily/26103122.md   →   /daily/26103122/
-                    ││││││││
-                    ││││││└┴─ 22 时（JST）
-                    │││└┴───── 31 日
-                    │└──────── 10 月
-                    └───────── 26 年
+data/daily/26103122/report.json   →   /daily/26103122/
+           ││││││││
+           ││││││└┴─ 22 时（JST）
+           │││└┴───── 31 日
+           │└──────── 10 月
+           └───────── 26 年
 ```
 
 格式 `YYMMDDHH`，八位数字，**日本时间（JST）**。2026-10-31 22:00（JST）= `26103122`。
 
-**为什么精确到小时。** 只到天的话 `2026-10-31.md` 一天只能有一个，补一次就把上一期冲掉；精确到小时后每跑一次都是新文件，旧的一期自动留档——这就是「带存档」的实现方式。代价是同一天可能有多期，所以归档列表**按天不合并**，一行一期。
+**为什么精确到小时。** 只到天的话 `2026-10-31` 一天只能有一个，补一次就把上一期冲掉；精确到小时后每跑一次都是新目录，旧的一期自动留档——这就是「带存档」的实现方式。代价是同一天可能有多期，所以归档列表**按天不合并**，一行一期。
 
-因为时间只有文件名一个来源，frontmatter 里**没有 `title`、也没有 `pubDate`**：
+因为时间只有期号一个来源，`report.json` 里**没有 `title`、也没有 `pubDate`**：
 
 - 标题由期号推导：`X 日报 · 2026-10-31 22:00`；
-- 发布时间由期号推导（`src/lib/daily.ts` 的 `parseDailyId`），手改日期不可能和 URL 对不上。
+- 发布时间优先取 `issue.published_at`，缺失时退回期号（`src/lib/daily.ts` 的 `resolvePublishedAt`），手改日期不可能和 URL 对不上。
 
-文件名不合规（不是八位数字、或 `26103231` 这种不存在的日期）会让**构建直接失败**并指出是哪个文件。
+期号不合规（不是八位数字、或 `26103231` 这种不存在的日期）会让**构建直接失败**并指出是哪一期。
 
-### 三条路由
+### 五个出口
 
 | 路由 | 是什么 |
 | --- | --- |
-| `/daily/` | 归档列表，按月分组，一行一期（时间 + 看点简报） |
+| `/daily/` | 归档列表，按月分组，一行一期（时间 + 看点简报）；顶部有「看最新一期」与月份锚点 |
 | `/daily/<期号>/` | 单期详情，`getStaticPaths` 从内容集合生成，没有手写路由 |
 | `/daily/rss.xml` | **归档 feed**，独立于主 `/rss.xml`（那个只收「笔记」） |
+| `/daily/<期号>.json` | **JSON**，与 `data/daily/<期号>/report.json` 逐字节相同（含 `sources`），给第三方/脚本 |
+| `/daily/<期号>.txt` | **纯文本**，给复制粘贴和 M6 的视频稿；只换格式，不重新概括 |
 
 > 独立 feed 的理由：日报每天一期且是 AI 整理的，混进主 feed 会改变既有订阅者收到的东西。分开后，归档页能翻，feed 能被阅读器收走。
+>
+> 后两个出口由 `npm run check:daily` 守着：有一份 `report.json` 就必须有三份产物，且 JSON 与正本逐字节相同。链接检查看不见这两个文件——没有别处引用它们。
 
 ---
 
 ## 日报的版式（四段，顺序固定）
 
-站点只渲染 frontmatter，不渲染 Markdown 正文。四段的顺序和格式都是定死的：
+站点只渲染 `report.json` 的结构化字段，没有 Markdown 正文。四段的顺序和格式都是定死的：
 
 | 顺位 | 字段 | 内容 | 没有内容时 |
 | --- | --- | --- | --- |
@@ -89,7 +95,14 @@ src/content/daily/26103122.md   →   /daily/26103122/
 | 3 | `interactions` | **互动**：名单内多人之间的互动，每项一条，写成文字 | 整段不渲染 |
 | 4 | `people` | **详细**：每人一句话，渲染成 `[声优名](主号链接) ：一句话` | `summary` 为空的条目自动不渲染 |
 
-另有一个副标题字段 `description`，显示在标题下方：
+另有两个字段，目前各期都是空的，**空则整节不渲染**——它们是给「按分类出稿」的那天准备的：
+
+| 字段 | 渲染成 | 什么时候有值 |
+| --- | --- | --- |
+| `categories[].summary` | 「分类摘要」一节，每个分类一行 | 一期按「聊人 / 聊音声 / 聊事情」分开出题时 |
+| `insights` | 「洞察」一节，跨分类的观察 | 全局题（`prompt --reduce`）产出 |
+
+还有一个副标题字段 `description`，显示在标题下方：
 
 | 字段 | 内容 | 约束 |
 | --- | --- | --- |
@@ -106,7 +119,7 @@ src/content/daily/26103122.md   →   /daily/26103122/
 - **不展示互动量**（点赞、转发、阅读数）。这些数字只在 `out/<期号>.briefing.txt` 里给模型判断轻重用，不进站点内容。
 - 正文里的 `@handle` 会自动变成主页链接，但**只认名单里的人**（`accounts` + `people` 里的 handle），名单外的 @ 保持纯文本。
 
-> 为什么四段全放 frontmatter 而不是写进 Markdown 正文：上百人时这些字段要拿去做分类视图、JSON 输出和筛选，藏在正文里就取不出来。详见 [日报扩容方案](daily-scaling-plan.md)。
+> 为什么四段是结构化字段而不是一段 Markdown 正文：上百人时这些字段要拿去做分类视图、JSON 输出和筛选，藏在正文里就取不出来。M4 之前它们放在 frontmatter 里，M4 之后放在 `report.json` 里，理由一样。详见 [日报扩容方案](daily-scaling-plan.md)。
 
 ---
 
@@ -154,9 +167,11 @@ python scripts/daily_digest.py --items-dir "<X-rss-workspace>/X-Reader/data/item
 - **`active: false` 的账号（社团号、制造商号）照旧进名单，但条目不进这一期**：脚本会把跳过的账号名打到 stderr。这两类现在全是 `active: false`，等日报要收它们的动态时再逐个打开。
 - **名单三类实体**：`seiyuu`（声优，128 条 / 98 人）、`circle`（同人音声社团，109 条）、`manufacturer`（游戏厂商，173 条）。**一个 handle 只建一条**——同一个号既是厂商的又是社团的（`@cube_staff`、`@pachipachisoft`），或本来就是某位声优的主号（`@ayakaigasaki`），只保留已有那条，另一重身份写进 `note`。身份靠 `tags` 区分：声优 `["声优","创作者"]`、社团 `["创作者","音声"]`、厂商 `["创作者","游戏"]`，有社团号的声优补 `"音声"`，近十年拿过萌えゲーアワード的厂商补 `"Moe Award"`。
 - 产出：
-  - `src/content/daily/<期号>.md` —— 站点内容的**骨架**：frontmatter 里 `accounts` 已按名单序排好，`highlights` / `interactions` 是空数组、`works` 是空串，`people` 每人一条 `summary: ""`，正文只有一个待填说明的注释。
+  - `out/<期号>/report.json` —— 站点内容的**正本骨架**：`accounts` 已按名单序排好，`highlights` / `interactions` 是空数组、`works` 是空串，`people` 每人一条 `summary: ""`（主号一行、其余号进 `via`），`issue.status` 是 `draft`。
   - `out/<期号>.briefing.txt` —— 喂给 LLM 的事实摘要（推文原文 + 互动数都在这里，已被 `.gitignore` 忽略，属本地中间产物）。
-- **注意：脚本不再把推文原文写进 `.md`**，只写骨架。要写摘要必须看 `briefing.txt`。
+  - `out/<期号>.generate.json` —— M3 的题库（分类与条目 key），`prompt` / `apply` 用它。
+- **注意：脚本不再把推文原文写进正本**，只写骨架。要写摘要必须看 `briefing.txt`。
+- **站点读的不是这个文件。** 站点读 `data/daily/<期号>/report.json`，由步骤 2.6 的 `publish` 搬过去。草稿留在 `out/`，构建永远看不到它。
 - **空跑预览（无真实数据）：** 直接 `./scripts/daily.sh 2026-10-24`，会用仓库内的 `scripts/sample_items/` 样例数据生成一份预览，方便测试流程。补一期过去的用 `AT="2026-10-24 21:00" ./scripts/daily.sh 2026-10-24`。
 
 ### 步骤 2 — 让本地 WorkBuddy 填写日报内容（唯一需要 LLM 的地方）
@@ -172,24 +187,25 @@ python scripts/daily_digest.py --items-dir "<X-rss-workspace>/X-Reader/data/item
    （默认每账号 3 条、每条 90 字；`--per-account` / `--width` 可调）。
    实测 5.2 万 → 1.5 万 token，关键信息一条不少。需要某人完整发言时再回 briefing 里搜 `@handle`。
    成本对比见 `README/reports/daily-token-cost.html`。
-2. 填 `src/content/daily/<期号>.md` 的**四段 + 副标题**：
+2. 填 `out/<期号>/report.json` 的**四段 + 副标题**：
    - `description`：副标题，**今日看点的 50 字以内简报**（脚本留的是「今日 N 位账号有更新，看点待补」占位，必须改写）；
-   - `highlights`：今日看点，**只写前 9 的重点 / 自述热度 / 特别活动**，其余下沉到「详细」；
+   - `highlights`：今日看点，每项一个 `{"text": "...", "sources": ["x:<推文id>"]}`，**只写前 9 的重点 / 自述热度 / 特别活动**，其余下沉到「详细」；
    - `works`：作品动态，**一段话**，不带来源链接；
    - `interactions`：名单内谁和谁有互动、互动内容是什么，每项一条；**没有就留空数组**；
    - `people[].summary`：每人一句话，**不写 @handle**（行首已经显示名字了）；**当日没活动的留空**；
-3. 不改 `accounts` / `people[].handle` / `people[].via`——这些是脚本从数据推导的，手改会跟抓取数据对不上。`title` 与 `pubDate` 已经不在 frontmatter 里了，标题和发布时间都由文件名推导。
+3. 不改 `accounts` / `people[].handle` / `people[].via`——这些是脚本从数据推导的，手改会跟抓取数据对不上。标题与发布时间都不在数据里，由期号推导。
 
 **一人一行，不管他今天用了几个号。** 名单里同 `name` 的主号、小号、社团号在
-`build_markdown` 里已经合成一行：行首是主号，其余号写进 `via`，页面在句末渲染成
+`build_report` 里已经合成一行：行首是主号，其余号写进 `via`，页面在句末渲染成
 小一号、颜色变淡的 `@handle` 链接（显示账号名，不显示人名）。
 所以写摘要时要把几个号的内容**串成一句话**，别按号拆开：
 
-```
-- handle: ayumi_sarah
-  summary: "预告 potte 新作（与 北見六花 共演）…；社团号补上新作预告收藏破 200、11 月中旬发售。"
-  via:
-    - potte1919
+```json
+{
+  "handle": "ayumi_sarah",
+  "summary": "预告 potte 新作（与 北見六花 共演）…；社团号补上新作预告收藏破 200、11 月中旬发售。",
+  "via": ["potte1919"]
+}
 ```
 
 **转发条目归到转发者名下。** 名单外的 handle 不会进 `people`——它们是名单内成员转发的
@@ -215,10 +231,24 @@ python scripts/daily_digest.py confirm --issue <期号>     # 定稿；--reopen 
 `handle` 必须在名单内、长度超限不截断直接失败。**定稿之后 `apply` 会被拒绝**，要改先 `--reopen`。
 输入没变时 `prompt` 直接跳过（`input_hash` 命中），材料变了只标 stale、不覆盖正本。
 
+### 步骤 2.6 — 发布（把正本搬到站点读的位置）
+
+```bash
+python scripts/daily_digest.py publish --issue <期号>
+```
+
+`out/<期号>/report.json` → `data/daily/<期号>/report.json`。三条规矩：
+
+- **只发定稿**：`status` 不是 `confirmed` 直接拒绝——草稿进 `data/daily/` 就等于上线；
+- **默认不覆盖**：已经发布过的期号再发要显式 `--force`，避免「补一句摘要」悄悄改掉一份可能被引用过的 JSON；
+- **落盘前先过 schema**：字段写错在这里报，而不是等到 `npm run build`。
+
+发布完 `npm run build`（本地要先 `mv dist` 绕开安全删除阈值）就能看到这一期。**没有 publish 这一步，站点不会变**——这是 M4 之前最常踩的坑。
+
 ### 步骤 3 — 提交并推送站点仓库
 
 ```bash
-python scripts/push_site.py -m "daily: <期号>" --path src/content/daily/
+python scripts/push_site.py -m "daily: <期号>" --path data/daily/
 ```
 
 **必须带 `--path`**：不带时脚本是 `git add -A`，工作区里任何未提交的改动都会卷进这一期日报的
@@ -259,19 +289,23 @@ commit（2026-10-26 就把一篇 496 行的新访谈卷进了「docs: 抓取侧�
 | `scripts/daily_digest.py` | ★ **规范、唯一的组装脚本**（无 LLM 的一半）。**不要再改 `X-rss-workspace/daily-report/digest.py`**，那是被取代的旧原型 |
 | `scripts/daily_prepare.py` | ★ **自动化入口**：`git pull` 抓取仓库 → 数目标日条数（0 条退 2）→ 调 digest 出骨架。确定性、无 LLM |
 | `scripts/daily_condense.py` | 把 briefing 压成编辑视图（去 URL／互动数／纯转发，关键词优先）。5.2 万 → 1.5 万 token |
-| `scripts/push_site.py` | 提交并推送，绕开本机 `git push` 被 SIGTERM 的问题（GCM 取 token → 临时 askpass → 推完即删）。**日报要带 `--path src/content/daily/`**，否则 `git add -A` 会卷进无关改动 |
+| `scripts/push_site.py` | 提交并推送，绕开本机 `git push` 被 SIGTERM 的问题（GCM 取 token → 临时 askpass → 推完即删）。**日报要带 `--path data/daily/`**，否则 `git add -A` 会卷进无关改动 |
 | `scripts/sync_xreader_accounts.py` | 站点名单 → `X-Reader/accounts.yaml`（只写 `seiyuu` 且 `active != false`）。`--check` 只比对 |
 | `scripts/daily.sh` | 一键流程包装：组装 → 提示用 WorkBuddy 填摘要 → 打印 git 命令 |
 | `scripts/rss_to_items.py` | 把 X-rss-main 的**真实** RSS feeds（`output/feeds_processed/*.xml`）转成 NormalizedItem JSONL（账号/原文链接/内容均为真实；该 RSS 源不含媒体与互动数） |
 | `scripts/sample_items/x.jsonl` | 预览/测试数据。现由 `rss_to_items.py` 从 X-rss-main 真实 feeds 生成（**真实推文**，非编造） |
-| `src/content.config.ts` | `daily` 内容集合的 Zod schema（**没有** `title` / `pubDate`，两者由文件名推导） |
-| `src/lib/daily.ts` | 期号解析（`parseDailyId` / `toDailyId`）、`getDailyReports()`、按月分组、`dailyPath()` |
-| `src/layouts/DailyLayout.astro` | 日报详情页布局（复用 `BaseLayout`，含"AI 整理"徽章、上/下篇导航） |
+| `src/content.config.ts` | `dailyReports` 集合：`glob({ base: './data/daily', pattern: '*/report.json' })` + Zod（**没有** `title` / `pubDate`，两者由期号推导） |
+| `src/lib/daily.ts` | 期号解析（`parseDailyId` / `toDailyId`）、`getDailyReports()`、按月分组、`dailyPath()`、`plainText()`（`.txt` 出口） |
+| `src/lib/roster.ts` | 名单查询：`nameOf()` / `displayNameOf()`，页面与 `.txt` 共用 |
+| `src/layouts/DailyLayout.astro` | 日报详情页布局（复用 `BaseLayout`，含"AI 整理"徽章、纯文本版链接、上/下篇导航） |
 | `src/pages/daily/index.astro` | `/daily/` 归档列表（按月分组） |
 | `src/pages/daily/[...id].astro` | `/daily/<期号>/` 详情页（`getStaticPaths`） |
 | `src/pages/daily/rss.xml.ts` | `/daily/rss.xml` 归档 feed（独立于主 feed） |
+| `src/pages/daily/[id].json.ts` | `/daily/<期号>.json`：与正本逐字节相同的 JSON 出口 |
+| `src/pages/daily/[id].txt.ts` | `/daily/<期号>.txt`：纯文本出口（复制粘贴 / M6 视频稿） |
 | `src/config/navigation.json` | 顶部导航的"日报"入口 |
-| `src/content/daily/<期号>.md` | **产出**：每期的日报内容，文件名即发布时间 |
+| `data/daily/<期号>/report.json` | **产出（已发布）**：站点读的正本，目录名即发布时间 |
+| `out/<期号>/report.json` | 工作区正本（草稿/已定稿），`publish` 才搬到 `data/daily/` |
 
 ### 2.2 X-Reader 端（抓取侧）
 
@@ -287,32 +321,47 @@ commit（2026-10-26 就把一篇 496 行的新访谈卷进了「docs: 抓取侧�
   python scripts/sync_xreader_accounts.py --out ... --check   # 只比对，不一致退 1
   ```
   只写 `category: seiyuu` 且 `active != false` 的条目（现在是 128 个）。社团号与厂商号是
-  `active: false`，不会被写进去。digest 的 `accounts` frontmatter 由数据**自动推导**，同样不用手改。
+  `active: false`，不会被写进去。正本里的 `accounts` 由数据**自动推导**，同样不用手改。
 - **实例可靠性：** 公共 Nitter 实例大半已死（410 / 451 / 403 / 人机验证页）。2026-10-26 实测 13 个里只有 1 个能出 feed，
   `config/config.yaml` 里按「能用的排前面」重排过。`providers/nitter.py` 会校验响应**是不是 feed**——
   200 但内容是验证页时记为这个实例失败并继续下一个，否则会静默返回「今天没人发推」。
 - **加 RSS / YouTube 源：** 改 `X-Reader/config/config.yaml`。⚠️ 注意：digest 当前读取 `items/` 目录下**所有** `*.jsonl`；若以后引入非 X 源，日报会混入它们。要么只传 `data/items/x*.jsonl`，要么给 digest 加 `--source x` 过滤（见 §2.6）。
 
-### 2.3 日报 frontmatter schema（`src/content.config.ts` 的 `daily` 集合）
+### 2.3 正本 schema（`data/daily/<期号>/report.json` + `content.config.ts` 的 `dailyReports`）
 
-```ts
+两份定义必须同步：`schemas/report.schema.json`（Python 侧，`apply` / `publish` 用它校验）与
+`src/content.config.ts` 的 Zod（构建期用它校验）。**只加不改**——改名字要升 `schema_version` 并写迁移。
+
+```jsonc
 {
-  // 没有 title / pubDate：标题和发布时间由文件名（YYMMDDHH）推导
-  description?: string;          // 可选，但一旦写了必须 ≤50 字（今日看点简报）
-  source: 'original' | 'ai';     // 默认 'ai'
-  accounts: string[];            // 默认 []，当天有活动的账号（脚本推导）
-  highlights: string[];          // 默认 []，今日看点：前 9 重点 / 自述热度 / 特别活动
-  works: string;                 // 默认 ''，作品动态：一段话，不带来源链接
-  interactions: string[];        // 默认 []，多人互动，每项一条
-  people: { handle: string; summary: string }[];  // 默认 []，summary 为空即不渲染
-  draft: boolean;                // 默认 false
+  "schema_version": 1,
+  "issue": {
+    "id": "26102322",                        // 八位期号，必须和目录名一致
+    "published_at": "2026-10-23T22:00:00+09:00",
+    "window": { "start": "...", "end": "..." },  // JST 自然日 [00:00, 次日 00:00)
+    "status": "draft | confirmed",           // publish 只认 confirmed
+    "confirmed_at": "..." | null
+  },
+  "counts": { "items": 0, "accounts": 6, "late": 0, "skipped_duplicate": 0 },
+  "description": "≤50 字，今日看点简报",
+  "highlights":   [{ "text": "...", "sources": ["x:123"] }],
+  "insights":     [{ "text": "...", "sources": ["x:123"] }],   // 空则整节不渲染
+  "interactions": [{ "text": "...", "sources": ["x:123"] }],   // 空则整段不渲染
+  "works": "一段话，不带来源链接",
+  "categories": [{ "id": "people", "label": "聊人", "summary": "..." }],  // 空则整节不渲染
+  "accounts": ["handle", "..."],             // 正文 @提及 的链接白名单
+  "people": [{ "handle": "...", "category": "", "summary": "...", "via": ["..."], "sources": ["x:123"] }],
+  "provenance": { "generator": "daily.build", "prompt_version": 1, "cache_key": "", "generated_at": "" }
 }
 ```
 
-- **改字段：** 在 `content.config.ts` 的 `daily` schema 改 Zod，并相应修改：
-  - `daily_digest.py` 的 `build_markdown()` 头部（frontmatter 输出）；
-  - `DailyLayout.astro` 的渲染逻辑（如果要展示新字段）。
-- **`draft: true`：** 该日报不会被 `getDailyReports()` 列出，也不进导航——可用于暂存未完成的日报。
+- **`sources` 是唯一能回溯的凭据**：页面不显示，但 `/daily/<期号>.json` 会原样输出。
+- **`title` / `pubDate` 不在数据里**：由期号推导，多存一份就多一处能和 URL 对不上的地方。
+- **改字段：** 先改 `schemas/report.schema.json`，再改 `content.config.ts` 的 Zod，然后：
+  - `scripts/daily/build.py` 的 `build_report()`（骨架输出）；
+  - `scripts/daily/apply.py` 的 `new_report()` / `_merge_people()`（合并时的兜底形状）；
+  - `DailyLayout.astro` 与 `src/lib/daily.ts` 的 `plainText()`（两处都要展示新字段）。
+- **没有 `draft` 字段**：草稿留在 `out/`，进 `data/daily/` 就是已发布。位置本身就是状态。
 
 ### 2.4 digest.py 与 NormalizedItem 字段映射（维护关键点）
 
@@ -336,7 +385,9 @@ digest 实际使用的字段：
 
 | 阶段 | 常见原因 / 处理 |
 | --- | --- |
-| `astro check` 失败 | 多半是 `daily` schema 与某篇 `.md` 的 frontmatter 不符（如 `description` 超过 50 字）。**文件名不是 `YYMMDDHH` 会在 `build` 阶段抛错**，报错信息里带文件名 |
+| `astro check` 失败 | 多半是 `dailyReports` 的 Zod 与某份 `report.json` 不符（如 `description` 超过 50 字）。**目录名不是 `YYMMDDHH` 会在 `build` 阶段抛错**，报错信息里带期号 |
+| 改了摘要但线上没变 | 忘了 `publish`：站点读 `data/daily/`，不读 `out/`。这是 M4 之前最常踩的坑 |
+| 构建说「data/daily 里没有任何 report.json」 | `glob` 的 base 指错了，或 `data/daily/` 被清空。这条是硬失败——日报是每天自动发的，空了就是链路断了 |
 | `test:md` 失败 | 只跑 `tests/markdown/*.test.mjs`，**与日报无关**，基本不会因日报触发 |
 | `build` 失败 | 图片/链接语法问题；日报媒体只用纯链接，风险低 |
 | `links` 失败 | `check_links.py` 查站内死链。日报"原文"指向 `x.com`，一般可用；若个别帖子 404 会报死链——可在 links 配置把 `x.com` 加例外，或确认链接正确 |
@@ -369,11 +420,15 @@ digest 实际使用的字段：
   1) git -C X-rss-workspace/X-Reader pull        # 拿 CI 抓的数据
   2) python scripts/daily_digest.py --items-dir X-rss-workspace/X-Reader/data/items
      （期号自动取当前 JST 小时；补旧的可加 --at "2026-10-24 21:00"）
-  3) 让 WorkBuddy 填 description（≤50 字）/ highlights / works / interactions / people[].summary
-  4) git add src/content/daily/<期号>.md && git commit -m "daily: <期号>" && git push
+  3) 让 WorkBuddy 填 out/<期号>/report.json 的 description（≤50 字）/ highlights / works
+     / interactions / people[].summary
+  4) python scripts/daily_digest.py confirm --issue <期号>   # 定稿
+     python scripts/daily_digest.py publish --issue <期号>   # 搬到 data/daily/
+  5) python scripts/push_site.py -m "daily: <期号>" --path data/daily/
 
 期号：YYMMDDHH（JST）。2026-10-31 22:00 → 26103122 → /daily/26103122/
 存档：/daily/（按月分组） 订阅：/daily/rss.xml
+出口：/daily/<期号>.json（正本逐字节相同） · /daily/<期号>.txt（纯文本）
 ```
 
 ### 为什么同一天可以有多期

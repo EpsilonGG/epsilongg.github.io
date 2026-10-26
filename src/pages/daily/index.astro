@@ -43,13 +43,32 @@ const note =
             <p class="page-note">{note}</p>
           ) : null
         }
+        {
+          latest ? (
+            <p class="daily-archive__jump">
+              <a class="daily-archive__chip" href={dailyPath(latest)}>
+                看最新一期（{formatIssueTime(latest.data.pubDate)}）
+              </a>
+              {months.length > 1 ? (
+                <>
+                  <span class="daily-archive__jump-label">跳到</span>
+                  {months.map((month) => (
+                    <a class="daily-archive__chip" href={`#${month.key}`}>
+                      {month.label}
+                    </a>
+                  ))}
+                </>
+              ) : null}
+            </p>
+          ) : null
+        }
       </header>
 
       {
         months.length > 0 ? (
           <div class="daily-archive">
             {months.map((month) => (
-              <section class="daily-archive__month">
+              <section class="daily-archive__month" id={month.key}>
                 <h2 class="daily-archive__month-title">
                   {month.label}
                   <span class="daily-archive__count">{month.items.length} 期</span>
@@ -76,8 +95,8 @@ const note =
           </div>
         ) : (
           <p class="empty-state">
-            暂无日报。日报由本地 WorkBuddy 基于 X-Reader 抓取的推文生成，文件名即发布时间
-            （YYMMDDHH）。
+            暂无日报。日报由本地 WorkBuddy 基于 X-Reader 抓取的推文生成，每期一个目录
+            （YYMMDDHH），发布时由 <code>daily publish</code> 放进 data/daily/。
           </p>
         )
       }

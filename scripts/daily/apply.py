@@ -23,14 +23,27 @@ class ApplyError(RuntimeError):
 
 
 def new_report(issue_id: str, generate: dict) -> dict:
-    """从 M2 的 `generate.json` 起一份空正本。"""
+    """从 M2 的 `generate.json` 起一份空正本。
+
+    正常流程里这份文件已经由 `daily build` 写好了（`build_report`），这里只是兜底：
+    直接跑 `apply` 而没跑 `build` 时，字段名必须和 `build_report` 完全一致，
+    否则两条路径产出的正本会不一样，而站点只认一种。
+    """
     issue = generate.get("issue") or {}
     counts = generate.get("counts") or {}
     people = []
     for category in generate.get("categories") or []:
         cid = str(category.get("id") or "")
         for handle in category.get("handles") or []:
-            people.append({"handle": str(handle), "category": cid, "summary": "", "sources": []})
+            people.append(
+                {
+                    "handle": str(handle),
+                    "category": cid,
+                    "summary": "",
+                    "via": [],
+                    "sources": [],
+                }
+            )
 
     return {
         "schema_version": 1,
@@ -51,10 +64,12 @@ def new_report(issue_id: str, generate: dict) -> dict:
         "highlights": [],
         "insights": [],
         "interactions": [],
+        "works": "",
         "categories": [
             {"id": str(c.get("id") or ""), "label": str(c.get("label") or c.get("id") or "")}
             for c in generate.get("categories") or []
         ],
+        "accounts": [],
         "people": people,
         "provenance": {
             "generator": "daily",
@@ -80,7 +95,7 @@ def _merge_people(report: dict, people: list[dict], category: str, roster: Roste
             continue
         target = index.get(handle)
         if target is None:
-            target = {"handle": handle, "category": category, "summary": "", "sources": []}
+            target = {"handle": handle, "category": category, "summary": "", "via": [], "sources": []}
             report["people"].append(target)
             index[handle] = target
         if "summary" in person:

@@ -35,6 +35,15 @@
       }
     },
     "description": { "type": "string", "maxLength": 50 },
+    "works": {
+      "type": "string",
+      "description": "作品动态：一段跨人汇总（制作中 / 发售 / 销量里程碑），不带来源链接——人名在 people 里已经链到主号"
+    },
+    "accounts": {
+      "type": "array",
+      "description": "当天有活动的账号（含只出现在 highlights 里、没有 people 行的人）。正文里的 @提及 靠它变成链接",
+      "items": { "type": "string" }
+    },
     "highlights": {
       "type": "array",
       "items": {
@@ -111,6 +120,11 @@
           "handle": { "type": "string" },
           "category": { "type": "string" },
           "summary": { "type": "string" },
+          "via": {
+            "type": "array",
+            "description": "同一个人的其他号（小号 / 社团号）。页面在句末渲染成小一号的账号名链接",
+            "items": { "type": "string" }
+          },
           "sources": { "type": "array", "items": { "type": "string" } }
         }
       }

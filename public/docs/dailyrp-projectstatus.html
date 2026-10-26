@@ -505,8 +505,8 @@
         <span class="kpi__label">样例账号</span>
       </div>
       <div class="kpi__item">
-        <span class="kpi__num">147</span>
-        <span class="kpi__label">测试（原 69 + 新增 78）</span>
+        <span class="kpi__num">194</span>
+        <span class="kpi__label">测试（全量，11 条需 PyYAML）</span>
       </div>
     </div>
 
@@ -520,7 +520,12 @@
         M3 已完成（2026-10-26）——出题（<code>prompt.py</code>）、判卷（<code>validate.py</code>）、
         合并（<code>apply.py</code>）、定稿（<code>confirm.py</code>）、重跑缓存（<code>cache.py</code>）
         五个模块 + 16 条回归测试；<code>daily prompt / apply / confirm</code> 三条子命令。
-        站点已按新链路补录 10-18 至 10-23 六期。M4–M6 未开始。
+        站点已按新链路补录 10-18 至 10-23 六期。
+        M4 已完成（2026-10-26）——站点数据源从 Markdown frontmatter 换成
+        <code>data/<wbr>daily/<wbr>&lt;期号&gt;/<wbr>report.json</code>，七个期号整体迁移，
+        新增 <code>/daily/&lt;期号&gt;.json</code> 与 <code>.txt</code> 两个出口、
+        归档页锚点、<code>daily publish</code> 与 <code>npm run check:daily</code>。
+        M5–M6 未开始。
         逐条验收输出见
         <a href="https://github.com/EpsilonGG/epsilongg.github.io/blob/main/docs/daily-build-log.md">docs/<wbr>daily-build-log.md</a>。
       </p>
@@ -1133,7 +1138,7 @@
     <ul>
       <li>不做去重、不做增量判断——M1 只定义「存什么」，不定义「怎么筛」。</li>
       <li>不做分类——<code>category</code> 字段在 schema 里留好，值由 M2 填。</li>
-      <li>不删 <code>src/content/daily/*.md</code>。站点在 M4 之前一直读它。</li>
+      <li>不删 <code>src/content/daily/*.md</code>。站点在 M4 之前一直读它。（M4 已按计划删除，七个期号整体迁到 <code>data/daily/</code>。）</li>
     </ul>
   </section>
 
@@ -1663,6 +1668,30 @@ categories: roster.categories 的声明顺序</code></pre>
       </tbody>
     </table>
 
+    <div class="note">
+      <strong>2026-10-26 已完成。</strong>九个工作包全部落地，另外补了一个计划里没写的
+      <code>M4.10</code>：<code>scripts/<wbr>daily/<wbr>publish.py</code> 与
+      <code>daily publish</code> 子命令。没有它，<code>out/</code> 里写好的正本永远到不了
+      <code>data/<wbr>daily/</code>，站点读的是一个没人写的目录——「改了摘要但线上没变」会变成必然。
+      <br />
+      数据源：<code>src/<wbr>content.config.ts</code> 的 <code>dailyReports</code> 集合，
+      <code>glob({ base: './data/daily', pattern: '*/report.json' })</code>。
+      <strong><code>base</code> 指到 <code>src/</code> 之外是可行的</strong>——这条风险在动手前用七个真实期号验证过，
+      退路（搬到 <code>src/<wbr>data/<wbr>daily/</code>）没有用上。
+      七个期号由 <code>scripts/<wbr>daily/<wbr>migrate.py --write</code> 从 Markdown 迁出，
+      <code>--check</code> 只读、可重复（<code>generated_at</code> 取发布时刻而不是 <code>now()</code>）。
+      <br />
+      闸门实测：HTML 仍 20 页（13 个站点页 + 7 期）；<code>/rss.xml</code> 7 条不变；
+      <code>/daily/rss.xml</code> 7 条 = <code>report.json</code> 份数；
+      <code>/daily/26102322/</code> 的正文纯文本与迁移前逐字相同（<code>tests/<wbr>golden/<wbr>daily-26102322.txt</code>，
+      <code>npm run golden:daily</code>）；删掉 <code>src/<wbr>content/<wbr>daily/<wbr>*.md</code> 后重新构建，页面内容不变；
+      <code>npm run links</code> 25 页 593 链接全过；<code>npm run check</code> 0 错 0 警 0 提示。
+      <br />
+      新增出口检查 <code>npm run check:daily</code>（<code>scripts/<wbr>check_daily_site.py</code>）：
+      每份 <code>report.json</code> 必须有三份产物，且 <code>/daily/<期号>.json</code> 与正本
+      <strong>逐字节相同</strong>——这条同时钉住「出口不增删字段」，Zod 里加个默认值就会红。
+    </div>
+
     <h3>关键设计</h3>
 
     <h4>数据放哪</h4>
@@ -2115,17 +2144,39 @@ categories: roster.categories 的声明顺序</code></pre>
 
     <p>上面是现在，下面是 M6 做完之后。<strong>新增的都是加号，没有一行是「重写」。</strong></p>
 
-    <h4>现在</h4>
-<pre class="tree"><code>scripts/
-  daily_digest.py          265 行，单文件，单数据源
-  daily.sh                  62 行，只打印提示
+    <h4>现在（M4 之后）</h4>
+<pre class="tree"><code>schemas/                   三份契约（Python 侧校验用）
+  item.schema.json  report.schema.json  generation.schema.json
+
+data/
+  daily/
+    state.json             增量状态（≤90 天，gitignore）
+    26102322/report.json   ← 站点读的正本，目录名即期号
+
+out/                       ← gitignore，本地中间产物
+  26102322.briefing.txt    喂 LLM 的事实摘要
+  26102322.generate.json   M3 的题库（分类 + item key）
+  26102322/
+    report.json            工作区正本（草稿 / 已定稿）
+    history/               confirm / reopen 留下的旧版
+    prompt/  answer/  cache.json
+
+scripts/
+  daily/                   包：window dedupe incremental order roster export
+                           prompt validate apply confirm cache publish migrate
+  daily_digest.py          薄壳（老参数不变，另认六个子命令）
+  daily_golden.py          正文纯文本金文件
+  check_daily_site.py      出口闸门（三产物 + 两个 Feed 隔离）
   sample_items/x.jsonl     213 条样例
+
 src/
-  content/daily/26102322.md
-  lib/daily.ts             期号解析 + 排序 + 分组
+  config/daily-roster.json 名单
+  lib/daily.ts             期号解析 + 排序 + 分组 + plainText
+  lib/roster.ts            名单查询（页面与 .txt 共用）
   layouts/DailyLayout.astro
-  pages/daily/{index,[...id],rss.xml}
-tests/test_daily_digest.py 9 个</code></pre>
+  pages/daily/{index,[...id],rss.xml,[id].json,[id].txt}
+
+tests/                     日报相关 8 个文件 + golden/daily-26102322.txt</code></pre>
 
     <h4>M6 之后</h4>
 <pre class="tree"><code>schemas/                   ← 新增：三份契约
@@ -2156,7 +2207,7 @@ templates/daily/           ← 新增：M5 的版式
 scripts/daily/             ← 新增：包
   __init__.py  cli.py  model.py  schema.py  state.py  migrate.py
   window.py  dedupe.py  incremental.py  order.py  roster.py  export.py
-  prompt.py  validate.py  apply.py  confirm.py  cache.py  fonts.py
+  prompt.py  validate.py  apply.py  confirm.py  cache.py  publish.py  fonts.py
   adapters/{base,xreader,fixture}.py
   render/{text,images}.py
   video/{narration,storyboard,subtitle,assets}.py
@@ -2169,9 +2220,9 @@ src/
     index.astro            改：加月份锚点
     [...id].astro          改：读新数据
     rss.xml.ts             改：读新数据
-    [id].json.ts           ← 新增
-    [id].txt.ts            ← 新增
-  content/daily/           ← 删除（M4 迁移验证通过后）
+    [id].json.ts           ← 新增（M4 已落地）
+    [id].txt.ts            ← 新增（M4 已落地）
+  content/daily/           ← 已删除（M4 迁移验证通过后）
 
 docs/
   daily-report-guide.md    运营手册（已有）
@@ -2245,7 +2296,7 @@ docs/
           <td>「本地好的，推上去就没了」</td>
         </tr>
         <tr>
-          <td>M4 验证通过前不删 <code>src/<wbr>content/<wbr>daily</code></td>
+          <td>M4 验证通过前不删 <code>src/<wbr>content/<wbr>daily</code>（已删）</td>
           <td>它是当前唯一的线上数据源</td>
           <td>删早了，站点构建直接失败或日报全空</td>
         </tr>
@@ -2348,7 +2399,13 @@ docs/
       <code>scripts/daily.sh</code> 62 行、<code>src/lib/daily.ts</code> 168 行、<code>DailyLayout.astro</code> 170 行、
       日报相关三页 146 行、<code>src/content.config.ts</code> 94 行，合计 905 行；
       样例数据 <code>scripts/sample_items/x.jsonl</code> 213 条、11 个账号、覆盖 2026-04-04 至 2026-10-23；
-      M2 收尾时测试 147 个（原 69 + 新增 78）；站点 18 个 HTML 页面 + 5 个 <code>public/docs</code> 页面。
+      M4 收尾时测试 194 个（M2 结束时 147，M3/M4 又加 47）；站点 20 个 HTML 页面
+      （13 个站点页 + 7 期日报）+ 5 个 <code>public/docs</code> 页面。
+    </p>
+    <p>
+      M4 的实测数字：<code>/rss.xml</code> 7 条（不变）、<code>/daily/rss.xml</code> 7 条、7 份 <code>report.json</code>、
+      14 个新出口文件（7 个 <code>.json</code> + 7 个 <code>.txt</code>）、<code>npm run links</code> 25 页 593 链接、
+      金文件 13 行逐字相同。
     </p>
     <p>
       §1 的三个问题均为本次实测：UTC 分桶导致 10-23 窗口应为 28 条实取 26 条（漏 5 条、错收 3 条）；

@@ -302,12 +302,12 @@ class CliTest(unittest.TestCase):
             code, out, _ = self.run_cli([
                 "build", "--items-dir", str(SAMPLE_DIR), "--date", "2026-10-23",
                 "--at", "2026-10-23 22:00", "--out", str(tmp_path / "out"),
-                "--md-out", str(tmp_path / "26102322.md"), "--state", str(tmp_path / "state.json"),
+                "--report-out", str(tmp_path / "report" / "26102322.json"), "--state", str(tmp_path / "state.json"),
             ])
             self.assertEqual(code, 0)
             self.assertTrue((tmp_path / "out" / "26102322.briefing.txt").exists())
             self.assertTrue((tmp_path / "out" / "26102322.generate.json").exists())
-            self.assertTrue((tmp_path / "26102322.md").exists())
+            self.assertTrue((tmp_path / "report" / "26102322.json").exists())
             state = json.loads((tmp_path / "state.json").read_text(encoding="utf-8"))
             self.assertEqual(len(state["issues"]), 1)
             self.assertIn("27 条", out)
@@ -319,7 +319,7 @@ class CliTest(unittest.TestCase):
             argv = [
                 "build", "--items-dir", str(SAMPLE_DIR), "--date", "2026-10-23",
                 "--at", "2026-10-23 22:00", "--out", str(tmp_path / "out"),
-                "--md-out", str(tmp_path / "26102322.md"), "--state", str(tmp_path / "state.json"),
+                "--report-out", str(tmp_path / "report" / "26102322.json"), "--state", str(tmp_path / "state.json"),
             ]
             self.assertEqual(self.run_cli(argv)[0], 0)
             code, _, err = self.run_cli(argv)
@@ -333,7 +333,7 @@ class CliTest(unittest.TestCase):
             code, out, _ = self.run_cli([
                 "build", "--items-dir", str(SAMPLE_DIR), "--date", "2026-10-23",
                 "--at", "2026-10-23 22:00", "--out", str(tmp_path / "out"),
-                "--md-out", str(tmp_path / "26102322.md"), "--backfill",
+                "--report-out", str(tmp_path / "report" / "26102322.json"), "--backfill",
             ])
             self.assertEqual(code, 0)
             self.assertIn("迟到 0", out)

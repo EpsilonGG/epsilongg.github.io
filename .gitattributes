@@ -1,0 +1,10 @@
+# 日报正本必须保持 LF。
+#
+# `npm run check:daily` 会拿 `dist/daily/<期号>.json` 和 `data/daily/<期号>/report.json`
+# 做**逐字节**比对（「JSON 出口是正本的一份 encoding」这条不变量）。本机
+# `core.autocrlf=true`，没有这条规则时一次 checkout 就会把正本改成 CRLF，
+# 而 Astro 的 JSON.stringify 永远输出 LF——闸门会在本地红，CI（Linux）却是绿的。
+#
+# 只约束这一个路径，不动全仓库：给所有文件加 `text=auto` 会触发一次全量规范化，
+# 那是一个和本次改动无关的大 diff。
+data/daily/**/report.json text eol=lf

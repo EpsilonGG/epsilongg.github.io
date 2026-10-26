@@ -40,37 +40,70 @@ const blog = defineCollection({
 });
 
 /**
- * 日报集合：由本地 WorkBuddy（LLM）基于 X-Reader 抓取的推文生成的每日摘要。
- * 与 blog 分离，避免混入「笔记」归档；内容来源默认标记为 `ai`（AI 整理）。
+ * 日报集合（M4 起读 JSON，不再读 Markdown）。
  *
- * 正文三段全部是结构化字段，不写进 Markdown 正文——原因有三：
- * 1. 链接由 `handle` 拼出来（`https://x.com/<handle>`），模型不可能写错网址；
- * 2. `summary` 为空的条目自动不渲染，天然满足「当日没有活动就省略」；
- * 3. 上百人时这些字段要拿去做分类视图和 JSON 输出，藏在正文里就取不出来。
+ * 数据源是仓库根的 `data/daily/<期号>/report.json`——**不在 `src/` 里**：它是
+ * 「要发布的正本」，由 `daily publish` 从工作区 `out/` 搬过来，和构建用的派生数据
+ * （`src/data/image-manifest.json`）不是一类东西。`glob()` 的 `base` 可以指到
+ * `src/` 之外，这一点在 M4.1 用七个真实期号验证过。
  *
- * **文件名即发布时间**：`YYMMDDHH.md`（八位数字，JST），如 `26103122.md`
- * 表示 2026-10-31 22:00。所以这里**没有 `pubDate` 字段**——时间只有文件名
- * 一个来源，不存在「URL 和日期对不上」这种状态。精确到小时是为了存档：
- * 同一天可以出多期，重跑不会覆盖上一期。
+ * 三件事因此一起退掉了：`render()`（正文本来就是空的）、`draft` 过滤（发布即上线，
+ * 草稿留在 `out/`）、以及 frontmatter 里的 `title` / `pubDate`（由期号推导）。
+ *
+ * 字段与 `schemas/report.schema.json` 一一对应。**只加不改**：改名字要升
+ * `schema_version` 并写迁移，否则老期号会读不出来。
  */
-const daily = defineCollection({
-  loader: glob({ pattern: '**/*.md', base: './src/content/daily' }),
+
+/** 一句带来源的话。`sources` 是条目键（`x:<id>`），页面不显示，用来回溯。 */
+const claim = z.object({
+  text: z.string().trim().min(1, 'claim.text 不能为空'),
+  sources: z.array(z.string()).default([]),
+});
+
+/** 分类（聊人 / 聊音声 / 聊事情）。目前各期 `categories` 为空，站点按「空则整节不渲染」处理。 */
+const category = z.object({
+  id: z.string().trim().min(1),
+  label: z.string().trim().min(1),
+  summary: z.string().trim().default(''),
+  highlights: z.array(claim).default([]),
+  interactions: z.array(claim).default([]),
+});
+
+const dailyReports = defineCollection({
+  loader: glob({
+    base: './data/daily',
+    pattern: '*/report.json',
+    // 目录名就是期号：`26102322/report.json` → id `26102322`
+    generateId: ({ entry }) => entry.split(/[\\/]/)[0],
+  }),
   schema: z.object({
+    schema_version: z.number().int().default(1),
+    /**
+     * 期号与时间。**期号 = 发布时间 = 网址**（`YYMMDDHH`，JST）：
+     * 精确到小时是为了存档，同一天可以出多期，重跑不会覆盖上一期。
+     */
+    issue: z.object({
+      id: z.string().regex(/^\d{8}$/, '期号必须是八位 YYMMDDHH'),
+      published_at: z.string().trim().default(''),
+      window: z.object({ start: z.string().optional(), end: z.string().optional() }).default({}),
+      status: z.enum(['draft', 'confirmed']).default('draft'),
+      confirmed_at: z.string().nullable().default(null),
+    }),
+    counts: z
+      .object({
+        items: z.number().int().nonnegative().default(0),
+        accounts: z.number().int().nonnegative().default(0),
+        late: z.number().int().nonnegative().default(0),
+        skipped_duplicate: z.number().int().nonnegative().default(0),
+      })
+      .default({ items: 0, accounts: 0, late: 0, skipped_duplicate: 0 }),
     /**
      * 副标题 = 今日看点的 50 字以内简报，显示在标题下方。
      * 不要写日期和账号名——日期在标题与「发布于」里已经有了，
      * 账号名读者扫一眼名单就知道，占掉这 50 字很浪费。
-     * 超长会直接让构建失败；缺失只在构建日志里 warn（允许先出骨架再补）。
+     * 超长会直接让构建失败；为空只在构建日志里 warn（允许先出骨架再补）。
      */
-    description: z
-      .string()
-      .trim()
-      .min(1, 'description 不能是空字符串')
-      .max(50, 'description 是「今日看点」的简报，必须 ≤ 50 字')
-      .optional(),
-    source: z.enum(['original', 'ai']).default('ai'),
-    /** 当天有活动的账号（由抓取数据推导，不需要手写） */
-    accounts: z.array(z.string().trim().min(1)).default([]),
+    description: z.string().trim().max(50, 'description 是「今日看点」的简报，必须 ≤ 50 字').default(''),
     /**
      * 今日看点：排在最前面的概括性文本，每项一段。
      *
@@ -80,9 +113,11 @@ const daily = defineCollection({
      * 加长版，读者还是要往下翻，那这一段就没有意义了。
      * 为空时页面会显示「待补充」提示，提醒还没跑完 LLM 那一步。
      */
-    highlights: z.array(z.string().trim().min(1)).default([]),
+    highlights: z.array(claim).default([]),
+    /** 全局洞察（跨分类的观察）。为空则整节不渲染。 */
+    insights: z.array(claim).default([]),
     /** 名单内多人之间的互动，每项一条；为空则整段不渲染 */
-    interactions: z.array(z.string().trim().min(1)).default([]),
+    interactions: z.array(claim).default([]),
     /**
      * 作品动态：一段话，汇总名单里的人在推上提到的作品进度
      * （制作中 / 正式发售 / 销量里程碑 / 上架平台）。
@@ -93,6 +128,12 @@ const daily = defineCollection({
      * 再给每条加引用会让这一段变成链接堆，读者反而看不出哪件事更重要。
      */
     works: z.string().trim().default(''),
+    categories: z.array(category).default([]),
+    /**
+     * 当天有活动的账号（含只出现在 highlights 里、没有 people 行的人）。
+     * 正文里的 `@handle` 靠它变成链接——不在这个集合里就保持纯文本。
+     */
+    accounts: z.array(z.string().trim().min(1)).default([]),
     /**
      * 每人一句话（页面上叫「详细」）。渲染成 `[声优名](主号链接) ：summary`——
      * 名字是链接，summary 只写事，**不要再把 @handle 写进句子里**。
@@ -107,13 +148,22 @@ const daily = defineCollection({
       .array(
         z.object({
           handle: z.string().trim().min(1),
+          category: z.string().trim().default(''),
           summary: z.string().trim().default(''),
           via: z.array(z.string().trim().min(1)).default([]),
+          sources: z.array(z.string()).default([]),
         }),
       )
       .default([]),
-    draft: z.boolean().default(false),
+    provenance: z
+      .object({
+        generator: z.string().trim().default('daily'),
+        prompt_version: z.number().int().default(1),
+        cache_key: z.string().default(''),
+        generated_at: z.string().default(''),
+      })
+      .default({ generator: 'daily', prompt_version: 1, cache_key: '', generated_at: '' }),
   }),
 });
 
-export const collections = { blog, daily };
+export const collections = { blog, dailyReports };

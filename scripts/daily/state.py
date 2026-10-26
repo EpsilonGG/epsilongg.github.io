@@ -13,7 +13,7 @@ from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 from . import SCHEMA_VERSION
-from .migrate import check
+from .version import check
 from .model import parse_dt
 
 

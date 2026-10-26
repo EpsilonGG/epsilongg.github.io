@@ -449,13 +449,13 @@
     <div class="doc-meta">
       <span>站点 epsilongg.github.io</span>
       <span>版本 v0.4.0</span>
-      <span>构建 10 页面 / 约 16 s</span>
+      <span>构建 20 页面 / 约 10 s</span>
       <span>体检 2026-10-24</span>
     </div>
 
     <div class="kpi">
       <div class="kpi__item">
-        <span class="kpi__num">13</span>
+        <span class="kpi__num">20</span>
         <span class="kpi__label">HTML 页面</span>
       </div>
       <div class="kpi__item">
@@ -467,7 +467,7 @@
         <span class="kpi__label">外部 JS 文件</span>
       </div>
       <div class="kpi__item">
-        <span class="kpi__num">71</span>
+        <span class="kpi__num">194</span>
         <span class="kpi__label">测试全过</span>
       </div>
       <div class="kpi__item">
@@ -525,7 +525,7 @@
     <div class="cards">
       <div class="card">
         <h4>能用</h4>
-        <p>13 个页面全部 200；构建 0 报错；<code>astro check</code> 0 错 0 警 0 提示；71 个测试全过、473 个站内链接零死链；每次推送自动部署，线上已验证。</p>
+        <p>20 个页面全部 200；构建 0 报错；<code>astro check</code> 0 错 0 警 0 提示；194 个测试全过、593 个站内链接零死链；每次推送自动部署，线上已验证。</p>
       </div>
       <div class="card">
         <h4>能改</h4>
@@ -625,13 +625,13 @@
           <td>脚本与测试</td>
           <td><span class="pill pill--done">完成</span></td>
           <td><span class="meter"><span class="meter__track"><span class="meter__fill" style="--pct:100%"></span></span><span class="meter__pct">100%</span></span></td>
-          <td class="t-hide-sm">71 个用例（60 Python + 11 Node），含链接检查与图片清单对账</td>
+          <td class="t-hide-sm">194 个用例（183 Python + 11 Node），含链接检查、图片清单对账与日报出口闸门</td>
         </tr>
         <tr>
           <td>文档</td>
           <td><span class="pill pill--done">完成</span></td>
           <td><span class="meter"><span class="meter__track"><span class="meter__fill" style="--pct:100%"></span></span><span class="meter__pct">100%</span></span></td>
-          <td class="t-hide-sm">6 份 Markdown + 4 个 HTML + LICENSE / LICENSE-CONTENT</td>
+          <td class="t-hide-sm">6 份 Markdown + 5 个 HTML + LICENSE / LICENSE-CONTENT</td>
         </tr>
         <tr>
           <td>日报栏目</td>
@@ -1010,7 +1010,7 @@
           第二次运行基本是空转。
         </p>
         <p>
-          测试合计 <strong>71 个用例</strong>（Python 60 + Node 11）：
+          测试合计 <strong>194 个用例</strong>（Python 183 + Node 11）：
         </p>
         <ul>
           <li><code>test_readme_sync.py</code>（24 个）：marker 缺失、顺序错乱、内容为空、日期格式化</li>
@@ -1249,26 +1249,29 @@
         <div class="block-item__head">
           <span class="block-item__name">3.19 日报栏目</span>
           <span class="pill pill--done">完成</span>
-          <span class="block-item__src">DailyLayout.astro · lib/daily.ts · 170 + 168 行</span>
+          <span class="block-item__src">DailyLayout.astro · lib/daily.ts · 244 + 254 行</span>
         </div>
         <p>
-          第五个固定栏目，三条路由：<code>/daily/</code> 是<strong>归档列表</strong>（按月分组，
-          一行一期），<code>/daily/&lt;期号&gt;/</code> 是单期，
-          <code>/daily/rss.xml</code> 是<strong>归档 feed</strong>。
+          第五个固定栏目，<strong>五个出口</strong>：<code>/daily/</code> 是<strong>归档列表</strong>（按月分组，
+          一行一期，顶部有「看最新一期」与月份锚点），<code>/daily/&lt;期号&gt;/</code> 是单期，
+          <code>/daily/rss.xml</code> 是<strong>归档 feed</strong>，另有
+          <code>/daily/&lt;期号&gt;.json</code>（与正本逐字节相同的 JSON，给第三方和脚本）与
+          <code>/daily/&lt;期号&gt;.txt</code>（纯文本，给复制粘贴和以后的视频稿）。
+          后两个从同一份 <code>report.json</code> 渲染，不另存数据。
         </p>
         <p>
-          <strong>文件名即发布时间。</strong>期号是 <code>YYMMDDHH</code>（八位数字，日本时间），
-          2026-10-31 22:00 就是 <code>26103122.md</code>，网址 <code>/daily/26103122/</code>。
-          精确到小时不是为了好看，是为了<strong>存档</strong>：只到天的话
-          <code>2026-10-31.md</code> 一天只能有一个，补一次就把上一期冲掉；
-          带小时后每跑一次都是新文件，旧的一期自动留档，同一天可以并存多期。
+          <strong>目录名即发布时间。</strong>期号是 <code>YYMMDDHH</code>（八位数字，日本时间），
+          2026-10-31 22:00 就是 <code>data/daily/26103122/report.json</code>，网址
+          <code>/daily/26103122/</code>。精确到小时不是为了好看，是为了<strong>存档</strong>：
+          只到天的话一天只能有一期，补一次就把上一期冲掉；带小时后每跑一次都是新目录，
+          旧的一期自动留档，同一天可以并存多期。
         </p>
         <p>
-          因为时间只有文件名一个来源，frontmatter 里<strong>没有 <code>title</code>、也没有
+          因为时间只有期号一个来源，<code>report.json</code> 里<strong>没有 <code>title</code>、也没有
           <code>pubDate</code></strong>：标题由期号推导成 <code>X 日报 · 2026-10-31 22:00</code>，
-          发布时间由 <code>parseDailyId()</code> 解析（固定 JST 偏移，不依赖运行环境时区），
-          手改日期不可能和 URL 对不上。文件名不合规、或 <code>26103231</code> 这种不存在的日期，
-          <strong>构建直接失败</strong>并指出是哪个文件。
+          发布时间优先取 <code>issue.published_at</code>，缺失时退回 <code>parseDailyId()</code>
+          （固定 JST 偏移，不依赖运行环境时区），手改日期不可能和 URL 对不上。
+          期号不合规、或 <code>26103231</code> 这种不存在的日期，<strong>构建直接失败</strong>并指出是哪一期。
         </p>
         <p>
           <strong>版式是三段，顺序固定</strong>：
@@ -1285,10 +1288,23 @@
           构建期还会 warn 一次旧写法（以日期开头、或含「摘要（@」），防止模板改回去。
         </p>
         <p>
-          <strong>正文内容写在 frontmatter 而不是 Markdown 正文里</strong>，为的是三件事：
+          <strong>正文内容是结构化字段，不写在 Markdown 正文里</strong>（M4 之前放 frontmatter，
+          之后放 <code>report.json</code>，理由一样），为的是三件事：
           链接由 <code>handle</code> 拼出来，模型没有机会把 URL 写错；
           <code>summary</code> 留空就等于"当日没有动态"，不渲染那一行，不用另外维护一份删人清单；
-          同一份数据以后要按分类重新分组时不用重写正文。代价是这一栏的 Markdown 正文是空的。
+          同一份数据以后要按分类重新分组时不用重写正文。代价是这一栏没有 Markdown 正文。
+        </p>
+        <p>
+          <strong>M4 换掉了数据源。</strong>站点从 <code>data/daily/&lt;期号&gt;/report.json</code> 读
+          （<code>glob({ base: './data/daily', pattern: '*/report.json' })</code> + Zod），
+          不再读 <code>src/content/daily/*.md</code>——那七个文件已整体迁移并删除。
+          <code>render()</code>、<code>draft</code> 过滤、frontmatter 的 <code>title</code>/<code>pubDate</code>
+          三样一起退掉了：正文本来就是空的、发布即上线、时间只认期号。
+          「发布」是一件显式的事：<code>daily publish</code> 把工作区 <code>out/&lt;期号&gt;/report.json</code>
+          搬到 <code>data/daily/</code>，只认 <code>status: confirmed</code> 的正本，默认不覆盖已发布的期号。
+          换源前后用<strong>正文纯文本金文件</strong>比对（<code>tests/golden/daily-26102322.txt</code>），
+          13 行逐字相同；<code>npm run check:daily</code> 再钉住「有一份正本就有三份产物，
+          且 JSON 出口与正本逐字节相同」。
         </p>
         <p>
           <strong>与笔记栏目最大的不同：这里不设「含 AI 整理」滑块。</strong>
@@ -1298,13 +1314,14 @@
         </p>
         <p>
           数据流分三段，<strong>CI 里不跑 LLM、不要 API key、不要服务器</strong>：
-          X-Reader 的 Actions 每日 17:10 UTC 抓推文写成 <code>data/items/*.jsonl</code> →
+          X-Reader 的 Actions 每日 03:00 / 15:00 UTC 抓推文写成 <code>data/items/*.jsonl</code> →
           本机 <code>scripts/daily_digest.py</code> 把 items 确定性组装成
-          <code>src/content/daily/&lt;期号&gt;.md</code>：<code>accounts</code> 按发推数排好、
+          <code>out/&lt;期号&gt;/report.json</code>：<code>accounts</code> 按名单序排好、
           <code>highlights</code> / <code>interactions</code> 留空数组、
           <code>people</code> 逐个列出但 <code>summary</code> 为空 →
-          本机 WorkBuddy 填这三段 → push → 站点 Actions 照常构建部署。
-          只有"填这三段"需要模型，留在本机跑一次。
+          本机 WorkBuddy 填这几段 → <code>confirm</code> 定稿 → <code>publish</code> 搬到
+          <code>data/daily/</code> → push → 站点 Actions 照常构建部署。
+          只有"填这几段"需要模型，留在本机跑一次。
         </p>
         <p>
           正文里的 <code>@handle</code> 只在<strong>名单内</strong>才自动变链接：
@@ -1316,7 +1333,7 @@
         <div class="block-item__left">
           剩余：归档列表没有分页与搜索（一年 365 行，暂时一页放得下；超过两年再按月分页）；
           没有分类视图与单人页，方案见 <code>docs/daily-scaling-plan.md</code>。
-          <code>daily_digest.py</code> 默认<strong>拒绝覆盖已存在的期号</strong>，
+          <code>daily_digest.py</code> 与 <code>daily publish</code> 都默认<strong>拒绝覆盖已存在的期号</strong>，
           覆盖等于删掉一期存档，确实要重写同一期得显式 <code>--force</code>。
           日报的 feed 是独立的 <code>/daily/rss.xml</code>，主 <code>/rss.xml</code> 仍然只收「笔记」——
           混进去会改变既有订阅者收到的东西。
@@ -1614,7 +1631,7 @@
           处理：<code>astro</code> 从 <code>7.3.8</code> 放开到 <code>^7.4.2</code>，
           <code>engines.node</code> 改成 <code>&gt;=22.23.4</code>（跟着上游要求走，不再假装 22.12 够用），
           CI 的 <code>setup-node</code> 钉到 <code>24</code>。
-          升级后 <code>astro check</code> 0 错、构建通过、71 个测试全过。
+          升级后 <code>astro check</code> 0 错、构建通过、194 个测试全过。
         </p>
         <div class="block-item__left">
           顺手记一个坑：Astro 7 把渲染好的 Markdown HTML 缓存在
@@ -1648,7 +1665,7 @@
           扫 <code>dist</code> 里所有 <code>href</code> / <code>src</code> / <code>srcset</code>，
           映射回文件系统，缺文件就退出 1；顺带查 <code>#锚点</code> 指向的 id 是否真的存在。
           只查站内（本地比对），外链默认跳过——外站限流、挡爬虫、偶发超时都会让流水线莫名变红，
-          那是另一件事，该用定时任务查。现在跑一遍：17 个页面、473 个站内链接、628 处引用，
+          那是另一件事，该用定时任务查。现在跑一遍：25 个页面、593 个站内链接、852 处引用，
           全部通过。
         </div>
         <div class="block-item__left">
@@ -2378,8 +2395,7 @@
 │   │   ├── ads.ts            广告位类型包装 + hasAds 判定
 │   │   └── about.ts          /me/ 页（名片）的简介、主要平台、关注领域、项目、经历
 │   ├── content/blog/         ★ 文章：一个 .md 一个 URL
-│   ├── content/daily/        ★ 日报：一个 .md 一期，文件名即日期
-│   ├── content.config.ts     blog / daily 两个集合的 schema（Zod）
+│   ├── content.config.ts     blog / dailyReports 两个集合的 schema（Zod）
 │   ├── layouts/
 │   │   ├── BaseLayout.astro  head / SEO / OG / 主题 / skip-link / 页头页脚
 │   │   ├── ArticleLayout.astro  文章骨架 + 侧栏 + 注释面板
@@ -2393,6 +2409,8 @@
 │   │   ├── daily/index.astro     /daily/（按月归档）
 │   │   ├── daily/[...id].astro   /daily/{期号}/
 │   │   ├── daily/rss.xml.ts      /daily/rss.xml（归档 feed）
+│   │   ├── daily/[id].json.ts    /daily/{期号}.json（与正本逐字节相同）
+│   │   ├── daily/[id].txt.ts     /daily/{期号}.txt（纯文本）
 │   │   ├── 404.astro         含一个小游戏（404-game.ts，728 行）
 │   │   ├── robots.txt.ts     路由生成的 robots.txt
 │   │   └── rss.xml.ts
@@ -2411,7 +2429,8 @@
 │   │   └── remote-images.json     远程图尺寸（--write-dims 生成，可缺）
 │   ├── lib/
 │   │   ├── posts.ts          文章读取、排序、草稿过滤
-│   │   ├── daily.ts          日报读取、排序、草稿过滤
+│   │   ├── daily.ts          日报读取、排序、分组、纯文本导出
+│   │   ├── roster.ts         声优名单查询（页面与 .txt 共用）
 │   │   ├── markdown-figure.mjs    图注 hast 插件（228 行，含并组）
 │   │   └── markdown-images.mjs    lazy / 尺寸 / WebP picture 插件（182 行）
 │   └── styles/
@@ -2425,17 +2444,21 @@
 │   ├── images/               76 张图：头像、图标、52 张文章插图、2 张背景图
 │   │                         + 构建时生成的 102 个 .webp 变体（已 gitignore）
 │   ├── og-default.png        默认分享图
-│   └── docs/                 4 个 HTML 指南（本站托管）
+│   └── docs/                 5 个 HTML 指南（本站托管）
 ├── scripts/
 │   ├── sync_profile_readme.py  主页 README 同步（489 行）
 │   ├── check_remote_images.py  远程图片体检 + 尺寸记录（308 行）
 │   ├── check_links.py          站内死链检查（277 行，CI 必跑）
 │   ├── optimize_images.mjs     图片 WebP 变体与清单（199 行）
-│   ├── daily_digest.py         把 X-Reader 的 items 组装成日报 .md（215 行）
+│   ├── daily/                  日报包：采集→出题→判卷→定稿→发布（M1–M4）
+│   ├── daily_digest.py         把 X-Reader 的 items 组装成日报骨架（薄壳）
+│   ├── check_daily_site.py     日报出口闸门（三产物 + Feed 隔离，109 行）
+│   ├── daily_golden.py         日报正文纯文本金文件（166 行）
 │   ├── rss_to_items.py         把 RSS 规范化成同一种 items 格式（171 行）
 │   ├── daily.sh                一键：pull → digest → 提示写摘要（39 行）
 │   └── sample_items/           离线样例，供脚本自测
-├── tests/                    71 个用例（Python 60 + Node 11）
+├── data/daily/{期号}/report.json   ★ 日报正本（站点读它，目录名即期号）
+├── tests/                    194 个用例（Python 183 + Node 11）+ golden/
 ├── README.md                 主页名片 + 文档导航
 ├── README/                   quickstart / project / blog-guide / fork / ads + reports/
 ├── docs/                     daily-report-guide.md（跨仓库的日报流水线，不进部署）
@@ -2444,7 +2467,7 @@
     <div class="note">
       <p>
         <strong>带星号的目录是改动的入口。</strong>改内容去 <code>src/config/</code>，写文章去
-        <code>src/content/blog/</code>，写日报去 <code>src/content/daily/</code>，加页面去 <code>src/pages/</code>。
+        <code>src/content/blog/</code>，改日报去 <code>data/daily/</code>，加页面去 <code>src/pages/</code>。
         其余目录基本只在"改功能"时才需要碰。
       </p>
     </div>
@@ -2519,7 +2542,7 @@
   <footer class="doc-foot">
     <p>
       体检时间 2026-10-25（页面、链接、体积数字为本次构建实测；第六节的外部站点对照仍是 2026-10-24 抓取）。数据来自实际构建产物、源码统计与现场抓取：
-      13 个 HTML 页面、单 CSS 38,825 字节（gzip 6,948）、0 个外部 JS 文件、71 个测试用例、
+      20 个 HTML 页面、单 CSS 38,825 字节（gzip 6,948）、0 个外部 JS 文件、194 个测试用例、
       产物 15 MB（原图 7.2 MB + WebP 变体 6.3 MB + 字体 136 KB + 其余约 700 KB）、
       <code>astro check</code> 0 错 0 警 0 提示，Astro 7.4.2 / Sätteri 0.4.5 / Node ≥ 22.23.4。
     </p>

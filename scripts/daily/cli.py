@@ -26,11 +26,13 @@ from pathlib import Path
 
 from . import SCHEMA_VERSION, __version__
 from . import confirm as confirm_mod
+from . import migrate as migrate_mod
 from . import paths as path_mod
 from . import prompt as prompt_mod
+from . import publish as publish_mod
 from .adapters.xreader import XReaderAdapter
 from .apply import ApplyError, apply
-from .build import build_briefing, build_markdown
+from .build import build_briefing, build_report
 from .dedupe import merge
 from .export import build as build_export
 from .incremental import Classification, classify, commit
@@ -68,13 +70,24 @@ def _render(
     published_at: str,
     per_account: int | None = None,
 ) -> dict[str, bytes]:
-    """三个产物一起出。generate.json 也是可复现对象，所以放进同一份比对。"""
+    """三个产物一起出。generate.json 与 report.json 也是可复现对象，所以放进同一份比对。"""
     export = build_export(issue_id, classification, merged, roster, published_at)
+    report = build_report(
+        merged,
+        issue_id,
+        accounts=accounts,
+        roster=roster,
+        published_at=published_at,
+        window=classification.window,
+        counts=classification.counts(accounts=len(accounts)),
+    )
     return {
         f"{issue_id}.briefing.txt": build_briefing(
             merged, classification.window.day, accounts, per_account
         ).encode("utf-8"),
-        f"{issue_id}.md": build_markdown(merged, issue_id, accounts, roster).encode("utf-8"),
+        f"{issue_id}.report.json": (
+            json.dumps(report, ensure_ascii=False, indent=2) + "\n"
+        ).encode("utf-8"),
         f"{issue_id}.generate.json": (
             json.dumps(export, ensure_ascii=False, indent=1) + "\n"
         ).encode("utf-8"),
@@ -164,15 +177,18 @@ def _cmd_build(args: argparse.Namespace) -> int:
     state = State() if (args.no_state or args.backfill) else State.load(args.state)
     classification, merged, accounts = _pipeline(raw, window, roster, state.seen)
 
-    md_out = (
-        Path(args.md_out)
-        if args.md_out
-        else REPO_ROOT / "src" / "content" / "daily" / f"{issue_id}.md"
+    # 正本落在工作区 `out/<期号>/report.json`——`apply` / `confirm` / `publish` 都读它。
+    # 站点读的是 `data/daily/<期号>/report.json`，两者靠 `publish` 连接：
+    # 「编辑中的一期」和「已经发布的一期」在磁盘上必须是两个位置。
+    report_out = (
+        Path(args.report_out)
+        if args.report_out
+        else path_mod.report(path_mod.workspace(args.out, issue_id))
     )
-    # 存档保护：同一声明时间只允许有一期，重跑必须先 --force，避免手滑覆盖
-    if md_out.exists() and not args.force:
+    # 存档保护：同一期只允许有一份草稿，重跑必须先 --force，避免手滑覆盖已写好的内容
+    if report_out.exists() and not args.force:
         print(
-            f"已存在 {md_out}，拒绝覆盖（这一期已经在存档里了）。\n"
+            f"已存在 {report_out}，拒绝覆盖（这一期已经在工作区里了）。\n"
             f"换一个小时（--at）或者加 --force 明确覆盖。",
             file=sys.stderr,
         )
@@ -182,10 +198,12 @@ def _cmd_build(args: argparse.Namespace) -> int:
     out = Path(args.out)
     out.mkdir(parents=True, exist_ok=True)
     for name, blob in files.items():
+        if name.endswith(".report.json"):
+            continue  # 正本走下面的目录结构，不进扁平的 out/
         (out / name).write_bytes(blob)
 
-    md_out.parent.mkdir(parents=True, exist_ok=True)
-    md_out.write_bytes(files[f"{issue_id}.md"])
+    report_out.parent.mkdir(parents=True, exist_ok=True)
+    report_out.write_bytes(files[f"{issue_id}.report.json"])
 
     counts = classification.counts(accounts=len(accounts))
     print(
@@ -195,7 +213,7 @@ def _cmd_build(args: argparse.Namespace) -> int:
     )
     print(f"Wrote {out / issue_id}.briefing.txt")
     print(f"Wrote {out / issue_id}.generate.json")
-    print(f"Wrote Markdown -> {md_out}  (期号 {issue_id}，网址 /daily/{issue_id}/)")
+    print(f"Wrote 正本 -> {report_out}  (期号 {issue_id}，网址 /daily/{issue_id}/)")
 
     if not args.no_state and not args.backfill:
         commit(state, classification, issue_id, published_at)
@@ -210,8 +228,9 @@ def _cmd_build(args: argparse.Namespace) -> int:
         )
 
     print(
-        "下一步：让本地 WorkBuddy 读 briefing 与 generate.json，填写该 .md 里的 "
-        "highlights（今日看点）/ works（作品动态）/ interactions（互动）/ people[].summary（每人一句）四段。"
+        f"下一步：让本地 WorkBuddy 读 briefing 与 generate.json，填写 {report_out} 里的 "
+        "highlights（今日看点）/ works（作品动态）/ interactions（互动）/ people[].summary（每人一句）。"
+        "写完 `daily confirm` 定稿，再 `daily publish` 搬到站点。"
     )
     return 0
 
@@ -323,6 +342,28 @@ def _cmd_confirm(args: argparse.Namespace) -> int:
     return 0
 
 
+def _cmd_migrate(args: argparse.Namespace) -> int:
+    """M4.1：Markdown 日报 → report.json（一次性）。参数转给 `daily.migrate`。"""
+    argv = ["--check" if args.check else "--write", "--src", str(args.src), "--dest", str(args.dest)]
+    for issue_id in args.ids or []:
+        argv += ["--id", issue_id]
+    return migrate_mod.main(argv)
+
+
+def _cmd_publish(args: argparse.Namespace) -> int:
+    """M4：把定稿的正本从 out/ 搬到站点读的 data/daily/。"""
+    try:
+        result = publish_mod.publish(
+            args.issue, out_dir=args.out, dest_root=args.dest, force=args.force
+        )
+    except publish_mod.PublishError as exc:
+        print(str(exc), file=sys.stderr)
+        return 1
+    verb = "已覆盖" if result.replaced else "已发布"
+    print(f"{verb}：{result.path}")
+    return 0
+
+
 def _cmd_state(args: argparse.Namespace) -> int:
     state = State.load(args.path)
     if args.state_cmd == "info":
@@ -355,7 +396,9 @@ def main(argv: list[str] | None = None) -> int:
         "--at", default=None, help="发布时间（JST），决定期号，如 '2026-10-31 22:00'；默认当前时间"
     )
     build.add_argument("--out", default="out", help="briefing / generate.json 的输出目录")
-    build.add_argument("--md-out", default=None, help="日报 Markdown 输出路径")
+    build.add_argument(
+        "--report-out", default=None, help="正本输出路径，默认 out/<期号>/report.json"
+    )
     build.add_argument("--state", default=str(DEFAULT_STATE), help="增量状态文件")
     build.add_argument("--no-state", action="store_true", help="不读也不写账本（历史补录用）")
     build.add_argument(
@@ -400,6 +443,24 @@ def main(argv: list[str] | None = None) -> int:
     confirm_cmd.add_argument("--out", default="out")
     confirm_cmd.add_argument("--reopen", action="store_true", help="退回草稿（旧版进 history/）")
     confirm_cmd.set_defaults(func=_cmd_confirm)
+
+    publish_cmd = sub.add_parser("publish", help="M4 把定稿的正本发到 data/daily/（站点读它）")
+    publish_cmd.add_argument("--issue", required=True)
+    publish_cmd.add_argument("--out", default="out")
+    publish_cmd.add_argument(
+        "--dest", default=str(publish_mod.DEFAULT_DEST), help="发布根目录（默认 data/daily）"
+    )
+    publish_cmd.add_argument("--force", action="store_true", help="已发布过的期号也覆盖")
+    publish_cmd.set_defaults(func=_cmd_publish)
+
+    migrate_cmd = sub.add_parser("migrate", help="M4.1 Markdown 日报迁成 report.json（一次性）")
+    migrate_mode = migrate_cmd.add_mutually_exclusive_group(required=True)
+    migrate_mode.add_argument("--check", action="store_true", help="只读比对，有差异退出 1")
+    migrate_mode.add_argument("--write", action="store_true", help="落盘")
+    migrate_cmd.add_argument("--src", default=str(migrate_mod.DEFAULT_SRC), help="Markdown 目录")
+    migrate_cmd.add_argument("--dest", default=str(migrate_mod.DEFAULT_DEST), help="report.json 根目录")
+    migrate_cmd.add_argument("--id", action="append", dest="ids", help="只处理这些期号（可重复）")
+    migrate_cmd.set_defaults(func=_cmd_migrate)
 
     state = sub.add_parser("state", help="增量状态的查看与维护")
     state_sub = state.add_subparsers(dest="state_cmd", required=True)

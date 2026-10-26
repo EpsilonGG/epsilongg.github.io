@@ -13,7 +13,7 @@
 站点只渲染 frontmatter，不展示互动数——那些数字只留在 briefing 里供模型判断轻重。
 
 `tests/test_daily_digest.py` 仍然按老接口导入本文件，所以下面这些名字要留着：
-`JST` / `issue_id_for` / `_parse_at` / `build_markdown` / `build_briefing`。
+`JST` / `issue_id_for` / `_parse_at` / `build_report` / `build_briefing`。
 """
 from __future__ import annotations
 
@@ -27,7 +27,7 @@ if str(SCRIPTS_DIR) not in sys.path:
 
 from daily.adapters.xreader import load_raw  # noqa: E402
 from daily.build import build_briefing as _build_briefing  # noqa: E402
-from daily.build import build_markdown as _build_markdown  # noqa: E402
+from daily.build import build_report as _build_report  # noqa: E402
 from daily.cli import main as _cli_main  # noqa: E402
 from daily.issue import JST, issue_id_for  # noqa: E402
 from daily.issue import parse_at as _parse_at  # noqa: E402
@@ -60,15 +60,26 @@ def build_briefing(records: list, report_date: date_cls) -> str:
     return _build_briefing(_as_items(records), report_date)
 
 
-def build_markdown(records: list, issue_id: str) -> str:
-    return _build_markdown(_as_items(records), issue_id)
+def build_report(records: list, issue_id: str) -> dict:
+    """老的「出骨架」接口。M4 之前返回 Markdown 文本，现在返回 report.json 的内容。"""
+    return _build_report(_as_items(records), issue_id)
 
 
 def main() -> int:
     # 老接口是 `daily_digest.py --items-dir ...`（等于 build 的参数）。
-    # M3 之后多了 prompt / apply / confirm，这些子命令不能在前面塞 "build"。
+    # M3 之后多了 prompt / apply / confirm，M4 又加了 publish / migrate，
+    # 这些子命令不能在前面塞 "build"。
     argv = sys.argv[1:]
-    if argv and argv[0] in {"build", "prompt", "apply", "confirm", "state", "version"}:
+    if argv and argv[0] in {
+        "build",
+        "prompt",
+        "apply",
+        "confirm",
+        "publish",
+        "migrate",
+        "state",
+        "version",
+    }:
         return _cli_main(argv)
     return _cli_main(["build"] + argv)
 

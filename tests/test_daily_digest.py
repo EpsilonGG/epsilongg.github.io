@@ -8,6 +8,7 @@
 
 from __future__ import annotations
 
+import json
 import sys
 import unittest
 from datetime import datetime, timezone
@@ -54,7 +55,7 @@ class IssueIdTest(unittest.TestCase):
 
 
 class SkeletonTest(unittest.TestCase):
-    """骨架里不该再出现时间字段——时间只有文件名一个来源。"""
+    """骨架里不该再出现时间字段——时间只有期号一个来源。"""
 
     RECORDS = [
         {
@@ -66,18 +67,26 @@ class SkeletonTest(unittest.TestCase):
     ]
 
     def test_no_title_or_pubdate(self) -> None:
-        text = digest.build_markdown(self.RECORDS, "26103122")
-        self.assertNotIn("title:", text)
-        self.assertNotIn("pubDate:", text)
+        report = digest.build_report(self.RECORDS, "26103122")
+        self.assertNotIn("title", report)
+        self.assertNotIn("pubDate", report)
+        # 期号之外不要再存一份时间
+        self.assertEqual(report["issue"]["id"], "26103122")
 
     def test_keeps_three_sections(self) -> None:
-        text = digest.build_markdown(self.RECORDS, "26103122")
-        for key in ("highlights: []", "interactions: []", "people:"):
-            self.assertIn(key, text)
+        report = digest.build_report(self.RECORDS, "26103122")
+        for key in ("highlights", "interactions", "people"):
+            self.assertIn(key, report)
+
+    def test_skeleton_is_a_draft(self) -> None:
+        """骨架必须是 draft：`publish` 靠 status 挡住「没定稿就上线」。"""
+        report = digest.build_report(self.RECORDS, "26103122")
+        self.assertEqual(report["issue"]["status"], "draft")
+        self.assertIsNone(report["issue"]["confirmed_at"])
 
     def test_mentions_issue_id(self) -> None:
-        text = digest.build_markdown(self.RECORDS, "26103122")
-        self.assertIn("26103122", text)
+        report = digest.build_report(self.RECORDS, "26103122")
+        self.assertIn("26103122", json.dumps(report, ensure_ascii=False))
 
 
 if __name__ == "__main__":

@@ -16,8 +16,8 @@ if str(SCRIPTS_DIR) not in sys.path:
     sys.path.insert(0, str(SCRIPTS_DIR))
 
 from daily import SCHEMA_VERSION  # noqa: E402
-from daily.build import build_briefing, build_markdown  # noqa: E402
-from daily.migrate import VersionError, check, migrate  # noqa: E402
+from daily.build import build_briefing, build_report  # noqa: E402
+from daily.version import VersionError, check, migrate  # noqa: E402
 from daily.model import Claim, Item, Issue, Report, content_hash, item_key  # noqa: E402
 from daily.schema import SchemaError, load_schema, validate  # noqa: E402
 from daily.state import State  # noqa: E402
@@ -189,9 +189,24 @@ class MigrateTest(unittest.TestCase):
 class ReproducibleTest(unittest.TestCase):
     def test_two_runs_are_identical(self) -> None:
         items = [Item.from_xreader(RAW), Item.from_xreader(dict(RAW, item_id="2", publisher="b"))]
-        a = (build_briefing(items, date(2026, 10, 22)), build_markdown(items, "26102222"))
-        b = (build_briefing(items, date(2026, 10, 22)), build_markdown(items, "26102222"))
+        a = (build_briefing(items, date(2026, 10, 22)), build_report(items, "26102222"))
+        b = (build_briefing(items, date(2026, 10, 22)), build_report(items, "26102222"))
         self.assertEqual(a, b)
+
+    def test_skeleton_passes_the_report_schema(self) -> None:
+        """骨架必须自己能过 `report.schema.json`。
+
+        这条把三段串起来了：`build` 写的骨架 → `apply` 往里合并 → `publish` 校验后发布。
+        骨架本身不合法的话，`apply` 第一次合并就会被 schema 拦下，而且报错会指向
+        「合并后的正本不合法」，让人以为是合并写坏了。
+        """
+        report = build_report(
+            [Item.from_xreader(RAW)],
+            "26102222",
+            published_at="2026-10-22T22:00:00+09:00",
+        )
+        validate(report, load_schema("report"))
+        self.assertEqual(report["issue"]["status"], "draft")
 
     def test_engagement_sorted_without_mutating_input(self) -> None:
         low = Item.from_xreader(RAW)

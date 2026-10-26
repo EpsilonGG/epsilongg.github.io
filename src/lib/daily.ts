@@ -1,16 +1,23 @@
 import { getCollection, type CollectionEntry } from 'astro:content';
 
-type DailyEntry = CollectionEntry<'daily'>;
+import { nameOf } from './roster';
+
+type DailyEntry = CollectionEntry<'dailyReports'>;
 
 /**
  * 日报条目。
  *
- * 时间不在 frontmatter 里写，而是从文件名解析出来——文件名是唯一事实来源，
- * 手改日期不可能和 URL 对不上。
+ * M4 起数据源是 `data/daily/<期号>/report.json`（见 `content.config.ts`）。
+ * `title` 与 `pubDate` 仍然是**派生**的，不写在数据里：
+ * 一期日报的标题就是它的发布时间，没有别的信息量；发布时间就是期号。
+ * 少一个字段，就少一处能和 URL 对不上的地方。
  */
 export type Daily = Omit<DailyEntry, 'data'> & {
   data: DailyEntry['data'] & { title: string; pubDate: Date };
 };
+
+/** 渲染层真正用到的数据形状（`.txt` 出口也用它）。 */
+export type DailyData = Daily['data'];
 
 /**
  * 日报编号：`YYMMDDHH`，八位数字，日本时间（JST）。
@@ -115,19 +122,24 @@ export function issueMonthKey(date: Date): string {
 
 /**
  * 读取所有已发布的日报，按发布时间倒序排列。
- * 草稿（draft: true）被过滤，与 blog 集合保持一致。
+ *
+ * 「已发布」= 在 `data/daily/` 里有一份 `report.json`。草稿留在工作区 `out/`，
+ * 不搬过来就不上线——所以这里没有 `draft` 过滤，位置本身就是状态。
  */
 export async function getDailyReports(): Promise<Daily[]> {
-  const entries = await getCollection('daily', ({ data }) => data.draft !== true);
+  const entries = await getCollection('dailyReports');
+
+  // 空目录会安静地渲染出一个「暂无日报」的归档页，看起来像正常状态。
+  // 但日报是每天自动发的，空了就是链路断了，必须让构建失败。
+  if (entries.length === 0) {
+    throw new Error(
+      '[daily] data/daily 里没有任何 report.json。' +
+        '日报由 `daily publish` 从 out/<期号>/ 搬过来；如果刚做完迁移，检查 glob 的 base 是否指对了。'
+    );
+  }
 
   const reports: Daily[] = entries.map((entry) => {
-    const issuedAt = parseDailyId(entry.id);
-    if (!issuedAt) {
-      throw new Error(
-        `[daily] 文件名 "${entry.id}" 不是合法的 YYMMDDHH 编号。` +
-          '例：2026-10-31 22:00（JST）应命名为 26103122.md。'
-      );
-    }
+    const issuedAt = resolvePublishedAt(entry);
     return {
       ...entry,
       data: {
@@ -139,9 +151,30 @@ export async function getDailyReports(): Promise<Daily[]> {
     };
   });
 
-  // 同一小时内只可能有一个文件；用 id 兜底保证顺序稳定
+  // 同一小时内只可能有一期；用 id 兜底保证顺序稳定
   return reports.sort(
     (a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime() || b.id.localeCompare(a.id)
+  );
+}
+
+/**
+ * 发布时间以 `issue.published_at` 为准，缺失或解析不出来时退回期号。
+ *
+ * 两个来源都留着是因为它们本来就该一致：期号是 `published_at` 的紧凑写法。
+ * 万一不一致，`published_at` 优先——它带着时区，能表达期号表达不了的东西；
+ * 而期号必须永远能推回时间，否则这个期号本身就是错的。
+ */
+function resolvePublishedAt(entry: DailyEntry): Date {
+  const raw = entry.data.issue.published_at;
+  if (raw) {
+    const parsed = new Date(raw);
+    if (!Number.isNaN(parsed.getTime())) return parsed;
+  }
+  const fromId = parseDailyId(entry.id);
+  if (fromId) return fromId;
+  throw new Error(
+    `[daily] ${entry.id} 的发布时间既没有合法的 issue.published_at，期号本身也不是 YYMMDDHH。` +
+      '例：2026-10-31 22:00（JST）对应期号 26103122。'
   );
 }
 
@@ -160,9 +193,62 @@ export function groupByMonth(reports: Daily[]): { key: string; label: string; it
   return groups;
 }
 
-/** 日报详情页路径。id 即文件名（不含扩展名）。 */
+/** 日报详情页路径。id 即目录名（八位期号）。 */
 export function dailyPath(post: Daily): string {
   return `/daily/${post.id}/`;
+}
+
+/**
+ * 纯文本出口 `/daily/<id>.txt` 的正文。
+ *
+ * 给两件事用：① 复制粘贴到别处；② M6 的视频稿——口播稿要从「读者已经看到的那段字」
+ * 出发，而不是从另一份摘要出发，否则画面和文字会对不上。
+ *
+ * 所以这里**只做格式转换，不做二次概括**：段落顺序、句子、人名全部和页面一致。
+ * 差别只有两个：人名后面带上 `@handle`（纯文本里没有链接，不留 handle 就找不回人），
+ * 以及 `via` 写成「另有 @x」。
+ */
+export function plainText(report: Daily): string {
+  const { data } = report;
+  const lines: string[] = [data.title, `${formatIssueTime(data.pubDate)}（日本时间）`];
+
+  if (data.description) {
+    lines.push('', data.description);
+  }
+
+  const section = (heading: string, body: string[]) => {
+    if (body.length === 0) return;
+    lines.push('', heading, ...body);
+  };
+
+  section(
+    '今日看点',
+    data.highlights.map((claim) => claim.text)
+  );
+  section('作品动态', data.works ? [data.works] : []);
+  section(
+    '分类摘要',
+    data.categories.filter((c) => c.summary).map((c) => `${c.label}：${c.summary}`)
+  );
+  section(
+    '互动',
+    data.interactions.map((claim) => claim.text)
+  );
+  section(
+    '详细',
+    data.people
+      .filter((person) => person.summary.trim().length > 0)
+      .map((person) => {
+        const extra = person.via.length > 0 ? `（另有 ${person.via.map((v) => `@${v}`).join('、')}）` : '';
+        return `${nameOf(person.handle)}（@${person.handle}）：${person.summary}${extra}`;
+      })
+  );
+  section(
+    '洞察',
+    data.insights.map((claim) => claim.text)
+  );
+
+  return lines.join('\n') + '\n';
 }
 
 export { formatDate } from './posts';

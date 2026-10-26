@@ -51,6 +51,12 @@ jobs:
       - name: Check internal links
         run: npm run links
 
+      # 日报的三个出口（HTML / JSON / TXT）与两个 Feed 的隔离。链接检查看不见
+      # 没有别处引用的 JSON 与 TXT，这一条补上：有一份 report.json 就必须有三份产物，
+      # 且 /daily/<期号>.json 与正本逐字节相同。
+      - name: Check daily outlets
+        run: npm run check:daily
+
       # 放在构建之后：图片清单和 WebP 变体是构建时生成的，测试要对着产物验
       - name: Script tests
         run: npm test
