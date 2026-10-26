@@ -58,6 +58,8 @@ echo "    interactions      名单内多人互动（没有就留空数组）"
 echo "    people[].summary  每人一句话（留空 = 当日无活动，不渲染）"
 echo
 echo "=== 步骤 4：提交并推送 ==="
-echo "  git add src/content/daily/$ISSUE_ID.md && git commit -m \"daily: $ISSUE_ID\" && git push"
+echo "  python scripts/push_site.py -m \"daily: $ISSUE_ID\" --path src/content/daily/"
+echo "  （不要直接 git push：本机走到 credential-manager 会被 SIGTERM 掉；"
+echo "    带 --path 是为了只提交这一期，别把工作区里其它改动卷进来）"
 echo
 echo "网址：/daily/$ISSUE_ID/    归档：/daily/    订阅：/daily/rss.xml"

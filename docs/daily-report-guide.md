@@ -186,8 +186,12 @@ python scripts/daily_digest.py --items-dir "<X-rss-workspace>/X-Reader/data/item
 ### 步骤 3 — 提交并推送站点仓库
 
 ```bash
-python scripts/push_site.py -m "daily: <期号>"
+python scripts/push_site.py -m "daily: <期号>" --path src/content/daily/
 ```
+
+**必须带 `--path`**：不带时脚本是 `git add -A`，工作区里任何未提交的改动都会卷进这一期日报的
+commit（2026-10-26 就把一篇 496 行的新访谈卷进了「docs: 抓取侧改成每天两跑」，提交信息与内容对不上）。
+带上之后只提交该路径，其余改动留在工作区并打印出来。
 
 **不要直接 `git push`**：这台机器上它会在走到 `git-credential-manager.exe` 时被 SIGTERM 掉，
 连 `--dry-run` 都过不去。`push_site.py` 换成「GCM 取 token → 临时 askpass 脚本 → 推完立刻删」，
@@ -223,7 +227,7 @@ python scripts/push_site.py -m "daily: <期号>"
 | `scripts/daily_digest.py` | ★ **规范、唯一的组装脚本**（无 LLM 的一半）。**不要再改 `X-rss-workspace/daily-report/digest.py`**，那是被取代的旧原型 |
 | `scripts/daily_prepare.py` | ★ **自动化入口**：`git pull` 抓取仓库 → 数目标日条数（0 条退 2）→ 调 digest 出骨架。确定性、无 LLM |
 | `scripts/daily_condense.py` | 把 briefing 压成编辑视图（去 URL／互动数／纯转发，关键词优先）。5.2 万 → 1.5 万 token |
-| `scripts/push_site.py` | 提交并推送，绕开本机 `git push` 被 SIGTERM 的问题（GCM 取 token → 临时 askpass → 推完即删） |
+| `scripts/push_site.py` | 提交并推送，绕开本机 `git push` 被 SIGTERM 的问题（GCM 取 token → 临时 askpass → 推完即删）。**日报要带 `--path src/content/daily/`**，否则 `git add -A` 会卷进无关改动 |
 | `scripts/sync_xreader_accounts.py` | 站点名单 → `X-Reader/accounts.yaml`（只写 `seiyuu` 且 `active != false`）。`--check` 只比对 |
 | `scripts/daily.sh` | 一键流程包装：组装 → 提示用 WorkBuddy 填摘要 → 打印 git 命令 |
 | `scripts/rss_to_items.py` | 把 X-rss-main 的**真实** RSS feeds（`output/feeds_processed/*.xml`）转成 NormalizedItem JSONL（账号/原文链接/内容均为真实；该 RSS 源不含媒体与互动数） |

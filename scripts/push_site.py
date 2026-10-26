@@ -17,9 +17,14 @@
 
 用法：
 
-    python scripts/push_site.py -m "daily: 26102522"
+    python scripts/push_site.py -m "daily: 26102522" --path src/content/daily/
     python scripts/push_site.py -m "..." --no-push     # 只提交
     python scripts/push_site.py -m "..." --proxy http://127.0.0.1:7897
+
+**默认不带 `--path` 时是 `git add -A`**，工作区里任何未提交的改动都会被卷进同一个
+commit。2026-10-26 就这么把一篇新写的访谈（`gamespark-nicolith-interview.md`，496 行）
+卷进了「docs: 抓取侧改成每天两跑」——提交信息与实际内容对不上，事后很难查。
+日报自动化只该发布 `src/content/daily/` 下的新一期，所以务必带上 `--path`。
 """
 from __future__ import annotations
 
@@ -95,23 +100,55 @@ def push(proxy: str | None) -> None:
         askpass.unlink(missing_ok=True)
 
 
+def _under_any(path: str, prefixes: list[str]) -> bool:
+    """`git status` 报出来的路径是否落在某个 --path 之下（或正好等于它）。"""
+    path = path.replace("\\", "/").rstrip("/")
+    for prefix in prefixes:
+        root = prefix.replace("\\", "/").rstrip("/")
+        if path == root or path.startswith(root + "/"):
+            return True
+    return False
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="提交并推送站点仓库")
     parser.add_argument("-m", "--message", required=True, help="提交信息")
+    parser.add_argument("--path", action="append", default=None, metavar="PATH",
+                        help="只提交这些路径（可重复），不给则 git add -A")
     parser.add_argument("--no-push", action="store_true", help="只提交，不推送")
     parser.add_argument("--proxy", default=None, help=f"推送用的 HTTP 代理，默认 {DEFAULT_PROXY}")
     args = parser.parse_args(argv)
+    paths = args.path or []
 
-    run(["git", "add", "-A"])
-
-    staged = run(["git", "diff", "--cached", "--name-only"]).stdout.strip()
+    if paths:
+        run(["git", "add", "--", *paths])
+        staged = run(["git", "diff", "--cached", "--name-only", "--", *paths]).stdout.strip()
+    else:
+        run(["git", "add", "-A"])
+        staged = run(["git", "diff", "--cached", "--name-only"]).stdout.strip()
     if not staged:
         print("没有需要提交的改动")
         return 0
     print("改动：\n" + staged)
 
-    run(["git", "-c", "user.name=EpsilonGG", "-c", "user.email=epsilongg@users.noreply.github.com",
-         "commit", "-q", "-m", args.message])
+    if paths:
+        # 被 --path 挡在外面的改动留在工作区，不提交、不推送，只提示一句。
+        leftovers = [
+            line for line in run(["git", "status", "--porcelain"]).stdout.splitlines()
+            if line.strip() and not _under_any(line[3:].strip().strip('"'), paths)
+        ]
+        if leftovers:
+            print(f"另有 {len(leftovers)} 处改动不在本次提交范围（保持未提交）：")
+            for line in leftovers[:10]:
+                print("  " + line)
+            if len(leftovers) > 10:
+                print(f"  ……还有 {len(leftovers) - 10} 处")
+
+    commit = ["git", "-c", "user.name=EpsilonGG", "-c", "user.email=epsilongg@users.noreply.github.com",
+              "commit", "-q", "-m", args.message]
+    if paths:
+        commit += ["--", *paths]
+    run(commit)
 
     if args.no_push:
         print("已提交（未推送）")
