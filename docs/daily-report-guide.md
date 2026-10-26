@@ -121,7 +121,24 @@ digest 读取的目录是 **X-Reader checkout 的 `data/items`**。两种方式�
 - **方式 A（推荐，用 CI 已抓的数据）：** 在 `X-rss-workspace/X-Reader` 里执行 `git pull`，拉取 CI 提交的 `data/items/`。
 - **方式 B（本地现抓）：** 在 `X-rss-workspace/X-Reader` 里执行 `python main.py --json`（需要该仓库的依赖与凭证）。
 
-> CI 每天 **17:10 UTC**（≈ 北京时间次日 01:10）跑一次。digest 默认取数据里"最新的一天"，所以你随时跑都能拿到最近一个完整日。
+> CI 每天 **`03:00` 与 `15:00` UTC** 各跑一次。`15:00 UTC` = **JST 00:00**，
+> 那一刻 JST 自然日刚好闭合，所以此后拉到的就是完整的一天。
+> 换算到北京时间是 11:00 与 23:00，**日报在 23:00 之后跑才有完整数据**。
+
+**一条命令做完步骤 0–1（自动化走的就是这条）：**
+
+```bash
+DAILY_PROXY=http://127.0.0.1:7897 python scripts/daily_prepare.py
+```
+
+它做三件事：`git pull` 抓取仓库 → 按 JST 自然日数一遍条数 → 调 digest 出骨架。
+默认处理「昨天的 JST 自然日」，`--date 2026-10-25` 可指定，`--no-pull` 跳过拉取。
+
+| 退出码 | 含义 | 该怎么办 |
+|---|---|---|
+| 0 | 骨架已生成 | 继续步骤 2 |
+| 2 | 目标日在数据里**一条都没有** | 抓取侧没跑或失败，**不要写这一期** |
+| 3 | 抓取仓库拉取失败 | 检查网络/代理，同样不要写 |
 
 ### 步骤 1 — 组装日报草稿（确定性、无 LLM）
 
@@ -146,7 +163,15 @@ python scripts/daily_digest.py --items-dir "<X-rss-workspace>/X-Reader/data/item
 
 对 WorkBuddy 说：**"填写今天的日报"**。它会：
 
-1. 读 `out/<期号>.briefing.txt`（推文原文与互动数都在这里）；
+1. **先压缩再读。** 128 人的一天，briefing 原文约 9 万字 / 5.2 万 token，整篇读既慢又贵，
+   而且成稿只有四段加每人一句话。先跑：
+   ```bash
+   python scripts/daily_condense.py out/<期号>.briefing.txt > out/<期号>.condensed.txt
+   ```
+   它去 URL、去互动数、丢纯转发、每个账号优先挑「带公告关键词」的条目
+   （默认每账号 3 条、每条 90 字；`--per-account` / `--width` 可调）。
+   实测 5.2 万 → 1.5 万 token，关键信息一条不少。需要某人完整发言时再回 briefing 里搜 `@handle`。
+   成本对比见 `README/reports/daily-token-cost.html`。
 2. 填 `src/content/daily/<期号>.md` 的**四段 + 副标题**：
    - `description`：副标题，**今日看点的 50 字以内简报**（脚本留的是「今日 N 位账号有更新，看点待补」占位，必须改写）；
    - `highlights`：今日看点，**只写前 9 的重点 / 自述热度 / 特别活动**，其余下沉到「详细」；
@@ -161,12 +186,15 @@ python scripts/daily_digest.py --items-dir "<X-rss-workspace>/X-Reader/data/item
 ### 步骤 3 — 提交并推送站点仓库
 
 ```bash
-git add src/content/daily/<期号>.md
-git commit -m "daily: <期号>"
-git push
+python scripts/push_site.py -m "daily: <期号>"
 ```
 
+**不要直接 `git push`**：这台机器上它会在走到 `git-credential-manager.exe` 时被 SIGTERM 掉，
+连 `--dry-run` 都过不去。`push_site.py` 换成「GCM 取 token → 临时 askpass 脚本 → 推完立刻删」，
+直连会 schannel 握手失败，所以默认走 `127.0.0.1:7897` 代理（`--proxy` 可改）。
+
 推送后 `deploy.yml` 会自动构建并部署到 GitHub Pages，**无需手动构建**。
+本机 `npm run build` 会撞上安全删除阈值（单轮 ≥50 文件）而失败，真要本地构建先把 `dist` 移走。
 
 ### 步骤 4（可选）— 在站点核对
 
@@ -193,6 +221,10 @@ git push
 | 文件 | 作用 |
 | --- | --- |
 | `scripts/daily_digest.py` | ★ **规范、唯一的组装脚本**（无 LLM 的一半）。**不要再改 `X-rss-workspace/daily-report/digest.py`**，那是被取代的旧原型 |
+| `scripts/daily_prepare.py` | ★ **自动化入口**：`git pull` 抓取仓库 → 数目标日条数（0 条退 2）→ 调 digest 出骨架。确定性、无 LLM |
+| `scripts/daily_condense.py` | 把 briefing 压成编辑视图（去 URL／互动数／纯转发，关键词优先）。5.2 万 → 1.5 万 token |
+| `scripts/push_site.py` | 提交并推送，绕开本机 `git push` 被 SIGTERM 的问题（GCM 取 token → 临时 askpass → 推完即删） |
+| `scripts/sync_xreader_accounts.py` | 站点名单 → `X-Reader/accounts.yaml`（只写 `seiyuu` 且 `active != false`）。`--check` 只比对 |
 | `scripts/daily.sh` | 一键流程包装：组装 → 提示用 WorkBuddy 填摘要 → 打印 git 命令 |
 | `scripts/rss_to_items.py` | 把 X-rss-main 的**真实** RSS feeds（`output/feeds_processed/*.xml`）转成 NormalizedItem JSONL（账号/原文链接/内容均为真实；该 RSS 源不含媒体与互动数） |
 | `scripts/sample_items/x.jsonl` | 预览/测试数据。现由 `rss_to_items.py` 从 X-rss-main 真实 feeds 生成（**真实推文**，非编造） |
@@ -207,10 +239,22 @@ git push
 
 ### 2.2 X-Reader 端（抓取侧）
 
-- **仓库：** `X-rss-workspace/X-Reader`（对应 GitHub 上的 X-Reader 仓库）。
-- **CI：** `X-Reader/.github/workflows/update.yml`，每日 `17:10 UTC` 跑；`python main.py` 后 `git add data && commit && push`（只提交 `data/`）。
+- **仓库：** `X-rss-workspace/X-Reader`（= `github.com/EpsilonGG/X-Reader`，**是真正的 git clone**，`git pull` 能拿到 CI 提交的数据）。
+- **CI：** `X-Reader/.github/workflows/update.yml`，每日 **`03:00` 与 `15:00` UTC** 各跑一次。
+  `15:00 UTC` = **JST 00:00**，正好是 JST 自然日闭合的时刻，所以这一次的数据就是完整的一天；
+  一天两跑是因为 Nitter RSS 每个账号最多返回约 20 条，单跑会丢掉话多的人最早那几条。
+  `python main.py` 之后 `git add data && commit && push`（只提交 `data/`）。
 - **数据：** 规范存储是 `data/items/<source_id>.jsonl`（`NormalizedItem`，**append-only**）。X 数据 `source_id` 为 `x`，落在 `data/items/x.jsonl`。
-- **加/减监控账号：** 改 `X-Reader/accounts.yaml`（不是站点仓库）。digest 的 `accounts` frontmatter 是根据数据**自动推导**的，无需手改。
+- **加/减监控账号：** **不要手改 `accounts.yaml`**，它由站点名单生成：
+  ```bash
+  python scripts/sync_xreader_accounts.py --out "<X-Reader>/accounts.yaml"
+  python scripts/sync_xreader_accounts.py --out ... --check   # 只比对，不一致退 1
+  ```
+  只写 `category: seiyuu` 且 `active != false` 的条目（现在是 128 个）。社团号与厂商号是
+  `active: false`，不会被写进去。digest 的 `accounts` frontmatter 由数据**自动推导**，同样不用手改。
+- **实例可靠性：** 公共 Nitter 实例大半已死（410 / 451 / 403 / 人机验证页）。2026-10-26 实测 13 个里只有 1 个能出 feed，
+  `config/config.yaml` 里按「能用的排前面」重排过。`providers/nitter.py` 会校验响应**是不是 feed**——
+  200 但内容是验证页时记为这个实例失败并继续下一个，否则会静默返回「今天没人发推」。
 - **加 RSS / YouTube 源：** 改 `X-Reader/config/config.yaml`。⚠️ 注意：digest 当前读取 `items/` 目录下**所有** `*.jsonl`；若以后引入非 X 源，日报会混入它们。要么只传 `data/items/x*.jsonl`，要么给 digest 加 `--source x` 过滤（见 §2.6）。
 
 ### 2.3 日报 frontmatter schema（`src/content.config.ts` 的 `daily` 集合）
