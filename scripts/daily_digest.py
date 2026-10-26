@@ -74,6 +74,7 @@ def main() -> int:
         "build",
         "prompt",
         "apply",
+        "audit",
         "confirm",
         "publish",
         "migrate",

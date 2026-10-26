@@ -7,7 +7,7 @@
 分工：
 
     本脚本（无 LLM）  拉数据 / 切 JST 窗口 / 数条数 / 生成骨架
-    WorkBuddy（LLM）  读 out/<日期>.briefing.txt，填四段
+    WorkBuddy（LLM）  `daily prompt --flat` 出题 → 写 answer/all.json → `daily apply` 判卷合并
     push_site.sh      提交并推送
 
 用法：
@@ -150,6 +150,9 @@ def main(argv: list[str] | None = None) -> int:
     issue_id = day.strftime("%y%m%d") + "22"
     print(f"\n骨架：out/{issue_id}/report.json（定稿后 publish 到 data/daily/）")
     print(f"简报：out/{day.isoformat()}.briefing.txt")
+    print(f"下一步：python scripts/daily_digest.py prompt --issue {issue_id} --flat")
+    print(f"        → 写 out/{issue_id}/answer/all.json")
+    print(f"        → python scripts/daily_digest.py apply --issue {issue_id} --answer out/{issue_id}/answer/all.json")
     return 0
 
 

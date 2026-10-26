@@ -467,7 +467,7 @@
         <span class="kpi__label">外部 JS 文件</span>
       </div>
       <div class="kpi__item">
-        <span class="kpi__num">194</span>
+        <span class="kpi__num">224</span>
         <span class="kpi__label">测试全过</span>
       </div>
       <div class="kpi__item">
@@ -525,7 +525,7 @@
     <div class="cards">
       <div class="card">
         <h4>能用</h4>
-        <p>20 个页面全部 200；构建 0 报错；<code>astro check</code> 0 错 0 警 0 提示；194 个测试全过、593 个站内链接零死链；每次推送自动部署，线上已验证。</p>
+        <p>20 个页面全部 200；构建 0 报错；<code>astro check</code> 0 错 0 警 0 提示；224 个测试全过（Python 213 + Node 11）、593 个站内链接零死链；每次推送自动部署，线上已验证。</p>
       </div>
       <div class="card">
         <h4>能改</h4>
@@ -625,7 +625,7 @@
           <td>脚本与测试</td>
           <td><span class="pill pill--done">完成</span></td>
           <td><span class="meter"><span class="meter__track"><span class="meter__fill" style="--pct:100%"></span></span><span class="meter__pct">100%</span></span></td>
-          <td class="t-hide-sm">194 个用例（183 Python + 11 Node），含链接检查、图片清单对账与日报出口闸门</td>
+          <td class="t-hide-sm">224 个用例（213 Python + 11 Node），含链接检查、图片清单对账与日报出口闸门</td>
         </tr>
         <tr>
           <td>文档</td>
@@ -1010,7 +1010,7 @@
           第二次运行基本是空转。
         </p>
         <p>
-          测试合计 <strong>194 个用例</strong>（Python 183 + Node 11）：
+          测试合计 <strong>224 个用例</strong>（Python 213 + Node 11）：
         </p>
         <ul>
           <li><code>test_readme_sync.py</code>（24 个）：marker 缺失、顺序错乱、内容为空、日期格式化</li>
@@ -1302,9 +1302,27 @@
           三样一起退掉了：正文本来就是空的、发布即上线、时间只认期号。
           「发布」是一件显式的事：<code>daily publish</code> 把工作区 <code>out/&lt;期号&gt;/report.json</code>
           搬到 <code>data/daily/</code>，只认 <code>status: confirmed</code> 的正本，默认不覆盖已发布的期号。
-          换源前后用<strong>正文纯文本金文件</strong>比对（<code>tests/golden/daily-26102322.txt</code>），
-          13 行逐字相同；<code>npm run check:daily</code> 再钉住「有一份正本就有三份产物，
+          换源前后用<strong>正文纯文本金文件</strong>比对，
+          <code>npm run check:daily</code> 再钉住「有一份正本就有三份产物，
           且 JSON 出口与正本逐字节相同」。
+        </p>
+        <p>
+          <strong>M3.9 把自动化接上了判卷。</strong>在此之前，出稿最常用的那条路是
+          「直接改 <code>out/&lt;期号&gt;/report.json</code>」，<code>apply</code> 的判卷完全不生效——
+          七期已发布的正本里 <code>people[].sources</code> 全是空数组，没有一处能被机器验证。
+          现在拆成三步：<code>daily prompt --flat</code> 出一份整期题（材料每条带来源 key）、
+          模型把回答写成 <code>answer/all.json</code>、<code>daily apply</code> 逐条核对
+          「来源 key 是否真实存在、handle 是否在名单且本期有条目、长度是否超限」，
+          不合格整份拒收并指出是哪一句。另外新增 <code>daily audit --issue</code>，
+          可以对<strong>已经写好的正本</strong>（含已发布的期）再判一次；
+          <code>confirm</code> 定稿前会自动跑它，不通过就不许定稿。
+          判卷的严格度按来路定：迁移来的旧正本没有来源只提醒，新写的稿子必须带来源。
+        </p>
+        <p>
+          <strong>金文件的基准期是可切换的</strong>，不写死在代码里：
+          <code>tests/golden/current.json</code> 只有一个 <code>{"id": "26102522"}</code>，
+          <code>npm run golden:daily:switch</code> 一条命令就重抓快照并把指针挪过去。
+          现在的基准是 <code>26102522</code>（66 行），比 M4 时那期（13 行）能挡住更多版式漂移。
         </p>
         <p>
           <strong>与笔记栏目最大的不同：这里不设「含 AI 整理」滑块。</strong>
@@ -1319,9 +1337,10 @@
           <code>out/&lt;期号&gt;/report.json</code>：<code>accounts</code> 按名单序排好、
           <code>highlights</code> / <code>interactions</code> 留空数组、
           <code>people</code> 逐个列出但 <code>summary</code> 为空 →
-          本机 WorkBuddy 填这几段 → <code>confirm</code> 定稿 → <code>publish</code> 搬到
+          <code>prompt --flat</code> 出题、本机 WorkBuddy 写回答、<code>apply</code> 判卷合并 →
+          <code>confirm</code> 定稿（定稿前再判一次卷）→ <code>publish</code> 搬到
           <code>data/daily/</code> → push → 站点 Actions 照常构建部署。
-          只有"填这几段"需要模型，留在本机跑一次。
+          只有"写回答"需要模型，留在本机跑一次。
         </p>
         <p>
           正文里的 <code>@handle</code> 只在<strong>名单内</strong>才自动变链接：
@@ -1631,7 +1650,7 @@
           处理：<code>astro</code> 从 <code>7.3.8</code> 放开到 <code>^7.4.2</code>，
           <code>engines.node</code> 改成 <code>&gt;=22.23.4</code>（跟着上游要求走，不再假装 22.12 够用），
           CI 的 <code>setup-node</code> 钉到 <code>24</code>。
-          升级后 <code>astro check</code> 0 错、构建通过、194 个测试全过。
+          升级后 <code>astro check</code> 0 错、构建通过、224 个测试全过。
         </p>
         <div class="block-item__left">
           顺手记一个坑：Astro 7 把渲染好的 Markdown HTML 缓存在
@@ -1665,7 +1684,7 @@
           扫 <code>dist</code> 里所有 <code>href</code> / <code>src</code> / <code>srcset</code>，
           映射回文件系统，缺文件就退出 1；顺带查 <code>#锚点</code> 指向的 id 是否真的存在。
           只查站内（本地比对），外链默认跳过——外站限流、挡爬虫、偶发超时都会让流水线莫名变红，
-          那是另一件事，该用定时任务查。现在跑一遍：25 个页面、593 个站内链接、852 处引用，
+          那是另一件事，该用定时任务查。现在跑一遍：25 个页面、593 个站内链接、853 处引用，
           全部通过。
         </div>
         <div class="block-item__left">
@@ -2451,14 +2470,15 @@
 │   ├── check_links.py          站内死链检查（277 行，CI 必跑）
 │   ├── optimize_images.mjs     图片 WebP 变体与清单（199 行）
 │   ├── daily/                  日报包：采集→出题→判卷→定稿→发布（M1–M4）
+│   │   └── audit.py            事后判卷：来源/归属/长度（159 行，M3.9）
 │   ├── daily_digest.py         把 X-Reader 的 items 组装成日报骨架（薄壳）
 │   ├── check_daily_site.py     日报出口闸门（三产物 + Feed 隔离，109 行）
-│   ├── daily_golden.py         日报正文纯文本金文件（166 行）
+│   ├── daily_golden.py         日报正文纯文本金文件 + 基准期切换（247 行）
 │   ├── rss_to_items.py         把 RSS 规范化成同一种 items 格式（171 行）
 │   ├── daily.sh                一键：pull → digest → 提示写摘要（39 行）
 │   └── sample_items/           离线样例，供脚本自测
 ├── data/daily/{期号}/report.json   ★ 日报正本（站点读它，目录名即期号）
-├── tests/                    194 个用例（Python 183 + Node 11）+ golden/
+├── tests/                    224 个用例（Python 213 + Node 11）+ golden/
 ├── README.md                 主页名片 + 文档导航
 ├── README/                   quickstart / project / blog-guide / fork / ads + reports/
 ├── docs/                     daily-report-guide.md（跨仓库的日报流水线，不进部署）
@@ -2542,7 +2562,7 @@
   <footer class="doc-foot">
     <p>
       体检时间 2026-10-25（页面、链接、体积数字为本次构建实测；第六节的外部站点对照仍是 2026-10-24 抓取）。数据来自实际构建产物、源码统计与现场抓取：
-      20 个 HTML 页面、单 CSS 38,825 字节（gzip 6,948）、0 个外部 JS 文件、194 个测试用例、
+      20 个 HTML 页面、单 CSS 38,825 字节（gzip 6,948）、0 个外部 JS 文件、224 个测试用例、
       产物 15 MB（原图 7.2 MB + WebP 变体 6.3 MB + 字体 136 KB + 其余约 700 KB）、
       <code>astro check</code> 0 错 0 警 0 提示，Astro 7.4.2 / Sätteri 0.4.5 / Node ≥ 22.23.4。
     </p>

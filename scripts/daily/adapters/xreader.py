@@ -19,6 +19,10 @@ class XReaderAdapter(SourceAdapter):
 
     def __init__(self, items_dir: str | Path) -> None:
         self.items_dir = Path(items_dir)
+        # 坏行位置（`文件名#行号`）。**不要静默跳过**——2026-10-26 查出来
+        # `splitlines()` 会把 U+2028 当换行，一条合法记录被劈成两半后
+        # 两边都解析失败，于是推文从每一期里凭空消失，而构建一声不响。
+        self.malformed: list[str] = []
 
     # -- 契约 ----------------------------------------------------------
     def paths(self) -> list[Path]:
@@ -38,20 +42,30 @@ class XReaderAdapter(SourceAdapter):
         return "sha256:" + h.hexdigest()
 
     def iter_items(self) -> Iterator[Item]:
+        """逐行读。**必须按文件迭代，不能用 `read_text().splitlines()`。**
+
+        `str.splitlines()` 认的换行符不止 `\\n`：U+2028、U+2029、U+0085、U+000B、
+        U+000C 都算。而 `json.dumps(ensure_ascii=False)` 不会转义 U+2028——
+        于是「正文里带一个行分隔符」的合法记录会被劈成两半，两半都解析失败、
+        都被当成坏行跳过。真实数据里 x.jsonl 有 2 条记录共 12 个 U+2028，
+        旧读法把它们拆成 12 个碎片、丢掉 2 条（`splitlines()` 2423 行 vs 实际 2411 条）。
+        文件迭代用的是 universal newlines（只认 `\\r`、`\\n`、`\\r\\n`），不受影响。
+        """
+        self.malformed = []
         for path in self.paths():
-            for lineno, line in enumerate(
-                path.read_text(encoding="utf-8").splitlines(), 1
-            ):
-                line = line.strip()
-                if not line:
-                    continue
-                try:
-                    raw = json.loads(line)
-                except json.JSONDecodeError:
-                    continue
-                if raw.get("is_meaningful") is False:
-                    continue
-                yield item_from_raw(raw, raw_ref=f"{path.name}#{lineno}")
+            with path.open("r", encoding="utf-8") as handle:
+                for lineno, line in enumerate(handle, 1):
+                    line = line.strip()
+                    if not line:
+                        continue
+                    try:
+                        raw = json.loads(line)
+                    except json.JSONDecodeError:
+                        self.malformed.append(f"{path.name}#{lineno}")
+                        continue
+                    if raw.get("is_meaningful") is False:
+                        continue
+                    yield item_from_raw(raw, raw_ref=f"{path.name}#{lineno}")
 
 
 def item_from_raw(raw: dict, raw_ref: str = "") -> Item:

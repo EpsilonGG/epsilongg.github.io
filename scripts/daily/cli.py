@@ -32,6 +32,7 @@ from . import prompt as prompt_mod
 from . import publish as publish_mod
 from .adapters.xreader import XReaderAdapter
 from .apply import ApplyError, apply
+from .audit import audit_report, has_errors, summarize
 from .build import build_briefing, build_report
 from .dedupe import merge
 from .export import build as build_export
@@ -137,6 +138,13 @@ def _pipeline(
 def _cmd_build(args: argparse.Namespace) -> int:
     adapter = XReaderAdapter(Path(args.items_dir))
     raw = list(adapter.iter_items())
+    if adapter.malformed:
+        # 坏行不会让构建失败（一天的抓取里偶发一行截断是常态），但**必须报出来**：
+        # 静默跳过等于「那几条推文从来不存在」，而日报是转述，少一条没人看得出来。
+        shown = "、".join(adapter.malformed[:5])
+        if len(adapter.malformed) > 5:
+            shown += f" 等 {len(adapter.malformed)} 处"
+        print(f"注意：{len(adapter.malformed)} 行不是合法 JSON，已跳过（{shown}）", file=sys.stderr)
     if not raw:
         print(
             "未找到任何条目。请先运行 X-Reader（CI 或本地），或检查 --items-dir。",
@@ -254,8 +262,18 @@ def _known(generate: dict) -> tuple[set[str], dict[str, set[str]]]:
     return keys, handles
 
 
+def _all_handles(handles: dict[str, set[str]]) -> set[str]:
+    """整期题（category=all）的合法 handle 集合：本期出过条目的所有账号。"""
+    out: set[str] = set()
+    for group in handles.values():
+        out |= group
+    return out
+
+
 def _cmd_prompt(args: argparse.Namespace) -> int:
     generate = _load_generate(args.out, args.issue)
+    if args.flat and args.reduce:
+        raise SystemExit("--flat 与 --reduce 只能选一个：前者是整期一份题，后者是分类答完之后的汇总题。")
     if args.reduce:
         answer_dir = path_mod.answers(path_mod.workspace(args.out, args.issue))
         answers = [json.loads(p.read_text(encoding="utf-8")) for p in sorted(answer_dir.glob("*.json"))]
@@ -263,6 +281,13 @@ def _cmd_prompt(args: argparse.Namespace) -> int:
             raise SystemExit(f"{answer_dir} 里没有回答，先答分类题。")
         prompt = prompt_mod.build_reduce(args.issue, answers, args.out, force=args.force)
         print(f"{'跳过（输入未变）' if prompt.cached else '已写出'} {prompt.md_path}")
+        return 0
+
+    if args.flat:
+        prompt = prompt_mod.build_flat(args.issue, generate, args.out, force=args.force)
+        flag = "跳过（输入未变）" if prompt.cached else "已写出"
+        print(f"{flag} {prompt.md_path}  （{prompt.items} 条）")
+        print(f"下一步：把回答存成 {path_mod.answers(path_mod.workspace(args.out, args.issue)) / 'all.json'}，再 `daily apply`。")
         return 0
 
     prompts = prompt_mod.build(args.issue, generate, args.out, force=args.force)
@@ -299,7 +324,9 @@ def _cmd_apply(args: argparse.Namespace) -> int:
                 answer,
                 roster=roster,
                 known_keys=keys,
-                handles=handles.get(cid) if cid != "all" else None,
+                # 整期题的合法 handle = 本期所有出过条目的账号。
+                # 以前这里传 None（只查名单），等于允许把「名单里有但今天没说话的人」写进 people。
+                handles=_all_handles(handles) if cid == "all" else handles.get(cid),
                 category=None if cid == "all" else cid,
             )
         except ValidationError as exc:
@@ -328,7 +355,73 @@ def _cmd_apply(args: argparse.Namespace) -> int:
     return 0
 
 
+def _report_path_for_audit(issue_id: str, out_dir: str, *, published: bool = False) -> Path:
+    if published:
+        return Path(publish_mod.DEFAULT_DEST) / issue_id / "report.json"
+    workspace = path_mod.report(path_mod.workspace(out_dir, issue_id))
+    if workspace.exists():
+        return workspace
+    return Path(publish_mod.DEFAULT_DEST) / issue_id / "report.json"
+
+
+def _audit(
+    issue_id: str,
+    out_dir: str,
+    roster: Roster,
+    *,
+    published: bool = False,
+    strict: bool | None = None,
+) -> tuple[Path, list, bool]:
+    """对一份**已经写好的**正本判卷。返回 `(路径, findings, 是否核对了来源)`。
+
+    严格度默认按正本来路定：迁移来的旧正本没有 `sources`，不能因为补了个校验
+    就把已上线的内容判死；新写的正本（`generator` 不是 `daily.migrate`）必须带来源。
+    """
+    path = _report_path_for_audit(issue_id, out_dir, published=published)
+    if not path.exists():
+        raise SystemExit(f"找不到正本：{path}")
+    report = json.loads(path.read_text(encoding="utf-8"))
+
+    generate_path = Path(out_dir) / f"{issue_id}.generate.json"
+    known_keys: set[str] | None = None
+    accounts: set[str] | None = None
+    if generate_path.exists():
+        keys, handles = _known(json.loads(generate_path.read_text(encoding="utf-8")))
+        known_keys = keys
+        accounts = _all_handles(handles)
+
+    if strict is None:
+        generator = str((report.get("provenance") or {}).get("generator") or "")
+        strict = generator != "daily.migrate"
+
+    findings = audit_report(
+        report, roster=roster, known_keys=known_keys, accounts=accounts, strict=strict
+    )
+    return path, findings, known_keys is not None
+
+
+def _cmd_audit(args: argparse.Namespace) -> int:
+    strict = True if args.strict else False if args.lenient else None
+    path, findings, had_material = _audit(
+        args.issue, args.out, Roster.load(args.roster), published=args.published, strict=strict
+    )
+    print(f"判卷对象：{path}")
+    if not had_material:
+        print("  ! 没有找到本期的 generate.json，只核了归属，**没核来源**")
+    print(summarize(findings))
+    return 1 if has_errors(findings) else 0
+
+
 def _cmd_confirm(args: argparse.Namespace) -> int:
+    if not args.no_audit and not args.reopen:
+        _, findings, had_material = _audit(args.issue, args.out, Roster.load(args.roster))
+        if has_errors(findings):
+            print("定稿前判卷没过，先改正本：", file=sys.stderr)
+            print(summarize(findings), file=sys.stderr)
+            return 1
+        if not had_material:
+            print("注意：没有 generate.json，定稿只核了归属，没核来源。", file=sys.stderr)
+
     try:
         if args.reopen:
             report, saved = confirm_mod.reopen(args.issue, args.out)
@@ -425,6 +518,9 @@ def main(argv: list[str] | None = None) -> int:
     prompt_cmd.add_argument("--issue", required=True, help="期号，如 26102522")
     prompt_cmd.add_argument("--out", default="out", help="工作目录（默认 out）")
     prompt_cmd.add_argument("--reduce", action="store_true", help="出全局题（材料是已写好的分类回答）")
+    prompt_cmd.add_argument(
+        "--flat", action="store_true", help="出整期题：一份题装下本期全部条目，产出 category=all 的回答"
+    )
     prompt_cmd.add_argument("--force", action="store_true", help="忽略缓存，强制重写题面")
     prompt_cmd.set_defaults(func=_cmd_prompt)
 
@@ -442,7 +538,23 @@ def main(argv: list[str] | None = None) -> int:
     confirm_cmd.add_argument("--issue", required=True)
     confirm_cmd.add_argument("--out", default="out")
     confirm_cmd.add_argument("--reopen", action="store_true", help="退回草稿（旧版进 history/）")
+    confirm_cmd.add_argument("--roster", default=None, help="名单文件，默认 src/config/daily-roster.json")
+    confirm_cmd.add_argument(
+        "--no-audit", action="store_true", help="跳过定稿前的判卷（只在明知正本缺来源时用）"
+    )
     confirm_cmd.set_defaults(func=_cmd_confirm)
+
+    audit_cmd = sub.add_parser("audit", help="M3.9 对已写好的正本判卷：来源能不能对上、人是不是本期的")
+    audit_cmd.add_argument("--issue", required=True)
+    audit_cmd.add_argument("--out", default="out")
+    audit_cmd.add_argument("--roster", default=None, help="名单文件，默认 src/config/daily-roster.json")
+    audit_cmd.add_argument(
+        "--published", action="store_true", help="查已发布的那份（data/daily/）而不是工作区"
+    )
+    level = audit_cmd.add_mutually_exclusive_group()
+    level.add_argument("--strict", action="store_true", help="每条 claim 都必须有来源")
+    level.add_argument("--lenient", action="store_true", help="没有来源只提醒，来源写错仍然算错")
+    audit_cmd.set_defaults(func=_cmd_audit)
 
     publish_cmd = sub.add_parser("publish", help="M4 把定稿的正本发到 data/daily/（站点读它）")
     publish_cmd.add_argument("--issue", required=True)

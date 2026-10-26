@@ -109,6 +109,34 @@ class XReaderTest(unittest.TestCase):
         self.assertEqual(list(adapter.iter_items()), [])
         self.assertTrue(adapter.fingerprint().startswith("sha256:"))
 
+    def test_unicode_line_separator_does_not_split_a_record(self) -> None:
+        """U+2028 不是换行。
+
+        `json.dumps(ensure_ascii=False)` 不转义 U+2028，`str.splitlines()` 却认它——
+        用 splitlines 读会把这条合法记录劈成两半，两半都解析失败、都被静默跳过。
+        真实数据里 x.jsonl 有 2 条记录共 12 个 U+2028（2026-10-26 修），
+        旧读法把文件读成 2423 行、丢掉 2 条。
+        """
+        record = dict(RECORD, content="前\u2028后")
+        with tempfile.TemporaryDirectory() as tmp:
+            write_jsonl(Path(tmp) / "x.jsonl", [record])
+            adapter = XReaderAdapter(tmp)
+            items = list(adapter.iter_items())
+        self.assertEqual(len(items), 1)
+        self.assertEqual(items[0].key, "x:2113264805360677299")
+        self.assertEqual(adapter.malformed, [])
+
+    def test_malformed_line_is_counted_not_silently_dropped(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "x.jsonl"
+            path.write_text(
+                json.dumps(RECORD, ensure_ascii=False) + "\n{ 断了\n", encoding="utf-8"
+            )
+            adapter = XReaderAdapter(tmp)
+            items = list(adapter.iter_items())
+        self.assertEqual(len(items), 1)
+        self.assertEqual(adapter.malformed, ["x.jsonl#2"])
+
 
 class FixtureTest(unittest.TestCase):
     def test_reads_json_array(self) -> None:

@@ -17,6 +17,7 @@
     "check:daily": "python scripts/check_daily_site.py",
     "golden:daily": "python scripts/daily_golden.py --check",
     "golden:daily:capture": "python scripts/daily_golden.py --capture",
+    "golden:daily:switch": "python scripts/daily_golden.py --switch",
     "images": "node scripts/optimize_images.mjs",
     "images:force": "node scripts/optimize_images.mjs --force",
     "test": "python -m unittest discover -s tests -v",

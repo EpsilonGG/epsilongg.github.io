@@ -505,8 +505,8 @@
         <span class="kpi__label">样例账号</span>
       </div>
       <div class="kpi__item">
-        <span class="kpi__num">194</span>
-        <span class="kpi__label">测试（全量，11 条需 PyYAML）</span>
+        <span class="kpi__num">224</span>
+        <span class="kpi__label">测试（Python 213 + Node 11）</span>
       </div>
     </div>
 
@@ -525,7 +525,13 @@
         <code>data/<wbr>daily/<wbr>&lt;期号&gt;/<wbr>report.json</code>，七个期号整体迁移，
         新增 <code>/daily/&lt;期号&gt;.json</code> 与 <code>.txt</code> 两个出口、
         归档页锚点、<code>daily publish</code> 与 <code>npm run check:daily</code>。
-        M5–M6 未开始。
+        M3.9 已完成（2026-10-26）——<strong>把自动化接上判卷</strong>：新增
+        <code>daily prompt --flat</code>（整期一份题，材料带来源 key）、
+        <code>audit.py</code>（对已写好的正本判卷）、<code>confirm</code> 定稿前自动判卷；
+        金文件基准期改成可切换的 <code>tests/<wbr>golden/<wbr>current.json</code>；
+        修掉适配器把 U+2028 当换行、导致 2 条推文每期静默丢失的 bug。
+        M5–M6 未开始——选型比较、代价与推进顺序见
+        <a href="https://github.com/EpsilonGG/epsilongg.github.io/blob/main/README/reports/daily-m5-m6-options.html">README/<wbr>reports/<wbr>daily-m5-m6-options.html</a>。
         逐条验收输出见
         <a href="https://github.com/EpsilonGG/epsilongg.github.io/blob/main/docs/daily-build-log.md">docs/<wbr>daily-build-log.md</a>。
       </p>
@@ -2399,8 +2405,13 @@ docs/
       <code>scripts/daily.sh</code> 62 行、<code>src/lib/daily.ts</code> 168 行、<code>DailyLayout.astro</code> 170 行、
       日报相关三页 146 行、<code>src/content.config.ts</code> 94 行，合计 905 行；
       样例数据 <code>scripts/sample_items/x.jsonl</code> 213 条、11 个账号、覆盖 2026-04-04 至 2026-10-23；
-      M4 收尾时测试 194 个（M2 结束时 147，M3/M4 又加 47）；站点 20 个 HTML 页面
+      M4 收尾时 Python 测试 194 个（M2 结束时 147，M3/M4 又加 47）；站点 20 个 HTML 页面
       （13 个站点页 + 7 期日报）+ 5 个 <code>public/docs</code> 页面。
+    </p>
+    <p>
+      M3.9 收尾时 Python 测试 213 个（+17 条判卷/整期题/定稿闸门，+2 条适配器坏行）、Node 11 个；
+      金文件基准期从 <code>26102322</code>（13 行）换成 <code>26102522</code>（66 行）——
+      基准越长，能挡住的版式漂移越多。
     </p>
     <p>
       M4 的实测数字：<code>/rss.xml</code> 7 条（不变）、<code>/daily/rss.xml</code> 7 条、7 份 <code>report.json</code>、

@@ -8,6 +8,10 @@
   "properties": {
     "category": { "type": "string", "minLength": 1 },
     "summary": { "type": "string", "maxLength": 60 },
+    "works": {
+      "type": "string",
+      "description": "作品动态：一段跨人汇总（制作中 / 发售 / 销量里程碑）。不带来源——人名在 people 里已经链到主号。只有整期题（category=all）会用到"
+    },
     "highlights": {
       "type": "array",
       "minItems": 2,

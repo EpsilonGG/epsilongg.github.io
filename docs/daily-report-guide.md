@@ -2,7 +2,8 @@
 
 > 适用项目：EpsilonGG 个人站（`github.com/EpsilonGG/epsilongg.github.io`，本机路径 `Desktop\github page work`）
 > 配套工具：X-Reader（抓取+规范化）。X-rss 仓库的"储存地"= `X-rss-workspace`。
-> 最后更新：2026-10-26（M4：数据源换成 `data/daily/<期号>/report.json`，新增 JSON / 纯文本两个出口）
+> 最后更新：2026-10-26（M3.9：出稿改走「出题 → 答题 → 判卷合并」，`confirm` 定稿前再判一次；
+> 金文件基准期改成可切换的 `tests/golden/current.json`）
 
 ---
 
@@ -174,31 +175,51 @@ python scripts/daily_digest.py --items-dir "<X-rss-workspace>/X-Reader/data/item
 - **站点读的不是这个文件。** 站点读 `data/daily/<期号>/report.json`，由步骤 2.6 的 `publish` 搬过去。草稿留在 `out/`，构建永远看不到它。
 - **空跑预览（无真实数据）：** 直接 `./scripts/daily.sh 2026-10-24`，会用仓库内的 `scripts/sample_items/` 样例数据生成一份预览，方便测试流程。补一期过去的用 `AT="2026-10-24 21:00" ./scripts/daily.sh 2026-10-24`。
 
-### 步骤 2 — 让本地 WorkBuddy 填写日报内容（唯一需要 LLM 的地方）
+### 步骤 2 — 出题、答题、判卷合并（唯一需要 LLM 的地方）
 
-对 WorkBuddy 说：**"填写今天的日报"**。它会：
+对 WorkBuddy 说：**"填写今天的日报"**。从 M3.9 起，这条路不再是「直接改正本」，
+而是三步，中间那一步才是模型：
 
-1. **先压缩再读。** 128 人的一天，briefing 原文约 9 万字 / 5.2 万 token，整篇读既慢又贵，
-   而且成稿只有四段加每人一句话。先跑：
-   ```bash
-   python scripts/daily_condense.py out/<期号>.briefing.txt > out/<期号>.condensed.txt
-   ```
-   它去 URL、去互动数、丢纯转发、每个账号优先挑「带公告关键词」的条目
-   （默认每账号 3 条、每条 90 字；`--per-account` / `--width` 可调）。
-   实测 5.2 万 → 1.5 万 token，关键信息一条不少。需要某人完整发言时再回 briefing 里搜 `@handle`。
-   成本对比见 `README/reports/daily-token-cost.html`。
-2. 填 `out/<期号>/report.json` 的**四段 + 副标题**：
-   - `description`：副标题，**今日看点的 50 字以内简报**（脚本留的是「今日 N 位账号有更新，看点待补」占位，必须改写）；
-   - `highlights`：今日看点，每项一个 `{"text": "...", "sources": ["x:<推文id>"]}`，**只写前 9 的重点 / 自述热度 / 特别活动**，其余下沉到「详细」；
-   - `works`：作品动态，**一段话**，不带来源链接；
-   - `interactions`：名单内谁和谁有互动、互动内容是什么，每项一条；**没有就留空数组**；
-   - `people[].summary`：每人一句话，**不写 @handle**（行首已经显示名字了）；**当日没活动的留空**；
-3. 不改 `accounts` / `people[].handle` / `people[].via`——这些是脚本从数据推导的，手改会跟抓取数据对不上。标题与发布时间都不在数据里，由期号推导。
+```bash
+python scripts/daily_digest.py prompt --issue <期号> --flat   # 出题
+#   …读 out/<期号>/prompts/all.md，把回答写成 out/<期号>/answer/all.json…
+python scripts/daily_digest.py apply --issue <期号> --answer out/<期号>/answer/all.json   # 判卷 + 合并
+```
+
+**为什么绕这一圈。** 以前是直接改 `report.json`，`apply` 的判卷完全不生效——
+七期已发布的正本里 `people[].sources` 全是空数组，没有一处能被机器验证。
+现在题面里每条材料都带来源 key（`[x:2113…]`），回答里的每句话都要指回一个 key，
+`apply` 逐条核对：来源不存在、handle 不在名单里、长度超限，都会**整份拒收**并指出是哪一句。
+
+**题面 `prompts/all.md` 里有什么**：本期全部条目，按账号分组，每条前面是 `[key] @账号 · 时间 · 类型`，
+外加本期的 handles 清单和回答模板。它是**唯一的事实来源**——只写里面有的东西。
+
+**回答 `answer/all.json` 的形状**（`category` 固定 `"all"`）：
+
+```json
+{
+  "category": "all",
+  "summary": "今日看点的简报，≤50 字，会直接当页面副标题",
+  "works": "作品动态：一段话汇总制作中／发售／销量里程碑，不加链接",
+  "highlights": [{"text": "…", "sources": ["x:2113…"]}],
+  "interactions": [{"text": "…", "sources": ["x:2114…"]}],
+  "people": [{"handle": "…", "summary": "…", "sources": ["x:2115…"]}]
+}
+```
+
+编辑口径（这部分是人的决定，判卷管不了）：
+
+- `summary`：**今日看点的 50 字以内简报**，不写日期、不罗列账号名。超长直接判失败。
+- `highlights`：2–4 条，**只写前 9 的重点 / 自述热度 / 特别活动**，其余下沉到「详细」。
+- `works`：**一段话**，不带来源链接（人名在 `people` 里已经链到主号）。
+- `interactions`：名单内谁和谁有互动，每项一条；**没有就留空数组**。
+- `people[].summary`：每人一句话，**不写 @handle**（行首已经显示名字了）；**当日没活动的留空**。
+- 不要改 `accounts` / `people[].handle` / `people[].via`——脚本推导的。标题与发布时间由期号推导，不在数据里。
 
 **一人一行，不管他今天用了几个号。** 名单里同 `name` 的主号、小号、社团号在
 `build_report` 里已经合成一行：行首是主号，其余号写进 `via`，页面在句末渲染成
 小一号、颜色变淡的 `@handle` 链接（显示账号名，不显示人名）。
-所以写摘要时要把几个号的内容**串成一句话**，别按号拆开：
+所以写摘要时要把几个号的内容**串成一句话**，别按号拆开；写成小号 handle 也会并回同一行：
 
 ```json
 {
@@ -213,23 +234,42 @@ python scripts/daily_digest.py --items-dir "<X-rss-workspace>/X-Reader/data/item
 「转发提到了…」「动态是…」这类说法，怎么通顺怎么来，不要生硬地一律「转发了」。
 
 > 这一步就是"用 WorkBuddy 本地跑完需要 LLM 的部分"。LLM 不碰 API、不进 CI。
-> 填完可以直接构建预览：`npm run dev` 看 `/daily/<期号>/`。
+> `apply` 之后可以直接构建预览：`npm run dev` 看 `/daily/<期号>/`。
 
-### 步骤 2.5（M3 链路，可选）— 出题 / 判卷 / 定稿
-
-M3 把「让模型填四段」拆成三个可重放的步骤。脚本仍然不调模型，只读写文件：
+### 步骤 2.5 — 判卷（随时可跑，也能查已发布的期）
 
 ```bash
-python scripts/daily_digest.py prompt --issue <期号>      # 出题 → out/<期号>/prompt/<分类>.md + .json
-#   …把 .md 交给 WorkBuddy，回答存成 out/<期号>/answer/<分类>.json…
-python scripts/daily_digest.py apply  --issue <期号>      # 判卷（形状 + 来源 + 名单 + 长度）后并入 report.json
-python scripts/daily_digest.py prompt --issue <期号> --reduce   # 分类答完再出全局题（description + 今日看点）
-python scripts/daily_digest.py confirm --issue <期号>     # 定稿；--reopen 退回草稿，旧版进 out/<期号>/history/
+python scripts/daily_digest.py audit --issue <期号>                 # 查工作区
+python scripts/daily_digest.py audit --issue <期号> --published     # 查 data/daily/ 里那份
 ```
 
-三条硬规则由 `validate.py` 执行，违反即整份作废：每句话至少一个 `sources`（且必须是本期真实 item key）、
-`handle` 必须在名单内、长度超限不截断直接失败。**定稿之后 `apply` 会被拒绝**，要改先 `--reopen`。
-输入没变时 `prompt` 直接跳过（`input_hash` 命中），材料变了只标 stale、不覆盖正本。
+两种严格度：新写的稿子默认 `--strict`（每条 claim 必须有来源）；
+`daily.migrate` 迁移来的旧正本自动走宽松模式（没有来源只提醒，来源写错仍然算错）。
+`confirm` 定稿前会自动跑一次，不过就不许定稿；确实要跳过加 `--no-audit`。
+
+`audit` 会报两类东西，别混：
+
+| 级别 | 例子 | 会拦定稿吗 |
+| --- | --- | --- |
+| 错误 | 来源 key 不存在、handle 不在名单、重复出现、副标题超 50 字 | 会 |
+| 提醒 | 没有来源（宽松模式）、名单里有但本期没条目、摘要为空 | 不会 |
+
+「名单里有但本期没条目」只算提醒是有意的：重复判定、从提及里补录，都会造成这种情况，
+两者都合法。**凭空造人**会先撞上「不在名单里」。
+
+### 步骤 2.6 — 分类出稿（可选，暂未启用）
+
+现在一期就是一篇（`category="all"`），所以用 `--flat`。等真要按「聊人 / 聊音声 / 聊事情」分栏时，
+改用分类链路，判卷完全通用：
+
+```bash
+python scripts/daily_digest.py prompt --issue <期号>            # 每个分类一份题
+#   …回答存成 out/<期号>/answer/<分类>.json…
+python scripts/daily_digest.py prompt --issue <期号> --reduce   # 分类答完再出全局题（description + 今日看点）
+python scripts/daily_digest.py apply  --issue <期号>            # 一次合并全部回答
+```
+
+`report.json` 的 `categories` / `insights` 两个字段就是给这条路留的，现在是空的（页面整节不渲染）。
 
 ### 步骤 2.6 — 发布（把正本搬到站点读的位置）
 
@@ -277,6 +317,10 @@ commit（2026-10-26 就把一篇 496 行的新访谈卷进了「docs: 抓取侧�
 | 数据还没抓到 | 先 `git pull` X-Reader 仓库，或等 CI（17:10 UTC）跑完再操作 |
 | 想补过去的某天 | 用 `--date YYYY-MM-DD` 选数据，`--at "2026-10-24 21:00"` 定发布期号；数据 append-only 会保留历史 |
 | 想换 Python 解释器 | `daily.sh` 顶部 `PY="${PYTHON:-python3}"`，可改为本机 Python 路径；或直接用 `PY=... bash scripts/daily.sh` |
+| `apply` 报「来源不存在」 | 回答里的 key 抄错了。题面 `prompts/all.md` 里每条材料前面的 `[x:…]` 才是合法值，不要自己拼 |
+| `confirm` 说判卷没过 | 按输出的路径改正本/回答；真要让缺来源的稿子过去才用 `--no-audit`（会记一笔） |
+| 构建日志出现「N 行不是合法 JSON，已跳过」 | 抓取文件里有坏行。先看是哪几行（脚本会打印 `文件名#行号`），再看 X-Reader 那边是不是写到一半被杀 |
+| 金文件红了（`check:daily` 报 diff） | 先看 diff 是「版式真的变了」还是「内容真的改了」。确认是有意的，再 `npm run golden:daily:switch` 换基准；**不要为了让它变绿而无脑重抓** |
 
 ---
 
@@ -289,6 +333,14 @@ commit（2026-10-26 就把一篇 496 行的新访谈卷进了「docs: 抓取侧�
 | `scripts/daily_digest.py` | ★ **规范、唯一的组装脚本**（无 LLM 的一半）。**不要再改 `X-rss-workspace/daily-report/digest.py`**，那是被取代的旧原型 |
 | `scripts/daily_prepare.py` | ★ **自动化入口**：`git pull` 抓取仓库 → 数目标日条数（0 条退 2）→ 调 digest 出骨架。确定性、无 LLM |
 | `scripts/daily_condense.py` | 把 briefing 压成编辑视图（去 URL／互动数／纯转发，关键词优先）。5.2 万 → 1.5 万 token |
+| `scripts/daily/` | M1–M4 的包：`build` / `window` / `incremental` / `dedupe` / `order` / `export` / `prompt` / `apply` / `validate` / `audit` / `confirm` / `publish` / `migrate` |
+| `scripts/daily/audit.py` | ★ M3.9 事后判卷：来源 key 是否真实、handle 是否名单内且本期有条目、长度。`confirm` 定稿前自动跑 |
+| `scripts/daily_golden.py` | M4.8 金文件：抓 `.prose` 纯文本比对；基准期在 `tests/golden/current.json`，`--switch` 换基准 |
+| `scripts/check_daily_site.py` | M4 出口闸门：三种产物齐全、JSON 与正本逐字节相同、两个 Feed 不混、跑金文件 |
+| `schemas/report.schema.json` | 正本的唯一裁判（Python 与 Zod 都按它） |
+| `schemas/generation.schema.json` | 模型回答的形状（含整期题的 `works`） |
+| `tests/golden/current.json` | 金文件基准指针（`{"id": "26102522"}`），换基准用 `npm run golden:daily:switch` |
+| `README/reports/daily-m5-m6-options.html` | M5（图片）/ M6（视频稿）的选型比较、代价与顺序。开工前先读 |
 | `scripts/push_site.py` | 提交并推送，绕开本机 `git push` 被 SIGTERM 的问题（GCM 取 token → 临时 askpass → 推完即删）。**日报要带 `--path data/daily/`**，否则 `git add -A` 会卷进无关改动 |
 | `scripts/sync_xreader_accounts.py` | 站点名单 → `X-Reader/accounts.yaml`（只写 `seiyuu` 且 `active != false`）。`--check` 只比对 |
 | `scripts/daily.sh` | 一键流程包装：组装 → 提示用 WorkBuddy 填摘要 → 打印 git 命令 |
@@ -405,11 +457,40 @@ digest 实际使用的字段：
 
 `X-rss-workspace/daily-report/digest.py` 是早期原型，**已被 `github page work/scripts/daily_digest.py` 取代**。以后一律以站点仓库内的为准；旧文件可删除或仅留作参考，**不要基于它继续改**。
 
-### 2.8 可能的改进（非必须）
+### 2.8 金文件：怎么换基准期（一条命令）
+
+`npm run check:daily` 除了核对三种出口，还会拿一期的「正文纯文本」和快照逐字比对，
+用来保证「改数据源 / 改渲染之后，读者看到的字一个没变」。
+
+基准期**不写在代码里**，在 `tests/golden/current.json`：
+
+```json
+{ "id": "26102522", "captured_at": "2026-10-26T12:11:38+00:00" }
+```
+
+换基准就一条命令（`--id` 省略时自动取 `data/daily/` 里最新的一期）：
+
+```bash
+npm run golden:daily:switch            # 换成最新一期
+npm run golden:daily:switch -- --id 26102322
+```
+
+它做两件事：从 `dist` 重抓一份 `tests/golden/daily-<期号>.txt`，再把 `current.json` 指过去。
+旧快照保留不删——切回去是免费的，删了就得重新 build 才能抓。
+
+**什么时候该换**：改版式（新增区块、调整顺序）且确认是有意的；或者要修改某一期的内容。
+**什么时候不该换**：金文件红了但你不知道为什么红——那说明有东西变了，先查清楚。
+
+### 2.9 可能的改进（非必须）
 
 1. 给 `daily_digest.py` 加 `--source x` 过滤，避免以后混入 RSS/YouTube 数据。
 2. 把"步骤 2 填摘要"也脚本化，进一步减少手动步骤（权衡见 §2.6）。
 3. 给 `daily.sh` 增加自动 `git add/commit/push`（目前只打印命令，避免误提交）。
+4. `counts.items` 在迁移的七期里是 0（原始条目库已清）。只有 `26102522` 的真值还能从
+   `out/26102522.generate.json` 里读回来（342 条），其余六期补不了——要么接受，要么在
+   JSON 出口里加一句说明。
+5. `report.json` 的 `categories` / `insights` 两个字段现在是空的（分类出稿还没启用），
+   页面整节不渲染。这是给 M4 之后留的口子，不是 bug。
 
 ---
 
@@ -420,15 +501,18 @@ digest 实际使用的字段：
   1) git -C X-rss-workspace/X-Reader pull        # 拿 CI 抓的数据
   2) python scripts/daily_digest.py --items-dir X-rss-workspace/X-Reader/data/items
      （期号自动取当前 JST 小时；补旧的可加 --at "2026-10-24 21:00"）
-  3) 让 WorkBuddy 填 out/<期号>/report.json 的 description（≤50 字）/ highlights / works
-     / interactions / people[].summary
-  4) python scripts/daily_digest.py confirm --issue <期号>   # 定稿
+  3) python scripts/daily_digest.py prompt --issue <期号> --flat
+     让 WorkBuddy 读 out/<期号>/prompts/all.md，把回答写成 out/<期号>/answer/all.json
+     （summary ≤50 字 / works / highlights / interactions / people[].summary，每条带 sources）
+     python scripts/daily_digest.py apply --issue <期号> --answer out/<期号>/answer/all.json
+  4) python scripts/daily_digest.py confirm --issue <期号>   # 定稿（会再判一次卷）
      python scripts/daily_digest.py publish --issue <期号>   # 搬到 data/daily/
   5) python scripts/push_site.py -m "daily: <期号>" --path data/daily/
 
 期号：YYMMDDHH（JST）。2026-10-31 22:00 → 26103122 → /daily/26103122/
 存档：/daily/（按月分组） 订阅：/daily/rss.xml
 出口：/daily/<期号>.json（正本逐字节相同） · /daily/<期号>.txt（纯文本）
+判卷：python scripts/daily_digest.py audit --issue <期号> [--published]
 ```
 
 ### 为什么同一天可以有多期

@@ -89,6 +89,11 @@ def load_report(ws: Path, issue_id: str, generate: dict) -> dict:
 
 def _merge_people(report: dict, people: list[dict], category: str, roster: Roster) -> None:
     index = {str(p.get("handle")): p for p in report["people"]}
+    # 小号也指向同一个人那一行。模型看到的是「每个号一条材料」，很容易把某个人的
+    # 小号当成另一个人来写；不在这里兜住，页面上就会出现同一个人两行。
+    for row in report["people"]:
+        for alt in row.get("via") or []:
+            index.setdefault(str(alt), row)
     for person in people:
         handle = str(person.get("handle") or "").strip()
         if not handle:
@@ -129,6 +134,8 @@ def apply(
         if cid == "all":
             if "summary" in answer:
                 report["description"] = answer["summary"]
+            if "works" in answer:
+                report["works"] = answer["works"]
             if "highlights" in answer:
                 report["highlights"] = list(answer["highlights"])
             if "interactions" in answer:

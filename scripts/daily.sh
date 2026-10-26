@@ -49,16 +49,19 @@ else
 fi
 
 echo
-echo "=== 步骤 3：让本地 WorkBuddy 填写日报内容 ==="
-echo "对 WorkBuddy 说：\"填写今天的日报\"，它会读 out/$ISSUE_ID.briefing.txt，然后填"
-echo "  $REPO_ROOT/out/$ISSUE_ID/report.json  里的四个地方："
-echo "    highlights        今日看点（2–4 段，排第一）"
+echo "=== 步骤 3：出题 → 答题 → 判卷合并（M3.9 起）==="
+echo "  python scripts/daily_digest.py prompt --issue $ISSUE_ID --flat"
+echo "     → 题面 out/$ISSUE_ID/prompts/all.md（每条材料带来源 key）"
+echo "  python scripts/daily_digest.py apply --issue $ISSUE_ID --answer out/$ISSUE_ID/answer/all.json"
+echo "     → 回答不合格会逐条列出，改完再跑；通过才写进 out/$ISSUE_ID/report.json"
+echo "回答里要写四个地方："
+echo "    summary           今日看点的简报（≤50 字，会当页面副标题）"
 echo "    works             作品动态（一段话，不带来源链接）"
 echo "    interactions      名单内多人互动（没有就留空数组）"
 echo "    people[].summary  每人一句话（留空 = 当日无活动，不渲染）"
 echo
 echo "=== 步骤 4：定稿、发布、提交 ==="
-echo "  python scripts/daily_digest.py confirm --issue $ISSUE_ID"
+echo "  python scripts/daily_digest.py confirm --issue $ISSUE_ID   # 定稿前会再判一次卷"
 echo "  python scripts/daily_digest.py publish --issue $ISSUE_ID   # 搬到 data/daily/，站点才读得到"
 echo "  python scripts/push_site.py -m \"daily: $ISSUE_ID\" --path data/daily/"
 echo "  （不要直接 git push：本机走到 credential-manager 会被 SIGTERM 掉；"

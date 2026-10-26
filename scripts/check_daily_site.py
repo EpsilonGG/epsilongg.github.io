@@ -86,7 +86,7 @@ def check(dist: Path) -> list[str]:
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="日报出口闸门（M4）")
     parser.add_argument("--dist", default=str(ROOT / "dist"))
-    parser.add_argument("--id", default="26102322", help="金文件比对的期号")
+    parser.add_argument("--id", default=None, help="金文件比对的期号（默认读 tests/golden/current.json）")
     parser.add_argument("--skip-golden", action="store_true", help="跳过金文件比对")
     args = parser.parse_args(argv)
 

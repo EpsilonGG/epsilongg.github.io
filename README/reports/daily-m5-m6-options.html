@@ -1,0 +1,464 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>日报的图片与视频稿：M5 / M6 的选型、代价与顺序</title>
+<style>
+  :root {
+    --ink: #111;
+    --ink-2: #555;
+    --ink-3: #888;
+    --line: #e3e3e3;
+    --line-2: #cfcfcf;
+    --bg: #fff;
+    --bg-2: #fafafa;
+    --radius: 6px;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    padding: 0 20px 96px;
+    background: var(--bg);
+    color: var(--ink);
+    font: 15px/1.75 -apple-system, BlinkMacSystemFont, "Segoe UI", "Hiragino Sans",
+      "Noto Sans CJK SC", "Microsoft YaHei", sans-serif;
+  }
+  .wrap { max-width: 1080px; margin: 0 auto; }
+  header.top { padding: 56px 0 28px; border-bottom: 1px solid var(--line); }
+  h1 { font-size: 26px; line-height: 1.4; margin: 0 0 10px; letter-spacing: -0.01em; }
+  .sub { color: var(--ink-2); margin: 0; }
+  .meta { margin-top: 14px; color: var(--ink-3); font-size: 13px; }
+  h2 {
+    font-size: 19px; margin: 48px 0 14px; padding-bottom: 8px;
+    border-bottom: 1px solid var(--line); letter-spacing: -0.01em;
+  }
+  h3 { font-size: 15px; margin: 26px 0 8px; }
+  h4 { font-size: 14px; margin: 20px 0 6px; color: var(--ink-2); }
+  p { margin: 0 0 12px; }
+  ul, ol { margin: 0 0 14px; padding-left: 22px; }
+  li { margin: 4px 0; }
+  code {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: 0.9em; background: var(--bg-2);
+    border: 1px solid var(--line); border-radius: 4px; padding: 1px 5px;
+  }
+  a { color: var(--ink); text-decoration-color: var(--line-2); }
+  a:hover { text-decoration-color: var(--ink); }
+  .note {
+    background: var(--bg-2); border: 1px solid var(--line);
+    border-radius: var(--radius); padding: 14px 18px; margin: 18px 0;
+  }
+  .note strong { font-weight: 600; }
+  .warn { border-left: 3px solid var(--ink); }
+  .scroll { overflow-x: auto; margin: 16px 0; border: 1px solid var(--line); border-radius: var(--radius); }
+  table { border-collapse: collapse; width: 100%; font-size: 13.5px; }
+  th, td { padding: 7px 10px; text-align: left; border-bottom: 1px solid var(--line); white-space: nowrap; vertical-align: top; }
+  td.wrap, th.wrap { white-space: normal; min-width: 200px; }
+  thead th {
+    position: sticky; top: 0; background: var(--bg);
+    font-weight: 600; font-size: 12.5px; color: var(--ink-2);
+    border-bottom: 1px solid var(--line-2); z-index: 1;
+  }
+  tbody tr:last-child td { border-bottom: 0; }
+  td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+  td.name { font-weight: 600; }
+  .tag {
+    display: inline-block; font-size: 11px; line-height: 1.6; padding: 0 6px;
+    border: 1px solid var(--line-2); border-radius: 4px; color: var(--ink-2);
+    white-space: nowrap;
+  }
+  .tag.ok { border-color: var(--ink); color: var(--ink); }
+  .tag.bad { border-color: var(--ink-3); color: var(--ink-3); text-decoration: line-through; }
+  .kpi {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1px; background: var(--line); border: 1px solid var(--line);
+    border-radius: var(--radius); overflow: hidden; margin: 26px 0 8px;
+  }
+  .kpi > div { background: var(--bg); padding: 16px 18px; }
+  .kpi b { display: block; font-size: 24px; font-weight: 600; line-height: 1.3; font-variant-numeric: tabular-nums; }
+  .kpi span { display: block; color: var(--ink-3); font-size: 12.5px; margin-top: 2px; }
+  .dim { color: var(--ink-3); }
+  pre {
+    margin: 14px 0; padding: 14px 16px; background: var(--bg-2);
+    border: 1px solid var(--line); border-radius: var(--radius);
+    overflow-x: auto; font-size: 12.5px; line-height: 1.7;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  }
+  pre code { background: none; border: 0; padding: 0; }
+  footer {
+    margin-top: 56px; padding-top: 20px; border-top: 1px solid var(--line);
+    color: var(--ink-3); font-size: 12.5px;
+  }
+  @media (max-width: 720px) {
+    body { padding: 0 14px 64px; font-size: 14px; }
+    h1 { font-size: 21px; }
+    th, td { padding: 6px 8px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="top">
+  <h1>日报的图片与视频稿：M5 / M6 的选型、代价与顺序</h1>
+  <p class="sub">给「现在」和「下一个会话」共用的决策参考。结论都是可执行的，不是方向性的。</p>
+  <p class="meta">
+    上位文档：<code>public/docs/dailyrp-projectstatus.html</code> §07（M5）、§08（M6）——那里面是 46 个工作包，
+    这里只做三件事：<strong>把路线摆开比较、把代价说清楚、把顺序排好</strong>。<br>
+    样本：已发布的 <code>26102522</code> 一期（52 人、61 个账号、4 条看点、5 条互动、正文 3,011 字）。<br>
+    当前状态：M1–M4 已完成并上线；M5 / M6 未开始。写于 2026-10-26。
+  </p>
+</header>
+
+<div class="kpi">
+  <div><b>2</b><span>里程碑（M5 / M6）</span></div>
+  <div><b>3,011</b><span>一期正文的字数</span></div>
+  <div><b>9.7 分钟</b><span>全文照念的时长</span></div>
+  <div><b>4.7 分钟</b><span>精简版（看点+前 10 人）</span></div>
+</div>
+
+<h2>0. 先说结论</h2>
+
+<div class="note warn">
+<p><strong>1. M5 的难点不是「画图」，是「跨机一致」。</strong>
+同一份 <code>report.json</code>、同一个模板，在 Windows 和 CI 的 Linux 上必须出<strong>同一张 PNG</strong>。
+决定这件事的不是渲染质量，而是<strong>字体能不能钉死</strong>。所以选型的第一顺位是「能内嵌固定字体文件」，
+不是「谁画得好看」。计划里选 <code>@resvg/resvg-js</code> 就是这个逻辑，不是因为它新。</p>
+
+<p><strong>2. M5 真正值钱的产物只有一张：OG 封面（1200×630）。</strong>
+它决定「这条链接发到 X / Discord / Telegram 里长什么样」。内页卡片（1080×1440）是加分项，
+一期 3 张就够，多了没人翻。如果只做一件事，就做封面 + <code>og:image</code> 接线，
+4 个工作包就能上线，不必等 8 个全做完。</p>
+
+<p><strong>3. M6 的产物是五份文本，不是视频；而时长必须先定。</strong>
+按这一期的真实字数，全文照念 9.7 分钟——对「日报」这个形态太长，没人看完。
+精简到「看点 + 作品动态 + 互动 + 前 10 人」是 4.7 分钟，这才是可发布的长度。
+这个取舍决定了 M6.1 的口播稿到底从哪几段取材，<strong>应该在写代码之前定下来</strong>。</p>
+</div>
+
+<h2>1. 两条链路的输入，现在长什么样</h2>
+
+<p>M5 和 M6 都不需要新数据，它们只是把 <code>data/daily/&lt;期号&gt;/report.json</code> 换个 encoding。
+这一点很重要：<strong>两个里程碑都不碰抓取、不碰判卷、不碰站点路由</strong>，做砸了也不影响日报照常发布。</p>
+
+<div class="scroll">
+<table>
+<thead>
+<tr><th>字段</th><th class="num">这一期的量</th><th class="wrap">M5 用它做什么</th><th class="wrap">M6 用它做什么</th></tr>
+</thead>
+<tbody>
+<tr><td><code>description</code></td><td class="num">29 字</td><td class="wrap">封面主标题下的副标题</td><td class="wrap">开场第一句</td></tr>
+<tr><td><code>highlights[]</code></td><td class="num">4 条 / 409 字</td><td class="wrap">封面挑 1 条；内页卡片每条一张</td><td class="wrap">正片主体（占 40%）</td></tr>
+<tr><td><code>works</code></td><td class="num">315 字</td><td class="wrap">内页卡片一张（长文，需硬截断）</td><td class="wrap">正片第二段</td></tr>
+<tr><td><code>interactions[]</code></td><td class="num">5 条 / 220 字</td><td class="wrap">通常不进图</td><td class="wrap">正片第三段</td></tr>
+<tr><td><code>people[]</code></td><td class="num">52 人 / 2,067 字</td><td class="wrap">引文页（挑 1 人一句）</td><td class="wrap">结尾名单，只念前 10–15 人</td></tr>
+<tr><td><code>people[].sources</code></td><td class="num">52 组</td><td class="wrap"><code>manifest.json</code> 里记「这张图的字来自哪条推」</td><td class="wrap">每段的 <code>sources</code> 字段</td></tr>
+<tr><td>整个文件</td><td class="num">16.7 KB</td><td class="wrap">—</td><td class="wrap">—</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>纯文本出口 <code>/daily/26102522.txt</code> 已经是 4,374 字。它是 M6 的<strong>兜底输入</strong>：
+即使 M6 一个字都没写，把这份 txt 贴进任何 TTS 也能出一条能听的音频。M6 要做的不是「让它能听」，
+而是「让它像人说的话」——两者差着断句、口语连接词、和「哪些内容该丢」。</p>
+
+<h2>2. M5：四条路线摆开比</h2>
+
+<div class="scroll">
+<table>
+<thead>
+<tr><th>路线</th><th>依赖</th><th class="wrap">跨机一致</th><th class="wrap">中文字体</th><th class="wrap">速度 / 一期</th><th class="wrap">结论</th></tr>
+</thead>
+<tbody>
+<tr>
+  <td class="name">无头 Chrome 截图</td>
+  <td>Playwright / Puppeteer<br><span class="dim">~300 MB 浏览器</span></td>
+  <td class="wrap">差。浏览器版本、系统字体、亚像素渲染都会让字节不同</td>
+  <td class="wrap">走系统字体，Windows / macOS / CI 三套字形</td>
+  <td class="wrap">2–4 秒 / 页，冷启动另算</td>
+  <td class="wrap"><span class="tag bad">不适合当生产管线</span><br>只适合人工看一眼效果</td>
+</tr>
+<tr>
+  <td class="name">sharp 渲染 SVG</td>
+  <td><span class="tag ok">已是 devDependency</span></td>
+  <td class="wrap">差。sharp 的 SVG 走 librsvg，字体解析依赖系统</td>
+  <td class="wrap">必须系统装了中文字体，CI 默认没有</td>
+  <td class="wrap">快（&lt;100 ms）</td>
+  <td class="wrap"><span class="tag bad">不满足字节稳定</span><br>零新增依赖是唯一优点</td>
+</tr>
+<tr>
+  <td class="name">@resvg/resvg-js</td>
+  <td>一个 devDependency<br><span class="dim">napi 预编译二进制</span></td>
+  <td class="wrap">好。resvg 自己解析字体、自己光栅化，不碰系统 FreeType</td>
+  <td class="wrap">可内嵌字体文件（<code>fontFiles</code>），不查系统</td>
+  <td class="wrap">快（几十 ms / 页）</td>
+  <td class="wrap"><span class="tag ok">计划选的</span><br>字节稳定的前提是<strong>锁版本 + 锁字体</strong></td>
+</tr>
+<tr>
+  <td class="name">Python + Pillow</td>
+  <td>Pillow（wheel 免编译）</td>
+  <td class="wrap">好。只要字体文件固定</td>
+  <td class="wrap">要自己 <code>ImageFont.truetype()</code>，可行</td>
+  <td class="wrap">快</td>
+  <td class="wrap"><span class="tag">备选</span><br>但折行、字距、基线全要手写，等于自己实现半个排版引擎</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<h3>为什么不是「无头 Chrome」——它不是慢，是<strong>不可判定</strong></h3>
+
+<p>计划里的验收标准是「同一份数据两次渲染，PNG 字节完全相同」。无头 Chrome 做不到这一条，
+而且失败时你没法判断是自己写错了还是环境变了：Chromium 升级会改字距，系统装了新字体会改 fallback，
+CI 的字体包和本机不一样会改断行。<strong>一条会随环境漂移的验收标准，等于没有标准。</strong></p>
+
+<h3>为什么 resvg 能过——它把「字体」变成了输入而不是环境</h3>
+
+<p><code>resvg</code> 是纯 Rust 实现（<code>tiny-skia</code> 光栅化 + <code>fontdb</code> 字体库），
+不给系统字体留后门：你给它几个 <code>.ttf/.otf</code>，它就用这几个，找不到就报错而不是悄悄 fallback。
+所以「同一份数据 + 同一个模板 + 同一个字体文件 = 同一张图」这条在它这里是<strong>可以成立的</strong>，
+在 Chrome 和 sharp 那里只能靠祈祷。</p>
+
+<div class="note">
+<p><strong>一处要更正计划文档：</strong>§07 的对比表里写 <code>@resvg/resvg-js</code> 是「WASM」，
+实际它是 <strong>napi 预编译原生二进制</strong>（每个平台一个 <code>.node</code> 文件，npm 按平台装）。
+这不影响结论，但影响两件事：① 首次安装会多下几 MB 平台二进制；② 换 Node 大版本时可能需要重装，
+CI 里最好固定 Node 版本（仓库已经 <code>engines.node &gt;= 22.23.4</code>，够用）。</p>
+</div>
+
+<h3>M5 的三个坑（都会在第一天遇到）</h3>
+
+<ol>
+<li><strong>中文字体不能靠系统。</strong> 仓库 <code>public/fonts/</code> 只有 Inter / Cormorant / Fira Code，
+全都没中文。完整的中文字体 5–15 MB，不该进 git——计划的方案是下载到 <code>node_modules/.cache/</code>、
+记 SHA、<code>--pin</code> 时校验。这条必须在写模板<em>之前</em>做完，否则模板的折行全是按错字体调的。</li>
+<li><strong>SVG 没有自动折行。</strong> <code>&lt;text&gt;</code> 不会自己换行，CJK 也没有空格可断。
+必须自己算：全角字符按 1em、半角按 ~0.5em 估宽，标点不能出现在行首（「、。」要跟着前一个字）。
+这件事写起来不难，但<strong>一定要有单元测试</strong>，否则「某期多了一个字就溢出一行」永远发现不了。</li>
+<li><strong>不要自动缩字号。</strong> 溢出时缩字号会让同一套模板出两种字号，多页翻起来像两种设计。
+正确做法是模板声明容量（最多几行 × 每行几字），超了就截断加省略号——<strong>难看但是可预测</strong>。</li>
+</ol>
+
+<h2>3. M5 的最小可用路径：4 个包，不是 8 个</h2>
+
+<p>计划里 8 个工作包是完整形态。如果只想先拿到「分享出去有张图」这个收益，做到第 4 步就够了：</p>
+
+<div class="scroll">
+<table>
+<thead>
+<tr><th>顺序</th><th>做什么</th><th class="wrap">产出</th><th class="wrap">验收（可自动判定）</th></tr>
+</thead>
+<tbody>
+<tr><td class="name">1</td><td>M5.1 选型验证</td><td class="wrap">一段结论 + 一张对照图</td><td class="wrap">resvg 出的中文与浏览器截图并排，字形/断行可接受</td></tr>
+<tr><td class="name">2</td><td>M5.2 字体固定</td><td class="wrap"><code>scripts/daily/fonts.py</code></td><td class="wrap">删掉缓存后重跑，SHA 一致；字体文件不进 git</td></tr>
+<tr><td class="name">3</td><td>M5.3 排版原语</td><td class="wrap">折行 + 截断函数</td><td class="wrap">单测：长句截断不超容量、标点不在行首</td></tr>
+<tr><td class="name">4</td><td>M5.4 只做封面模板</td><td class="wrap"><code>templates/daily/cover.svg</code></td><td class="wrap">同一期连跑两次 PNG 字节相同</td></tr>
+<tr><td class="name">5</td><td>M5.8 OG 接线</td><td class="wrap"><code>og:image</code> 指向封面</td><td class="wrap"><code>npm run links</code> 通过；缺图时退回默认分享图</td></tr>
+</tbody>
+</table>
+</div>
+
+<p class="dim">剩下的 M5.5（生成 + manifest）、M5.6（只认 confirmed）、M5.7（稳定性测试）是「内页卡片」需要的；
+M5.6 那条其实应该提前——<strong>没定稿的一期不该能出图</strong>，否则图上写的东西和站点上的可能不一致。</p>
+
+<h3>可优化点（做的时候顺手就能拿到）</h3>
+<ul>
+<li><strong>按 claim 粒度做增量</strong>：<code>manifest.json</code> 记每页的 <code>claims</code> 路径，
+改一条 <code>highlights[1]</code> 只重渲封面，其余页直接复用上次的 PNG。一期 4 页时省不了多少，
+但这是「只改一个字也要重跑全部」和「改哪渲哪」的区别。</li>
+<li><strong>封面用固定浅色，不跟随主题</strong>：站点有背景图模式，但分享出去的图应该永远一样——
+深色主题的人分享出去是浅色封面，这是对的，不是 bug。</li>
+<li><strong>图片不进 RSS</strong>：计划里已明确不做 <code>&lt;enclosure&gt;</code>，理由成立（部分阅读器会把条目撑变形）。
+OG 图只在 HTML 的 <code>&lt;meta&gt;</code> 里出现，不进 feed。</li>
+</ul>
+
+<h2>4. M6：三条路线，产物是五份文本</h2>
+
+<p>先把边界钉住：<strong>M6 不生成音频、不渲染视频</strong>。这不是排期问题，是范围问题——
+一旦要出片，项目就从「静态站 + 本地脚本」变成「有渲染管线」，构建时间、机器要求、失败模式全换一套。
+判据写在计划里：<em>连续做满 10 期、每期人工制作稳定超过 1 小时</em>，才回头评估配音（仍然不做成片渲染）。</p>
+
+<div class="scroll">
+<table>
+<thead>
+<tr><th>路线</th><th class="wrap">怎么来</th><th class="wrap">优点</th><th class="wrap">缺点</th><th class="wrap">结论</th></tr>
+</thead>
+<tbody>
+<tr>
+  <td class="name">A. 纯规则派生</td>
+  <td class="wrap">从 <code>report.json</code> 按固定模板拼句子，零模型调用</td>
+  <td class="wrap">免费、可复现、跑 100 期都一样</td>
+  <td class="wrap">读起来是「把书面语念出来」，没有口语连接词，长句不会拆</td>
+  <td class="wrap"><span class="tag">做骨架</span>开场/结尾/名单用它</td>
+</tr>
+<tr>
+  <td class="name">B. 一次模型改写</td>
+  <td class="wrap">走现有 <code>prompt → answer → apply</code> 通道，把书面稿改写成口播稿</td>
+  <td class="wrap">口语自然；判卷和来源校验现成</td>
+  <td class="wrap">每期多一次模型调用；改写可能改变事实（要靠 sources 兜）</td>
+  <td class="wrap"><span class="tag ok">主体用它</span>只改 narration，不改事实</td>
+</tr>
+<tr>
+  <td class="name">C. 分镜级结构化</td>
+  <td class="wrap">segment JSON：镜号 / 时长 / 画面类型 / 字幕 / 素材</td>
+  <td class="wrap">一个没参与生成的人拿着就能剪</td>
+  <td class="wrap">工作量最大；分镜质量取决于对「视频长什么样」的想象，容易做成没人用的字段</td>
+  <td class="wrap"><span class="tag">先留字段</span>M6.2 之后再填</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<p>计划要的五份产物，对应关系是：</p>
+
+<div class="scroll">
+<table>
+<thead>
+<tr><th>产物</th><th class="wrap">给谁用</th><th class="wrap">从哪来</th><th class="wrap">能不能自动生成</th></tr>
+</thead>
+<tbody>
+<tr><td><code>narration.md</code> 口播稿</td><td class="wrap">念的人 / TTS</td><td class="wrap">路线 B 改写</td><td class="wrap">能（要判卷）</td></tr>
+<tr><td><code>storyboard.md</code> 分镜</td><td class="wrap">剪的人</td><td class="wrap">段落 → 镜号 + 画面类型</td><td class="wrap">半自动（画面类型靠规则，镜头感靠人）</td></tr>
+<tr><td><code>subs.srt</code> / <code>.vtt</code></td><td class="wrap">剪辑软件</td><td class="wrap">按字数 ÷ 语速估时间轴</td><td class="wrap">能（不保证对上真实音频）</td></tr>
+<tr><td><code>assets.md</code> 素材清单</td><td class="wrap">剪的人</td><td class="wrap">M5 的卡片图 + 账号主页截图位</td><td class="wrap">能（每个路径标 present / missing）</td></tr>
+<tr><td><code>README.md</code> 制作顺序</td><td class="wrap">接手的人</td><td class="wrap">固定文案</td><td class="wrap">能</td></tr>
+</tbody>
+</table>
+</div>
+
+<h2>5. M6 唯一没定的参数：时长</h2>
+
+<p>计划末尾自己留了一个问题：「视频稿的时长目标是多少？」——这个数不定，M6.1 就不知道从哪几段取材。
+用这一期的真实字数算了一遍（语速按计划里的 5.2 字/秒）：</p>
+
+<div class="scroll">
+<table>
+<thead>
+<tr><th>取材范围</th><th class="num">字数</th><th class="num">时长</th><th class="wrap">评价</th></tr>
+</thead>
+<tbody>
+<tr><td>全文（含 52 人）</td><td class="num">3,011</td><td class="num">9.7 分钟</td><td class="wrap">太长。日报的时效性撑不住 10 分钟，看到第 5 分钟已经忘了开头</td></tr>
+<tr><td>看点 + 作品 + 互动 + 前 20 人</td><td class="num">1,861</td><td class="num">6.0 分钟</td><td class="wrap">偏长，但能接受（相当于一条深度短视频）</td></tr>
+<tr><td>看点 + 作品 + 互动 + 前 15 人</td><td class="num">1,665</td><td class="num">5.3 分钟</td><td class="wrap">合适</td></tr>
+<tr><td>看点 + 作品 + 互动 + 前 10 人</td><td class="num">1,470</td><td class="num">4.7 分钟</td><td class="wrap"><span class="tag ok">推荐</span> 5 分钟以内，前 10 人是当天最活跃的，够用</td></tr>
+<tr><td>只念看点</td><td class="num">409</td><td class="num">1.3 分钟</td><td class="wrap">太短，不值得单独做一条视频；适合当预告</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="note">
+<p><strong>建议把目标定成「4–5 分钟」，取材固定为「看点 + 作品动态 + 互动 + 前 10 人」。</strong>
+理由不是审美：这四段正好是页面上<strong>顺序固定、且都已带 sources</strong> 的部分，
+其余 42 人只有一句话，念出来是名单朗读，观众会走。
+如果哪一期前 10 人不足 10 个，就按实际人数念，不要补。</p>
+</div>
+
+<h2>6. 用户侧会提的建议（以及该怎么回）</h2>
+
+<p>这一节是把「如果读者/观众来提需求，他们会说什么」提前写下来。每条都标了<strong>是否采纳</strong>和代价，
+省得下一个会话重新讨论一遍。</p>
+
+<div class="scroll">
+<table>
+<thead>
+<tr><th class="wrap">会有人提的建议</th><th>采纳？</th><th class="wrap">理由 / 代价</th></tr>
+</thead>
+<tbody>
+<tr>
+  <td class="wrap">「分享到 X 的时候能不能有张图，别只有一行灰字」</td>
+  <td><span class="tag ok">采纳</span></td>
+  <td class="wrap">这就是 M5 的封面。成本最低、收益最直接，优先做。</td>
+</tr>
+<tr>
+  <td class="wrap">「图里的字我想复制」</td>
+  <td><span class="tag bad">不采纳</span></td>
+  <td class="wrap">图片本来就不能选字。回应是：图永远配正文，且 <code>alt</code> 写全文摘要——这比「图里能选字」更有用。</td>
+</tr>
+<tr>
+  <td class="wrap">「能不能一期一张图就够，别刷屏」</td>
+  <td><span class="tag ok">采纳</span></td>
+  <td class="wrap">一期 1 张封面 + 最多 3 张卡片。超过 3 张，读者会当成广告。</td>
+</tr>
+<tr>
+  <td class="wrap">「能不能直接听，不要我自己念」</td>
+  <td><span class="tag bad">本轮不做</span></td>
+  <td class="wrap">配音会把项目推成「有渲染管线」。缓解：口播稿是纯文本，贴进任何 TTS 就能听；<code>/daily/&lt;id&gt;.txt</code> 现在就能这么用。</td>
+</tr>
+<tr>
+  <td class="wrap">「视频有字幕文件吗，我想自己剪」</td>
+  <td><span class="tag ok">采纳</span></td>
+  <td class="wrap">M6.3 的 SRT/VTT。注意它<strong>不对应真实音频</strong>（没有音频），只是剪辑起点，这一点要写在文件头。</td>
+</tr>
+<tr>
+  <td class="wrap">「手机上图片会不会糊」</td>
+  <td><span class="tag">已覆盖</span></td>
+  <td class="wrap">1200×630（分享卡）与 1080×1440（竖版卡片）两档够用。不要 4K：文件大、渲染慢、看不出差别。</td>
+</tr>
+<tr>
+  <td class="wrap">「暗色主题下封面能不能也是暗的」</td>
+  <td><span class="tag bad">不采纳</span></td>
+  <td class="wrap">分享出去的图应该永远一样。跟随主题会让同一期出现两个版本的封面，缓存和 OG 校验都会乱。</td>
+</tr>
+<tr>
+  <td class="wrap">「能不能给我一份今天所有推文的清单」</td>
+  <td><span class="tag">已有</span></td>
+  <td class="wrap"><code>/daily/&lt;id&gt;.json</code> 里有 <code>people[].sources</code>（item key），但 key 不是链接。真要清单得另开一个出口，成本高、需求弱，先不做。</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<h2>7. 如果明天就开工，按这个顺序</h2>
+
+<pre><code>第 1 步（半天）  M5.1 + M5.2：选型验证 + 字体钉死
+                 产出：一张 resvg 渲染的中文图 + fonts.py
+                 验收：删缓存重跑，字体 SHA 一致
+
+第 2 步（一天）  M5.3 + M5.4：折行/截断原语 + 封面模板
+                 产出：templates/daily/cover.svg + 渲染脚本
+                 验收：同输入两次 PNG 字节相同
+
+第 3 步（半天）  M5.8：og:image 接线
+                 验收：npm run links 通过，缺图退回默认分享图
+
+  —— 到这里「分享有图」已经上线，M5 的价值拿到了 ——
+
+第 4 步（可选）  M5.5–M5.7：内页卡片 + manifest + 稳定性测试
+
+第 5 步（一天）  M6.1：口播稿（先定「4–5 分钟、前 10 人」）
+第 6 步（一天）  M6.3 + M6.5：字幕 + 打包
+第 7 步（可选）  M6.2 + M6.4：分镜 + 素材清单</code></pre>
+
+<div class="note">
+<p><strong>先做第 1–3 步，再看要不要继续。</strong> M5 的前三步只需要一个模板和一张图，
+做完就能判断「这个方向值不值得投入」；而 M6 的五份产物里，只有口播稿和字幕是真正会被人用的，
+分镜和素材清单在「一个人自己剪」的场景下往往是多余的——那是给团队协作准备的。</p>
+</div>
+
+<h2>8. 参考资料</h2>
+
+<ul>
+<li><strong>上位计划</strong>：<code>public/docs/dailyrp-projectstatus.html</code> §07（M5 八个工作包 + 出口闸门）、
+§08（M6 六个工作包 + 明确不做的三件事）。<strong>动手前先读这两节</strong>，这里的表格是它的摘要，不是替代。</li>
+<li><strong>数据契约</strong>：<code>schemas/report.schema.json</code>（正本）、<code>docs/daily-report-guide.md</code>（运营流程）。
+M5/M6 都只读 <code>data/daily/&lt;期号&gt;/report.json</code>，不写。</li>
+<li><strong>渲染器</strong>：<code>@resvg/resvg-js</code>（Rust <code>resvg</code> 的 Node 绑定，napi 预编译）；
+上游 <code>resvg</code> 项目文档里 <code>fontFiles</code> / <code>fontDirs</code> 的说明是「钉死字体」的关键。</li>
+<li><strong>字体授权</strong>：思源黑体 / Noto Sans CJK 是 OFL，可随产物分发但<strong>不要进 git</strong>（体积）；
+如果换商用字体，先确认「渲染成图片再分发」是否在授权范围内——这是图片管线特有的坑，代码里看不出来。</li>
+<li><strong>分享卡规范</strong>：1200×630（1.91:1）是 X / Facebook / LinkedIn 的通用比例；
+Discord / Telegram 会裁成方图，所以<strong>重要信息放中间 630×630 的安全区</strong>。</li>
+</ul>
+
+<footer>
+  <p>这份文档只做决策参考，不改变任何现有行为。M5 / M6 开工时以
+  <code>public/docs/dailyrp-projectstatus.html</code> 的工作包编号为准，本文的编号与它一致。</p>
+  <p>数字来源：<code>data/daily/26102522/report.json</code>（52 人 / 3,011 字）与
+  <code>dist/daily/26102522.txt</code>（4,374 字），语速 5.2 字/秒取自计划 §08。2026-10-26。</p>
+</footer>
+
+</div>
+</body>
+</html>
