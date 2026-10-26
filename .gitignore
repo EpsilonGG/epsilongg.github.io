@@ -32,3 +32,6 @@ npm-debug.log*
 
 # 日报本地组装产物（briefing 等中间文件，由 scripts/daily_digest.py 生成）
 out/
+
+# 日报的增量账本（记录哪些条目已经用过），属于本机状态，不进仓库
+data/daily/state.json

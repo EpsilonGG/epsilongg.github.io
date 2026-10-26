@@ -51,8 +51,9 @@ fi
 echo
 echo "=== 步骤 3：让本地 WorkBuddy 填写日报内容 ==="
 echo "对 WorkBuddy 说：\"填写今天的日报\"，它会读 out/$ISSUE_ID.briefing.txt，然后填"
-echo "  $REPO_ROOT/src/content/daily/$ISSUE_ID.md  里的三段："
+echo "  $REPO_ROOT/src/content/daily/$ISSUE_ID.md  里的四个地方："
 echo "    highlights        今日看点（2–4 段，排第一）"
+echo "    works             作品动态（一段话，不带来源链接）"
 echo "    interactions      名单内多人互动（没有就留空数组）"
 echo "    people[].summary  每人一句话（留空 = 当日无活动，不渲染）"
 echo
