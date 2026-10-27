@@ -368,16 +368,26 @@ class InactiveAccountTest(unittest.TestCase):
         self.assertTrue(all(not a.active for a in circles))
         self.assertEqual(roster.category_of(circles[0].handle), "circle")
 
-    def test_manufacturers_are_collected_but_not_consumed(self) -> None:
-        """厂商号只收集、不进当期——跟社团号一个待遇。
+    def test_manufacturers_are_active_and_form_their_own_column(self) -> None:
+        """厂商号从 2026-10-27 起进抓取名单，页面上单列一栏。
 
-        厂商和社团是两套东西：社团号发「这部怎么卖」，厂商号发「下一部做什么」。
-        先挂进名单是为了以后按分类出周报，不是因为现在要消化它们。
+        改的是「抓不抓」，不是「怎么显示」：日报页的栏目筛选按钮默认只看声优，
+        点「制造商」才把它们加进列表——所以放它们进来不会把声优那几句挤没。
+
+        唯一的例外是 Moepedia：它是作品情报站，不是厂商。留在名单里是为了
+        以后的新作日历，现在不进抓取，免得「制造商」栏里混进一家媒体。
         """
         roster = Roster.load()
         makers = [a for a in roster.accounts if a.category == "manufacturer"]
         self.assertTrue(makers, "制造商应该已经在名单里")
-        self.assertTrue(all(not a.active for a in makers), "制造商号一律 active=false")
+
+        media = [a for a in makers if a.handle == "Moepedia_net"]
+        self.assertEqual(len(media), 1)
+        self.assertFalse(media[0].active, "情报站不进抓取")
+        self.assertTrue(
+            all(a.active for a in makers if a.handle != "Moepedia_net"),
+            "厂商号一律 active=true，否则「制造商」栏永远是空的",
+        )
         # 这一栏里只有一家不是品牌号：Moepedia 是作品情报站（月度新作日历的来源），
         # 放进来是给「第二份日报」当新作情报的入口。除此之外一律 brand。
         self.assertEqual(

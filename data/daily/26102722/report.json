@@ -8,15 +8,15 @@
       "end": "2026-10-28T00:00:00+09:00"
     },
     "status": "confirmed",
-    "confirmed_at": "2026-10-27T15:44:13+00:00"
+    "confirmed_at": "2026-10-27T16:25:18+00:00"
   },
   "counts": {
-    "items": 128,
-    "accounts": 45,
-    "late": 178,
+    "items": 413,
+    "accounts": 104,
+    "late": 0,
     "skipped_duplicate": 0
   },
-  "description": "生誕祭的感想文与出道九周年直播撑起一天，新作预告收藏破 520 件、多部作品开卖",
+  "description": "声优侧生誕祭与九周年直播撑场，厂商侧集体冲 10 月 30 日发售",
   "highlights": [
     {
       "text": "柚木つばめ生誕祭「FIRST FLIGHT」第 1 部的感想文登上 DL チャンネル，本人读完又热血起来，还惊讶作者记得开箱送礼的细节。",
@@ -26,15 +26,10 @@
       ]
     },
     {
-      "text": "歩サラ社团新作的预告收藏从 440 件冲到 520 件，登上预告榜第 18 位，她希望挤进前十。",
+      "text": "歩サラ社团新作的预告收藏从 440 件冲到 520 件、登上预告榜第 18 位；御子柴泉的录音室档期连年明け都开始被订满，她同时再次发出委托募集。",
       "sources": [
         "x:2114988505571242462",
-        "x:2114735186126713176"
-      ]
-    },
-    {
-      "text": "御子柴泉的录音室档期连年明け都开始被订满，她同时再次发出委托募集。",
-      "sources": [
+        "x:2114735186126713176",
         "x:2114938004980867403"
       ]
     },
@@ -42,6 +37,16 @@
       "text": "川乃瀬由羽迎来声优出道 9 周年，10/31 21:00 开纪念直播，正在征集祝福留言。",
       "sources": [
         "x:2114733843655827481"
+      ]
+    },
+    {
+      "text": "厂商侧集体进入 10/30 发售倒数：アパタイト两部包装版、ANIM《壁の向こうの妻の嬌声ｆ》、AMUSE CRAFT《養花師の背徳愛》、Lovelet 出道作《西園家のかくしゴト》、あざらしそふと《さくらぶトライアングル》同日开卖，倒数视频与店铺特典一起放出。",
+      "sources": [
+        "x:2115006064223797450",
+        "x:2114914991207763969",
+        "x:2114926309298065558",
+        "x:2115020682404803050",
+        "x:2114998035474452823"
       ]
     }
   ],
@@ -64,6 +69,7 @@
   "works": "发售方面，葵時緒的《怪異快楽》开卖并带两周特典，雲八はち的出演作同日上架、还转发了 15 小时支援站合集发售的消息；御子柴泉的录音室档期已排到年明け。预告与筹备方面，歩サラ社团新作收藏破 520 件、预告榜第 18 位，定 11 月中旬发售；春乃つくし的 DLsite 预告过审，秋山はるる放出年内最后 3 个录音室名额，川乃瀬由羽今年的常规交期已截止。此外浅見ゆい转发秋 M3 新作耳かき音声的告知，こやまはる开了秋 M3 通贩，砂糖しお为《MoeLove2》的左声道故障准备修正版，進藤あずさ与星野天把 10 月与本周的会员音声排上了日程。",
   "categories": [],
   "accounts": [
+    "yukanyan2525",
     "re_re_tsubame",
     "suzuka_minase",
     "narumiaisaka",
@@ -80,13 +86,17 @@
     "gemiko_voice",
     "momokar181",
     "mame_ruse",
+    "asagishiki00",
     "suikauriko",
     "koyama9haru",
+    "bee_ryo",
     "p_o_g_s2",
+    "hiyori_voice",
     "aizawa_nachu",
     "CV_kumoyahachi",
     "oOYuKiKoOo",
     "jiaomidsu3187",
+    "kuroseimu_000",
     "flanklm",
     "Unicolony_uni",
     "y_asm",
@@ -94,23 +104,84 @@
     "namimimiobot",
     "mitakarin",
     "hoshinora1212",
+    "mei_misonoo",
+    "ria_arino0707",
     "nemurinerima",
+    "lilim404",
     "girlscreationpr",
+    "nekomi_hime",
+    "mmegumu",
+    "ikuraeru",
     "yukirinrin1191",
+    "mymy_mimichi",
+    "Setsune_Soyogi",
+    "jtjitkub5r_uuka",
     "haruno_tsukushi",
     "shimotsukiyuu",
+    "mashiro_mayuki_",
     "ayumi_sarah",
     "potte1919",
     "aoitokio",
+    "mskmiro316",
     "refle_ookami",
+    "M_chipo_O",
     "maihal_yuu",
     "hotaoctenten",
     "ogurayui1017",
     "runhanami",
+    "Noa_Hikami",
     "shindo_azusa",
-    "ricca_kitami"
+    "ricca_kitami",
+    "appetite_game",
+    "Miel37319007",
+    "TRYSET",
+    "silkysplus",
+    "kiss_staff",
+    "chaos_R_public",
+    "AzarashiSoft",
+    "sengoku_kh",
+    "HOOKSOFT",
+    "CyberworksKoho",
+    "crowd_anim",
+    "VALKYRIA_info",
+    "escude1998",
+    "circus_info",
+    "purple_NewWork",
+    "CRYSTALiA_AC",
+    "smee_official",
+    "Amuse_kenzen",
+    "POISON_NEW1992",
+    "dessertsoft_tw",
+    "hamham_soft",
+    "FANDC_Staff",
+    "NanaWind",
+    "Amuse_sub",
+    "luneman_etc",
+    "SAGAPLANETS",
+    "metalogiq",
+    "sprite_fairys",
+    "moonstoneTwitt",
+    "nisidahajime",
+    "project_navel",
+    "jitaku_st",
+    "fortuneglovety",
+    "Muvluv_Official",
+    "BEEP_SHOP",
+    "FuriKuru_Game",
+    "LiLiM_NTR",
+    "info_lovelet",
+    "adahemas",
+    "SukeraSparo",
+    "nitroplus_staff"
   ],
   "people": [
+    {
+      "handle": "yukanyan2525",
+      "category": "",
+      "summary": "",
+      "via": [],
+      "sources": []
+    },
     {
       "handle": "re_re_tsubame",
       "category": "",
@@ -243,6 +314,13 @@
       ]
     },
     {
+      "handle": "asagishiki00",
+      "category": "",
+      "summary": "",
+      "via": [],
+      "sources": []
+    },
+    {
       "handle": "suikauriko",
       "category": "",
       "summary": "祝贺《アッシュアームズ》七周年，提到自己负责了三位 DOLLS；同时开放 11、12 月的工作委托。",
@@ -263,6 +341,13 @@
       ]
     },
     {
+      "handle": "bee_ryo",
+      "category": "",
+      "summary": "",
+      "via": [],
+      "sources": []
+    },
+    {
       "handle": "p_o_g_s2",
       "category": "",
       "summary": "收到「#俺の菜月見2026」的投稿，感叹野上家太温柔，说明天再介绍。",
@@ -270,6 +355,13 @@
       "sources": [
         "x:2114918511881679323"
       ]
+    },
+    {
+      "handle": "hiyori_voice",
+      "category": "",
+      "summary": "",
+      "via": [],
+      "sources": []
     },
     {
       "handle": "aizawa_nachu",
@@ -306,7 +398,9 @@
       "handle": "jiaomidsu3187",
       "category": "",
       "summary": "聊起「違くない」这类说法，觉得语法上难说正确，但现代语感很可爱。",
-      "via": [],
+      "via": [
+        "kuroseimu_000"
+      ],
       "sources": [
         "x:2114873990871413130"
       ]
@@ -384,6 +478,20 @@
       ]
     },
     {
+      "handle": "mei_misonoo",
+      "category": "",
+      "summary": "",
+      "via": [],
+      "sources": []
+    },
+    {
+      "handle": "ria_arino0707",
+      "category": "",
+      "summary": "",
+      "via": [],
+      "sources": []
+    },
+    {
       "handle": "nemurinerima",
       "category": "",
       "summary": "转发了两条作品宣传，一条带影片，另一条是 FANZA 同人 10 日元活动的推荐作品。",
@@ -392,6 +500,13 @@
         "x:2114744871223509220",
         "x:2114937887011815923"
       ]
+    },
+    {
+      "handle": "lilim404",
+      "category": "",
+      "summary": "",
+      "via": [],
+      "sources": []
     },
     {
       "handle": "girlscreationpr",
@@ -403,6 +518,27 @@
       ]
     },
     {
+      "handle": "nekomi_hime",
+      "category": "",
+      "summary": "",
+      "via": [],
+      "sources": []
+    },
+    {
+      "handle": "mmegumu",
+      "category": "",
+      "summary": "",
+      "via": [],
+      "sources": []
+    },
+    {
+      "handle": "ikuraeru",
+      "category": "",
+      "summary": "",
+      "via": [],
+      "sources": []
+    },
+    {
       "handle": "yukirinrin1191",
       "category": "",
       "summary": "说要更钻研表现力与音质，预告次日 21:30 限定直播，还会上传万圣节 cos 照。",
@@ -410,6 +546,27 @@
       "sources": [
         "x:2114747593389637981"
       ]
+    },
+    {
+      "handle": "mymy_mimichi",
+      "category": "",
+      "summary": "",
+      "via": [],
+      "sources": []
+    },
+    {
+      "handle": "Setsune_Soyogi",
+      "category": "",
+      "summary": "",
+      "via": [],
+      "sources": []
+    },
+    {
+      "handle": "jtjitkub5r_uuka",
+      "category": "",
+      "summary": "",
+      "via": [],
+      "sources": []
     },
     {
       "handle": "haruno_tsukushi",
@@ -431,6 +588,13 @@
         "x:2114996922046194115",
         "x:2114911209866596735"
       ]
+    },
+    {
+      "handle": "mashiro_mayuki_",
+      "category": "",
+      "summary": "",
+      "via": [],
+      "sources": []
     },
     {
       "handle": "ayumi_sarah",
@@ -456,6 +620,13 @@
       ]
     },
     {
+      "handle": "mskmiro316",
+      "category": "",
+      "summary": "",
+      "via": [],
+      "sources": []
+    },
+    {
       "handle": "refle_ookami",
       "category": "",
       "summary": "为「#杏ノ城プロゲーマー」预告明天，并转发同伴自称拆弹专家的推文。",
@@ -464,6 +635,13 @@
         "x:2114748928294064604",
         "x:2114749381924765825"
       ]
+    },
+    {
+      "handle": "M_chipo_O",
+      "category": "",
+      "summary": "",
+      "via": [],
+      "sources": []
     },
     {
       "handle": "maihal_yuu",
@@ -503,6 +681,13 @@
       ]
     },
     {
+      "handle": "Noa_Hikami",
+      "category": "",
+      "summary": "",
+      "via": [],
+      "sources": []
+    },
+    {
       "handle": "shindo_azusa",
       "category": "",
       "summary": "10 月限定特典（40 分钟）在 Ci-en、Fantia、FANBOX 同步上线并放出体验版；期间还抱怨发不出推文。",
@@ -520,12 +705,392 @@
       "sources": [
         "x:2114739867523658037"
       ]
+    },
+    {
+      "handle": "appetite_game",
+      "category": "",
+      "summary": "10/30 发售的两部包装版公开 getchu、Melonbooks、AliceNet 特典，当天还有店铺兑换会。",
+      "via": [],
+      "sources": [
+        "x:2115006064223797450",
+        "x:2115007736438214802",
+        "x:2115001730752770357"
+      ]
+    },
+    {
+      "handle": "Miel37319007",
+      "category": "",
+      "summary": "10/30 的《異世界孕ませハーレム》在 Ci-en、fantia 更新介绍，ヴァルティア CV 御苑生メイ。",
+      "via": [],
+      "sources": [
+        "x:2115014719434313809",
+        "x:2115060352924946456"
+      ]
+    },
+    {
+      "handle": "TRYSET",
+      "category": "",
+      "summary": "《やらてぃR クリスマス》豪华版首次用大号高盒，附未公开线稿原画集，明年 25 周年。",
+      "via": [],
+      "sources": [
+        "x:2115026705031266438",
+        "x:2115028171888476578"
+      ]
+    },
+    {
+      "handle": "silkysplus",
+      "category": "",
+      "summary": "「サラたま REBOOT」第 4 回定 10/28 19 时，主题是万圣节大喜利。",
+      "via": [],
+      "sources": [
+        "x:2115017202109935983",
+        "x:2114923082356003301"
+      ]
+    },
+    {
+      "handle": "kiss_staff",
+      "category": "",
+      "summary": "《カスタムロマンスシティ3D3》众筹达成 300 万日元，限定服装设计公开。",
+      "via": [],
+      "sources": [
+        "x:2114886464345711001",
+        "x:2114945189475221759",
+        "x:2115005766025543876"
+      ]
+    },
+    {
+      "handle": "chaos_R_public",
+      "category": "",
+      "summary": "《血刻継承クレイドペイン》完成 master up，主题曲与预告片公开，10/30 发售 DL 版。",
+      "via": [],
+      "sources": [
+        "x:2114751962046664764",
+        "x:2114753793548271848",
+        "x:2114754439303291078"
+      ]
+    },
+    {
+      "handle": "AzarashiSoft",
+      "category": "",
+      "summary": "《さくらぶトライアングル》发售前 3 天，公开咲良单人出镜的倒数视频。",
+      "via": [],
+      "sources": [
+        "x:2114998035474452823"
+      ]
+    },
+    {
+      "handle": "sengoku_kh",
+      "category": "",
+      "summary": "",
+      "via": [],
+      "sources": []
+    },
+    {
+      "handle": "HOOKSOFT",
+      "category": "",
+      "summary": "《トリプルペアリング ミニファンディスク》10/30 发售；Switch 三作打到 10/31，最低 990 日元。",
+      "via": [],
+      "sources": [
+        "x:2115050893255299525",
+        "x:2115065224822739026",
+        "x:2115050125055926385"
+      ]
+    },
+    {
+      "handle": "CyberworksKoho",
+      "category": "",
+      "summary": "《ユメウツツ補習授業》公开 CV：森元ゆい、くどう彩織、波野夏花，特典上色图追加。",
+      "via": [],
+      "sources": [
+        "x:2115060289989484662",
+        "x:2115059610700951795"
+      ]
+    },
+    {
+      "handle": "crowd_anim",
+      "category": "",
+      "summary": "《壁の向こうの妻の嬌声ｆ》10/30 发售，当天 Sofmap 抽选与キャララ签名会加量。",
+      "via": [],
+      "sources": [
+        "x:2114914991207763969",
+        "x:2114918179306934658"
+      ]
+    },
+    {
+      "handle": "VALKYRIA_info",
+      "category": "",
+      "summary": "《プレイ！プレイ！プレイ！ロック》公开清宮真霧，被关在杂物间深处的少女。",
+      "via": [],
+      "sources": [
+        "x:2114918605989273794"
+      ]
+    },
+    {
+      "handle": "escude1998",
+      "category": "",
+      "summary": "",
+      "via": [],
+      "sources": []
+    },
+    {
+      "handle": "circus_info",
+      "category": "",
+      "summary": "",
+      "via": [],
+      "sources": []
+    },
+    {
+      "handle": "purple_NewWork",
+      "category": "",
+      "summary": "《ムーン・ゴースト》OP《葬送の旋律》开始配信，紫咲ほたる演唱，OP 影像公开。",
+      "via": [],
+      "sources": [
+        "x:2115020682115592211"
+      ]
+    },
+    {
+      "handle": "CRYSTALiA_AC",
+      "category": "",
+      "summary": "10/30 发售的 Lycee Overture 新弹公开烫金签名卡，ソフィア一角由葉月ひかり署名。",
+      "via": [],
+      "sources": [
+        "x:2114891591227945246",
+        "x:2115035159988961496"
+      ]
+    },
+    {
+      "handle": "smee_official",
+      "category": "",
+      "summary": "《ワンナイトアフター》（11/27）体验版公开，Trader 限定 B2 挂画等特典出齐。",
+      "via": [],
+      "sources": [
+        "x:2115043334410387701",
+        "x:2115054655252152434",
+        "x:2115040813868839001"
+      ]
+    },
+    {
+      "handle": "Amuse_kenzen",
+      "category": "",
+      "summary": "《養花師の背徳愛》倒数 3 天，体验版实况已配信；10/30 在 Sofmap 两家店发插画纸。",
+      "via": [],
+      "sources": [
+        "x:2114926309298065558",
+        "x:2114969091169730706",
+        "x:2114999290376405215"
+      ]
+    },
+    {
+      "handle": "POISON_NEW1992",
+      "category": "",
+      "summary": "「秋の大通販 2026」开始发货；Ci-en 连载《完堕ちXギャル母娘》复刻 SS 第 2 弹。",
+      "via": [],
+      "sources": [
+        "x:2115018940032356578",
+        "x:2115065986114310616"
+      ]
+    },
+    {
+      "handle": "dessertsoft_tw",
+      "category": "",
+      "summary": "",
+      "via": [],
+      "sources": []
+    },
+    {
+      "handle": "hamham_soft",
+      "category": "",
+      "summary": "《ハイアングル》抽选在 X 与官方 fantia 同时进行，FANZA GAMES 浏览器版也上线。",
+      "via": [],
+      "sources": [
+        "x:2114993433547014454",
+        "x:2115006138626556397"
+      ]
+    },
+    {
+      "handle": "FANDC_Staff",
+      "category": "",
+      "summary": "PC98 补完计划第一弹《DEAD OF THE BRAIN》10/31 上 Steam，附免费 demo。",
+      "via": [],
+      "sources": [
+        "x:2115023664114704854",
+        "x:2114999935301263629",
+        "x:2115031644600139907"
+      ]
+    },
+    {
+      "handle": "NanaWind",
+      "category": "",
+      "summary": "四格《今週のナナウィンドまんが》更新，《春音アリスグラム》藤乃雪登场。",
+      "via": [],
+      "sources": [
+        "x:2115007343335223521"
+      ]
+    },
+    {
+      "handle": "Amuse_sub",
+      "category": "",
+      "summary": "《養花師の背徳愛》OP《Devotion》公开，柚木つばめ演唱，预约加送数字原声。",
+      "via": [],
+      "sources": [
+        "x:2115023952611577998",
+        "x:2114929077496754458"
+      ]
+    },
+    {
+      "handle": "luneman_etc",
+      "category": "",
+      "summary": "カズヲダイスケ《さくら裂ク 散ル花びら》动画化，OVA 第 1、2 话定 12/25 发售。",
+      "via": [],
+      "sources": [
+        "x:2114995303602700584",
+        "x:2115042534074548639"
+      ]
+    },
+    {
+      "handle": "SAGAPLANETS",
+      "category": "",
+      "summary": "在线抽选进入最后一周，今天幸运奖是復刻アクリルブロック（虹夢），剩 3 天。",
+      "via": [],
+      "sources": [
+        "x:2114733801855451316"
+      ]
+    },
+    {
+      "handle": "metalogiq",
+      "category": "",
+      "summary": "《魔法少女消耗戦線》FANZA 在线抽选中，带数字签名的复制原画作幸运奖。",
+      "via": [],
+      "sources": [
+        "x:2115005873395507522",
+        "x:2115005875320762852"
+      ]
+    },
+    {
+      "handle": "sprite_fairys",
+      "category": "",
+      "summary": "《小金井荘》为 11/26 发售完成 master up，连开四弹签名色纸抽选，第 5 弹定在 11/3。",
+      "via": [],
+      "sources": [
+        "x:2115035996899135956",
+        "x:2115036669535490252",
+        "x:2115035999793201637"
+      ]
+    },
+    {
+      "handle": "moonstoneTwitt",
+      "category": "",
+      "summary": "《ストレイ・シープと死人の恋 Vol.2》被介绍为品牌 10 年来首部本格恐怖 AVG。",
+      "via": [],
+      "sources": [
+        "x:2114936193523855405"
+      ]
+    },
+    {
+      "handle": "nisidahajime",
+      "category": "",
+      "summary": "《女装百合嵐》抱枕套限定版预约超预期，多备了库存，现在下单也许还赶得上。",
+      "via": [],
+      "sources": [
+        "x:2115030951889908043"
+      ]
+    },
+    {
+      "handle": "project_navel",
+      "category": "",
+      "summary": "《月に寄りそう乙女の作法3》制作决定，15 周年企划启动。",
+      "via": [],
+      "sources": [
+        "x:2114750156335944073"
+      ]
+    },
+    {
+      "handle": "jitaku_st",
+      "category": "",
+      "summary": "",
+      "via": [],
+      "sources": []
+    },
+    {
+      "handle": "fortuneglovety",
+      "category": "",
+      "summary": "距发售 3 天，倒数访谈第 3 弹是氷室すばる役・近貞月乃，店头样品已到货。",
+      "via": [],
+      "sources": [
+        "x:2114997276795891965",
+        "x:2114919807934214210"
+      ]
+    },
+    {
+      "handle": "Muvluv_Official",
+      "category": "",
+      "summary": "",
+      "via": [],
+      "sources": []
+    },
+    {
+      "handle": "BEEP_SHOP",
+      "category": "",
+      "summary": "11/21、22 在羽生市临时开游戏机厅，弹珠台与街机免费；店里刚收进 Apple II Plus。",
+      "via": [],
+      "sources": [
+        "x:2115013112458064155",
+        "x:2114937929105818093",
+        "x:2114971298308985024"
+      ]
+    },
+    {
+      "handle": "FuriKuru_Game",
+      "category": "",
+      "summary": "",
+      "via": [],
+      "sources": []
+    },
+    {
+      "handle": "LiLiM_NTR",
+      "category": "",
+      "summary": "《初恋BLUE》定 1/29 发售，Sofmap 特典是 B2 挂画与主题曲 CD。",
+      "via": [],
+      "sources": [
+        "x:2114916473068249393"
+      ]
+    },
+    {
+      "handle": "info_lovelet",
+      "category": "",
+      "summary": "出道作《西園家のかくしゴト》10/30 发售，倒数 3 天起每天公开一位家人。",
+      "via": [],
+      "sources": [
+        "x:2115020682404803050",
+        "x:2115021288083447973"
+      ]
+    },
+    {
+      "handle": "adahemas",
+      "category": "",
+      "summary": "",
+      "via": [],
+      "sources": []
+    },
+    {
+      "handle": "SukeraSparo",
+      "category": "",
+      "summary": "",
+      "via": [],
+      "sources": []
+    },
+    {
+      "handle": "nitroplus_staff",
+      "category": "",
+      "summary": "",
+      "via": [],
+      "sources": []
     }
   ],
   "provenance": {
     "generator": "daily",
     "prompt_version": 1,
     "cache_key": "answers:1",
-    "generated_at": "2026-10-27T15:44:09+00:00"
+    "generated_at": "2026-10-27T16:24:17+00:00"
   }
 }

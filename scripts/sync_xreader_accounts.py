@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""把站点名单里**在用的声优账号**同步成 X-Reader 的 `accounts.yaml`。
+"""把站点名单里**在用的账号**同步成 X-Reader 的 `accounts.yaml`。
 
 为什么要有这一步：抓取侧（X-Reader）和展示侧（本站日报）各有一份账号清单，
 两边不一致时会出现两种都很难查的现象——
@@ -7,9 +7,10 @@
 * X-Reader 抓了名单外的号 → 日报里冒出没人认领的推文；
 * 名单里的人 X-Reader 没抓 → 「当日无活动」，看起来像她那天真没发推。
 
-所以这里只做一件事：`daily-roster.json` 里 `category == "seiyuu"` 且
-`active != false` 的 handle，按名单顺序写成 `accounts.yaml`。社团号、厂商号
-现在是 `active: false`，不会被写进去；哪天要收它们的动态，改名单就行。
+所以这里只做一件事：`daily-roster.json` 里 `active != false` 的 handle，
+按名单顺序写成 `accounts.yaml`。分类（声优 / 制造商）不参与判断——
+它决定的是条目落在页面哪个栏目，而栏目由日报页的筛选按钮分开看。
+社团号现在仍是 `active: false`，不会被写进去。
 
 用法：
 
@@ -39,9 +40,9 @@ HEADER = """\
 #
 #   python scripts/sync_xreader_accounts.py --out <this file>
 #
-# Only `category: seiyuu` entries with `active != false` are written. Circle and
-# manufacturer accounts are in the roster but marked inactive, so they are
-# deliberately absent here: the daily report does not consume them yet.
+# Only entries with `active != false` are written, in roster order. The roster's
+# `category` field is *not* a filter here: it decides which column an entry shows
+# up in on the site, and the daily page's filter buttons separate the columns.
 #
 # 名单里每个 handle 的 role（main / sub / announce）不写进这个文件——抓取侧不
 # 关心它是主号还是小号，抓全就行；role 只在站点侧决定展示顺序。
@@ -55,8 +56,8 @@ def load_handles(path: Path = ROSTER) -> list[str]:
     handles: list[str] = []
     seen: set[str] = set()
     for account in data.get("accounts", []):
-        if account.get("category") != "seiyuu":
-            continue
+        # 只按 `active` 判断要不要抓：分类决定它在页面上落在哪个栏目，
+        # 不决定抓不抓。2026-10-27 起制造商也是 active，栏目用筛选按钮分开看。
         if account.get("active", True) is False:
             continue
         handle = str(account.get("handle") or "").strip()

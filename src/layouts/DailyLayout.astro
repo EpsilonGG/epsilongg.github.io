@@ -3,7 +3,13 @@ import BaseLayout from './BaseLayout.astro';
 import ReadingProgress from '../components/ReadingProgress.astro';
 import { site } from '../config/site';
 import { formatIssueTime, type Daily } from '../lib/daily';
-import { displayNameOf, nameOf } from '../lib/roster';
+import {
+  categoryLabelOf,
+  categoryOf,
+  categoryRankOf,
+  displayNameOf,
+  nameOf,
+} from '../lib/roster';
 
 interface Props {
   post: Daily;
@@ -59,6 +65,40 @@ function withMentions(text: string): string {
 }
 
 const profileUrl = (handle: string) => `https://x.com/${handle}`;
+
+/**
+ * 按栏目（声优 / 社团 / 制造商）分组，给「详细」栏的筛选按钮用。
+ *
+ * 顺序跟名单的 `categories` 走，不跟数据走：同一期里「声优在前、制造商在后」
+ * 应该是稳定约定，而不是「谁先被抓到谁排前面」。
+ *
+ * 只保留这一期确实有条目的栏目——空栏目的按钮点开是空的，等于骗人。
+ */
+const categoriesPresent = (() => {
+  const counts = new Map<string, number>();
+  for (const person of roster) {
+    const id = categoryOf(person.handle);
+    counts.set(id, (counts.get(id) ?? 0) + 1);
+  }
+  return [...counts.entries()]
+    .map(([id, count]) => ({ id, label: categoryLabelOf(id), count, rank: categoryRankOf(id) }))
+    .sort((a, b) => a.rank - b.rank || b.count - a.count);
+})();
+
+/** 默认只看声优；某期没有声优条目（或名单漏了人）就退回第一个栏目。 */
+const defaultCategory = categoriesPresent.some((item) => item.id === 'seiyuu')
+  ? 'seiyuu'
+  : (categoriesPresent[0]?.id ?? '');
+
+/** 只有一个栏目时按钮点不出任何变化，整排不渲染。 */
+const showCategoryFilter = categoriesPresent.length > 1;
+
+/** 多栏目同时显示时按栏目聚在一起，扫起来才知道「下面是另一批人」。 */
+const sortedRoster = showCategoryFilter
+  ? [...roster].sort(
+      (a, b) => categoryRankOf(categoryOf(a.handle)) - categoryRankOf(categoryOf(b.handle))
+    )
+  : roster;
 
 // 忘了跑 LLM 那一步时别静默少一段——构建日志里要看得见
 if (highlights.length === 0) {
@@ -171,9 +211,31 @@ if (!description) {
             roster.length > 0 ? (
               <section class="daily-block">
                 <h2>详细</h2>
-                <ul class="daily-roster">
-                  {roster.map((person) => (
-                    <li>
+                {/*
+                  栏目筛选：默认只亮「声优」。点另一个栏目是**加**（两个都亮），
+                  再点自己一次是**减**——所以「只想看制造商」是「点制造商、再点声优」，
+                  不用先全清再选。交互和笔记页的标签按钮一致（aria-pressed 表达选中）。
+                */}
+                {showCategoryFilter ? (
+                  <div class="daily-filter" data-daily-filter role="group" aria-label="按栏目筛选">
+                    <span class="daily-filter__label">栏目</span>
+                    {categoriesPresent.map((item) => (
+                      <button
+                        class="daily-filter__tag"
+                        type="button"
+                        data-category-filter
+                        data-category={item.id}
+                        aria-pressed={item.id === defaultCategory ? 'true' : 'false'}
+                        aria-controls="daily-detail-list"
+                      >
+                        {item.label}
+                      </button>
+                    ))}
+                  </div>
+                ) : null}
+                <ul class="daily-roster" id="daily-detail-list" data-daily-roster>
+                  {sortedRoster.map((person) => (
+                    <li data-category={categoryOf(person.handle)}>
                       <a
                         class="daily-roster__name"
                         href={profileUrl(person.handle)}
@@ -200,6 +262,11 @@ if (!description) {
                     </li>
                   ))}
                 </ul>
+                {showCategoryFilter ? (
+                  <p class="daily-pending" data-daily-filter-empty hidden>
+                    未选择栏目。点上方按钮显示对应条目。
+                  </p>
+                ) : null}
               </section>
             ) : null
           }
@@ -241,4 +308,8 @@ if (!description) {
       </div>
     </div>
   </article>
+
+  <script>
+    import '../scripts/daily-filter.ts';
+  </script>
 </BaseLayout>

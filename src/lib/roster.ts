@@ -15,15 +15,30 @@ interface RosterAccount {
   handle: string;
   name?: string;
   role?: string;
+  category?: string;
+}
+
+interface RosterCategory {
+  id: string;
+  label: string;
 }
 
 const displayName = new Map<string, string>();
 const order = new Map<string, number>();
+const category = new Map<string, string>();
+
+const OTHER = 'other';
+
+/** 栏目（声优 / 社团 / 制造商 / 未归类），顺序即页面上的按钮顺序。 */
+const categoryList: RosterCategory[] = (rosterData.categories as RosterCategory[] | undefined) ?? [];
+const categoryLabel = new Map<string, string>(categoryList.map((item) => [item.id, item.label]));
+const categoryRank = new Map<string, number>(categoryList.map((item, index) => [item.id, index]));
 
 for (const [index, account] of (rosterData.accounts as RosterAccount[]).entries()) {
   const key = account.handle.toLowerCase();
   if (account.name) displayName.set(key, account.name);
   order.set(key, index);
+  category.set(key, account.category || OTHER);
 }
 
 /** 名单里的显示名；不在名单（或该条没有 `name`）返回 null。 */
@@ -39,4 +54,22 @@ export function nameOf(handle: string): string {
 /** 名单顺序（越小越靠前）。不在名单的排在最后，保持稳定。 */
 export function rosterIndex(handle: string): number {
   return order.get(handle.toLowerCase()) ?? Number.MAX_SAFE_INTEGER;
+}
+
+/**
+ * 这个号属于哪个栏目。名单里没有就归 `other`——
+ * 「名单漏了一个人」不该让整页崩掉，最多是它落在「未归类」里。
+ */
+export function categoryOf(handle: string): string {
+  return category.get(handle.toLowerCase()) ?? OTHER;
+}
+
+/** 栏目的中文名（声优 / 社团 / 制造商 / 未归类）。 */
+export function categoryLabelOf(id: string): string {
+  return categoryLabel.get(id) ?? id;
+}
+
+/** 栏目的显示顺序：声优 → 社团 → 制造商 → 未归类。 */
+export function categoryRankOf(id: string): number {
+  return categoryRank.get(id) ?? Number.MAX_SAFE_INTEGER;
 }

@@ -461,10 +461,28 @@ a.link-row:hover .link-row__label {
 .daily-roster {
   padding-left: 0;
   list-style: none;
+  /*
+    用 flex + gap 而不是 `li + li { margin-top }`：栏目筛选会把条目 `hidden` 掉，
+    相邻选择器看的是 DOM 顺序，第一个可见条目前面若有一堆隐藏项，
+    它照样会顶出一段 margin——看起来像「列表开头多了个空行」。
+  */
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
 }
 
-.daily-roster li + li {
-  margin-top: var(--space-2);
+/* 栏目筛选按钮那一排。和笔记页的标签栏同样的排布：标签 + 可换行的按钮 */
+.daily-filter {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
+  margin-bottom: var(--space-4);
+}
+
+.daily-filter__label {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
 }
 
 .daily-roster__name {
@@ -1872,7 +1890,13 @@ a.link-row:hover .link-row__label {
   color: var(--color-text-muted);
 }
 
-.archive-tag {
+/*
+  标签按钮。笔记页（`/blog/`）和日报「详细」栏的栏目筛选共用同一套样式：
+  两个地方是同一个控件——一排可多选的细边小按钮，选中就是实底。
+  合并写而不是各抄一份，改一处两边一起变，不会出现「两个页面长得不一样」。
+*/
+.archive-tag,
+.daily-filter__tag {
   padding: 0.1rem var(--space-2);
   font-size: var(--text-xs);
   color: var(--color-text-secondary);
@@ -1884,12 +1908,14 @@ a.link-row:hover .link-row__label {
     background-color var(--duration-fast) var(--ease);
 }
 
-.archive-tag:hover {
+.archive-tag:hover,
+.daily-filter__tag:hover {
   color: var(--color-text);
   border-color: var(--color-border-strong);
 }
 
-.archive-tag[aria-pressed="true"] {
+.archive-tag[aria-pressed="true"],
+.daily-filter__tag[aria-pressed="true"] {
   color: var(--color-text);
   background-color: var(--color-bg-subtle);
   border-color: var(--color-text-secondary);
