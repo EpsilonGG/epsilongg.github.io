@@ -1,0 +1,9 @@
+# Pagefind 索引配置。构建后由 `npm run build` 调用（见 package.json 的 search:index）。
+#
+# 只索引文章正文：文章页在 `.prose` 上挂了 data-pagefind-body，Pagefind 只收这个
+# 元素以内的内容；没有这个属性的页面（笔记列表、日报、/me/、404）整页不进索引。
+# 于是索引体积只随「文章篇数 × 正文长度」增长，和站点页面数无关。
+#
+# 站点 `<html lang="zh-CN">`，Pagefind 会按中文做分词（不是按空格切），
+# 所以「打越钢太郎」这种连写的中文也能搜到。
+site: dist

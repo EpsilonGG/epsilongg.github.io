@@ -391,5 +391,6 @@ npm run check:images  # 用了远程图才需要：逐张请求，报坏链
 | 注释 / 图注 / 代码块的样式 | `src/styles/components.css`（搜「文章 ·」） |
 | 文章字段校验 | `src/content.config.ts` |
 | 文章页布局 | `src/layouts/ArticleLayout.astro` |
-| 笔记列表的搜索 / 标签 / 分页 / AI 滑块 | `src/scripts/archive-filter.ts` |
+| 笔记列表的全文搜索 / 标签 / 分页 / AI 滑块 | `src/scripts/archive-filter.ts` |
+| 搜索索引收哪些内容 | `pagefind.yml`（只收挂了 `data-pagefind-body` 的 `.prose`） |
 | 笔记列表页结构（滑块、栏目名、列表项） | `src/pages/blog.astro` |

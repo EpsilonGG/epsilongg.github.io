@@ -9,7 +9,8 @@
   "scripts": {
     "dev": "node scripts/optimize_images.mjs && astro dev",
     "start": "node scripts/optimize_images.mjs && astro dev",
-    "build": "node scripts/optimize_images.mjs && astro build",
+    "build": "node scripts/optimize_images.mjs && astro build && npm run search:index",
+    "search:index": "pagefind --site dist && python scripts/check_search_budget.py",
     "preview": "astro preview",
     "check": "astro check",
     "check:images": "python scripts/check_remote_images.py",
@@ -32,6 +33,7 @@
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.12",
+    "pagefind": "^1.5.2",
     "sharp": "^0.35.5",
     "typescript": "^5.9.3"
   }

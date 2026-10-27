@@ -1483,17 +1483,19 @@
       <div class="block-item">
         <div class="block-item__head">
           <span class="block-item__name">站内搜索只到标题 / 描述 / 标签</span>
-          <span class="pill">中等</span>
-          <span class="pill">不做</span>
+          <span class="pill pill--done">已完成</span>
         </div>
         <p>
-          搜索是纯前端读 DOM 上的 <code>data-title</code> / <code>data-description</code> /
-          <code>data-tags</code>。<strong>正文根本没进索引</strong>——不是"搜得不准"，
-          是"没被索引"。列表页为了首屏体积不可能把全文塞进 DOM。
+          以前搜索只读 DOM 上的 <code>data-title</code> / <code>data-description</code> /
+          <code>data-tags</code>，<strong>正文根本没进索引</strong>——不是"搜得不准"，
+          是"没被索引"。现在正文交给 Pagefind：构建后扫一遍产物，只收文章页
+          <code>.prose</code> 里的内容，其余页面没有 <code>data-pagefind-body</code>，整页排除。
         </p>
         <div class="block-item__left">
-          增量评估：Pagefind 索引约 15–25 KB/篇（gzip），只在打开搜索时下载。
-          6 篇约 120 KB，20 篇约 400 KB。判定见第五节。
+          实测（8 篇 / 8.2 万字）：索引与片段 297 KB，平均每篇 37 KB；核心运行时 85 KB，
+          与篇数无关。构建里挂了 2 MB 的闸门，超了先降档成"只收小标题"。
+          中文按词切分（<code>lang="zh-CN"</code>），"打越"这种连写词也能命中；
+          高亮由站点自己按字面重做——Pagefind 回标的记号在中文上会误伤（搜"声优"标到"优秀"）。
         </div>
       </div>
 
@@ -1702,14 +1704,14 @@
       <div class="block-item">
         <div class="block-item__head">
           <span class="block-item__name">站内搜索扩到正文（Pagefind）</span>
-          <span class="pill pill--skip">不做</span>
+          <span class="pill pill--done">已翻案</span>
         </div>
         <div class="block-item__left">
-          技术上可行：Pagefind 在构建后扫一遍 HTML 生成静态索引，运行时纯前端查询，不要后端。
-          问题是<strong>索引按篇分片，约 15–25 KB/篇</strong>，而且是独立产物，不能像 CSS 那样
-          一次加载全站共用。6 篇文章换来一份几百 KB 的索引，只为了让"搜某个作品名"能命中正文——
-          而现在总共就六篇，标题 + 描述 + 标签已经够翻。
-          <strong>结论：太费空间，不做。</strong>文章数上去了再重新算这笔账。
+          当时的结论是"太费空间，不做"，前提是<strong>索引 15–25 KB/篇</strong>。
+          这一轮实测是 37 KB/篇（长访谈偏多），比估算更贵；但文章已经到八篇，
+          而最长的几篇正文里全是作品名和人名，标题搜不到它们——
+          <strong>漏掉这些比省下几百 KB 更亏</strong>。于是翻案：索引随构建生成、
+          第一次搜索时才下载，构建里的 2 MB 闸门负责在失控前报警。
         </div>
       </div>
       <div class="block-item">

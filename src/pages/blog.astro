@@ -31,7 +31,7 @@ const allTags = [...new Set(posts.flatMap((post) => post.data.tags))].sort((a, b
                 type="search"
                 name="q"
                 autocomplete="off"
-                placeholder="搜索标题、摘要或标签"
+                placeholder="搜索标题与正文"
                 aria-describedby="archive-result-count"
               />
               <button class="archive-search__button" type="submit">搜索</button>
@@ -127,6 +127,7 @@ const allTags = [...new Set(posts.flatMap((post) => post.data.tags))].sort((a, b
                       {post.data.description ? (
                         <span class="article-list__description">{post.data.description}</span>
                       ) : null}
+                      <span class="article-list__excerpt" data-excerpt hidden></span>
                     </a>
                   </li>
                 ))}

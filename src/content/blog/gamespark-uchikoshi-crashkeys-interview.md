@@ -8,6 +8,12 @@ tags:
 source: ai
 ---
 
+> 本文译自 Game\*Spark 于 2026 年 10 月 26 日刊载的访谈，文＝SIGH，编＝みお。
+>
+> 原文：[「天才たちのまぶしさで目がやられた」―打越鋼太郎氏が明かす新会社「CRASH KEYS」設立の真意。新作中止の苦境と今後の挑戦【インタビュー】](https://www.gamespark.jp/article/2026/10/26/174088.html)
+>
+> 译文由 AI 参与翻译与整理，本站仅作个人存档。文中配图与作品版权归原作者及各权利方所有，如涉及版权问题请联系删除。
+
 打造了《极限脱出（ZERO ESCAPE）》系列、《AI：梦境档案》系列等众多冒险游戏的创作者打越钢太郎，于 2026 年 10 月 15 日公布了自己的新公司「CRASH KEYS」。而在这一消息背后，是一个进行中的项目被突然中止的苦境。
 
 ![CRASH KEYS 的 Logo](/images/blog/gamespark-uchikoshi-crashkeys-interview/01.png "CRASH KEYS 的 Logo。字母 C 的中央开着一个钥匙孔。")

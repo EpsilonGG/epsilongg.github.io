@@ -408,6 +408,25 @@ a.link-row:hover .link-row__label {
   max-width: var(--measure);
 }
 
+/* 全文搜索命中片段：只在输入关键词时出现，是「为什么搜到这篇」的证据，
+   不是摘要，所以比摘要更小更淡；<mark> 用灰底，和站点配色一致。 */
+.article-list__excerpt {
+  display: block;
+  margin-top: var(--space-1);
+  font-size: var(--text-xs);
+  line-height: var(--leading-normal);
+  color: var(--color-text-muted);
+  max-width: var(--measure);
+  overflow-wrap: anywhere;
+}
+
+.article-list__excerpt mark {
+  padding: 0 0.12em;
+  color: var(--color-text);
+  background-color: var(--color-selection);
+  border-radius: 2px;
+}
+
 /* AI 整理披露标记（列表项与文章页共用） */
 .article-badge {
   display: inline-block;

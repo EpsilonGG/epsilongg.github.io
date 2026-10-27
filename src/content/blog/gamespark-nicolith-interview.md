@@ -8,6 +8,12 @@ tags:
 source: ai
 ---
 
+> 本文译自 Game\*Spark 于 2026 年 10 月 25 日刊载的访谈，文＝もぐ水，编＝みお。
+>
+> 原文：[『Mouthwashing』『No, I'm not a Human』『Arctic Eggs』の日本語はこうして生まれた―ゲーム翻訳者nicolith氏の仕事に迫る【インタビュー】](https://www.gamespark.jp/article/2026/10/25/174064.html)（[第 2 页](https://www.gamespark.jp/article/2026/10/25/174064_2.html)）
+>
+> 译文由 AI 参与翻译与整理，本站仅作个人存档。文中配图与作品版权归原作者及各权利方所有，如涉及版权问题请联系删除。
+
 那个翻译了某款游戏的人，究竟是怎样的家伙呢？
 
 ![《CARIMARA: Beneath the forlorn limbs》游戏画面](/images/blog/gamespark-nicolith-interview/01.png "《CARIMARA: Beneath the forlorn limbs》（2025）")
@@ -533,7 +539,3 @@ nicolith：完全没有，因为我自己也没学。日语另说，但语言对
 常有人或多或少来问"想做游戏翻译怎么办"，我只能答"去做不就好了"。做了才知道，翻译其实挺辛苦的。若没有想做的东西，大概会苦，所以——找到想译的游戏，玩了，觉得有趣，就去做不就好了？我这么答。
 
 **——今天听您说了许多，非常感谢！**
-
----
-
-*本篇为 AI 辅助翻译整理，原文出自 Game*Spark（文＝もぐ水／卡恩托 25 区，编＝みお／Game*Spark 共同主编，2026 年 10 月 25 日），原标题：〈『Mouthwashing』『No, I'm not a Human』『Arctic Eggs』の日本語はこうして生まれた―ゲーム翻訳者nicolith氏の仕事に迫る【インタビュー】〉。原文分两页：<https://www.gamespark.jp/article/2026/10/25/174064.html> 与 <https://www.gamespark.jp/article/2026/10/25/174064_2.html>。*
