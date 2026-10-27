@@ -324,11 +324,25 @@ function initArchiveFilter(): void {
     }
   };
 
-  // 输入即检索（防抖 160ms：打字过程中不必每个字符都查一次索引）
-  input?.addEventListener('input', () => {
+  // 输入即检索（防抖 160ms：打字过程中不必每个字符都查一次索引）。
+  // 中文输入法组字期间（还在打拼音）不发请求——那会儿输入框里是「shengyou」，
+  // 查出来必然是 0 篇，等 compositionend 再查一次就够了。
+  let composing = false;
+  const scheduleSearch = (): void => {
     currentPage = 1;
     window.clearTimeout(debounceTimer);
     debounceTimer = window.setTimeout(() => void refreshSearch(), 160);
+  };
+  input?.addEventListener('compositionstart', () => {
+    composing = true;
+  });
+  input?.addEventListener('compositionend', () => {
+    composing = false;
+    scheduleSearch();
+  });
+  input?.addEventListener('input', () => {
+    if (composing) return;
+    scheduleSearch();
   });
 
   // 提交按钮（语义化 / 键盘 Enter）不刷新页面
