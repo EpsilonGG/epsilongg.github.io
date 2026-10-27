@@ -1,6 +1,6 @@
 {
   "$comment": "由 scripts/optimize_images.mjs 生成，请勿手改。",
-  "generatedAt": "2026-10-26T16:20:08.615Z",
+  "generatedAt": "2026-10-27T11:34:43.422Z",
   "images": {
     "/images/blog/busara-bugbug-interview/01.jpg": {
       "w": 900,
@@ -599,6 +599,90 @@
           "w": 640,
           "src": "/images/blog/gamespark-tca-okuchi-interview/03-640.webp",
           "bytes": 28296
+        }
+      ]
+    },
+    "/images/blog/gamespark-uchikoshi-crashkeys-interview/01.png": {
+      "w": 670,
+      "h": 245,
+      "bytes": 28460,
+      "variants": [
+        {
+          "w": 670,
+          "src": "/images/blog/gamespark-uchikoshi-crashkeys-interview/01-670.webp",
+          "bytes": 11476
+        }
+      ]
+    },
+    "/images/blog/gamespark-uchikoshi-crashkeys-interview/02.jpg": {
+      "w": 670,
+      "h": 1005,
+      "bytes": 129532,
+      "variants": [
+        {
+          "w": 670,
+          "src": "/images/blog/gamespark-uchikoshi-crashkeys-interview/02-670.webp",
+          "bytes": 49018
+        }
+      ]
+    },
+    "/images/blog/gamespark-uchikoshi-crashkeys-interview/03.jpg": {
+      "w": 670,
+      "h": 376,
+      "bytes": 49504,
+      "variants": [
+        {
+          "w": 670,
+          "src": "/images/blog/gamespark-uchikoshi-crashkeys-interview/03-670.webp",
+          "bytes": 18244
+        }
+      ]
+    },
+    "/images/blog/gamespark-uchikoshi-crashkeys-interview/04.jpg": {
+      "w": 670,
+      "h": 379,
+      "bytes": 99214,
+      "variants": [
+        {
+          "w": 670,
+          "src": "/images/blog/gamespark-uchikoshi-crashkeys-interview/04-670.webp",
+          "bytes": 48302
+        }
+      ]
+    },
+    "/images/blog/gamespark-uchikoshi-crashkeys-interview/05.jpg": {
+      "w": 670,
+      "h": 376,
+      "bytes": 60757,
+      "variants": [
+        {
+          "w": 670,
+          "src": "/images/blog/gamespark-uchikoshi-crashkeys-interview/05-670.webp",
+          "bytes": 24492
+        }
+      ]
+    },
+    "/images/blog/gamespark-uchikoshi-crashkeys-interview/06.jpg": {
+      "w": 670,
+      "h": 376,
+      "bytes": 69307,
+      "variants": [
+        {
+          "w": 670,
+          "src": "/images/blog/gamespark-uchikoshi-crashkeys-interview/06-670.webp",
+          "bytes": 27854
+        }
+      ]
+    },
+    "/images/blog/gamespark-uchikoshi-crashkeys-interview/07.jpg": {
+      "w": 670,
+      "h": 376,
+      "bytes": 71641,
+      "variants": [
+        {
+          "w": 670,
+          "src": "/images/blog/gamespark-uchikoshi-crashkeys-interview/07-670.webp",
+          "bytes": 28784
         }
       ]
     },
