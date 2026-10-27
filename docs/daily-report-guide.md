@@ -472,7 +472,7 @@ digest 实际使用的字段：
 
 ```bash
 npm run golden:daily:switch            # 换成最新一期
-npm run golden:daily:switch -- --id 26102322
+npm run golden:daily:switch -- --id 26102522
 ```
 
 它做两件事：从 `dist` 重抓一份 `tests/golden/daily-<期号>.txt`，再把 `current.json` 指过去。
