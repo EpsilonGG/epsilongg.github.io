@@ -378,8 +378,14 @@ class InactiveAccountTest(unittest.TestCase):
         makers = [a for a in roster.accounts if a.category == "manufacturer"]
         self.assertTrue(makers, "制造商应该已经在名单里")
         self.assertTrue(all(not a.active for a in makers), "制造商号一律 active=false")
-        self.assertTrue(all(a.role == "brand" for a in makers))
-        self.assertTrue(all("游戏" in a.tags for a in makers))
+        # 这一栏里只有一家不是品牌号：Moepedia 是作品情报站（月度新作日历的来源），
+        # 放进来是给「第二份日报」当新作情报的入口。除此之外一律 brand。
+        self.assertEqual(
+            {a.handle for a in makers if a.role != "brand"},
+            {"Moepedia_net"},
+            "manufacturer 段里出现了非品牌号：确认它确实是情报来源，再改这条断言",
+        )
+        self.assertTrue(all("游戏" in a.tags or "资料站" in a.tags for a in makers))
         self.assertTrue(any("Moe Award" in a.tags for a in makers), "拿过萌奖的应该有标签")
         self.assertIn("manufacturer", [c["id"] for c in roster.categories])
 

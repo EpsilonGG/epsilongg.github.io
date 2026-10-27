@@ -2755,6 +2755,18 @@
       "note": "近三年 7 部 / 累计 9 部"
     },
     {
+      "handle": "Moepedia_net",
+      "name": "Moepedia",
+      "category": "manufacturer",
+      "role": "other",
+      "active": false,
+      "tags": [
+        "资料站",
+        "作品情报"
+      ],
+      "note": "非厂商 · 作品情报站，月度新作日历的来源 · 2026-10-27 补入"
+    },
+    {
       "handle": "appetite_game",
       "name": "アパタイト",
       "category": "manufacturer",
