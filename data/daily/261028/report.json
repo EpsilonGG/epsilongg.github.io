@@ -1,0 +1,998 @@
+{
+  "schema_version": 1,
+  "issue": {
+    "id": "261028",
+    "published_at": "2026-10-29T00:41:00.585503+09:00",
+    "window": {
+      "start": "2026-10-28T00:00:00+09:00",
+      "end": "2026-10-29T00:00:00+09:00"
+    },
+    "status": "confirmed",
+    "confirmed_at": "2026-10-28T15:44:17+00:00"
+  },
+  "counts": {
+    "items": 278,
+    "accounts": 92,
+    "late": 3965,
+    "skipped_duplicate": 0
+  },
+  "description": "柚木つばめ关注数破 5.7 万，CHAOS-R 新作完工待发",
+  "highlights": [
+    {
+      "text": "柚木つばめ的 X 关注数突破 5.7 万，多位同行转发祝贺，她自己也转了几条，说「6 万也快了」。",
+      "sources": [
+        "x:2115216080335671545",
+        "x:2115371762938785925",
+        "x:2115226606772134129"
+      ]
+    },
+    {
+      "text": "大山チロル参加 DLsite まとめ买い活动，有粉丝留言「只要有她的名字，什么设定都敢跳进去」，她专门回帖道谢。",
+      "sources": [
+        "x:2115165280750236004",
+        "x:2115207292257996935"
+      ]
+    },
+    {
+      "text": "CHAOS-R 的《血刻継承クレイドペイン》宣布完工，主题歌与提塞尔影像同日公开，DL 版定 10 月 30 日；ANIM 与 AMUSE CRAFT 的新作也进了两天倒数。",
+      "sources": [
+        "x:2115131773080478165",
+        "x:2115277372794773880",
+        "x:2115349440085282925"
+      ]
+    },
+    {
+      "text": "伊ヶ崎綾香在 M3 后连发十余条，逐条回谢来摊位的参加者，签名、现场录音和「公开处刑式」录音被反复提起。",
+      "sources": [
+        "x:2115233332657000940",
+        "x:2115237862195314865",
+        "x:2115236603878945259"
+      ]
+    }
+  ],
+  "insights": [],
+  "interactions": [
+    {
+      "text": "餅梨あむ转发与逢坂成美在 Nico 生「认真即兴对决」的片段，笑说场面彻底失控，劝大家一定戴耳机。",
+      "sources": [
+        "x:2115108074352746713"
+      ]
+    }
+  ],
+  "works": "发售方面，CHAOS-R 的《血刻継承クレイドペイン―少女たちの終焉―》宣布完工，主题歌与提塞尔影像一起公开，DL 版排在 10 月 30 日；同一天还有 ANIM 的《壁の向こうの妻の嬌声ｆ》、AMUSE CRAFT 的《養花師の背徳愛》和 TRYSET 两套合集一起冲发售，倒数语音与样品陆续放出。再往前一天的 10 月 29 日，涼貴涼参演的《巫女様のお香》与まあ油るる全语音的《独身税が高すぎるっ！》同日开卖，前者还确定要做简体、繁体中文版。已经上架的有はむはむソフト的《ハイアングル》，分倍河原シホ的《冥界マゾ審判》带着三成折扣，みたかりん 10 月 30 日有两部出演作同日上市。周边与活动方面，ユニゾンシフト为《ななついろ★ドロップス》20 周年开预约与在线抽签，SAGA PLANETS 的抽签进了最后三天，柚木つばめ把生誕祭周边搬上 BOOTH，枕公布上海 WEPLAY EXPO 的贩售品，エンターグラム则把《君色パトラIF》定在 2027 年 1 月 28 日。",
+  "categories": [],
+  "accounts": [
+    "yukanyan2525",
+    "yukanyan_2525",
+    "re_re_tsubame",
+    "suzuka_minase",
+    "akinokaedevo",
+    "narumiaisaka",
+    "asuparama40",
+    "mirai_chiroru",
+    "chiroru_o_",
+    "devil_chiroru_v",
+    "mochiri_0909",
+    "harurupanda0827",
+    "ryonarab",
+    "shiho_moai",
+    "__amachi",
+    "322yui3",
+    "ayakaigasaki",
+    "gemiko_voice",
+    "mame_ruse",
+    "asagishiki00",
+    "koyama9haru",
+    "fujimura_rio",
+    "nashihanami",
+    "bee_ryo",
+    "1_rito",
+    "p_o_g_s2",
+    "badgirlshop8",
+    "oOYuKiKoOo",
+    "jiaomidsu3187",
+    "kuroseimu_000",
+    "yuzukiakari",
+    "akaritta_news",
+    "DLyukimidaifuku",
+    "namimimiobot",
+    "mitakarin",
+    "hoshinora1212",
+    "kotoritoko_1015",
+    "nemurinerima",
+    "girlscreationpr",
+    "ikuraeru",
+    "yukirinrin1191",
+    "my_mimichinchin",
+    "mymy_mimichi",
+    "jtjitkub5r_uuka",
+    "haruno_tsukushi",
+    "shimotsukiyuu",
+    "hekilab",
+    "ayanemako",
+    "mashiro_mayuki_",
+    "ayumi_sarah",
+    "potte1919",
+    "mskmiro316",
+    "refle_ookami",
+    "maihal_yuu",
+    "seiraakane",
+    "hotaoctenten",
+    "shindo_azusa",
+    "ricca_kitami",
+    "Moepedia_net",
+    "TRYSET",
+    "silkysplus",
+    "kiss_staff",
+    "chaos_R_public",
+    "sengoku_kh",
+    "HOOKSOFT",
+    "crowd_anim",
+    "CRYSTALiA_AC",
+    "entergram_info",
+    "Amuse_kenzen",
+    "u_me_soft",
+    "hamham_soft",
+    "FANDC_Staff",
+    "eushully_info",
+    "Amuse_sub",
+    "luneman_etc",
+    "fgremake",
+    "SAGAPLANETS",
+    "sprite_fairys",
+    "CLIP_CRAFT",
+    "cabbage_soft",
+    "DiGination_info",
+    "jitaku_st",
+    "AQUAPLUS_JP",
+    "project_citrus",
+    "unisonshift",
+    "keromakurastaff",
+    "BEEP_SHOP",
+    "FuriKuru_Game",
+    "info_lovelet",
+    "adahemas",
+    "SukeraSparo",
+    "nitroplus_staff"
+  ],
+  "people": [
+    {
+      "handle": "yukanyan2525",
+      "category": "",
+      "summary": "家里燃气忘缴费断了两天只好去钱汤，随后又发现 YouTube 频道消失，说之后在主号说明。",
+      "via": [
+        "yukanyan_2525"
+      ],
+      "sources": [
+        "x:2115278524831703490",
+        "x:2115348225666494896"
+      ]
+    },
+    {
+      "handle": "re_re_tsubame",
+      "category": "",
+      "summary": "生誕祭周边在 BOOTH 开卖、10 月内可自宅发货；关注数破 5.7 万，作品企画开始收个别语音。",
+      "via": [],
+      "sources": [
+        "x:2115206137968836925",
+        "x:2115216080335671545",
+        "x:2115232538239332536"
+      ]
+    },
+    {
+      "handle": "suzuka_minase",
+      "category": "",
+      "summary": "开了两枠 ASMR 直播，说久违地用上「水的那件」道具，希望心音能让人放松。",
+      "via": [],
+      "sources": [
+        "x:2115113563333579148"
+      ]
+    },
+    {
+      "handle": "akinokaedevo",
+      "category": "",
+      "summary": "早上提醒天变冷了，要多喝茶、水、热水，别感冒。",
+      "via": [],
+      "sources": [
+        "x:2115278573405938123"
+      ]
+    },
+    {
+      "handle": "narumiaisaka",
+      "category": "",
+      "summary": "只说了一句要去录音，干劲十足。",
+      "via": [],
+      "sources": [
+        "x:2115245635205234707"
+      ]
+    },
+    {
+      "handle": "asuparama40",
+      "category": "",
+      "summary": "夸某作里临终演技的沙哑感太真，又聊起青森赤饭加甘纳豆、群马的上毛纸牌。",
+      "via": [],
+      "sources": [
+        "x:2115339470580986036",
+        "x:2115351007588909168",
+        "x:2115354539398512903"
+      ]
+    },
+    {
+      "handle": "mirai_chiroru",
+      "category": "",
+      "summary": "参加 DLsite まとめ买い活动，粉丝说「有她的名字就敢跳」，她回帖道谢；10/29 新作还以 Extra 出演。",
+      "via": [
+        "chiroru_o_",
+        "devil_chiroru_v"
+      ],
+      "sources": [
+        "x:2115165280750236004",
+        "x:2115207292257996935",
+        "x:2115336768107303179",
+        "x:2115336570073182494"
+      ]
+    },
+    {
+      "handle": "mochiri_0909",
+      "category": "",
+      "summary": "转发与逢坂成美在 Nico 生「认真即兴对决」的片段，说场面失控、建议戴耳机。",
+      "via": [],
+      "sources": [
+        "x:2115108074352746713"
+      ]
+    },
+    {
+      "handle": "harurupanda0827",
+      "category": "",
+      "summary": "录音档期 12 月上旬卡住、3 月越排越满，临时募集提前到今天截止；副号吐槽 Premiere 一崩就得重来。",
+      "via": [
+        "ryonarab"
+      ],
+      "sources": [
+        "x:2115222349750698314",
+        "x:2115223894907093321",
+        "x:2115116792779878729"
+      ]
+    },
+    {
+      "handle": "shiho_moai",
+      "category": "",
+      "summary": "新作《冥界マゾ審判》开卖，发卖纪念三成折扣到 11 月 24 日。",
+      "via": [],
+      "sources": [
+        "x:2115126362453516408",
+        "x:2115126374029730094"
+      ]
+    },
+    {
+      "handle": "__amachi",
+      "category": "",
+      "summary": "感叹《BLEACH》真的就这样结束了。",
+      "via": [],
+      "sources": [
+        "x:2115100191292575772"
+      ]
+    },
+    {
+      "handle": "322yui3",
+      "category": "",
+      "summary": "算着 2026 只剩 65 天，顺手晒了自家猫。",
+      "via": [],
+      "sources": [
+        "x:2115279190107074968"
+      ]
+    },
+    {
+      "handle": "ayakaigasaki",
+      "category": "",
+      "summary": "M3 后连发十余条逐条回谢来摊位的参加者，签名与现场录音被反复提起；10/29 还有新作出演。",
+      "via": [],
+      "sources": [
+        "x:2115233332657000940",
+        "x:2115234338946404754",
+        "x:2115207160087126477"
+      ]
+    },
+    {
+      "handle": "gemiko_voice",
+      "category": "",
+      "summary": "只发了一串惊叹，看不出在惊讶什么。",
+      "via": [],
+      "sources": [
+        "x:2115338942946128312"
+      ]
+    },
+    {
+      "handle": "mame_ruse",
+      "category": "",
+      "summary": "半夜想到「天然水」的品目能拼出夏峰いろは的名字，忍住没发；对方回「完全正确」。",
+      "via": [],
+      "sources": [
+        "x:2115156440461783469",
+        "x:2115290404740636780"
+      ]
+    },
+    {
+      "handle": "asagishiki00",
+      "category": "",
+      "summary": "咳到喉咙发痒，又做了个测试，纳闷「正义的一方怎么这么少」。",
+      "via": [],
+      "sources": [
+        "x:2115357984398442581",
+        "x:2115359388471099559"
+      ]
+    },
+    {
+      "handle": "koyama9haru",
+      "category": "",
+      "summary": "M3 收官配信道谢，为嗓子状态道歉，同时宣布通贩开始。",
+      "via": [],
+      "sources": [
+        "x:2115098102986330445"
+      ]
+    },
+    {
+      "handle": "fujimura_rio",
+      "category": "",
+      "summary": "只转了一句「不是 Story 啦」。",
+      "via": [],
+      "sources": [
+        "x:2115356780289208387"
+      ]
+    },
+    {
+      "handle": "nashihanami",
+      "category": "",
+      "summary": "说 X 的「禁止」提示太严，改发最近喝的星巴克照片。",
+      "via": [],
+      "sources": [
+        "x:2115280095023886743"
+      ]
+    },
+    {
+      "handle": "bee_ryo",
+      "category": "",
+      "summary": "10/29《巫女様のお香》开卖并确定出简繁中文版；Podcast 从念标题升级成嘉宾，周末还去游戏展出摊。",
+      "via": [],
+      "sources": [
+        "x:2115367975104680268",
+        "x:2115368001772060925",
+        "x:2115362177322565916",
+        "x:2115281668269596881"
+      ]
+    },
+    {
+      "handle": "1_rito",
+      "category": "",
+      "summary": "转发新作《彼女のお姉さんから逆NTR》开卖，是与涼花みなせ的共演作。",
+      "via": [],
+      "sources": [
+        "x:2115096616827023781"
+      ]
+    },
+    {
+      "handle": "p_o_g_s2",
+      "category": "",
+      "summary": "低烧加上发冷，今天的直播请假；「俺の菜月見」投稿延长一周。",
+      "via": [],
+      "sources": [
+        "x:2115222117067407465",
+        "x:2115222382596194644"
+      ]
+    },
+    {
+      "handle": "badgirlshop8",
+      "category": "",
+      "summary": "合作款周边五折，只剩到 10 月 29 日 14 点。",
+      "via": [],
+      "sources": [
+        "x:2115209464349635039"
+      ]
+    },
+    {
+      "handle": "oOYuKiKoOo",
+      "category": "",
+      "summary": "",
+      "via": [],
+      "sources": [
+        "x:2115217225007374542"
+      ]
+    },
+    {
+      "handle": "jiaomidsu3187",
+      "category": "",
+      "summary": "转发新作淫语更新换成设计师素材；又把ちいかわ里出现的ディッピンドッツ做成实物复现。",
+      "via": [
+        "kuroseimu_000"
+      ],
+      "sources": [
+        "x:2115118183611048242",
+        "x:2115290774397124873",
+        "x:2115299482246283681"
+      ]
+    },
+    {
+      "handle": "yuzukiakari",
+      "category": "",
+      "summary": "在 Ci-en 发了「瓦版 19」，写秋 M3 的感谢与收尾。",
+      "via": [
+        "akaritta_news"
+      ],
+      "sources": [
+        "x:2115352318321594866",
+        "x:2115352190756024542"
+      ]
+    },
+    {
+      "handle": "DLyukimidaifuku",
+      "category": "",
+      "summary": "实演作品五折，只剩到 10 月 29 日 14 点。",
+      "via": [],
+      "sources": [
+        "x:2115315168112771264"
+      ]
+    },
+    {
+      "handle": "namimimiobot",
+      "category": "",
+      "summary": "把「合意配音比打工被骚扰更健全」讲成一段长论，又晒兔子咖啡摸兔心得与中学被逆搭讪的旧事。",
+      "via": [],
+      "sources": [
+        "x:2115304970899882107",
+        "x:2115341621474795823",
+        "x:2115332631000924237"
+      ]
+    },
+    {
+      "handle": "mitakarin",
+      "category": "",
+      "summary": "10/30 两部出演作同日发售：MOONSTONE 新作演水科真琴，ensemble《天獄のヴィネア》演カナン。",
+      "via": [],
+      "sources": [
+        "x:2115279195559616902",
+        "x:2115344850593755168"
+      ]
+    },
+    {
+      "handle": "hoshinora1212",
+      "category": "",
+      "summary": "说睡多久都不够，想请假把录音一次做完。",
+      "via": [],
+      "sources": [
+        "x:2115259350474518649"
+      ]
+    },
+    {
+      "handle": "kotoritoko_1015",
+      "category": "",
+      "summary": "想买的苹果肉桂没了，改喝抹茶牛奶，说抹茶味够、甜得好吃。",
+      "via": [],
+      "sources": [
+        "x:2115339145870745886"
+      ]
+    },
+    {
+      "handle": "nemurinerima",
+      "category": "",
+      "summary": "早上冷得已经像冬天了。",
+      "via": [],
+      "sources": [
+        "x:2115197794256556371"
+      ]
+    },
+    {
+      "handle": "girlscreationpr",
+      "category": "",
+      "summary": "转了自家游戏的 DMM 点数五步精选扭蛋第二弹，第 2、4 步免费。",
+      "via": [],
+      "sources": [
+        "x:2115292477427200494"
+      ]
+    },
+    {
+      "handle": "ikuraeru",
+      "category": "",
+      "summary": "10/28 是企鹅 Pinga 生日，11/2 21 时开庆生后日配信、带手元镜头，礼物都在配信里拆。",
+      "via": [],
+      "sources": [
+        "x:2115096432092885176",
+        "x:2115099342461886688",
+        "x:2115310426137502027"
+      ]
+    },
+    {
+      "handle": "yukirinrin1191",
+      "category": "",
+      "summary": "说昨天的限定配信很好玩。",
+      "via": [],
+      "sources": [
+        "x:2115225108738637988"
+      ]
+    },
+    {
+      "handle": "my_mimichinchin",
+      "category": "",
+      "summary": "今晚 20 点 Ci-en 更新，月底想再补一篇；副号公布万圣节发售的新作。",
+      "via": [
+        "mymy_mimichi"
+      ],
+      "sources": [
+        "x:2115307116160586135",
+        "x:2115307876927598842",
+        "x:2115107099273551915"
+      ]
+    },
+    {
+      "handle": "jtjitkub5r_uuka",
+      "category": "",
+      "summary": "10/29《独身税が高すぎるっ！》发售，她负责全语音，体验版与预告页已公开。",
+      "via": [],
+      "sources": [
+        "x:2115367712948179202",
+        "x:2115366760723743088"
+      ]
+    },
+    {
+      "handle": "haruno_tsukushi",
+      "category": "",
+      "summary": "发售日还在犹豫，打算先放预告再定。",
+      "via": [],
+      "sources": [
+        "x:2115189859036049823"
+      ]
+    },
+    {
+      "handle": "shimotsukiyuu",
+      "category": "",
+      "summary": "下雪了还没换轮胎；狗拉肚子跑去拿药顺路买了面包；说委托陆续进来、现在档期还空。",
+      "via": [],
+      "sources": [
+        "x:2115275982269726896",
+        "x:2115289300686487923",
+        "x:2115290156181983647"
+      ]
+    },
+    {
+      "handle": "hekilab",
+      "category": "",
+      "summary": "作品五折，只剩到 10 月 29 日 14 点。",
+      "via": [],
+      "sources": [
+        "x:2115258533432426672"
+      ]
+    },
+    {
+      "handle": "ayanemako",
+      "category": "",
+      "summary": "提醒神プロ偶像选手权明天截止、想要那只玩偶；《月戯れ踊る長夜》万圣节クィンシー登场。",
+      "via": [],
+      "sources": [
+        "x:2115266821083570275",
+        "x:2115267384806367277"
+      ]
+    },
+    {
+      "handle": "mashiro_mayuki_",
+      "category": "",
+      "summary": "ツイキャス 因遭非法访问紧急停服，本来要直播、连茶爆特典都发不出去。",
+      "via": [],
+      "sources": [
+        "x:2115361062807888161",
+        "x:2115363172140106231"
+      ]
+    },
+    {
+      "handle": "ayumi_sarah",
+      "category": "",
+      "summary": "说乐天半价的盐鲭好吃到要过一阵鲭鱼生活；副号转了 11/6 新作预告收藏破 900 的告知。",
+      "via": [
+        "potte1919"
+      ],
+      "sources": [
+        "x:2115281907005186332",
+        "x:2115108100797837415",
+        "x:2115108123442921814"
+      ]
+    },
+    {
+      "handle": "mskmiro316",
+      "category": "",
+      "summary": "给一支动画配了音，完整版在作者的 Fanbox。",
+      "via": [],
+      "sources": [
+        "x:2115258404474429883"
+      ]
+    },
+    {
+      "handle": "refle_ookami",
+      "category": "",
+      "summary": "只转了一句「体验痕迹！Amazing」。",
+      "via": [],
+      "sources": [
+        "x:2115133622923456535"
+      ]
+    },
+    {
+      "handle": "maihal_yuu",
+      "category": "",
+      "summary": "写了长长的 M3 总结：新作陆续出货、免费作有 60 分钟，说线下活动可能是最后一次、还在犹豫。",
+      "via": [],
+      "sources": [
+        "x:2115260527975047374",
+        "x:2115249811222122794",
+        "x:2115310825741443576"
+      ]
+    },
+    {
+      "handle": "seiraakane",
+      "category": "",
+      "summary": "抱怨外面冷得没提前通知。",
+      "via": [],
+      "sources": [
+        "x:2115253272496021636"
+      ]
+    },
+    {
+      "handle": "hotaoctenten",
+      "category": "",
+      "summary": "出了第 34 道题。",
+      "via": [],
+      "sources": [
+        "x:2115242427808350547"
+      ]
+    },
+    {
+      "handle": "shindo_azusa",
+      "category": "",
+      "summary": "会员限定实演语音的体验版公开；DL チャンネル 有人写了新作介绍，她说想定期录这类作品。",
+      "via": [],
+      "sources": [
+        "x:2115104309927145926",
+        "x:2115248501957558520"
+      ]
+    },
+    {
+      "handle": "ricca_kitami",
+      "category": "",
+      "summary": "开了《雪女さん》第 4 集的同步视听直播。",
+      "via": [],
+      "sources": [
+        "x:2115107612194975954"
+      ]
+    },
+    {
+      "handle": "Moepedia_net",
+      "category": "",
+      "summary": "转 chaos-r 的提塞尔影像告知；19 点还有サラたま 第 4 回万圣节大喜利直播。",
+      "via": [],
+      "sources": [
+        "x:2115373757564936519",
+        "x:2115375520628318415"
+      ]
+    },
+    {
+      "handle": "TRYSET",
+      "category": "",
+      "summary": "调教 Selection2 与人妻包样品到货，10/30 开卖；又转圣诞节合集豪华版的原画集特典。",
+      "via": [],
+      "sources": [
+        "x:2115280285717930260",
+        "x:2115244111683023237"
+      ]
+    },
+    {
+      "handle": "silkysplus",
+      "category": "",
+      "summary": "ツイキャス 连不上，白天的たまキャス 只好停播。",
+      "via": [],
+      "sources": [
+        "x:2115287325173486039"
+      ]
+    },
+    {
+      "handle": "kiss_staff",
+      "category": "",
+      "summary": "CRC3D3 众筹第 2 弹进行中，介绍带包装的豪华版与全配音赞助档。",
+      "via": [],
+      "sources": [
+        "x:2115277375416201720",
+        "x:2115322672141971693",
+        "x:2115247181900734921"
+      ]
+    },
+    {
+      "handle": "chaos_R_public",
+      "category": "",
+      "summary": "《血刻継承クレイドペイン》宣布完工，主题歌与提塞尔影像一起公开，10/30 发 DL 版并连载角色介绍。",
+      "via": [],
+      "sources": [
+        "x:2115131773080478165",
+        "x:2115133951044121001",
+        "x:2115132527371555293"
+      ]
+    },
+    {
+      "handle": "sengoku_kh",
+      "category": "",
+      "summary": "发了ホワクロ 当天营业时间，两个联动咖啡同时开。",
+      "via": [],
+      "sources": [
+        "x:2115260408651297048"
+      ]
+    },
+    {
+      "handle": "HOOKSOFT",
+      "category": "",
+      "summary": "转了《トリプルペアリング》迷你粉丝盘的介绍。",
+      "via": [],
+      "sources": [
+        "x:2115328324415406345"
+      ]
+    },
+    {
+      "handle": "crowd_anim",
+      "category": "",
+      "summary": "《壁の向こうの妻の嬌声ｆ》距发售 2 天，倒数语音已上线。",
+      "via": [],
+      "sources": [
+        "x:2115277372794773880"
+      ]
+    },
+    {
+      "handle": "CRYSTALiA_AC",
+      "category": "",
+      "summary": "「リセの壺」第 5 回请来北大路ゆき，与逢瀬アキラ 一起开箱并征集提问。",
+      "via": [],
+      "sources": [
+        "x:2115367975738077599"
+      ]
+    },
+    {
+      "handle": "entergram_info",
+      "category": "",
+      "summary": "《君色パトラIF》定 2027 年 1 月 28 日发售；VTuber スタイル 11 月号封面也是周防パトラ。",
+      "via": [],
+      "sources": [
+        "x:2115305894229791052",
+        "x:2115287006687461383"
+      ]
+    },
+    {
+      "handle": "Amuse_kenzen",
+      "category": "",
+      "summary": "《養花師の背徳愛》倒数 2 天，放出两位女主对男主评价的温差；另一作社内库存已售罄。",
+      "via": [],
+      "sources": [
+        "x:2115349440085282925",
+        "x:2115281160876237168",
+        "x:2115349619354046668"
+      ]
+    },
+    {
+      "handle": "u_me_soft",
+      "category": "",
+      "summary": "转了修斗访谈结集出版的消息，316 页 2200 日元。",
+      "via": [],
+      "sources": [
+        "x:2115213024885895256"
+      ]
+    },
+    {
+      "handle": "hamham_soft",
+      "category": "",
+      "summary": "《ハイアングル》正在发售，FANZA、DLsite 与 Amazon 都有。",
+      "via": [],
+      "sources": [
+        "x:2115273621824520695"
+      ]
+    },
+    {
+      "handle": "FANDC_Staff",
+      "category": "",
+      "summary": "给《らぶ2・ナビゲーション》的叶深奈萌过生日；又转动画第 1 卷预约告知。",
+      "via": [],
+      "sources": [
+        "x:2115096187350995014",
+        "x:2115199389853765765"
+      ]
+    },
+    {
+      "handle": "eushully_info",
+      "category": "",
+      "summary": "说听说有把旧抱枕套用新印刷与素材重做的动向。",
+      "via": [],
+      "sources": [
+        "x:2115338042819100946"
+      ]
+    },
+    {
+      "handle": "Amuse_sub",
+      "category": "",
+      "summary": "放出《養花師の背徳愛》背德篇切片，又用图解解释什么叫「逆 NTR」。",
+      "via": [],
+      "sources": [
+        "x:2115279134335131773",
+        "x:2115291465249370142"
+      ]
+    },
+    {
+      "handle": "luneman_etc",
+      "category": "",
+      "summary": "《悪の女幹部らじお》宣布延期并致歉，同时进行定期维护。",
+      "via": [],
+      "sources": [
+        "x:2115260015049425315",
+        "x:2115292568799846736"
+      ]
+    },
+    {
+      "handle": "fgremake",
+      "category": "",
+      "summary": "《夜勤病棟オンライン》事前登录破 7 万，追加发夜晶石；10/30 还有遗作重制的迷你色纸。",
+      "via": [],
+      "sources": [
+        "x:2115340409543262457",
+        "x:2115367274957996321"
+      ]
+    },
+    {
+      "handle": "SAGAPLANETS",
+      "category": "",
+      "summary": "在线抽签只剩 3 天，今天的幸运赏是「暦」的复刻亚克力块。",
+      "via": [],
+      "sources": [
+        "x:2115096186223026531",
+        "x:2115279577165820002"
+      ]
+    },
+    {
+      "handle": "sprite_fairys",
+      "category": "",
+      "summary": "转了在秋叶原看到《小金井荘》广告、期待发售的感想。",
+      "via": [],
+      "sources": [
+        "x:2115269301171314809",
+        "x:2115356380265857500"
+      ]
+    },
+    {
+      "handle": "CLIP_CRAFT",
+      "category": "",
+      "summary": "转《壁の向こうの妻の嬌声ｆ》倒数；LB 通贩陆续发货，还提醒别晒到 SNS。",
+      "via": [],
+      "sources": [
+        "x:2115323393864323281",
+        "x:2115324764525101461"
+      ]
+    },
+    {
+      "handle": "cabbage_soft",
+      "category": "",
+      "summary": "在 pixivFANBOX 公开第 8 期续费特典的说明。",
+      "via": [],
+      "sources": [
+        "x:2115313273910550944"
+      ]
+    },
+    {
+      "handle": "DiGination_info",
+      "category": "",
+      "summary": "转了《夜勤病棟オンライン》事前登录破 7 万的消息。",
+      "via": [],
+      "sources": [
+        "x:2115367209916825608"
+      ]
+    },
+    {
+      "handle": "jitaku_st",
+      "category": "",
+      "summary": "《ギャルズフィクション the ANIMATION》第 1 卷预约中，又转 10/30 开的声优歌手联动 BAR。",
+      "via": [],
+      "sources": [
+        "x:2115197506258944169",
+        "x:2115201891747717357"
+      ]
+    },
+    {
+      "handle": "AQUAPLUS_JP",
+      "category": "",
+      "summary": "转ファミ通 40 周年活动的物贩情报，含 37 种透明卡与《うたわれるもの》周边。",
+      "via": [],
+      "sources": [
+        "x:2115278128105046134",
+        "x:2115278882735845615"
+      ]
+    },
+    {
+      "handle": "project_citrus",
+      "category": "",
+      "summary": "早上天气不错，晒了只异色瞳的猫。",
+      "via": [],
+      "sources": [
+        "x:2115225308953755690"
+      ]
+    },
+    {
+      "handle": "unisonshift",
+      "category": "",
+      "summary": "《ななついろ★ドロップス》20 周年，徽章与亚克力开始预约，在线抽签同日开卖。",
+      "via": [],
+      "sources": [
+        "x:2115278894127570948",
+        "x:2115284923749666821",
+        "x:2115302501742440625"
+      ]
+    },
+    {
+      "handle": "keromakurastaff",
+      "category": "",
+      "summary": "公布上海 WEPLAY EXPO 的贩售周边，11 月 21、22 日在国家会展中心。",
+      "via": [],
+      "sources": [
+        "x:2115355932226199645"
+      ]
+    },
+    {
+      "handle": "BEEP_SHOP",
+      "category": "",
+      "summary": "《ギャラクシアン創世記》补货再入库。",
+      "via": [],
+      "sources": [
+        "x:2115277373197230269"
+      ]
+    },
+    {
+      "handle": "FuriKuru_Game",
+      "category": "",
+      "summary": "久违地宣传了一下，看到大家还记得フリクル 很高兴。",
+      "via": [],
+      "sources": [
+        "x:2115294485357756470"
+      ]
+    },
+    {
+      "handle": "info_lovelet",
+      "category": "",
+      "summary": "转了《西園家のかくしゴト》网络打印公开的帖子。",
+      "via": [],
+      "sources": [
+        "x:2115217651924644128"
+      ]
+    },
+    {
+      "handle": "adahemas",
+      "category": "",
+      "summary": "说咳了一整天停不下来。",
+      "via": [],
+      "sources": [
+        "x:2115158697731375349"
+      ]
+    },
+    {
+      "handle": "SukeraSparo",
+      "category": "",
+      "summary": "连转东京游戏ダンジョン14 的宣传：340 多款独立游戏、Steam 专题到 11/8。",
+      "via": [],
+      "sources": [
+        "x:2115267428301381943",
+        "x:2115127631184368096",
+        "x:2115345318829281654"
+      ]
+    },
+    {
+      "handle": "nitroplus_staff",
+      "category": "",
+      "summary": "《楽園追放 心のレゾナンス》11/13 上映，新宿バルト9 已摆出大型装饰。",
+      "via": [],
+      "sources": [
+        "x:2115277389835956665"
+      ]
+    }
+  ],
+  "provenance": {
+    "generator": "daily",
+    "prompt_version": 1,
+    "cache_key": "answers:1",
+    "generated_at": "2026-10-28T15:44:13+00:00"
+  }
+}
