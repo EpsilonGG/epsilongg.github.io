@@ -107,13 +107,14 @@ data/daily/26103122/report.json   →   /daily/26103122/
 
 | 字段 | 内容 | 约束 |
 | --- | --- | --- |
-| `description` | **今日看点的简报**，一句话说清今天最值得看的事 | **≤ 50 字**；超长构建直接失败；不写日期、不罗列账号名 |
+| `description` | **今日看点的简报**，一句话说清今天最值得看的事 | **≤ 70 字**；超长构建直接失败；不写日期、不罗列账号名、不写「XX侧」 |
 
 几条硬规则：
 
 - **看点不是「详细」的加长版**。它只负责挑出当天最该被看见的 2–3 件事：前 9 名（按作品数）的人说了什么、有没有人聊自己的热度／排行、有没有特别活动。**其余全部下沉到「详细」**——一条一条写在那儿，读者想细看再往下翻。以前把五个人塞进一段（「其余几位各有各的节奏：……」）正是这次要修掉的问题。
 - **作品动态必须是一段话，且不带链接**。它是横向汇总：同一个促销会牵涉好几个人，按人写会重复，按段写一句就够。**不要加来源网址**——人名在「详细」里已经链到主号，再给每条加引用会让这一段变成链接堆。
-- **副标题不是「日期 + 摘要（@账号1 / @账号2）」**。日期在标题和「发布于」里已经有了，账号名读者扫一眼「详细」就知道，占掉这 50 字很浪费。写成 `柚木つばめ生誕祭前夜，「FIRST FLIGHT」明日会场生配信，几位放出新作预告` 这样。
+- **副标题不是「日期 + 摘要（@账号1 / @账号2）」**。日期在标题和「发布于」里已经有了，账号名读者扫一眼「详细」就知道，占掉这 70 字很浪费。写成 `柚木つばめ生誕祭前夜，「FIRST FLIGHT」明日会场生配信，几位放出新作预告` 这样。
+- **副标题优先写具体的人或公司，不要写「声优侧 / 厂商侧」**。「侧」是我们内部的栏目叫法，读者看不到那条边界，读起来只会觉得隔了一层。只有当天整体趋势确实比任何单个事件都重要（例如全行业同日冲发售日）才写整体，那时直接说「厂商」「声优」，也不加「侧」：`声优侧生誕祭与九周年直播撑场，厂商侧集体冲 10 月 30 日发售` 应写成 `声优生誕祭与九周年直播撑场，厂商集中冲 10 月 30 日发售`。
 - **「详细」里的一行是 `声优名（链接） ：一句话`**。名字由名单 `src/config/daily-roster.json` 的 `name` 提供，链接由 `handle` 拼成 `https://x.com/<handle>`，**模型既不写名字也不写网址**——写成字段后模型只负责句子，两样都不可能错。
 - **`summary` 里不要再写 `@handle`**。名字已经显示在行首了，句子里再写一遍等于同一行出现两次账号。
 - **当日没有活动的人直接省略**：`summary` 留空即可，不需要删条目。
@@ -199,7 +200,7 @@ python scripts/daily_digest.py apply --issue <期号> --answer out/<期号>/answ
 ```json
 {
   "category": "all",
-  "summary": "今日看点的简报，≤50 字，会直接当页面副标题",
+  "summary": "今日看点的简报，≤70 字，会直接当页面副标题",
   "works": "作品动态：一段话汇总制作中／发售／销量里程碑，不加链接",
   "highlights": [{"text": "…", "sources": ["x:2113…"]}],
   "interactions": [{"text": "…", "sources": ["x:2114…"]}],
@@ -209,7 +210,7 @@ python scripts/daily_digest.py apply --issue <期号> --answer out/<期号>/answ
 
 编辑口径（这部分是人的决定，判卷管不了）：
 
-- `summary`：**今日看点的 50 字以内简报**，不写日期、不罗列账号名。超长直接判失败。
+- `summary`：**今日看点的 70 字以内简报**，不写日期、不罗列账号名、不写「XX侧」。超长直接判失败。
 - `highlights`：2–4 条，**只写前 9 的重点 / 自述热度 / 特别活动**，其余下沉到「详细」。
 - `works`：**一段话**，不带来源链接（人名在 `people` 里已经链到主号）。
 - `interactions`：名单内谁和谁有互动，每项一条；**没有就留空数组**。
@@ -251,7 +252,7 @@ python scripts/daily_digest.py audit --issue <期号> --published     # 查 data
 
 | 级别 | 例子 | 会拦定稿吗 |
 | --- | --- | --- |
-| 错误 | 来源 key 不存在、handle 不在名单、重复出现、副标题超 50 字 | 会 |
+| 错误 | 来源 key 不存在、handle 不在名单、重复出现、副标题超 70 字 | 会 |
 | 提醒 | 没有来源（宽松模式）、名单里有但本期没条目、摘要为空 | 不会 |
 
 「名单里有但本期没条目」只算提醒是有意的：重复判定、从提及里补录，都会造成这种情况，
@@ -307,7 +308,7 @@ commit（2026-10-26 就把一篇 496 行的新访谈卷进了「docs: 抓取侧�
 部署完成后访问：
 - 列表页：`/daily/`
 - 详情页：`/daily/<期号>/`
-确认四段都渲染了：今日看点在前、作品动态其次、互动再次、「详细」每行都能点到主页；「详细」里没有空链接、句子开头不再重复 @handle；副标题是一句 50 字以内的看点简报，不是「日期 + 账号名」。
+确认四段都渲染了：今日看点在前、作品动态其次、互动再次、「详细」每行都能点到主页；「详细」里没有空链接、句子开头不再重复 @handle；副标题是一句 70 字以内的看点简报，不是「日期 + 账号名」，也没有「XX侧」。
 
 ### 日常常见问题
 
@@ -397,7 +398,7 @@ commit（2026-10-26 就把一篇 496 行的新访谈卷进了「docs: 抓取侧�
     "confirmed_at": "..." | null
   },
   "counts": { "items": 0, "accounts": 6, "late": 0, "skipped_duplicate": 0 },
-  "description": "≤50 字，今日看点简报",
+  "description": "≤70 字，今日看点简报（写具体的人或公司，不写「XX侧」）",
   "highlights":   [{ "text": "...", "sources": ["x:123"] }],
   "insights":     [{ "text": "...", "sources": ["x:123"] }],   // 空则整节不渲染
   "interactions": [{ "text": "...", "sources": ["x:123"] }],   // 空则整段不渲染
@@ -439,7 +440,7 @@ digest 实际使用的字段：
 
 | 阶段 | 常见原因 / 处理 |
 | --- | --- |
-| `astro check` 失败 | 多半是 `dailyReports` 的 Zod 与某份 `report.json` 不符（如 `description` 超过 50 字）。**目录名不是 `YYMMDDHH` 会在 `build` 阶段抛错**，报错信息里带期号 |
+| `astro check` 失败 | 多半是 `dailyReports` 的 Zod 与某份 `report.json` 不符（如 `description` 超过 70 字）。**目录名不是 `YYMMDDHH` 会在 `build` 阶段抛错**，报错信息里带期号 |
 | 改了摘要但线上没变 | 忘了 `publish`：站点读 `data/daily/`，不读 `out/`。这是 M4 之前最常踩的坑 |
 | 构建说「data/daily 里没有任何 report.json」 | `glob` 的 base 指错了，或 `data/daily/` 被清空。这条是硬失败——日报是每天自动发的，空了就是链路断了 |
 | `test:md` 失败 | 只跑 `tests/markdown/*.test.mjs`，**与日报无关**，基本不会因日报触发 |
@@ -537,7 +538,7 @@ npm run golden:daily:switch -- --id 26102522
      （期号自动取当前 JST 小时；补旧的可加 --at "2026-10-24 21:00"）
   3) python scripts/daily_digest.py prompt --issue <期号> --flat
      让 WorkBuddy 读 out/<期号>/prompts/all.md，把回答写成 out/<期号>/answer/all.json
-     （summary ≤50 字 / works / highlights / interactions / people[].summary，每条带 sources）
+     （summary ≤70 字 / works / highlights / interactions / people[].summary，每条带 sources）
      python scripts/daily_digest.py apply --issue <期号> --answer out/<期号>/answer/all.json
   4) python scripts/daily_digest.py confirm --issue <期号>   # 定稿（会再判一次卷）
      python scripts/daily_digest.py publish --issue <期号>   # 搬到 data/daily/

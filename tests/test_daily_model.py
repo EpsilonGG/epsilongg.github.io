@@ -19,7 +19,7 @@ from daily import SCHEMA_VERSION  # noqa: E402
 from daily.build import build_briefing, build_report  # noqa: E402
 from daily.version import VersionError, check, migrate  # noqa: E402
 from daily.model import Claim, Item, Issue, Report, content_hash, item_key  # noqa: E402
-from daily.schema import SchemaError, load_schema, validate  # noqa: E402
+from daily.schema import DESCRIPTION_MAX, SchemaError, load_schema, validate  # noqa: E402
 from daily.state import State  # noqa: E402
 
 RAW = {
@@ -84,7 +84,7 @@ class ModelTest(unittest.TestCase):
 
     def test_report_description_too_long(self) -> None:
         with self.assertRaises(SchemaError) as ctx:
-            validate(make_report("字" * 51).to_dict(), load_schema("report"))
+            validate(make_report("字" * (DESCRIPTION_MAX + 1)).to_dict(), load_schema("report"))
         self.assertEqual(ctx.exception.path, "$.description")
 
 

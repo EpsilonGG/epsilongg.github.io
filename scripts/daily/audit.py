@@ -22,6 +22,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 
 from .roster import Roster
+from .schema import DESCRIPTION_MAX
 
 ERROR = "error"
 WARN = "warn"
@@ -134,8 +135,10 @@ def audit_report(
                     findings.append(Finding(f"{path}.sources[{j}]", f"来源不存在：{key}"))
 
     description = str(report.get("description") or "")
-    if len(description) > 50:
-        findings.append(Finding("$.description", f"副标题上限 50 字，实际 {len(description)}"))
+    if len(description) > DESCRIPTION_MAX:
+        findings.append(
+            Finding("$.description", f"副标题上限 {DESCRIPTION_MAX} 字，实际 {len(description)}")
+        )
 
     for i, handle in enumerate(report.get("accounts") or []):
         if not roster.is_known(str(handle)):

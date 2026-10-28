@@ -111,7 +111,11 @@ if (!description) {
   console.warn(`[daily] ${post.id} 缺 description，副标题会退回标题拼接`);
 } else if (/^\d{4}-\d{2}-\d{2}|摘要（@/.test(description)) {
   // 副标题要写「今日看点」的简报，不是日期 + 账号名——后者在标题和「详细」里已经有了
-  console.warn(`[daily] ${post.id} 的 description 仍是「日期 + 账号名」旧写法，应改成 ≤50 字看点简报`);
+  console.warn(`[daily] ${post.id} 的 description 仍是「日期 + 账号名」旧写法，应改成 ≤70 字看点简报`);
+} else if (/声优侧|厂商侧|社团侧/.test(description)) {
+  // 「侧」是内部的栏目叫法，读者看不到那条边界。优先写具体的人或公司；
+  // 真要写整体（例如全行业同日冲发售日）就直接说「厂商」「声优」。
+  console.warn(`[daily] ${post.id} 的 description 用了「XX侧」，改成具体的人或公司，写整体就直接说「厂商」「声优」`);
 }
 ---
 

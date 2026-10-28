@@ -138,7 +138,7 @@ def build_report(
             )
             rows.append((main, [h for h in handles if h != main]))
 
-    # 副标题是「今日看点」的 50 字以内简报，不是日期 + 账号名。
+    # 副标题是「今日看点」的 70 字以内简报，不是日期 + 账号名。
     # 脚本还看不到内容，所以先放一句占位，由本地 WorkBuddy 连同 highlights 一起改写。
     desc = f"今日 {len(accounts)} 位账号有更新，看点待补"
 

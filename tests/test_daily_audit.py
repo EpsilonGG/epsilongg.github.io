@@ -26,6 +26,7 @@ from daily import prompt as prompt_mod  # noqa: E402
 from daily.apply import apply  # noqa: E402
 from daily.audit import ERROR, WARN, audit_report, has_errors  # noqa: E402
 from daily.roster import Roster  # noqa: E402
+from daily.schema import DESCRIPTION_MAX  # noqa: E402
 
 ISSUE = "26102522"
 
@@ -173,7 +174,7 @@ class AuditTest(Base):
         self.assertTrue(any("重复出现" in f.message for f in findings))
 
     def test_long_description_is_an_error(self) -> None:
-        report = report_with(description="あ" * 51)
+        report = report_with(description="あ" * (DESCRIPTION_MAX + 1))
         findings = self.audit(report)
         self.assertTrue(any("$.description" == f.path for f in findings))
 

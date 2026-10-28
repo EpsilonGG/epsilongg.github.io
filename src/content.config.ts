@@ -113,12 +113,13 @@ const dailyReports = defineCollection({
       })
       .default({ items: 0, accounts: 0, late: 0, skipped_duplicate: 0 }),
     /**
-     * 副标题 = 今日看点的 50 字以内简报，显示在标题下方。
+     * 副标题 = 今日看点的 70 字以内简报，显示在标题下方。
      * 不要写日期和账号名——日期在标题与「发布于」里已经有了，
-     * 账号名读者扫一眼名单就知道，占掉这 50 字很浪费。
+     * 账号名读者扫一眼名单就知道，占掉这 70 字很浪费。
+     * 也**不要写「声优侧 / 厂商侧」**：读者看不到栏目边界，直接说人或公司。
      * 超长会直接让构建失败；为空只在构建日志里 warn（允许先出骨架再补）。
      */
-    description: z.string().trim().max(50, 'description 是「今日看点」的简报，必须 ≤ 50 字').default(''),
+    description: z.string().trim().max(70, 'description 是「今日看点」的简报，必须 ≤ 70 字').default(''),
     /**
      * 今日看点：排在最前面的概括性文本，每项一段。
      *

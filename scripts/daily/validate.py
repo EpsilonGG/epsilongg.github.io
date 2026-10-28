@@ -15,7 +15,7 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 
 from .roster import Roster
-from .schema import SchemaError, load_schema, validate
+from .schema import DESCRIPTION_MAX, SchemaError, load_schema, validate
 
 
 @dataclass
@@ -69,11 +69,16 @@ def validate_answer(
     if category and cid and cid != category:
         problems.append(Problem("$.category", f"本题是 {category}，回答写的是 {cid}"))
 
-    # 「全局题」的 summary 会变成页面的 description，上限 50 而不是 60
+    # 「全局题」的 summary 会变成页面的 description，按副标题的上限判
     if cid == "all":
         summary = str(answer.get("summary") or "")
-        if len(summary) > 50:
-            problems.append(Problem("$.summary", f"全局摘要会当成 description，上限 50 字，实际 {len(summary)}"))
+        if len(summary) > DESCRIPTION_MAX:
+            problems.append(
+                Problem(
+                    "$.summary",
+                    f"全局摘要会当成 description，上限 {DESCRIPTION_MAX} 字，实际 {len(summary)}",
+                )
+            )
 
     for path, claim in _claims(answer):
         sources = claim.get("sources")

@@ -17,6 +17,12 @@ from typing import Any
 
 SCHEMA_DIR = Path(__file__).resolve().parents[2] / "schemas"
 
+# 副标题（`description`）的字数上限。**三处必须一起改**：
+# `schemas/report.schema.json` 的 maxLength、`src/content.config.ts` 的 `.max()`、
+# 这里。前两处是构建闸门，这一处只是让判卷的报错文案跟上
+# （`tests/test_daily_schema_limits.py` 会盯着它们不许走散）。
+DESCRIPTION_MAX = 70
+
 _TYPE_MAP = {
     "object": dict,
     "array": list,

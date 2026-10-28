@@ -34,7 +34,7 @@
         "skipped_duplicate": { "type": "integer" }
       }
     },
-    "description": { "type": "string", "maxLength": 50 },
+    "description": { "type": "string", "maxLength": 70 },
     "works": {
       "type": "string",
       "description": "作品动态：一段跨人汇总（制作中 / 发售 / 销量里程碑），不带来源链接——人名在 people 里已经链到主号"

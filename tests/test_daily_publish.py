@@ -17,6 +17,7 @@ if str(SCRIPTS_DIR) not in sys.path:
 
 from daily.apply import new_report  # noqa: E402
 from daily.publish import PublishError, publish  # noqa: E402
+from daily.schema import DESCRIPTION_MAX  # noqa: E402
 
 GENERATE = {
     "issue": {"published_at": "2026-10-23T22:00:00+09:00"},
@@ -100,7 +101,7 @@ class PublishTest(unittest.TestCase):
     def test_refuses_invalid_report(self) -> None:
         """字段写错不该等到 `npm run build` 才炸。"""
         broken = make_report()
-        broken["description"] = "长" * 51  # 超过 schema 的 maxLength 50
+        broken["description"] = "长" * (DESCRIPTION_MAX + 1)  # 超过 schema 的 maxLength
         self.write(broken)
         with self.assertRaises(PublishError) as ctx:
             publish("26102322", out_dir=self.out, dest_root=self.dest)
