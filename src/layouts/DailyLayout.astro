@@ -2,7 +2,7 @@
 import BaseLayout from './BaseLayout.astro';
 import ReadingProgress from '../components/ReadingProgress.astro';
 import { site } from '../config/site';
-import { formatIssueTime, type Daily } from '../lib/daily';
+import { formatIssueTime, type Daily, type DailyJa } from '../lib/daily';
 import {
   categoryLabelOf,
   categoryOf,
@@ -17,9 +17,11 @@ interface Props {
   newer?: Daily | null;
   /** 较旧的一篇，可为空 */
   older?: Daily | null;
+  /** 日语版（`data/daily/<期号>/report.ja.json`）。没有就不挂「日本語版」按钮。 */
+  ja?: DailyJa | null;
 }
 
-const { post, newer = null, older = null } = Astro.props;
+const { post, newer = null, older = null, ja = null } = Astro.props;
 const { title, description, pubDate, accounts, highlights, insights, interactions, works, people, categories } =
   post.data;
 
@@ -117,6 +119,34 @@ if (!description) {
   // 真要写整体（例如全行业同日冲发售日）就直接说「厂商」「声优」。
   console.warn(`[daily] ${post.id} 的 description 用了「XX侧」，改成具体的人或公司，写整体就直接说「厂商」「声优」`);
 }
+
+/**
+ * 日语版的被覆率。**允许只翻一部分**（翻译是人工的一步），但缺人必须看得见：
+ * 少了人不会让构建失败，读者却会以为那天这个人没动静。
+ */
+if (ja) {
+  const translated = new Set(ja.data.people.map((person) => person.handle));
+  const missing = roster.filter((person) => !translated.has(person.handle));
+  if (missing.length > 0) {
+    console.warn(
+      `[daily] ${post.id} 的日语版缺 ${missing.length} 人：${missing
+        .slice(0, 6)
+        .map((person) => `@${person.handle}`)
+        .join('、')}${missing.length > 6 ? ' 等' : ''}`
+    );
+  }
+
+  const known = new Set(roster.map((person) => person.handle));
+  const extra = ja.data.people.filter((person) => !known.has(person.handle));
+  if (extra.length > 0) {
+    console.warn(
+      `[daily] ${post.id} 的日语版有 ${extra.length} 个 handle 不在本期「详细」里：${extra
+        .slice(0, 6)
+        .map((person) => person.handle)
+        .join('、')}（多半是写错了，这些行不会输出）`
+    );
+  }
+}
 ---
 
 <BaseLayout
@@ -144,10 +174,17 @@ if (!description) {
             {/*
               纯文本出口。给读者「复制整期」用，也给 M6 的口播稿当输入。
               JSON 出口不在这里链——那是给程序和脚本的，放出来只会让人点开一堆花括号。
+              日语版是**另一个出口**而不是同一份文本的翻译开关：它按 Ci-en 的记法排过版
+              （见 `lib/cien.ts`），贴到别处会带着 `##` 和 `<span>`，不是通用纯文本。
             */}
             <span>
               <a href={`/daily/${post.id}.txt`}>纯文本版</a>
             </span>
+            {ja ? (
+              <span>
+                <a href={`/daily/${post.id}.ja.txt`}>日本語版（Ci-en）</a>
+              </span>
+            ) : null}
           </div>
           {description ? <p class="article-description">{description}</p> : null}
           {/*

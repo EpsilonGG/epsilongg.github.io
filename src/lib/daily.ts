@@ -1,5 +1,6 @@
 import { getCollection, type CollectionEntry } from 'astro:content';
 
+import { cienText } from './cien';
 import { nameOf } from './roster';
 
 type DailyEntry = CollectionEntry<'dailyReports'>;
@@ -249,6 +250,45 @@ export function plainText(report: Daily): string {
   );
 
   return lines.join('\n') + '\n';
+}
+
+/** 日语版条目（`data/daily/<期号>/report.ja.json`，可选）。 */
+export type DailyJa = CollectionEntry<'dailyJa'>;
+
+/**
+ * 读取所有日语版，按期号索引。
+ *
+ * 没有日语版的期号就不在 Map 里——页面上「没有按钮」和「翻译缺失」是同一件事，
+ * 不需要另一个布尔字段来表达。
+ */
+export async function getDailyJapanese(): Promise<Map<string, DailyJa>> {
+  const entries = await getCollection('dailyJa');
+  return new Map(entries.map((entry) => [entry.id, entry]));
+}
+
+/**
+ * 日语版出口 `/daily/<id>.ja.txt` 的正文：Ci-en へ貼り付けるためのもの。
+ *
+ * 中文版 `plainText()` と同じく、書いてあることを組み替えるだけで、
+ * 新しく要約はしない。違いは ① 日本語であること ② Ci-en の記法に合わせること
+ * （見出し `##`、リンク `[..](..)`、大きさ `<span style="font-size: 150%">`）。
+ */
+export function cienReport(report: Daily, ja: DailyJa): string {
+  const { data } = report;
+  return cienText(
+    {
+      id: report.id,
+      publishedAt: data.pubDate,
+      windowStart: data.issue.window.start,
+      windowEnd: data.issue.window.end,
+      people: data.people.map((person) => ({ handle: person.handle, via: person.via })),
+    },
+    ja.data,
+    {
+      nameOf,
+      handles: [...data.accounts, ...data.people.flatMap((p) => [p.handle, ...p.via])],
+    },
+  );
 }
 
 export { formatDate } from './posts';

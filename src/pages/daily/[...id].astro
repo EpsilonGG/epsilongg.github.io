@@ -1,6 +1,6 @@
 ---
 import DailyLayout from '../../layouts/DailyLayout.astro';
-import { getDailyReports } from '../../lib/daily';
+import { getDailyJapanese, getDailyReports } from '../../lib/daily';
 
 /**
  * 日报详情页。期号是八位编号（`YYMMDDHH`），不是日期——
@@ -10,7 +10,7 @@ import { getDailyReports } from '../../lib/daily';
  * 所以不再有 `render()`：四段内容全部是结构化字段，由 `DailyLayout` 直接渲染。
  */
 export async function getStaticPaths() {
-  const reports = await getDailyReports();
+  const [reports, japanese] = await Promise.all([getDailyReports(), getDailyJapanese()]);
 
   // reports 已按发布时间倒序排列：索引更小的是较新的一期
   return reports.map((report, index) => ({
@@ -19,11 +19,13 @@ export async function getStaticPaths() {
       post: report,
       newer: reports[index - 1] ?? null,
       older: reports[index + 1] ?? null,
+      // 没有日语版就是 null：页面上少一个按钮，不报错
+      ja: japanese.get(report.id) ?? null,
     },
   }));
 }
 
-const { post, newer, older } = Astro.props;
+const { post, newer, older, ja } = Astro.props;
 ---
 
-<DailyLayout post={post} newer={newer} older={older} />
+<DailyLayout post={post} newer={newer} older={older} ja={ja} />

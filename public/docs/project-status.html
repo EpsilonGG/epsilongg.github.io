@@ -625,7 +625,7 @@
           <td>脚本与测试</td>
           <td><span class="pill pill--done">完成</span></td>
           <td><span class="meter"><span class="meter__track"><span class="meter__fill" style="--pct:100%"></span></span><span class="meter__pct">100%</span></span></td>
-          <td class="t-hide-sm">224 个用例（213 Python + 11 Node），含链接检查、图片清单对账与日报出口闸门</td>
+          <td class="t-hide-sm">246 个用例（227 Python + 19 Node），含链接检查、图片清单对账、日报出口闸门与 Ci-en 记法契约</td>
         </tr>
         <tr>
           <td>文档</td>
@@ -1249,15 +1249,18 @@
         <div class="block-item__head">
           <span class="block-item__name">3.19 日报栏目</span>
           <span class="pill pill--done">完成</span>
-          <span class="block-item__src">DailyLayout.astro · lib/daily.ts · 244 + 254 行</span>
+          <span class="block-item__src">DailyLayout.astro · lib/daily.ts · lib/cien.ts · 356 + 294 + 201 行</span>
         </div>
         <p>
-          第五个固定栏目，<strong>五个出口</strong>：<code>/daily/</code> 是<strong>归档列表</strong>（按月分组，
+          第五个固定栏目，<strong>六个出口</strong>：<code>/daily/</code> 是<strong>归档列表</strong>（按月分组，
           一行一期，顶部有「看最新一期」与月份锚点），<code>/daily/&lt;期号&gt;/</code> 是单期，
           <code>/daily/rss.xml</code> 是<strong>归档 feed</strong>，另有
-          <code>/daily/&lt;期号&gt;.json</code>（与正本逐字节相同的 JSON，给第三方和脚本）与
-          <code>/daily/&lt;期号&gt;.txt</code>（纯文本，给复制粘贴和以后的视频稿）。
-          后两个从同一份 <code>report.json</code> 渲染，不另存数据。
+          <code>/daily/&lt;期号&gt;.json</code>（与正本逐字节相同的 JSON，给第三方和脚本）、
+          <code>/daily/&lt;期号&gt;.txt</code>（纯文本，给复制粘贴和以后的视频稿），
+          以及 <code>/daily/&lt;期号&gt;.ja.txt</code>（<strong>日语版</strong>，按 Ci-en 的记法排过版，
+          贴进 Ci-en 当播报用；只有存在 <code>report.ja.json</code> 的期号才有，页面上才挂按钮）。
+          前三个从同一份 <code>report.json</code> 渲染，不另存数据；日语版是同一期的另一份文本，
+          单独一个文件，不进正本。
         </p>
         <p>
           <strong>目录名即发布时间。</strong>期号是 <code>YYMMDDHH</code>（八位数字，日本时间），
@@ -2451,7 +2454,8 @@
 │   │   └── remote-images.json     远程图尺寸（--write-dims 生成，可缺）
 │   ├── lib/
 │   │   ├── posts.ts          文章读取、排序、草稿过滤
-│   │   ├── daily.ts          日报读取、排序、分组、纯文本导出
+│   │   ├── daily.ts          日报读取、排序、分组、纯文本 / 日语版导出
+│   │   ├── cien.ts           Ci-en 贴り付け用テキスト（見出し / リンク / 字号）
 │   │   ├── roster.ts         声优名单查询（页面与 .txt 共用）
 │   │   ├── markdown-figure.mjs    图注 hast 插件（228 行，含并组）
 │   │   └── markdown-images.mjs    lazy / 尺寸 / WebP picture 插件（182 行）

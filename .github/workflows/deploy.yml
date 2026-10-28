@@ -42,6 +42,12 @@ jobs:
       - name: Markdown plugin tests
         run: npm run test:md
 
+      # Ci-en 貼り付け用テキスト（`/daily/<期号>.ja.txt`）の記法テスト。
+      # 見出し・リンク・文字サイズの書き方は Ci-en 側の都合なので、
+      # 「貼ったら崩れる」変更をここで止める。
+      - name: Ci-en text tests
+        run: npm run test:cien
+
       - name: Build site
         run: npm run build
 

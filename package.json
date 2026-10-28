@@ -24,6 +24,7 @@
     "images:force": "node scripts/optimize_images.mjs --force",
     "test": "python -m unittest discover -s tests -v",
     "test:md": "node --test tests/markdown/*.test.mjs",
+    "test:cien": "node --test tests/cien/*.test.mjs",
     "check:glossary": "python scripts/check_glossary.py"
   },
   "dependencies": {

@@ -19,6 +19,7 @@
 from __future__ import annotations
 
 import argparse
+import re
 import sys
 from pathlib import Path
 
@@ -63,6 +64,35 @@ def check(dist: Path) -> list[str]:
             raise Failure(f"/daily/{issue_id}.txt 是空的")
 
     notes.append(f"{len(sources)} 期：HTML + JSON + TXT 三种出口齐全，JSON 与正本逐字节相同")
+
+    # 日语版（Ci-en 用）是可选的：有 `report.ja.json` 就必须有 `.ja.txt`，
+    # 反过来没有的期号不许冒出空文件——否则页面上会多一个点开是空的按钮。
+    # 顺便钉住记法：Ci-en 只认 `##` 见标题、`[..](..)` 链接、`<span style="font-size: 150%">`，
+    # 混进 `**`、`- ` 或 `<a>` 的话，贴过去当场变形。
+    ja_sources = sorted(p.parent.name for p in DATA.glob("*/report.ja.json"))
+    for issue_id in ja_sources:
+        ja_out = dist / "daily" / f"{issue_id}.ja.txt"
+        if not ja_out.exists():
+            raise Failure(f"缺产物：{ja_out.relative_to(ROOT)}（有 report.ja.json 就必须有 .ja.txt）")
+        body = ja_out.read_text(encoding="utf-8")
+        if not body.startswith('<span style="font-size: 150%">'):
+            raise Failure(f"/daily/{issue_id}.ja.txt 开头不是 Ci-en 的字号写法（<span style=...>）")
+        if "**" in body:
+            raise Failure(f"/daily/{issue_id}.ja.txt 里出现了 `**`，Ci-en 会原样显示")
+        if re.search(r"^\s*[-*+] ", body, re.M):
+            raise Failure(f"/daily/{issue_id}.ja.txt 里出现了 `-` 列表，改用 `・`")
+        if "<a " in body:
+            raise Failure(f"/daily/{issue_id}.ja.txt 里出现了 `<a>`，链接要写成 `[文字](URL)`")
+        if "## " not in body:
+            raise Failure(f"/daily/{issue_id}.ja.txt 没有任何 `##` 小标题")
+
+    stray = sorted(
+        p.name for p in (dist / "daily").glob("*.ja.txt") if p.name.split(".")[0] not in set(ja_sources)
+    )
+    if stray:
+        raise Failure(f"这些日语版出口没有对应的 report.ja.json：{'、'.join(stray)}")
+    if ja_sources:
+        notes.append(f"{len(ja_sources)} 期有日语版出口（Ci-en 记法：## / [..](..) / <span>）")
 
     daily_rss = dist / "daily" / "rss.xml"
     if not daily_rss.exists():

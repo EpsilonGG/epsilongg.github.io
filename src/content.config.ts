@@ -182,4 +182,41 @@ const dailyReports = defineCollection({
   }),
 });
 
-export const collections = { blog, dailyReports };
+/**
+ * 日报的**日语版**：`data/daily/<期号>/report.ja.json`（可选）。
+ *
+ * 单独一份文件、不进 `report.json`，理由有三条：
+ * ① 正本由 `daily publish` 从 `out/` 搬过来，手写的内容放进去会被下一次重发冲掉；
+ * ② `report.json` 有判卷（`apply` / `confirm`）管着，翻译不该走那条闸门；
+ * ③ 没有日语版的期号就不该有按钮——「文件不存在」本身就是状态。
+ *
+ * 字段和中文版一一对应，只是每条从一段话变成一句话：日语比中文长，
+ * 按中文的断句逐句翻，读起来最像播报。**缺人不会报错**（可以只翻一部分），
+ * `DailyLayout` 会在构建日志里报被覆率。
+ */
+const dailyJa = defineCollection({
+  loader: glob({
+    base: './data/daily',
+    pattern: '*/report.ja.json',
+    generateId: ({ entry }) => entry.split(/[\\/]/)[0],
+  }),
+  schema: z.object({
+    schema_version: z.number().int().default(1),
+    description: z.string().trim().max(140, '日语版副标题 ≤ 140 字').default(''),
+    highlights: z.array(z.string().trim().min(1)).default([]),
+    works: z.string().trim().default(''),
+    interactions: z.array(z.string().trim().min(1)).default([]),
+    /** 中文版 `people` 的顺序就是这里的顺序；`handle` 必须对得上。 */
+    people: z
+      .array(
+        z.object({
+          handle: z.string().trim().min(1),
+          summary: z.string().trim().min(1),
+        }),
+      )
+      .default([]),
+    insights: z.array(z.string().trim().min(1)).default([]),
+  }),
+});
+
+export const collections = { blog, dailyReports, dailyJa };
