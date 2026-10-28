@@ -15,6 +15,7 @@
     "check": "astro check",
     "check:images": "python scripts/check_remote_images.py",
     "links": "python scripts/check_links.py",
+    "check:prose": "python scripts/check_prose.py",
     "check:daily": "python scripts/check_daily_site.py",
     "golden:daily": "python scripts/daily_golden.py --check",
     "golden:daily:capture": "python scripts/daily_golden.py --capture",

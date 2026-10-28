@@ -343,6 +343,7 @@ const a: string = 'hello';
 ```bash
 npm run dev           # 本地看效果，http://localhost:4321
 npm run build         # 构建，frontmatter 有问题会在这里报错
+npm run check:prose   # 构建后跑：正文里有没有漏出来的 ** 或误渲染的 <del>
 npm run check:images  # 用了远程图才需要：逐张请求，报坏链
 ```
 
@@ -350,10 +351,15 @@ npm run check:images  # 用了远程图才需要：逐张请求，报坏链
 - [ ] `/blog/` 里按年份分组正确
 - [ ] 图片全部显示，图注在图下方
 - [ ] 用了远程图的话，`npm run check:images` 没有 FAIL
+- [ ] `npm run check:prose` 没有报错（加粗别写成 `**名字（罗马音）**先生`，见下）
 - [ ] 注释数字点了能弹出面板，`×` 能关掉，文末有完整列表
 - [ ] 深色模式下代码块、图片边框正常
 - [ ] 手机宽度下没有横向滚动条
 - [ ] `description` 写了（会进 RSS 和搜索结果）
+
+> **加粗收在中文标点后面会失效。** `**小川公貴（Ogawa Koki）**先生` 里的收尾 `**`
+> 前面是 `）`、后面是 `先`，Markdown 认为它不能收尾，于是 `**` 原样印在页面上。
+> 写成 `**小川公貴**（Ogawa Koki）先生` 就好：加粗只包名字，罗马音放括号里。
 
 ---
 
