@@ -28,7 +28,7 @@ from daily.audit import ERROR, WARN, audit_report, has_errors  # noqa: E402
 from daily.roster import Roster  # noqa: E402
 from daily.schema import DESCRIPTION_MAX  # noqa: E402
 
-ISSUE = "26102522"
+ISSUE = "261025"
 
 ROSTER = {
     "schema_version": 1,

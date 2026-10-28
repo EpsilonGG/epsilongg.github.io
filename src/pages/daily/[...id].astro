@@ -3,8 +3,11 @@ import DailyLayout from '../../layouts/DailyLayout.astro';
 import { getDailyJapanese, getDailyReports } from '../../lib/daily';
 
 /**
- * 日报详情页。期号是八位编号（`YYMMDDHH`），不是日期——
- * 同一天可以有多期，只到天会互相覆盖。
+ * 日报详情页。期号只到天（`YYMMDD`），同一天的第二期加 `-2`、第三期加 `-3`。
+ *
+ * 不带小时是因为小时曾经是「名义 22:00」，而一天的数据要到 JST 24:00 才闭合，
+ * 真实出稿在次日凌晨——编号里的时间点和内容覆盖的时间段对不上。期号只说
+ * 「这是哪一天的日报」，具体发布时刻看 `issue.published_at`。
  *
  * M4 起数据源是 `data/daily/<期号>/report.json`，没有 Markdown 正文，
  * 所以不再有 `render()`：四段内容全部是结构化字段，由 `DailyLayout` 直接渲染。
@@ -12,7 +15,7 @@ import { getDailyJapanese, getDailyReports } from '../../lib/daily';
 export async function getStaticPaths() {
   const [reports, japanese] = await Promise.all([getDailyReports(), getDailyJapanese()]);
 
-  // reports 已按发布时间倒序排列：索引更小的是较新的一期
+  // reports 已按覆盖日倒序、同日按序号倒序：索引更小的是较新的一期
   return reports.map((report, index) => ({
     params: { id: report.id },
     props: {

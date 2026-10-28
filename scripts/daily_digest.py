@@ -14,6 +14,7 @@
 
 `tests/test_daily_digest.py` 仍然按老接口导入本文件，所以下面这些名字要留着：
 `JST` / `issue_id_for` / `_parse_at` / `build_report` / `build_briefing`。
+期号改到「只到天」之后，`parse_issue_id` / `day_of` / `seq_of` / `is_issue_id` 也一并转出去。
 """
 from __future__ import annotations
 
@@ -29,7 +30,7 @@ from daily.adapters.xreader import load_raw  # noqa: E402
 from daily.build import build_briefing as _build_briefing  # noqa: E402
 from daily.build import build_report as _build_report  # noqa: E402
 from daily.cli import main as _cli_main  # noqa: E402
-from daily.issue import JST, issue_id_for  # noqa: E402
+from daily.issue import JST, day_of, is_issue_id, issue_id_for, parse_issue_id, seq_of  # noqa: E402
 from daily.issue import parse_at as _parse_at  # noqa: E402
 from daily.model import Item  # noqa: E402
 

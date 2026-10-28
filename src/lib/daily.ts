@@ -9,68 +9,76 @@ type DailyEntry = CollectionEntry<'dailyReports'>;
  * 日报条目。
  *
  * M4 起数据源是 `data/daily/<期号>/report.json`（见 `content.config.ts`）。
- * `title` 与 `pubDate` 仍然是**派生**的，不写在数据里：
- * 一期日报的标题就是它的发布时间，没有别的信息量；发布时间就是期号。
- * 少一个字段，就少一处能和 URL 对不上的地方。
+ * `title` / `pubDate` / `covered` / `seq` 仍然是**派生**的，不写在数据里：
+ * 期号说明「这是哪一天的日报」，`issue.published_at` 说明「什么时候发的」，
+ * 标题就是把这两件事拼起来。少一个字段，就少一处能和 URL 对不上的地方。
  */
 export type Daily = Omit<DailyEntry, 'data'> & {
-  data: DailyEntry['data'] & { title: string; pubDate: Date };
+  data: DailyEntry['data'] & {
+    title: string;
+    /** 真实发布时间（`issue.published_at`），RSS 与页面「发布于」用它。 */
+    pubDate: Date;
+    /** 期号覆盖的那一天（JST 零点）。归档分组、标题、Ci-en 标题用它。 */
+    covered: Date;
+    /** 同一天里的第几期。第 1 期是 1，`261027-2` 是 2。 */
+    seq: number;
+  };
 };
 
 /** 渲染层真正用到的数据形状（`.txt` 出口也用它）。 */
 export type DailyData = Daily['data'];
 
 /**
- * 日报编号：`YYMMDDHH`，八位数字，日本时间（JST）。
+ * 日报编号：`YYMMDD`，日本时间（JST）；同一天的第二期加 `-2`。
  *
- * 例：2026-10-31 22:00（JST）→ `26103122`。
+ * 例：2026-10-27 那一期 → `261027`；同一天再出一期 → `261027-2`。
  *
- * 精确到小时是为了**存档**：同一天可以出多期，重跑不会覆盖上一期。
- * 只到天的话，`2026-10-23.md` 一天只能有一个，补一次就把原稿冲掉了。
+ * **不带小时是刻意的**：一天的数据要到 JST 24:00 才闭合（抓取 CI 每天 15:00 UTC
+ * 跑最后一次），真实出稿必然在次日凌晨。小时写进期号只有两种结果——写真实时间，
+ * 期号比内容晚一天；钉个假时间，页面上的「发布于」就是错的（旧格式的 22:00 正是如此）。
+ * 期号只说「哪一天」，发布时间交给 `issue.published_at`。
  */
-export const DAILY_ID_PATTERN = /^(\d{2})(\d{2})(\d{2})(\d{2})$/;
+export const DAILY_ID_PATTERN = /^(\d{2})(\d{2})(\d{2})(?:-(\d+))?$/;
 
 /** JST 相对 UTC 的偏移（分钟）。固定值，不依赖运行环境时区。 */
 const JST_OFFSET_MINUTES = 9 * 60;
 
-/** 把 `26103122` 解析成 Date；格式不合法或日期不存在（如 2 月 30 日）返回 null。 */
-export function parseDailyId(id: string): Date | null {
+/**
+ * 把 `261027` / `261027-2` 解析成「覆盖的那一天」与「第几期」。
+ * 格式不合法或日期不存在（如 2 月 30 日）返回 null。
+ */
+export function parseDailyId(id: string): { day: Date; seq: number } | null {
   const match = DAILY_ID_PATTERN.exec(id);
   if (!match) return null;
 
   const year = 2000 + Number(match[1]);
   const month = Number(match[2]);
-  const day = Number(match[3]);
-  const hour = Number(match[4]);
-  if (month < 1 || month > 12 || day < 1 || day > 31 || hour > 23) return null;
+  const dayOfMonth = Number(match[3]);
+  const seq = Number(match[4] ?? 1);
+  if (month < 1 || month > 12 || dayOfMonth < 1 || dayOfMonth > 31 || seq < 1) return null;
 
   const offset = JST_OFFSET_MINUTES * 60 * 1000;
-  const date = new Date(Date.UTC(year, month - 1, day, hour) - offset);
+  const date = new Date(Date.UTC(year, month - 1, dayOfMonth) - offset);
 
   // Date.UTC 会把 2 月 30 日进位成 3 月 2 日，回读一次才能确认真实存在
   const back = new Date(date.getTime() + offset);
   if (
     back.getUTCFullYear() !== year ||
     back.getUTCMonth() !== month - 1 ||
-    back.getUTCDate() !== day ||
-    back.getUTCHours() !== hour
+    back.getUTCDate() !== dayOfMonth
   ) {
     return null;
   }
 
-  return date;
+  return { day: date, seq };
 }
 
-/** 反向：把 Date 写成编号。给测试和脚本对齐用。 */
-export function toDailyId(date: Date): string {
-  const back = new Date(date.getTime() + JST_OFFSET_MINUTES * 60 * 1000);
+/** 反向：把「覆盖的那一天 + 第几期」写成期号。给测试和脚本对齐用。 */
+export function toDailyId(day: Date, seq = 1): string {
+  const back = new Date(day.getTime() + JST_OFFSET_MINUTES * 60 * 1000);
   const pad = (value: number, width = 2) => String(value).padStart(width, '0');
-  return (
-    pad(back.getUTCFullYear() % 100) +
-    pad(back.getUTCMonth() + 1) +
-    pad(back.getUTCDate()) +
-    pad(back.getUTCHours())
-  );
+  const base = pad(back.getUTCFullYear() % 100) + pad(back.getUTCMonth() + 1) + pad(back.getUTCDate());
+  return seq <= 1 ? base : `${base}-${seq}`;
 }
 
 const issueTimeFormat = new Intl.DateTimeFormat('zh-CN', {
@@ -140,61 +148,64 @@ export async function getDailyReports(): Promise<Daily[]> {
   }
 
   const reports: Daily[] = entries.map((entry) => {
-    const issuedAt = resolvePublishedAt(entry);
+    const parsed = parseDailyId(entry.id);
+    if (!parsed) {
+      throw new Error(
+        `[daily] ${entry.id} 不是合法的期号（YYMMDD 或 YYMMDD-N，JST）。` +
+          '例：2026-10-27 那一期是 261027，同一天的第二期是 261027-2。'
+      );
+    }
+    const suffix = parsed.seq > 1 ? `（第 ${parsed.seq} 期）` : '';
     return {
       ...entry,
       data: {
         ...entry.data,
-        // 标题也是派生的：一期日报的标题就是它的时间，没有别的信息量
-        title: `X 日报 · ${formatIssueTime(issuedAt)}`,
-        pubDate: issuedAt,
+        // 标题只说「哪一天」，几点发的写在「发布于」里——期号已经没有小时了
+        title: `X 日报 · ${formatIssueDay(parsed.day)}${suffix}`,
+        pubDate: resolvePublishedAt(entry, parsed.day),
+        covered: parsed.day,
+        seq: parsed.seq,
       },
     };
   });
 
-  // 同一小时内只可能有一期；用 id 兜底保证顺序稳定
+  // 归档顺序按「覆盖的那一天」，不按发布时间：补录旧日期时，旧的那期不该跳到最上面
   return reports.sort(
-    (a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime() || b.id.localeCompare(a.id)
+    (a, b) => b.data.covered.getTime() - a.data.covered.getTime() || b.data.seq - a.data.seq
   );
 }
 
 /**
- * 发布时间以 `issue.published_at` 为准，缺失或解析不出来时退回期号。
+ * 发布时间以 `issue.published_at` 为准，缺失或解析不出来时退回期号那一天。
  *
- * 两个来源都留着是因为它们本来就该一致：期号是 `published_at` 的紧凑写法。
- * 万一不一致，`published_at` 优先——它带着时区，能表达期号表达不了的东西；
- * 而期号必须永远能推回时间，否则这个期号本身就是错的。
+ * 期号现在只有日期，所以兜底值没有小时——它只用来排序和显示「发布于」，
+ * 而「覆盖哪一天」是期号给的，不会因为这里兜底而漂移。
  */
-function resolvePublishedAt(entry: DailyEntry): Date {
+function resolvePublishedAt(entry: DailyEntry, covered: Date): Date {
   const raw = entry.data.issue.published_at;
   if (raw) {
     const parsed = new Date(raw);
     if (!Number.isNaN(parsed.getTime())) return parsed;
   }
-  const fromId = parseDailyId(entry.id);
-  if (fromId) return fromId;
-  throw new Error(
-    `[daily] ${entry.id} 的发布时间既没有合法的 issue.published_at，期号本身也不是 YYMMDDHH。` +
-      '例：2026-10-31 22:00（JST）对应期号 26103122。'
-  );
+  return covered;
 }
 
 /** 按月份分组，保持倒序。归档列表用。 */
 export function groupByMonth(reports: Daily[]): { key: string; label: string; items: Daily[] }[] {
   const groups: { key: string; label: string; items: Daily[] }[] = [];
   for (const report of reports) {
-    const key = issueMonthKey(report.data.pubDate);
+    const key = issueMonthKey(report.data.covered);
     const last = groups[groups.length - 1];
     if (last && last.key === key) {
       last.items.push(report);
     } else {
-      groups.push({ key, label: formatIssueMonth(report.data.pubDate), items: [report] });
+      groups.push({ key, label: formatIssueMonth(report.data.covered), items: [report] });
     }
   }
   return groups;
 }
 
-/** 日报详情页路径。id 即目录名（八位期号）。 */
+/** 日报详情页路径。id 即目录名（`YYMMDD` 或 `YYMMDD-N`）。 */
 export function dailyPath(post: Daily): string {
   return `/daily/${post.id}/`;
 }
@@ -211,7 +222,11 @@ export function dailyPath(post: Daily): string {
  */
 export function plainText(report: Daily): string {
   const { data } = report;
-  const lines: string[] = [data.title, `${formatIssueTime(data.pubDate)}（日本时间）`];
+  const lines: string[] = [
+    data.title,
+    // 这一期覆盖哪 24 小时，比「几点发的」有用；真实发布时间在页面和 RSS 上
+    `覆盖 ${formatIssueDay(data.covered)} 00:00–24:00（日本时间）`,
+  ];
 
   if (data.description) {
     lines.push('', data.description);
@@ -295,7 +310,8 @@ export function cienReport(report: Daily, ja: DailyJa): string {
   return cienText(
     {
       id: report.id,
-      publishedAt: data.pubDate,
+      // Ci-en 标题的 `10/27` 是**覆盖的那一天**，不是发稿那一刻——发稿在次日凌晨
+      day: data.covered,
       windowStart: data.issue.window.start,
       windowEnd: data.issue.window.end,
       hook: ja.data.hook,

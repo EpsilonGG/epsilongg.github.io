@@ -1,7 +1,7 @@
 """命令行入口。
 
     cd scripts
-    python -m daily build --items-dir sample_items --date 2026-10-23 --at "2026-10-23 22:00"
+    python -m daily build --items-dir sample_items --date 2026-10-23
     python -m daily build ... --check-reproducible
     python -m daily state info --path ../data/daily/state.json
     python -m daily version
@@ -50,8 +50,27 @@ REPO_ROOT = Path(__file__).resolve().parents[2]
 DEFAULT_STATE = REPO_ROOT / "data" / "daily" / "state.json"
 
 
-def _select(items: list[Item], date_text: str | None, at_text: str | None):
-    """定窗口（哪一天）与期号（哪一小时）。分天一律按 JST 自然日。"""
+def _taken_issues(out_dir: str, dest_root: Path) -> set[str]:
+    """工作区与已发布目录里已经存在的期号。分配新期号时避开它们。"""
+    taken = {p.parent.name for p in Path(out_dir).glob("*/report.json")}
+    taken |= {p.parent.name for p in Path(dest_root).glob("*/report.json")}
+    return taken
+
+
+def _select(
+    items: list[Item],
+    date_text: str | None,
+    at_text: str | None,
+    *,
+    new: bool = False,
+    out_dir: str = "out",
+    dest_root: Path = publish_mod.DEFAULT_DEST,
+):
+    """定窗口（哪一天）、期号（那一天的哪一期）与发布时间。
+
+    期号只到天：`261027`，同一天的第二期是 `261027-2`。`--at` **不再决定期号**，
+    它只是 `issue.published_at`——也就是页面「发布于」和 RSS `pubDate` 用的真实时间。
+    """
     if date_text:
         report_date = date_cls.fromisoformat(date_text)
     else:
@@ -60,7 +79,15 @@ def _select(items: list[Item], date_text: str | None, at_text: str | None):
 
     window = IssueWindow.for_day(report_date)
     moment = parse_at(at_text) if at_text else datetime.now(JST)
-    return window, issue_id_for(moment), moment
+
+    # 默认就用当天第 1 期；已存在的话由 build 的存档保护拦下（不静默改成 -2）。
+    # 明确要出第二期时才往后找空位。
+    taken = _taken_issues(out_dir, dest_root)
+    seq = 1
+    if new:
+        while issue_id_for(report_date, seq) in taken:
+            seq += 1
+    return window, issue_id_for(report_date, seq), moment
 
 
 def _render(
@@ -165,7 +192,9 @@ def _cmd_build(args: argparse.Namespace) -> int:
         )
         return 2
 
-    window, issue_id, moment = _select(raw, args.date, args.at)
+    window, issue_id, moment = _select(
+        raw, args.date, args.at, new=args.new, out_dir=args.out
+    )
     published_at = moment.isoformat()
     roster = Roster.load(args.roster)
 
@@ -210,7 +239,7 @@ def _cmd_build(args: argparse.Namespace) -> int:
     if report_out.exists() and not args.force:
         print(
             f"已存在 {report_out}，拒绝覆盖（这一期已经在工作区里了）。\n"
-            f"换一个小时（--at）或者加 --force 明确覆盖。",
+            f"改内容加 --force；确实要出第二期就加 --new（会排成 {issue_id_for(window.day, 2)}）。",
             file=sys.stderr,
         )
         return 3
@@ -501,7 +530,15 @@ def main(argv: list[str] | None = None) -> int:
     build.add_argument("--items-dir", required=True, help="X-Reader data/items 目录")
     build.add_argument("--date", help="汇总哪一天的数据 YYYY-MM-DD（JST 自然日；默认：数据里最新的一天）")
     build.add_argument(
-        "--at", default=None, help="发布时间（JST），决定期号，如 '2026-10-31 22:00'；默认当前时间"
+        "--at",
+        default=None,
+        help="真实发布时间（JST），只影响 issue.published_at / RSS pubDate / 页面「发布于」；"
+        "不决定期号（期号是 --date 那一天）。默认当前时间",
+    )
+    build.add_argument(
+        "--new",
+        action="store_true",
+        help="当天第 1 期已存在时，另起一期（排成 261027-2）",
     )
     build.add_argument("--out", default="out", help="briefing / generate.json 的输出目录")
     build.add_argument(
@@ -530,7 +567,7 @@ def main(argv: list[str] | None = None) -> int:
     build.set_defaults(func=_cmd_build)
 
     prompt_cmd = sub.add_parser("prompt", help="M3.1 出题：按分类各写一份题面（.md 给人贴、.json 算指纹）")
-    prompt_cmd.add_argument("--issue", required=True, help="期号，如 26102522")
+    prompt_cmd.add_argument("--issue", required=True, help="期号，如 261027（同日第二期 261027-2）")
     prompt_cmd.add_argument("--out", default="out", help="工作目录（默认 out）")
     prompt_cmd.add_argument("--reduce", action="store_true", help="出全局题（材料是已写好的分类回答）")
     prompt_cmd.add_argument(

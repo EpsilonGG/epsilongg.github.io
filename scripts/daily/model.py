@@ -143,7 +143,7 @@ class Item:
         # 条目归属：`publisher` 是**原发账号**，`metadata.account` 是**时间线主人**。
         # 转发时两者不同——Nitter 的 `publisher` 指向被转的人，`account` 才是转发者。
         # 以前优先取 `publisher`，于是 81 条转发全记到了品牌号名下，
-        # `26102522` 因此多出 66 个名单外的 people 行（页面只能渲染裸 @handle）。
+        # `261025` 因此多出 66 个名单外的 people 行（页面只能渲染裸 @handle）。
         author = (raw.get("publisher") or "").strip()
         owner = (meta.get("account") or "").strip()
         account = owner or author or source

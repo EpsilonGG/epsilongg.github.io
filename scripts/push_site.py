@@ -17,7 +17,7 @@
 
 用法：
 
-    python scripts/push_site.py -m "daily: 26102522" --path src/content/daily/
+    python scripts/push_site.py -m "daily: 261025" --path data/daily/
     python scripts/push_site.py -m "..." --no-push     # 只提交
     python scripts/push_site.py -m "..." --proxy http://127.0.0.1:7897
 

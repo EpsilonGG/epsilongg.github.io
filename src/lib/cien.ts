@@ -32,8 +32,13 @@ export interface CienPerson {
 /** 一期の元情報。中国語版と日本語版で共有する。 */
 export interface CienIssue {
   id: string;
-  /** 発行時刻。タイトルの日付と出典の窓はここから作る（データに持たせない）。 */
-  publishedAt: Date;
+  /**
+   * **被覆盖的那一天**（JST 零点）。タイトルの `10/27` と中国語版の日付行はここから作る。
+   *
+   * 発行時刻ではない——この記事は翌日未明に出るので、発行時刻を使うと
+   * 中身が 10/27 なのにタイトルが 10/28 になる。
+   */
+  day: Date;
   /** 集計窓（ISO）。無ければ出典の時刻は書かない。 */
   windowStart?: string;
   /** 集計窓の終端（ISO）。 */
@@ -193,7 +198,7 @@ function renderBody(
   // 日付は**中国語版にだけ**置く。日本語版は直上のタイトルが `10/27` を持っているので、
   // 同じ言語で二度書くことになる。時刻（22:00）はどちらにも書かない——
   // この記事は 1 日ぶんのまとめで、何時に公開したかは読者にとって情報ではない。
-  if (lang === 'zh') blocks.push(`${formatCienDayZh(issue.publishedAt)}（日本时间）`);
+  if (lang === 'zh') blocks.push(`${formatCienDayZh(issue.day)}（日本时间）`);
 
   if (body.description?.trim()) blocks.push(body.description.trim());
 
@@ -257,7 +262,7 @@ export function cienText(
     canonical.set(handle.toLowerCase(), handle);
   }
 
-  const prefix = `【声優Xまとめ ${formatCienMonthDay(issue.publishedAt)}】`;
+  const prefix = `【声優Xまとめ ${formatCienMonthDay(issue.day)}】`;
   const hook = issue.hook?.trim() ?? '';
 
   return (

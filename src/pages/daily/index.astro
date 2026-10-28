@@ -6,21 +6,25 @@ import {
   groupByMonth,
   dailyPath,
   formatIssueDay,
-  formatIssueTime,
+  type Daily,
 } from '../../lib/daily';
 
 const reports = await getDailyReports();
 const months = groupByMonth(reports);
 
-/** 归档列表里省掉年份：分组标题已经写了月份，行里只要 `10-23 22:00`。 */
-function shortTime(date: Date): string {
-  return `${formatIssueDay(date).slice(5)} ${formatIssueTime(date).slice(-5)}`;
+/**
+ * 归档列表里省掉年份：分组标题已经写了月份，行里只要 `10-27`。
+ * 一天出两期时标出「第 2 期」——期号里的 `-2` 不该让读者自己去解码。
+ */
+function shortDay(report: Daily): string {
+  const day = formatIssueDay(report.data.covered).slice(5);
+  return report.data.seq > 1 ? `${day} · 第 ${report.data.seq} 期` : day;
 }
 ---
 
 <BaseLayout
   title="日报"
-  description="X（推特）声优动态日报存档，按小时编号"
+  description="X（推特）声优动态日报存档，按日期编号"
   feeds={[{ title: `${site.name} · 日报`, href: '/daily/rss.xml' }]}
 >
   <div class="page">
@@ -56,9 +60,9 @@ function shortTime(date: Date): string {
                       <a class="daily-archive__link" href={dailyPath(report)}>
                         <time
                           class="daily-archive__time"
-                          datetime={report.data.pubDate.toISOString()}
+                          datetime={formatIssueDay(report.data.covered)}
                         >
-                          {shortTime(report.data.pubDate)}
+                          {shortDay(report)}
                         </time>
                         <span class="daily-archive__summary">
                           {report.data.description ?? '（本期还没有写看点简报）'}
@@ -72,7 +76,7 @@ function shortTime(date: Date): string {
           </div>
         ) : (
           <p class="empty-state">
-            暂无日报。日报每天一期，每期一个目录（YYMMDDHH），
+            暂无日报。日报每天一期，每期一个目录（YYMMDD，同一天第二期是 YYMMDD-2），
             发布时由 <code>daily publish</code> 放进 data/daily/。
           </p>
         )

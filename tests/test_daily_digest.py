@@ -1,6 +1,6 @@
 """日报期号规则的单元测试。
 
-期号（`YYMMDDHH`，JST）是日报存档的主键，格式一旦漂移，旧档就找不回来了，
+期号（`YYMMDD`，JST）是日报存档的主键，格式一旦漂移，旧档就找不回来了，
 所以这里把它钉死。只测纯函数，不读写任何数据目录。
 
     python -m unittest discover -s tests -v
@@ -11,6 +11,7 @@ from __future__ import annotations
 import json
 import sys
 import unittest
+from datetime import date as date_cls
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -22,32 +23,57 @@ import daily_digest as digest  # noqa: E402
 
 
 class IssueIdTest(unittest.TestCase):
-    def test_jst_evening(self) -> None:
-        """用户给的例子：26 年 10 月 31 日 22 点 → 26103122。"""
-        moment = datetime(2026, 10, 31, 22, 0, tzinfo=digest.JST)
-        self.assertEqual(digest.issue_id_for(moment), "26103122")
+    """一天一期是 `YYMMDD`，同一天第二期是 `YYMMDD-2`——期号里没有小时。"""
 
-    def test_utc_is_converted_to_jst(self) -> None:
-        """UTC 13:00 就是 JST 22:00，期号按 JST 写。"""
-        moment = datetime(2026, 10, 31, 13, 0, tzinfo=timezone.utc)
-        self.assertEqual(digest.issue_id_for(moment), "26103122")
+    def test_one_issue_per_day(self) -> None:
+        self.assertEqual(digest.issue_id_for(date_cls(2026, 10, 31)), "261031")
 
-    def test_hour_is_not_truncated(self) -> None:
-        """同一天的不同小时必须是不同期号——这是存档不互相覆盖的前提。"""
-        a = digest.issue_id_for(datetime(2026, 10, 31, 9, 5, tzinfo=digest.JST))
-        b = digest.issue_id_for(datetime(2026, 10, 31, 22, 40, tzinfo=digest.JST))
-        self.assertEqual((a, b), ("26103109", "26103122"))
-        self.assertNotEqual(a, b)
+    def test_second_issue_same_day_gets_suffix(self) -> None:
+        day = date_cls(2026, 10, 31)
+        self.assertEqual(digest.issue_id_for(day, 2), "261031-2")
+        self.assertEqual(digest.issue_id_for(day, 10), "261031-10")
 
-    def test_midnight_boundary(self) -> None:
-        self.assertEqual(
-            digest.issue_id_for(datetime(2027, 1, 1, 0, 0, tzinfo=digest.JST)),
-            "27010100",
-        )
+    def test_seq_starts_at_one(self) -> None:
+        with self.assertRaises(ValueError):
+            digest.issue_id_for(date_cls(2026, 10, 31), 0)
+
+    def test_parse_round_trip(self) -> None:
+        self.assertEqual(digest.parse_issue_id("261031"), (date_cls(2026, 10, 31), 1))
+        self.assertEqual(digest.parse_issue_id("261031-2"), (date_cls(2026, 10, 31), 2))
+
+    def test_day_and_seq_helpers(self) -> None:
+        self.assertEqual(digest.day_of("261031-2"), date_cls(2026, 10, 31))
+        self.assertEqual(digest.seq_of("261031-2"), 2)
+        self.assertEqual(digest.seq_of("261031"), 1)
+
+    def test_old_hourly_id_is_rejected(self) -> None:
+        """旧的八位期号不再合法：它把名义 22:00 当成了内容覆盖的时刻。"""
+        with self.assertRaises(ValueError):
+            digest.parse_issue_id("26103122")
+        self.assertFalse(digest.is_issue_id("26103122"))
+
+    def test_suffix_one_is_rejected(self) -> None:
+        """第 1 期不写后缀，`261031-1` 是写错了而不是等价写法。"""
+        with self.assertRaises(ValueError):
+            digest.parse_issue_id("261031-1")
+
+    def test_impossible_day_is_rejected(self) -> None:
+        with self.assertRaises(ValueError):
+            digest.parse_issue_id("260230")
+
+    def test_is_issue_id(self) -> None:
+        self.assertTrue(digest.is_issue_id("261031"))
+        self.assertTrue(digest.is_issue_id("261031-3"))
+        self.assertFalse(digest.is_issue_id("26103"))
+        self.assertFalse(digest.is_issue_id(""))
 
     def test_parse_at_accepts_common_forms(self) -> None:
+        """`--at` 只写 `issue.published_at`，不再决定期号。"""
         for text in ("2026-10-31 22:00", "2026-10-31T22:00", "2026-10-31 22"):
-            self.assertEqual(digest.issue_id_for(digest._parse_at(text)), "26103122")
+            self.assertEqual(digest._parse_at(text).date(), date_cls(2026, 10, 31))
+
+    def test_parse_at_is_jst(self) -> None:
+        self.assertEqual(digest._parse_at("2026-10-31 22:00").utcoffset(), digest.JST.utcoffset(None))
 
     def test_parse_at_rejects_garbage(self) -> None:
         with self.assertRaises(SystemExit):
@@ -67,26 +93,26 @@ class SkeletonTest(unittest.TestCase):
     ]
 
     def test_no_title_or_pubdate(self) -> None:
-        report = digest.build_report(self.RECORDS, "26103122")
+        report = digest.build_report(self.RECORDS, "261031")
         self.assertNotIn("title", report)
         self.assertNotIn("pubDate", report)
         # 期号之外不要再存一份时间
-        self.assertEqual(report["issue"]["id"], "26103122")
+        self.assertEqual(report["issue"]["id"], "261031")
 
     def test_keeps_three_sections(self) -> None:
-        report = digest.build_report(self.RECORDS, "26103122")
+        report = digest.build_report(self.RECORDS, "261031")
         for key in ("highlights", "interactions", "people"):
             self.assertIn(key, report)
 
     def test_skeleton_is_a_draft(self) -> None:
         """骨架必须是 draft：`publish` 靠 status 挡住「没定稿就上线」。"""
-        report = digest.build_report(self.RECORDS, "26103122")
+        report = digest.build_report(self.RECORDS, "261031")
         self.assertEqual(report["issue"]["status"], "draft")
         self.assertIsNone(report["issue"]["confirmed_at"])
 
     def test_mentions_issue_id(self) -> None:
-        report = digest.build_report(self.RECORDS, "26103122")
-        self.assertIn("26103122", json.dumps(report, ensure_ascii=False))
+        report = digest.build_report(self.RECORDS, "261031")
+        self.assertIn("261031", json.dumps(report, ensure_ascii=False))
 
 
 if __name__ == "__main__":

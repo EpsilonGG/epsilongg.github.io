@@ -6,10 +6,10 @@
 一个没变」，这正是这次迁移要保证的东西。
 
 **基准期是可换的**，不写死在代码里：`tests/golden/current.json` 只有一个字段
-`{"id": "26102522"}`，`--check` 读它决定比哪一期。换基准是一条命令：
+`{"id": "261025"}`，`--check` 读它决定比哪一期。换基准是一条命令：
 
     python scripts/daily_golden.py --switch              # 换成 data/daily 里最新的一期
-    python scripts/daily_golden.py --switch --id 26102522
+    python scripts/daily_golden.py --switch --id 261025
 
 `--switch` 做两件事：从 `dist` 重新抓一份快照、把 `current.json` 指过去。
 旧快照**保留不删**——切回去是免费的，删了就得重新 build 才能抓。
@@ -19,7 +19,7 @@
     python scripts/daily_golden.py --capture      # 只写快照，不动指针
     python scripts/daily_golden.py --check        # 按 current.json 比对
     python scripts/daily_golden.py --switch       # 换基准（重抓 + 改指针）
-    python scripts/daily_golden.py --check --id 26102322   # 临时比另一期
+    python scripts/daily_golden.py --check --id 261023   # 临时比另一期
 
 `--check` 在有差异时打印 unified diff 并以 1 退出，方便直接塞进 CI。
 """
@@ -125,7 +125,7 @@ def page_path(dist: Path, issue_id: str) -> Path:
 
 
 def newest_issue() -> str:
-    """`data/daily/` 里期号最大的一期。期号是 `YYMMDDHH`，字典序即时间序。"""
+    """`data/daily/` 里期号最大的一期。期号是 `YYMMDD`（同日第二期 `-2`），字典序即时间序。"""
     ids = sorted(p.parent.name for p in DATA.glob("*/report.json"))
     if not ids:
         raise SystemExit(f"{DATA} 里没有已发布的期号，无法自动选基准。用 --id 指定。")

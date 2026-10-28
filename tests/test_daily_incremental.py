@@ -243,7 +243,7 @@ class ExportTest(unittest.TestCase):
         ]
         merged = merge(items)
         classification = classify(items, WINDOW, {})
-        export = build_export("26102322", classification, merged, self.roster, "2026-10-23T22:00:00+09:00")
+        export = build_export("261023", classification, merged, self.roster, "2026-10-23T22:00:00+09:00")
         self.assertEqual(export["counts"]["items"], 1)
         # 只有一个人「拥有」这条内容；另一个人记在 amplifiers / interactions 里
         self.assertEqual(export["counts"]["accounts"], 1)
@@ -261,7 +261,7 @@ class SamplePipelineTest(unittest.TestCase):
         state = State()
         first = classify(items, WINDOW, state.seen)
         self.assertEqual(len(first.items), 28)
-        commit(state, first, "26102322", "2026-10-23T22:00:00+09:00")
+        commit(state, first, "261023", "2026-10-23T22:00:00+09:00")
         second = classify(items, WINDOW, state.seen)
         self.assertEqual(len(second.items), 0)
         self.assertEqual(len(second.duplicate), 28)
@@ -277,7 +277,7 @@ class SamplePipelineTest(unittest.TestCase):
     def test_state_roundtrip_is_byte_stable(self) -> None:
         items = list(XReaderAdapter(SAMPLE_DIR).iter_items())
         state = State()
-        commit(state, classify(items, WINDOW, {}), "26102322", "2026-10-23T22:00:00+09:00")
+        commit(state, classify(items, WINDOW, {}), "261023", "2026-10-23T22:00:00+09:00")
         with tempfile.TemporaryDirectory() as tmp:
             path = Path(tmp) / "state.json"
             state.save(path)
@@ -302,12 +302,12 @@ class CliTest(unittest.TestCase):
             code, out, _ = self.run_cli([
                 "build", "--items-dir", str(SAMPLE_DIR), "--date", "2026-10-23",
                 "--at", "2026-10-23 22:00", "--out", str(tmp_path / "out"),
-                "--report-out", str(tmp_path / "report" / "26102322.json"), "--state", str(tmp_path / "state.json"),
+                "--report-out", str(tmp_path / "report" / "261023.json"), "--state", str(tmp_path / "state.json"),
             ])
             self.assertEqual(code, 0)
-            self.assertTrue((tmp_path / "out" / "26102322.briefing.txt").exists())
-            self.assertTrue((tmp_path / "out" / "26102322.generate.json").exists())
-            self.assertTrue((tmp_path / "report" / "26102322.json").exists())
+            self.assertTrue((tmp_path / "out" / "261023.briefing.txt").exists())
+            self.assertTrue((tmp_path / "out" / "261023.generate.json").exists())
+            self.assertTrue((tmp_path / "report" / "261023.json").exists())
             state = json.loads((tmp_path / "state.json").read_text(encoding="utf-8"))
             self.assertEqual(len(state["issues"]), 1)
             self.assertIn("27 条", out)
@@ -319,7 +319,7 @@ class CliTest(unittest.TestCase):
             argv = [
                 "build", "--items-dir", str(SAMPLE_DIR), "--date", "2026-10-23",
                 "--at", "2026-10-23 22:00", "--out", str(tmp_path / "out"),
-                "--report-out", str(tmp_path / "report" / "26102322.json"), "--state", str(tmp_path / "state.json"),
+                "--report-out", str(tmp_path / "report" / "261023.json"), "--state", str(tmp_path / "state.json"),
             ]
             self.assertEqual(self.run_cli(argv)[0], 0)
             code, _, err = self.run_cli(argv)
@@ -333,7 +333,7 @@ class CliTest(unittest.TestCase):
             code, out, _ = self.run_cli([
                 "build", "--items-dir", str(SAMPLE_DIR), "--date", "2026-10-23",
                 "--at", "2026-10-23 22:00", "--out", str(tmp_path / "out"),
-                "--report-out", str(tmp_path / "report" / "26102322.json"), "--backfill",
+                "--report-out", str(tmp_path / "report" / "261023.json"), "--backfill",
             ])
             self.assertEqual(code, 0)
             self.assertIn("迟到 0", out)

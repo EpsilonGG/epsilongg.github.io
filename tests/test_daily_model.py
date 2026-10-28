@@ -38,7 +38,7 @@ RAW = {
 
 def make_report(description: str = "两位发了新作预告") -> Report:
     issue = Issue(
-        id="26102322",
+        id="261023",
         published_at="2026-10-23T22:00:00+09:00",
         window_start="2026-10-23T00:00:00+09:00",
         window_end="2026-10-24T00:00:00+09:00",
@@ -134,7 +134,7 @@ class StateTest(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmp:
             path = Path(tmp) / "state.json"
             state = State()
-            state.record_issue("26102322", "2026-10-23T22:00:00+09:00", ["x:1", "x:2"])
+            state.record_issue("261023", "2026-10-23T22:00:00+09:00", ["x:1", "x:2"])
             state.mark_seen("x:1", "2026-10-23T00:00:00+00:00", "sha256:abc")
             state.save(path)
             again = State.load(path)
@@ -152,8 +152,8 @@ class StateTest(unittest.TestCase):
 
     def test_rebuild_from_issues(self) -> None:
         state = State()
-        state.record_issue("26102222", "2026-10-22T22:00:00+09:00", ["x:1"])
-        state.record_issue("26102322", "2026-10-23T22:00:00+09:00", ["x:1", "x:2"])
+        state.record_issue("261022", "2026-10-22T22:00:00+09:00", ["x:1"])
+        state.record_issue("261023", "2026-10-23T22:00:00+09:00", ["x:1", "x:2"])
         self.assertEqual(state.rebuild(), 2)
         self.assertEqual(state.seen["x:1"]["first_seen"], "2026-10-22T22:00:00+09:00")
         self.assertEqual(state.seen["x:1"]["last_seen"], "2026-10-23T22:00:00+09:00")
@@ -167,8 +167,8 @@ class StateTest(unittest.TestCase):
 
     def test_issue_is_replaced_not_duplicated(self) -> None:
         state = State()
-        state.record_issue("26102322", "2026-10-23T22:00:00+09:00", ["x:1"])
-        state.record_issue("26102322", "2026-10-23T22:00:00+09:00", ["x:1", "x:2"])
+        state.record_issue("261023", "2026-10-23T22:00:00+09:00", ["x:1"])
+        state.record_issue("261023", "2026-10-23T22:00:00+09:00", ["x:1", "x:2"])
         self.assertEqual(len(state.issues), 1)
 
 
@@ -189,8 +189,8 @@ class MigrateTest(unittest.TestCase):
 class ReproducibleTest(unittest.TestCase):
     def test_two_runs_are_identical(self) -> None:
         items = [Item.from_xreader(RAW), Item.from_xreader(dict(RAW, item_id="2", publisher="b"))]
-        a = (build_briefing(items, date(2026, 10, 22)), build_report(items, "26102222"))
-        b = (build_briefing(items, date(2026, 10, 22)), build_report(items, "26102222"))
+        a = (build_briefing(items, date(2026, 10, 22)), build_report(items, "261022"))
+        b = (build_briefing(items, date(2026, 10, 22)), build_report(items, "261022"))
         self.assertEqual(a, b)
 
     def test_skeleton_passes_the_report_schema(self) -> None:
@@ -202,7 +202,7 @@ class ReproducibleTest(unittest.TestCase):
         """
         report = build_report(
             [Item.from_xreader(RAW)],
-            "26102222",
+            "261022",
             published_at="2026-10-22T22:00:00+09:00",
         )
         validate(report, load_schema("report"))

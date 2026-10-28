@@ -13,8 +13,9 @@ import { cienText, formatCienDayZh, formatCienMonthDay } from '../../src/lib/cie
  */
 
 const issue = {
-  id: '26102722',
-  publishedAt: new Date('2026-10-27T13:00:00Z'), // = 2026-10-27 22:00 JST
+  id: '261027',
+  // 期号是「覆盖的那一天」，不是发布时刻。生产里 parseDailyId 给的是 JST 零点
+  day: new Date('2026-10-26T15:00:00Z'), // = 2026-10-27 00:00 JST
   windowStart: '2026-10-27T00:00:00+09:00',
   windowEnd: '2026-10-28T00:00:00+09:00',
   hook: '柚木つばめ生誕祭、川乃瀬由羽は9周年',
@@ -57,7 +58,7 @@ const text = cienText(issue, zh, ja, options);
 const lines = text.split('\n');
 const headings = lines.filter((line) => line.startsWith('#'));
 
-test('1 行目は固定のタイトル。日付は发布时间から作る', () => {
+test('1 行目は固定のタイトル。日付は覆盖日から作る', () => {
   assert.equal(lines[0], '【声優Xまとめ 10/27】柚木つばめ生誕祭、川乃瀬由羽は9周年');
   assert.equal(formatCienMonthDay(new Date('2026-10-27T13:00:00Z')), '10/27');
   assert.equal(formatCienDayZh(new Date('2026-10-27T13:00:00Z')), '2026-10-27');

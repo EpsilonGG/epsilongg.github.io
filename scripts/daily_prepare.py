@@ -105,6 +105,7 @@ def main(argv: list[str] | None = None) -> int:
                         help="X-Reader 的 checkout 路径")
     parser.add_argument("--no-pull", action="store_true", help="跳过 git pull")
     parser.add_argument("--force", action="store_true", help="允许覆盖已存在的期号")
+    parser.add_argument("--new", action="store_true", help="同一天再出一期：排成 -2、-3")
     args = parser.parse_args(argv)
 
     day = args.date or jst_yesterday()
@@ -132,23 +133,26 @@ def main(argv: list[str] | None = None) -> int:
     if inside < SUSPICIOUSLY_FEW:
         print(f"注意：只有 {inside} 条，可能抓取不完整，建议看一眼 briefing 再决定", file=sys.stderr)
 
-    issue_at = f"{day.isoformat()} 22:00"
+    # 不再传 `--at`：期号只到天，`issue.published_at` 取真实运行时刻
+    # （旧做法是钉一个名义 22:00，比真实出稿早约 3.5 小时）
     cmd = [
         sys.executable, str(REPO_ROOT / "scripts" / "daily_digest.py"),
         "--items-dir", str(items_dir),
         "--date", day.isoformat(),
-        "--at", issue_at,
     ]
     if args.force:
         cmd.append("--force")
+    if args.new:
+        cmd.append("--new")
 
     print("运行：" + " ".join(cmd))
     result = subprocess.run(cmd, cwd=str(REPO_ROOT))
     if result.returncode != 0:
         return result.returncode
 
-    issue_id = day.strftime("%y%m%d") + "22"
-    print(f"\n骨架：out/{issue_id}/report.json（定稿后 publish 到 data/daily/）")
+    issue_id = day.strftime("%y%m%d")
+    note = "（--new 时目录是 -2、-3）" if args.new else ""
+    print(f"\n骨架：out/{issue_id}/report.json{note}（定稿后 publish 到 data/daily/）")
     print(f"简报：out/{day.isoformat()}.briefing.txt")
     print(f"下一步：python scripts/daily_digest.py prompt --issue {issue_id} --flat")
     print(f"        → 写 out/{issue_id}/answer/all.json")

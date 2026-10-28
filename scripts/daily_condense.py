@@ -15,8 +15,8 @@ briefing 本身是全量留档（一个 128 人的日子约 9 万字 / 5 万 tok
 
 用法：
 
-    python scripts/daily_condense.py out/26102522.briefing.txt > out/26102522.condensed.txt
-    python scripts/daily_condense.py out/26102522.briefing.txt --per-account 3 --width 100
+    python scripts/daily_condense.py out/261025.briefing.txt > out/261025.condensed.txt
+    python scripts/daily_condense.py out/261025.briefing.txt --per-account 3 --width 100
 """
 from __future__ import annotations
 

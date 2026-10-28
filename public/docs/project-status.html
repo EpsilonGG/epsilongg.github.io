@@ -1265,18 +1265,23 @@
           单独一个文件，不进正本。
         </p>
         <p>
-          <strong>目录名即发布时间。</strong>期号是 <code>YYMMDDHH</code>（八位数字，日本时间），
-          2026-10-31 22:00 就是 <code>data/daily/26103122/report.json</code>，网址
-          <code>/daily/26103122/</code>。精确到小时不是为了好看，是为了<strong>存档</strong>：
-          只到天的话一天只能有一期，补一次就把上一期冲掉；带小时后每跑一次都是新目录，
-          旧的一期自动留档，同一天可以并存多期。
+          <strong>期号就是被覆盖的那一天。</strong>期号是 <code>YYMMDD</code>（六位数字，日本时间），
+          2026-10-31 那一期就是 <code>data/daily/261031/report.json</code>，网址
+          <code>/daily/261031/</code>；同一天要出第二期时加后缀，<code>261031-2</code>。
         </p>
         <p>
-          因为时间只有期号一个来源，<code>report.json</code> 里<strong>没有 <code>title</code>、也没有
-          <code>pubDate</code></strong>：标题由期号推导成 <code>X 日报 · 2026-10-31 22:00</code>，
-          发布时间优先取 <code>issue.published_at</code>，缺失时退回 <code>parseDailyId()</code>
-          （固定 JST 偏移，不依赖运行环境时区），手改日期不可能和 URL 对不上。
-          期号不合规、或 <code>26103231</code> 这种不存在的日期，<strong>构建直接失败</strong>并指出是哪一期。
+          <strong>为什么不再带小时。</strong>旧格式是 <code>YYMMDDHH</code>，小时固定钉在 22:00——
+          那是「名义发布时间」。一天的数据要到 JST 24:00 才闭合（抓取 CI 每天 15:00 UTC 跑最后一次），
+          真实出稿必然落在次日凌晨，于是页面上「发布于 22:00」比实际早约 3.5 小时，和内容覆盖的
+          00:00–24:00 自相矛盾。把小时从期号里拿掉后，期号只回答「这是哪一天的日报」，
+          真实发布时刻交给 <code>issue.published_at</code>——页面因此分「覆盖」「发布于」两行。
+        </p>
+        <p>
+          <code>report.json</code> 里<strong>没有 <code>title</code>、也没有 <code>pubDate</code></strong>：
+          标题由期号推导成 <code>X 日报 · 2026-10-31</code>（同日第二期加「（第 2 期）」），
+          发布时间取 <code>issue.published_at</code>，缺失时退回期号对应那一天（<code>parseDailyId()</code>，
+          固定 JST 偏移，不依赖运行环境时区）。期号不合规、<code>26103231</code> 这种不存在的日期、
+          或 <code>261031-1</code> 这种多余后缀，<strong>构建直接失败</strong>并指出是哪一期。
         </p>
         <p>
           <strong>版式是三段，顺序固定</strong>：
@@ -1326,9 +1331,9 @@
         </p>
         <p>
           <strong>金文件的基准期是可切换的</strong>，不写死在代码里：
-          <code>tests/golden/current.json</code> 只有一个 <code>{"id": "26102522"}</code>，
+          <code>tests/golden/current.json</code> 只有一个 <code>{"id": "261025"}</code>，
           <code>npm run golden:daily:switch</code> 一条命令就重抓快照并把指针挪过去。
-          现在的基准是 <code>26102522</code>（66 行），比 M4 时那期（13 行）能挡住更多版式漂移。
+          现在的基准是 <code>261025</code>（66 行），比 M4 时那期（13 行）能挡住更多版式漂移。
         </p>
         <p>
           <strong>与笔记栏目最大的不同：这里不设「含 AI 整理」滑块。</strong>

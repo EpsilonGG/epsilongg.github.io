@@ -17,11 +17,13 @@ export async function GET(context: APIContext) {
 
   return rss({
     title: `${site.name} · 日报`,
-    description: 'X（推特）声优动态日报，按小时编号存档',
+    description: 'X（推特）声优动态日报，按日期编号存档',
     site: context.site ?? site.url,
     items: reports.map((report) => ({
       title: report.data.title,
       description: report.data.description ?? '',
+      // `pubDate` 是**真实发布时间**（次日凌晨），不是期号那一天——
+      // 阅读器按这个排序，写成期号日期会让订阅者以为早上就该收到
       pubDate: report.data.pubDate,
       link: dailyPath(report),
     })),

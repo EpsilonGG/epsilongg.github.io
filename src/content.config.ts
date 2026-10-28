@@ -88,17 +88,21 @@ const dailyReports = defineCollection({
   loader: glob({
     base: './data/daily',
     pattern: '*/report.json',
-    // 目录名就是期号：`26102322/report.json` → id `26102322`
+    // 目录名就是期号：`261027/report.json` → id `261027`
     generateId: ({ entry }) => entry.split(/[\\/]/)[0],
   }),
   schema: z.object({
     schema_version: z.number().int().default(1),
     /**
-     * 期号与时间。**期号 = 发布时间 = 网址**（`YYMMDDHH`，JST）：
-     * 精确到小时是为了存档，同一天可以出多期，重跑不会覆盖上一期。
+     * 期号与时间。**期号 = 覆盖的那一天 = 网址**（`YYMMDD`，JST），
+     * 同一天的第二期是 `YYMMDD-2`。
+     *
+     * 期号里没有小时，因为一天的数据要到 JST 24:00 才闭合，真实出稿必然在次日凌晨——
+     * 小时写进期号只会得到「比内容晚一天」或者「一个假时间」。发布时间单独记在
+     * `published_at` 里，那个是真的。
      */
     issue: z.object({
-      id: z.string().regex(/^\d{8}$/, '期号必须是八位 YYMMDDHH'),
+      id: z.string().regex(/^\d{6}(-\d+)?$/, '期号必须是 YYMMDD 或 YYMMDD-N（同一天第 N 期）'),
       published_at: z.string().trim().default(''),
       window: z.object({ start: z.string().optional(), end: z.string().optional() }).default({}),
       status: z.enum(['draft', 'confirmed']).default('draft'),

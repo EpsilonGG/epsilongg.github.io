@@ -2,7 +2,7 @@
 import BaseLayout from './BaseLayout.astro';
 import ReadingProgress from '../components/ReadingProgress.astro';
 import { site } from '../config/site';
-import { formatIssueTime, type Daily, type DailyJa } from '../lib/daily';
+import { formatIssueDay, formatIssueTime, type Daily, type DailyJa } from '../lib/daily';
 import {
   categoryLabelOf,
   categoryOf,
@@ -22,8 +22,19 @@ interface Props {
 }
 
 const { post, newer = null, older = null, ja = null } = Astro.props;
-const { title, description, pubDate, accounts, highlights, insights, interactions, works, people, categories } =
-  post.data;
+const {
+  title,
+  description,
+  pubDate,
+  covered,
+  accounts,
+  highlights,
+  insights,
+  interactions,
+  works,
+  people,
+  categories,
+} = post.data;
 
 /**
  * 名单只渲染「当日确实有活动」的人：summary 为空即视为没有值得写的一句话。
@@ -167,6 +178,16 @@ if (ja) {
         <header class="article-header">
           <h1 class="article-title">{title}</h1>
           <div class="article-meta">
+            {/*
+              两件事分开写：**覆盖哪一天**由期号决定，**什么时候发的**来自
+              `issue.published_at`。以前这里只有「发布于」，而那个时间是从期号推的
+              假时间（固定 22:00），比真实出稿早约 3.5 小时。
+            */}
+            <span>
+              覆盖
+              <time datetime={formatIssueDay(covered)}>{formatIssueDay(covered)}</time>
+              00:00–24:00（日本时间）
+            </span>
             <span>
               发布于
               <time datetime={pubDate.toISOString()}>{formatIssueTime(pubDate)}</time>

@@ -178,7 +178,7 @@ HTML = f"""<!DOCTYPE html>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>转发条目怎么落地 · 方案对比（26102522 实测）</title>
+<title>转发条目怎么落地 · 方案对比（261025 实测）</title>
 <style>{CSS}</style>
 <style>
   :root {{ color-scheme: light; }}
@@ -222,11 +222,11 @@ HTML = f"""<!DOCTYPE html>
 <div class="wrap">
   <header class="lede">
     <h1>转发条目怎么落地：两个方案，同一份数据</h1>
-    <p>样本是已发布的第一期 <code>26102522</code>（2026-10-25，127 人）。名单外的 66 个 handle 全部是
+    <p>样本是已发布的第一期 <code>261025</code>（2026-10-25，127 人）。名单外的 66 个 handle 全部是
        <b>名单内成员的转发</b>，转发者 100% 可读（<code>metadata.retweeted_by</code>），没有一条是「无法读取转发者」。
        所以这次要比的不是「读不读得到」，而是这批内容<b>放在哪一栏、以谁的名义说</b>。</p>
     <p>下面两块的排版不是示意图：内联的是线上构建出来的 CSS，样张用的是日报页真实类名，
-       字号、行高、两端对齐、姓名链接的颜色都和 <code>/daily/26102522/</code> 一致。</p>
+       字号、行高、两端对齐、姓名链接的颜色都和 <code>/daily/261025/</code> 一致。</p>
     <div class="kpis">
       <div class="kpi"><b>81</b><span>名单外条目（全部为转发）</span></div>
       <div class="kpi"><b>66</b><span>因此多出来的 people 行</span></div>

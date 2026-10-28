@@ -47,35 +47,42 @@ X-Reader CI (每日 03:00 / 15:00 UTC)
 
 ## 日报的文件、期号与存档
 
-**目录名就是发布时间，也是网址。** 一期日报对应一个目录（M4 之前是一个 `.md` 文件）：
+**期号就是被覆盖的那一天，也是网址。** 一期日报对应一个目录（M4 之前是一个 `.md` 文件）：
 
 ```
-data/daily/26103122/report.json   →   /daily/26103122/
-           ││││││││
-           ││││││└┴─ 22 时（JST）
+data/daily/261031/report.json   →   /daily/261031/
+           ││││││
            │││└┴───── 31 日
            │└──────── 10 月
            └───────── 26 年
 ```
 
-格式 `YYMMDDHH`，八位数字，**日本时间（JST）**。2026-10-31 22:00（JST）= `26103122`。
+格式 `YYMMDD`，六位数字，**日本时间（JST）**。2026-10-31 那一期 = `261031`。
 
-**为什么精确到小时。** 只到天的话 `2026-10-31` 一天只能有一个，补一次就把上一期冲掉；精确到小时后每跑一次都是新目录，旧的一期自动留档——这就是「带存档」的实现方式。代价是同一天可能有多期，所以归档列表**按天不合并**，一行一期。
+**为什么不再带小时。** 旧格式是 `YYMMDDHH`，小时固定写 22:00——那是「名义发布时间」，
+不是真实发布时刻。一天的数据要到 JST 24:00 才闭合（X-Reader 的 CI 每天 15:00 UTC 抓最后一次），
+真实出稿必然落在次日凌晨（`provenance.generated_at` 通常是 01:2x）。于是「发布于 22:00」
+比实际早约 3.5 小时，和内容覆盖的 00:00–24:00 自相矛盾。把小时从期号里拿掉之后，
+期号只说「这是哪一天的日报」，真实发布时刻交给 `issue.published_at`，两边不再打架。
 
-因为时间只有期号一个来源，`report.json` 里**没有 `title`、也没有 `pubDate`**：
+**一天出两期是例外，用 `-2` 表示**：`261031`、`261031-2`。第 1 期不写后缀，
+`261031-1` 是写错了。默认 `build` 撞上已存在的期号会拒绝覆盖（等于删一期存档），
+确实要出第二期时加 `--new`，脚本自己排到下一个空号。
 
-- 标题由期号推导：`X 日报 · 2026-10-31 22:00`；
-- 发布时间优先取 `issue.published_at`，缺失时退回期号（`src/lib/daily.ts` 的 `resolvePublishedAt`），手改日期不可能和 URL 对不上。
+`report.json` 里**没有 `title`、也没有 `pubDate`**：
 
-期号不合规（不是八位数字、或 `26103231` 这种不存在的日期）会让**构建直接失败**并指出是哪一期。
+- 标题由期号推导：`X 日报 · 2026-10-31`（同日第二期加「（第 2 期）」）；
+- 发布时间取 `issue.published_at`，缺失时退回期号对应的那天（`src/lib/daily.ts` 的 `resolvePublishedAt`）。
+
+期号不合规（不是六位、`26103231` 这种不存在的日期、`-1` 这种多余后缀）会让**构建直接失败**并指出是哪一期。
 
 ### 六个出口
 
 | 路由 | 是什么 |
 | --- | --- |
-| `/daily/` | 归档列表，按月分组，一行一期（时间 + 看点简报）；顶部有「看最新一期」与月份锚点 |
-| `/daily/<期号>/` | 单期详情，`getStaticPaths` 从内容集合生成，没有手写路由 |
-| `/daily/rss.xml` | **归档 feed**，独立于主 `/rss.xml`（那个只收「笔记」） |
+| `/daily/` | 归档列表，按月分组，一行一期（日期 + 看点简报）；顶部有「看最新一期」与月份锚点 |
+| `/daily/<期号>/` | 单期详情，`getStaticPaths` 从内容集合生成，没有手写路由；页头分「覆盖」「发布于」两行 |
+| `/daily/rss.xml` | **归档 feed**，独立于主 `/rss.xml`（那个只收「笔记」）；`pubDate` 用真实的 `published_at` |
 | `/daily/<期号>.json` | **JSON**，与 `data/daily/<期号>/report.json` 逐字节相同（含 `sources`），给第三方/脚本 |
 | `/daily/<期号>.txt` | **纯文本**，给复制粘贴和 M6 的视频稿；只换格式，不重新概括 |
 | `/daily/<期号>.ja.txt` | **Ci-en 版**，首行是固定标题 `【声優Xまとめ M/D】…`，然后中日双语（中文在前、日文在后），按 Ci-en 记法排过版，只收声优栏目；只有存在 `report.ja.json` 的期号才有 |
@@ -148,7 +155,7 @@ data/daily/26103122/report.json   →   /daily/26103122/
 
 - **只出声优栏目**。制造商 / 社团那两栏是给站内看的，贴到 Ci-en 只会把「今天谁有动静」埋掉。筛选在 `lib/daily.ts` 里做（`categoryOf(handle) === 'seiyuu'`），`lib/cien.ts` 只管格式——它连名单都不知道。
 - **「厂商侧」的看点要手动挑掉**。哪条是厂商侧只有看内容才知道，所以不做关键词自动判定，而是用 `highlight_indexes` 点名。漏挑了闸门不会报（它只查条数对不对），但读者一眼能看出来。
-- **日期只写一次**。标题里有 `M/D`，中文版开头有一行 `2026-10-27（日本时间）`，日文版没有——同一句话不用两种语言各写一遍。**时刻（22:00）两版都不写**：这是 1 天份的总结，几点发的对读者没有信息量。
+- **日期只写一次**。标题里有 `M/D`，中文版开头有一行 `2026-10-27（日本时间）`，日文版没有——同一句话不用两种语言各写一遍。**时刻两版都不写**：这是 1 天份的总结，几点发的对读者没有信息量（期号里也没有小时了）。
 - **顺序与人数跟中文版走**。输出时按中文版 `people` 的顺序排，日语版缺的人在中日两版里都不出现，日语版里多出来的 handle（写错了）也不会出现。缺人不会让构建失败，但 `DailyLayout` 会在构建日志里报「日语版缺 N 人」——漏翻是允许的，漏了不知道不行。
 - **单独一份文件，不进 `report.json`**：正本由 `daily publish` 从 `out/` 搬过来，手写内容放进去会被下次重发冲掉；而且正本要过判卷（`apply` / `confirm`），翻译不该走那道闸门。
 - **翻译是人工的一步**（目前由 agent 或本人翻，出稿链路不跑它）。`prompt --flat` 的题目里没有日语字段，别去 `answer/all.json` 里找。**但每期都要做**——`confirm` 之后、`push` 之前补这份文件，否则那期就没有 Ci-en 按钮。
@@ -252,8 +259,9 @@ cd "Desktop/github page work"
 python scripts/daily_digest.py --items-dir "<X-rss-workspace>/X-Reader/data/items"
 ```
 
-- `--date YYYY-MM-DD`：可选，**汇总哪一天的数据**（默认取数据里最新一天）。注意这和期号是两件事：`--date` 选数据，期号是发布时间。
-- `--at "2026-10-31 22:00"`：可选，**指定发布时间**（JST），决定期号。不写就取当前小时。
+- `--date YYYY-MM-DD`：可选，**汇总哪一天的数据**（默认取数据里最新一天）。**这一天的日期就是期号**：`2026-10-31` → `261031`。
+- `--at "2026-10-31 22:00"`：可选，写进 `issue.published_at` 的**真实发布时间**（JST），页面「发布于」和 RSS `pubDate` 用它。**它不决定期号**——期号只到天。
+- `--new`：同一天已经出过一期时，用它排到 `-2`、`-3`。不加就撞号，`build` 会拒绝覆盖。
 - `--force`：默认**拒绝覆盖已存在的期号**——覆盖等于删掉一期存档。确实要重写同一期时才加。
 - `--per-account N`：可选，briefing 里每个账号最多写几条，**默认不截**（有几条写几条）。给了数就按（互动数, 发布时间）从高到低截。只在「某人一天刷了 30 条把 briefing 撑爆」时才用。
 - **`active: false` 的账号（社团号、制造商号）照旧进名单，但条目不进这一期**：脚本会把跳过的账号名打到 stderr。这两类现在全是 `active: false`，等日报要收它们的动态时再逐个打开。
@@ -420,7 +428,7 @@ commit（2026-10-26 就把一篇 496 行的新访谈卷进了「docs: 抓取侧�
 | --- | --- |
 | 某天没有新推文 | digest 仍会生成骨架，但 `accounts` 为空；这种日子直接跳过、不发布即可（骨架页会显示「今日看点待补充」） |
 | 数据还没抓到 | 先 `git pull` X-Reader 仓库，或等 CI（17:10 UTC）跑完再操作 |
-| 想补过去的某天 | 用 `--date YYYY-MM-DD` 选数据，`--at "2026-10-24 21:00"` 定发布期号；数据 append-only 会保留历史 |
+| 想补过去的某天 | 用 `--date YYYY-MM-DD` 选数据（这一天就是期号），`--at` 只写真实发布时间；数据 append-only 会保留历史 |
 | 想换 Python 解释器 | `daily.sh` 顶部 `PY="${PYTHON:-python3}"`，可改为本机 Python 路径；或直接用 `PY=... bash scripts/daily.sh` |
 | `apply` 报「来源不存在」 | 回答里的 key 抄错了。题面 `prompts/all.md` 里每条材料前面的 `[x:…]` 才是合法值，不要自己拼 |
 | `confirm` 说判卷没过 | 按输出的路径改正本/回答；真要让缺来源的稿子过去才用 `--no-audit`（会记一笔） |
@@ -444,7 +452,7 @@ commit（2026-10-26 就把一篇 496 行的新访谈卷进了「docs: 抓取侧�
 | `scripts/check_daily_site.py` | M4 出口闸门：三种产物齐全、JSON 与正本逐字节相同、两个 Feed 不混、跑金文件 |
 | `schemas/report.schema.json` | 正本的唯一裁判（Python 与 Zod 都按它） |
 | `schemas/generation.schema.json` | 模型回答的形状（含整期题的 `works`） |
-| `tests/golden/current.json` | 金文件基准指针（`{"id": "26102522"}`），换基准用 `npm run golden:daily:switch` |
+| `tests/golden/current.json` | 金文件基准指针（`{"id": "261025"}`），换基准用 `npm run golden:daily:switch` |
 | `README/reports/daily-m5-m6-options.html` | M5（图片）/ M6（视频稿）的选型比较、代价与顺序。开工前先读 |
 | `scripts/push_site.py` | 提交并推送，绕开本机 `git push` 被 SIGTERM 的问题（GCM 取 token → 临时 askpass → 推完即删）。**日报要带 `--path data/daily/`**，否则 `git add -A` 会卷进无关改动 |
 | `scripts/sync_xreader_accounts.py` | 站点名单 → `X-Reader/accounts.yaml`（只写 `seiyuu` 且 `active != false`）。`--check` 只比对 |
@@ -461,7 +469,7 @@ commit（2026-10-26 就把一篇 496 行的新访谈卷进了「docs: 抓取侧�
 | `src/pages/daily/[id].json.ts` | `/daily/<期号>.json`：与正本逐字节相同的 JSON 出口 |
 | `src/pages/daily/[id].txt.ts` | `/daily/<期号>.txt`：纯文本出口（复制粘贴 / M6 视频稿） |
 | `src/config/navigation.json` | 顶部导航的"日报"入口 |
-| `data/daily/<期号>/report.json` | **产出（已发布）**：站点读的正本，目录名即发布时间 |
+| `data/daily/<期号>/report.json` | **产出（已发布）**：站点读的正本，目录名即覆盖日 |
 | `out/<期号>/report.json` | 工作区正本（草稿/已定稿），`publish` 才搬到 `data/daily/` |
 
 ### 2.2 X-Reader 端（抓取侧）
@@ -495,7 +503,7 @@ commit（2026-10-26 就把一篇 496 行的新访谈卷进了「docs: 抓取侧�
 {
   "schema_version": 1,
   "issue": {
-    "id": "26102322",                        // 八位期号，必须和目录名一致
+    "id": "261023",                          // YYMMDD，必须和目录名一致
     "published_at": "2026-10-23T22:00:00+09:00",
     "window": { "start": "...", "end": "..." },  // JST 自然日 [00:00, 次日 00:00)
     "status": "draft | confirmed",           // publish 只认 confirmed
@@ -544,7 +552,7 @@ digest 实际使用的字段：
 
 | 阶段 | 常见原因 / 处理 |
 | --- | --- |
-| `astro check` 失败 | 多半是 `dailyReports` 的 Zod 与某份 `report.json` 不符（如 `description` 超过 70 字）。**目录名不是 `YYMMDDHH` 会在 `build` 阶段抛错**，报错信息里带期号 |
+| `astro check` 失败 | 多半是 `dailyReports` 的 Zod 与某份 `report.json` 不符（如 `description` 超过 70 字）。**目录名不是 `YYMMDD` 会在 `build` 阶段抛错**，报错信息里带期号 |
 | 改了摘要但线上没变 | 忘了 `publish`：站点读 `data/daily/`，不读 `out/`。这是 M4 之前最常踩的坑 |
 | 构建说「data/daily 里没有任何 report.json」 | `glob` 的 base 指错了，或 `data/daily/` 被清空。这条是硬失败——日报是每天自动发的，空了就是链路断了 |
 | `test:md` 失败 | 只跑 `tests/markdown/*.test.mjs`，**与日报无关**，基本不会因日报触发 |
@@ -572,14 +580,14 @@ digest 实际使用的字段：
 基准期**不写在代码里**，在 `tests/golden/current.json`：
 
 ```json
-{ "id": "26102522", "captured_at": "2026-10-26T12:11:38+00:00" }
+{ "id": "261025", "captured_at": "2026-10-26T12:11:38+00:00" }
 ```
 
 换基准就一条命令（`--id` 省略时自动取 `data/daily/` 里最新的一期）：
 
 ```bash
 npm run golden:daily:switch            # 换成最新一期
-npm run golden:daily:switch -- --id 26102522
+npm run golden:daily:switch -- --id 261025
 ```
 
 它做两件事：从 `dist` 重抓一份 `tests/golden/daily-<期号>.txt`，再把 `current.json` 指过去。
@@ -593,8 +601,8 @@ npm run golden:daily:switch -- --id 26102522
 1. 给 `daily_digest.py` 加 `--source x` 过滤，避免以后混入 RSS/YouTube 数据。
 2. 把"步骤 2 填摘要"也脚本化，进一步减少手动步骤（权衡见 §2.6）。
 3. 给 `daily.sh` 增加自动 `git add/commit/push`（目前只打印命令，避免误提交）。
-4. `counts.items` 在迁移的七期里是 0（原始条目库已清）。只有 `26102522` 的真值还能从
-   `out/26102522.generate.json` 里读回来（342 条），其余六期补不了——要么接受，要么在
+4. `counts.items` 在迁移的七期里是 0（原始条目库已清）。只有 `261025` 的真值还能从
+   `out/261025.generate.json` 里读回来（342 条），其余六期补不了——要么接受，要么在
    JSON 出口里加一句说明。
 5. `report.json` 的 `categories` / `insights` 两个字段现在是空的（分类出稿还没启用），
    页面整节不渲染。这是给 M4 之后留的口子，不是 bug。
@@ -639,7 +647,7 @@ npm run golden:daily:switch -- --id 26102522
 每天：
   1) git -C X-rss-workspace/X-Reader pull        # 拿 CI 抓的数据
   2) python scripts/daily_digest.py --items-dir X-rss-workspace/X-Reader/data/items
-     （期号自动取当前 JST 小时；补旧的可加 --at "2026-10-24 21:00"）
+     （期号 = --date 那一天；同一天第二期加 --new。--at 只写真实发布时间）
   3) python scripts/daily_digest.py prompt --issue <期号> --flat
      让 WorkBuddy 读 out/<期号>/prompts/all.md，把回答写成 out/<期号>/answer/all.json
      （summary ≤70 字 / works / highlights / interactions / people[].summary，每条带 sources）
@@ -648,7 +656,8 @@ npm run golden:daily:switch -- --id 26102522
      python scripts/daily_digest.py publish --issue <期号>   # 搬到 data/daily/
   5) python scripts/push_site.py -m "daily: <期号>" --path data/daily/
 
-期号：YYMMDDHH（JST）。2026-10-31 22:00 → 26103122 → /daily/26103122/
+期号：YYMMDD（JST，被覆盖的那一天）。2026-10-31 → 261031 → /daily/261031/
+同日第二期：261031-2（用 --new 排号）
 存档：/daily/（按月分组） 订阅：/daily/rss.xml
 出口：/daily/<期号>.json（正本逐字节相同） · /daily/<期号>.txt（纯文本）
 判卷：python scripts/daily_digest.py audit --issue <期号> [--published]
@@ -656,6 +665,9 @@ npm run golden:daily:switch -- --id 26102522
 
 ### 为什么同一天可以有多期
 
-期号带小时，所以「上午抓一次、晚上补一次」是两个文件、两个网址，互不覆盖。
-归档列表按天**不合并**，一行一期，时间用等宽数字对齐，扫一眼就知道某天出了几期。
-这也意味着重复运行 `daily_digest.py` 不会毁掉旧稿——除非显式 `--force`。
+一天一期是常态，但「早上抓了一次、晚上数据补齐了想再出一版」是允许的：加 `--new`
+就排成 `261031-2`，两个文件、两个网址，互不覆盖。归档列表按天**不合并**，一行一期，
+第二期后面标「第 2 期」，扫一眼就知道某天出了几期。
+
+期号不再带小时，所以重复运行不会悄悄多出一期：撞号时 `build` 直接拒绝，
+要覆盖同一期得显式 `--force`。

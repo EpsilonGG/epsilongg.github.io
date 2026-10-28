@@ -11,7 +11,8 @@
       "type": "object",
       "required": ["id", "published_at", "status"],
       "properties": {
-        "id": { "type": "string", "pattern": "^[0-9]{8}$" },
+        "id": { "type": "string", "pattern": "^[0-9]{6}(-[0-9]+)?$",
+   "description": "YYMMDD（JST）或 YYMMDD-N（同一天的第 N 期，N≥2）" },
         "published_at": { "type": "string" },
         "window": {
           "type": "object",

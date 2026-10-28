@@ -28,7 +28,7 @@ from daily.apply import ApplyError, apply  # noqa: E402
 from daily.roster import Roster  # noqa: E402
 from daily.validate import ValidationError, validate_answer  # noqa: E402
 
-ISSUE = "26102522"
+ISSUE = "261025"
 
 
 def generate(extra_item: dict | None = None) -> dict:
