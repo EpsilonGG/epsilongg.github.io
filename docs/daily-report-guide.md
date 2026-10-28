@@ -372,8 +372,10 @@ commit（2026-10-26 就把一篇 496 行的新访谈卷进了「docs: 抓取侧�
   python scripts/sync_xreader_accounts.py --out "<X-Reader>/accounts.yaml"
   python scripts/sync_xreader_accounts.py --out ... --check   # 只比对，不一致退 1
   ```
-  只写 `category: seiyuu` 且 `active != false` 的条目（现在是 128 个）。社团号与厂商号是
-  `active: false`，不会被写进去。正本里的 `accounts` 由数据**自动推导**，同样不用手改。
+  只写 `active != false` 的条目（现在是 302 个 = 128 声优 + 173 厂商 + Moepedia）。
+  社团号仍是 `active: false`，不会被写进去。分类（声优 / 制造商）不参与判断——
+  它决定条目落在页面哪个栏目，而栏目由日报页的筛选按钮分开看。
+  正本里的 `accounts` 由数据**自动推导**，同样不用手改。
 - **实例可靠性：** 公共 Nitter 实例大半已死（410 / 451 / 403 / 人机验证页）。2026-10-26 实测 13 个里只有 1 个能出 feed，
   `config/config.yaml` 里按「能用的排前面」重排过。`providers/nitter.py` 会校验响应**是不是 feed**——
   200 但内容是验证页时记为这个实例失败并继续下一个，否则会静默返回「今天没人发推」。
@@ -491,6 +493,38 @@ npm run golden:daily:switch -- --id 26102522
    JSON 出口里加一句说明。
 5. `report.json` 的 `categories` / `insights` 两个字段现在是空的（分类出稿还没启用），
    页面整节不渲染。这是给 M4 之后留的口子，不是 bug。
+
+### 2.10 账号级降噪（名单里的 `filter` 段）
+
+情报站（Moepedia）和大厂官号一天能发几十条，其中大半是转发抽奖、店铺特典、
+「○年前的本日发售」这种自动化回顾。它们不是不重要，是**重复**或**没有信息**。
+规则写在 `src/config/daily-roster.json` 的账号条目里，由 `scripts/daily/filter.py`
+在 `daily build` 时执行（`_pipeline` 里，merge 之后、`accounts` 之前）：
+
+```jsonc
+"filter": {
+  "drop_kinds": ["repost"],                  // 整类丢掉
+  "drop_if": ["プレゼント", "^moepedia\\.net/"],  // 正文命中就丢（正则，忽略大小写）
+  "prefer_if": ["新作", "発売", "体験版"],      // 封顶时优先保（**不是**必要条件）
+  "max_items": 5                             // 一期最多几条
+}
+```
+
+四条规则按顺序：`drop_kinds` → `drop_if` → `prefer_if` 排序 → `max_items` 封顶。
+
+- **匹配用的是去掉 URL、折平换行的正文**。链接里带 `sale`、`campaign` 这类词
+  很常见，拿它当证据会误伤，所以先剥掉。
+- **`prefer_if` 只影响排序，不构成条件**。写成必要条件会漏掉「只写了作品名和链接」
+  的真公告（实测 `【あざらしそふと＋1】…ADV『さくらぶトライアングル』` 就没有任何
+  保留词）。封顶时先按「是否命中 `prefer_if`」、再按发布时间倒序取。
+- **丢掉的条目会记进 `out/<期号>.generate.json` 的 `filtered`**（key / 账号 / 原因 /
+  正文前 80 字）。「今天 Moepedia 一条都没有」必须能查：是它没发，还是规则全筛了。
+- 一个号如果当天只剩这类条目，它**不会**出现在 `people` 里——不会出现「有名字没内容」的行。
+- 规则写错（正则不闭合）会在 `daily build` 当场报错，不会留到线上。
+
+**为什么不放在抓取侧**：Nitter 的 RSS 没有「只要公告」这种服务端过滤；而
+`data/items/x.jsonl` 是只追加的原始库，抓的时候就丢等于永久丢失。规则放在展示侧，
+改一条正则、重跑 `daily build` 就能重出任何一期，不用重新抓。
 
 ---
 

@@ -33,6 +33,9 @@ DEFAULT_PATH = Path(__file__).resolve().parents[2] / "src" / "config" / "daily-r
 class Roster:
     categories: list[dict] = field(default_factory=list)
     accounts: list[Account] = field(default_factory=list)
+    # 账号级降噪规则，`{handle(小写): 原始 dict}`。原样带着不解析：
+    # 解析与报错在 `filter.py` 里，名单只管「谁有什么规则」。
+    filters: dict[str, dict] = field(default_factory=dict)
 
     # -- 读 ------------------------------------------------------------
     @classmethod
@@ -59,7 +62,12 @@ class Roster:
             for a in data.get("accounts") or []
             if str(a.get("handle") or "").strip()
         ]
-        return cls(categories=categories, accounts=accounts)
+        filters = {
+            str(a.get("handle")).strip().lower(): a["filter"]
+            for a in data.get("accounts") or []
+            if isinstance(a.get("filter"), dict)
+        }
+        return cls(categories=categories, accounts=accounts, filters=filters)
 
     # -- 查 ------------------------------------------------------------
     @property

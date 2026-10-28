@@ -139,7 +139,8 @@ def build(out_path: Path) -> None:
   </div>
 
   <p class="legend">
-    <span class="tag tag--new">资料站</span> 标出的行不是厂商，是情报来源（例如 Moepedia），放进名单是为了在第二份日报里当「新作情报」的入口；
+    <span class="tag tag--new">资料站</span> 标出的行不是厂商，是情报来源（Moepedia）。它和厂商一起进「制造商」栏目，
+    但广告味重，走名单里的 <code>filter</code> 段降噪（抽奖、店铺特典、周年回顾全筛掉，见 daily-report-guide §2.10）；
     <span class="tag tag--idle">暂停</span> 对应 <code>active: false</code>——名单里登记着，但抓取和日报都会跳过，改这一位就能启用。
     备注里的「五年 N 部」是 2021-10 ～ 2026-10 在 moepedia 登场的作品数，用来判断这个号值不值得跟。
   </p>

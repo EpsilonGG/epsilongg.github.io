@@ -36,6 +36,7 @@ from .audit import audit_report, has_errors, summarize
 from .build import build_briefing, build_report
 from .dedupe import merge
 from .export import build as build_export
+from .filter import apply_rules
 from .incremental import Classification, classify, commit
 from .issue import JST, issue_id_for, parse_at
 from .model import Item
@@ -70,9 +71,10 @@ def _render(
     roster: Roster,
     published_at: str,
     per_account: int | None = None,
+    dropped: list[dict] | None = None,
 ) -> dict[str, bytes]:
     """三个产物一起出。generate.json 与 report.json 也是可复现对象，所以放进同一份比对。"""
-    export = build_export(issue_id, classification, merged, roster, published_at)
+    export = build_export(issue_id, classification, merged, roster, published_at, dropped=dropped)
     report = build_report(
         merged,
         issue_id,
@@ -97,7 +99,7 @@ def _render(
 
 def _pipeline(
     raw: list[Item], window: IssueWindow, roster: Roster, seen: dict
-) -> tuple[Classification, list[Item], list[str]]:
+) -> tuple[Classification, list[Item], list[str], list[dict]]:
     selection = window.select(raw)
     if selection.unsure:
         print(
@@ -125,6 +127,17 @@ def _pipeline(
         )
         merged = [i for i in merged if roster.is_active(i.account)]
 
+    # 账号级降噪（`filter.py`）：情报站与官号的抽奖、促销、周年回顾在这里被挡掉。
+    # 挡在 merge 之后、accounts 之前——一个号如果当天只剩这类条目，
+    # 它就不该出现在 people 表里（页面上会出现一个没有内容的人）。
+    merged, dropped = apply_rules(merged, roster.filters)
+    if dropped:
+        per_account: dict[str, int] = {}
+        for row in dropped:
+            per_account[row["account"]] = per_account.get(row["account"], 0) + 1
+        summary = "、".join(f"{h} {n} 条" for h, n in sorted(per_account.items()))
+        print(f"注意：{len(dropped)} 条被账号规则筛掉（{summary}）", file=sys.stderr)
+
     # 名单外的 handle 不进**页面**（`accounts` → frontmatter 的 people 行）。
     # 条目本身留在 `merged` 里：briefing 与 export 照旧能看到，出问题才查得到。
     # 名单外的人在页面上拿不到 `name`，只能渲染成裸 @handle，等于把品牌号当声优列出来。
@@ -132,7 +145,7 @@ def _pipeline(
     unknown = roster.warn_unknown(accounts)
     if unknown:
         accounts = [a for a in accounts if roster.is_known(a)]
-    return classification, merged, accounts
+    return classification, merged, accounts, dropped
 
 
 def _cmd_build(args: argparse.Namespace) -> int:
@@ -167,12 +180,12 @@ def _cmd_build(args: argparse.Namespace) -> int:
 
     if args.check_reproducible:
         # 纯函数检查：不读也不写账本，否则第二次运行会因为「都见过了」而不同
-        first_c, first_items, first_acc = _pipeline(raw, window, roster, {})
+        first_c, first_items, first_acc, first_drop = _pipeline(raw, window, roster, {})
         first = _render(first_c, first_items, first_acc, issue_id, roster, published_at,
-                        args.per_account)
-        second_c, second_items, second_acc = _pipeline(raw, window, roster, {})
+                        args.per_account, first_drop)
+        second_c, second_items, second_acc, second_drop = _pipeline(raw, window, roster, {})
         second = _render(second_c, second_items, second_acc, issue_id, roster, published_at,
-                         args.per_account)
+                         args.per_account, second_drop)
         if first != second:
             for name in sorted(set(first) | set(second)):
                 if first.get(name) != second.get(name):
@@ -183,7 +196,7 @@ def _cmd_build(args: argparse.Namespace) -> int:
         return 0
 
     state = State() if (args.no_state or args.backfill) else State.load(args.state)
-    classification, merged, accounts = _pipeline(raw, window, roster, state.seen)
+    classification, merged, accounts, dropped = _pipeline(raw, window, roster, state.seen)
 
     # 正本落在工作区 `out/<期号>/report.json`——`apply` / `confirm` / `publish` 都读它。
     # 站点读的是 `data/daily/<期号>/report.json`，两者靠 `publish` 连接：
@@ -202,7 +215,9 @@ def _cmd_build(args: argparse.Namespace) -> int:
         )
         return 3
 
-    files = _render(classification, merged, accounts, issue_id, roster, published_at, args.per_account)
+    files = _render(
+        classification, merged, accounts, issue_id, roster, published_at, args.per_account, dropped
+    )
     out = Path(args.out)
     out.mkdir(parents=True, exist_ok=True)
     for name, blob in files.items():

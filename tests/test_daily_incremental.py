@@ -356,7 +356,7 @@ class InactiveAccountTest(unittest.TestCase):
         items = [make("1", "alice"), make("2", "some_circle")]
         buf = io.StringIO()
         with redirect_stderr(buf):
-            _, merged, accounts = cli._pipeline(items, WINDOW, roster, {})
+            _, merged, accounts, _ = cli._pipeline(items, WINDOW, roster, {})
         self.assertEqual([i.account for i in merged], ["alice"])
         self.assertEqual(accounts, ["alice"])
         self.assertIn("some_circle", buf.getvalue())  # 静默跳过会让「人不见了」无从查起
@@ -374,27 +374,21 @@ class InactiveAccountTest(unittest.TestCase):
         改的是「抓不抓」，不是「怎么显示」：日报页的栏目筛选按钮默认只看声优，
         点「制造商」才把它们加进列表——所以放它们进来不会把声优那几句挤没。
 
-        唯一的例外是 Moepedia：它是作品情报站，不是厂商。留在名单里是为了
-        以后的新作日历，现在不进抓取，免得「制造商」栏里混进一家媒体。
+        Moepedia 也在这一栏（对读者来说情报站和厂商是一回事，都发新作信息），
+        但它广告味重，靠 `filter` 段降噪——见 test_daily_filter.py。
         """
         roster = Roster.load()
         makers = [a for a in roster.accounts if a.category == "manufacturer"]
         self.assertTrue(makers, "制造商应该已经在名单里")
-
-        media = [a for a in makers if a.handle == "Moepedia_net"]
-        self.assertEqual(len(media), 1)
-        self.assertFalse(media[0].active, "情报站不进抓取")
-        self.assertTrue(
-            all(a.active for a in makers if a.handle != "Moepedia_net"),
-            "厂商号一律 active=true，否则「制造商」栏永远是空的",
-        )
-        # 这一栏里只有一家不是品牌号：Moepedia 是作品情报站（月度新作日历的来源），
-        # 放进来是给「第二份日报」当新作情报的入口。除此之外一律 brand。
+        self.assertTrue(all(a.active for a in makers), "厂商号一律 active=true")
+        # 这一栏里只有一家不是品牌号：Moepedia 是作品情报站。
         self.assertEqual(
             {a.handle for a in makers if a.role != "brand"},
             {"Moepedia_net"},
             "manufacturer 段里出现了非品牌号：确认它确实是情报来源，再改这条断言",
         )
+        # 唯一带降噪规则的号也应该是它：情报站的抽奖与周年回顾不该进日报。
+        self.assertEqual(set(roster.filters), {"moepedia_net"})
         self.assertTrue(all("游戏" in a.tags or "资料站" in a.tags for a in makers))
         self.assertTrue(any("Moe Award" in a.tags for a in makers), "拿过萌奖的应该有标签")
         self.assertIn("manufacturer", [c["id"] for c in roster.categories])

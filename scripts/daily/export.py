@@ -81,8 +81,9 @@ def build(
     merged: list[Item],
     roster: Roster,
     published_at: str = "",
+    dropped: list[dict] | None = None,
 ) -> dict:
-    """组装 `generate.json`。`merged` 是已去重、已排序的条目。"""
+    """组装 `generate.json`。`merged` 是已去重、已排序、已过账号规则的条目。"""
     by_category: dict[str, list[Item]] = {}
     for item in merged:
         by_category.setdefault(roster.category_of(item.account), []).append(item)
@@ -121,6 +122,9 @@ def build(
         "categories": categories,
         "interactions": interactions(merged, roster),
         "low_value": [i.key for i in merged if low_value_reason(i)],
+        # 被账号级规则挡掉的条目。留一份记录是因为「今天 Moepedia 一条都没有」
+        # 必须能查：是它没发，还是规则把十条周年回顾全筛了。
+        "filtered": list(dropped or []),
         "late": [i.key for i in classification.late],
         "future": [i.key for i in classification.future],
         "unknown": roster.unknown(accounts),
