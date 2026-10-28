@@ -13,6 +13,9 @@
  * 貼った瞬間に崩れる可能性を残さない。箇条書きは `・` で書く。
  * `**` も**人名リンクのラベルの中だけ**に限る（本文の強調には使わない）。
  *
+ * 文字サイズの `<span>` は通るが、**この出力では使っていない**。1 行目を
+ * タイトルにしたので、大きくする対象がもう無い（`#` は言語の見出しに使っている）。
+ *
  * このモジュールは Astro にも JSON にも依存しない（名前解決は呼び出し側から
  * 関数で受け取る）。だから `node --test` でそのまま検証できる。
  *
@@ -29,7 +32,7 @@ export interface CienPerson {
 /** 一期の元情報。中国語版と日本語版で共有する。 */
 export interface CienIssue {
   id: string;
-  /** 発行時刻。時刻表示と出典の日付はここから作る（データに持たせない）。 */
+  /** 発行時刻。タイトルの日付と出典の窓はここから作る（データに持たせない）。 */
   publishedAt: Date;
   /** 集計窓（ISO）。無ければ出典の時刻は書かない。 */
   windowStart?: string;
@@ -37,6 +40,13 @@ export interface CienIssue {
   windowEnd?: string;
   /** 本文に並べる人。**すでに欄で絞り込み済み**の前提で、この順に出す。 */
   people: CienPerson[];
+  /**
+   * タイトルの後半（钩子）。`【声優Xまとめ 10/27】` の後ろに付く一文。
+   *
+   * 前半はここで組み立てる——日付を手で書かせると、いつか 10/26 と 10/27 が
+   * 入れ替わって「中身と日付が違う記事」ができる。空なら前半だけになる。
+   */
+  hook?: string;
 }
 
 /**
@@ -70,16 +80,6 @@ const HEADINGS: Record<Lang, { highlights: string; works: string; people: string
 /** `via` に別名義があるときの前置き。 */
 const VIA_LABEL: Record<Lang, string> = { zh: '另有', ja: 'ほかに' };
 
-const jaIssueFormat = new Intl.DateTimeFormat('ja-JP', {
-  timeZone: 'Asia/Tokyo',
-  year: 'numeric',
-  month: 'long',
-  day: 'numeric',
-  hour: '2-digit',
-  minute: '2-digit',
-  hour12: false,
-});
-
 const jaDayFormat = new Intl.DateTimeFormat('ja-JP', {
   timeZone: 'Asia/Tokyo',
   year: 'numeric',
@@ -89,16 +89,6 @@ const jaDayFormat = new Intl.DateTimeFormat('ja-JP', {
 
 const jaTimeFormat = new Intl.DateTimeFormat('ja-JP', {
   timeZone: 'Asia/Tokyo',
-  hour: '2-digit',
-  minute: '2-digit',
-  hour12: false,
-});
-
-const zhIssueFormat = new Intl.DateTimeFormat('zh-CN', {
-  timeZone: 'Asia/Tokyo',
-  year: 'numeric',
-  month: '2-digit',
-  day: '2-digit',
   hour: '2-digit',
   minute: '2-digit',
   hour12: false,
@@ -118,14 +108,20 @@ const zhTimeFormat = new Intl.DateTimeFormat('zh-CN', {
   hour12: false,
 });
 
-/** `2026年10月27日 22:00`（JST） */
-export function formatCienTime(date: Date): string {
-  return jaIssueFormat.format(date);
+const monthDayFormat = new Intl.DateTimeFormat('ja-JP', {
+  timeZone: 'Asia/Tokyo',
+  month: 'numeric',
+  day: 'numeric',
+});
+
+/** `10/27`（JST）。Ci-en のタイトル前半に使う。 */
+export function formatCienMonthDay(date: Date): string {
+  return monthDayFormat.format(date);
 }
 
-/** 中国語版の時刻表示 `2026-10-27 22:00`（JST）。 */
-export function formatCienTimeZh(date: Date): string {
-  return zhIssueFormat.format(date).replace(/\//g, '-');
+/** 中国語版の日付 `2026-10-27`（JST）。 */
+export function formatCienDayZh(date: Date): string {
+  return zhDayFormat.format(date).replace(/\//g, '-');
 }
 
 /**
@@ -194,10 +190,10 @@ function renderBody(
   const headings = HEADINGS[lang];
   const blocks: string[] = [];
 
-  // 時刻は `#` ではなく span。`#` は言語の見出しに使ってしまったので、
-  // ここで大きくすると見出しが二段になって読みにくい。
-  const time = lang === 'ja' ? formatCienTime(issue.publishedAt) : `${formatCienTimeZh(issue.publishedAt)}（日本时间）`;
-  blocks.push(`<span style="font-size: 150%">${time}</span>`);
+  // 日付は**中国語版にだけ**置く。日本語版は直上のタイトルが `10/27` を持っているので、
+  // 同じ言語で二度書くことになる。時刻（22:00）はどちらにも書かない——
+  // この記事は 1 日ぶんのまとめで、何時に公開したかは読者にとって情報ではない。
+  if (lang === 'zh') blocks.push(`${formatCienDayZh(issue.publishedAt)}（日本时间）`);
 
   if (body.description?.trim()) blocks.push(body.description.trim());
 
@@ -240,7 +236,11 @@ function renderBody(
 }
 
 /**
- * Ci-en 用の本文を組み立てる。**中国語版 → 日本語版**の順に、それぞれ `#` で見出しを付ける。
+ * Ci-en 用の本文を組み立てる。
+ *
+ * 形は**固定**：1 行目のタイトル → `# 中文版` → `# 日本語版`。
+ * タイトルは `【声優Xまとめ 10/27】` + 钩子（`issue.hook`）。
+ * 前半の日付はここで作るので、中身と日付がずれることがない。
  *
  * どちらの言語も `CienIssue.people` の順に並べ、片方に訳が無い人は落とす
  * （＝中国語版に無い人は出さない、日本語版に無い人も出さない）。
@@ -257,8 +257,12 @@ export function cienText(
     canonical.set(handle.toLowerCase(), handle);
   }
 
+  const prefix = `【声優Xまとめ ${formatCienMonthDay(issue.publishedAt)}】`;
+  const hook = issue.hook?.trim() ?? '';
+
   return (
     [
+      `${prefix}${hook}`,
       '# 中文版',
       renderBody('zh', zh, issue, options, canonical),
       '# 日本語版',

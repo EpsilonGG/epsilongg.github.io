@@ -20,7 +20,7 @@ function shortTime(date: Date): string {
 
 <BaseLayout
   title="日报"
-  description="X（推特）声优动态日报存档，按小时编号，由本地 WorkBuddy 整理"
+  description="X（推特）声优动态日报存档，按小时编号"
   feeds={[{ title: `${site.name} · 日报`, href: '/daily/rss.xml' }]}
 >
   <div class="page">
@@ -72,8 +72,8 @@ function shortTime(date: Date): string {
           </div>
         ) : (
           <p class="empty-state">
-            暂无日报。日报由本地 WorkBuddy 基于 X-Reader 抓取的推文生成，每期一个目录
-            （YYMMDDHH），发布时由 <code>daily publish</code> 放进 data/daily/。
+            暂无日报。日报每天一期，每期一个目录（YYMMDDHH），
+            发布时由 <code>daily publish</code> 放进 data/daily/。
           </p>
         )
       }

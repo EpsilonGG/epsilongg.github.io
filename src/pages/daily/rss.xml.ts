@@ -17,7 +17,7 @@ export async function GET(context: APIContext) {
 
   return rss({
     title: `${site.name} · 日报`,
-    description: 'X（推特）声优动态日报，按小时编号存档，由本地 WorkBuddy 整理',
+    description: 'X（推特）声优动态日报，按小时编号存档',
     site: context.site ?? site.url,
     items: reports.map((report) => ({
       title: report.data.title,

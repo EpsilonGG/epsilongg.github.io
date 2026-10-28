@@ -281,17 +281,29 @@ export function cienReport(report: Daily, ja: DailyJa): string {
   const { data } = report;
   const people = data.people.filter((person) => categoryOf(person.handle) === 'seiyuu');
 
+  // Ci-en 版に載せる看点。`highlight_indexes` で選ぶ——「厂商側だけの看点は落とす」
+  // という判断は中身を見ないとできないので、言語をまたぐ自動判定にはしない。
+  // 空なら全部載せる（＝選んでいない期は今までどおり）。
+  const picks = ja.data.highlight_indexes;
+  const highlights =
+    picks.length > 0
+      ? picks
+          .map((index) => data.highlights[index]?.text)
+          .filter((text): text is string => Boolean(text))
+      : data.highlights.map((claim) => claim.text);
+
   return cienText(
     {
       id: report.id,
       publishedAt: data.pubDate,
       windowStart: data.issue.window.start,
       windowEnd: data.issue.window.end,
+      hook: ja.data.hook,
       people: people.map((person) => ({ handle: person.handle, via: person.via })),
     },
     {
-      description: data.description,
-      highlights: data.highlights.map((claim) => claim.text),
+      description: ja.data.description_zh || data.description,
+      highlights,
       works: data.works,
       people: people.map((person) => ({ handle: person.handle, summary: person.summary })),
     },

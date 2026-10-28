@@ -202,8 +202,26 @@ const dailyJa = defineCollection({
   }),
   schema: z.object({
     schema_version: z.number().int().default(1),
+    /**
+     * Ci-en のタイトル後半（钩子）。`【声優Xまとめ 10/27】` の前綴はコードが作るので、
+     * ここには書かない——日付を手で持つと、いつか中身と日付がずれる。
+     */
+    hook: z.string().trim().max(40, '标题钩子 ≤ 40 字（列表里超了会被截）').default(''),
     description: z.string().trim().max(140, '日语版副标题 ≤ 140 字').default(''),
+    /**
+     * Ci-en 版の**中国語**副標題。空なら正本の `description` を使う。
+     * 正本の副標題が厂商寄りでも、Ci-en 版は声优だけなので言い換えたいことがある。
+     */
+    description_zh: z.string().trim().max(70, '中文副标题 ≤ 70 字').default(''),
     highlights: z.array(z.string().trim().min(1)).default([]),
+    /**
+     * Ci-en 版に載せる中文 `highlights` の添字（0 起算）。
+     *
+     * Ci-en 版は声优栏目しか出さないので、厂商側だけの看点は落とす。落とす対象は
+     * 内容を見ないと決められないので、言語ごとの自動判定ではなくここで選ぶ。
+     * 空なら全部載せる。**`highlights` と同じ件数**にすること（闸门が見ている）。
+     */
+    highlight_indexes: z.array(z.number().int().min(0)).default([]),
     works: z.string().trim().default(''),
     interactions: z.array(z.string().trim().min(1)).default([]),
     /** 中文版 `people` 的顺序就是这里的顺序；`handle` 必须对得上。 */

@@ -36,6 +36,9 @@ ROSTER = ROOT / "src" / "config" / "daily-roster.json"
 # `・[**名前**](https://x.com/handle)：…` —— Ci-en 出口里人名行的唯一形状
 PERSON_LINE = re.compile(r"^・\[\*\*(.+?)\*\*\]\(https://x\.com/([A-Za-z0-9_]+)\)", re.M)
 
+# `【声優Xまとめ 10/27】…` —— Ci-en 出口的首行。日期由代码从发布时间生成
+TITLE_LINE = re.compile(r"^【声優Xまとめ (\d{1,2})/(\d{1,2})】")
+
 
 class Failure(Exception):
     pass
@@ -81,7 +84,8 @@ def check(dist: Path) -> list[str]:
     # 顺便钉住三件容易悄悄坏掉的事：
     # ① 记法——Ci-en 只认 `#` / `##` 见标题、`[..](..)` 链接、`<span style="font-size: 150%">`，
     #    混进 `- ` 或 `<a>` 的话贴过去当场变形；`**` 只许出现在人名链接的标签里。
-    # ② 版式——`# 中文版` 在前、`# 日本語版` 在后，两个都在。
+    # ② 版式——首行是 `【声優Xまとめ M/D】…`，然后 `# 中文版`、`# 日本語版`。
+    #    标题里的日期必须和期号对得上，否则就是「中身と日付が違う記事」。
     # ③ 范围——只收声优栏目；`やりとり` 那一段不再输出。
     ja_sources = sorted(p.parent.name for p in DATA.glob("*/report.ja.json"))
     seiyuu = _seiyuu_handles()
@@ -90,8 +94,21 @@ def check(dist: Path) -> list[str]:
         if not ja_out.exists():
             raise Failure(f"缺产物：{ja_out.relative_to(ROOT)}（有 report.ja.json 就必须有 .ja.txt）")
         body = ja_out.read_text(encoding="utf-8")
-        if not body.startswith("# 中文版\n"):
-            raise Failure(f"/daily/{issue_id}.ja.txt 不是以「# 中文版」开头（中文版在前，日文版在后）")
+        title = body.split("\n", 1)[0]
+        match = TITLE_LINE.match(title)
+        if not match:
+            raise Failure(
+                f"/daily/{issue_id}.ja.txt 首行不是 Ci-en 的固定标题（【声優Xまとめ M/D】…）：{title[:40]}"
+            )
+        month, day = int(match.group(1)), int(match.group(2))
+        want = (int(issue_id[2:4]), int(issue_id[4:6]))
+        if (month, day) != want:
+            raise Failure(
+                f"/daily/{issue_id}.ja.txt 标题写的是 {month}/{day}，期号是 {want[0]}/{want[1]}——"
+                "标题的日期由代码从发布时间生成，对不上说明正本的时间和期号不一致"
+            )
+        if "\n# 中文版\n" not in body:
+            raise Failure(f"/daily/{issue_id}.ja.txt 里没有「# 中文版」这一段")
         if "\n# 日本語版\n" not in body:
             raise Failure(f"/daily/{issue_id}.ja.txt 里没有「# 日本語版」这一段")
         if body.index("# 日本語版") < body.index("# 中文版"):
@@ -119,6 +136,17 @@ def check(dist: Path) -> list[str]:
                 "（Ci-en 播报只出声优）"
             )
 
+        # 看点是用 `highlight_indexes` 从中文版挑的，日语版逐条对应——
+        # 两边件数不一致就说明挑的时候漏了一条，读者会看到少一条的日文版。
+        ja_data = json.loads((DATA / issue_id / "report.ja.json").read_text(encoding="utf-8"))
+        picks = ja_data.get("highlight_indexes") or []
+        ja_count = len(ja_data.get("highlights") or [])
+        if picks and len(picks) != ja_count:
+            raise Failure(
+                f"{issue_id} 的 highlight_indexes 选了 {len(picks)} 条，"
+                f"日语版 highlights 有 {ja_count} 条——两边的条数必须一致"
+            )
+
     stray = sorted(
         p.name for p in (dist / "daily").glob("*.ja.txt") if p.name.split(".")[0] not in set(ja_sources)
     )
@@ -126,7 +154,7 @@ def check(dist: Path) -> list[str]:
         raise Failure(f"这些日语版出口没有对应的 report.ja.json：{'、'.join(stray)}")
     if ja_sources:
         notes.append(
-            f"{len(ja_sources)} 期有 Ci-en 出口（# 中文版 → # 日本語版，只收声优，## / [..](..) / <span>）"
+            f"{len(ja_sources)} 期有 Ci-en 出口（【声優Xまとめ M/D】→ # 中文版 → # 日本語版，只收声优）"
         )
 
     daily_rss = dist / "daily" / "rss.xml"

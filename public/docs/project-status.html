@@ -625,7 +625,7 @@
           <td>脚本与测试</td>
           <td><span class="pill pill--done">完成</span></td>
           <td><span class="meter"><span class="meter__track"><span class="meter__fill" style="--pct:100%"></span></span><span class="meter__pct">100%</span></span></td>
-          <td class="t-hide-sm">248 个用例（227 Python + 21 Node），含链接检查、图片清单对账、日报出口闸门与 Ci-en 记法契约</td>
+          <td class="t-hide-sm">250 个用例（227 Python + 23 Node），含链接检查、图片清单对账、日报出口闸门与 Ci-en 记法契约</td>
         </tr>
         <tr>
           <td>文档</td>
@@ -1249,7 +1249,7 @@
         <div class="block-item__head">
           <span class="block-item__name">3.19 日报栏目</span>
           <span class="pill pill--done">完成</span>
-          <span class="block-item__src">DailyLayout.astro · lib/daily.ts · lib/cien.ts · 357 + 306 + 268 行</span>
+          <span class="block-item__src">DailyLayout.astro · lib/daily.ts · lib/cien.ts · 357 + 318 + 272 行</span>
         </div>
         <p>
           第五个固定栏目，<strong>六个出口</strong>：<code>/daily/</code> 是<strong>归档列表</strong>（按月分组，
@@ -1258,7 +1258,8 @@
           <code>/daily/&lt;期号&gt;.json</code>（与正本逐字节相同的 JSON，给第三方和脚本）、
           <code>/daily/&lt;期号&gt;.txt</code>（纯文本，给复制粘贴和以后的视频稿），
           以及 <code>/daily/&lt;期号&gt;.ja.txt</code>（<strong>Ci-en 版</strong>，页面按钮就叫「Ci-en」：
-          中日双语，<code># 中文版</code> 在前、<code># 日本語版</code> 在后，只收声优栏目，
+          首行是固定标题 <code>【声優Xまとめ M/D】…</code>，然后中日双语、<code># 中文版</code> 在前、
+          <code># 日本語版</code> 在后，只收声优栏目，
           按 Ci-en 的记法排过版；只有存在 <code>report.ja.json</code> 的期号才有，页面上才挂按钮）。
           前三个从同一份 <code>report.json</code> 渲染，不另存数据；Ci-en 版是同一期的另一份文本，
           单独一个文件，不进正本。
