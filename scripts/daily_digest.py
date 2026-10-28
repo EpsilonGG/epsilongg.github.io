@@ -79,6 +79,7 @@ def main() -> int:
         "confirm",
         "publish",
         "migrate",
+        "ja",
         "state",
         "version",
     }:

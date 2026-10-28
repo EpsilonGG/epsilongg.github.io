@@ -35,6 +35,7 @@ class Published:
     issue_id: str
     path: Path
     replaced: bool
+    ja_path: Path | None = None
 
 
 def publish(
@@ -72,4 +73,15 @@ def publish(
 
     target.parent.mkdir(parents=True, exist_ok=True)
     target.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8", newline="\n")
-    return Published(issue_id, target, replaced)
+
+    # Ci-en 版是可选产物，但**有就一起发**：只发正本不发日文版，等于当天悄悄少了
+    # 一个出口，而 `data/daily/` 里少一个文件是没人会注意到的。
+    ja_source = paths.ja_report(source.parent)
+    ja_target: Path | None = None
+    if ja_source.exists():
+        ja_target = target.parent / "report.ja.json"
+        ja_target.write_text(
+            ja_source.read_text(encoding="utf-8"), encoding="utf-8", newline="\n"
+        )
+
+    return Published(issue_id, target, replaced, ja_target)

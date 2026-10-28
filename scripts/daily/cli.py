@@ -26,6 +26,7 @@ from pathlib import Path
 
 from . import SCHEMA_VERSION, __version__
 from . import confirm as confirm_mod
+from . import ja as ja_mod
 from . import migrate as migrate_mod
 from . import paths as path_mod
 from . import prompt as prompt_mod
@@ -498,6 +499,49 @@ def _cmd_publish(args: argparse.Namespace) -> int:
         return 1
     verb = "已覆盖" if result.replaced else "已发布"
     print(f"{verb}：{result.path}")
+    if result.ja_path:
+        print(f"Ci-en 版一起发了：{result.ja_path}")
+    else:
+        print(
+            "注意：这一期没有 report.ja.json，/daily/<期号>.ja.txt 不会生成。"
+            "要出 Ci-en 版就补跑 `daily ja --issue "
+            + args.issue
+            + "`。",
+            file=sys.stderr,
+        )
+    return 0
+
+
+def _cmd_ja(args: argparse.Namespace) -> int:
+    """M5 Ci-en 版：出题 / 判卷。
+
+    正本必须在工作区里（`out/<期号>/report.json`）——日文版是**正本的翻译**，
+    正本还没定稿就翻，等于翻一份明天还会变的东西。
+    """
+    report_path = path_mod.report(path_mod.workspace(args.out, args.issue))
+    if not report_path.exists():
+        raise SystemExit(f"找不到正本 {report_path}，先跑 `daily apply`。")
+    report = json.loads(report_path.read_text(encoding="utf-8"))
+    roster = Roster.load(args.roster)
+
+    if not args.answer:
+        task = ja_mod.write_task(args.issue, report, roster, args.out)
+        print(f"已写出 {task}")
+        print(
+            f"下一步：按题面翻好存成 out/{args.issue}.ja.json，再跑 "
+            f"`daily ja --issue {args.issue} --answer out/{args.issue}.ja.json`。"
+        )
+        return 0
+
+    try:
+        target = ja_mod.apply(
+            args.issue, args.answer, report, roster, args.out, force=args.force
+        )
+    except ja_mod.JaError as exc:
+        print(str(exc), file=sys.stderr)
+        return 1
+    print(f"已写入 {target}")
+    print(f"下一步：`daily publish --issue {args.issue}`（会把 report.ja.json 一起搬过去）")
     return 0
 
 
@@ -625,6 +669,16 @@ def main(argv: list[str] | None = None) -> int:
     migrate_cmd.add_argument("--dest", default=str(migrate_mod.DEFAULT_DEST), help="report.json 根目录")
     migrate_cmd.add_argument("--id", action="append", dest="ids", help="只处理这些期号（可重复）")
     migrate_cmd.set_defaults(func=_cmd_migrate)
+
+    ja_cmd = sub.add_parser("ja", help="M5 Ci-en 版：出题 / 判卷，产出 report.ja.json")
+    ja_cmd.add_argument("--issue", required=True)
+    ja_cmd.add_argument("--out", default="out")
+    ja_cmd.add_argument(
+        "--answer", default=None, help="日文版回答 JSON；不给就只出题（写 out/<期号>.ja-task.md）"
+    )
+    ja_cmd.add_argument("--roster", default=None, help="名单文件，默认 src/config/daily-roster.json")
+    ja_cmd.add_argument("--force", action="store_true", help="覆盖已有的 report.ja.json")
+    ja_cmd.set_defaults(func=_cmd_ja)
 
     state = sub.add_parser("state", help="增量状态的查看与维护")
     state_sub = state.add_subparsers(dest="state_cmd", required=True)

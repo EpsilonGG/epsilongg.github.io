@@ -85,7 +85,7 @@ data/daily/261031/report.json   →   /daily/261031/
 | `/daily/rss.xml` | **归档 feed**，独立于主 `/rss.xml`（那个只收「笔记」）；`pubDate` 用真实的 `published_at` |
 | `/daily/<期号>.json` | **JSON**，与 `data/daily/<期号>/report.json` 逐字节相同（含 `sources`），给第三方/脚本 |
 | `/daily/<期号>.txt` | **纯文本**，给复制粘贴和 M6 的视频稿；只换格式，不重新概括 |
-| `/daily/<期号>.ja.txt` | **Ci-en 版**，首行是固定标题 `【声優Xまとめ M/D】…`，然后中日双语（中文在前、日文在后），按 Ci-en 记法排过版，只收声优栏目；只有存在 `report.ja.json` 的期号才有 |
+| `/daily/<期号>.ja.txt` | **Ci-en 版**，首行是固定标题 `【声優Xまとめ M/D】…`，然后中日双语（中文在前、日文在后），按 Ci-en 记法排过版，只收声优栏目；每期都由 `daily ja` 产出，缺了 `publish` 会提醒 |
 
 > 独立 feed 的理由：日报每天一期且是 AI 整理的，混进主 feed 会改变既有订阅者收到的东西。分开后，归档页能翻，feed 能被阅读器收走。
 >
@@ -382,21 +382,39 @@ python scripts/daily_digest.py publish --issue <期号>
 - **默认不覆盖**：已经发布过的期号再发要显式 `--force`，避免「补一句摘要」悄悄改掉一份可能被引用过的 JSON；
 - **落盘前先过 schema**：字段写错在这里报，而不是等到 `npm run build`。
 
+`publish` 还会**顺手把 `out/<期号>/report.ja.json` 一起搬过去**（有的话）；没有就打印一行提醒，
+不会静默少一个出口。
+
 发布完 `npm run build`（本地要先 `mv dist` 绕开安全删除阈值）就能看到这一期。**没有 publish 这一步，站点不会变**——这是 M4 之前最常踩的坑。
 
-### 步骤 2.7 — 补 Ci-en 版（每期都要做）
+### 步骤 2.7 — 出 Ci-en 版（每期都要做，M5 起有命令）
 
-`publish` 之后、`push` 之前，写 `data/daily/<期号>/report.ja.json`。**这是固定动作，不是可选动作**——
-不写就没有 Ci-en 按钮，那期就白出了。
+**排在 `confirm` 之后、`publish` 之前**：日文版是正本的翻译，正本还没定稿就翻，等于翻一份
+明天还会变的东西。
 
-写四样东西（字段表见上面「Ci-en 版」一节）：
+```bash
+python scripts/daily_digest.py ja --issue <期号>                              # 出题
+python scripts/daily_digest.py ja --issue <期号> --answer out/<期号>.ja.json  # 判卷落盘
+```
 
-1. `hook`：标题后半句，写具体的人或公司，≤ 40 字。**不要写 `【声優Xまとめ 10/27】`**，前缀由代码按发布时间拼。
-2. `highlight_indexes`：中文版看点里哪几条进 Ci-en 版。**厂商侧独占的那条要挑掉**——Ci-en 版只谈声优。
-3. `description` / `description_zh`：日语副标题，以及中文副标题的改写（正本那句可能是在讲厂商）。
-4. `highlights` / `works` / `people[]`：日语正文，条数和顺序跟中文版对齐。
+这一步以前是「手写 `data/daily/<期号>/report.ja.json`」，没有任何检查，也没有人负责——
+261028 那期 CI 出稿之后压根没人记得写，当天就没有 Ci-en 稿可发。现在它是一道固定工序：
 
-写完 `npm run build` 一次，构建日志会报「日语版缺 N 人」；`npm run check:daily` 会查标题日期与期号是否一致、`highlight_indexes` 与 `highlights` 条数是否相等。
+- **不给 `--answer` 就出题**：写 `out/<期号>.ja-task.md`，里面是中文正本 + 规则 + 输出骨架。
+  题面已经标好哪些人是声优、哪些「跳过（制造商）」，还会附上本期用到的术语
+  （`data/glossary.json` 里 `zh` 出现在原文的那些），避免同一个人两天两种译法。
+- **给了 `--answer` 就判卷**：一次报出所有问题——`hook`／`description` 长度、
+  `highlight_indexes` 越界或与 `highlights` 条数不等、`people` 的 handle 不在本期正本里、
+  **不是声优**、顺序和中文版不一致，以及正文里出现 `**`／`- `／`<a>`／`<span>`／`<iframe>`。
+  通过后写 `out/<期号>/report.ja.json`（工作区，不是站点）。
+- 之后 `publish` 自动把它一起搬到 `data/daily/<期号>/`。
+
+**要点**：`highlight_indexes` 要挑掉「厂商侧独占」的看点，Ci-en 版只谈声优；`description_zh`
+是中文副标题的改写（正本那句可能在讲厂商，比如「CHAOS-R 新作完工」）。字段细节见上面
+「Ci-en 版」一节。
+
+写完 `npm run build`，构建日志会报「日语版缺 N 人」；`npm run check:daily` 会查标题日期与期号
+是否一致、`highlight_indexes` 与 `highlights` 条数是否相等。
 
 ### 步骤 3 — 提交并推送站点仓库
 
@@ -471,6 +489,8 @@ commit（2026-10-26 就把一篇 496 行的新访谈卷进了「docs: 抓取侧�
 | `src/config/navigation.json` | 顶部导航的"日报"入口 |
 | `data/daily/<期号>/report.json` | **产出（已发布）**：站点读的正本，目录名即覆盖日 |
 | `out/<期号>/report.json` | 工作区正本（草稿/已定稿），`publish` 才搬到 `data/daily/` |
+| `scripts/daily/ja.py` | M5 Ci-en 版：出题（`build_task`）与判卷（`validate` / `apply`），产出 `report.ja.json` |
+| `data/daily/<期号>/report.ja.json` | Ci-en 版（可选但**每期都该有**）：`.ja.txt` 出口的数据源 |
 
 ### 2.2 X-Reader 端（抓取侧）
 
@@ -653,13 +673,16 @@ npm run golden:daily:switch -- --id 261025
      （summary ≤70 字 / works / highlights / interactions / people[].summary，每条带 sources）
      python scripts/daily_digest.py apply --issue <期号> --answer out/<期号>/answer/all.json
   4) python scripts/daily_digest.py confirm --issue <期号>   # 定稿（会再判一次卷）
-     python scripts/daily_digest.py publish --issue <期号>   # 搬到 data/daily/
-  5) python scripts/push_site.py -m "daily: <期号>" --path data/daily/
+  5) python scripts/daily_digest.py ja --issue <期号>        # 出 Ci-en 版题面
+     让 WorkBuddy 按 out/<期号>.ja-task.md 翻好，存成 out/<期号>.ja.json
+     python scripts/daily_digest.py ja --issue <期号> --answer out/<期号>.ja.json
+  6) python scripts/daily_digest.py publish --issue <期号>   # 搬到 data/daily/（含 ja）
+  7) python scripts/push_site.py -m "daily: <期号>" --path data/daily/
 
 期号：YYMMDD（JST，被覆盖的那一天）。2026-10-31 → 261031 → /daily/261031/
 同日第二期：261031-2（用 --new 排号）
 存档：/daily/（按月分组） 订阅：/daily/rss.xml
-出口：/daily/<期号>.json（正本逐字节相同） · /daily/<期号>.txt（纯文本）
+出口：/daily/<期号>.json（正本逐字节相同） · /daily/<期号>.txt（纯文本） · /daily/<期号>.ja.txt（Ci-en，需 report.ja.json）
 判卷：python scripts/daily_digest.py audit --issue <期号> [--published]
 ```
 

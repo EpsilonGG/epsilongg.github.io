@@ -79,8 +79,10 @@ def check(dist: Path) -> list[str]:
 
     notes.append(f"{len(sources)} 期：HTML + JSON + TXT 三种出口齐全，JSON 与正本逐字节相同")
 
-    # Ci-en 出口（中日双语）是可选的：有 `report.ja.json` 就必须有 `.ja.txt`，
+    # Ci-en 出口（中日双语）：有 `report.ja.json` 就必须有 `.ja.txt`，
     # 反过来没有的期号不许冒出空文件——否则页面上会多一个点开是空的按钮。
+    # 2026-10-28 起它是每日流程的一步（`daily ja`），不再算「彩蛋」；但缺了只提醒
+    # 不拦构建——CI 不跑翻译，拦下来就是每天红一次。
     # 顺便钉住三件容易悄悄坏掉的事：
     # ① 记法——Ci-en 只认 `#` / `##` 见标题、`[..](..)` 链接、`<span style="font-size: 150%">`，
     #    混进 `- ` 或 `<a>` 的话贴过去当场变形；`**` 只许出现在人名链接的标签里。
@@ -156,6 +158,15 @@ def check(dist: Path) -> list[str]:
         notes.append(
             f"{len(ja_sources)} 期有 Ci-en 出口（【声優Xまとめ M/D】→ # 中文版 → # 日本語版，只收声优）"
         )
+
+    # 最新一期没有 Ci-en 版就点名——261028 那期就是「谁也没想起来」漏掉的。
+    newest = max(
+        (p.parent.name for p in DATA.glob("*/report.json")),
+        key=lambda i: (i[:6], int(i.split("-")[1]) if "-" in i else 1),
+        default=None,
+    )
+    if newest and newest not in set(ja_sources):
+        print(f"  ! 最新一期 {newest} 没有 Ci-en 版（跑 `daily ja --issue {newest}` 补上）")
 
     daily_rss = dist / "daily" / "rss.xml"
     if not daily_rss.exists():

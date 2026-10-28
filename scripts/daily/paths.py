@@ -25,6 +25,11 @@ def report(ws: Path) -> Path:
     return ws / "report.json"
 
 
+def ja_report(ws: Path) -> Path:
+    """Ci-en 版（日文）。可选产物：没有它就没有 `.ja.txt` 出口。"""
+    return ws / "report.ja.json"
+
+
 def history(ws: Path) -> Path:
     return ws / "history"
 
