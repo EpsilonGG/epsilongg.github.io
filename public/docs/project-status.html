@@ -467,7 +467,7 @@
         <span class="kpi__label">外部 JS 文件</span>
       </div>
       <div class="kpi__item">
-        <span class="kpi__num">268</span>
+        <span class="kpi__num">277</span>
         <span class="kpi__label">测试全过</span>
       </div>
       <div class="kpi__item">
@@ -525,7 +525,7 @@
     <div class="cards">
       <div class="card">
         <h4>能用</h4>
-        <p>23 个页面全部 200；构建 0 报错；<code>astro check</code> 0 错 0 警；268 个测试全过（Python 245 + Node 23）、631 个站内链接零死链；每次推送自动部署，线上已验证。</p>
+        <p>23 个页面全部 200；构建 0 报错；<code>astro check</code> 0 错 0 警；277 个测试全过（Python 250 + Node 27）、631 个站内链接零死链；每次推送自动部署，线上已验证。</p>
       </div>
       <div class="card">
         <h4>能改</h4>
@@ -625,7 +625,7 @@
           <td>脚本与测试</td>
           <td><span class="pill pill--done">完成</span></td>
           <td><span class="meter"><span class="meter__track"><span class="meter__fill" style="--pct:100%"></span></span><span class="meter__pct">100%</span></span></td>
-          <td class="t-hide-sm">268 个用例（245 Python + 23 Node），含链接检查、图片清单对账、日报出口闸门与 Ci-en 记法契约</td>
+          <td class="t-hide-sm">277 个用例（250 Python + 27 Node），含链接检查、图片清单对账、日报出口闸门与 Ci-en 记法契约</td>
         </tr>
         <tr>
           <td>文档</td>
@@ -1010,7 +1010,7 @@
           第二次运行基本是空转。
         </p>
         <p>
-          测试合计 <strong>268 个用例</strong>（Python 245 + Node 23）：
+          测试合计 <strong>277 个用例</strong>（Python 250 + Node 27）：
         </p>
         <ul>
           <li><code>test_readme_sync.py</code>（24 个）：marker 缺失、顺序错乱、内容为空、日期格式化</li>
@@ -1024,6 +1024,10 @@
           <li><code>tests/markdown/*.test.mjs</code>（11 个，<code>node --test</code>）：
               图注插件的单图 / 并组 / 行内图 / 链接图 / picture 五种情形，
               外加并组后 <code>sizes</code> 是否跟着缩半</li>
+          <li><code>tests/cien/*.test.mjs</code>（16 个，<code>node --test</code>）：
+              Ci-en 记法契约（<code>**</code> 只在人名链接里、不用 <code>-</code> 列表、无 <code>&lt;a&gt;</code>）、
+              中日在前的顺序、联系邮箱只在末尾出现一次，外加一条扫全部已发布期号的
+              <strong>中日副标题一句对一句</strong>回归</li>
         </ul>
         <div class="block-item__left">
           剩余：页面本身仍然没有"渲染结果"级别的测试——死链和锚点这一轮补上了，
@@ -1260,7 +1264,10 @@
           以及 <code>/daily/&lt;期号&gt;.ja.txt</code>（<strong>Ci-en 版</strong>，页面按钮就叫「Ci-en」：
           首行是固定标题 <code>【声優Xまとめ M/D】…</code>，然后中日双语、<code># 中文版</code> 在前、
           <code># 日本語版</code> 在后，只收声优栏目，
-          按 Ci-en 的记法排过版；每期都由 <code>daily ja</code> 产出 <code>report.ja.json</code>，没有就不挂按钮，<code>check:daily</code> 会点名最新一期）。
+          按 Ci-en 的记法排过版；<strong>中日副标题一句对一句</strong>，分句数不等会被判卷拦下；
+          末尾一节 <code>## お問い合わせ / 联系方式</code> 放联系邮箱，地址只从
+          <code>profile.json</code> 取、不进数据；每期都由 <code>daily ja</code> 产出 <code>report.ja.json</code>，
+          没有就不挂按钮，<code>check:daily</code> 会点名最新一期）。
           前三个从同一份 <code>report.json</code> 渲染，不另存数据；Ci-en 版是同一期的另一份文本，
           单独一个文件，不进正本。
         </p>
@@ -2493,7 +2500,7 @@
 │   ├── daily.sh                一键：pull → digest → 提示写摘要（39 行）
 │   └── sample_items/           离线样例，供脚本自测
 ├── data/daily/{期号}/report.json   ★ 日报正本（站点读它，目录名即期号）
-├── tests/                    268 个用例（Python 245 + Node 23）+ golden/
+├── tests/                    277 个用例（Python 250 + Node 27）+ golden/
 ├── README.md                 主页名片 + 文档导航
 ├── README/                   quickstart / project / blog-guide / fork / ads + reports/
 ├── docs/                     daily-report-guide.md（跨仓库的日报流水线，不进部署）
@@ -2577,7 +2584,7 @@
   <footer class="doc-foot">
     <p>
       体检时间 2026-10-25（页面、链接、体积数字为本次构建实测；第六节的外部站点对照仍是 2026-10-24 抓取）。数据来自实际构建产物、源码统计与现场抓取：
-      23 个 HTML 页面、单 CSS 38,825 字节（gzip 6,948）、0 个外部 JS 文件、268 个测试用例、
+      23 个 HTML 页面、单 CSS 38,825 字节（gzip 6,948）、0 个外部 JS 文件、277 个测试用例、
       产物 15 MB（原图 7.2 MB + WebP 变体 6.3 MB + 字体 136 KB + 其余约 700 KB）、
       <code>astro check</code> 0 错 0 警 0 提示，Astro 7.4.2 / Sätteri 0.4.5 / Node ≥ 22.23.4。
     </p>

@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>个人主页项目进展报告 · 2026-10-26</title>
+<title>个人主页项目进展报告 · 2026-10-28</title>
 <style>
   :root {
     --ink: #111;
@@ -120,20 +120,44 @@
 <header class="top">
   <h1>个人主页项目进展报告</h1>
   <p class="sub">主页整体 · 笔记 · 日报 三个模块的完成度、同类项目对照、待办与计划</p>
-  <p class="meta">2026-10-26 深夜修订 ｜ 数据全部现场实测 ｜ 本轮：补齐两篇 AI 译文配图、标签收敛为六个、日报列表去掉副标题、新增全文搜索与术语表实测、所有对照项目补上原地址与界面地址</p>
+  <p class="meta">2026-10-28 深夜修订 ｜ 数据全部现场实测 ｜ 本轮：Ci-en 版中日副标题统一分句数、末尾加联系邮箱、把出 Ci-en 版写成固定工序；新增 §5 参考站 Web Atlas 的排版取舍分析</p>
   <p class="toc">
     <a href="#diff">0 这次改了什么</a>
     <a href="#score">1 完成度总表</a>
     <a href="#home">2 主页整体</a>
     <a href="#notes">3 笔记</a>
     <a href="#daily">4 日报</a>
-    <a href="#appendix">5 附录</a>
+    <a href="#atlas">5 参考站 Web Atlas</a>
+    <a href="#appendix">6 附录</a>
   </p>
 </header>
 
 <h2 id="diff"><span class="num">0</span>这次改了什么</h2>
 
-<p>上一轮报告是「体检」，这一轮是「体检 + 做完了几件事」。七处变化，前四处动了代码：</p>
+<h3>0.1 10-28 这一轮：Ci-en 版变成工序，中日两版对齐</h3>
+
+<p>这一轮全部落在「日报的第六个出口」上，没有动页面布局。起因是一句很具体的抱怨：中文版和日文版的标题，分句数不一样。</p>
+
+<div class="scroll">
+<table>
+<thead><tr><th>#</th><th class="wrap">变化</th><th class="wrap">落在哪</th><th>性质</th></tr></thead>
+<tbody>
+<tr><td class="num">1</td><td class="wrap">出 Ci-en 版从「手写清单」变成固定工序：<code>daily ja</code> 出题 → 判卷 → <code>publish</code> 一起搬走，缺了会提醒</td><td class="wrap"><code>scripts/daily/ja.py</code>、<code>cli.py</code>、<code>publish.py</code>、<code>scripts/daily.sh</code></td><td><span class="tag ok">已做完</span></td></tr>
+<tr><td class="num">2</td><td class="wrap">中日副标题强制一句对一句：<code>hook</code>／<code>description</code>／<code>description_zh</code> 分句数必须相同，判卷直接拦下</td><td class="wrap"><code>src/lib/cien.ts</code>（<code>splitClauses</code>）、<code>scripts/daily/ja.py</code></td><td><span class="tag ok">已做完</span></td></tr>
+<tr><td class="num">3</td><td class="wrap">Ci-en 版末尾加联系邮箱，地址只从 <code>profile.json</code> 取，不进 <code>report.ja.json</code></td><td class="wrap"><code>src/lib/cien.ts</code>、<code>src/lib/daily.ts</code></td><td><span class="tag ok">已做完</span></td></tr>
+<tr><td class="num">4</td><td class="wrap">261027 / 261028 两期的日文副标题各改成 2 句，和中文对齐</td><td class="wrap"><code>data/daily/*/report.ja.json</code></td><td><span class="tag ok">已做完</span></td></tr>
+<tr><td class="num">5</td><td class="wrap">参考站 Web Atlas 的排版取舍：三条可抄、两条现在别抄、五条不抄</td><td class="wrap">本文 §5</td><td><span class="tag half">已判明，未实施</span></td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="note warn">
+<p><strong>为什么第 1 条比看起来重要：</strong>261028 是 CI 出稿的第一期，出稿当天没有 Ci-en 稿可发。不是忘了，是流程里根本没有这一步——文档写着「每期都要做」，但那是一句给人看的提醒，不是一道会失败的闸门。现在它是工序：漏了 <code>publish</code> 会往 stderr 喊，<code>check:daily</code> 会点名最新一期。</p>
+</div>
+
+<h3>0.2 10-26 那一轮（保留原文）</h3>
+
+<p>上一轮是「体检 + 做完了几件事」。七处变化，前四处动了代码：</p>
 
 <div class="scroll">
 <table>
@@ -622,51 +646,150 @@ export async function GET({ props }) {
 </table>
 </div>
 
-<h2 id="appendix"><span class="num">5</span>附录</h2>
+<h2 id="atlas"><span class="num">5</span>参考站：Web Atlas，有什么值得抄</h2>
 
-<h3>5.1 本轮改动的文件</h3>
+<p>先给结论：<strong>它的「地图」不能抄，它的「首屏先说承诺」和「卡片里给一行元信息」可以抄；中间那一层（前置依赖、学习进度）看着最漂亮，恰恰是本站最不该有的东西。</strong></p>
 
-<pre><code>新增  src/config/tags.json            标签白名单（六个）
-新增  src/config/tags.ts              白名单的类型包装
-新增  data/glossary.json              术语表 25 条
-新增  scripts/check_glossary.py       术语一致性检查
-新增  README/translation-style.md     译文用语规范
-新增  X-Reader/scripts/probe_instances.py   Nitter 实例探测
-新增  public/images/blog/gamespark-nicolith-interview/   22 张
-新增  public/images/blog/gamespark-tca-okuchi-interview/ 3 张
-改    src/content.config.ts           标签白名单校验（superRefine）
-改    src/pages/daily/index.astro     去掉列表副标题
-改    src/styles/components.css       收掉两栏网格与 summary 样式
-改    src/content/blog/*.md           8 篇标签迁移；2 篇插图；1 篇术语修正
-改    package.json                    新增 check:glossary
-改    README/blog-guide.md            §2.0 标签、§4.5 配图流程
-改    notes-maintenance/SKILL.md      「图片获取与适配」整节
-改    X-Reader/config/config.yaml     candidates 段 + 环境限制注释</code></pre>
+<h3>5.1 它是什么，硬指标先摆出来</h3>
 
-<h3>5.2 复现命令</h3>
+<p><code>web-atlas.cn.xueayi.site</code>（Web Atlas · 全栈概念实验室）是同一个作者的另一件作品，性质是<strong>教学地图</strong>，不是记录站。首屏一句话：「把零散的知识，连成全栈地图。」副句是「从全局看清每一层的职责，再通过实验、项目和反馈理解它们的联系」，下面一个按钮「从这里开始 · 第一课 · 全局视角」。正文是一张 <strong>18 个主题</strong>的知识地图，分 4 个 PHASE，每个主题带编号、中文标题、英文副名和「前置」依赖。</p>
+
+<div class="scroll">
+<table>
+<thead><tr><th class="wrap">指标</th><th class="wrap">实测值</th></tr></thead>
+<tbody>
+<tr><td class="wrap">形态</td><td class="wrap">纯单页应用：HTML 外壳 <strong>645 字节</strong>，body 里只有一个 <code>&lt;div id="root"&gt;&lt;/div&gt;</code></td></tr>
+<tr><td class="wrap">脚本</td><td class="wrap">270,571 字节（gzip 89,152），React + Vite 单包</td></tr>
+<tr><td class="wrap">样式</td><td class="wrap">33,463 字节，绿色系：<code>--ink #223c35</code> / <code>--green #28745a</code> / <code>--mint #e7f2eb</code> / <code>--bg #f8faf7</code></td></tr>
+<tr><td class="wrap">导航</td><td class="wrap">固定侧栏 <code>--sidebar: 224px</code>，窄屏塌成 202px，再窄塌成 0</td></tr>
+<tr><td class="wrap">主视图</td><td class="wrap"><code>.map-grid</code> 四列等宽网格（<code>repeat(4, minmax(0,1fr))</code>，gap 16px），一列一个 PHASE：4 / 4 / 4 / 6 个主题</td></tr>
+<tr><td class="wrap">卡片</td><td class="wrap"><code>.topic-node</code> 是 <code>&lt;button&gt;</code>，min-height 130px，圆角 9px，1px 描边，悬停上浮 3px 加阴影</td></tr>
+<tr><td class="wrap">字号</td><td class="wrap">节点标题 11px、英文副名 8px、阶段标签 8px（字距 1.5px）、底部图例 9px</td></tr>
+<tr><td class="wrap">状态</td><td class="wrap"><code>localStorage</code> 存 <code>{version, progress, projectChecks}</code>；路由用 <code>hashchange</code>，不是真路径</td></tr>
+</tbody>
+</table>
+</div>
+
+<p class="dim">均为 2026-10-28 现场取值：<code>curl</code> 首页与 <code>index-*.css</code> / <code>index-*.js</code>，读 CSS 变量与类规则，<code>gzip -c</code> 量压缩后体积。对照本站：26 个静态 HTML、零外部 JS、脚本全部内联 10.1 KB。</p>
+
+<h3>5.2 逐条过一遍：抄 / 现在别抄 / 不抄</h3>
+
+<div class="scroll">
+<table>
+<thead><tr><th class="wrap">它的做法</th><th>值不值得抄</th><th class="wrap">理由</th></tr></thead>
+<tbody>
+<tr>
+  <td class="wrap"><strong>首屏先说「你会得到什么」</strong>：「把零散的知识，连成全栈地图」+ 一句副句 + 一个具体动作，之后才讲内容</td>
+  <td><span class="tag ok">值得</span></td>
+  <td class="wrap">本站首页第一屏讲的是「我是谁」（名字、<code>学生物的Galgamer</code>、两行 intro），没有一个字说「这个站在做什么」。加一句承诺不用动布局，只是 <code>profile.json</code> 里的一行字</td>
+</tr>
+<tr>
+  <td class="wrap"><strong>每张卡一行元信息</strong>：编号 + 中文标题 + 英文副名 + 一行「前置：…」，四行高度一致</td>
+  <td><span class="tag ok">值得</span></td>
+  <td class="wrap">抄的是<strong>卡内结构</strong>，不是网格。本站笔记列表现在是「标题 + 日期 + 标签 + 摘要」，缺的是「一眼能判断要不要点」的那行——日期、标签、字数压成一行就够</td>
+</tr>
+<tr>
+  <td class="wrap"><strong>贯穿式走查</strong>：「一个请求，如何变成一个页面？」浏览器 → 网络 → 服务端 → 数据库，四个节点串成一条线，还有一句「← 响应让界面发生变化」收尾</td>
+  <td><span class="tag ok">值得</span></td>
+  <td class="wrap">本站有一件现成的对应物：<strong>一期日报怎么来的</strong>——302 个账号 → <code>x.jsonl</code> → 归类 → 出稿 → 判卷 → 6 个出口。这条链路现在只写在 <code>docs/daily-report-guide.md</code> 里，是给人读的长文，没有一张图</td>
+</tr>
+<tr>
+  <td class="wrap"><strong>图例</strong>：「必须掌握：能解释、能审查 / 理解即可：知道边界和取舍 / 竖线表示推荐顺序，实际依赖见「前置」」</td>
+  <td><span class="tag half">现在别抄</span></td>
+  <td class="wrap">这正是上一轮从 <code>/daily/</code> 删掉的东西的另一种形式。日报那三个栏目按钮（声优 / 社团 / 厂商）确实没有说明，但你要的是「列表里不要多余文字」——真要做，放 <code>public/docs/</code> 的运维页，不放列表页</td>
+</tr>
+<tr>
+  <td class="wrap"><strong>四列阶段网格</strong>：一列一个 PHASE，横向读是「推荐顺序」</td>
+  <td><span class="tag bad">不抄</span></td>
+  <td class="wrap">它有 18 个主题，每列 4–6 张，网格才立得住。本站笔记现在 8 篇，摊进四列是每列 2 张——那不是地图，是空货架。等 15 篇以上再谈</td>
+</tr>
+<tr>
+  <td class="wrap"><strong>前置依赖（严格 DAG）</strong>：每张卡标「前置：请求旅程 · HTTP」，第一张写「起点 · 无前置要求」</td>
+  <td><span class="tag bad">不抄</span></td>
+  <td class="wrap">它的 18 个主题是<strong>教学单元</strong>，先学 A 才看得懂 B，这是真的。本站笔记是独立文章——访谈译文、工具笔记、术语讨论之间没有依赖关系，硬造一张 DAG 就是<strong>伪结构</strong>，读者按它去读会踩空</td>
+</tr>
+<tr>
+  <td class="wrap"><strong>「继续学习」+ 完成勾选</strong>：<code>localStorage</code> 记进度，点过的节点变绿</td>
+  <td><span class="tag bad">不抄</span></td>
+  <td class="wrap">要客户端状态，直接撞上零 JS 铁律。而且本站没有「学完」这个概念——笔记是读物，不是课程</td>
+</tr>
+<tr>
+  <td class="wrap"><strong>hash 路由 SPA</strong>：<code>#/topic/07</code> 这类地址，整页靠 JS 渲染</td>
+  <td><span class="tag bad">不抄</span></td>
+  <td class="wrap">关掉 JS 就是空白页，每张卡<strong>没有独立 URL</strong>，也就没有独立的 OG 图、没有 RSS 条目、没有被引用的锚点。本站 26 个静态 HTML 的整个价值就在这一点上</td></tr>
+<tr>
+  <td class="wrap"><strong>绿色系配色 + 8–11px 字号</strong></td>
+  <td><span class="tag bad">不抄</span></td>
+  <td class="wrap">颜色与黑白灰铁律直接冲突。字号更要注意：它把英文副名压到 8px 是因为那行<strong>只是装饰</strong>；中文没有大小写和词间距，11px 的正文读起来是折磨</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>还有一条<strong>不算抄不抄，算提醒</strong>：它用 270 KB 的 JS 换来一张能点、能记进度、能筛「必须掌握 / 理解即可 / 用时查阅」的地图。这个交换对教学站是划算的——用户会回来第二十次。本站的读者是「搜到一篇访谈，读完就走」，同一个交换不划算。</p>
+
+<h3>5.3 真要动手，落在哪三处</h3>
+
+<p>三条都不用写 JS，按成本从低到高：</p>
+
+<div class="scroll">
+<table>
+<thead><tr><th>优先级</th><th class="wrap">做什么</th><th class="wrap">动哪个文件</th><th class="wrap">验收</th></tr></thead>
+<tbody>
+<tr><td><span class="tag ok">P1</span></td><td class="wrap">首页第一屏加一句「这个站在做什么」——一句承诺，不是自我介绍</td><td class="wrap"><code>src/config/profile.json</code>（<code>tagline</code> 或 <code>intro[0]</code>）</td><td class="wrap">375px 宽下第一屏仍能看见头像、名字、承诺三样，且不出现横向滚动</td></tr>
+<tr><td><span class="tag">P2</span></td><td class="wrap">笔记列表每行补一行元信息：日期 · 标签 · 字数</td><td class="wrap"><code>src/pages/blog/index.astro</code>、<code>components.css</code></td><td class="wrap">不加任何 JS；列表总高度增幅 &lt; 15%；窄屏下这行能折行不溢出</td></tr>
+<tr><td><span class="tag">P2</span></td><td class="wrap">一页「一期日报是怎么来的」：302 账号 → 6 个出口的链路图</td><td class="wrap"><code>public/docs/daily-pipeline.html</code>（新页）</td><td class="wrap">每个箭头都能点回对应文件或命令；<code>npm run links</code> 全绿</td></tr>
+</tbody>
+</table>
+</div>
+
+<p class="dim">不做：四列地图（等 15 篇）、前置依赖、学习进度、hash 路由、绿色系。这五项再讨论一次的成本高于收益——理由在 §5.2，逐条写了。</p>
+
+<h3>5.4 一句话</h3>
+
+<p><strong>它把「知识」排成一张图，本站把「一天」写成一篇文。</strong>图要靠前置关系和进度记忆才立得住，这两样本站都不该有。能抄的只有两件：<strong>首屏先说承诺</strong>，和<strong>卡片里给一行元信息</strong>——前者是文案，后者是排版，都不需要一克 JavaScript。</p>
+
+<h2 id="appendix"><span class="num">6</span>附录</h2>
+
+<h3>6.1 本轮（10-28）改动的文件</h3>
+
+<p class="dim">10-26 那一轮的文件清单不再重复列——它已经在 <code>git log</code> 里，本文 §0.2 保留了那一轮的变化表。</p>
+
+<pre><code>改    src/lib/cien.ts                splitClauses() + 末尾联系邮箱一节
+改    src/lib/daily.ts               contact 从 profile.json 取
+改    scripts/daily/ja.py            分句数判卷 + 正文自带邮箱判卷 + 题面两条新规则
+改    data/daily/261027/report.ja.json   日文副标题 3 句 → 2 句
+改    data/daily/261028/report.ja.json   日文副标题 3 句 → 2 句
+改    docs/daily-report-guide.md     §Ci-en 版、§2.7、示例正文
+改    tests/cien/cien.test.mjs      联系邮箱 2 条 + 分句 1 条 + 全期回归 1 条
+改    tests/test_daily_ja.py         分句数、句数上限、正文邮箱、题面规则 5 条</code></pre>
+
+<h3>6.2 复现命令</h3>
 
 <pre><code>npm run build              # 21 路由，26 个 HTML
 npm run images             # 增量生成 WebP 变体
 npm run check:glossary     # 术语一致性（--strict 可接 CI）
 npm run links              # 站内死链
 npm run check:daily        # 日报三产物 + Feed 隔离 + 金文件
+npm run test:cien          # Ci-en 记法契约 + 中日副标题一句对一句
+npm run test:md            # Markdown 渲染契约
 
 # 全文搜索体积实测（不写进仓库，只为取数）
 npx pagefind --site dist --output-subdir pagefind
 du -sb dist/pagefind/index dist/pagefind/fragment</code></pre>
 
-<h3>5.3 数据来源</h3>
+<h3>6.3 数据来源</h3>
 
 <ul>
 <li>Star 数、许可证、归档状态、homepage：GitHub API，2026-10-26 现场查询。</li>
 <li>Pagefind 体积：本机 <code>dist</code> 现状，三次不同索引范围，同一版本。</li>
 <li>Nitter 探测：本机代理环境，<code>re_re_tsubame</code> 作探针，超时 8–20 秒，两次独立复核。</li>
 <li>Frost 站点：<code>frost.cn.xueayi.site</code>，无头浏览器截图 + 读 <code>app.js</code> / <code>style.css</code>。</li>
+<li>Web Atlas：<code>web-atlas.cn.xueayi.site</code>，2026-10-28 用 <code>curl</code> 取首页外壳、<code>index-*.css</code>（33,463 B）、<code>index-*.js</code>（270,571 B / gzip 89,152 B），读 CSS 变量与 <code>.topic-node</code> 规则；正文结构与文案由页面正文核对。</li>
 <li>笔记字数、标签分布、图片张数：脚本统计 <code>src/content/blog/*.md</code> 与 <code>public/images</code>。</li>
 </ul>
 
 <footer>
-<p>报告为一次性产物，放在 <code>README/reports/</code>，不参与构建、不被站点链接。第一版：<code>project-progress-2026-10.html</code>；本版：<code>project-progress-2026-10-v2.html</code>。</p>
+<p>报告为一次性产物，放在 <code>README/reports/</code>，不参与构建、不被站点链接。第一版：<code>project-progress-2026-10.html</code>；本版：同一文件（10-28 修订，§0 保留 10-26 那一轮的原文）。</p>
 </footer>
 
 </div>
