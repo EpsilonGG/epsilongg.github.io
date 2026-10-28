@@ -1,6 +1,6 @@
 {
   "$comment": "由 scripts/optimize_images.mjs 生成，请勿手改。",
-  "generatedAt": "2026-10-27T11:34:43.422Z",
+  "generatedAt": "2026-10-28T16:59:25.262Z",
   "images": {
     "/images/blog/busara-bugbug-interview/01.jpg": {
       "w": 900,
@@ -299,6 +299,126 @@
           "w": 1080,
           "src": "/images/blog/busara-bugbug-interview/15-1080.webp",
           "bytes": 32608
+        }
+      ]
+    },
+    "/images/blog/gamespark-edgerunners2-interview/01.jpg": {
+      "w": 670,
+      "h": 446,
+      "bytes": 82597,
+      "variants": [
+        {
+          "w": 670,
+          "src": "/images/blog/gamespark-edgerunners2-interview/01-670.webp",
+          "bytes": 36062
+        }
+      ]
+    },
+    "/images/blog/gamespark-edgerunners2-interview/02.jpg": {
+      "w": 670,
+      "h": 446,
+      "bytes": 60048,
+      "variants": [
+        {
+          "w": 670,
+          "src": "/images/blog/gamespark-edgerunners2-interview/02-670.webp",
+          "bytes": 23442
+        }
+      ]
+    },
+    "/images/blog/gamespark-edgerunners2-interview/03.jpg": {
+      "w": 670,
+      "h": 446,
+      "bytes": 57994,
+      "variants": [
+        {
+          "w": 670,
+          "src": "/images/blog/gamespark-edgerunners2-interview/03-670.webp",
+          "bytes": 21102
+        }
+      ]
+    },
+    "/images/blog/gamespark-edgerunners2-interview/04.png": {
+      "w": 670,
+      "h": 376,
+      "bytes": 280100,
+      "variants": [
+        {
+          "w": 670,
+          "src": "/images/blog/gamespark-edgerunners2-interview/04-670.webp",
+          "bytes": 16042
+        }
+      ]
+    },
+    "/images/blog/gamespark-edgerunners2-interview/05.png": {
+      "w": 670,
+      "h": 376,
+      "bytes": 334521,
+      "variants": [
+        {
+          "w": 670,
+          "src": "/images/blog/gamespark-edgerunners2-interview/05-670.webp",
+          "bytes": 20942
+        }
+      ]
+    },
+    "/images/blog/gamespark-edgerunners2-interview/06.png": {
+      "w": 670,
+      "h": 376,
+      "bytes": 391347,
+      "variants": [
+        {
+          "w": 670,
+          "src": "/images/blog/gamespark-edgerunners2-interview/06-670.webp",
+          "bytes": 30756
+        }
+      ]
+    },
+    "/images/blog/gamespark-edgerunners2-interview/07.png": {
+      "w": 670,
+      "h": 376,
+      "bytes": 473311,
+      "variants": [
+        {
+          "w": 670,
+          "src": "/images/blog/gamespark-edgerunners2-interview/07-670.webp",
+          "bytes": 49848
+        }
+      ]
+    },
+    "/images/blog/gamespark-edgerunners2-interview/08.png": {
+      "w": 670,
+      "h": 376,
+      "bytes": 391840,
+      "variants": [
+        {
+          "w": 670,
+          "src": "/images/blog/gamespark-edgerunners2-interview/08-670.webp",
+          "bytes": 30152
+        }
+      ]
+    },
+    "/images/blog/gamespark-edgerunners2-interview/09.png": {
+      "w": 670,
+      "h": 376,
+      "bytes": 448931,
+      "variants": [
+        {
+          "w": 670,
+          "src": "/images/blog/gamespark-edgerunners2-interview/09-670.webp",
+          "bytes": 42532
+        }
+      ]
+    },
+    "/images/blog/gamespark-edgerunners2-interview/10.jpg": {
+      "w": 670,
+      "h": 446,
+      "bytes": 81902,
+      "variants": [
+        {
+          "w": 670,
+          "src": "/images/blog/gamespark-edgerunners2-interview/10-670.webp",
+          "bytes": 35698
         }
       ]
     },
