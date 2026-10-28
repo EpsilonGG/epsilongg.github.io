@@ -2,7 +2,7 @@
 import BaseLayout from './BaseLayout.astro';
 import ReadingProgress from '../components/ReadingProgress.astro';
 import { site } from '../config/site';
-import { formatIssueDay, formatIssueTime, type Daily, type DailyJa } from '../lib/daily';
+import { formatIssueTime, type Daily, type DailyJa } from '../lib/daily';
 import {
   categoryLabelOf,
   categoryOf,
@@ -26,7 +26,6 @@ const {
   title,
   description,
   pubDate,
-  covered,
   accounts,
   highlights,
   insights,
@@ -179,15 +178,10 @@ if (ja) {
           <h1 class="article-title">{title}</h1>
           <div class="article-meta">
             {/*
-              两件事分开写：**覆盖哪一天**由期号决定，**什么时候发的**来自
-              `issue.published_at`。以前这里只有「发布于」，而那个时间是从期号推的
-              假时间（固定 22:00），比真实出稿早约 3.5 小时。
+              「覆盖哪一天」已经在标题里（`X 日报 · 2026-10-27`），不再单独写一行
+              「覆盖 … 00:00–24:00（日本时间）」——同一件事说两遍，读者还要自己
+              对一遍日期。这里只留真实发布时刻，来自 `issue.published_at`。
             */}
-            <span>
-              覆盖
-              <time datetime={formatIssueDay(covered)}>{formatIssueDay(covered)}</time>
-              00:00–24:00（日本时间）
-            </span>
             <span>
               发布于
               <time datetime={pubDate.toISOString()}>{formatIssueTime(pubDate)}</time>

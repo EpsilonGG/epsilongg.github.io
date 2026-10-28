@@ -81,7 +81,7 @@ data/daily/261031/report.json   →   /daily/261031/
 | 路由 | 是什么 |
 | --- | --- |
 | `/daily/` | 归档列表，按月分组，一行一期（日期 + 看点简报）；顶部有「看最新一期」与月份锚点 |
-| `/daily/<期号>/` | 单期详情，`getStaticPaths` 从内容集合生成，没有手写路由；页头分「覆盖」「发布于」两行 |
+| `/daily/<期号>/` | 单期详情，`getStaticPaths` 从内容集合生成，没有手写路由；页头只写「发布于」——覆盖哪天已经在标题里 |
 | `/daily/rss.xml` | **归档 feed**，独立于主 `/rss.xml`（那个只收「笔记」）；`pubDate` 用真实的 `published_at` |
 | `/daily/<期号>.json` | **JSON**，与 `data/daily/<期号>/report.json` 逐字节相同（含 `sources`），给第三方/脚本 |
 | `/daily/<期号>.txt` | **纯文本**，给复制粘贴和 M6 的视频稿；只换格式，不重新概括 |

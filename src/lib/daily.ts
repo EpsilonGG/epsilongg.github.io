@@ -222,11 +222,8 @@ export function dailyPath(post: Daily): string {
  */
 export function plainText(report: Daily): string {
   const { data } = report;
-  const lines: string[] = [
-    data.title,
-    // 这一期覆盖哪 24 小时，比「几点发的」有用；真实发布时间在页面和 RSS 上
-    `覆盖 ${formatIssueDay(data.covered)} 00:00–24:00（日本时间）`,
-  ];
+  // 标题里已经有「哪一天」，不再单起一行写「覆盖 … 00:00–24:00（日本时间）」
+  const lines: string[] = [data.title];
 
   if (data.description) {
     lines.push('', data.description);

@@ -1274,7 +1274,8 @@
           那是「名义发布时间」。一天的数据要到 JST 24:00 才闭合（抓取 CI 每天 15:00 UTC 跑最后一次），
           真实出稿必然落在次日凌晨，于是页面上「发布于 22:00」比实际早约 3.5 小时，和内容覆盖的
           00:00–24:00 自相矛盾。把小时从期号里拿掉后，期号只回答「这是哪一天的日报」，
-          真实发布时刻交给 <code>issue.published_at</code>——页面因此分「覆盖」「发布于」两行。
+          真实发布时刻交给 <code>issue.published_at</code>——页头因此只写「发布于」，
+          覆盖的是哪一天由标题（<code>X 日报 · 2026-10-27</code>）交代，不再单独占一行。
         </p>
         <p>
           <code>report.json</code> 里<strong>没有 <code>title</code>、也没有 <code>pubDate</code></strong>：
