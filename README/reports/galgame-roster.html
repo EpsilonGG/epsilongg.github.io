@@ -1,0 +1,486 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Galgame 版日报名单（第一版）：シナリオ・原画・ディレクター・情報号</title>
+<style>
+  :root {
+    --ink: #111;
+    --ink-2: #555;
+    --ink-3: #888;
+    --line: #e3e3e3;
+    --line-2: #cfcfcf;
+    --bg: #fff;
+    --bg-2: #fafafa;
+    --radius: 6px;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    padding: 0 20px 96px;
+    background: var(--bg);
+    color: var(--ink);
+    font: 15px/1.75 -apple-system, BlinkMacSystemFont, "Segoe UI", "Hiragino Sans",
+      "Noto Sans CJK SC", "Microsoft YaHei", sans-serif;
+  }
+  .wrap { max-width: 1080px; margin: 0 auto; }
+  header.top { padding: 56px 0 28px; border-bottom: 1px solid var(--line); }
+  h1 { font-size: 26px; line-height: 1.4; margin: 0 0 10px; letter-spacing: -0.01em; }
+  .sub { color: var(--ink-2); margin: 0; }
+  .meta { margin-top: 14px; color: var(--ink-3); font-size: 13px; }
+  h2 {
+    font-size: 19px; margin: 48px 0 14px; padding-bottom: 8px;
+    border-bottom: 1px solid var(--line); letter-spacing: -0.01em;
+  }
+  h3 { font-size: 15px; margin: 26px 0 8px; }
+  p { margin: 0 0 12px; }
+  ul, ol { margin: 0 0 14px; padding-left: 22px; }
+  li { margin: 4px 0; }
+  code {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: 0.9em; background: var(--bg-2);
+    border: 1px solid var(--line); border-radius: 4px; padding: 1px 5px;
+  }
+  pre {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: 12px; line-height: 1.6; background: var(--bg-2);
+    border: 1px solid var(--line); border-radius: var(--radius);
+    padding: 14px 16px; overflow-x: auto; margin: 14px 0;
+  }
+  a { color: var(--ink); text-decoration-color: var(--line-2); }
+  a:hover { text-decoration-color: var(--ink); }
+  .note {
+    background: var(--bg-2); border: 1px solid var(--line);
+    border-radius: var(--radius); padding: 14px 18px; margin: 18px 0;
+  }
+  .note strong { font-weight: 600; }
+  .warn { border-left: 3px solid var(--ink); }
+  .scroll { overflow-x: auto; margin: 16px 0; border: 1px solid var(--line); border-radius: var(--radius); }
+  table { border-collapse: collapse; width: 100%; font-size: 13.5px; }
+  th, td { padding: 7px 10px; text-align: left; border-bottom: 1px solid var(--line); white-space: nowrap; }
+  thead th {
+    position: sticky; top: 0; background: var(--bg);
+    font-weight: 600; font-size: 12.5px; color: var(--ink-2);
+    border-bottom: 1px solid var(--line-2); z-index: 1;
+  }
+  tbody tr:nth-child(even) { background: #fcfcfc; }
+  tbody tr:hover { background: var(--bg-2); }
+  td.num { text-align: right; font-variant-numeric: tabular-nums; color: var(--ink-2); }
+  td.rank { color: var(--ink-3); font-variant-numeric: tabular-nums; }
+  td.handle { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 12.5px; }
+  td.pending { color: var(--ink-3); }
+  td.wrap-cell { white-space: normal; min-width: 12em; }
+  .tag {
+    display: inline-block; font-size: 11px; line-height: 1.6;
+    padding: 0 6px; border: 1px solid var(--line-2); border-radius: 4px;
+    color: var(--ink-2); vertical-align: 1px;
+  }
+  .tag.ok { border-color: #111; color: #111; }
+  .kpi { display: flex; gap: 32px; flex-wrap: wrap; margin: 18px 0 8px; }
+  .kpi div { min-width: 120px; }
+  .kpi b { display: block; font-size: 22px; font-variant-numeric: tabular-nums; }
+  .kpi span { font-size: 12.5px; color: var(--ink-3); }
+  .legend { color: var(--ink-3); font-size: 12.5px; }
+  footer { margin-top: 56px; padding-top: 20px; border-top: 1px solid var(--line); color: var(--ink-3); font-size: 12.5px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="top">
+  <h1>Galgame 版日报名单（第一版）</h1>
+  <p class="sub">シナリオ 7 · 原画 14（另 1 个已在册）· ディレクター 1 · 情報号 2（另有 5 个泛游戏媒体可选）——全部逐个核过存在性与活跃度</p>
+  <p class="meta">整理日期 2026-10-28 · 账号来源：ja.wikipedia 的「外部リンク」+ fxtwitter 公开 API 复核（粉丝数、最近 20 条的时间跨度）· 不含任何猜出来的 handle</p>
+</header>
+
+<h2>0. 先说结论</h2>
+
+<div class="kpi">
+  <div><b>24</b><span>建议新增账号</span></div>
+  <div><b>7</b><span>シナリオ（含 1 个 staff 号）</span></div>
+  <div><b>14</b><span>原画（另 1 个已在册）</span></div>
+  <div><b>2</b><span>Galgame 情报号（另 Moepedia 已在册）</span></div>
+</div>
+
+<p>四个栏目里，<strong>原画最好办</strong>：这一行的画师几乎都有 X，而且粉丝多、发图勤，一天能出十几条可用素材。<strong>シナリオ次之</strong>，但活跃度差一个量级（多数 0.2–1 条/天），得靠「说了什么」而不是「说了多少」来选。<strong>ディレクター最难</strong>：galgame 的导演极少有个人号，能查到的只有中澤工一个，其余（下條水月、三舛啓、藤原将、酒井伸和）连 Wikipedia 条目都没有——这一栏第一版基本是空的，建议先不做，或者用「ブランド代表／プロデューサー」来凑。<strong>情报号反而是短板</strong>：专门报 galgame 的号本来就少（Moepedia 已在册、BugBug 編集部、萌えゲーアワード），剩下的都是泛游戏媒体。</p>
+
+<div class="note warn">
+  <p><strong>一个必须先解决的结构问题：现在的 CI 塞不下这 24 个号。</strong></p>
+  <p>X-Reader 的 <code>accounts.yaml</code> 现在 302 个号，一轮抓取约 19.6 分钟，<code>update.yml</code> 的超时是 20 分钟——已经贴着上限。再加 24 个（+8%）约多 1.6 分钟，<strong>必然超时</strong>。所以 Galgame 版不能直接往同一个 <code>accounts.yaml</code> 里加，得走下面三条之一：</p>
+  <ol>
+    <li><strong>独立 workflow</strong>（推荐）：<code>galgame.yml</code>，自己的 <code>accounts.galgame.yaml</code> + 自己的 <code>data/items/galgame.jsonl</code>，和声优那条线完全解耦，超时互不影响；</li>
+    <li>同一个 workflow 里拆成两个 job（各自 20 分钟预算），但要确认 Actions 的总时长配额；</li>
+    <li>轮流抓：单双日各抓一半，数据攒两天再出一期——代价是「今天发的东西明天才进日报」。</li>
+  </ol>
+  <p>这件事没定下来之前，名单只能先放着看，进不了流水线。</p>
+</div>
+
+<h2>1. 这份名单是怎么核的</h2>
+
+<p>没有用「我记得他的号是 xxx」这种来源——猜出来的 handle 一旦错，日报里就是别人的内容，比漏一个人严重得多。流程是两步：</p>
+
+<ol>
+  <li><strong>拿官方出处</strong>：查 ja.wikipedia 对应条目的「外部リンク」（MediaWiki <code>prop=extlinks</code> 接口），取指向 <code>x.com</code> / <code>twitter.com</code> 且不是 <code>/status/</code> 的那条——那是编者维护的官方账号链接，不是搜索结果里的二手信息。</li>
+  <li><strong>逐个复核</strong>：用 fxtwitter 的公开接口取账号资料与最近 20 条，核对三件事——显示名对不对、粉丝数量级合不合理、最近有没有在发。粉丝 0–200 且最后一条是 2010 年代的，一律判为同名路人号丢掉。</li>
+</ol>
+
+<p>表里的「节奏」= 最近 20 条覆盖的天数换算出的每日条数，比「最后发帖日期」更能说明这个人是不是真的在活跃（有人一天转 5 条但两个月没原创）。</p>
+
+<h2>2. シナリオ</h2>
+
+<div class="scroll">
+<table>
+<thead>
+<tr><th>#</th><th>名前</th><th>handle</th><th class="num">粉丝</th><th>最后发帖</th><th class="num">节奏</th><th>备注</th></tr>
+</thead>
+<tbody>
+<tr><td class="rank">1</td><td>虚淵玄</td><td class="handle"><a href="https://x.com/Butch_Gen" target="_blank" rel="noopener">@Butch_Gen</a></td><td class="num">386,517</td><td>2026-10-27</td><td class="num">0.7/d</td><td>Nitroplus。发言多是作品宣传＋杂谈，是这一栏最稳的一个</td></tr>
+<tr><td class="rank">2</td><td>木緒なち</td><td class="handle"><a href="https://x.com/kionachi" target="_blank" rel="noopener">@kionachi</a></td><td class="num">42,627</td><td>2026-10-28</td><td class="num">4.4/d</td><td>活跃度全栏最高，日常／工作混杂，需要过滤</td></tr>
+<tr><td class="rank">3</td><td>丸戸史明</td><td class="handle"><a href="https://x.com/F_Maruto_staff" target="_blank" rel="noopener">@F_Maruto_staff</a></td><td class="num">36,839</td><td>2026-10-19</td><td class="num">1.2/d</td><td><strong>是公式 staff 号</strong>，不是本人手写；名字要标「(公式)」</td></tr>
+<tr><td class="rank">4</td><td>星空めてお</td><td class="handle"><a href="https://x.com/meteor_" target="_blank" rel="noopener">@meteor_</a></td><td class="num">23,313</td><td>2026-10-23</td><td class="num">0.4/d</td><td>Liar-soft 系。低频但内容密度高</td></tr>
+<tr><td class="rank">5</td><td>打越鋼太郎</td><td class="handle"><a href="https://x.com/uchikoshi" target="_blank" rel="noopener">@uchikoshi</a></td><td class="num">12,389</td><td>2026-10-26</td><td class="num">0.8/d</td><td>Infinity 系列／AI 系列。海外粉丝占比高，英文帖不少</td></tr>
+<tr><td class="rank">6</td><td>和泉万夜</td><td class="handle"><a href="https://x.com/banya_izumi" target="_blank" rel="noopener">@banya_izumi</a></td><td class="num">9,746</td><td>2026-10-28</td><td class="num">0.3/d</td><td>低频，基本只发新作</td></tr>
+<tr><td class="rank">7</td><td>瀬戸口廉也</td><td class="handle"><a href="https://x.com/gyyuiuui" target="_blank" rel="noopener">@gyyuiuui</a></td><td class="num">7,312</td><td>2026-10-06</td><td class="num">0.2/d</td><td>几乎不发，但一发就是大事；留作低频监听</td></tr>
+</tbody>
+</table>
+</div>
+
+<p class="legend">没找到：奈須きのこ（无个人号，走 TYPE-MOON 官号）、竜騎士07（维基只链 07th-expansion 官网）、新島夕（无条目）、さかき傘（维基只链个人站 <code>shiratamaco.com</code>，站上没挂 X）。这三个人不是漏了，是确实查不到能确认的个人号。</p>
+
+<h2>3. イラストレーター</h2>
+
+<div class="scroll">
+<table>
+<thead>
+<tr><th>#</th><th>名前</th><th>handle</th><th class="num">粉丝</th><th>最后发帖</th><th class="num">节奏</th><th>备注</th></tr>
+</thead>
+<tbody>
+<tr><td class="rank">1</td><td>パセリ</td><td class="handle"><a href="https://x.com/Parsley_F" target="_blank" rel="noopener">@Parsley_F</a></td><td class="num">586,309</td><td>2026-10-23</td><td class="num">0.4/d</td><td>粉丝最多，但发帖少——多是成品图，很适合日报</td></tr>
+<tr><td class="rank">2</td><td>カントク</td><td class="handle"><a href="https://x.com/kantoku_5th" target="_blank" rel="noopener">@kantoku_5th</a></td><td class="num">401,140</td><td>2026-10-25</td><td class="num">1.1/d</td><td>注意是 <code>_5th</code>，不是 <code>@kantoku</code>（那是同名路人）</td></tr>
+<tr><td class="rank">3</td><td>ピロ水</td><td class="handle"><a href="https://x.com/piromizu" target="_blank" rel="noopener">@piromizu</a></td><td class="num">359,795</td><td>2026-10-27</td><td class="num">0.5/d</td><td>活跃、图多</td></tr>
+<tr><td class="rank">4</td><td>トモセシュンサク</td><td class="handle"><a href="https://x.com/tomose_shunsaku" target="_blank" rel="noopener">@tomose_shunsaku</a></td><td class="num">324,980</td><td>2026-10-27</td><td class="num">0.2/d</td><td>名字里常挂发售日，本身就是情报</td></tr>
+<tr><td class="rank">5</td><td>八重樫南</td><td class="handle"><a href="https://x.com/yaegasinan" target="_blank" rel="noopener">@yaegasinan</a></td><td class="num">228,206</td><td>2026-10-28</td><td class="num">0.9/d</td><td>闪乱系；galgame 之外的图也不少</td></tr>
+<tr><td class="rank">6</td><td>梱枝りこ</td><td class="handle"><a href="https://x.com/riko0202" target="_blank" rel="noopener">@riko0202</a></td><td class="num">216,809</td><td>2026-10-27</td><td class="num">1.8/d</td><td>节奏高，动画／游戏两边发</td></tr>
+<tr><td class="rank">7</td><td>和泉つばす</td><td class="handle"><a href="https://x.com/tsubasu_izumi" target="_blank" rel="noopener">@tsubasu_izumi</a></td><td class="num">180,982</td><td>2026-10-26</td><td class="num">0.5/d</td><td>palette／9-nine- 系</td></tr>
+<tr><td class="rank">8</td><td>宮坂みゆ</td><td class="handle"><a href="https://x.com/miyu_miyasaka" target="_blank" rel="noopener">@miyu_miyasaka</a></td><td class="num">169,443</td><td>2026-09-30</td><td class="num">0.4/d</td><td>最近一个月没动，先观察</td></tr>
+<tr><td class="rank">9</td><td>西又葵</td><td class="handle"><a href="https://x.com/aoi_nishimata" target="_blank" rel="noopener">@aoi_nishimata</a></td><td class="num">121,103</td><td>2026-10-28</td><td class="num">2.1/d</td><td>Navel。活跃，但私生活／活动宣传占比高</td></tr>
+<tr><td class="rank">10</td><td>鷹乃ゆき</td><td class="handle"><a href="https://x.com/takano_yuki" target="_blank" rel="noopener">@takano_yuki</a></td><td class="num">116,926</td><td>2026-10-28</td><td class="num">0.4/d</td><td>日常图为主</td></tr>
+<tr><td class="rank">11</td><td>みつみ美里</td><td class="handle"><a href="https://x.com/mitsumi_m" target="_blank" rel="noopener">@mitsumi_m</a></td><td class="num">95,827</td><td>2026-10-27</td><td class="num">0.5/d</td><td>Leaf／AQUAPLUS 系，老牌</td></tr>
+<tr><td class="rank">12</td><td>甘露樹</td><td class="handle"><a href="https://x.com/amaduyu" target="_blank" rel="noopener">@amaduyu</a></td><td class="num">61,747</td><td>2026-09-04</td><td class="num">0.1/d</td><td>几乎停更，建议只留档不抓</td></tr>
+<tr><td class="rank">13</td><td>鈴平ひろ</td><td class="handle"><a href="https://x.com/suzuhirahiro666" target="_blank" rel="noopener">@suzuhirahiro666</a></td><td class="num">48,950</td><td>2026-10-27</td><td class="num">5.3/d</td><td>节奏很高，需要 <code>drop_if</code> 过滤闲聊</td></tr>
+<tr><td class="rank">14</td><td>あずまゆき</td><td class="handle"><a href="https://x.com/yuki_azuma" target="_blank" rel="noopener">@yuki_azuma</a></td><td class="num">44,599</td><td>2026-10-28</td><td class="num">0.4/d</td><td>—</td></tr>
+<tr><td class="rank">15</td><td>ななかまい</td><td class="handle"><a href="https://x.com/nanaca_box" target="_blank" rel="noopener">@nanaca_box</a></td><td class="num">48,122</td><td>2026-10-21</td><td class="num">0.4/d</td><td><span class="tag ok">已在册</span>名单里已有 <code>nanaca_box</code>，登记为品牌 NANACAN——同一个号，不能再建一条</td></tr>
+</tbody>
+</table>
+</div>
+
+<h2>4. ディレクター</h2>
+
+<div class="scroll">
+<table>
+<thead>
+<tr><th>#</th><th>名前</th><th>handle</th><th class="num">粉丝</th><th>最后发帖</th><th class="num">节奏</th><th>备注</th></tr>
+</thead>
+<tbody>
+<tr><td class="rank">1</td><td>中澤工</td><td class="handle"><a href="https://x.com/nakazawatakumi" target="_blank" rel="noopener">@nakazawatakumi</a></td><td class="num">4,782</td><td>2026-10-24</td><td class="num">1.7/d</td><td>428／Remember11 监督，同时写剧本；这一栏唯一查实的</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="note">
+  <p><strong>这一栏为什么几乎是空的。</strong>galgame 的监督大多是公司内部职位，作品表记里也不一定写名字，个人号自然就少。查过但<strong>确认没有可用的个人 X</strong>：下條水月（Key）、三舛啓、藤原将（minori）、酒井伸和（minori）、高橋龍也（无 extlinks）。</p>
+  <p>替代方案：把「ブランド代表／プロデューサー」也算进来，比如 <code>visualantena</code>（ビジュアルアーツ営業本部，63K，1.3/d）——但那是公司号，性质更接近制造商。要不要单开一栏，你定。</p>
+</div>
+
+<h2>5. 情報号</h2>
+
+<h3>5.1 Galgame 专门（建议进名单）</h3>
+
+<div class="scroll">
+<table>
+<thead>
+<tr><th>#</th><th>名前</th><th>handle</th><th class="num">粉丝</th><th>最后发帖</th><th class="num">节奏</th><th>备注</th></tr>
+</thead>
+<tbody>
+<tr><td class="rank">1</td><td>BugBug 編集部</td><td class="handle"><a href="https://x.com/bugbug_info" target="_blank" rel="noopener">@bugbug_info</a></td><td class="num">24,666</td><td>2026-10-28</td><td class="num">3.7/d</td><td>杂志号，新作／体验版／活动都报，是这一栏最合适的</td></tr>
+<tr><td class="rank">2</td><td>萌えゲーアワード／萌えゲー.net</td><td class="handle"><a href="https://x.com/moeaward" target="_blank" rel="noopener">@moeaward</a></td><td class="num">10,535</td><td>2026-10-28</td><td class="num">0.7/d</td><td>评奖＋新作情报，低频但都是硬信息</td></tr>
+<tr><td class="rank">3</td><td>Moepedia</td><td class="handle">@Moepedia_net</td><td class="num">11,971</td><td>2026-10-28</td><td class="num">—</td><td><span class="tag ok">已在册</span>制造商栏，广告多，已配 <code>drop_kinds: repost</code> 等规则</td></tr>
+</tbody>
+</table>
+</div>
+
+<h3>5.2 泛游戏媒体（可选，需要过滤）</h3>
+
+<p>这几家不是 galgame 专门号，但 galgame 新闻的覆盖率其实不错——代价是量太大，直接抓会把日报淹掉。建议只在「先跑起来看看」的阶段挂 1–2 个，并配 <code>max_items</code>。</p>
+
+<div class="scroll">
+<table>
+<thead>
+<tr><th>名前</th><th>handle</th><th class="num">粉丝</th><th class="num">节奏</th><th>判断</th></tr>
+</thead>
+<tbody>
+<tr><td>AUTOMATON</td><td class="handle"><a href="https://x.com/AUTOMATONJapan" target="_blank" rel="noopener">@AUTOMATONJapan</a></td><td class="num">436,034</td><td class="num">45.8/d</td><td>galgame／同人游戏报道比例最高，<strong>首选</strong>；但要 <code>max_items: 3</code></td></tr>
+<tr><td>4Gamer</td><td class="handle"><a href="https://x.com/4GamerNews" target="_blank" rel="noopener">@4GamerNews</a></td><td class="num">734,948</td><td class="num">73.7/d</td><td>量大，galgame 占比低，靠关键词过滤</td></tr>
+<tr><td>電撃オンライン</td><td class="handle"><a href="https://x.com/dengekionline" target="_blank" rel="noopener">@dengekionline</a></td><td class="num">631,100</td><td class="num">4.5/d</td><td>量适中，覆盖还行</td></tr>
+<tr><td>ファミ通.com</td><td class="handle"><a href="https://x.com/famitsu" target="_blank" rel="noopener">@famitsu</a></td><td class="num">1,384,673</td><td class="num">—</td><td>太泛，galgame 相关占比极低，不建议</td></tr>
+<tr><td>アキバBlog</td><td class="handle"><a href="https://x.com/akibablog" target="_blank" rel="noopener">@akibablog</a></td><td class="num">84,445</td><td class="num">40.4/d</td><td>秋叶原物贩／活动为主，galgame 只是其中一块</td></tr>
+</tbody>
+</table>
+</div>
+
+<h2>6. 排掉的同名路人号</h2>
+
+<p>下面这些是我按记忆或命名习惯试出来的 handle，复核后<strong>确认不是本人</strong>（粉丝个位数到几百，或者最后一条在 2010 年代）。列出来是为了留痕：以后别再用这些写法试。</p>
+
+<div class="scroll">
+<table>
+<thead>
+<tr><th>handle</th><th class="num">粉丝</th><th>最后发帖</th><th>本来想找谁</th></tr>
+</thead>
+<tbody>
+<tr><td class="handle">@jun_maeda</td><td class="num">1</td><td>—</td><td>麻枝准（真正的号是 <code>@maeda_jun_lab</code>「麻枝准研究所」，但 2021 年后没再更新）</td></tr>
+<tr><td class="handle">@kantoku</td><td class="num">108</td><td>2012-01-27</td><td>カントク（真号 <code>@kantoku_5th</code>）</td></tr>
+<tr><td class="handle">@kantoku_</td><td class="num">205</td><td>2026-10-28</td><td>同上；这个号在活跃，但显示名是「山崎」，是路人</td></tr>
+<tr><td class="handle">@parsley</td><td class="num">115</td><td>2013-01-14</td><td>パセリ（真号 <code>@Parsley_F</code>）</td></tr>
+<tr><td class="handle">@takanoyuki</td><td class="num">928</td><td>2026-01-05</td><td>鷹乃ゆき（真号 <code>@takano_yuki</code>）；这个是「髙野祐樹」，汉字不同</td></tr>
+<tr><td class="handle">@shiratamaco</td><td class="num">1,057</td><td>2026-10-28</td><td>さかき傘／しらたま系——显示名「Tomomi」，无法确认身份，暂不收</td></tr>
+<tr><td class="handle">@sakakikasa</td><td class="num">17</td><td>2024-07-07</td><td>さかき傘</td></tr>
+<tr><td class="handle">@kataokamo</td><td class="num">0</td><td>—</td><td>片岡とも</td></tr>
+<tr><td class="handle">@mimasu</td><td class="num">107</td><td>—</td><td>三舛啓</td></tr>
+<tr><td class="handle">@nakazawa_takumi</td><td class="num">11</td><td>2018-05-02</td><td>中澤工（真号 <code>@nakazawatakumi</code>，没下划线）</td></tr>
+<tr><td class="handle">@fujiwara_masaru</td><td class="num">36</td><td>2015-06-23</td><td>藤原将</td></tr>
+<tr><td class="handle">@tmsy</td><td class="num">9</td><td>—</td><td>トモセシュンサク（真号 <code>@tomose_shunsaku</code>）</td></tr>
+<tr><td class="handle">@getchu_com</td><td class="num">3</td><td>2009-06-23</td><td>げっちゅ屋（这家目前没有官方 X）</td></tr>
+<tr><td class="handle">@gamer_jp</td><td class="num">11</td><td>—</td><td>Gamer</td></tr>
+<tr><td class="handle">@netlabo</td><td class="num">4</td><td>2010-04-08</td><td>ねとらぼ</td></tr>
+<tr><td class="handle">@inside_web</td><td class="num">2</td><td>2020-02-28</td><td>インサイド</td></tr>
+<tr><td class="handle">@FANZA_official</td><td class="num">567</td><td>2018-08-06</td><td>FANZA（官方号不叫这个）</td></tr>
+<tr><td class="handle">@PROJECT_ROMEO</td><td class="num">5,244</td><td>2015-07-15</td><td>田中ロミオ——维基链的是作品官号，早就停更了</td></tr>
+<tr><td class="handle">@satsubatsukids</td><td class="num">4,523</td><td>2018-12-14</td><td>麻枝准的旧企划号，已废弃</td></tr>
+</tbody>
+</table>
+</div>
+
+<h2>7. 待你确认的四件事</h2>
+
+<ol>
+  <li><strong>栏目怎么切。</strong>建议在 <code>daily-roster.json</code> 的 <code>categories</code> 里加一栏 <code>{ "id": "galgame", "label": "Galgame" }</code>，<code>role</code> 用 <code>scenario</code> / <code>illustrator</code> / <code>director</code> / <code>info</code>。这样日报页的筛选按钮会自动多出一个「Galgame」，和现有的声优／制造商互不干扰。</li>
+  <li><strong>CI 怎么拆</strong>（见第 0 节的三条路）。这个不定，名单加进去也抓不动。</li>
+  <li><strong>ディレクター这一栏做不做。</strong>只有 1 个人，单独一栏意义不大；建议并进シナリオ，或者用「ブランド代表」替代。</li>
+  <li><strong>泛游戏媒体挂不挂。</strong>我倾向只挂 AUTOMATON 一个（配 <code>max_items: 3</code>），4Gamer／ファミ通先不挂——它们的 galgame 占比太低，会让模型在几百条里挑。</li>
+</ol>
+
+<h2>8. 附：可以直接粘的 JSON</h2>
+
+<p>确认之后，把下面这段接到 <code>src/config/daily-roster.json</code> 的 <code>accounts</code> 数组末尾（<code>nanaca_box</code> 不在里面——它已在册）。每条都带 <code>note</code>，写明出处和核验日期，方便以后复查。</p>
+
+<pre>{
+  "handle": "Butch_Gen",
+  "name": "虚淵玄",
+  "category": "galgame",
+  "role": "scenario",
+  "active": true,
+  "note": "Nitroplus · ja.wikipedia 外部リンク核对 · 2026-10-28"
+},
+{
+  "handle": "kionachi",
+  "name": "木緒なち",
+  "category": "galgame",
+  "role": "scenario",
+  "active": true,
+  "note": "活跃度最高（4.4/d）· 需过滤闲聊 · 2026-10-28"
+},
+{
+  "handle": "F_Maruto_staff",
+  "name": "丸戸史明（公式）",
+  "category": "galgame",
+  "role": "scenario",
+  "active": true,
+  "note": "公式 staff 号，非本人 · 2026-10-28"
+},
+{
+  "handle": "meteor_",
+  "name": "星空めてお",
+  "category": "galgame",
+  "role": "scenario",
+  "active": true,
+  "note": "Liar-soft 系 · 2026-10-28"
+},
+{
+  "handle": "uchikoshi",
+  "name": "打越鋼太郎",
+  "category": "galgame",
+  "role": "scenario",
+  "active": true,
+  "note": "Infinity／AI 系列 · 英文帖不少 · 2026-10-28"
+},
+{
+  "handle": "banya_izumi",
+  "name": "和泉万夜",
+  "category": "galgame",
+  "role": "scenario",
+  "active": true,
+  "note": "低频，基本只发新作 · 2026-10-28"
+},
+{
+  "handle": "gyyuiuui",
+  "name": "瀬戸口廉也",
+  "category": "galgame",
+  "role": "scenario",
+  "active": true,
+  "note": "极低频，留作监听 · 2026-10-28"
+},
+{
+  "handle": "nakazawatakumi",
+  "name": "中澤工",
+  "category": "galgame",
+  "role": "director",
+  "active": true,
+  "note": "428／Remember11 监督，兼写剧本 · 2026-10-28"
+},
+{
+  "handle": "Parsley_F",
+  "name": "パセリ",
+  "category": "galgame",
+  "role": "illustrator",
+  "active": true,
+  "note": "586K，成品图为主 · 2026-10-28"
+},
+{
+  "handle": "kantoku_5th",
+  "name": "カントク",
+  "category": "galgame",
+  "role": "illustrator",
+  "active": true,
+  "note": "注意是 _5th · 2026-10-28"
+},
+{
+  "handle": "piromizu",
+  "name": "ピロ水",
+  "category": "galgame",
+  "role": "illustrator",
+  "active": true,
+  "note": "2026-10-28"
+},
+{
+  "handle": "tomose_shunsaku",
+  "name": "トモセシュンサク",
+  "category": "galgame",
+  "role": "illustrator",
+  "active": true,
+  "note": "名字常挂发售日 · 2026-10-28"
+},
+{
+  "handle": "yaegasinan",
+  "name": "八重樫南",
+  "category": "galgame",
+  "role": "illustrator",
+  "active": true,
+  "note": "闪乱系 · 2026-10-28"
+},
+{
+  "handle": "riko0202",
+  "name": "梱枝りこ",
+  "category": "galgame",
+  "role": "illustrator",
+  "active": true,
+  "note": "1.8/d · 2026-10-28"
+},
+{
+  "handle": "tsubasu_izumi",
+  "name": "和泉つばす",
+  "category": "galgame",
+  "role": "illustrator",
+  "active": true,
+  "note": "palette／9-nine- · 2026-10-28"
+},
+{
+  "handle": "miyu_miyasaka",
+  "name": "宮坂みゆ",
+  "category": "galgame",
+  "role": "illustrator",
+  "active": true,
+  "note": "最近一个月未动，观察 · 2026-10-28"
+},
+{
+  "handle": "aoi_nishimata",
+  "name": "西又葵",
+  "category": "galgame",
+  "role": "illustrator",
+  "active": true,
+  "note": "Navel · 2026-10-28"
+},
+{
+  "handle": "takano_yuki",
+  "name": "鷹乃ゆき",
+  "category": "galgame",
+  "role": "illustrator",
+  "active": true,
+  "note": "2026-10-28"
+},
+{
+  "handle": "mitsumi_m",
+  "name": "みつみ美里",
+  "category": "galgame",
+  "role": "illustrator",
+  "active": true,
+  "note": "Leaf／AQUAPLUS · 2026-10-28"
+},
+{
+  "handle": "amaduyu",
+  "name": "甘露樹",
+  "category": "galgame",
+  "role": "illustrator",
+  "active": true,
+  "note": "几乎停更（0.1/d），可只留档 · 2026-10-28"
+},
+{
+  "handle": "suzuhirahiro666",
+  "name": "鈴平ひろ",
+  "category": "galgame",
+  "role": "illustrator",
+  "active": true,
+  "note": "5.3/d，需过滤 · 2026-10-28"
+},
+{
+  "handle": "yuki_azuma",
+  "name": "あずまゆき",
+  "category": "galgame",
+  "role": "illustrator",
+  "active": true,
+  "note": "2026-10-28"
+},
+{
+  "handle": "bugbug_info",
+  "name": "BugBug 編集部",
+  "category": "galgame",
+  "role": "info",
+  "active": true,
+  "note": "杂志号，新作／体验版／活动 · 3.7/d · 2026-10-28"
+},
+{
+  "handle": "moeaward",
+  "name": "萌えゲーアワード／萌えゲー.net",
+  "category": "galgame",
+  "role": "info",
+  "active": true,
+  "note": "评奖＋新作情报，低频硬信息 · 2026-10-28"
+}</pre>
+
+<h2>9. 下一步</h2>
+
+<ol>
+  <li>你圈掉不要的（我猜ディレクター栏和泛游戏媒体会被砍掉）。</li>
+  <li>定 CI 拆分方式（第 0 节）。</li>
+  <li>我按定稿写进 <code>daily-roster.json</code>，加 <code>galgame</code> 栏目，跑 <code>npm run check</code> 与名单闸门，然后上线。</li>
+</ol>
+
+<footer>
+  <p>名单整理 2026-10-28。数据来自 fxtwitter 公开 API 的即时快照（粉丝数、最近 20 条），会随时间变化；账号身份以 ja.wikipedia 外部リンク为准。未列入的 3 个名字（奈須きのこ、竜騎士07、新島夕）是查不到可确认的个人号，不是遗漏。</p>
+</footer>
+
+</div>
+</body>
+</html>
