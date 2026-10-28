@@ -1,7 +1,7 @@
 import { getCollection, type CollectionEntry } from 'astro:content';
 
 import { cienText } from './cien';
-import { nameOf } from './roster';
+import { categoryOf, nameOf } from './roster';
 
 type DailyEntry = CollectionEntry<'dailyReports'>;
 
@@ -271,17 +271,29 @@ export async function getDailyJapanese(): Promise<Map<string, DailyJa>> {
  *
  * 中文版 `plainText()` と同じく、書いてあることを組み替えるだけで、
  * 新しく要約はしない。違いは ① 日本語であること ② Ci-en の記法に合わせること
- * （見出し `##`、リンク `[..](..)`、大きさ `<span style="font-size: 150%">`）。
+ * ③ **中国語版を先に置いて、そのあとに日本語版を続ける**こと。
+ *
+ * 載せるのは**声优栏目**だけ。制造商 / 社团 那两栏是给站内看的，
+ * 贴到 Ci-en 上只会把「今天谁有动静」这件事埋掉。判断在这里做，
+ * `lib/cien.ts` 只管格式——它连名簿都不知道。
  */
 export function cienReport(report: Daily, ja: DailyJa): string {
   const { data } = report;
+  const people = data.people.filter((person) => categoryOf(person.handle) === 'seiyuu');
+
   return cienText(
     {
       id: report.id,
       publishedAt: data.pubDate,
       windowStart: data.issue.window.start,
       windowEnd: data.issue.window.end,
-      people: data.people.map((person) => ({ handle: person.handle, via: person.via })),
+      people: people.map((person) => ({ handle: person.handle, via: person.via })),
+    },
+    {
+      description: data.description,
+      highlights: data.highlights.map((claim) => claim.text),
+      works: data.works,
+      people: people.map((person) => ({ handle: person.handle, summary: person.summary })),
     },
     ja.data,
     {

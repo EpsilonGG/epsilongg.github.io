@@ -78,7 +78,7 @@ data/daily/26103122/report.json   →   /daily/26103122/
 | `/daily/rss.xml` | **归档 feed**，独立于主 `/rss.xml`（那个只收「笔记」） |
 | `/daily/<期号>.json` | **JSON**，与 `data/daily/<期号>/report.json` 逐字节相同（含 `sources`），给第三方/脚本 |
 | `/daily/<期号>.txt` | **纯文本**，给复制粘贴和 M6 的视频稿；只换格式，不重新概括 |
-| `/daily/<期号>.ja.txt` | **日语版**，按 Ci-en 记法排过版，贴进 Ci-en 当播报用；只有存在 `report.ja.json` 的期号才有 |
+| `/daily/<期号>.ja.txt` | **Ci-en 版**，中日双语（中文在前、日文在后），按 Ci-en 记法排过版，只收声优栏目；只有存在 `report.ja.json` 的期号才有 |
 
 > 独立 feed 的理由：日报每天一期且是 AI 整理的，混进主 feed 会改变既有订阅者收到的东西。分开后，归档页能翻，feed 能被阅读器收走。
 >
@@ -126,9 +126,9 @@ data/daily/26103122/report.json   →   /daily/26103122/
 
 ---
 
-## 日语版（Ci-en 用）
+## Ci-en 版（中日双语）
 
-同一期还有一份**日语版**，唯一用途是贴到 Ci-en 当播报。它不是「纯文本版的翻译副本」——正文按 Ci-en 的记法排过版。
+同一期还有一份 **Ci-en 版**（页面上按钮就叫「Ci-en」），唯一用途是贴到 Ci-en 当播报。它不是「纯文本版的翻译副本」——**中文版在前、日文版在后**，各自用 `#` 标出来，正文按 Ci-en 的记法排过版，而且**只收声优栏目**。
 
 **文件**：`data/daily/<期号>/report.ja.json`（可选，没有就不生成出口、页面上也不挂按钮）
 
@@ -137,13 +137,14 @@ data/daily/26103122/report.json   →   /daily/26103122/
 | `description` | `description` | ≤ 140 字（日语比中文长，上限放宽） |
 | `highlights` | `highlights[]` | 一条一段，**不写 `@handle` 以外的格式** |
 | `works` | `works` | 一段话 |
-| `interactions` | `interactions[]` | 一条一段 |
+| `interactions` | `interactions[]` | **不再输出**（Ci-en 播报只要声优那部分），留着是为了老数据能过 schema |
 | `people[].handle` | `people[].handle` | **必须和中文版对得上**；`summary` 一行一人 |
-| `insights` | `insights[]` | 一般空着 |
+| `insights` | `insights[]` | 一般空着，不输出 |
 
 几条约定：
 
-- **顺序与人数跟中文版走**。输出时按中文版 `people` 的顺序排，日语版缺的人直接不出现，日语版里多出来的 handle（写错了）也不会出现。缺人不会让构建失败，但 `DailyLayout` 会在构建日志里报「日语版缺 N 人」——漏翻是允许的，漏了不知道不行。
+- **只出声优栏目**。制造商 / 社团那两栏是给站内看的，贴到 Ci-en 只会把「今天谁有动静」埋掉。筛选在 `lib/daily.ts` 里做（`categoryOf(handle) === 'seiyuu'`），`lib/cien.ts` 只管格式——它连名单都不知道。
+- **顺序与人数跟中文版走**。输出时按中文版 `people` 的顺序排，日语版缺的人在中日两版里都不出现，日语版里多出来的 handle（写错了）也不会出现。缺人不会让构建失败，但 `DailyLayout` 会在构建日志里报「日语版缺 N 人」——漏翻是允许的，漏了不知道不行。
 - **单独一份文件，不进 `report.json`**：正本由 `daily publish` 从 `out/` 搬过来，手写内容放进去会被下次重发冲掉；而且正本要过判卷（`apply` / `confirm`），翻译不该走那道闸门。
 - **翻译是人工的一步**（目前由 agent 或本人翻，出稿链路不跑它）。`prompt --flat` 的题目里没有日语字段，别去 `answer/all.json` 里找。
 
@@ -153,25 +154,44 @@ Ci-en 的编辑器接近 Markdown 但不完整，实际能用的只有这几种�
 
 | 要什么 | 写法 |
 | --- | --- |
+| 语言标题 | `# 中文版` / `# 日本語版` |
 | 小标题 | `## 今日の注目` |
 | 链接 | `[柚木つばめ](https://x.com/re_re_tsubame)` |
+| 人名（加粗） | `[**柚木つばめ**](https://x.com/re_re_tsubame)` |
 | 字号 | `<span style="font-size: 150%">…</span>` |
 | 商品卡 | `<product id='RJ01490952' />`（**本期没用**，日报数据里没有 RJ 码） |
 
-**不要用**：`**强调**`、`- 列表`（用 `・`）、`<a>`、`<iframe>`（chobit 播放器那类以后再说）。这些在 Ci-en 上会原样显示或当场变形，所以 `tests/cien/cien.test.mjs` 把它们钉成了失败条件。
+**不要用**：`- 列表`（用 `・`）、`<a>`、`<iframe>`（chobit 播放器那类以后再说）。`**` **只许写在人名链接的标签里**——正文里用会在 Ci-en 上原样显示星号。这些都由 `tests/cien/cien.test.mjs` 钉成失败条件。
 
 生成的正文长这样：
 
 ```
-<span style="font-size: 150%">【X まとめ】2026年10月27日 22:00</span>
+# 中文版
 
-柚木つばめ生誕祭と川乃瀬由羽の9周年配信が中心。5社が10月30日発売に殺到
+<span style="font-size: 150%">2026-10-27 22:00（日本时间）</span>
+
+柚木つばめ生誕祭与川乃瀬由羽九周年直播撑场
+
+## 今日看点
+・…
+
+## 详细
+・[**柚木つばめ**](https://x.com/re_re_tsubame)：…（另有 [@sub_one](https://x.com/sub_one)）
+
+## 出处
+据 X 各账号的帖子整理（2026-10-27 00:00〜24:00 JST）。
+
+# 日本語版
+
+<span style="font-size: 150%">2026年10月27日 22:00</span>
+
+柚木つばめ生誕祭と川乃瀬由羽の9周年配信が中心
 
 ## 今日の注目
 ・…
 
 ## 詳細
-・[柚木つばめ](https://x.com/re_re_tsubame)：…（ほかに [@sub_one](https://x.com/sub_one)）
+・[**柚木つばめ**](https://x.com/re_re_tsubame)：…（ほかに [@sub_one](https://x.com/sub_one)）
 
 ## 出典
 X の各アカウントのポスト（2026年10月27日 00:00〜24:00 JST）をもとにまとめました。
@@ -180,8 +200,9 @@ X の各アカウントのポスト（2026年10月27日 00:00〜24:00 JST）を�
 ### 校验
 
 ```bash
-npm run test:cien     # 记法契约（CI 也跑）
-npm run check:daily   # 有 report.ja.json 就必须有 .ja.txt，且不许出现 ** / - 列表 / <a>
+npm run test:cien     # 记法契约 + 中日在前的顺序（CI 也跑）
+npm run check:daily   # 有 report.ja.json 就必须有 .ja.txt；查 ** 跑出人名链接、- 列表、<a>、
+                      # 缺「# 日本語版」、还有「やりとり」段、以及混进了声优以外的号
 npm run build         # 缺人、handle 写错都在构建日志里报
 ```
 

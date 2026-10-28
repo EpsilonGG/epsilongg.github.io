@@ -19,6 +19,7 @@
 from __future__ import annotations
 
 import argparse
+import json
 import re
 import sys
 from pathlib import Path
@@ -30,6 +31,10 @@ if str(ROOT / "scripts") not in sys.path:
 import daily_golden  # noqa: E402  —— 同目录的小工具，复用它的 .prose 抽取
 
 DATA = ROOT / "data" / "daily"
+ROSTER = ROOT / "src" / "config" / "daily-roster.json"
+
+# `・[**名前**](https://x.com/handle)：…` —— Ci-en 出口里人名行的唯一形状
+PERSON_LINE = re.compile(r"^・\[\*\*(.+?)\*\*\]\(https://x\.com/([A-Za-z0-9_]+)\)", re.M)
 
 
 class Failure(Exception):
@@ -38,6 +43,12 @@ class Failure(Exception):
 
 def _count_items(xml: str) -> int:
     return xml.count("<item>")
+
+
+def _seiyuu_handles() -> set[str]:
+    """名单里属于「声优」栏目的号。Ci-en 出口只许出现这些人。"""
+    roster = json.loads(ROSTER.read_text(encoding="utf-8"))
+    return {account["handle"].lower() for account in roster["accounts"] if account.get("category") == "seiyuu"}
 
 
 def check(dist: Path) -> list[str]:
@@ -65,26 +76,48 @@ def check(dist: Path) -> list[str]:
 
     notes.append(f"{len(sources)} 期：HTML + JSON + TXT 三种出口齐全，JSON 与正本逐字节相同")
 
-    # 日语版（Ci-en 用）是可选的：有 `report.ja.json` 就必须有 `.ja.txt`，
+    # Ci-en 出口（中日双语）是可选的：有 `report.ja.json` 就必须有 `.ja.txt`，
     # 反过来没有的期号不许冒出空文件——否则页面上会多一个点开是空的按钮。
-    # 顺便钉住记法：Ci-en 只认 `##` 见标题、`[..](..)` 链接、`<span style="font-size: 150%">`，
-    # 混进 `**`、`- ` 或 `<a>` 的话，贴过去当场变形。
+    # 顺便钉住三件容易悄悄坏掉的事：
+    # ① 记法——Ci-en 只认 `#` / `##` 见标题、`[..](..)` 链接、`<span style="font-size: 150%">`，
+    #    混进 `- ` 或 `<a>` 的话贴过去当场变形；`**` 只许出现在人名链接的标签里。
+    # ② 版式——`# 中文版` 在前、`# 日本語版` 在后，两个都在。
+    # ③ 范围——只收声优栏目；`やりとり` 那一段不再输出。
     ja_sources = sorted(p.parent.name for p in DATA.glob("*/report.ja.json"))
+    seiyuu = _seiyuu_handles()
     for issue_id in ja_sources:
         ja_out = dist / "daily" / f"{issue_id}.ja.txt"
         if not ja_out.exists():
             raise Failure(f"缺产物：{ja_out.relative_to(ROOT)}（有 report.ja.json 就必须有 .ja.txt）")
         body = ja_out.read_text(encoding="utf-8")
-        if not body.startswith('<span style="font-size: 150%">'):
-            raise Failure(f"/daily/{issue_id}.ja.txt 开头不是 Ci-en 的字号写法（<span style=...>）")
-        if "**" in body:
-            raise Failure(f"/daily/{issue_id}.ja.txt 里出现了 `**`，Ci-en 会原样显示")
+        if not body.startswith("# 中文版\n"):
+            raise Failure(f"/daily/{issue_id}.ja.txt 不是以「# 中文版」开头（中文版在前，日文版在后）")
+        if "\n# 日本語版\n" not in body:
+            raise Failure(f"/daily/{issue_id}.ja.txt 里没有「# 日本語版」这一段")
+        if body.index("# 日本語版") < body.index("# 中文版"):
+            raise Failure(f"/daily/{issue_id}.ja.txt 的日文版跑到了中文版前面")
+        if "**" in PERSON_LINE.sub("", body):
+            raise Failure(
+                f"/daily/{issue_id}.ja.txt 的 `**` 跑出了人名链接——Ci-en 只在 `[**名字**](URL)` 里认它"
+            )
         if re.search(r"^\s*[-*+] ", body, re.M):
             raise Failure(f"/daily/{issue_id}.ja.txt 里出现了 `-` 列表，改用 `・`")
         if "<a " in body:
             raise Failure(f"/daily/{issue_id}.ja.txt 里出现了 `<a>`，链接要写成 `[文字](URL)`")
         if "## " not in body:
             raise Failure(f"/daily/{issue_id}.ja.txt 没有任何 `##` 小标题")
+        for word in ("## やりとり", "## 互动"):
+            if word in body:
+                raise Failure(f"/daily/{issue_id}.ja.txt 还有「{word}」一段——Ci-en 播报只要声优那部分")
+        people = PERSON_LINE.findall(body)
+        if not people:
+            raise Failure(f"/daily/{issue_id}.ja.txt 里没有一行人名（・[**名字**](https://x.com/handle)）")
+        outside = sorted({handle for _, handle in people if handle.lower() not in seiyuu})
+        if outside:
+            raise Failure(
+                f"/daily/{issue_id}.ja.txt 收了声优栏目以外的号：{'、'.join(outside[:5])}"
+                "（Ci-en 播报只出声优）"
+            )
 
     stray = sorted(
         p.name for p in (dist / "daily").glob("*.ja.txt") if p.name.split(".")[0] not in set(ja_sources)
@@ -92,7 +125,9 @@ def check(dist: Path) -> list[str]:
     if stray:
         raise Failure(f"这些日语版出口没有对应的 report.ja.json：{'、'.join(stray)}")
     if ja_sources:
-        notes.append(f"{len(ja_sources)} 期有日语版出口（Ci-en 记法：## / [..](..) / <span>）")
+        notes.append(
+            f"{len(ja_sources)} 期有 Ci-en 出口（# 中文版 → # 日本語版，只收声优，## / [..](..) / <span>）"
+        )
 
     daily_rss = dist / "daily" / "rss.xml"
     if not daily_rss.exists():
