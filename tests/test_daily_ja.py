@@ -136,12 +136,60 @@ class JaTest(unittest.TestCase):
             ja.validate(self.answer(people=people), REPORT, self.roster)
         self.assertIn("顺序", str(ctx.exception))
 
+    def test_rejects_title_clause_mismatch(self) -> None:
+        """中日副标题一句对一句：片方 1 句、片方 2 句就是两篇不同的稿子。"""
+        with self.assertRaises(ja.JaError) as ctx:
+            ja.validate(
+                self.answer(description="柚木つばめが5.7万を突破。御子柴泉も収録枠を話した。"),
+                REPORT,
+                self.roster,
+            )
+        self.assertIn("分句数不一致", str(ctx.exception))
+
+    def test_accepts_parallel_titles(self) -> None:
+        """2 句对 2 句，句序也一样，就通过。"""
+        ja.validate(
+            self.answer(
+                hook="柚木つばめ5.7万突破、御子柴泉も収録枠",
+                description="柚木つばめが5.7万を突破。御子柴泉も収録枠を話した。",
+                description_zh="柚木つばめ破5.7万，御子柴泉也聊录音档期",
+            ),
+            REPORT,
+            self.roster,
+        )
+
+    def test_rejects_too_many_clauses(self) -> None:
+        """副标题不是段落：超过三句就该写进 highlights。"""
+        four = "一。二。三。四。"
+        with self.assertRaises(ja.JaError) as ctx:
+            ja.validate(
+                self.answer(hook=four, description=four, description_zh="一，二，三，四"),
+                REPORT,
+                self.roster,
+            )
+        self.assertIn("分句太多", str(ctx.exception))
+
+    def test_rejects_contact_email_in_answer(self) -> None:
+        """末尾的联系邮箱由渲染器加；答案里写了就会在 Ci-en 上出现两遍。"""
+        contact = ja._contact()
+        self.assertTrue(contact, "profile.json 里应该有 email")
+        people = [{"handle": "re_re_tsubame", "summary": f"ご連絡は {contact} まで。"}]
+        with self.assertRaises(ja.JaError) as ctx:
+            ja.validate(self.answer(people=people), REPORT, self.roster)
+        self.assertIn("联系邮箱", str(ctx.exception))
+
     # -- 出题与落盘 ----------------------------------------------------
     def test_task_marks_manufacturer_as_skipped(self) -> None:
         task = ja.build_task("261028", REPORT, self.roster)
         self.assertIn("跳过（制造商）", task)
         self.assertIn("2026-10-28", task)
         self.assertIn("`re_re_tsubame`（柚木つばめ）｜声优", task)
+
+    def test_task_states_the_title_and_contact_rules(self) -> None:
+        """两条新规矩要写进题面，否则只有判卷知道、写的人不知道。"""
+        task = ja.build_task("261028", REPORT, self.roster)
+        self.assertIn("分句数必须一样", task)
+        self.assertIn("联系邮箱不要写", task)
 
     def test_apply_writes_workspace_file(self) -> None:
         answer_path = self.root / "a.json"

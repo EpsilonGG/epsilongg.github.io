@@ -1,7 +1,13 @@
 import assert from 'node:assert/strict';
+import { existsSync, readdirSync, readFileSync } from 'node:fs';
 import test from 'node:test';
 
-import { cienText, formatCienDayZh, formatCienMonthDay } from '../../src/lib/cien.ts';
+import {
+  cienText,
+  formatCienDayZh,
+  formatCienMonthDay,
+  splitClauses,
+} from '../../src/lib/cien.ts';
 
 /**
  * Ci-en 貼り付け用テキストの契約テスト。
@@ -52,6 +58,7 @@ const ja = {
 const options = {
   nameOf: (handle) => (handle === 're_re_tsubame' ? '柚木つばめ' : handle),
   handles: ['re_re_tsubame', 'suzuka_minase'],
+  contact: 'epsilongg.work@gmail.com',
 };
 
 const text = cienText(issue, zh, ja, options);
@@ -92,6 +99,7 @@ test('各版の中は ## の小見出しだけで、やりとり の節は出さ
     '## 作品動向',
     '## 詳細',
     '## 出典',
+    '## お問い合わせ / 联系方式',
   ]);
   assert.ok(!text.includes('やりとり'));
   assert.ok(!text.includes('互动'));
@@ -152,4 +160,67 @@ test('出典は集計窓を JST で書き、終端が翌日 0 時なら 24:00 �
 test('末尾は改行ひとつだけ', () => {
   assert.ok(text.endsWith('\n'));
   assert.ok(!text.endsWith('\n\n'));
+});
+
+test('連絡先は記事全体の末尾に 1 節だけ。日本語版の中には入れない', () => {
+  const tail = text.trimEnd().split('\n\n').at(-1);
+  assert.equal(
+    tail,
+    '## お問い合わせ / 联系方式\nご連絡は epsilongg.work@gmail.com まで。'
+  );
+  // 出どころは profile.json ひとつ——本文に二度書かない
+  assert.equal(text.split('epsilongg.work@gmail.com').length - 1, 1);
+  // 見出しが二言語なのは、この節が中国語版にも日本語版にも属さないから
+  assert.ok(text.indexOf(tail) > text.indexOf('## 出典'));
+});
+
+test('連絡先が空なら節ごと出さない（メール未設定の環境で空行を残さない）', () => {
+  const withoutContact = cienText(issue, zh, ja, { ...options, contact: '  ' });
+  assert.ok(!withoutContact.includes('お問い合わせ'));
+  assert.ok(!withoutContact.includes('联系方式'));
+  assert.ok(withoutContact.trimEnd().endsWith('まとめました。'));
+});
+
+test('分句は「、」「。」「，」で割る——中日で同じ物差し', () => {
+  assert.deepEqual(splitClauses('柚木つばめが5.7万突破。伊ヶ崎綾香は御礼を連投。'), [
+    '柚木つばめが5.7万突破',
+    '伊ヶ崎綾香は御礼を連投',
+  ]);
+  assert.deepEqual(splitClauses('柚木つばめ粉丝破5.7万，伊ヶ崎綾香逐条道谢'), [
+    '柚木つばめ粉丝破5.7万',
+    '伊ヶ崎綾香逐条道谢',
+  ]);
+  // 空文字は 0 句。数え間違いで「一致した」ことにしない
+  assert.deepEqual(splitClauses(''), []);
+  assert.deepEqual(splitClauses('。、，'), []);
+});
+
+test('掲載済みの全期で、中日の副標題が一句対一句になっている', () => {
+  const dir = new URL('../../data/daily/', import.meta.url);
+  const ids = readdirSync(dir, { withFileTypes: true })
+    .filter((entry) => entry.isDirectory())
+    .map((entry) => entry.name)
+    .filter((id) => existsSync(new URL(`${id}/report.ja.json`, dir)));
+  assert.ok(ids.length > 0, 'data/daily に日文版が 1 期も無い');
+
+  for (const id of ids) {
+    const jaData = JSON.parse(readFileSync(new URL(`${id}/report.ja.json`, dir), 'utf8'));
+    const zhData = JSON.parse(readFileSync(new URL(`${id}/report.json`, dir), 'utf8'));
+    const zhSubtitle = (jaData.description_zh || zhData.description || '').trim();
+    const counts = {
+      hook: splitClauses(jaData.hook ?? '').length,
+      description: splitClauses(jaData.description ?? '').length,
+      description_zh: splitClauses(zhSubtitle).length,
+    };
+    const numbers = Object.values(counts);
+    assert.equal(
+      new Set(numbers).size,
+      1,
+      `${id} の副標題が一句対一句になっていない: ${JSON.stringify(counts)}`
+    );
+    assert.ok(
+      numbers[0] >= 1 && numbers[0] <= 3,
+      `${id} の副標題が ${numbers[0]} 句（1〜3 句にする）`
+    );
+  }
 });

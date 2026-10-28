@@ -1,5 +1,6 @@
 import { getCollection, type CollectionEntry } from 'astro:content';
 
+import { profile } from '../config/profile';
 import { cienText } from './cien';
 import { categoryOf, nameOf } from './roster';
 
@@ -324,6 +325,9 @@ export function cienReport(report: Daily, ja: DailyJa): string {
     {
       nameOf,
       handles: [...data.accounts, ...data.people.flatMap((p) => [p.handle, ...p.via])],
+      // 連絡先は `profile.json` ひとつが正本。`report.ja.json` には持たせない——
+      // 每期让它写一遍，迟早出现一个打错的地址。
+      contact: profile.email,
     },
   );
 }

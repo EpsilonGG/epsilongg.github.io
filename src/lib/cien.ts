@@ -72,6 +72,13 @@ export interface CienOptions {
   nameOf: (handle: string) => string;
   /** `@handle` をリンクにしてよい相手。この期に出てきた号だけ。 */
   handles?: Iterable<string>;
+  /**
+   * 連絡先メール。あれば**本文の最後**に 1 節だけ置く。空なら何も出さない。
+   *
+   * データ（`report.ja.json`）には入れない——毎期同じ値を書かせると、いつか
+   * 打ち間違いが混ざる。出どころは `src/config/profile.json` ひとつ。
+   */
+  contact?: string;
 }
 
 type Lang = 'zh' | 'ja';
@@ -84,6 +91,12 @@ const HEADINGS: Record<Lang, { highlights: string; works: string; people: string
 
 /** `via` に別名義があるときの前置き。 */
 const VIA_LABEL: Record<Lang, string> = { zh: '另有', ja: 'ほかに' };
+
+/**
+ * 連絡先の節。**両言語を 1 行に見出しへ併記**する——この節は中国語版と日本語版の
+ * どちらの外側（記事全体の末尾）にあり、片方の言語だけに属さないため。
+ */
+const CONTACT_HEADING = 'お問い合わせ / 联系方式';
 
 const jaDayFormat = new Intl.DateTimeFormat('ja-JP', {
   timeZone: 'Asia/Tokyo',
@@ -122,6 +135,21 @@ const monthDayFormat = new Intl.DateTimeFormat('ja-JP', {
 /** `10/27`（JST）。Ci-en のタイトル前半に使う。 */
 export function formatCienMonthDay(date: Date): string {
   return monthDayFormat.format(date);
+}
+
+/**
+ * 見出し・副標題を「分句」に割る。`、`／`。`／`，`／`！`／`？` が区切り。
+ *
+ * なぜ要るか：中国語版と日本語版の副標題は**同じことを同じ順で**言う約束なのに、
+ * 片方が 2 句・片方が 3 句だと、読み比べた瞬間に「別の話」に見える。句数を
+ * 機械で数えられるようにしておけば、`scripts/daily/ja.py` の判卷で落とせる。
+ * 描画では使わない——ここは**検査のための物差し**で、出力には影響しない。
+ */
+export function splitClauses(text: string): string[] {
+  return text
+    .split(/[、。，,！？!?]/)
+    .map((part) => part.trim())
+    .filter((part) => part.length > 0);
 }
 
 /** 中国語版の日付 `2026-10-27`（JST）。 */
@@ -243,7 +271,7 @@ function renderBody(
 /**
  * Ci-en 用の本文を組み立てる。
  *
- * 形は**固定**：1 行目のタイトル → `# 中文版` → `# 日本語版`。
+ * 形は**固定**：1 行目のタイトル → `# 中文版` → `# 日本語版` → 連絡先（あれば）。
  * タイトルは `【声優Xまとめ 10/27】` + 钩子（`issue.hook`）。
  * 前半の日付はここで作るので、中身と日付がずれることがない。
  *
@@ -265,13 +293,18 @@ export function cienText(
   const prefix = `【声優Xまとめ ${formatCienMonthDay(issue.day)}】`;
   const hook = issue.hook?.trim() ?? '';
 
-  return (
-    [
-      `${prefix}${hook}`,
-      '# 中文版',
-      renderBody('zh', zh, issue, options, canonical),
-      '# 日本語版',
-      renderBody('ja', ja, issue, options, canonical),
-    ].join('\n\n') + '\n'
-  );
+  const blocks = [
+    `${prefix}${hook}`,
+    '# 中文版',
+    renderBody('zh', zh, issue, options, canonical),
+    '# 日本語版',
+    renderBody('ja', ja, issue, options, canonical),
+  ];
+
+  // 連絡先は**記事全体の末尾**に 1 節だけ。どちらの言語版にも属さないので、
+  // 各版の中ではなく、`# 日本語版` が終わったあとに置く。
+  const contact = options.contact?.trim();
+  if (contact) blocks.push(`## ${CONTACT_HEADING}\nご連絡は ${contact} まで。`);
+
+  return blocks.join('\n\n') + '\n';
 }

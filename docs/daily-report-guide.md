@@ -142,8 +142,8 @@ data/daily/261031/report.json   →   /daily/261031/
 | 字段 | 对应中文版 | 说明 |
 | --- | --- | --- |
 | `hook` | — | **标题后半句**，≤ 40 字。前缀 `【声優Xまとめ M/D】` 由代码按发布时间拼，别自己写——手写日期迟早和中身对不上 |
-| `description` | — | 日语副标题，≤ 140 字 |
-| `description_zh` | `description` | 中文副标题。**空则用正本的 `description`**；正本写的是「五家厂商同日发售」这类整体话时，Ci-en 版只谈声优，需要在这里改写一句 |
+| `description` | — | 日语副标题，≤ 140 字。**分句数必须和 `description_zh` 一样**（`、` `。` `，` 断句，≤ 3 句） |
+| `description_zh` | `description` | 中文副标题。**空则用正本的 `description`**；正本写的是「五家厂商同日发售」这类整体话时，Ci-en 版只谈声优，需要在这里改写一句。**和 `description` 一句对一句** |
 | `highlights` | `highlights[]` | 日语看点，一条一段，**不写 `@handle` 以外的格式** |
 | `highlight_indexes` | `highlights[]` | **选中文版哪几条进 Ci-en 版**（0 起算）。厂商侧独占的看点在这里落选；空则全要。**条数必须和 `highlights` 一样** |
 | `works` | `works` | 一段话 |
@@ -153,6 +153,8 @@ data/daily/261031/report.json   →   /daily/261031/
 
 几条约定：
 
+- **中日副标题一句对一句**。`hook`／`description`／`description_zh` 三个「标题类」字段的分句数必须一样（1–3 句），句序也一样：片方 2 句片方 3 句，读者读到的就是两篇不同的稿子。261028 原来日文 3 句、中文 2 句，就是这个问题。句数由 `scripts/daily/ja.py` 的 `_clauses()` 数（`、` `。` `，` `,` `！` `？` 断句），判卷直接拦下；`tests/cien/cien.test.mjs` 另有一条回归测试扫全部已发布的期号。
+- **末尾有联系邮箱，但不在数据里**。渲染器（`src/lib/cien.ts`）在文章最后加一节 `## お問い合わせ / 联系方式` + `ご連絡は <email> まで。`，地址取自 `src/config/profile.json` 的 `email`。**`report.ja.json` 里不存这个字段**——每期让它写一遍，迟早出现一个打错的地址；答案里写了也会被判卷拒掉（会在 Ci-en 上出现两遍）。这一节在两个语言版之外，所以标题用双语并排。
 - **只出声优栏目**。制造商 / 社团那两栏是给站内看的，贴到 Ci-en 只会把「今天谁有动静」埋掉。筛选在 `lib/daily.ts` 里做（`categoryOf(handle) === 'seiyuu'`），`lib/cien.ts` 只管格式——它连名单都不知道。
 - **「厂商侧」的看点要手动挑掉**。哪条是厂商侧只有看内容才知道，所以不做关键词自动判定，而是用 `highlight_indexes` 点名。漏挑了闸门不会报（它只查条数对不对），但读者一眼能看出来。
 - **日期只写一次**。标题里有 `M/D`，中文版开头有一行 `2026-10-27（日本时间）`，日文版没有——同一句话不用两种语言各写一遍。**时刻两版都不写**：这是 1 天份的总结，几点发的对读者没有信息量（期号里也没有小时了）。
@@ -208,6 +210,9 @@ Ci-en 的编辑器接近 Markdown 但不完整，实际能用的只有这几种�
 
 ## 出典
 X の各アカウントのポスト（2026年10月27日 00:00〜24:00 JST）をもとにまとめました。
+
+## お問い合わせ / 联系方式
+ご連絡は epsilongg.work@gmail.com まで。
 ```
 
 ### 校验
@@ -404,14 +409,16 @@ python scripts/daily_digest.py ja --issue <期号> --answer out/<期号>.ja.json
   题面已经标好哪些人是声优、哪些「跳过（制造商）」，还会附上本期用到的术语
   （`data/glossary.json` 里 `zh` 出现在原文的那些），避免同一个人两天两种译法。
 - **给了 `--answer` 就判卷**：一次报出所有问题——`hook`／`description` 长度、
+  **`hook`／`description`／`description_zh` 三者分句数不一致**（中日副标题要一句对一句）、
   `highlight_indexes` 越界或与 `highlights` 条数不等、`people` 的 handle 不在本期正本里、
-  **不是声优**、顺序和中文版不一致，以及正文里出现 `**`／`- `／`<a>`／`<span>`／`<iframe>`。
+  **不是声优**、顺序和中文版不一致、正文里出现 `**`／`- `／`<a>`／`<span>`／`<iframe>`，
+  以及正文里写了联系邮箱（末尾那节由渲染器统一加，写了会重复）。
   通过后写 `out/<期号>/report.ja.json`（工作区，不是站点）。
 - 之后 `publish` 自动把它一起搬到 `data/daily/<期号>/`。
 
 **要点**：`highlight_indexes` 要挑掉「厂商侧独占」的看点，Ci-en 版只谈声优；`description_zh`
-是中文副标题的改写（正本那句可能在讲厂商，比如「CHAOS-R 新作完工」）。字段细节见上面
-「Ci-en 版」一节。
+是中文副标题的改写（正本那句可能在讲厂商，比如「CHAOS-R 新作完工」），**改完句数要和日文那句
+一样**；联系邮箱不用管，渲染器从 `profile.json` 取。字段细节见上面「Ci-en 版」一节。
 
 写完 `npm run build`，构建日志会报「日语版缺 N 人」；`npm run check:daily` 会查标题日期与期号
 是否一致、`highlight_indexes` 与 `highlights` 条数是否相等。

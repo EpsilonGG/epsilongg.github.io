@@ -17,12 +17,17 @@
   seiyuu` 的人。剔哪几条是编辑判断，不交给脚本猜。
 * **`description_zh` 要重写**。正本的副标题可能提了厂商（「CHAOS-R 新作完工」），
   日文版不收厂商，所以中文那句也得换一句——这也是它单独存一个字段的原因。
+* **中日副标题一句对一句**。`hook`／`description`／`description_zh` 三个「标题类」
+  字段的分句数必须一样：片方 2 句、片方 3 句，读起来就是两篇不同的稿子。
+  句数由 `_clauses()` 数（`、` `。` `，` `,` `！` `？` 断句），判卷直接拦下。
 * **正文不许自带记法**。`**`、`- ` 列表、`<a>`、`<span>`、`#` 标题都由渲染器
   （`src/lib/cien.ts`）负责，数据里出现就会被原样打进 Ci-en，所以这里直接拦下。
+  末尾的**联系邮箱**同理：由渲染器从 `src/config/profile.json` 取，答案里不要写。
 """
 from __future__ import annotations
 
 import json
+import re
 from pathlib import Path
 
 from . import paths
@@ -31,6 +36,11 @@ from .roster import Roster
 HOOK_MAX = 40
 DESCRIPTION_MAX = 140
 DESCRIPTION_ZH_MAX = 70
+
+# 分句：中日两边用同一套标点断句，这样句数才可比。
+_CLAUSE_SPLIT = re.compile(r"[、。，,！？!?]")
+# 副标题是「标题」不是「段落」，超过三句就该拆到正文里去了。
+CLAUSE_MAX = 3
 
 # 正文里不该出现的记法：渲染器负责排版，数据只存纯文本。
 FORBIDDEN: tuple[tuple[str, str], ...] = (
@@ -78,6 +88,21 @@ def _seiyuu(roster: Roster) -> set[str]:
     return {a.handle for a in roster.accounts if a.category == "seiyuu"}
 
 
+def _clauses(text: str) -> list[str]:
+    """标题类字段的分句。空串和纯空白不算一句。"""
+    return [part.strip() for part in _CLAUSE_SPLIT.split(text) if part.strip()]
+
+
+def _contact() -> str:
+    """末尾に自動で付く連絡先。出どころは站点配置ひとつ（`profile.json`）。"""
+    path = Path(__file__).resolve().parents[2] / "src" / "config" / "profile.json"
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        return ""
+    return str(data.get("email") or "").strip() if isinstance(data, dict) else ""
+
+
 def _name(roster: Roster, handle: str) -> str:
     """名单里的显示名；名单外退回 `@handle`（和站点渲染保持一致的退化方式）。"""
     account = roster.account(handle)
@@ -106,6 +131,30 @@ def validate(answer: object, report: dict, roster: Roster) -> None:
             continue
         if len(value) > limit:
             problems.append(f"{key} 超长：{len(value)} > {limit}")
+
+    # 中日副标题一句对一句。`description_zh` 空着就退回正本的 `description`——
+    # 渲染器也是这么退的（`lib/daily.ts`），检查必须跟同一个规则走，否则判卷和
+    # 页面各说各话。
+    titles = {
+        "hook": str(answer.get("hook") or "").strip(),
+        "description": str(answer.get("description") or "").strip(),
+        "中文副标题": str(answer.get("description_zh") or "").strip()
+        or str(report.get("description") or "").strip(),
+    }
+    counts = {key: len(_clauses(text)) for key, text in titles.items() if text}
+    if len(set(counts.values())) > 1:
+        problems.append(
+            "标题类字段的分句数不一致："
+            + "、".join(f"{key} {n} 句" for key, n in counts.items())
+            + "。中日副标题要一句对一句（「，」「、」断句，句数相同、顺序相同）"
+        )
+    over = {key: n for key, n in counts.items() if n > CLAUSE_MAX}
+    if over:
+        problems.append(
+            f"分句太多（≤ {CLAUSE_MAX} 句）："
+            + "、".join(f"{key} {n} 句" for key, n in over.items())
+            + "。副标题不是段落，多出来的内容写进 highlights"
+        )
 
     zh_highlights = report.get("highlights") or []
     highlights = answer.get("highlights") or []
@@ -169,10 +218,15 @@ def validate(answer: object, report: dict, roster: Roster) -> None:
         else:
             last = order[handle]
 
+    contact = _contact()
     for where, text in _strings(answer):
         for needle, why in FORBIDDEN:
             if needle in text:
                 problems.append(f"{where} 里有 {needle!r}：{why}")
+        if contact and contact in text:
+            problems.append(
+                f"{where} 里写了联系邮箱：末尾的联系方式由渲染器从 profile.json 加，答案里不要写"
+            )
 
     if problems:
         raise JaError("日文版不合格：\n  - " + "\n  - ".join(problems))
@@ -223,12 +277,18 @@ def build_task(issue_id: str, report: dict, roster: Roster) -> str:
             f"1. `hook` ≤ {HOOK_MAX} 字：接在 `【声優Xまとめ M/D】` 后面的一小句，写当天最具体的那件事。",
             f"2. `description` ≤ {DESCRIPTION_MAX} 字（日文副标题）、`description_zh` ≤ {DESCRIPTION_ZH_MAX} 字（中文副标题）。"
             "**两句都不能提厂商**——正本的副标题如果写了厂商，这里要换一句只说声优的。",
-            "3. `highlights` 只放声优侧的看点；用 `highlight_indexes` 指明保留中文第几条（0 起算、递增）。"
+            "3. **`hook`／`description`／`description_zh` 三者的分句数必须一样**（≤ "
+            f"{CLAUSE_MAX} 句，`、` `。` `，` 断句）。一句对一句、顺序也一样："
+            "片方 2 句片方 3 句，读起来就是两篇不同的稿子。中文副标题就照着日文那句"
+            "逐句翻，别自己加信息。",
+            "4. `highlights` 只放声优侧的看点；用 `highlight_indexes` 指明保留中文第几条（0 起算、递增）。"
             "两者条数必须相等。厂商侧的看点直接不选。",
-            "4. `people` 只收**声优**（下面标了「跳过」的不要），顺序和中文正本一致，`handle` 原样照抄。",
-            "5. 正文一律纯文本：不要 `**`、不要 `- ` 列表（要列就用「・」）、不要 `<a>`／`<span>`／`<iframe>`、不要 `#` 标题。"
+            "5. `people` 只收**声优**（下面标了「跳过」的不要），顺序和中文正本一致，`handle` 原样照抄。",
+            "6. 正文一律纯文本：不要 `**`、不要 `- ` 列表（要列就用「・」）、不要 `<a>`／`<span>`／`<iframe>`、不要 `#` 标题。"
             "加粗和字号由渲染器负责。",
-            "6. 人名第一次出现用日文原名（名单里的 `name`），作品名保留日文原名（『』）。",
+            "7. 人名第一次出现用日文原名（名单里的 `name`），作品名保留日文原名（『』）。",
+            "8. **末尾的联系邮箱不要写**——渲染器会从 `src/config/profile.json` 统一加到"
+            "文章最后，答案里写了就会重复。",
             "",
             "## 中文正本",
             "",
