@@ -47,34 +47,59 @@ X-Reader CI (每日 03:00 / 15:00 UTC)
 
 ## 日报的文件、期号与存档
 
-**期号就是被覆盖的那一天，也是网址。** 一期日报对应一个目录（M4 之前是一个 `.md` 文件）：
+**期号就是被覆盖的那一天 + 哪一版，也是网址。** 一期日报对应一个目录（M4 之前是一个 `.md` 文件）：
 
 ```
-data/daily/261031/report.json   →   /daily/261031/
+data/daily/261031/report.json      →   /daily/261031/       声优版
+data/daily/261031-g/report.json    →   /daily/261031-g/     Galgame 版
            ││││││
            │││└┴───── 31 日
            │└──────── 10 月
            └───────── 26 年
 ```
 
-格式 `YYMMDD`，六位数字，**日本时间（JST）**。2026-10-31 那一期 = `261031`。
+格式 `YYMMDD`，六位数字，**日本时间（JST）**。2026-10-31 的声优版 = `261031`，
+Galgame 版 = `261031-g`。
 
 **为什么不再带小时。** 旧格式是 `YYMMDDHH`，小时固定写 22:00——那是「名义发布时间」，
 不是真实发布时刻。一天的数据要到 JST 24:00 才闭合（X-Reader 的 CI 每天 15:00 UTC 抓最后一次），
 真实出稿必然落在次日凌晨（`provenance.generated_at` 通常是 01:2x）。于是「发布于 22:00」
 比实际早约 3.5 小时，和内容覆盖的 00:00–24:00 自相矛盾。把小时从期号里拿掉之后，
-期号只说「这是哪一天的日报」，真实发布时刻交给 `issue.published_at`，两边不再打架。
+期号只说「这是哪一天、哪一版」，真实发布时刻交给 `issue.published_at`，两边不再打架。
 
-**一天出两期是例外，用 `-2` 表示**：`261031`、`261031-2`。第 1 期不写后缀，
-`261031-1` 是写错了。默认 `build` 撞上已存在的期号会拒绝覆盖（等于删一期存档），
-确实要出第二期时加 `--new`，脚本自己排到下一个空号。
+**后缀一共两种，可以叠**：
+
+| 期号 | 意思 |
+| --- | --- |
+| `261031` | 声优版第 1 期（**不带后缀的永远是声优版**，10-29 之前的旧档都是它） |
+| `261031-g` | Galgame 版第 1 期 |
+| `261031-2` | 同一天的第二个声优版 |
+| `261031-g2` | 同一天的第二个 Galgame 版 |
+
+第 1 期不写后缀，`261031-1` / `261031-g1` 都是写错。默认 `build` 撞上已存在的期号会拒绝覆盖
+（等于删一期存档），确实要出第二期时加 `--new`，脚本自己排到下一个空号。
 
 `report.json` 里**没有 `title`、也没有 `pubDate`**：
 
-- 标题由期号推导：`X 日报 · 2026-10-31`（同日第二期加「（第 2 期）」）；
+- 标题由期号推导：`X 日报 · 2026-10-31 声优` / `X 日报 · 2026-10-31 Galgame`
+  （同日第 N 期再加「（第 N 期）」）；
 - 发布时间取 `issue.published_at`，缺失时退回期号对应的那天（`src/lib/daily.ts` 的 `resolvePublishedAt`）。
 
-期号不合规（不是六位、`26103231` 这种不存在的日期、`-1` 这种多余后缀）会让**构建直接失败**并指出是哪一期。
+期号不合规（不是六位、`26103231` 这种不存在的日期、`-1` / `-g1` 这种多余后缀）会让**构建直接失败**并指出是哪一期。
+
+### 两版怎么分工
+
+| | 声优版（`YYMMDD`） | Galgame 版（`YYMMDD-g`） |
+| --- | --- | --- |
+| 名单 | `src/config/daily-roster.json` | `src/config/daily-roster-galgame.json` |
+| 栏目 | 声优 128 条 / 音声社团 109 条 | 游戏制造商 174 条 / 信息号 3 条 |
+| 「详细」按钮 | 声优 · 音声社团（默认声优） | 游戏制造商 · 信息号（默认制造商） |
+| Ci-en 出口 | 有 | **没有**（`.ja.txt` 只给声优版） |
+| 抓取 | X-Reader `accounts.yaml` | X-Reader `accounts.galgame.yaml` |
+
+两版是**两次独立的 build**，各自读自己的 `data/items` 库，互不影响；一份失败不会拖住另一份。
+渲染时名单是**合并查询**的（`src/lib/roster.ts`）——历史期号（`261025`–`261028`）是合并名单时代的产物，
+`people` 里有厂商，只读声优版会让那些旧页面上的人名全部退回裸 `@handle`。
 
 ### 六个出口
 
@@ -85,7 +110,7 @@ data/daily/261031/report.json   →   /daily/261031/
 | `/daily/rss.xml` | **归档 feed**，独立于主 `/rss.xml`（那个只收「笔记」）；`pubDate` 用真实的 `published_at` |
 | `/daily/<期号>.json` | **JSON**，与 `data/daily/<期号>/report.json` 逐字节相同（含 `sources`），给第三方/脚本 |
 | `/daily/<期号>.txt` | **纯文本**，给复制粘贴和 M6 的视频稿；只换格式，不重新概括 |
-| `/daily/<期号>.ja.txt` | **Ci-en 版**，首行是固定标题 `【声優Xまとめ M/D】…`，然后中日双语（中文在前、日文在后），按 Ci-en 记法排过版，只收声优栏目；每期都由 `daily ja` 产出，缺了 `publish` 会提醒 |
+| `/daily/<期号>.ja.txt` | **Ci-en 版**，首行是固定标题 `【声優Xまとめ M/D】…`，然后中日双语（中文在前、日文在后），按 Ci-en 记法排过版，只收声优栏目；每期都由 `daily ja` 产出，缺了 `publish` 会提醒。**只有声优版有**，`-g` 的期号不生成 |
 
 > 独立 feed 的理由：日报每天一期且是 AI 整理的，混进主 feed 会改变既有订阅者收到的东西。分开后，归档页能翻，feed 能被阅读器收走。
 >
@@ -261,16 +286,29 @@ DAILY_PROXY=http://127.0.0.1:7897 python scripts/daily_prepare.py
 
 ```bash
 cd "Desktop/github page work"
+# 声优版（声优 + 音声社团）
 python scripts/daily_digest.py --items-dir "<X-rss-workspace>/X-Reader/data/items"
+# Galgame 版（游戏制造商 + 信息号）——库和名单都是另一份
+python scripts/daily_digest.py build --kind galgame --items-dir "<X-rss-workspace>/X-Reader/data-galgame/items"
 ```
 
-- `--date YYYY-MM-DD`：可选，**汇总哪一天的数据**（默认取数据里最新一天）。**这一天的日期就是期号**：`2026-10-31` → `261031`。
+- `--kind voice|galgame`：**哪一版**，默认 `voice`。它同时决定期号带不带 `-g`、用哪份名单、
+  「详细」里默认亮哪个栏目。后面的 `prompt` / `apply` / `confirm` / `publish` **不用再给**——
+  期号里已经写着类型（`261031-g`）。
+- `--date YYYY-MM-DD`：可选，**汇总哪一天的数据**（默认取数据里最新一天）。**这一天的日期就是期号**：`2026-10-31` → `261031` / `261031-g`。
 - `--at "2026-10-31 22:00"`：可选，写进 `issue.published_at` 的**真实发布时间**（JST），页面「发布于」和 RSS `pubDate` 用它。**它不决定期号**——期号只到天。
-- `--new`：同一天已经出过一期时，用它排到 `-2`、`-3`。不加就撞号，`build` 会拒绝覆盖。
+- `--new`：同一天同一版已经出过一期时，用它排到 `-2` / `-g2`。不加就撞号，`build` 会拒绝覆盖。
 - `--force`：默认**拒绝覆盖已存在的期号**——覆盖等于删掉一期存档。确实要重写同一期时才加。
 - `--per-account N`：可选，briefing 里每个账号最多写几条，**默认不截**（有几条写几条）。给了数就按（互动数, 发布时间）从高到低截。只在「某人一天刷了 30 条把 briefing 撑爆」时才用。
-- **`active: false` 的账号（社团号、制造商号）照旧进名单，但条目不进这一期**：脚本会把跳过的账号名打到 stderr。这两类现在全是 `active: false`，等日报要收它们的动态时再逐个打开。
-- **名单三类实体**：`seiyuu`（声优，128 条 / 98 人）、`circle`（同人音声社团，109 条）、`manufacturer`（游戏厂商，173 条）。**一个 handle 只建一条**——同一个号既是厂商的又是社团的（`@cube_staff`、`@pachipachisoft`），或本来就是某位声优的主号（`@ayakaigasaki`），只保留已有那条，另一重身份写进 `note`。身份靠 `tags` 区分：声优 `["声优","创作者"]`、社团 `["创作者","音声"]`、厂商 `["创作者","游戏"]`，有社团号的声优补 `"音声"`，近十年拿过萌えゲーアワード的厂商补 `"Moe Award"`。
+- **`active: false` 的账号照旧进名单，但条目不进这一期**：脚本会把跳过的账号名打到 stderr。
+  2026-10-29 起两版名单里**全部是 `active: true`**（社团也开了），这条只在临时暂停某人时用得上。
+- **名单四类实体，分两份文件**：声优版 `daily-roster.json` = `seiyuu`（声优，128 条 / 98 人）+ `circle`（音声社团，109 条）；
+  Galgame 版 `daily-roster-galgame.json` = `manufacturer`（游戏厂商，174 条，含 Moepedia 情报站）+ `info`（信息号，3 条：
+  `@seiya_saiga` / `@youtan0309` / `@aikouka23`）。**一个 handle 只建一条**——同一个号既是厂商的又是社团的
+  （`@cube_staff`、`@pachipachisoft`），或本来就是某位声优的主号（`@ayakaigasaki`），只保留已有那条，另一重身份写进 `note`。
+  身份靠 `tags` 区分：声优 `["声优","创作者"]`、社团 `["创作者","音声"]`、厂商 `["创作者","游戏"]`、
+  信息号 `["游戏情报","个人向"]`，有社团号的声优补 `"音声"`，近十年拿过萌えゲーアワード的厂商补 `"Moe Award"`。
+- **`--items-dir` 拿错库会告警**：条目属于另一版时，脚本打一行「N 个账号属于另一版（voice），条目已跳过」并继续。
 - 产出：
   - `out/<期号>/report.json` —— 站点内容的**正本骨架**：`accounts` 已按名单序排好，`highlights` / `interactions` 是空数组、`works` 是空串，`people` 每人一条 `summary: ""`（主号一行、其余号进 `via`），`issue.status` 是 `draft`。
   - `out/<期号>.briefing.txt` —— 喂给 LLM 的事实摘要（推文原文 + 互动数都在这里，已被 `.gitignore` 忽略，属本地中间产物）。
@@ -480,8 +518,9 @@ commit（2026-10-26 就把一篇 496 行的新访谈卷进了「docs: 抓取侧�
 | `tests/golden/current.json` | 金文件基准指针（`{"id": "261025"}`），换基准用 `npm run golden:daily:switch` |
 | `README/reports/daily-m5-m6-options.html` | M5（图片）/ M6（视频稿）的选型比较、代价与顺序。开工前先读 |
 | `scripts/push_site.py` | 提交并推送，绕开本机 `git push` 被 SIGTERM 的问题（GCM 取 token → 临时 askpass → 推完即删）。**日报要带 `--path data/daily/`**，否则 `git add -A` 会卷进无关改动 |
-| `scripts/sync_xreader_accounts.py` | 站点名单 → `X-Reader/accounts.yaml`（只写 `seiyuu` 且 `active != false`）。`--check` 只比对 |
-| `scripts/daily.sh` | 一键流程包装：组装 → 提示用 WorkBuddy 填摘要 → 打印 git 命令 |
+| `scripts/sync_xreader_accounts.py` | 站点名单 → `X-Reader/accounts.yaml` + `accounts.galgame.yaml`（两版分开写，只收 `active != false`）。`--check` 只比对 |
+| `scripts/daily.sh` | 一键流程包装：组装 → 提示用 WorkBuddy 填摘要 → 打印 git 命令（第二个参数之外还可给 `voice` / `galgame`） |
+| `scripts/build_roster_overview.py` | 两版名单合并成一张只读总表 `README/reports/daily-roster-2026-10.html`（四个大类 + 未入册候选） |
 | `scripts/rss_to_items.py` | 把 X-rss-main 的**真实** RSS feeds（`output/feeds_processed/*.xml`）转成 NormalizedItem JSONL（账号/原文链接/内容均为真实；该 RSS 源不含媒体与互动数） |
 | `scripts/sample_items/x.jsonl` | 预览/测试数据。现由 `rss_to_items.py` 从 X-rss-main 真实 feeds 生成（**真实推文**，非编造） |
 | `src/content.config.ts` | `dailyReports` 集合：`glob({ base: './data/daily', pattern: '*/report.json' })` + Zod（**没有** `title` / `pubDate`，两者由期号推导） |
@@ -502,19 +541,24 @@ commit（2026-10-26 就把一篇 496 行的新访谈卷进了「docs: 抓取侧�
 ### 2.2 X-Reader 端（抓取侧）
 
 - **仓库：** `X-rss-workspace/X-Reader`（= `github.com/EpsilonGG/X-Reader`，**是真正的 git clone**，`git pull` 能拿到 CI 提交的数据）。
-- **CI：** `X-Reader/.github/workflows/update.yml`，每日 **`03:00` 与 `15:00` UTC** 各跑一次。
-  `15:00 UTC` = **JST 00:00**，正好是 JST 自然日闭合的时刻，所以这一次的数据就是完整的一天；
-  一天两跑是因为 Nitter RSS 每个账号最多返回约 20 条，单跑会丢掉话多的人最早那几条。
-  `python main.py` 之后 `git add data && commit && push`（只提交 `data/`）。
-- **数据：** 规范存储是 `data/items/<source_id>.jsonl`（`NormalizedItem`，**append-only**）。X 数据 `source_id` 为 `x`，落在 `data/items/x.jsonl`。
-- **加/减监控账号：** **不要手改 `accounts.yaml`**，它由站点名单生成：
+- **CI：两个 workflow，各管一版。** 2026-10-29 拆分，因为声优版加进 109 个社团后已经顶到单条 20 分钟超时线。
+  - `update.yml`（声优版，237 个账号）：每日 **`03:00` 与 `15:00` UTC** 各跑一次，`timeout-minutes: 30`，写 `data/`。
+  - `update-galgame.yml`（Galgame 版，177 个账号）：每日 **`03:10` 与 `15:10` UTC**（错开 10 分钟，避免两边抢同一个 push），
+    用 `--config config/config.galgame.yaml --accounts accounts.galgame.yaml`，写 `data-galgame/`，超时 20 分钟。
+  - `15:00 UTC` = **JST 00:00**，正好是 JST 自然日闭合的时刻，所以这一次的数据就是完整的一天；
+    一天两跑是因为 Nitter RSS 每个账号最多返回约 20 条，单跑会丢掉话多的人最早那几条。
+  - 两个库分开之后，两边 `git add` 不会互相 rebase，也不会因为一边超时拖死另一边。
+- **数据：** 规范存储是 `data/items/<source_id>.jsonl`（`NormalizedItem`，**append-only**）。X 数据 `source_id` 为 `x`，
+  声优版落在 `data/items/x.jsonl`，Galgame 版落在 `data-galgame/items/x.jsonl`。
+- **加/减监控账号：** **不要手改 `accounts*.yaml`**，它们由站点名单生成：
   ```bash
-  python scripts/sync_xreader_accounts.py --out "<X-Reader>/accounts.yaml"
-  python scripts/sync_xreader_accounts.py --out ... --check   # 只比对，不一致退 1
+  python scripts/sync_xreader_accounts.py \
+      --out "<X-Reader>/accounts.yaml" --galgame-out "<X-Reader>/accounts.galgame.yaml"
+  python scripts/sync_xreader_accounts.py --out ... --galgame-out ... --check   # 只比对，不一致退 1
   ```
-  只写 `active != false` 的条目（现在是 302 个 = 128 声优 + 173 厂商 + Moepedia）。
-  社团号仍是 `active: false`，不会被写进去。分类（声优 / 制造商）不参与判断——
-  它决定条目落在页面哪个栏目，而栏目由日报页的筛选按钮分开看。
+  只写 `active != false` 的条目，按各自名单的顺序排：`accounts.yaml` **237 个**（128 声优 + 109 社团），
+  `accounts.galgame.yaml` **177 个**（173 厂商 + Moepedia + 3 信息号）。
+  `category` 不参与「抓不抓」，它决定条目落在页面哪个栏目，而栏目由日报页的筛选按钮分开看。
   正本里的 `accounts` 由数据**自动推导**，同样不用手改。
 - **实例可靠性：** 公共 Nitter 实例大半已死（410 / 451 / 403 / 人机验证页）。2026-10-26 实测 13 个里只有 1 个能出 feed，
   `config/config.yaml` 里按「能用的排前面」重排过。`providers/nitter.py` 会校验响应**是不是 feed**——

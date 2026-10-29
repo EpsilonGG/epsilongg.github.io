@@ -1,7 +1,15 @@
 """期号规则。
 
-期号 = **被覆盖的那一天**：`YYMMDD`（JST）。同一天要出第二期时加 `-2`、`-3`——
-`261027`、`261027-2`。
+期号 = **被覆盖的那一天 + 哪一版**：`YYMMDD`（JST）。2026-10-29 起日报一天出两份，
+所以期号多了一个类型后缀：
+
+    261029      声优版（声优 + 音声社团）
+    261029-g    Galgame 版（游戏制造商 + 信息号）
+    261029-2    同一天的第二期声优版
+    261029-g2   同一天的第二个 Galgame 版
+
+不带后缀的永远是声优版，因为 10-29 之前的所有期号都是声优版——旧档不用迁移，
+`261025` 照旧读得出来，`kind_of()` 给 `voice`。
 
 为什么不再带小时（旧格式是 `YYMMDDHH`）：一天的数据要到 JST 24:00 才闭合
 （X-Reader 的 CI 每天 15:00 UTC 抓最后一次），真实出稿必然落在次日凌晨。
@@ -11,8 +19,8 @@
 * 钉一个假时间 → 旧格式就是这么做的（固定 22:00），于是页面上的「发布于 22:00」
   比实际早约 3.5 小时。
 
-所以期号只说「这是哪一天的日报」，发布时间另有字段（`issue.published_at`），
-那个是真的。一天出两期是例外，用 `-2` 表示，仍然不引入「小时」这个维度。
+所以期号只说「这是哪一天、哪一版」，发布时间另有字段（`issue.published_at`），
+那个是真的。同一天出第二期是例外，用 `-2` / `-g2` 表示，仍然不引入「小时」这个维度。
 """
 from __future__ import annotations
 
@@ -23,34 +31,56 @@ from datetime import datetime, timedelta, timezone
 # 日报内容是日本声优的一天，用 JST 才不会把深夜的推分错天
 JST = timezone(timedelta(hours=9))
 
-# `261027` / `261027-2`。用 `-` 而不是直接接数字：`2610272` 分不清是
-# 「10-27 第 2 期」还是「10-27 02 时」（旧格式的读法）。
-ID_RE = re.compile(r"^(\d{2})(\d{2})(\d{2})(?:-(\d+))?$")
+VOICE = "voice"
+GALGAME = "galgame"
+KINDS = (VOICE, GALGAME)
+
+# 类型后缀 → 页面上的名字。标题、按钮、归档都用这一份，别在别处再写一遍。
+KIND_LABEL = {VOICE: "声优", GALGAME: "Galgame"}
+
+# `261029` / `261029-2` / `261029-g` / `261029-g2`。用 `-` 而不是直接接数字：
+# `2610292` 分不清是「10-29 第 2 期」还是「10-29 02 时」（旧格式的读法）。
+ID_RE = re.compile(r"^(\d{2})(\d{2})(\d{2})(?:-(g?)(\d*))?$")
 
 
-def issue_id_for(day: date_cls, seq: int = 1) -> str:
-    """`2026-10-27` + 第 1 期 → `261027`；第 2 期 → `261027-2`。"""
+def issue_id_for(day: date_cls, seq: int = 1, kind: str = VOICE) -> str:
+    """`2026-10-29` + 声优第 1 期 → `261029`；Galgame 第 1 期 → `261029-g`。"""
+    if kind not in KINDS:
+        raise ValueError(f"期号类型只能是 {'/'.join(KINDS)}，收到 {kind!r}")
     if seq < 1:
         raise ValueError(f"期序号从 1 开始，收到 {seq}")
     base = day.strftime("%y%m%d")
+    if kind == GALGAME:
+        return f"{base}-g{seq if seq > 1 else ''}"
     return base if seq == 1 else f"{base}-{seq}"
 
 
-def parse_issue_id(text: str) -> tuple[date_cls, int]:
-    """`261027-2` → `(date(2026,10,27), 2)`。格式不对或日期不存在就抛 ValueError。"""
+def parse_issue_id(text: str) -> tuple[date_cls, str, int]:
+    """`261029-g2` → `(date(2026,10,29), "galgame", 2)`。格式不对就抛 ValueError。"""
     raw = text.strip()
     match = ID_RE.match(raw)
     if not match:
-        raise ValueError(f"期号 {raw!r} 不是 YYMMDD 或 YYMMDD-N")
+        raise ValueError(f"期号 {raw!r} 不是 YYMMDD / YYMMDD-N / YYMMDD-g / YYMMDD-gN")
     year, month, day = (int(match.group(i)) for i in (1, 2, 3))
-    seq = int(match.group(4) or 1)
-    if match.group(4) and seq < 2:
-        raise ValueError(f"期号 {raw!r} 的序号要从 2 起（第 1 期不写后缀）")
+
+    kind = GALGAME if match.group(4) == "g" else VOICE
+    digits = match.group(5) or ""
+    if match.group(4) is None:
+        seq = 1
+    elif digits == "":
+        if match.group(4) == "":
+            raise ValueError(f"期号 {raw!r} 的 `-` 后面是空的")
+        seq = 1  # `-g` = Galgame 第 1 期
+    else:
+        seq = int(digits)
+        if seq < 2:
+            raise ValueError(f"期号 {raw!r} 的序号要从 2 起（第 1 期不写后缀）")
+
     try:
         covered = date_cls(2000 + year, month, day)
     except ValueError:
         raise ValueError(f"期号 {raw!r} 里没有这一天（{2000 + year}-{month:02d}-{day:02d}）") from None
-    return covered, seq
+    return covered, kind, seq
 
 
 def day_of(issue_id: str) -> date_cls:
@@ -58,9 +88,14 @@ def day_of(issue_id: str) -> date_cls:
     return parse_issue_id(issue_id)[0]
 
 
-def seq_of(issue_id: str) -> int:
-    """同一天里的第几期（第 1 期是 1）。"""
+def kind_of(issue_id: str) -> str:
+    """`261029` → `voice`；`261029-g` → `galgame`。"""
     return parse_issue_id(issue_id)[1]
+
+
+def seq_of(issue_id: str) -> int:
+    """同一天同一版里的第几期（第 1 期是 1）。"""
+    return parse_issue_id(issue_id)[2]
 
 
 def is_issue_id(text: str) -> bool:

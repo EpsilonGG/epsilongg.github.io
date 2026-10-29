@@ -6,12 +6,21 @@ import { categoryOf, nameOf } from './roster';
 
 type DailyEntry = CollectionEntry<'dailyReports'>;
 
+/** 日报的两种版本。2026-10-29 起一天出两份，期号带 `-g` 的是 Galgame 版。 */
+export type DailyKind = 'voice' | 'galgame';
+
+/** 版 → 页面上的名字。标题、归档、按钮都用这一份。 */
+export const KIND_LABEL: Record<DailyKind, string> = {
+  voice: '声优',
+  galgame: 'Galgame',
+};
+
 /**
  * 日报条目。
  *
  * M4 起数据源是 `data/daily/<期号>/report.json`（见 `content.config.ts`）。
- * `title` / `pubDate` / `covered` / `seq` 仍然是**派生**的，不写在数据里：
- * 期号说明「这是哪一天的日报」，`issue.published_at` 说明「什么时候发的」，
+ * `title` / `pubDate` / `covered` / `kind` / `seq` 仍然是**派生**的，不写在数据里：
+ * 期号说明「这是哪一天、哪一版」，`issue.published_at` 说明「什么时候发的」，
  * 标题就是把这两件事拼起来。少一个字段，就少一处能和 URL 对不上的地方。
  */
 export type Daily = Omit<DailyEntry, 'data'> & {
@@ -21,7 +30,9 @@ export type Daily = Omit<DailyEntry, 'data'> & {
     pubDate: Date;
     /** 期号覆盖的那一天（JST 零点）。归档分组、标题、Ci-en 标题用它。 */
     covered: Date;
-    /** 同一天里的第几期。第 1 期是 1，`261027-2` 是 2。 */
+    /** 这一期是哪一版：`voice`（声优 + 音声社团）/ `galgame`（制造商 + 信息号）。 */
+    kind: DailyKind;
+    /** 同一天同一版里的第几期。第 1 期是 1，`261027-2` 是 2。 */
     seq: number;
   };
 };
@@ -30,33 +41,52 @@ export type Daily = Omit<DailyEntry, 'data'> & {
 export type DailyData = Daily['data'];
 
 /**
- * 日报编号：`YYMMDD`，日本时间（JST）；同一天的第二期加 `-2`。
+ * 日报编号：`YYMMDD`（日本时间），类型后缀与期序号。
  *
- * 例：2026-10-27 那一期 → `261027`；同一天再出一期 → `261027-2`。
+ *   261029      声优版
+ *   261029-g    Galgame 版
+ *   261029-2    同一天的第二期声优版
+ *   261029-g2   同一天的第二个 Galgame 版
+ *
+ * **不带后缀的永远是声优版**：10-29 之前的所有期号都是声优版，旧档不用迁移。
  *
  * **不带小时是刻意的**：一天的数据要到 JST 24:00 才闭合（抓取 CI 每天 15:00 UTC
  * 跑最后一次），真实出稿必然在次日凌晨。小时写进期号只有两种结果——写真实时间，
  * 期号比内容晚一天；钉个假时间，页面上的「发布于」就是错的（旧格式的 22:00 正是如此）。
- * 期号只说「哪一天」，发布时间交给 `issue.published_at`。
+ * 期号只说「哪一天、哪一版」，发布时间交给 `issue.published_at`。
  */
-export const DAILY_ID_PATTERN = /^(\d{2})(\d{2})(\d{2})(?:-(\d+))?$/;
+export const DAILY_ID_PATTERN = /^(\d{2})(\d{2})(\d{2})(?:-(g?)(\d*))?$/;
 
 /** JST 相对 UTC 的偏移（分钟）。固定值，不依赖运行环境时区。 */
 const JST_OFFSET_MINUTES = 9 * 60;
 
 /**
- * 把 `261027` / `261027-2` 解析成「覆盖的那一天」与「第几期」。
+ * 把期号解析成「覆盖的那一天」「哪一版」「第几期」。
  * 格式不合法或日期不存在（如 2 月 30 日）返回 null。
  */
-export function parseDailyId(id: string): { day: Date; seq: number } | null {
+export function parseDailyId(id: string): { day: Date; kind: DailyKind; seq: number } | null {
   const match = DAILY_ID_PATTERN.exec(id);
   if (!match) return null;
 
   const year = 2000 + Number(match[1]);
   const month = Number(match[2]);
   const dayOfMonth = Number(match[3]);
-  const seq = Number(match[4] ?? 1);
-  if (month < 1 || month > 12 || dayOfMonth < 1 || dayOfMonth > 31 || seq < 1) return null;
+  const kindChar = match[4];
+  const digits = match[5] ?? '';
+
+  let kind: DailyKind = 'voice';
+  let seq = 1;
+  if (kindChar === 'g') {
+    kind = 'galgame';
+    if (digits !== '') seq = Number(digits);
+  } else if (kindChar === '') {
+    // `-` 后面既没有 g 也没有数字：`261029-` 是写错了
+    if (digits === '') return null;
+    seq = Number(digits);
+  }
+  // 第 1 期不写后缀：`-1` / `-g1` 是写错，不是等价写法
+  if (seq < 1 || (digits !== '' && seq < 2)) return null;
+  if (month < 1 || month > 12 || dayOfMonth < 1 || dayOfMonth > 31) return null;
 
   const offset = JST_OFFSET_MINUTES * 60 * 1000;
   const date = new Date(Date.UTC(year, month - 1, dayOfMonth) - offset);
@@ -71,14 +101,15 @@ export function parseDailyId(id: string): { day: Date; seq: number } | null {
     return null;
   }
 
-  return { day: date, seq };
+  return { day: date, kind, seq };
 }
 
-/** 反向：把「覆盖的那一天 + 第几期」写成期号。给测试和脚本对齐用。 */
-export function toDailyId(day: Date, seq = 1): string {
+/** 反向：把「覆盖的那一天 + 哪一版 + 第几期」写成期号。给测试和脚本对齐用。 */
+export function toDailyId(day: Date, seq = 1, kind: DailyKind = 'voice'): string {
   const back = new Date(day.getTime() + JST_OFFSET_MINUTES * 60 * 1000);
   const pad = (value: number, width = 2) => String(value).padStart(width, '0');
   const base = pad(back.getUTCFullYear() % 100) + pad(back.getUTCMonth() + 1) + pad(back.getUTCDate());
+  if (kind === 'galgame') return `${base}-g${seq > 1 ? seq : ''}`;
   return seq <= 1 ? base : `${base}-${seq}`;
 }
 
@@ -152,8 +183,8 @@ export async function getDailyReports(): Promise<Daily[]> {
     const parsed = parseDailyId(entry.id);
     if (!parsed) {
       throw new Error(
-        `[daily] ${entry.id} 不是合法的期号（YYMMDD 或 YYMMDD-N，JST）。` +
-          '例：2026-10-27 那一期是 261027，同一天的第二期是 261027-2。'
+        `[daily] ${entry.id} 不是合法的期号（YYMMDD / YYMMDD-N / YYMMDD-g / YYMMDD-gN，JST）。` +
+          '例：2026-10-29 的声优版是 261029，Galgame 版是 261029-g。'
       );
     }
     const suffix = parsed.seq > 1 ? `（第 ${parsed.seq} 期）` : '';
@@ -161,18 +192,23 @@ export async function getDailyReports(): Promise<Daily[]> {
       ...entry,
       data: {
         ...entry.data,
-        // 标题只说「哪一天」，几点发的写在「发布于」里——期号已经没有小时了
-        title: `X 日报 · ${formatIssueDay(parsed.day)}${suffix}`,
+        // 标题 = 日期 + 哪一版。几点发的写在「发布于」里——期号已经没有小时了
+        title: `X 日报 · ${formatIssueDay(parsed.day)} ${KIND_LABEL[parsed.kind]}${suffix}`,
         pubDate: resolvePublishedAt(entry, parsed.day),
         covered: parsed.day,
+        kind: parsed.kind,
         seq: parsed.seq,
       },
     };
   });
 
-  // 归档顺序按「覆盖的那一天」，不按发布时间：补录旧日期时，旧的那期不该跳到最上面
+  // 归档顺序按「覆盖的那一天」，不按发布时间：补录旧日期时，旧的那期不该跳到最上面。
+  // 同一天里声优版在前、Galgame 版在后，同一版按第几期倒序。
   return reports.sort(
-    (a, b) => b.data.covered.getTime() - a.data.covered.getTime() || b.data.seq - a.data.seq
+    (a, b) =>
+      b.data.covered.getTime() - a.data.covered.getTime() ||
+      (a.data.kind === b.data.kind ? 0 : a.data.kind === 'voice' ? -1 : 1) ||
+      b.data.seq - a.data.seq
   );
 }
 
@@ -292,6 +328,11 @@ export async function getDailyJapanese(): Promise<Map<string, DailyJa>> {
  */
 export function cienReport(report: Daily, ja: DailyJa): string {
   const { data } = report;
+  if (data.kind !== 'voice') {
+    // Ci-en 播报只有声优那一栏。Galgame 版（`-g`）没有对应出口——
+    // 早失败好过贴一份「今天没有声优动静」的空播报。
+    throw new Error(`[daily] ${report.id} 是 Galgame 版，Ci-en 出口只给声优版。`);
+  }
   const people = data.people.filter((person) => categoryOf(person.handle) === 'seiyuu');
 
   // Ci-en 版に載せる看点。`highlight_indexes` で選ぶ——「厂商側だけの看点は落とす」

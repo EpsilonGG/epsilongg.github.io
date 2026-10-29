@@ -23,7 +23,7 @@ import daily_digest as digest  # noqa: E402
 
 
 class IssueIdTest(unittest.TestCase):
-    """一天一期是 `YYMMDD`，同一天第二期是 `YYMMDD-2`——期号里没有小时。"""
+    """一天两期：声优版 `YYMMDD`、Galgame 版 `YYMMDD-g`——期号里没有小时。"""
 
     def test_one_issue_per_day(self) -> None:
         self.assertEqual(digest.issue_id_for(date_cls(2026, 10, 31)), "261031")
@@ -33,18 +33,37 @@ class IssueIdTest(unittest.TestCase):
         self.assertEqual(digest.issue_id_for(day, 2), "261031-2")
         self.assertEqual(digest.issue_id_for(day, 10), "261031-10")
 
+    def test_galgame_edition_gets_g_suffix(self) -> None:
+        day = date_cls(2026, 10, 31)
+        self.assertEqual(digest.issue_id_for(day, 1, "galgame"), "261031-g")
+        self.assertEqual(digest.issue_id_for(day, 2, "galgame"), "261031-g2")
+
     def test_seq_starts_at_one(self) -> None:
         with self.assertRaises(ValueError):
             digest.issue_id_for(date_cls(2026, 10, 31), 0)
 
+    def test_unknown_kind_is_rejected(self) -> None:
+        with self.assertRaises(ValueError):
+            digest.issue_id_for(date_cls(2026, 10, 31), 1, "blog")
+
     def test_parse_round_trip(self) -> None:
-        self.assertEqual(digest.parse_issue_id("261031"), (date_cls(2026, 10, 31), 1))
-        self.assertEqual(digest.parse_issue_id("261031-2"), (date_cls(2026, 10, 31), 2))
+        day = date_cls(2026, 10, 31)
+        self.assertEqual(digest.parse_issue_id("261031"), (day, "voice", 1))
+        self.assertEqual(digest.parse_issue_id("261031-2"), (day, "voice", 2))
+        self.assertEqual(digest.parse_issue_id("261031-g"), (day, "galgame", 1))
+        self.assertEqual(digest.parse_issue_id("261031-g2"), (day, "galgame", 2))
 
     def test_day_and_seq_helpers(self) -> None:
         self.assertEqual(digest.day_of("261031-2"), date_cls(2026, 10, 31))
         self.assertEqual(digest.seq_of("261031-2"), 2)
         self.assertEqual(digest.seq_of("261031"), 1)
+        self.assertEqual(digest.seq_of("261031-g"), 1)
+        self.assertEqual(digest.seq_of("261031-g2"), 2)
+
+    def test_old_id_is_voice(self) -> None:
+        """10-29 之前的期号都没有后缀，一律读成声优版——旧档不用迁移。"""
+        self.assertEqual(digest.kind_of("261025"), "voice")
+        self.assertEqual(digest.kind_of("261031-g"), "galgame")
 
     def test_old_hourly_id_is_rejected(self) -> None:
         """旧的八位期号不再合法：它把名义 22:00 当成了内容覆盖的时刻。"""
@@ -53,9 +72,11 @@ class IssueIdTest(unittest.TestCase):
         self.assertFalse(digest.is_issue_id("26103122"))
 
     def test_suffix_one_is_rejected(self) -> None:
-        """第 1 期不写后缀，`261031-1` 是写错了而不是等价写法。"""
+        """第 1 期不写后缀，`261031-1` / `261031-g1` 是写错了而不是等价写法。"""
         with self.assertRaises(ValueError):
             digest.parse_issue_id("261031-1")
+        with self.assertRaises(ValueError):
+            digest.parse_issue_id("261031-g1")
 
     def test_impossible_day_is_rejected(self) -> None:
         with self.assertRaises(ValueError):
@@ -64,7 +85,11 @@ class IssueIdTest(unittest.TestCase):
     def test_is_issue_id(self) -> None:
         self.assertTrue(digest.is_issue_id("261031"))
         self.assertTrue(digest.is_issue_id("261031-3"))
+        self.assertTrue(digest.is_issue_id("261031-g"))
+        self.assertTrue(digest.is_issue_id("261031-g3"))
         self.assertFalse(digest.is_issue_id("26103"))
+        self.assertFalse(digest.is_issue_id("261031-"))
+        self.assertFalse(digest.is_issue_id("261031x"))
         self.assertFalse(digest.is_issue_id(""))
 
     def test_parse_at_accepts_common_forms(self) -> None:

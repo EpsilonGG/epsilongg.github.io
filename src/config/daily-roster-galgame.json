@@ -1,0 +1,2263 @@
+{
+  "schema_version": 5,
+  "note": "Galgame 版日报的名单（`daily build --kind galgame`，期号 `YYMMDD-g`）。厂商一个 handle 一条，同社多品牌写进 note；黑系（エロス系作品BLACK賞）这批没有建。信息号（category=info）2026-10-29 先启用三个：seiya_saiga / youtan0309 / aikouka23；厂商侧个人号（剧作者 / 导演 / 代表）等容量拆分之后再补，暂不入册。Moepedia 是作品情报站，仍挂在 manufacturer 下（tags: 资料站 / 作品情报）。",
+  "categories": [
+    {
+      "id": "manufacturer",
+      "label": "游戏制造商"
+    },
+    {
+      "id": "info",
+      "label": "信息号"
+    },
+    {
+      "id": "other",
+      "label": "未归类"
+    }
+  ],
+  "accounts": [
+    {
+      "handle": "Moepedia_net",
+      "name": "Moepedia",
+      "category": "manufacturer",
+      "role": "other",
+      "active": true,
+      "tags": [
+        "资料站",
+        "作品情报"
+      ],
+      "note": "非厂商 · 作品情报站，月度新作日历的来源 · 2026-10-27 补入；2026-10-28 起进抓取，广告味重，走 filter 规则",
+      "filter": {
+        "drop_kinds": [
+          "repost"
+        ],
+        "drop_if": [
+          "プレゼント",
+          "応募",
+          "リポスト",
+          "周年",
+          "発売日でした",
+          "誕生日",
+          "キャンペーン",
+          "セール",
+          "ポイント",
+          "ご予約はこちら",
+          "キーホルダー",
+          "タペストリー",
+          "色紙",
+          "^moepedia\\.net/"
+        ],
+        "prefer_if": [
+          "新作",
+          "発売",
+          "体験版",
+          "予約",
+          "延期",
+          "配信"
+        ],
+        "max_items": 5
+      }
+    },
+    {
+      "handle": "appetite_game",
+      "name": "アパタイト",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏"
+      ],
+      "note": "五年 132 部 · 同社：アパダッシュ"
+    },
+    {
+      "handle": "Miel37319007",
+      "name": "Miel",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏"
+      ],
+      "note": "五年 66 部 · 同社：Norn"
+    },
+    {
+      "handle": "TRYSET",
+      "name": "TRYSET",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏"
+      ],
+      "note": "五年 77 部 · 同社：TRYSET Break、TRYSET＆Rebecca"
+    },
+    {
+      "handle": "silkysplus",
+      "name": "シルキーズプラス",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏",
+        "Moe Award"
+      ],
+      "note": "五年 49 部 · 同社：ベスコレ、シルキーズプラス WASABI · 受賞：2021 グラフィック賞 / 2020 金賞・プロモーション賞 / 2019 金賞・プロモーション賞 等 6 项"
+    },
+    {
+      "handle": "kiss_staff",
+      "name": "KISS",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏"
+      ],
+      "note": "五年 43 部"
+    },
+    {
+      "handle": "atelier__sakura",
+      "name": "アトリエさくら",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏"
+      ],
+      "note": "五年 40 部"
+    },
+    {
+      "handle": "chaos_R_public",
+      "name": "CHAOS-R",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏"
+      ],
+      "note": "五年 51 部 · 同社：CHAOS-L、CHAOS-R EXTREME、CHAOS-R feat. Freak Strike、MAYHEM／メイヘム、ARISE ARCHIVEs、CHAOS-R RE:Master、SPEED"
+    },
+    {
+      "handle": "debonosu",
+      "name": "でぼの巣製作所",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏",
+        "Moe Award"
+      ],
+      "note": "五年 32 部 · 受賞：2024 ロープライス賞 / 2023 ロープライス賞"
+    },
+    {
+      "handle": "zion_staff",
+      "name": "ZION",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏"
+      ],
+      "note": "五年 23 部"
+    },
+    {
+      "handle": "AzarashiSoft",
+      "name": "あざらしそふと",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏",
+        "Moe Award"
+      ],
+      "note": "五年 38 部 · 同社：あざらしそふと＋1、あざらしそふと × Lump of Sugar · 受賞：2025 エロゲ屋さん賞 / 2025 FANZA GAMES賞 / 2025 純愛系作品賞 等 9 项"
+    },
+    {
+      "handle": "sengoku_kh",
+      "name": "BaseSon",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏",
+        "Moe Award"
+      ],
+      "note": "五年 22 部 · 受賞：2024 ロープライス賞 / 2019 金賞・コンセプトデザイン賞 / 2019 金賞・シリーズ賞 等 6 项"
+    },
+    {
+      "handle": "Lusterise_PR",
+      "name": "Lusterise",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏",
+        "Moe Award"
+      ],
+      "note": "五年 21 部 · 受賞：2025 グラフィック賞 / 2025 ロープライス賞"
+    },
+    {
+      "handle": "HOOKSOFT",
+      "name": "HOOKSOFT",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏",
+        "Moe Award"
+      ],
+      "note": "五年 19 部 · 受賞：2024 純愛系作品賞 / 2023 純愛系作品賞 / 2022 純愛系作品賞 等 6 项"
+    },
+    {
+      "handle": "girls_software",
+      "name": "GIRL’S SOFTWARE／ガールズソフトウェア",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏"
+      ],
+      "note": "五年 18 部"
+    },
+    {
+      "handle": "CyberworksKoho",
+      "name": "TinkerBell",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏"
+      ],
+      "note": "五年 25 部 · 同社：WendyBell"
+    },
+    {
+      "handle": "Route2_tri",
+      "name": "Triangle",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏"
+      ],
+      "note": "五年 17 部"
+    },
+    {
+      "handle": "crowd_anim",
+      "name": "ANIM／アニム",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏"
+      ],
+      "note": "五年 34 部 · 同社：ANIM Mother＆Wife、ANIM.teamMM"
+    },
+    {
+      "handle": "cocoro_fw",
+      "name": "Front Wing／フロントウイング",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏",
+        "Moe Award"
+      ],
+      "note": "五年 16 部 · 受賞：2025 シナリオ賞"
+    },
+    {
+      "handle": "VALKYRIA_info",
+      "name": "わるきゅ～れ",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏",
+        "Moe Award"
+      ],
+      "note": "五年 16 部 · 受賞：2023 続編希望賞"
+    },
+    {
+      "handle": "escude1998",
+      "name": "エスクード",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏",
+        "Moe Award"
+      ],
+      "note": "五年 16 部 · 受賞：2025 シナリオ賞 / 2025 ユーザー支持賞 / 2024 サウンド賞 等 4 项"
+    },
+    {
+      "handle": "circus_info",
+      "name": "CIRCUS／サーカス",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏",
+        "Moe Award"
+      ],
+      "note": "五年 16 部 · 同社：CLOWN · 受賞：2025 純愛系作品賞 / 2024 純愛系作品賞 / 2023 サウンド賞 等 6 项"
+    },
+    {
+      "handle": "ammolite_game",
+      "name": "アンモライト",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏"
+      ],
+      "note": "五年 15 部"
+    },
+    {
+      "handle": "Whirlpool_soft",
+      "name": "Whirlpool",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏",
+        "Moe Award"
+      ],
+      "note": "五年 14 部 · 受賞：2022 グラフィック賞 / 2019 金賞・純愛系作品賞"
+    },
+    {
+      "handle": "galprince_game",
+      "name": "ギャルプリンス",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏"
+      ],
+      "note": "五年 13 部"
+    },
+    {
+      "handle": "purple_NewWork",
+      "name": "Purple software／パープルソフトウェア",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏",
+        "Moe Award"
+      ],
+      "note": "五年 12 部 · 受賞：2017 金賞・主題歌賞 / 2016 金賞・主題歌賞"
+    },
+    {
+      "handle": "ASaProject_2016",
+      "name": "ASa Project",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏",
+        "Moe Award"
+      ],
+      "note": "五年 11 部 · 受賞：2025 純愛系作品賞 / 2023 シナリオ賞 / 2022 シナリオ賞"
+    },
+    {
+      "handle": "CRYSTALiA_AC",
+      "name": "CRYSTALiA",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏",
+        "Moe Award"
+      ],
+      "note": "五年 11 部 · 受賞：2025 ムービー賞 / 2024 サウンド賞 / 2022 グラフィック賞"
+    },
+    {
+      "handle": "Guilty_WillPlus",
+      "name": "Guilty dash",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏"
+      ],
+      "note": "五年 32 部 · 同社：Guilty／ギルティ、Guilty Nightmare Project"
+    },
+    {
+      "handle": "smee_official",
+      "name": "SMEE／スミー",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏",
+        "Moe Award"
+      ],
+      "note": "五年 11 部 · 受賞：2024 純愛系作品賞 / 2017 大賞・準大賞 / 2017 金賞・主題歌賞"
+    },
+    {
+      "handle": "entergram_info",
+      "name": "エンターグラム",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏"
+      ],
+      "note": "五年 11 部"
+    },
+    {
+      "handle": "web_giga",
+      "name": "戯画",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏"
+      ],
+      "note": "五年 11 部"
+    },
+    {
+      "handle": "Amuse_kenzen",
+      "name": "AMUSE CRAFT EROTICA",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏"
+      ],
+      "note": "五年 9 部"
+    },
+    {
+      "handle": "CalciteTw",
+      "name": "Calcite",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏"
+      ],
+      "note": "五年 12 部 · 同社：ももはなソフト"
+    },
+    {
+      "handle": "Casket_soft",
+      "name": "Casket",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏"
+      ],
+      "note": "五年 9 部"
+    },
+    {
+      "handle": "key_official",
+      "name": "Key",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏",
+        "Moe Award"
+      ],
+      "note": "五年 9 部 · 受賞：2024 ユーザー支持賞 / 2022 シナリオ賞 / 2020 金賞・主題歌賞 等 5 项"
+    },
+    {
+      "handle": "POISON_NEW1992",
+      "name": "POISON",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏"
+      ],
+      "note": "五年 13 部 · 同社：POISON MOTION"
+    },
+    {
+      "handle": "ArgonautsSoft",
+      "name": "Argonauts／アルゴノーツ",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏",
+        "Moe Award"
+      ],
+      "note": "五年 8 部 · 受賞：2025 ロープライス賞 / 2024 エロス系作品PINK賞"
+    },
+    {
+      "handle": "dessertsoft_tw",
+      "name": "DESSERT Soft",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏",
+        "Moe Award"
+      ],
+      "note": "五年 8 部 · 受賞：2019 金賞・ニューブランド賞"
+    },
+    {
+      "handle": "Projecti18",
+      "name": "ILLGAMES",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏",
+        "Moe Award"
+      ],
+      "note": "五年 8 部 · 受賞：2025 FANZA GAMES賞 / 2025 大賞 / 2024 続編希望賞 等 5 项"
+    },
+    {
+      "handle": "lumpofsuger",
+      "name": "Lump of Sugar／ランプオブシュガー",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏",
+        "Moe Award"
+      ],
+      "note": "五年 9 部 · 同社：Lump of Sugar×スミレ · 受賞：2022 サウンド賞 / 2019 金賞・純愛系作品賞"
+    },
+    {
+      "handle": "PULLTOP_LATTE",
+      "name": "PULLTOP LATTE",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏"
+      ],
+      "note": "五年 8 部"
+    },
+    {
+      "handle": "u_me_soft",
+      "name": "U・Me SOFT",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏"
+      ],
+      "note": "五年 8 部"
+    },
+    {
+      "handle": "will_tokohana",
+      "name": "とこはな",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏"
+      ],
+      "note": "五年 8 部"
+    },
+    {
+      "handle": "hamham_soft",
+      "name": "はむはむソフト",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏"
+      ],
+      "note": "五年 8 部"
+    },
+    {
+      "handle": "milkfactory_",
+      "name": "みるくふぁくとりー",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏",
+        "Moe Award"
+      ],
+      "note": "五年 8 部 · 受賞：2025 FANZA GAMES賞 / 2025 エロス系作品PINK賞 / 2023 続編希望賞 等 6 项"
+    },
+    {
+      "handle": "bluegale_lucie",
+      "name": "ブルーゲイル",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏"
+      ],
+      "note": "五年 10 部 · 同社：ブルゲ ON DEMAND"
+    },
+    {
+      "handle": "FANDC_Staff",
+      "name": "F&amp;C／エフアンドシー",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏"
+      ],
+      "note": "五年 10 部 · 同社：RED-ZONE、F＆C・FC01"
+    },
+    {
+      "handle": "sukaradog",
+      "name": "SUKARADOG",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏"
+      ],
+      "note": "五年 7 部"
+    },
+    {
+      "handle": "will_ensemble",
+      "name": "ensemble",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏",
+        "Moe Award"
+      ],
+      "note": "五年 7 部 · 受賞：2024 シナリオ賞 / 2023 純愛系作品賞 / 2022 純愛系作品賞 等 4 项"
+    },
+    {
+      "handle": "Ms_toybox",
+      "name": "だーくニャー！",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏"
+      ],
+      "note": "五年 32 部 · 同社：だーくワン！、GLASSES、RE:creation、FireDoor"
+    },
+    {
+      "handle": "momopoke_tw",
+      "name": "ももいろPocket",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏"
+      ],
+      "note": "五年 8 部 · 同社：むらさきポケット"
+    },
+    {
+      "handle": "eushully_info",
+      "name": "エウシュリー",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏"
+      ],
+      "note": "五年 7 部"
+    },
+    {
+      "handle": "liar_railsoft",
+      "name": "LiarSoft／ライアーソフト",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏",
+        "Moe Award"
+      ],
+      "note": "五年 6 部 · 受賞：2022 シナリオ賞"
+    },
+    {
+      "handle": "NanaWind",
+      "name": "NanaWind",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏",
+        "Moe Award"
+      ],
+      "note": "五年 8 部 · 同社：LunaSystem · 受賞：2017 金賞・純愛系作品賞"
+    },
+    {
+      "handle": "evoLL_info",
+      "name": "evoLL",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏"
+      ],
+      "note": "五年 6 部"
+    },
+    {
+      "handle": "pakopakosoft2nd",
+      "name": "ぱこぱこそふと",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏"
+      ],
+      "note": "五年 6 部"
+    },
+    {
+      "handle": "web_marmalade",
+      "name": "ま～まれぇど",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏",
+        "Moe Award"
+      ],
+      "note": "五年 6 部 · 受賞：2025 美少女ゲームソング賞 / 2024 ロープライス賞 / 2022 グラフィック賞 等 4 项"
+    },
+    {
+      "handle": "Amuse_sub",
+      "name": "エレクトリップ",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏"
+      ],
+      "note": "五年 9 部 · 同社：milimili：AMUSE CRAFT EROTICA"
+    },
+    {
+      "handle": "confiture_soft",
+      "name": "コンフィチュールソフト",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏"
+      ],
+      "note": "五年 6 部"
+    },
+    {
+      "handle": "luneman_etc",
+      "name": "ルネ",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏"
+      ],
+      "note": "五年 15 部 · 同社：マリン、ルネ Team Bitters、アンダームーン、ファーサイド"
+    },
+    {
+      "handle": "KISSonlineKISS",
+      "name": "",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏"
+      ],
+      "note": "五年 5 部"
+    },
+    {
+      "handle": "favo_official",
+      "name": "FAVORITE",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏",
+        "Moe Award"
+      ],
+      "note": "五年 5 部 · 受賞：2019 金賞・シナリオ賞"
+    },
+    {
+      "handle": "fgremake",
+      "name": "FG Remake",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏",
+        "Moe Award"
+      ],
+      "note": "五年 5 部 · 受賞：2025 シナリオ賞 / 2025 ユーザー支持賞 / 2024 グラフィック賞"
+    },
+    {
+      "handle": "SAGAPLANETS",
+      "name": "SAGA PLANETS",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏",
+        "Moe Award"
+      ],
+      "note": "五年 5 部 · 受賞：2022 ユーザー支持賞 / 2019 金賞・キャラクターデザイン賞 / 2017 大賞・準大賞 等 5 项"
+    },
+    {
+      "handle": "ensemble_sweet",
+      "name": "ensemble SWEET",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏"
+      ],
+      "note": "五年 5 部"
+    },
+    {
+      "handle": "metalogiq",
+      "name": "metalogiq",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏"
+      ],
+      "note": "五年 5 部"
+    },
+    {
+      "handle": "onomatope_twit",
+      "name": "onomatope* raspberry",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏"
+      ],
+      "note": "五年 5 部"
+    },
+    {
+      "handle": "propeller_staff",
+      "name": "propeller",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏",
+        "Moe Award"
+      ],
+      "note": "五年 5 部 · 受賞：2023 サウンド賞"
+    },
+    {
+      "handle": "sprite_fairys",
+      "name": "sprite",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏"
+      ],
+      "note": "五年 5 部"
+    },
+    {
+      "handle": "Gotcha_MIX",
+      "name": "おねえちゃんらんど",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏"
+      ],
+      "note": "五年 10 部 · 同社：ぺたりおん、Dark Crawl、Rave’N"
+    },
+    {
+      "handle": "madostaff",
+      "name": "まどそふと",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏",
+        "Moe Award"
+      ],
+      "note": "五年 5 部 · 受賞：2025 エロス系作品PINK賞 / 2025 続編希望賞 / 2025 ユーザー支持賞 等 12 项"
+    },
+    {
+      "handle": "bootUP_twit",
+      "name": "エロイット",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏"
+      ],
+      "note": "五年 7 部 · 同社：bootUP!"
+    },
+    {
+      "handle": "alice_soft",
+      "name": "ALICESOFT／アリスソフト",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏",
+        "Moe Award"
+      ],
+      "note": "五年 4 部 · 受賞：2024 続編希望賞 / 2018 大賞・準大賞"
+    },
+    {
+      "handle": "CLIP_CRAFT",
+      "name": "CLIP☆CRAFT",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏"
+      ],
+      "note": "五年 4 部"
+    },
+    {
+      "handle": "Empress_STAFF",
+      "name": "Empress",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏"
+      ],
+      "note": "五年 4 部"
+    },
+    {
+      "handle": "moonstoneTwitt",
+      "name": "MOONSTONE Cherry",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏",
+        "Moe Award"
+      ],
+      "note": "五年 6 部 · 同社：MOONSTONE／ムーンストーン · 受賞：2023 エロス系作品PINK賞"
+    },
+    {
+      "handle": "qruppo",
+      "name": "Qruppo／クルッポ",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏",
+        "Moe Award"
+      ],
+      "note": "五年 4 部 · 受賞：2024 ユーザー支持賞 / 2022 大賞 / 2022 ユーザー支持賞 等 6 项"
+    },
+    {
+      "handle": "tily2023",
+      "name": "Tily",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏",
+        "Moe Award"
+      ],
+      "note": "五年 4 部 · 受賞：2023 ニューブランド賞"
+    },
+    {
+      "handle": "catwalk_nero",
+      "name": "catwalkNERO",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏"
+      ],
+      "note": "五年 4 部"
+    },
+    {
+      "handle": "noriyuki_s",
+      "name": "あっぷりけ",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏",
+        "Moe Award"
+      ],
+      "note": "五年 4 部 · 受賞：2019 金賞・イノベーション賞 / 2018 金賞・話題賞 / 2017 金賞・話題賞"
+    },
+    {
+      "handle": "cabbage_soft",
+      "name": "きゃべつそふと",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏",
+        "Moe Award"
+      ],
+      "note": "五年 4 部 · 受賞：2018 金賞・シナリオ賞"
+    },
+    {
+      "handle": "turumikuoffcial",
+      "name": "つるみく",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏"
+      ],
+      "note": "五年 8 部 · 同社：つるみく -Another-"
+    },
+    {
+      "handle": "nisidahajime",
+      "name": "の～すとらいく",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏"
+      ],
+      "note": "五年 4 部"
+    },
+    {
+      "handle": "silkyssakura",
+      "name": "シルキーズSAKURA",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏"
+      ],
+      "note": "五年 4 部"
+    },
+    {
+      "handle": "prekano_info",
+      "name": "プレカノ",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏"
+      ],
+      "note": "五年 4 部"
+    },
+    {
+      "handle": "hadashi_shojo",
+      "name": "裸足少女",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏"
+      ],
+      "note": "五年 4 部"
+    },
+    {
+      "handle": "archive_staff_",
+      "name": "Archive／アーカイブ",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏",
+        "Moe Award"
+      ],
+      "note": "五年 3 部 · 受賞：2024 エロゲ屋さん賞 / 2024 シナリオ賞 / 2024 ユーザー支持賞"
+    },
+    {
+      "handle": "BINBIN19191",
+      "name": "BINBIN1919",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏"
+      ],
+      "note": "五年 3 部"
+    },
+    {
+      "handle": "DiGination_info",
+      "name": "DiGination",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏",
+        "Moe Award"
+      ],
+      "note": "五年 9 部 · 同社：FANZA GAMES、Heliodor · 受賞：2023 ロープライス賞 / 2022 イノベーション賞"
+    },
+    {
+      "handle": "evil_heal",
+      "name": "EvilHeal",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏"
+      ],
+      "note": "五年 3 部"
+    },
+    {
+      "handle": "hending_erg",
+      "name": "Hending",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏",
+        "Moe Award"
+      ],
+      "note": "五年 3 部 · 受賞：2024 エロス系作品PINK賞"
+    },
+    {
+      "handle": "ILLUSION_staff",
+      "name": "ILLUSION／イリュージョン",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏",
+        "Moe Award"
+      ],
+      "note": "五年 3 部 · 受賞：2022 イノベーション賞 / 2021 FANZA GAMES賞"
+    },
+    {
+      "handle": "mellowsoft_info",
+      "name": "MELLOW",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏",
+        "Moe Award"
+      ],
+      "note": "五年 3 部 · 受賞：2022 サウンド賞"
+    },
+    {
+      "handle": "project_navel",
+      "name": "Navel",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏",
+        "Moe Award"
+      ],
+      "note": "五年 3 部 · 受賞：2016 金賞・ファンディスク賞"
+    },
+    {
+      "handle": "QUINCE_SOFT",
+      "name": "QUINCE SOFT",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏",
+        "Moe Award"
+      ],
+      "note": "五年 3 部 · 受賞：2019 金賞・キャラクターデザイン賞"
+    },
+    {
+      "handle": "rootnuko_tw",
+      "name": "rootnuko＋H",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏"
+      ],
+      "note": "五年 3 部"
+    },
+    {
+      "handle": "willplus_staff",
+      "name": "ruf",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏"
+      ],
+      "note": "五年 3 部"
+    },
+    {
+      "handle": "AKABEiSOFT2_ab2",
+      "name": "あかべぇそふとつぅ",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏",
+        "Moe Award"
+      ],
+      "note": "五年 3 部 · 受賞：2025 ムービー賞 / 2022 エロス系作品PINK賞 / 2021 エロゲ屋さん賞 等 4 项"
+    },
+    {
+      "handle": "KUMANOMISoft",
+      "name": "くまのみそふと",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏"
+      ],
+      "note": "五年 3 部"
+    },
+    {
+      "handle": "info_9_nine_",
+      "name": "ぱれっと",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏",
+        "Moe Award"
+      ],
+      "note": "五年 3 部 · 受賞：2016 金賞・話題賞"
+    },
+    {
+      "handle": "yuzusoft",
+      "name": "ゆずソフト",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏",
+        "Moe Award"
+      ],
+      "note": "五年 3 部 · 受賞：2016 大賞・準大賞"
+    },
+    {
+      "handle": "Studio_Ubai",
+      "name": "スタジオ奪ルージュ",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏"
+      ],
+      "note": "五年 5 部 · 同社：スタジオ奪トランス"
+    },
+    {
+      "handle": "jitaku_st",
+      "name": "自宅すたじお",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏",
+        "Moe Award"
+      ],
+      "note": "五年 3 部 · 受賞：2025 エロス系作品PINK賞 / 2023 エロス系作品PINK賞 / 2018 金賞・エロス系作品賞PINK"
+    },
+    {
+      "handle": "AQUAPLUS_JP",
+      "name": "AQUAPLUS／アクアプラス",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏"
+      ],
+      "note": "五年 2 部"
+    },
+    {
+      "handle": "project_citrus",
+      "name": "Citrus",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏"
+      ],
+      "note": "五年 2 部"
+    },
+    {
+      "handle": "Cuteuphoria",
+      "name": "Cuteuphoria",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏"
+      ],
+      "note": "五年 2 部"
+    },
+    {
+      "handle": "cdrive_twit",
+      "name": "C：drive.",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏"
+      ],
+      "note": "五年 2 部"
+    },
+    {
+      "handle": "eldia_pr",
+      "name": "El Dia",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏"
+      ],
+      "note": "五年 2 部"
+    },
+    {
+      "handle": "freakstrike_pub",
+      "name": "FREAK STRIKE",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏"
+      ],
+      "note": "五年 2 部"
+    },
+    {
+      "handle": "fortuneglovety",
+      "name": "GLOVETY",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏"
+      ],
+      "note": "五年 2 部"
+    },
+    {
+      "handle": "holic_works",
+      "name": "HolicWorks",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏"
+      ],
+      "note": "五年 2 部"
+    },
+    {
+      "handle": "irodori_soft",
+      "name": "IRODORI",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏",
+        "Moe Award"
+      ],
+      "note": "五年 2 部 · 受賞：2024 シナリオ賞 / 2017 金賞・ゲームデザイン賞"
+    },
+    {
+      "handle": "North_Box_1911",
+      "name": "North Box",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏"
+      ],
+      "note": "五年 2 部"
+    },
+    {
+      "handle": "Orthrossoft",
+      "name": "Orthros",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏"
+      ],
+      "note": "五年 2 部"
+    },
+    {
+      "handle": "POISON_EX1992",
+      "name": "POISON EXTACY",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏"
+      ],
+      "note": "五年 2 部"
+    },
+    {
+      "handle": "nsm_reborn",
+      "name": "ROOT",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏",
+        "Moe Award"
+      ],
+      "note": "五年 2 部 · 受賞：2025 サウンド賞"
+    },
+    {
+      "handle": "Fate_SN_Game",
+      "name": "TYPE-MOON",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏"
+      ],
+      "note": "五年 2 部"
+    },
+    {
+      "handle": "wonder_fool24",
+      "name": "Wonder Fool",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏"
+      ],
+      "note": "五年 2 部"
+    },
+    {
+      "handle": "Muvluv_Official",
+      "name": "aNTIQ",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏"
+      ],
+      "note": "五年 3 部 · 同社：age／アージュ"
+    },
+    {
+      "handle": "monoceros_plus",
+      "name": "monoceros＋",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏"
+      ],
+      "note": "五年 3 部 · 同社：monoceros＋黒"
+    },
+    {
+      "handle": "omegastar00",
+      "name": "ωstar",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏"
+      ],
+      "note": "五年 2 部"
+    },
+    {
+      "handle": "SHIBASOFT_twi",
+      "name": "しばそふと",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏"
+      ],
+      "note": "五年 2 部"
+    },
+    {
+      "handle": "silkysconnect",
+      "name": "しるき～ずこねくと",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏"
+      ],
+      "note": "五年 2 部"
+    },
+    {
+      "handle": "SouffleSoft",
+      "name": "すふれそふと",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏"
+      ],
+      "note": "五年 2 部"
+    },
+    {
+      "handle": "pencil_official",
+      "name": "ぱじゃまエクスタシー",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏"
+      ],
+      "note": "五年 2 部"
+    },
+    {
+      "handle": "MilMilpoko",
+      "name": "みるきーポコ",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏"
+      ],
+      "note": "五年 2 部"
+    },
+    {
+      "handle": "unisonshift",
+      "name": "ユニゾンシフト",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏"
+      ],
+      "note": "五年 2 部"
+    },
+    {
+      "handle": "keromakurastaff",
+      "name": "枕",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏",
+        "Moe Award"
+      ],
+      "note": "五年 3 部 · 同社：ケロQ · 受賞：2023 エロゲ屋さん賞 / 2023 大賞 / 2023 グラフィック賞 等 5 项"
+    },
+    {
+      "handle": "alcot_official",
+      "name": "ALcot",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏"
+      ],
+      "note": "五年 1 部"
+    },
+    {
+      "handle": "ainolinks",
+      "name": "Aino＋Links",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏",
+        "Moe Award"
+      ],
+      "note": "五年 1 部 · 受賞：2021 ニューブランド賞 / 2021 大賞"
+    },
+    {
+      "handle": "BEEP_SHOP",
+      "name": "BEEP",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏"
+      ],
+      "note": "五年 1 部"
+    },
+    {
+      "handle": "BaristaLab_jp",
+      "name": "Barista Lab",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏"
+      ],
+      "note": "五年 1 部"
+    },
+    {
+      "handle": "psychic_eclipse",
+      "name": "C-Garden NEXT-B",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏"
+      ],
+      "note": "五年 1 部"
+    },
+    {
+      "handle": "craftwork_pr",
+      "name": "CRAFTWORK",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏",
+        "Moe Award"
+      ],
+      "note": "五年 1 部 · 受賞：2023 シナリオ賞 / 2023 続編希望賞 / 2023 サウンド賞 等 4 项"
+    },
+    {
+      "handle": "oshirase_cyc",
+      "name": "Cyc Rose",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏"
+      ],
+      "note": "五年 1 部"
+    },
+    {
+      "handle": "R2_DDT",
+      "name": "DD・T",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏"
+      ],
+      "note": "五年 1 部"
+    },
+    {
+      "handle": "Frill_Official",
+      "name": "Frill",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏"
+      ],
+      "note": "五年 1 部"
+    },
+    {
+      "handle": "FuriKuru_Game",
+      "name": "FuriKuru",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏"
+      ],
+      "note": "五年 1 部"
+    },
+    {
+      "handle": "info_GENDAI",
+      "name": "GENDAI",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏"
+      ],
+      "note": "五年 1 部"
+    },
+    {
+      "handle": "HARUKAZE_SOFT",
+      "name": "HARUKAZE",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏",
+        "Moe Award"
+      ],
+      "note": "五年 1 部 · 受賞：2021 エロゲ屋さん賞 / 2021 イノベーション賞 / 2017 大賞・準大賞 等 5 项"
+    },
+    {
+      "handle": "hulotte_jp",
+      "name": "HULOTTE",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏"
+      ],
+      "note": "五年 1 部"
+    },
+    {
+      "handle": "twit_Gungnir",
+      "name": "Innocent Grey",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏"
+      ],
+      "note": "五年 1 部"
+    },
+    {
+      "handle": "maokarinchan",
+      "name": "KarinProject",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏"
+      ],
+      "note": "五年 1 部"
+    },
+    {
+      "handle": "LiLiM_NTR",
+      "name": "LiLiM",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏"
+      ],
+      "note": "五年 4 部 · 同社：LiLiM DARKNESS"
+    },
+    {
+      "handle": "Liaison__info",
+      "name": "Liaison",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏"
+      ],
+      "note": "五年 1 部"
+    },
+    {
+      "handle": "info_lovelet",
+      "name": "Lovelet",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏"
+      ],
+      "note": "五年 1 部"
+    },
+    {
+      "handle": "nanaca_box",
+      "name": "NANACAN",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏"
+      ],
+      "note": "五年 1 部"
+    },
+    {
+      "handle": "Nameless_offi",
+      "name": "Nameless",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏",
+        "Moe Award"
+      ],
+      "note": "五年 1 部 · 受賞：2025 グラフィック賞"
+    },
+    {
+      "handle": "pri_sugar_twitt",
+      "name": "Princess Sugar",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏"
+      ],
+      "note": "五年 1 部"
+    },
+    {
+      "handle": "rail_romanesque",
+      "name": "RaRo",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏"
+      ],
+      "note": "五年 1 部"
+    },
+    {
+      "handle": "So_ir_ee",
+      "name": "Soiree",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏"
+      ],
+      "note": "五年 1 部"
+    },
+    {
+      "handle": "adahemas",
+      "name": "Sonora",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏"
+      ],
+      "note": "五年 1 部"
+    },
+    {
+      "handle": "SukeraSparo",
+      "name": "SukeraSomero",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏",
+        "Moe Award"
+      ],
+      "note": "五年 1 部 · 受賞：2017 金賞・コンセプトデザイン賞"
+    },
+    {
+      "handle": "kelp_official",
+      "name": "kelp",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏"
+      ],
+      "note": "五年 1 部"
+    },
+    {
+      "handle": "light_staff_tw",
+      "name": "light",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏",
+        "Moe Award"
+      ],
+      "note": "五年 1 部 · 受賞：2017 金賞・純愛系作品賞 / 2017 金賞・燃え系作品賞 / 2017 金賞・シリーズ賞 等 5 项"
+    },
+    {
+      "handle": "nexton30th",
+      "name": "novamicus",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏"
+      ],
+      "note": "五年 1 部"
+    },
+    {
+      "handle": "pa_official",
+      "name": "parade.",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏"
+      ],
+      "note": "五年 1 部"
+    },
+    {
+      "handle": "peaky_info",
+      "name": "peaky",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏"
+      ],
+      "note": "五年 1 部"
+    },
+    {
+      "handle": "zombilica_com",
+      "name": "√ZOMBILiCA",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏"
+      ],
+      "note": "五年 1 部"
+    },
+    {
+      "handle": "Windmill_Oasis",
+      "name": "ういんどみるコスモス",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏"
+      ],
+      "note": "五年 1 部"
+    },
+    {
+      "handle": "edoire_202503",
+      "name": "えどわ～る",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏"
+      ],
+      "note": "五年 1 部"
+    },
+    {
+      "handle": "hiyokosoft",
+      "name": "ひよこソフト",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏"
+      ],
+      "note": "五年 1 部"
+    },
+    {
+      "handle": "yuzusoft_sour",
+      "name": "ゆずソフトSOUR",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏"
+      ],
+      "note": "五年 1 部"
+    },
+    {
+      "handle": "atelierchocola",
+      "name": "アトリエショコラ",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏"
+      ],
+      "note": "五年 1 部"
+    },
+    {
+      "handle": "inre_official",
+      "name": "インレ",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏"
+      ],
+      "note": "五年 1 部"
+    },
+    {
+      "handle": "Overflow_staff",
+      "name": "オーバーフロー",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏"
+      ],
+      "note": "五年 1 部"
+    },
+    {
+      "handle": "Kinetic_novels",
+      "name": "キネティックノベルス",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏"
+      ],
+      "note": "五年 1 部"
+    },
+    {
+      "handle": "caramelbox_pub",
+      "name": "キャラメルBOX",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏"
+      ],
+      "note": "五年 1 部"
+    },
+    {
+      "handle": "cyberstepJP",
+      "name": "サイバーステップ",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏"
+      ],
+      "note": "五年 1 部"
+    },
+    {
+      "handle": "SYRUP_KOUHOU",
+      "name": "シロップ",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏"
+      ],
+      "note": "五年 3 部 · 同社：SYRUP -many milk-"
+    },
+    {
+      "handle": "nitroplus_staff",
+      "name": "ニトロオリジン",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏"
+      ],
+      "note": "五年 2 部 · 同社：ニトロプラス"
+    },
+    {
+      "handle": "info_bugsystem",
+      "name": "バグシステム",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏"
+      ],
+      "note": "五年 1 部"
+    },
+    {
+      "handle": "infosatsuki",
+      "name": "皐月",
+      "category": "manufacturer",
+      "role": "brand",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏"
+      ],
+      "note": "五年 1 部"
+    },
+    {
+      "handle": "seiya_saiga",
+      "name": "誠也の部屋@公式",
+      "category": "info",
+      "role": "info",
+      "active": true,
+      "tags": [
+        "游戏情报",
+        "个人向",
+        "攻略站"
+      ],
+      "note": "攻略站「誠也の部屋」官方号 · 新作攻略更新与当周打折，几乎日更 · 与 @uitachibana4 同一人 · 2026-10-29 启用",
+      "filter": {
+        "max_items": 5,
+        "prefer_if": [
+          "新作",
+          "攻略",
+          "発売",
+          "セール",
+          "体験版"
+        ]
+      }
+    },
+    {
+      "handle": "youtan0309",
+      "name": "ユウ＝ヤマナミ",
+      "category": "info",
+      "role": "info",
+      "active": true,
+      "tags": [
+        "游戏情报",
+        "个人向"
+      ],
+      "note": "企划／设计出身的老玩家（美少女ゲーム歴 37 年）· 新作感想与业界杂谈 · 2026-10-29 启用",
+      "filter": {
+        "max_items": 5,
+        "prefer_if": [
+          "新作",
+          "発売",
+          "体験版",
+          "延期",
+          "予約",
+          "感想"
+        ]
+      }
+    },
+    {
+      "handle": "aikouka23",
+      "name": "エロゲ情報収集愛好家",
+      "category": "info",
+      "role": "info",
+      "active": true,
+      "tags": [
+        "游戏情报",
+        "个人向"
+      ],
+      "note": "收藏侧情报：初回版／修正版的刻印差异、流通撤退与廃盤动向、老作保存版考据 · 2026-10-29 启用",
+      "filter": {
+        "max_items": 5,
+        "prefer_if": [
+          "初回",
+          "修正",
+          "廃盤",
+          "流通",
+          "復刻",
+          "新作"
+        ]
+      }
+    }
+  ]
+}

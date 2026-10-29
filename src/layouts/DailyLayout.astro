@@ -79,9 +79,10 @@ function withMentions(text: string): string {
 const profileUrl = (handle: string) => `https://x.com/${handle}`;
 
 /**
- * 按栏目（声优 / 社团 / 制造商）分组，给「详细」栏的筛选按钮用。
+ * 按栏目（声优版：声优 / 音声社团；Galgame 版：游戏制造商 / 信息号）分组，
+ * 给「详细」栏的筛选按钮用。
  *
- * 顺序跟名单的 `categories` 走，不跟数据走：同一期里「声优在前、制造商在后」
+ * 顺序跟名单的 `categories` 走，不跟数据走：同一期里「声优在前、社团在后」
  * 应该是稳定约定，而不是「谁先被抓到谁排前面」。
  *
  * 只保留这一期确实有条目的栏目——空栏目的按钮点开是空的，等于骗人。
@@ -97,9 +98,13 @@ const categoriesPresent = (() => {
     .sort((a, b) => a.rank - b.rank || b.count - a.count);
 })();
 
-/** 默认只看声优；某期没有声优条目（或名单漏了人）就退回第一个栏目。 */
-const defaultCategory = categoriesPresent.some((item) => item.id === 'seiyuu')
-  ? 'seiyuu'
+/**
+ * 默认栏目按**版**走：声优版默认声优，Galgame 版默认游戏制造商。
+ * 某期那一栏没有条目（或名单漏了人）就退回第一个栏目。
+ */
+const preferredCategory = post.data.kind === 'galgame' ? 'manufacturer' : 'seiyuu';
+const defaultCategory = categoriesPresent.some((item) => item.id === preferredCategory)
+  ? preferredCategory
   : (categoriesPresent[0]?.id ?? '');
 
 /** 只有一个栏目时按钮点不出任何变化，整排不渲染。 */

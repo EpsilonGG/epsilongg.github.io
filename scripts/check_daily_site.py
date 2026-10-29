@@ -29,6 +29,7 @@ if str(ROOT / "scripts") not in sys.path:
     sys.path.insert(0, str(ROOT / "scripts"))
 
 import daily_golden  # noqa: E402  —— 同目录的小工具，复用它的 .prose 抽取
+from daily.issue import VOICE, parse_issue_id  # noqa: E402
 
 DATA = ROOT / "data" / "daily"
 ROSTER = ROOT / "src" / "config" / "daily-roster.json"
@@ -49,7 +50,11 @@ def _count_items(xml: str) -> int:
 
 
 def _seiyuu_handles() -> set[str]:
-    """名单里属于「声优」栏目的号。Ci-en 出口只许出现这些人。"""
+    """名单里属于「声优」栏目的号。Ci-en 出口只许出现这些人。
+
+    2026-10-29 起名单拆成两份，声优版是 `daily-roster.json`（声优 + 音声社团）。
+    社团不是声优，所以 Ci-en 出口照样只收 `category: seiyuu`。
+    """
     roster = json.loads(ROSTER.read_text(encoding="utf-8"))
     return {account["handle"].lower() for account in roster["accounts"] if account.get("category") == "seiyuu"}
 
@@ -160,9 +165,15 @@ def check(dist: Path) -> list[str]:
         )
 
     # 最新一期没有 Ci-en 版就点名——261028 那期就是「谁也没想起来」漏掉的。
+    # 只看声优版：Galgame 版（期号带 `-g`）本来就没有 Ci-en 出口，
+    # 拿它当「最新一期」会每天都提醒一次缺翻译。
     newest = max(
-        (p.parent.name for p in DATA.glob("*/report.json")),
-        key=lambda i: (i[:6], int(i.split("-")[1]) if "-" in i else 1),
+        (
+            p.parent.name
+            for p in DATA.glob("*/report.json")
+            if parse_issue_id(p.parent.name)[1] == VOICE
+        ),
+        key=lambda i: (parse_issue_id(i)[0], parse_issue_id(i)[2]),
         default=None,
     )
     if newest and newest not in set(ja_sources):

@@ -6,6 +6,7 @@ import {
   groupByMonth,
   dailyPath,
   formatIssueDay,
+  KIND_LABEL,
   type Daily,
 } from '../../lib/daily';
 
@@ -13,18 +14,20 @@ const reports = await getDailyReports();
 const months = groupByMonth(reports);
 
 /**
- * 归档列表里省掉年份：分组标题已经写了月份，行里只要 `10-27`。
- * 一天出两期时标出「第 2 期」——期号里的 `-2` 不该让读者自己去解码。
+ * 归档列表里省掉年份：分组标题已经写了月份，行里只要 `10-29 声优`。
+ * 一天出两份，所以类型必须写出来——期号里的 `-g` 不该让读者自己去解码。
+ * 同一天同一版的第二期再补一句「第 2 期」。
  */
 function shortDay(report: Daily): string {
   const day = formatIssueDay(report.data.covered).slice(5);
-  return report.data.seq > 1 ? `${day} · 第 ${report.data.seq} 期` : day;
+  const label = `${day} ${KIND_LABEL[report.data.kind]}`;
+  return report.data.seq > 1 ? `${label} · 第 ${report.data.seq} 期` : label;
 }
 ---
 
 <BaseLayout
   title="日报"
-  description="X（推特）声优动态日报存档，按日期编号"
+  description="X（推特）动态日报存档：每天两期，声优版与 Galgame 版"
   feeds={[{ title: `${site.name} · 日报`, href: '/daily/rss.xml' }]}
 >
   <div class="page">
@@ -76,8 +79,9 @@ function shortDay(report: Daily): string {
           </div>
         ) : (
           <p class="empty-state">
-            暂无日报。日报每天一期，每期一个目录（YYMMDD，同一天第二期是 YYMMDD-2），
-            发布时由 <code>daily publish</code> 放进 data/daily/。
+            暂无日报。每天两期，每期一个目录（声优版 YYMMDD，Galgame 版 YYMMDD-g；
+            同一版第二期是 YYMMDD-2 / YYMMDD-g2），发布时由 <code>daily publish</code>
+            放进 data/daily/。
           </p>
         )
       }

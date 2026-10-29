@@ -30,7 +30,7 @@ from daily.adapters.xreader import load_raw  # noqa: E402
 from daily.build import build_briefing as _build_briefing  # noqa: E402
 from daily.build import build_report as _build_report  # noqa: E402
 from daily.cli import main as _cli_main  # noqa: E402
-from daily.issue import JST, day_of, is_issue_id, issue_id_for, parse_issue_id, seq_of  # noqa: E402
+from daily.issue import JST, day_of, is_issue_id, issue_id_for, kind_of, parse_issue_id, seq_of  # noqa: E402
 from daily.issue import parse_at as _parse_at  # noqa: E402
 from daily.model import Item  # noqa: E402
 

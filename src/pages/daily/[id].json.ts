@@ -26,6 +26,7 @@ export function GET({ props }: APIContext) {
     title: _title,
     pubDate: _pubDate,
     covered: _covered,
+    kind: _kind,
     seq: _seq,
     ...canonical
   } = report.data;

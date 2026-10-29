@@ -125,11 +125,22 @@ def page_path(dist: Path, issue_id: str) -> Path:
 
 
 def newest_issue() -> str:
-    """`data/daily/` 里期号最大的一期。期号是 `YYMMDD`（同日第二期 `-2`），字典序即时间序。"""
-    ids = sorted(p.parent.name for p in DATA.glob("*/report.json"))
+    """`data/daily/` 里最新的一期。
+
+    期号不再能按字典序排：`261029-2` < `261029-g` < `261029-g2`，但 `-g2` 不是最新的。
+    排序键是（覆盖的那一天，声优版在前，第几期）。
+    """
+    from daily.issue import VOICE, parse_issue_id
+
+    ids = [p.parent.name for p in DATA.glob("*/report.json")]
     if not ids:
         raise SystemExit(f"{DATA} 里没有已发布的期号，无法自动选基准。用 --id 指定。")
-    return ids[-1]
+
+    def key(issue_id: str) -> tuple:
+        day, kind, seq = parse_issue_id(issue_id)
+        return (day, 0 if kind == VOICE else 1, seq)
+
+    return max(ids, key=key)
 
 
 def current_issue() -> str:

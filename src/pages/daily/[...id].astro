@@ -3,11 +3,13 @@ import DailyLayout from '../../layouts/DailyLayout.astro';
 import { getDailyJapanese, getDailyReports } from '../../lib/daily';
 
 /**
- * 日报详情页。期号只到天（`YYMMDD`），同一天的第二期加 `-2`、第三期加 `-3`。
+ * 日报详情页。期号只到天（`YYMMDD`），2026-10-29 起一天出两份：
+ * `261029` 是声优版（声优 + 音声社团），`261029-g` 是 Galgame 版
+ * （游戏制造商 + 信息号）。同一版要出第二期时加 `-2` / `-g2`。
  *
  * 不带小时是因为小时曾经是「名义 22:00」，而一天的数据要到 JST 24:00 才闭合，
  * 真实出稿在次日凌晨——编号里的时间点和内容覆盖的时间段对不上。期号只说
- * 「这是哪一天的日报」，具体发布时刻看 `issue.published_at`。
+ * 「这是哪一天、哪一版」，具体发布时刻看 `issue.published_at`。
  *
  * M4 起数据源是 `data/daily/<期号>/report.json`，没有 Markdown 正文，
  * 所以不再有 `render()`：四段内容全部是结构化字段，由 `DailyLayout` 直接渲染。

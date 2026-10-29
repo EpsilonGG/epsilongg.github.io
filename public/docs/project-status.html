@@ -527,7 +527,7 @@
     <div class="cards">
       <div class="card">
         <h4>能用</h4>
-        <p>27 个页面全部 200；构建 0 报错；<code>astro check</code> 0 错 0 警；284 个测试全过（Python 250 + Node 34）、985 个站内链接零死链；每次推送自动部署，线上已验证。</p>
+        <p>27 个页面全部 200；构建 0 报错；<code>astro check</code> 0 错 0 警；289 个测试全过（Python 255 + Node 34）、985 个站内链接零死链；每次推送自动部署，线上已验证。</p>
       </div>
       <div class="card">
         <h4>能改</h4>
@@ -627,7 +627,7 @@
           <td>脚本与测试</td>
           <td><span class="pill pill--done">完成</span></td>
           <td><span class="meter"><span class="meter__track"><span class="meter__fill" style="--pct:100%"></span></span><span class="meter__pct">100%</span></span></td>
-          <td class="t-hide-sm">284 个用例（250 Python + 34 Node），含链接检查、图片清单对账、日报出口闸门与 Ci-en 记法契约</td>
+          <td class="t-hide-sm">289 个用例（255 Python + 34 Node），含链接检查、图片清单对账、日报出口闸门与 Ci-en 记法契约</td>
         </tr>
         <tr>
           <td>文档</td>
@@ -1019,7 +1019,7 @@
           第二次运行基本是空转。
         </p>
         <p>
-          测试合计 <strong>284 个用例</strong>（Python 250 + Node 34）：
+          测试合计 <strong>289 个用例</strong>（Python 255 + Node 34）：
         </p>
         <ul>
           <li><code>test_readme_sync.py</code>（24 个）：marker 缺失、顺序错乱、内容为空、日期格式化</li>
@@ -1281,9 +1281,11 @@
           单独一个文件，不进正本。
         </p>
         <p>
-          <strong>期号就是被覆盖的那一天。</strong>期号是 <code>YYMMDD</code>（六位数字，日本时间），
-          2026-10-31 那一期就是 <code>data/daily/261031/report.json</code>，网址
-          <code>/daily/261031/</code>；同一天要出第二期时加后缀，<code>261031-2</code>。
+          <strong>期号就是被覆盖的那一天 + 哪一版。</strong>期号是 <code>YYMMDD</code>（六位数字，日本时间），
+          2026-10-31 的声优版就是 <code>data/daily/261031/report.json</code>，网址 <code>/daily/261031/</code>；
+          <strong>2026-10-29 起一天出两份</strong>，Galgame 版加 <code>-g</code>：<code>261031-g</code>。
+          同一版要出第二期时再加序号，<code>261031-2</code> / <code>261031-g2</code>。
+          不带后缀的永远是声优版——10-29 之前的旧档都按它读，不用迁移。
         </p>
         <p>
           <strong>为什么不再带小时。</strong>旧格式是 <code>YYMMDDHH</code>，小时固定钉在 22:00——
@@ -1291,11 +1293,12 @@
           真实出稿必然落在次日凌晨，于是页面上「发布于 22:00」比实际早约 3.5 小时，和内容覆盖的
           00:00–24:00 自相矛盾。把小时从期号里拿掉后，期号只回答「这是哪一天的日报」，
           真实发布时刻交给 <code>issue.published_at</code>——页头因此只写「发布于」，
-          覆盖的是哪一天由标题（<code>X 日报 · 2026-10-27</code>）交代，不再单独占一行。
+          覆盖的是哪一天由标题（<code>X 日报 · 2026-10-27 声优</code>）交代，不再单独占一行。
         </p>
         <p>
           <code>report.json</code> 里<strong>没有 <code>title</code>、也没有 <code>pubDate</code></strong>：
-          标题由期号推导成 <code>X 日报 · 2026-10-31</code>（同日第二期加「（第 2 期）」），
+          标题由期号推导成 <code>X 日报 · 2026-10-31 声优</code> / <code>X 日报 · 2026-10-31 Galgame</code>
+          （同日第 N 期再加「（第 N 期）」），
           发布时间取 <code>issue.published_at</code>，缺失时退回期号对应那一天（<code>parseDailyId()</code>，
           固定 JST 偏移，不依赖运行环境时区）。期号不合规、<code>26103231</code> 这种不存在的日期、
           或 <code>261031-1</code> 这种多余后缀，<strong>构建直接失败</strong>并指出是哪一期。
@@ -2509,7 +2512,7 @@
 │   ├── daily.sh                一键：pull → digest → 提示写摘要（39 行）
 │   └── sample_items/           离线样例，供脚本自测
 ├── data/daily/{期号}/report.json   ★ 日报正本（站点读它，目录名即期号）
-├── tests/                    284 个用例（Python 250 + Node 34）+ golden/
+├── tests/                    289 个用例（Python 255 + Node 34）+ golden/
 ├── README.md                 主页名片 + 文档导航
 ├── README/                   quickstart / project / blog-guide / fork / ads + reports/
 ├── docs/                     daily-report-guide.md（跨仓库的日报流水线，不进部署）
@@ -2665,9 +2668,9 @@
         <tr><td>HTML 页面</td><td>27 个</td><td class="t-hide-sm"><code>find dist -name '*.html' | wc -l</code></td></tr>
         <tr><td>笔记</td><td>12 篇已发布 + 1 篇 <code>example.md</code> 草稿</td><td class="t-hide-sm"><code>ls src/content/blog/*.md</code></td></tr>
         <tr><td>日报期号</td><td>4 期：<code>261025</code>–<code>261028</code>，其中 2 期有日语版</td><td class="t-hide-sm"><code>ls -d data/daily/*/</code></td></tr>
-        <tr><td>采集名单</td><td>411 个账号，302 个 <code>active</code>（128 声优 / 109 社团 / 174 厂商）</td><td class="t-hide-sm"><code>src/config/daily-roster.json</code></td></tr>
+        <tr><td>采集名单</td><td>两份、414 个账号，全部 <code>active</code>：声优版 237（128 声优 + 109 音声社团）／Galgame 版 177（174 厂商 + 3 信息号）</td><td class="t-hide-sm"><code>src/config/daily-roster*.json</code></td></tr>
         <tr><td>术语表</td><td>50 条</td><td class="t-hide-sm"><code>npm run check:glossary</code></td></tr>
-        <tr><td>测试</td><td>284 个：250 Python + 34 Node（18 图注 + 16 Ci-en）</td><td class="t-hide-sm"><code>npm test</code> / <code>test:md</code> / <code>test:cien</code></td></tr>
+        <tr><td>测试</td><td>289 个：255 Python + 34 Node（18 图注 + 16 Ci-en）</td><td class="t-hide-sm"><code>npm test</code> / <code>test:md</code> / <code>test:cien</code></td></tr>
         <tr><td>站内链接</td><td>985 个（1462 处引用），零死链</td><td class="t-hide-sm"><code>npm run links</code></td></tr>
         <tr><td>首屏传输</td><td>10.8 KB（HTML 3.5 + CSS 7.3，gzip）</td><td class="t-hide-sm"><code>gzip -c dist/index.html | wc -c</code></td></tr>
         <tr><td>外部 JS 文件</td><td>0</td><td class="t-hide-sm">全站无第三方脚本</td></tr>
@@ -2869,12 +2872,14 @@ npm run golden:daily      # → 金文件一致：/daily/261025/ 正文纯文本
       </div>
       <div class="block-item">
         <div class="block-item__head">
-          <span class="block-item__name">采集已经贴着超时线</span>
-          <span class="block-item__src">302 个 active 账号</span>
+          <span class="block-item__name">采集已经拆成两个 workflow</span>
+          <span class="block-item__src">237 + 177 个账号</span>
         </div>
         <div class="block-item__left">
-          一次全量抓取约 19.6 分钟，<code>update.yml</code> 的 20 分钟已经贴上限。
-          <strong>M5 不要顺手加账号</strong>——要加得先把 CI 拆成两个 workflow，那是另一件事。
+          2026-10-29 起按两版日报拆分：<code>update.yml</code> 跑声优版 237 个（128 声优 + 109 社团，超时放宽到 30 分钟），
+          <code>update-galgame.yml</code> 跑 Galgame 版 177 个（173 厂商 + Moepedia + 3 信息号，写 <code>data-galgame/</code>，超时 20 分钟）。
+          两库分开后互不阻塞，也不会同时 <code>git add data</code> 打架。
+          <strong>再加账号前先看各自余量</strong>——厂商侧个人号 14 个、信息号候选 11 个还没入册。
         </div>
       </div>
     </div>
@@ -2915,7 +2920,7 @@ npm run golden:daily      # → 金文件一致：/daily/261025/ 正文纯文本
   <footer class="doc-foot">
     <p>
       体检时间 2026-10-29（页面、链接、体积数字为本次构建实测；第六节的外部站点对照仍是 2026-10-24 抓取）。数据来自实际构建产物、源码统计与现场抓取：
-      27 个 HTML 页面、单 CSS 7,488 字节（gzip）、0 个外部 JS 文件、284 个测试用例（250 Python + 34 Node）、
+      27 个 HTML 页面、单 CSS 7,488 字节（gzip）、0 个外部 JS 文件、289 个测试用例（255 Python + 34 Node）、
       985 个站内链接（共 1462 处引用）、首页 HTML 3,612 字节（gzip）、
       <code>astro check</code> 0 错 0 警，Astro 7.4.2 / Sätteri 0.4.5 / Node ≥ 22.23.4。
       第十二节是 M5 的交接单，写于同一天。

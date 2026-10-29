@@ -226,3 +226,69 @@ $ npm run links   → 23 个页面 · 559 个站内链接（共 776 处引用）
 
 M3：出题与判卷分离（`prompt.py` / `validate.py` / `apply.py` / `confirm.py`）。
 先做 M3.1 出题，因为这一周六期是手写填的，正好可以拿来当 M3 的对照组。
+
+## 2026-10-29 · 日报拆成两版（声优 / Galgame）
+
+### 为什么拆
+
+一天出两份，而不是在一份里加栏目：
+
+- **声优版**（`YYMMDD`）= 声优 128 条 + 音声社团 109 条。社团此前一直是 `active: false`，因为加进来会顶破单条 20 分钟超时线。
+- **Galgame 版**（`YYMMDD-g`）= 游戏厂商 174 条 + 信息号 3 条。
+
+两版的读者、栏目、数据来源都不同（社团是 DLsite 侧，厂商是 moepedia 侧）。合成一期会让「详细」的筛选按钮变成四选一，而且一边的噪音会挤掉另一边。
+
+### 期号
+
+`YYMMDD` 仍归声优版、不带后缀——这样已发布的 4 期（261025–261028）不用迁移。Galgame 版加 `-g`；同日第二期是 `-2` / `-g2`。
+
+`parse_issue_id()` 返回 `(day, kind, seq)`，`issue_id_for(day, seq, kind)` 反向生成。`-1` 与 `-g1` 都判非法（第 1 期不写后缀）。
+
+### 改了什么
+
+| 位置 | 改动 |
+| --- | --- |
+| `src/config/daily-roster.json` | 只留声优版 237 条，社团全部 `active: true` |
+| `src/config/daily-roster-galgame.json` | 新建，177 条（174 manufacturer + 3 info） |
+| `scripts/daily/issue.py` | `VOICE` / `GALGAME` / `KIND_LABEL`，期号正则加 `-g` |
+| `scripts/daily/roster.py` | 两版各一份默认路径；查询时合并（历史页面还能显示名字），分组只看本版 |
+| `scripts/daily/cli.py` | `build --kind`；跨版条目跳过并告警；`ja` 只接受声优版 |
+| `scripts/sync_xreader_accounts.py` | 写两份 yaml |
+| `src/lib/daily.ts` | `DailyKind`、`KIND_LABEL`、标题 `X 日报 · YYYY-MM-DD 声优 / Galgame` |
+| `src/lib/roster.ts` | 合并两份名单做查询，栏目顺序 seiyuu → circle → manufacturer → info → other |
+| `DailyLayout.astro` | 默认亮哪个栏目按 `kind` 走 |
+
+X-Reader 侧：`config/config.galgame.yaml`（`data_dir: data-galgame`）、`update-galgame.yml`（`03:10` / `15:10` UTC，超时 20 分钟）、`accounts.galgame.yaml`；`update.yml` 超时 20 → 30 分钟。
+
+### 踩到的坑
+
+- **派生字段漏进 JSON 出口。** `kind` 是站点从期号推导的，`[id].json.ts` 忘了剥掉，`check:daily` 立刻报「与 report.json 不是逐字节相同」。
+- **合并查询层的副作用。** 手写的测试名单没有 `category_ids`，`belongs_to_kind()` 把条目全判成「另一版」丢掉 → 改成 `category_ids` 为空时一律放行。
+- **金文件排序。** `newest_issue()` 原来按字符串排序，`-g` 后缀会把 `261022-g` 排到 `261028` 之后 → 改成按 `(day, 声优版优先, seq)` 解析后排序。
+
+### 验收
+
+```text
+$ python -m unittest discover -s tests
+Ran 255 tests in 3.072s
+OK
+
+$ npm run build
+22 page(s) built
+
+$ npm run check:daily
+✓ 4 期：HTML + JSON + TXT 三种出口齐全，JSON 与正本逐字节相同
+✓ 2 期有 Ci-en 出口
+金文件一致：/daily/261025/ 的正文纯文本与基准逐字相同（66 行）
+
+$ npm run links        → 27 个页面 · 985 个站内链接 · 全部通过
+$ npm run check:prose  → 27 页 · 没有落单的加粗标记
+```
+
+端到端还跑过一次合成期号 `261022-g`（样例数据）：标题 `X 日报 · 2026-10-22 Galgame`，「详细」默认亮「游戏制造商」、另一个按钮是「信息号」，归档行显示 `10-22 Galgame`。验完删掉了，不污染存档。
+
+### 遗留
+
+- 厂商侧个人号 14 条（剧作者 8 / 导演 3 / 代表 3）还没入册，之后再补；入册时每条要挂 `max_items: 1`。
+- 信息号候选 11 条（个人向 4 + 平台／媒体 7）仍在报告里，`@getchucom` / `@bugbug_info` 标了优先。
+- Galgame 版还没有实盘数据：`data-galgame/` 要等 `update-galgame.yml` 第一次跑完才有。

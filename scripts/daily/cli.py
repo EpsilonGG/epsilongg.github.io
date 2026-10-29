@@ -39,7 +39,7 @@ from .dedupe import merge
 from .export import build as build_export
 from .filter import apply_rules
 from .incremental import Classification, classify, commit
-from .issue import JST, issue_id_for, parse_at
+from .issue import GALGAME, JST, KIND_LABEL, KINDS, VOICE, issue_id_for, kind_of, parse_at
 from .model import Item
 from .order import sort_accounts, sort_items
 from .roster import Roster
@@ -63,14 +63,16 @@ def _select(
     date_text: str | None,
     at_text: str | None,
     *,
+    kind: str = VOICE,
     new: bool = False,
     out_dir: str = "out",
     dest_root: Path = publish_mod.DEFAULT_DEST,
 ):
-    """定窗口（哪一天）、期号（那一天的哪一期）与发布时间。
+    """定窗口（哪一天）、期号（那一天的哪一版、哪一期）与发布时间。
 
-    期号只到天：`261027`，同一天的第二期是 `261027-2`。`--at` **不再决定期号**，
-    它只是 `issue.published_at`——也就是页面「发布于」和 RSS `pubDate` 用的真实时间。
+    期号只到天：`261029` 是声优版，`261029-g` 是 Galgame 版；同一版要出第二期时
+    加 `-2` / `-g2`。`--at` **不再决定期号**，它只是 `issue.published_at`——
+    也就是页面「发布于」和 RSS `pubDate` 用的真实时间。
     """
     if date_text:
         report_date = date_cls.fromisoformat(date_text)
@@ -86,9 +88,9 @@ def _select(
     taken = _taken_issues(out_dir, dest_root)
     seq = 1
     if new:
-        while issue_id_for(report_date, seq) in taken:
+        while issue_id_for(report_date, seq, kind) in taken:
             seq += 1
-    return window, issue_id_for(report_date, seq), moment
+    return window, issue_id_for(report_date, seq, kind), moment
 
 
 def _render(
@@ -144,7 +146,20 @@ def _pipeline(
     classification = classify(raw, window, seen)
     merged = sort_items(merge(classification.items))
 
-    # 名单里 active=false 的账号（目前是全部社团号）先不进日报：
+    # 另一版的条目：`--items-dir` 拿错目录时（比如把 Galgame 的库喂给声优版），
+    # 这些号在名单里、但栏目不属于本版。跳过**条目**并告警——静默丢弃会让
+    # 「为什么这期少了三个厂商」无从查起。
+    foreign = sorted({i.account for i in merged if not roster.belongs_to_kind(i.account)})
+    if foreign:
+        print(
+            f"注意：{len(foreign)} 个账号属于另一版（{roster.kind}），条目已跳过："
+            + "、".join(foreign)
+            + "　检查 --items-dir 是不是拿错了库。",
+            file=sys.stderr,
+        )
+        merged = [i for i in merged if roster.belongs_to_kind(i.account)]
+
+    # 名单里 active=false 的账号先不进日报：
     # 跳过的是**条目**，不是「当成未知账号」——它们在名单里，只是暂时不消化。
     # 静默跳过会让「昨天还在的人今天不见了」无从查起，所以打一行日志。
     idle = sorted({i.account for i in merged if not roster.is_active(i.account)})
@@ -194,10 +209,10 @@ def _cmd_build(args: argparse.Namespace) -> int:
         return 2
 
     window, issue_id, moment = _select(
-        raw, args.date, args.at, new=args.new, out_dir=args.out
+        raw, args.date, args.at, kind=args.kind, new=args.new, out_dir=args.out
     )
     published_at = moment.isoformat()
-    roster = Roster.load(args.roster)
+    roster = Roster.load(args.roster, kind=args.kind)
 
     if args.backfill:
         # 补录历史：只关心窗口内的条目。不这么筛的话，同一批数据里
@@ -240,7 +255,8 @@ def _cmd_build(args: argparse.Namespace) -> int:
     if report_out.exists() and not args.force:
         print(
             f"已存在 {report_out}，拒绝覆盖（这一期已经在工作区里了）。\n"
-            f"改内容加 --force；确实要出第二期就加 --new（会排成 {issue_id_for(window.day, 2)}）。",
+            f"改内容加 --force；确实要出第二期就加 --new"
+            f"（会排成 {issue_id_for(window.day, 2, args.kind)}）。",
             file=sys.stderr,
         )
         return 3
@@ -260,7 +276,8 @@ def _cmd_build(args: argparse.Namespace) -> int:
 
     counts = classification.counts(accounts=len(accounts))
     print(
-        f"{window.label} 窗口：{len(merged)} 条（去重后，原始 {len(classification.items)}）· "
+        f"{KIND_LABEL.get(args.kind, args.kind)}版 · {window.label} 窗口：{len(merged)} 条"
+        f"（去重后，原始 {len(classification.items)}）· "
         f"{counts['accounts']} 位账号 · 跳过重复 {counts['skipped_duplicate']} · "
         f"迟到 {counts['late']} · 晚于窗口 {len(classification.future)}"
     )
@@ -344,7 +361,7 @@ def _cmd_prompt(args: argparse.Namespace) -> int:
 
 def _cmd_apply(args: argparse.Namespace) -> int:
     generate = _load_generate(args.out, args.issue)
-    roster = Roster.load(args.roster)
+    roster = Roster.load(args.roster, kind=kind_of(args.issue))
     keys, handles = _known(generate)
 
     if args.answer:
@@ -448,7 +465,8 @@ def _audit(
 def _cmd_audit(args: argparse.Namespace) -> int:
     strict = True if args.strict else False if args.lenient else None
     path, findings, had_material = _audit(
-        args.issue, args.out, Roster.load(args.roster), published=args.published, strict=strict
+        args.issue, args.out, Roster.load(args.roster, kind=kind_of(args.issue)),
+        published=args.published, strict=strict
     )
     print(f"判卷对象：{path}")
     if not had_material:
@@ -459,7 +477,9 @@ def _cmd_audit(args: argparse.Namespace) -> int:
 
 def _cmd_confirm(args: argparse.Namespace) -> int:
     if not args.no_audit and not args.reopen:
-        _, findings, had_material = _audit(args.issue, args.out, Roster.load(args.roster))
+        _, findings, had_material = _audit(
+            args.issue, args.out, Roster.load(args.roster, kind=kind_of(args.issue))
+        )
         if has_errors(findings):
             print("定稿前判卷没过，先改正本：", file=sys.stderr)
             print(summarize(findings), file=sys.stderr)
@@ -521,8 +541,13 @@ def _cmd_ja(args: argparse.Namespace) -> int:
     report_path = path_mod.report(path_mod.workspace(args.out, args.issue))
     if not report_path.exists():
         raise SystemExit(f"找不到正本 {report_path}，先跑 `daily apply`。")
+    if kind_of(args.issue) != VOICE:
+        # Ci-en 播报只有声优那一栏，Galgame 版没有对应出口——早失败好过出一份空文件
+        raise SystemExit(
+            f"{args.issue} 是 Galgame 版，Ci-en 出口只给声优版（期号不带 -g 的那份）。"
+        )
     report = json.loads(report_path.read_text(encoding="utf-8"))
-    roster = Roster.load(args.roster)
+    roster = Roster.load(args.roster, kind=kind_of(args.issue))
 
     if not args.answer:
         task = ja_mod.write_task(args.issue, report, roster, args.out)
@@ -571,7 +596,14 @@ def main(argv: list[str] | None = None) -> int:
     sub = parser.add_subparsers(dest="cmd", required=True)
 
     build = sub.add_parser("build", help="切窗、判态、去重、排序，出 briefing 与骨架")
-    build.add_argument("--items-dir", required=True, help="X-Reader data/items 目录")
+    build.add_argument("--items-dir", required=True, help="X-Reader data/items 目录（两版各一份库）")
+    build.add_argument(
+        "--kind",
+        choices=list(KINDS),
+        default=VOICE,
+        help="哪一版：voice=声优（声优 + 音声社团，期号 YYMMDD）/ "
+        "galgame=Galgame（游戏制造商 + 信息号，期号 YYMMDD-g）",
+    )
     build.add_argument("--date", help="汇总哪一天的数据 YYYY-MM-DD（JST 自然日；默认：数据里最新的一天）")
     build.add_argument(
         "--at",
@@ -595,7 +627,11 @@ def main(argv: list[str] | None = None) -> int:
         action="store_true",
         help="补录历史：只取窗口内的条目，不读不写账本（late / future 恒为 0）",
     )
-    build.add_argument("--roster", default=None, help="名单文件，默认 src/config/daily-roster.json")
+    build.add_argument(
+        "--roster",
+        default=None,
+        help="名单文件，默认按 --kind 取：src/config/daily-roster.json / daily-roster-galgame.json",
+    )
     build.add_argument(
         "--per-account",
         type=int,
@@ -611,7 +647,9 @@ def main(argv: list[str] | None = None) -> int:
     build.set_defaults(func=_cmd_build)
 
     prompt_cmd = sub.add_parser("prompt", help="M3.1 出题：按分类各写一份题面（.md 给人贴、.json 算指纹）")
-    prompt_cmd.add_argument("--issue", required=True, help="期号，如 261027（同日第二期 261027-2）")
+    prompt_cmd.add_argument(
+        "--issue", required=True, help="期号，如 261029 / 261029-g（同日第二期 261029-2 / 261029-g2）"
+    )
     prompt_cmd.add_argument("--out", default="out", help="工作目录（默认 out）")
     prompt_cmd.add_argument("--reduce", action="store_true", help="出全局题（材料是已写好的分类回答）")
     prompt_cmd.add_argument(
@@ -626,7 +664,7 @@ def main(argv: list[str] | None = None) -> int:
     apply_cmd.add_argument(
         "--answer", action="append", default=None, help="回答文件（可重复）；默认取 answer/ 下全部"
     )
-    apply_cmd.add_argument("--roster", default=None, help="名单文件，默认 src/config/daily-roster.json")
+    apply_cmd.add_argument("--roster", default=None, help="名单文件，默认按期号类型自动选")
     apply_cmd.add_argument("--force", action="store_true", help="已定稿也强行合并（正常流程请先 reopen）")
     apply_cmd.set_defaults(func=_cmd_apply)
 
@@ -634,7 +672,7 @@ def main(argv: list[str] | None = None) -> int:
     confirm_cmd.add_argument("--issue", required=True)
     confirm_cmd.add_argument("--out", default="out")
     confirm_cmd.add_argument("--reopen", action="store_true", help="退回草稿（旧版进 history/）")
-    confirm_cmd.add_argument("--roster", default=None, help="名单文件，默认 src/config/daily-roster.json")
+    confirm_cmd.add_argument("--roster", default=None, help="名单文件，默认按期号类型自动选")
     confirm_cmd.add_argument(
         "--no-audit", action="store_true", help="跳过定稿前的判卷（只在明知正本缺来源时用）"
     )
@@ -643,7 +681,7 @@ def main(argv: list[str] | None = None) -> int:
     audit_cmd = sub.add_parser("audit", help="M3.9 对已写好的正本判卷：来源能不能对上、人是不是本期的")
     audit_cmd.add_argument("--issue", required=True)
     audit_cmd.add_argument("--out", default="out")
-    audit_cmd.add_argument("--roster", default=None, help="名单文件，默认 src/config/daily-roster.json")
+    audit_cmd.add_argument("--roster", default=None, help="名单文件，默认按期号类型自动选")
     audit_cmd.add_argument(
         "--published", action="store_true", help="查已发布的那份（data/daily/）而不是工作区"
     )
@@ -676,7 +714,7 @@ def main(argv: list[str] | None = None) -> int:
     ja_cmd.add_argument(
         "--answer", default=None, help="日文版回答 JSON；不给就只出题（写 out/<期号>.ja-task.md）"
     )
-    ja_cmd.add_argument("--roster", default=None, help="名单文件，默认 src/config/daily-roster.json")
+    ja_cmd.add_argument("--roster", default=None, help="名单文件，默认按期号类型自动选")
     ja_cmd.add_argument("--force", action="store_true", help="覆盖已有的 report.ja.json")
     ja_cmd.set_defaults(func=_cmd_ja)
 

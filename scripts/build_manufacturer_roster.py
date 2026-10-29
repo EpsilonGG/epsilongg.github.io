@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """把名单里的 manufacturer 段导成一张可以审阅的表。
 
-名单的正本是 `src/config/daily-roster.json`，这张表只是它的只读视图——
+名单的正本是 `src/config/daily-roster-galgame.json`，这张表只是它的只读视图——
 改名单请改 JSON，改完重跑这个脚本。
 
 用法：
@@ -18,7 +18,8 @@ import json
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-ROSTER = ROOT / "src" / "config" / "daily-roster.json"
+# 2026-10-29 起厂商归 Galgame 版名单（声优版只剩声优 + 音声社团）
+ROSTER = ROOT / "src" / "config" / "daily-roster-galgame.json"
 DEFAULT_OUT = ROOT / "README" / "reports" / "manufacturer-roster.html"
 
 # 只给「非厂商」这一类打标记：名单里混进了情报站/资料站时要一眼看得出来
@@ -119,7 +120,7 @@ def build(out_path: Path) -> None:
 <body>
 <div class="wrap">
   <h1>美少女游戏厂商名单（manufacturer）</h1>
-  <p class="sub">这是 <code>src/config/daily-roster.json</code> 里 <code>category: manufacturer</code> 的只读视图，顺序即日报里的显示顺序。</p>
+  <p class="sub">这是 <code>src/config/daily-roster-galgame.json</code> 里 <code>category: manufacturer</code> 的只读视图，顺序即日报里的显示顺序。</p>
   <p class="meta">生成日期 %(date)s · 改名单请改 JSON，再重跑 <code>python scripts/build_manufacturer_roster.py</code></p>
 
   <div class="stats">

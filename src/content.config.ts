@@ -94,15 +94,25 @@ const dailyReports = defineCollection({
   schema: z.object({
     schema_version: z.number().int().default(1),
     /**
-     * 期号与时间。**期号 = 覆盖的那一天 = 网址**（`YYMMDD`，JST），
-     * 同一天的第二期是 `YYMMDD-2`。
+     * 期号与时间。**期号 = 覆盖的那一天 + 哪一版 = 网址**（`YYMMDD`，JST）。
      *
+     *   261029      声优版（声优 + 音声社团）
+     *   261029-g    Galgame 版（游戏制造商 + 信息号）
+     *   261029-2    同一天的第二期声优版
+     *   261029-g2   同一天的第二个 Galgame 版
+     *
+     * 不带后缀的永远是声优版——10-29 之前的所有期号都是它，旧档不用迁移。
      * 期号里没有小时，因为一天的数据要到 JST 24:00 才闭合，真实出稿必然在次日凌晨——
      * 小时写进期号只会得到「比内容晚一天」或者「一个假时间」。发布时间单独记在
      * `published_at` 里，那个是真的。
      */
     issue: z.object({
-      id: z.string().regex(/^\d{6}(-\d+)?$/, '期号必须是 YYMMDD 或 YYMMDD-N（同一天第 N 期）'),
+      id: z
+        .string()
+        .regex(
+          /^\d{6}(?:-(?:[2-9]\d*|g(?:[2-9]\d*)?))?$/,
+          '期号必须是 YYMMDD / YYMMDD-N / YYMMDD-g / YYMMDD-gN（N 从 2 起）'
+        ),
       published_at: z.string().trim().default(''),
       window: z.object({ start: z.string().optional(), end: z.string().optional() }).default({}),
       status: z.enum(['draft', 'confirmed']).default('draft'),

@@ -361,23 +361,25 @@ class InactiveAccountTest(unittest.TestCase):
         self.assertEqual(accounts, ["alice"])
         self.assertIn("some_circle", buf.getvalue())  # 静默跳过会让「人不见了」无从查起
 
-    def test_inactive_account_is_still_known(self) -> None:
+    def test_circles_are_active_since_the_two_edition_split(self) -> None:
+        """2026-10-29 起社团号进抓取：声优版 = 声优 + 音声社团，两类都 active。"""
         roster = Roster.load()
         circles = [a for a in roster.accounts if a.category == "circle"]
         self.assertTrue(circles, "社团号应该已经在名单里")
-        self.assertTrue(all(not a.active for a in circles))
+        self.assertTrue(all(a.active for a in circles), "社团号一律 active=true")
         self.assertEqual(roster.category_of(circles[0].handle), "circle")
+        self.assertIn("circle", roster.category_ids)
 
     def test_manufacturers_are_active_and_form_their_own_column(self) -> None:
-        """厂商号从 2026-10-27 起进抓取名单，页面上单列一栏。
+        """厂商号从 2026-10-27 起进抓取，2026-10-29 起归到 Galgame 版单独一栏。
 
-        改的是「抓不抓」，不是「怎么显示」：日报页的栏目筛选按钮默认只看声优，
-        点「制造商」才把它们加进列表——所以放它们进来不会把声优那几句挤没。
+        改的是「抓不抓」，不是「怎么显示」：Galgame 版日报页的栏目筛选按钮默认只看
+        游戏制造商，点「信息号」才把它们加进列表——所以放它们进来不会把厂商那几句挤没。
 
         Moepedia 也在这一栏（对读者来说情报站和厂商是一回事，都发新作信息），
         但它广告味重，靠 `filter` 段降噪——见 test_daily_filter.py。
         """
-        roster = Roster.load()
+        roster = Roster.load(kind="galgame")
         makers = [a for a in roster.accounts if a.category == "manufacturer"]
         self.assertTrue(makers, "制造商应该已经在名单里")
         self.assertTrue(all(a.active for a in makers), "厂商号一律 active=true")
@@ -387,11 +389,37 @@ class InactiveAccountTest(unittest.TestCase):
             {"Moepedia_net"},
             "manufacturer 段里出现了非品牌号：确认它确实是情报来源，再改这条断言",
         )
-        # 唯一带降噪规则的号也应该是它：情报站的抽奖与周年回顾不该进日报。
-        self.assertEqual(set(roster.filters), {"moepedia_net"})
+        # 带降噪规则的号：Moepedia + 2026-10-29 启用的三个信息号。
+        self.assertEqual(
+            set(roster.filters),
+            {"moepedia_net", "seiya_saiga", "youtan0309", "aikouka23"},
+        )
         self.assertTrue(all("游戏" in a.tags or "资料站" in a.tags for a in makers))
         self.assertTrue(any("Moe Award" in a.tags for a in makers), "拿过萌奖的应该有标签")
         self.assertIn("manufacturer", [c["id"] for c in roster.categories])
+
+    def test_rosters_are_split_by_edition(self) -> None:
+        """两份名单各管一版：声优版没有厂商，Galgame 版没有声优。"""
+        voice = Roster.load()
+        galgame = Roster.load(kind="galgame")
+        self.assertNotIn("manufacturer", voice.category_ids)
+        self.assertNotIn("info", voice.category_ids)
+        self.assertNotIn("seiyuu", galgame.category_ids)
+        self.assertNotIn("circle", galgame.category_ids)
+
+        # 但查询层是合并的：拿声优版查一个厂商号，名字和栏目照样查得到——
+        # 历史期号（261025–261028）是合并名单时代的产物，people 里有厂商。
+        self.assertEqual(voice.category_of("silkysplus"), "manufacturer")
+        self.assertTrue(voice.is_known("silkysplus"))
+        self.assertEqual(galgame.category_of("yukanyan2525"), "seiyuu")
+
+    def test_info_accounts_are_the_three_enabled_ones(self) -> None:
+        """信息号 2026-10-29 只启用三个；厂商侧个人号还没入册。"""
+        roster = Roster.load(kind="galgame")
+        info = [a.handle for a in roster.accounts if a.category == "info"]
+        self.assertEqual(sorted(info), ["aikouka23", "seiya_saiga", "youtan0309"])
+        for handle in ("Famishin", "nakazawatakumi", "digitarou"):
+            self.assertFalse(roster.is_known(handle), f"{handle} 是厂商侧个人号，暂时不入册")
 
     def test_handles_are_unique(self) -> None:
         """一个 handle 只能有一条。

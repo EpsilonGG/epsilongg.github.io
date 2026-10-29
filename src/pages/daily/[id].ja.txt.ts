@@ -15,7 +15,8 @@ export async function getStaticPaths() {
   const [reports, japanese] = await Promise.all([getDailyReports(), getDailyJapanese()]);
 
   return reports
-    .filter((report) => japanese.has(report.id))
+    // Ci-en 播报只有声优那一栏，Galgame 版（期号带 `-g`）不出这个出口
+    .filter((report) => report.data.kind === 'voice' && japanese.has(report.id))
     .map((report) => ({
       params: { id: report.id },
       props: { report, ja: japanese.get(report.id)! },
