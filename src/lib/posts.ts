@@ -26,13 +26,29 @@ export function postPath(post: Post): string {
 
 /**
  * 统一的日期格式：YYYY-MM-DD。
- * 使用 UTC 取值，避免构建机器时区不同导致日期偏移。
+ *
+ * `pubDate` 记的是**本站上线时刻**（带 +08:00 偏移），所以按固定时区
+ * Asia/Shanghai 取值。固定时区而不是用运行环境本地时区，构建机器换到哪儿
+ * 结果都一样，不会出现日期偏移。
  */
+const SITE_TZ = 'Asia/Shanghai';
+
+const dateParts = new Intl.DateTimeFormat('en-CA', {
+  timeZone: SITE_TZ,
+  year: 'numeric',
+  month: '2-digit',
+  day: '2-digit',
+});
+
 export function formatDate(date: Date): string {
-  const year = date.getUTCFullYear();
-  const month = String(date.getUTCMonth() + 1).padStart(2, '0');
-  const day = String(date.getUTCDate()).padStart(2, '0');
-  return `${year}-${month}-${day}`;
+  const parts = dateParts.formatToParts(date);
+  const get = (t: string) => parts.find((p) => p.type === t)?.value ?? '';
+  return `${get('year')}-${get('month')}-${get('day')}`;
+}
+
+/** 文章所属年份（按站点时区取，避免跨年文章被分到上一年）。 */
+export function yearOf(date: Date): number {
+  return Number(formatDate(date).slice(0, 4));
 }
 
 export function formatDateTime(date: Date): string {
@@ -49,7 +65,7 @@ export function groupPostsByYear(posts: Post[]): PostYearGroup[] {
   const groups = new Map<number, Post[]>();
 
   for (const post of posts) {
-    const year = post.data.pubDate.getUTCFullYear();
+    const year = yearOf(post.data.pubDate);
     const bucket = groups.get(year);
     if (bucket) {
       bucket.push(post);
