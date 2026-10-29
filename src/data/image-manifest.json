@@ -1,6 +1,6 @@
 {
   "$comment": "由 scripts/optimize_images.mjs 生成，请勿手改。",
-  "generatedAt": "2026-10-29T02:24:01.432Z",
+  "generatedAt": "2026-10-29T05:19:39.023Z",
   "images": {
     "/images/blog/bugbug-sca-interview/01.jpg": {
       "w": 1280,
@@ -1610,6 +1610,202 @@
           "w": 1192,
           "src": "/images/blog/rurudo-unreal/11-1192.webp",
           "bytes": 160020
+        }
+      ]
+    },
+    "/images/blog/soflen-30th-roundtable/01.jpg": {
+      "w": 960,
+      "h": 181,
+      "bytes": 35718,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/soflen-30th-roundtable/01-600.webp",
+          "bytes": 11298
+        },
+        {
+          "w": 960,
+          "src": "/images/blog/soflen-30th-roundtable/01-960.webp",
+          "bytes": 18974
+        }
+      ]
+    },
+    "/images/blog/soflen-30th-roundtable/02.jpg": {
+      "w": 960,
+      "h": 405,
+      "bytes": 82691,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/soflen-30th-roundtable/02-600.webp",
+          "bytes": 25808
+        },
+        {
+          "w": 960,
+          "src": "/images/blog/soflen-30th-roundtable/02-960.webp",
+          "bytes": 45860
+        }
+      ]
+    },
+    "/images/blog/soflen-30th-roundtable/03.jpg": {
+      "w": 310,
+      "h": 450,
+      "bytes": 60161,
+      "variants": [
+        {
+          "w": 310,
+          "src": "/images/blog/soflen-30th-roundtable/03-310.webp",
+          "bytes": 42906
+        }
+      ]
+    },
+    "/images/blog/soflen-30th-roundtable/04.jpg": {
+      "w": 1200,
+      "h": 900,
+      "bytes": 209644,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/soflen-30th-roundtable/04-600.webp",
+          "bytes": 45242
+        },
+        {
+          "w": 1200,
+          "src": "/images/blog/soflen-30th-roundtable/04-1200.webp",
+          "bytes": 104236
+        }
+      ]
+    },
+    "/images/blog/soflen-30th-roundtable/05.jpg": {
+      "w": 400,
+      "h": 400,
+      "bytes": 45988,
+      "variants": [
+        {
+          "w": 400,
+          "src": "/images/blog/soflen-30th-roundtable/05-400.webp",
+          "bytes": 29062
+        }
+      ]
+    },
+    "/images/blog/soflen-30th-roundtable/06.jpg": {
+      "w": 960,
+      "h": 300,
+      "bytes": 78488,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/soflen-30th-roundtable/06-600.webp",
+          "bytes": 20342
+        },
+        {
+          "w": 960,
+          "src": "/images/blog/soflen-30th-roundtable/06-960.webp",
+          "bytes": 49618
+        }
+      ]
+    },
+    "/images/blog/soflen-30th-roundtable/07.jpg": {
+      "w": 424,
+      "h": 283,
+      "bytes": 19265,
+      "variants": [
+        {
+          "w": 424,
+          "src": "/images/blog/soflen-30th-roundtable/07-424.webp",
+          "bytes": 9490
+        }
+      ]
+    },
+    "/images/blog/soflen-30th-roundtable/08.jpg": {
+      "w": 960,
+      "h": 492,
+      "bytes": 83398,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/soflen-30th-roundtable/08-600.webp",
+          "bytes": 27600
+        },
+        {
+          "w": 960,
+          "src": "/images/blog/soflen-30th-roundtable/08-960.webp",
+          "bytes": 48646
+        }
+      ]
+    },
+    "/images/blog/soflen-30th-roundtable/09.jpg": {
+      "w": 1059,
+      "h": 760,
+      "bytes": 125685,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/soflen-30th-roundtable/09-600.webp",
+          "bytes": 31292
+        },
+        {
+          "w": 1059,
+          "src": "/images/blog/soflen-30th-roundtable/09-1059.webp",
+          "bytes": 69026
+        }
+      ]
+    },
+    "/images/blog/soflen-30th-roundtable/10.jpg": {
+      "w": 501,
+      "h": 159,
+      "bytes": 21533,
+      "variants": [
+        {
+          "w": 501,
+          "src": "/images/blog/soflen-30th-roundtable/10-501.webp",
+          "bytes": 11690
+        }
+      ]
+    },
+    "/images/blog/soflen-30th-roundtable/11.jpg": {
+      "w": 546,
+      "h": 597,
+      "bytes": 73229,
+      "variants": [
+        {
+          "w": 546,
+          "src": "/images/blog/soflen-30th-roundtable/11-546.webp",
+          "bytes": 50172
+        }
+      ]
+    },
+    "/images/blog/soflen-30th-roundtable/12.jpg": {
+      "w": 960,
+      "h": 528,
+      "bytes": 64860,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/soflen-30th-roundtable/12-600.webp",
+          "bytes": 16044
+        },
+        {
+          "w": 960,
+          "src": "/images/blog/soflen-30th-roundtable/12-960.webp",
+          "bytes": 30716
+        }
+      ]
+    },
+    "/images/blog/soflen-30th-roundtable/13.jpg": {
+      "w": 1000,
+      "h": 667,
+      "bytes": 90712,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/soflen-30th-roundtable/13-600.webp",
+          "bytes": 22634
+        },
+        {
+          "w": 1000,
+          "src": "/images/blog/soflen-30th-roundtable/13-1000.webp",
+          "bytes": 52436
         }
       ]
     },
