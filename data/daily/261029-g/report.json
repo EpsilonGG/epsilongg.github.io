@@ -1,0 +1,460 @@
+{
+  "schema_version": 1,
+  "issue": {
+    "id": "261029-g",
+    "published_at": "2026-10-30T01:23:56.440738+09:00",
+    "window": {
+      "start": "2026-10-29T00:00:00+09:00",
+      "end": "2026-10-30T00:00:00+09:00"
+    },
+    "status": "confirmed",
+    "confirmed_at": "2026-10-29T16:25:55+00:00"
+  },
+  "counts": {
+    "items": 135,
+    "accounts": 38,
+    "late": 63,
+    "skipped_duplicate": 93
+  },
+  "description": "10/30 月末发售日：FORTUNE×WORLD 等一批新作同日上架，sprite 满 16 周年",
+  "highlights": [
+    {
+      "text": "sprite 10 月 29 日满 16 周年，官号说今年送《小金井荘と金色の揚羽蝶》、来年还有完全新作在制作中；蒼の彼方のフォーリズム 动画号、Ceui、中沢伴行 都转了祝贺",
+      "sources": [
+        "x:2115611131104682224",
+        "x:2115785081336041531"
+      ]
+    },
+    {
+      "text": "FG REMAKE 的《遺作リメイク》宣布 master up，定 12 月 25 日发售，体验版上周已公开，几位参演声优转发祝贺",
+      "sources": [
+        "x:2115767699062276346",
+        "x:2115769988120564214"
+      ]
+    },
+    {
+      "text": "Entergram 公布本阿弥あずさ主演兼监修的《あじゅ～るメモリア》，2027 年 2 月 25 日发售，teaser 与官网同时上线，11 月 5 日起预约",
+      "sources": [
+        "x:2115746774128394529",
+        "x:2115760922124046337"
+      ]
+    },
+    {
+      "text": "两个 20 周年撞在同一天：WendyBell 在 FANZA GAMES 开最大 60% off 的纪念促销，School Days 与 FANZA catch 的联动 10 月 30 日 10 时开始",
+      "sources": [
+        "x:2115640264664445229",
+        "x:2115730368779214980"
+      ]
+    }
+  ],
+  "insights": [],
+  "interactions": [],
+  "works": "10 月 30 日是月末发售日。FORTUNE×WORLD 的《FORTUNE×WORLD～僕らがゲームを作る理由～》今晚 21 时开倒计时谈话、0 时上架；HOOKSOFT 的《トリプルペアリング》迷你 FD 出 DL 版；Lovelet 的《西園家のかくしゴト》包装与下载同日；galprince 的《かなえてダブルウエディング コンプリート》出打包版；Amuse Craft 的《養花師の背徳愛》包装版发售，秋叶原与难波办免费配布会；Miel 的《異世界孕ませハーレム》0 时上架 DL 版；CHAOS-R 的《血刻継承クレイドペイン》限定版今夜在 DLsite 上架；CIRCUS 的《D.C.5 to 4》在店头开始发免费明信片。稍远一点：sprite 的《小金井荘と金色の揚羽蝶》11 月 26 日、debonosu 的《神楽新風記～陽葵の章～》11 月 20 日、smee 的《ワンナイトアフター》11 月 27 日，KUMANOMISoft 的《転性魔王さまは勇者に勝てない！2》明天开始预约。FG REMAKE 的《遺作リメイク》master up，定 12 月 25 日。getchucom 一天开了六部新作的预约，另有两部 master up 的公告。",
+  "categories": [],
+  "accounts": [
+    "Moepedia_net",
+    "Miel37319007",
+    "kiss_staff",
+    "chaos_R_public",
+    "debonosu",
+    "HOOKSOFT",
+    "circus_info",
+    "galprince_game",
+    "purple_NewWork",
+    "CRYSTALiA_AC",
+    "smee_official",
+    "entergram_info",
+    "Amuse_kenzen",
+    "POISON_NEW1992",
+    "dessertsoft_tw",
+    "lumpofsuger",
+    "u_me_soft",
+    "hamham_soft",
+    "FANDC_Staff",
+    "Amuse_sub",
+    "fgremake",
+    "sprite_fairys",
+    "madostaff",
+    "DiGination_info",
+    "KUMANOMISoft",
+    "info_9_nine_",
+    "yuzusoft",
+    "project_citrus",
+    "fortuneglovety",
+    "Muvluv_Official",
+    "BEEP_SHOP",
+    "Liaison__info",
+    "info_lovelet",
+    "SukeraSparo",
+    "Overflow_staff",
+    "youtan0309",
+    "getchucom",
+    "bugbug_info"
+  ],
+  "people": [
+    {
+      "handle": "Moepedia_net",
+      "category": "",
+      "summary": "报 ANIM 抽选会、ωstar 万華鏡 15 周年、あざらしそふと 发售纪念三场活动，另发联名表。",
+      "via": [],
+      "sources": [
+        "x:2115803338260480185",
+        "x:2115804596551774687",
+        "x:2115819696494608395"
+      ]
+    },
+    {
+      "handle": "Miel37319007",
+      "category": "",
+      "summary": "新作《異世界孕ませハーレム》10 月 30 日 0 时上架 DL 版，FANZA 与 DLsite 预告同时放出。",
+      "via": [],
+      "sources": [
+        "x:2115753352038678630"
+      ]
+    },
+    {
+      "handle": "kiss_staff",
+      "category": "",
+      "summary": "维护时间延到 20 点，同步放出 KCES2 1.36.4 更新、《おてんば》角色包与促销博客。",
+      "via": [],
+      "sources": [
+        "x:2115745016631201957",
+        "x:2115753050342379538",
+        "x:2115758972041138295"
+      ]
+    },
+    {
+      "handle": "chaos_R_public",
+      "category": "",
+      "summary": "さいとうつかさ×assault 的《血刻継承クレイドペイン》限定版今夜在 DLsite 上架。",
+      "via": [],
+      "sources": [
+        "x:2115775039987716349"
+      ]
+    },
+    {
+      "handle": "debonosu",
+      "category": "",
+      "summary": "《神楽新風記～陽葵の章～》定 11 月 20 日发售，四家店铺有偿特典开始预约；广播第 123 回已上线。",
+      "via": [],
+      "sources": [
+        "x:2115787119725781364",
+        "x:2115786965996142747"
+      ]
+    },
+    {
+      "handle": "HOOKSOFT",
+      "category": "",
+      "summary": "《トリプルペアリング》迷你 FD 的 DL 版明天发售；Switch 侧三作促销到 10 月 31 日。",
+      "via": [],
+      "sources": [
+        "x:2115775665576333521",
+        "x:2115772384372310189"
+      ]
+    },
+    {
+      "handle": "circus_info",
+      "category": "",
+      "summary": "《D.C.5 to 4》11 月壁纸日历与免费明信片 10 月 30 日起发放，另转 CLOWN 新作体验版。",
+      "via": [],
+      "sources": [
+        "x:2115745498938401184",
+        "x:2115746608671600963"
+      ]
+    },
+    {
+      "handle": "galprince_game",
+      "category": "",
+      "summary": "《かなえてダブルウエディング コンプリート》明天包装版与 DL 版同时发售。",
+      "via": [],
+      "sources": [
+        "x:2115732356208394342"
+      ]
+    },
+    {
+      "handle": "purple_NewWork",
+      "category": "",
+      "summary": "《クリミナルボーダー》主题曲开始配信，1st offence 本体 90% off。",
+      "via": [],
+      "sources": [
+        "x:2115745466037969325"
+      ]
+    },
+    {
+      "handle": "CRYSTALiA_AC",
+      "category": "",
+      "summary": "转发 Lycee Overture 新弹收录的朱雀院撫子 SP 卡实拍，签名是柳ひとみ。",
+      "via": [],
+      "sources": [
+        "x:2115745709064339669"
+      ]
+    },
+    {
+      "handle": "smee_official",
+      "category": "",
+      "summary": "《ワンナイトアフター》体验版公开、店铺特典情报上线，11 月 27 日发售。",
+      "via": [],
+      "sources": [
+        "x:2115768106068959434",
+        "x:2115765589583319534"
+      ]
+    },
+    {
+      "handle": "entergram_info",
+      "category": "",
+      "summary": "连转 12 条《あじゅ～るメモリア》报道：本阿弥あずさ主演兼监修，2027 年 2 月 25 日发售。",
+      "via": [],
+      "sources": [
+        "x:2115746774128394529",
+        "x:2115745459620749726"
+      ]
+    },
+    {
+      "handle": "Amuse_kenzen",
+      "category": "",
+      "summary": "《養花師の背徳愛》明天包装版发售，秋叶原与难波办免费配布会，HP 与 Ci-en 同步更新。",
+      "via": [],
+      "sources": [
+        "x:2115783960869642572",
+        "x:2115745473843630370"
+      ]
+    },
+    {
+      "handle": "POISON_NEW1992",
+      "category": "",
+      "summary": "粉丝站连发三次「玲奈姉ちゃん」SS，预告「叶子姉さん」的 SS 可能明天更新。",
+      "via": [],
+      "sources": [
+        "x:2115790764101832892"
+      ]
+    },
+    {
+      "handle": "dessertsoft_tw",
+      "category": "",
+      "summary": "明天 17:30 秋叶原第 298 回「キャララ!!」，之后还有电妄谈话直播。",
+      "via": [],
+      "sources": [
+        "x:2115774683081781433"
+      ]
+    },
+    {
+      "handle": "lumpofsuger",
+      "category": "",
+      "summary": "FANBOX 支援者限定的愛良周边到 10 月 31 日截止。",
+      "via": [],
+      "sources": [
+        "x:2115745464591024582"
+      ]
+    },
+    {
+      "handle": "u_me_soft",
+      "category": "",
+      "summary": "转发《新 美味しんぼ》OP 主题歌确定为牧野由依《PROMISE ME》。",
+      "via": [],
+      "sources": [
+        "x:2115735388891599168"
+      ]
+    },
+    {
+      "handle": "hamham_soft",
+      "category": "",
+      "summary": "转アリスNET 的宣传，请店里也带一带上周发售的《ハイアングル》。",
+      "via": [],
+      "sources": [
+        "x:2115708054889181315"
+      ]
+    },
+    {
+      "handle": "FANDC_Staff",
+      "category": "",
+      "summary": "转了亀戸「オタ酒場オタゲン」的自我介绍，18 时到 2 时营业。",
+      "via": [],
+      "sources": [
+        "x:2115726919635509582"
+      ]
+    },
+    {
+      "handle": "Amuse_sub",
+      "category": "",
+      "summary": "转 Moepedia 的《養花師の背徳愛》背徳編剪辑视频。",
+      "via": [],
+      "sources": [
+        "x:2115679837553885557"
+      ]
+    },
+    {
+      "handle": "fgremake",
+      "category": "",
+      "summary": "《遺作リメイク》master up，定 12 月 25 日发售；体验版上周已公开。",
+      "via": [],
+      "sources": [
+        "x:2115767699062276346",
+        "x:2115767651691835774"
+      ]
+    },
+    {
+      "handle": "sprite_fairys",
+      "category": "",
+      "summary": "10 月 29 日满 16 周年，今年送《小金井荘と金色の揚羽蝶》，来年完全新作在制作中。",
+      "via": [],
+      "sources": [
+        "x:2115611131104682224"
+      ]
+    },
+    {
+      "handle": "madostaff",
+      "category": "",
+      "summary": "静岡駿河屋本店摆了《カフェトリカル》桐谷葵依的立看板。",
+      "via": [],
+      "sources": [
+        "x:2115790273251094552"
+      ]
+    },
+    {
+      "handle": "DiGination_info",
+      "category": "",
+      "summary": "转 FG REMAKE《遺作リメイク》预约兑换活动第二弹的店头情报。",
+      "via": [],
+      "sources": [
+        "x:2115756188671631805"
+      ]
+    },
+    {
+      "handle": "KUMANOMISoft",
+      "category": "",
+      "summary": "《転性魔王さまは勇者に勝てない！2》明天开始预约，官网明晚公开；Lycee 卡片配方也上线。",
+      "via": [],
+      "sources": [
+        "x:2115751748308451371",
+        "x:2115734951211803089"
+      ]
+    },
+    {
+      "handle": "info_9_nine_",
+      "category": "",
+      "summary": "9-nine- 咖啡厅周边 10 月 30 日 19 时起在 BOOTH 事后通贩，到 11 月 16 日。",
+      "via": [],
+      "sources": [
+        "x:2115745503875063855"
+      ]
+    },
+    {
+      "handle": "yuzusoft",
+      "category": "",
+      "summary": "《ライムライト・レモネードジャム》嶌越月望抱枕第三弹，10 月 31 日 23:59 截止。",
+      "via": [],
+      "sources": [
+        "x:2115762138900054184"
+      ]
+    },
+    {
+      "handle": "project_citrus",
+      "category": "",
+      "summary": "去东京巨蛋看了 MTV VMAJ，EBiDAN《Yes! 東京》获奖舞台。",
+      "via": [],
+      "sources": [
+        "x:2115801957332074581"
+      ]
+    },
+    {
+      "handle": "fortuneglovety",
+      "category": "",
+      "summary": "《FORTUNE×WORLD》明天发售，今晚 21 时开倒计时谈话直播，问题还在征集。",
+      "via": [],
+      "sources": [
+        "x:2115642373619466425"
+      ]
+    },
+    {
+      "handle": "Muvluv_Official",
+      "category": "",
+      "summary": "WEB 小说《マブラヴ：ディメンションズ》24 时更新第 3-10 话。",
+      "via": [],
+      "sources": [
+        "x:2115745469435625968"
+      ]
+    },
+    {
+      "handle": "BEEP_SHOP",
+      "category": "",
+      "summary": "店员逐个试了赤い刀、虫姫さま、エスプガルーダ等街机基板，全部正常。",
+      "via": [],
+      "sources": [
+        "x:2115747794309021950"
+      ]
+    },
+    {
+      "handle": "Liaison__info",
+      "category": "",
+      "summary": "《天瀬島は色恋ざかり》DL 版在各下载站好评配信中。",
+      "via": [],
+      "sources": [
+        "x:2115743824920400362"
+      ]
+    },
+    {
+      "handle": "info_lovelet",
+      "category": "",
+      "summary": "《西園家のかくしゴト》明天发售，直笔签名色纸抽选到 10 月 31 日。",
+      "via": [],
+      "sources": [
+        "x:2115745461298434406"
+      ]
+    },
+    {
+      "handle": "SukeraSparo",
+      "category": "",
+      "summary": "转《オンニって呼んでもいいですか？》第 2 卷样书，11 月 6 日发售；东京游戏地牢 Steam 特集也上线。",
+      "via": [],
+      "sources": [
+        "x:2115756267851665724",
+        "x:2115760558905647290"
+      ]
+    },
+    {
+      "handle": "Overflow_staff",
+      "category": "",
+      "summary": "《School Days》20 周年与 FANZA catch 联动，10 月 30 日 10 时开始。",
+      "via": [],
+      "sources": [
+        "x:2115730368779214980"
+      ]
+    },
+    {
+      "handle": "youtan0309",
+      "category": "",
+      "summary": "连发相机、XR 眼镜、NIKKE 四周年抽奖，晚上写 2006 年美少女游戏回顾第 6 篇。",
+      "via": [],
+      "sources": [
+        "x:2115773139229737122",
+        "x:2115766389986517455"
+      ]
+    },
+    {
+      "handle": "getchucom",
+      "category": "",
+      "summary": "一天开了六部新作预约，另报《くりくりクリニック》与《カノジョの妹のあざと誘惑》master up。",
+      "via": [],
+      "sources": [
+        "x:2115760516291526907",
+        "x:2115758845457018910",
+        "x:2115761058959044989"
+      ]
+    },
+    {
+      "handle": "bugbug_info",
+      "category": "",
+      "summary": "报 WendyBell 20 周年在 FANZA GAMES 开纪念促销，最大 60% off。",
+      "via": [],
+      "sources": [
+        "x:2115640264664445229"
+      ]
+    }
+  ],
+  "provenance": {
+    "generator": "daily",
+    "prompt_version": 1,
+    "cache_key": "answers:1",
+    "generated_at": "2026-10-29T16:25:53+00:00"
+  }
+}
