@@ -4,6 +4,7 @@ import ReadingProgress from '../components/ReadingProgress.astro';
 import ArticleSidebar from '../components/ArticleSidebar.astro';
 import ArticleRail from '../components/ArticleRail.astro';
 import { formatDate, postPath, type Post } from '../lib/posts';
+import ogManifest from '../data/og-manifest.json';
 
 interface Heading {
   depth: number;
@@ -23,9 +24,21 @@ interface Props {
 
 const { post, newer = null, older = null, headings = [] } = Astro.props;
 const { title, description, pubDate, updatedDate, tags, source } = post.data;
+
+/**
+ * 分享图：`npm run og` 会为每篇有本地配图的文章裁一张 1200×630（清单见
+ * `src/data/og-manifest.json`）。没有专属图就交给 BaseLayout 退到站点默认图——
+ * 这里**不要**写 `?? site.ogImage`，否则默认图就写死在两处了。
+ */
+const ogImage = (ogManifest as Record<string, string>)[post.id];
 ---
 
-<BaseLayout title={title} description={description ?? `${title} · ${post.id}`} ogType="article">
+<BaseLayout
+  title={title}
+  description={description ?? `${title} · ${post.id}`}
+  ogType="article"
+  image={ogImage}
+>
   <ReadingProgress />
 
   <article class="page article-page">

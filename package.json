@@ -20,12 +20,13 @@
     "golden:daily": "python scripts/daily_golden.py --check",
     "golden:daily:capture": "python scripts/daily_golden.py --capture",
     "golden:daily:switch": "python scripts/daily_golden.py --switch",
-    "images": "node scripts/optimize_images.mjs",
-    "images:force": "node scripts/optimize_images.mjs --force",
+    "images": "node scripts/optimize_images.mjs && node scripts/make_og.mjs",
+    "images:force": "node scripts/optimize_images.mjs --force && node scripts/make_og.mjs",
     "test": "python -m unittest discover -s tests -v",
     "test:md": "node --test tests/markdown/*.test.mjs",
     "test:cien": "node --test tests/cien/*.test.mjs",
-    "check:glossary": "python scripts/check_glossary.py"
+    "check:glossary": "python scripts/check_glossary.py",
+    "og": "node scripts/make_og.mjs"
   },
   "dependencies": {
     "@astrojs/markdown-satteri": "^0.4.3",

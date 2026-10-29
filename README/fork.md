@@ -72,7 +72,7 @@ GitHub 允许同名仓库存在，但只有 `<用户名>.github.io` 这个名字
   "description": "一句话描述这个站",
   "author": "你的名字",
   "startYear": 2026,
-  "ogImage": "/og-default.png",
+  "ogImage": "/og/default.jpg",
   "github": "https://github.com/你的用户名",
   "email": "你的邮箱"
 }
@@ -119,7 +119,7 @@ GitHub 允许同名仓库存在，但只有 `<用户名>.github.io` 这个名字
 | ---------------------------- | ----------------- | ------------------ |
 | `public/images/avatar.jpg`   | 1:1，建议 ≥ 400×400  | 显示的是原作者的 GitHub 头像 |
 | `public/favicon.svg`         | 浏览器标签页图标          | 显示原作者的图标           |
-| `public/og-default.png`      | 1200×630          | 分享到社交平台时预览图是原作者的   |
+| `public/og/default.jpg`      | 1200×630          | 分享到社交平台时预览图是原作者的   |
 | `public/images/links/icons/` | 64×64 PNG         | 链接库的站点图标           |
 | `public/images/people/`      | 64×64 PNG         | 常用链接里 GitHub 朋友的头像 |
 | `public/images/tools/`       | 96×96 PNG（白色圆角方块） | 工具与服务的图标           |
@@ -259,7 +259,7 @@ npm ci → npm run check → npm run test:md → npm run build → npm run links
 | `src/content/blog/` 下不要的文章 + `public/images/blog/` 对应目录 | 删文章记得连图一起删，否则 `npm run images` 会继续给它们出变体 |
 | `public/docs/` 整个目录 | 那几份 HTML 指南是写给这个项目自己的，新站用不上 |
 | `scripts/sync_profile_readme.py`、`tests/test_readme_sync.py`、`.github/workflows/sync-profile-readme.yml` | 这套东西只服务「把站点内容同步到 GitHub 主页 README」，备份站不需要 |
-| `public/og-default.png` | 换成自己的分享图，1200×630 |
+| `public/og/default.jpg` | 换成自己的分享图，1200×630（`npm run og` 会覆盖） |
 
 删完记得跑一次 `npm run build && npm run links`。**构建不会因为死链报错**（导航里写了个不存在的页面照样输出），死链检查会。
 
@@ -319,6 +319,6 @@ src/config/site.json      name / url / author / email
 src/config/profile.json   name / tagline / intro
 public/images/avatar.jpg  换掉
 public/favicon.svg        换掉
-public/og-default.png     换掉
+public/og/default.jpg     换掉（或改 scripts/make_og.mjs 的 BG）
 （仓库名改成 <用户名>.github.io）
 ```

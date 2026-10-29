@@ -467,7 +467,7 @@
         <span class="kpi__label">外部 JS 文件</span>
       </div>
       <div class="kpi__item">
-        <span class="kpi__num">277</span>
+        <span class="kpi__num">284</span>
         <span class="kpi__label">测试全过</span>
       </div>
       <div class="kpi__item">
@@ -525,7 +525,7 @@
     <div class="cards">
       <div class="card">
         <h4>能用</h4>
-        <p>23 个页面全部 200；构建 0 报错；<code>astro check</code> 0 错 0 警；277 个测试全过（Python 250 + Node 27）、631 个站内链接零死链；每次推送自动部署，线上已验证。</p>
+        <p>23 个页面全部 200；构建 0 报错；<code>astro check</code> 0 错 0 警；284 个测试全过（Python 250 + Node 34）、631 个站内链接零死链；每次推送自动部署，线上已验证。</p>
       </div>
       <div class="card">
         <h4>能改</h4>
@@ -625,7 +625,7 @@
           <td>脚本与测试</td>
           <td><span class="pill pill--done">完成</span></td>
           <td><span class="meter"><span class="meter__track"><span class="meter__fill" style="--pct:100%"></span></span><span class="meter__pct">100%</span></span></td>
-          <td class="t-hide-sm">277 个用例（250 Python + 27 Node），含链接检查、图片清单对账、日报出口闸门与 Ci-en 记法契约</td>
+          <td class="t-hide-sm">284 个用例（250 Python + 34 Node），含链接检查、图片清单对账、日报出口闸门与 Ci-en 记法契约</td>
         </tr>
         <tr>
           <td>文档</td>
@@ -806,6 +806,13 @@
           Astro 7 默认用 Sätteri 处理器，所以 GFM 脚注开箱可用，不需要装 <code>remark-gfm</code>。
           代码高亮用 Shiki 双主题（<code>github-light</code> / <code>github-dark</code>），
           <code>defaultColor: false</code> 让颜色交给 CSS 变量，跟随站点主题切换。
+        </p>
+        <p>
+          提示框用 Sätteri 的 <code>features.directive</code> 解析 <code>:::note</code> 一类容器指令，
+          再挂一个自写的 mdast 插件（<code>src/lib/markdown-admonition.mjs</code>）把它转成
+          <code>&lt;blockquote class="callout"&gt;</code>，纯 CSS，没有 JS。
+          <strong>这个开关必须和插件成对出现</strong>：只开 <code>directive</code> 不给处理器，
+          整块内容会在 mdast→hast 那一步静默消失，既不报错也不警告。
         </p>
         <div class="block-item__left">
           剩余：<code>tags</code> 已经用起来了（列表页的 AND 组合筛选），但没有独立的
@@ -1010,7 +1017,7 @@
           第二次运行基本是空转。
         </p>
         <p>
-          测试合计 <strong>277 个用例</strong>（Python 250 + Node 27）：
+          测试合计 <strong>284 个用例</strong>（Python 250 + Node 34）：
         </p>
         <ul>
           <li><code>test_readme_sync.py</code>（24 个）：marker 缺失、顺序错乱、内容为空、日期格式化</li>
@@ -1021,7 +1028,7 @@
               体积格式化，以及 PNG/JPEG/GIF/WebP 的宽高解析（纯 Python，不依赖 Pillow）</li>
           <li><code>test_image_manifest.py</code>（5 个）：文章引用的每张图都在清单里、
               变体文件真实存在、宽度递增且不放大</li>
-          <li><code>tests/markdown/*.test.mjs</code>（11 个，<code>node --test</code>）：
+          <li><code>tests/markdown/*.test.mjs</code>（18 个，<code>node --test</code>）：
               图注插件的单图 / 并组 / 行内图 / 链接图 / picture 五种情形，
               外加并组后 <code>sizes</code> 是否跟着缩半</li>
           <li><code>tests/cien/*.test.mjs</code>（16 个，<code>node --test</code>）：
@@ -1484,7 +1491,7 @@
 
       <div class="block-item">
         <div class="block-item__head">
-          <span class="block-item__name">og-default.png 是静态图，且不跟 base 走</span>
+          <span class="block-item__name">OG 图是静态裁图，不跟 base 走</span>
           <span class="pill">轻微</span>
           <span class="pill">不做</span>
         </div>
@@ -2421,7 +2428,7 @@
     <p>想知道某个东西在哪改，看这棵树就够了。</p>
 
 <pre><code>personal-site/
-├── astro.config.mjs          Sätteri 处理器 + 三个 hast 插件 + Shiki 双主题
+├── astro.config.mjs          Sätteri 处理器 + 1 个 mdast 插件 + 3 个 hast 插件 + Shiki 双主题
 ├── package.json              4 个运行时依赖（astro / rss / sitemap / satteri）+ sharp
 ├── LICENSE                   MIT（代码）
 ├── LICENSE-CONTENT           CC BY-NC-SA 4.0（文章 / 图片 / 文档）
@@ -2484,7 +2491,7 @@
 │   ├── fonts/                3 个 woff2（136 KB）+ 3 份字体许可
 │   ├── images/               76 张图：头像、图标、52 张文章插图、2 张背景图
 │   │                         + 构建时生成的 102 个 .webp 变体（已 gitignore）
-│   ├── og-default.png        默认分享图
+│   ├── og/default.jpg        默认分享图（npm run og 生成）
 │   └── docs/                 5 个 HTML 指南（本站托管）
 ├── scripts/
 │   ├── sync_profile_readme.py  主页 README 同步（489 行）
@@ -2500,7 +2507,7 @@
 │   ├── daily.sh                一键：pull → digest → 提示写摘要（39 行）
 │   └── sample_items/           离线样例，供脚本自测
 ├── data/daily/{期号}/report.json   ★ 日报正本（站点读它，目录名即期号）
-├── tests/                    277 个用例（Python 250 + Node 27）+ golden/
+├── tests/                    284 个用例（Python 250 + Node 34）+ golden/
 ├── README.md                 主页名片 + 文档导航
 ├── README/                   quickstart / project / blog-guide / fork / ads + reports/
 ├── docs/                     daily-report-guide.md（跨仓库的日报流水线，不进部署）
@@ -2541,7 +2548,7 @@
     <ul>
       <li><code>src/content/blog/</code> 下全部文章，以及 <code>public/images/blog/</code> 下对应的图片目录</li>
       <li><code>public/docs/</code> 下的 HTML 指南（它们是写给这个项目自己的，共 4 个）</li>
-      <li><code>public/og-default.png</code>，换成自己的分享图</li>
+      <li><code>public/og/default.jpg</code>，换成自己的分享图（或改 <code>scripts/make_og.mjs</code> 的 <code>BG</code> 后重跑 <code>npm run og</code>）</li>
     </ul>
 
     <h3>必须想清楚的一件事</h3>
@@ -2584,7 +2591,7 @@
   <footer class="doc-foot">
     <p>
       体检时间 2026-10-25（页面、链接、体积数字为本次构建实测；第六节的外部站点对照仍是 2026-10-24 抓取）。数据来自实际构建产物、源码统计与现场抓取：
-      23 个 HTML 页面、单 CSS 38,825 字节（gzip 6,948）、0 个外部 JS 文件、277 个测试用例、
+      23 个 HTML 页面、单 CSS 38,825 字节（gzip 6,948）、0 个外部 JS 文件、284 个测试用例、
       产物 15 MB（原图 7.2 MB + WebP 变体 6.3 MB + 字体 136 KB + 其余约 700 KB）、
       <code>astro check</code> 0 错 0 警 0 提示，Astro 7.4.2 / Sätteri 0.4.5 / Node ≥ 22.23.4。
     </p>

@@ -158,6 +158,42 @@ p {
   margin-top: var(--space-3);
 }
 
+/*
+ * 提示框（`:::note` 等，见 src/lib/markdown-admonition.mjs）。
+ * 结构是 `<blockquote class="callout callout--note"><p class="callout__title">…`，
+ * 所以要先盖掉上面 blockquote 的左边线、灰字和斜体倾向。
+ * 五种类型不靠颜色区分（本站只有黑白灰），靠左边线的粗细与底色的深浅：
+ * note / tip 细线，important / warning / caution 粗线。
+ */
+.prose .callout {
+  margin: var(--space-5) 0;
+  padding: var(--space-4) var(--space-5);
+  border: var(--border-width) solid var(--color-border);
+  border-left: 2px solid var(--color-border-strong);
+  border-radius: var(--radius);
+  background: var(--color-bg-subtle);
+  color: var(--color-text);
+}
+
+.prose .callout--important,
+.prose .callout--warning,
+.prose .callout--caution {
+  border-left-width: 4px;
+  border-left-color: var(--color-text);
+}
+
+.prose .callout__title {
+  margin: 0;
+  font-size: var(--text-sm);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--color-text-secondary);
+}
+
+.prose .callout > * + * {
+  margin-top: var(--space-3);
+}
+
 .prose a {
   text-decoration-color: var(--color-text-muted);
 }

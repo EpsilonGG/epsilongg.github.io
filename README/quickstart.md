@@ -31,7 +31,7 @@ Fork 之后默认还叫 `epsilongg.github.io`，记得改名：**Settings → Re
 | 名片页 | `src/config/about.ts` | `intro` / `focusAreas` / `projects` / `experience` |
 | 首页导航 | `src/config/navigation.json` | 每个入口的 `label` / `href` / `description` |
 | 链接库 | `src/config/links.ts` | `primaryLinks`、`linkGroups`（现成的示例整组删掉最省事） |
-| 三张图 | `public/images/avatar.jpg`、`public/favicon.svg`、`public/og-default.png` | 直接覆盖 |
+| 三张图 | `public/images/avatar.jpg`、`public/favicon.svg`、`public/og/default.jpg` | 前两张直接覆盖；分享图改 `scripts/make_og.mjs` 的 `BG` 后跑 `npm run og` |
 
 `site.json` 里的 **`url` 只写「协议 + 域名」**，不带结尾斜杠、不带子路径。canonical、Open Graph、RSS、sitemap 全靠它拼绝对地址，写错就是一堆死链。
 
@@ -90,7 +90,7 @@ npm run links    # 站内死链检查（要先 build）
 构建：npm run build（会先跑 scripts/optimize_images.mjs 生成 WebP）
 门禁：npm run check（0 错）→ npm run build → npm run links → npm test → npm run test:md
 必须改：src/config/{site,profile,navigation}.json、about.ts、links.ts
-         以及 public/images/avatar.jpg、public/favicon.svg、public/og-default.png
+         以及 public/images/avatar.jpg、public/favicon.svg、scripts/make_og.mjs（分享图源）
 不能碰：src/styles/tokens.css 是唯一的样式数值来源，组件里不许写死颜色/字号/间距
 个人信息：只允许出现在 src/config/，页面组件里不许硬编码姓名、域名
 路由：/ /me/ /morelinks/ /blog/ /blog/<slug>/，必须部署在域名根路径

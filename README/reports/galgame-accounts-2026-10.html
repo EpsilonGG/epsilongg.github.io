@@ -1,0 +1,311 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Galgame 名单第二轮：信息号 13 个 + 厂商侧个人号 14 个</title>
+<style>
+  :root {
+    --ink: #111;
+    --ink-2: #555;
+    --ink-3: #888;
+    --line: #e3e3e3;
+    --line-2: #cfcfcf;
+    --bg: #fff;
+    --bg-2: #fafafa;
+    --radius: 6px;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    padding: 0 20px 96px;
+    background: var(--bg);
+    color: var(--ink);
+    font: 15px/1.75 -apple-system, BlinkMacSystemFont, "Segoe UI", "Hiragino Sans",
+      "Noto Sans CJK SC", "Microsoft YaHei", sans-serif;
+  }
+  .wrap { max-width: 1120px; margin: 0 auto; }
+  header.top { padding: 56px 0 28px; border-bottom: 1px solid var(--line); }
+  h1 { font-size: 26px; line-height: 1.4; margin: 0 0 10px; letter-spacing: -0.01em; }
+  .sub { color: var(--ink-2); margin: 0; }
+  .meta { margin-top: 14px; color: var(--ink-3); font-size: 13px; }
+  h2 {
+    font-size: 19px; margin: 48px 0 14px; padding-bottom: 8px;
+    border-bottom: 1px solid var(--line); letter-spacing: -0.01em;
+  }
+  h3 { font-size: 15px; margin: 26px 0 8px; }
+  p { margin: 0 0 12px; }
+  ul, ol { margin: 0 0 14px; padding-left: 22px; }
+  li { margin: 4px 0; }
+  code {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: 0.9em; background: var(--bg-2);
+    border: 1px solid var(--line); border-radius: 4px; padding: 1px 5px;
+  }
+  pre {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: 12px; line-height: 1.6; background: var(--bg-2);
+    border: 1px solid var(--line); border-radius: var(--radius);
+    padding: 14px 16px; overflow-x: auto; margin: 14px 0;
+  }
+  a { color: var(--ink); text-decoration-color: var(--line-2); }
+  a:hover { text-decoration-color: var(--ink); }
+  .note {
+    background: var(--bg-2); border: 1px solid var(--line);
+    border-radius: var(--radius); padding: 14px 18px; margin: 18px 0;
+  }
+  .note strong { font-weight: 600; }
+  .warn { border-left: 3px solid var(--ink); }
+  .scroll { overflow-x: auto; margin: 16px 0; border: 1px solid var(--line); border-radius: var(--radius); }
+  table { border-collapse: collapse; width: 100%; font-size: 13.5px; }
+  th, td { padding: 7px 10px; text-align: left; border-bottom: 1px solid var(--line); white-space: nowrap; }
+  thead th {
+    position: sticky; top: 0; background: var(--bg);
+    font-weight: 600; font-size: 12.5px; color: var(--ink-2);
+    border-bottom: 1px solid var(--line-2); z-index: 1;
+  }
+  tbody tr:nth-child(even) { background: #fcfcfc; }
+  tbody tr:hover { background: var(--bg-2); }
+  td.num { text-align: right; font-variant-numeric: tabular-nums; color: var(--ink-2); }
+  td.handle { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 12.5px; }
+  td.wrap-cell { white-space: normal; min-width: 16em; }
+  td.wrap-narrow { white-space: normal; min-width: 9em; }
+  .tag {
+    display: inline-block; font-size: 11px; line-height: 1.6;
+    padding: 0 6px; border: 1px solid var(--line-2); border-radius: 4px;
+    color: var(--ink-2); vertical-align: 1px;
+  }
+  .tag.ok { border-color: #111; color: #111; }
+  .tag.no { border-style: dashed; color: var(--ink-3); }
+  .kpi { display: flex; gap: 32px; flex-wrap: wrap; margin: 18px 0 8px; }
+  .kpi div { min-width: 110px; }
+  .kpi b { display: block; font-size: 22px; font-variant-numeric: tabular-nums; }
+  .kpi span { font-size: 12.5px; color: var(--ink-3); }
+  .legend { color: var(--ink-3); font-size: 12.5px; }
+  footer { margin-top: 56px; padding-top: 20px; border-top: 1px solid var(--line); color: var(--ink-3); font-size: 12.5px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="top">
+  <h1>Galgame 名单第二轮：信息号 + 厂商侧个人号</h1>
+  <p class="sub">信息号 13 个（个人 6 · 平台 7）＋ 厂商侧 14 个（剧作者 8 · 导演 3 · 老板 3）——每一个都用 fxtwitter 查过，查不到的一律不进表</p>
+  <p class="meta">整理日期 2026-10-29 ｜ 数据源：<code>api.fxtwitter.com/2/profile</code> + <code>/statuses</code>，ja.wikipedia 的 <code>prop=extlinks</code> ｜ 粉丝数与日期为查询当时快照，日期已换算 JST ｜ 不含已有名单里的 <code>@Moepedia_net</code> 与 174 个厂商官方号</p>
+  <div class="kpi">
+    <div><b>182</b><span>实际查过的 handle</span></div>
+    <div><b>27</b><span>建议收录</span></div>
+    <div><b>29</b><span>查过但该排除</span></div>
+    <div><b>13</b><span>「重试才活」的号</span></div>
+  </div>
+</header>
+
+<h2>0 一句话结论</h2>
+
+<p><strong>信息号能凑出 13 个，厂商侧个人号只能凑出 14 个，而且质量差一档。</strong>前者是「有人在替读者做筛选」，后者是「作者偶尔发一句工作进度」——两者的信息密度不是一回事。真正每天值得抓的厂商侧只有三个：<code>@Famishin</code>（ゆずソフト代表，日更、内部视角）、<code>@nakazawatakumi</code>（中澤工，制作幕后解说）、<code>@digitarou</code>（Nitroplus 代表，企划口径）。</p>
+
+<div class="note warn">
+<p><strong>先解决容量问题，再谈加人。</strong>X-Reader 的 <code>update.yml</code> 现在是 302 个账号跑 19.6 分钟、超时线 20 分钟。再加 27 个约 <strong>+1.8 分钟</strong>，直接超时。名单可以现在就定，但上线必须等「拆成两个 workflow」那一步——即你说的两个 <code>accounts.yaml</code> 独立抓。</p>
+</div>
+
+<h2>1 信息号（13）</h2>
+
+<h3>1.1 个人向信息号（6）</h3>
+
+<p>定位与 <code>@youtan0309</code>、<code>@uitachibana4</code> 一致：<strong>个人在运营</strong>，内容是原创感想 + 新作／旧作情报 + 回顾，会和业界的人、普通玩家来回互动。不是声优，不是厂商官号。</p>
+
+<div class="scroll">
+<table>
+<thead><tr><th>handle</th><th>显示名</th><th class="num">粉丝</th><th>最近发帖</th><th class="wrap-cell">发什么</th></tr></thead>
+<tbody>
+<tr><td class="handle">@masanlive</td><td>まさん -VisualNovel-</td><td class="num">5,223</td><td>2026-10-28</td><td class="wrap-cell">札幌的美少女游戏 YouTuber。新作／旧作感想、解说直播预告、业界杂谈；会直接在推上征集企划、和观众与品牌互动。</td></tr>
+<tr><td class="handle">@erogehou</td><td>なつまる（YouTube ラジオ）</td><td class="num">5,233</td><td>2026-10-28</td><td class="wrap-cell">YouTube『エロゲー放送局』主播的个人号。恋爱 ADV 的感想与推荐、配信告知，和听众来回聊。频道号 <code>@erogehousou</code> 只转推，收这个就够。</td></tr>
+<tr><td class="handle">@RAGDIS27993204</td><td>ねぷねぷギア</td><td class="num">5,011</td><td>2026-10-28</td><td class="wrap-cell">Leaf／アクアプラス／オーガスト／minori 老玩家。逐作回顾连载（<code>#オーガストの作品を振り返る</code>）、系列年表考据、旧作长文感想。</td></tr>
+<tr><td class="handle">@seiya_saiga</td><td>誠也の部屋@公式</td><td class="num">3,824</td><td>2026-10-23</td><td class="wrap-cell">攻略站「誠也の部屋」官方号。逐条发新作攻略更新与当周打折情报，几乎日更。与 <code>@uitachibana4</code> 同一人，视角互补（一个发攻略、一个发杂谈）。</td></tr>
+<tr><td class="handle">@B2F_</td><td>Ｂ２Ｆ（地下二階）</td><td class="num">1,046</td><td>2026-10-29</td><td class="wrap-cell">个人博客连动号。自制排行榜企划（<code>#マスト幼馴染エロゲ100</code> 之类）、新作感想、和玩家互相 @ 讨论评分标准。</td></tr>
+<tr><td class="handle">@aikouka23</td><td>エロゲ情報収集愛好家</td><td class="num">942</td><td>2026-10-28</td><td class="wrap-cell">「收藏侧」情报：初回版／修正版的刻印差异、流通撤退与廃盤动向、老作保存版考据。这类内容别的号不写。</td></tr>
+</tbody>
+</table>
+</div>
+
+<p class="legend">粉丝量都不高（最高 5,233），但信息号的价值不在量而在「筛」——<code>@aikouka23</code> 只有 942 粉，廃盤与刻印差异的记录却是独一份。</p>
+
+<h3>1.2 平台／媒体官方号（7）</h3>
+
+<div class="scroll">
+<table>
+<thead><tr><th>handle</th><th>显示名</th><th class="num">粉丝</th><th>最近发帖</th><th class="wrap-cell">发什么</th></tr></thead>
+<tbody>
+<tr><td class="handle">@DLsite</td><td>DLsite公式</td><td class="num">101,843</td><td>2026-10-27</td><td class="wrap-cell">同人／音声／漫画贩售平台官方。每日新作上架、期间特价、排行榜。量大，但同人比例高、galgame 占比低。</td></tr>
+<tr><td class="handle">@akibablog</td><td>geek@akibablog</td><td class="num">84,446</td><td>2026-10-28</td><td class="wrap-cell">アキバBlog 运营者号。几乎全是转推（秋叶原／御宅新闻，含新作与发售话题），无原创，噪音偏高。<span class="tag no">可缓</span></td></tr>
+<tr><td class="handle">@FANZA_NEWS</td><td>FANZAニュース【公式／編集部】</td><td class="num">66,360</td><td>2026-10-23</td><td class="wrap-cell">FANZA 新闻编辑部。业界新闻、新作与销量话题、专栏转载，行业侧视角。</td></tr>
+<tr><td class="handle">@getchucom</td><td>Getchu.com（げっちゅ屋）</td><td class="num">26,167</td><td>2026-10-28</td><td class="wrap-cell">新作预约开始、店铺特典、发售日倒数、体验版与 CG 更新——最接近「发售日历」的号。<span class="tag ok">优先</span></td></tr>
+<tr><td class="handle">@bugbug_info</td><td>BugBug編集部</td><td class="num">24,666</td><td>2026-10-28</td><td class="wrap-cell">每天 2～4 条新作／同人漫画介绍并导流 bugbug.news，另有月度销量排行与特集。信息密度最高。<span class="tag ok">优先</span></td></tr>
+<tr><td class="handle">@megastore_info</td><td>月刊メガストア</td><td class="num">6,319</td><td>2026-10-01</td><td class="wrap-cell">每月发卖号的特集与收录作告知。月更节奏，适合补「杂志侧」话题。</td></tr>
+<tr><td class="handle">@newakiba</td><td>newakiba</td><td class="num">1,885</td><td>2026-10-28</td><td class="wrap-cell">秋叶原系新闻站。新作 18 禁 SLG／ADV 与漫画新刊的短讯，一条一作带链接，内容较杂。</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="note">
+<p><strong>关于 <code>@youtan0309</code>：</strong>你给的样板号本人没有进表——他的定位是「企划／设计出身的老玩家」，内容与 <code>@RAGDIS27993204</code>（老玩家回顾连载）高度重叠，而粉丝量（1.37 万）确实更高。要不要把他一起收，取决于你想让「老玩家回顾」这一档留几个位子。他现在不在任何表里。</p>
+</div>
+
+<h2>2 厂商侧个人号（14）</h2>
+
+<p>这一栏和上一栏的区别：<strong>这里的人是「被报道的对象」，不是「报道者」</strong>。他们的号大多是工作进度 + 日常，抓进来是为了在日报里出现「某人的新作动向」时能引到本人发言，而不是为了每天产出条目。</p>
+
+<h3>2.1 剧作者（8）</h3>
+
+<div class="scroll">
+<table>
+<thead><tr><th>handle</th><th>显示名</th><th class="num">粉丝</th><th>最近原创</th><th class="wrap-narrow">所属／代表作</th><th class="wrap-cell">发什么</th></tr></thead>
+<tbody>
+<tr><td class="handle">@Butch_Gen</td><td>虚淵玄</td><td class="num">386,515</td><td>2026-10-27</td><td class="wrap-narrow">Nitroplus／『まどか☆マギカ』『Fate/Zero』『沙耶の唄』</td><td class="wrap-cell">本人号。近期几乎全是自制プラモ（スコープドッグ）进度与观影感想，作品告知很少。粉丝量最大、辨识度最高。</td></tr>
+<tr><td class="handle">@Higashide_Yu</td><td>東出祐一郎</td><td class="num">48,067</td><td>2026-10-27</td><td class="wrap-narrow">『Fate/Grand Order』『装甲悪鬼村正』</td><td class="wrap-cell">FGO 剧本进展、读书与三国志杂谈。原创比例低（20 条中 2 条原创，其余是回复）。</td></tr>
+<tr><td class="handle">@kionachi</td><td>木緒なち</td><td class="num">42,626</td><td>2026-10-28</td><td class="wrap-narrow">『ぼくたちのリメイク』、Logo 设计</td><td class="wrap-cell">杂谈为主：棒球、猫、业界吐槽，偶尔工作近况。噪声大，但确为本人。</td></tr>
+<tr><td class="handle">@F_Maruto_staff</td><td>丸戸史明(公式)</td><td class="num">36,841</td><td>2026-10-19</td><td class="wrap-narrow">『この青空に約束を』『WHITE ALBUM2』</td><td class="wrap-cell"><strong>staff 运营的公式号</strong>，几乎全是转推，只发作品告知（近期为『蓮ノ空』剧本）。不是自由发言的本人号。</td></tr>
+<tr><td class="handle">@shimokura_vio</td><td>下倉バイオ</td><td class="num">18,281</td><td>2026-10-28</td><td class="wrap-narrow">Nitroplus／『君と彼女と彼女の恋。』</td><td class="wrap-cell">日常为主：VRChat、フィギュア、模型；偶尔一句工作进度。更新频繁。</td></tr>
+<tr><td class="handle">@Toshi_Ikebukuro</td><td>王雀孫</td><td class="num">14,357</td><td>2026-09-16</td><td class="wrap-narrow">Navel／『俺たちに翼はない』</td><td class="wrap-cell">工作告知（プリコネ等）+ 杂谈。43 天未发原创，仍在 90 天活跃线内，故留在主表。</td></tr>
+<tr><td class="handle">@hozumik</td><td>保住圭</td><td class="num">8,223</td><td>2026-10-22</td><td class="wrap-narrow">合同会社サッズ代表／漫画原作、galgame 脚本</td><td class="wrap-cell">自家作品与 DLsite 折扣宣传、创作近况。重心已转向漫画原作。</td></tr>
+<tr><td class="handle">@gyyuiuui</td><td>瀬戸口廉也</td><td class="num">7,312</td><td>2026-10-06</td><td class="wrap-narrow">『CROSS†CHANNEL』『MUSICUS!』『SWAN SONG』</td><td class="wrap-cell">稀疏原创：制作中作品的暗示、日常抱怨。23 天前更新。</td></tr>
+</tbody>
+</table>
+</div>
+
+<h3>2.2 游戏导演（3）</h3>
+
+<div class="scroll">
+<table>
+<thead><tr><th>handle</th><th>显示名</th><th class="num">粉丝</th><th>最近原创</th><th class="wrap-narrow">所属／代表作</th><th class="wrap-cell">发什么</th></tr></thead>
+<tbody>
+<tr><td class="handle">@uchikoshi</td><td>打越鋼太郎</td><td class="num">12,391</td><td>2026-10-17</td><td class="wrap-narrow">『Ever17』『999』『AI ソムニウムファイル』</td><td class="wrap-cell">开发近况（含 10/15 公布企划中止）、粉丝问答；英日双语分号运营。</td></tr>
+<tr><td class="handle">@nakazawatakumi</td><td>中澤工</td><td class="num">4,783</td><td>2026-10-25</td><td class="wrap-narrow">『Ever17』『Root Double』『終天教団』</td><td class="wrap-cell">制作幕后解说连载（Ever17 的设计意图、没采用的设定）、行业观察。质量最高的导演号。<span class="tag ok">优先</span></td></tr>
+<tr><td class="handle">@rodorin</td><td>ろど</td><td class="num">15,905</td><td>2026-10-28</td><td class="wrap-narrow">ゆずソフト ディレクター（ムービー・背景）</td><td class="wrap-cell">自称ゆずソフト 监督。但 20 条里只有 1 条原创，其余全是转推／点赞，几乎无情报价值。<span class="tag no">可缓</span></td></tr>
+</tbody>
+</table>
+</div>
+
+<p class="legend">这一栏只有 3 个，和上一轮的结论一致：<strong>galgame 导演普遍不开个人号</strong>。下條水月、三舛啓、藤原将、高橋龍也、吉川浩司、飯田和彦（2013 年停更）都没找到可用账号。</p>
+
+<h3>2.3 老板／代表／制作人（3）</h3>
+
+<div class="scroll">
+<table>
+<thead><tr><th>handle</th><th>显示名</th><th class="num">粉丝</th><th>最近原创</th><th class="wrap-narrow">所属</th><th class="wrap-cell">发什么</th></tr></thead>
+<tbody>
+<tr><td class="handle">@digitarou</td><td>でじたろう@ニトロプラス</td><td class="num">105,029</td><td>2026-10-28</td><td class="wrap-narrow">Nitroplus 代表取締役（小坂崇氣）</td><td class="wrap-cell">企划进展（刀剣乱舞、まどマギ新作、Dolls Nest）、刀剑文化与美术馆话题。原创比例低但均为官方口径。<span class="tag ok">优先</span></td></tr>
+<tr><td class="handle">@Famishin</td><td>Famishin</td><td class="num">14,155</td><td>2026-10-29</td><td class="wrap-narrow">ゆずソフト 代表（＝天宮リツ）</td><td class="wrap-cell">自称「名ばかり代表」的音屋。SongFes 混音、会议与监修日常，<strong>日更</strong>，最像「公司内部视角」的号。<span class="tag ok">优先</span></td></tr>
+<tr><td class="handle">@vavasyatyou</td><td>馬場隆博</td><td class="num">30,933</td><td>2026-10-26</td><td class="wrap-narrow">ビジュアルアーツ／Key 創業者</td><td class="wrap-cell">简介写「現在は特定投資家」。近期以电视剧／演员评论为主，业界内容少。<span class="tag no">可缓</span></td></tr>
+</tbody>
+</table>
+</div>
+
+<h2>3 查过但不该进的（29）</h2>
+
+<h3>3.1 不活跃／已停用（10）</h3>
+
+<div class="scroll">
+<table>
+<thead><tr><th>handle</th><th>显示名</th><th class="num">粉丝</th><th>最后动静</th><th class="wrap-cell">为什么不进</th></tr></thead>
+<tbody>
+<tr><td class="handle">@techgian</td><td>ジャイ子</td><td class="num">8,147</td><td>2026-09-29（仅转推）</td><td class="wrap-cell">TECH GIAN 已停刊，简介写「公式アカウントでした」；近 20 条全是转推、零原创。</td></tr>
+<tr><td class="handle">@trumple_jp</td><td>TRUMPLE</td><td class="num">2,287</td><td>2014-07-29</td><td class="wrap-cell">エロゲー情報まとめアンテナ，2014 年后完全停更。</td></tr>
+<tr><td class="handle">@erogamescape</td><td>erogamescape</td><td class="num">0</td><td>无投稿</td><td class="wrap-cell">批評空間。账号在但 0 粉、零投稿，statuses 接口 500。</td></tr>
+<tr><td class="handle">@sofurin_jp</td><td>コンピュータソフトウェア倫理機構</td><td class="num">467</td><td>2025-05-02</td><td class="wrap-cell">业界团体而非媒体，一年半未更新，内容多为休业通知。</td></tr>
+<tr><td class="handle">@J_hagane</td><td>鋼屋ジン</td><td class="num">21,099</td><td>原创 2026-02-15</td><td class="wrap-cell">Nitroplus 脚本。近半年零原创，只在转推。</td></tr>
+<tr><td class="handle">@rosshii02</td><td>ろっしー@ランプオブシュガー広報</td><td class="num">446</td><td>2022-08-01</td><td class="wrap-cell">品牌广报。2022 年后停更，情报已由官方号承担。</td></tr>
+<tr><td class="handle">@yamada418</td><td>飯田和彦</td><td class="num">173</td><td>2013-10-16</td><td class="wrap-cell">『カルタグラ』『グリムガーデンの少女』。停更 13 年，只作存档。</td></tr>
+<tr><td class="handle">@looseboy</td><td>looseboy</td><td class="num">38</td><td>2014-04-20</td><td class="wrap-cell">疑为るーすぼーい，但简介空白、只有 PSN 奖杯，<strong>身份无法确认</strong>。</td></tr>
+<tr><td class="handle">@takeuchitakashi</td><td>Takeuchi Takashi</td><td class="num">0</td><td>无投稿</td><td class="wrap-cell">0 粉 0 帖空壳。TYPE-MOON 武内崇无个人号。</td></tr>
+<tr><td class="handle">@La_Li_Lucle</td><td>ルクル</td><td class="num">12,615</td><td>2026-10-02</td><td class="wrap-cell">同人社团开发者本人，类型不符（是制作者不是信息号）。</td></tr>
+</tbody>
+</table>
+</div>
+
+<h3>3.2 同名误认（这是最容易出错的一类）</h3>
+
+<div class="scroll">
+<table>
+<thead><tr><th>handle</th><th>查出来是谁</th><th class="wrap-cell">为什么不是本人</th></tr></thead>
+<tbody>
+<tr><td class="handle">@NBKZ</td><td>david frazao</td><td class="wrap-cell">4 粉、0 帖、无简介。酒井伸和（minori）的旧号已不存在。这是无关的外国用户。</td></tr>
+<tr><td class="handle">@Amamiyaritsu</td><td>甘味屋りつ</td><td class="wrap-cell">173 粉的插画师。天宮リツ真正在用的是 <code>@Famishin</code>（简介「名ばかり代表」、内容为ゆずソフト SongFes）。</td></tr>
+<tr><td class="handle">@goichiro</td><td>新井豪一郎｜シェルパス CEO</td><td class="wrap-cell">人材育成 AI 公司 CEO，与脚本家呉一郎无关；发帖全是 AI／经营。</td></tr>
+<tr><td class="handle">@sanosho</td><td>さのしょ@みっくみく</td><td class="wrap-cell">74 粉，只发「カレー！」。与「サノショウ」同音但毫无业界内容。</td></tr>
+<tr><td class="handle">@sakuraihikaru</td><td>ひかる隊員</td><td class="wrap-cell">43 粉，2013 年停更，内容是偶像 Live。不是脚本家桜井光。</td></tr>
+<tr><td class="handle">@MiKaGe_</td><td>御影</td><td class="wrap-cell">3 粉 0 帖，简介写 SERVAMP／刀剣乱舞／艦これ。同名的女性向同人号，不是 minori 的御影。</td></tr>
+<tr><td class="handle">@Infinitedayo</td><td>永谷敬之（ナガッチョ）</td><td class="wrap-cell">是インフィニット／EVOLROAR 代表、久弥直樹的商业伙伴，<strong>不是久弥本人</strong>。久弥未找到个人号。</td></tr>
+<tr><td class="handle">@kobuichi</td><td>こぶいち</td><td class="wrap-cell">ゆずソフト 原画（144,029 粉），<strong>确认是本人</strong>，但属绘师，不在这次三类范围内。</td></tr>
+</tbody>
+</table>
+</div>
+
+<h3>3.3 同质或 404（略举）</h3>
+
+<ul>
+<li><strong>同质二选一</strong>：<code>@erogehousou</code>（只转推，本人号 <code>@erogehou</code> 已收）、<code>@getchucom_n</code>（一般向，情报密度低）、<code>@DLsite_info</code>（与 <code>@DLsite</code> 重叠）、<code>@fanza_sns</code>（以 AV 为中心）。</li>
+<li><strong>纯 404</strong>：<code>@bugbug_web</code>（正确是 <code>@bugbug_info</code>）、<code>@new_akiba</code>（正确是 <code>@newakiba</code>）、<code>@DLsite_JP</code>、<code>@moedigi</code>、<code>@eroge_navi</code>、<code>@moegameaward</code>、<code>@uitachibana2</code>。</li>
+<li><strong>连查 6 次全 404 的人名</strong>：あごバリア、緒乃ワサビ（Laplacian）、新島夕、岡野達也、下條水月、三舛啓、高橋龍也、臼田裕次郎、片岡とも、竜騎士07、田中ロミオ、泉まんや、天宮リツ（见上，用 <code>@Famishin</code>）。</li>
+</ul>
+
+<div class="note warn">
+<p><strong>关于 <code>@uitachibana3</code>：</strong>你说「fxtwitter 查不到」，实测它<strong>存在且活跃</strong>——5,444 粉，2026-10-29 仍有原创，简介自称「3rd な見た目は健全垢」，主号指向 <code>@uitachibana4</code>。按你的要求没写进任何表，要不要收由你定。它也是「必须重试」的活样本：前两次 404、第三次才 200。</p>
+</div>
+
+<h2>4 落地建议</h2>
+
+<h3>4.1 分批收，不要一次全进</h3>
+
+<div class="scroll">
+<table>
+<thead><tr><th class="num">批</th><th class="wrap-narrow">范围</th><th class="num">人数</th><th class="wrap-cell">理由</th></tr></thead>
+<tbody>
+<tr><td class="num">P0</td><td class="wrap-narrow">信息号里的 <span class="tag ok">优先</span> + 个人号全部</td><td class="num">10</td><td class="wrap-cell">每日都有产出：<code>@getchucom</code>（发售日历）、<code>@bugbug_info</code>（新作介绍）、6 个个人号。这一批决定 Galgame 版有没有内容。</td></tr>
+<tr><td class="num">P1</td><td class="wrap-narrow">厂商侧 <span class="tag ok">优先</span></td><td class="num">3</td><td class="wrap-cell"><code>@Famishin</code>、<code>@nakazawatakumi</code>、<code>@digitarou</code>。为「某人新作动向」提供一手引用。</td></tr>
+<tr><td class="num">P2</td><td class="wrap-narrow">其余平台号 + 剧作者</td><td class="num">14</td><td class="wrap-cell">有量但杂。等 P0 跑两周、看过日报实际产出再决定。</td></tr>
+</tbody>
+</table>
+</div>
+
+<h3>4.2 名单字段（写进 <code>daily-roster.json</code> 时）</h3>
+
+<pre><code>{
+  "handle": "getchucom",
+  "name": "Getchu.com",
+  "category": "galgame",
+  "role": "info-platform",
+  "active": true,
+  "note": "新作预约 / 特典 / 发售日倒数，最接近发售日历",
+  "filter": { "drop_kinds": ["promo"], "max_items": 3 }
+}</code></pre>
+
+<p><code>role</code> 建议四值：<code>info-personal</code> / <code>info-platform</code> / <code>scenario</code> / <code>director</code> / <code>owner</code>。厂商侧个人号要挂 <code>max_items: 1</code>——他们一天发五条日常，全收会把声优栏目挤掉。</p>
+
+<h3>4.3 还没定的事</h3>
+
+<ol>
+<li><strong>要不要 <code>@youtan0309</code></strong>（见 §1.1 的注）。</li>
+<li><strong>要不要 <code>@uitachibana3</code></strong>（见 §3 的注）。</li>
+<li><strong>拆 CI 的方案</strong>：新 workflow 单独抓 <code>accounts.galgame.yaml</code> → <code>data/items/galgame.jsonl</code>，与主库互不阻塞。这一步不定，名单再准也上不了线。</li>
+<li><strong>Galgame 版是「独立一期」还是「主日报里的一个栏目」</strong>。独立一期意味着新的期号序列、新的 6 个出口、新的金文件——工作量是主日报的一半。</li>
+</ol>
+
+<h2>5 方法与可信度</h2>
+
+<ul>
+<li><strong>182 个 handle 全部实查</strong>：118（信息号侧）+ 48（厂商侧）+ 16 个空号／404。</li>
+<li><strong>重试是必须的</strong>：厂商侧 48 个里 <strong>13 个需要重试</strong>才拿到 200（<code>@Famishin</code> 第 5 次、<code>@kobuichi</code> 第 4 次、<code>@Butch_Gen</code>／<code>@Toshi_Ikebukuro</code>／<code>@hozumik</code> 第 3 次）。按「一次 404 即判死」会误删 8 个活号。</li>
+<li><strong>活账号的来源</strong>：ja.wikipedia 的 <code>prop=extlinks</code> 命中率最高（12 个），品牌条目的 extlinks 还能捞出 staff 个人号（<code>@Famishin</code>、<code>@rodorin</code>、<code>@rosshii02</code>）。</li>
+<li><strong>走不通的路</strong>（记下来免得再试）：x.com 直连、Bing／DuckDuckGo（地理重定向到中文无关结果）、<code>api.fxtwitter.com/2/search</code>（返回 <code>{code:404, results:[]}</code>）、<code>/followers</code> 与 <code>/following</code>（404）。</li>
+<li><strong>判定口径</strong>：不只看名字——要求简介含作品名／公司名，或近 20 条原创属本行业，或与已知厂商号互动。<strong>存疑一律丢弃</strong>，宁缺勿滥。</li>
+</ul>
+
+<footer>
+<p>一次性产物，放在 <code>README/reports/</code>，不参与构建、不被站点链接。上一版：<code>galgame-roster.html</code>（10-28，シナリオ 7／原画 14／导演 1／信息号 2）——本版把「信息号」和「厂商侧个人号」两栏重做并扩表，原画一栏未动，仍以那一版为准。</p>
+</footer>
+
+</div>
+</body>
+</html>

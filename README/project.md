@@ -52,7 +52,7 @@ npm test         # Python 单元测试（README 同步脚本）
 │   │   ├── people/            GitHub 朋友的头像（按 22×22 显示，存 64×64）
 │   │   └── tools/             工具图标（48×48 白色圆角方块，按 2 倍图存放）
 │   ├── favicon.svg
-│   └── og-default.png         默认 Open Graph 分享图（1200×630）
+│   └── og/default.jpg         默认 Open Graph 分享图（1200×630，由 npm run og 生成）
 ├── src/
 │   ├── components/            Header / Footer / 导航 / 链接行 / 链接列表 / 卡片 / 图标网格 / 徽章墙 / 最近文章 / 主题切换 / 背景开关 / 阅读进度条
 │   ├── config/                站点、个人资料、导航、链接、名片页的全部数据
@@ -133,7 +133,7 @@ npm test         # Python 单元测试（README 同步脚本）
 | `src/config/about.ts` | `intro` / `focusAreas` / `projects` / `experience` | 已填写 |
 | `src/config/links.ts` | `primaryLinks` | 已填 GitHub；其他平台可继续加，`/me/`（名片页）的「主要平台」区块会自动出现 |
 | | `linkGroups` | 五个分类各有自己的 `layout`：个人平台/项目用卡片、工具用图标网格、研究与参考资料用列表、常用链接用小按钮墙（内部再分 GitHub / ACG 资源两个子栏目）。见第 4.1 节 |
-| `public/og-default.png` | 分享图 | 已按 EpsilonGG 生成；若改名需重新生成（见第 9 节） |
+| `public/og/default.jpg` | 分享图 | 已按 EpsilonGG 生成；`npm run og` 从 `images/bg/sky.jpg` 重切 |
 | `src/content/blog/example.md` | 草稿示例 | 可以删除 |
 
 填写原则：只写能确认的真实信息，不要为了填满而编造。所有数组留空时，页面会显示一行简洁提示而不是空区块，不会报错。
@@ -351,7 +351,7 @@ git restore --source=<commit> -- path/to/file   # 把单个文件恢复到某个
 ## 9. 其他说明
 
 - **字体**：Inter（可变字重 100–900）、Cormorant Garamond（400）、Fira Code（可变字重 300–700），全部本地托管在 `public/fonts/`，许可文本同目录。中文使用系统字体回退（PingFang SC / 微软雅黑 / 思源黑体），因此中文渲染效果随系统而异，这是有意取舍（不引入几 MB 的中文字体）。
-- **Open Graph 图**：`public/og-default.png` 是静态图片（1200×630），修改姓名后可用任意工具重新生成一张覆盖它。
+- **Open Graph 图**：`public/og/default.jpg` 是静态图片（1200×630），由 `npm run og` 从背景图切出；每篇笔记另有 `public/og/blog/<slug>.jpg`。
 - **robots.txt** 由 `src/pages/robots.txt.ts` 按 `site.json` 的 `url` 生成，所以不在 `public/` 下，避免域名写两份。
 - **主题**：默认浅色，用户选择保存在 `localStorage`；读取或写入失败时回退到浅色，不影响页面使用。首屏有内联脚本预先应用主题，避免闪烁。
 - **移动端导航**：五个入口文字都很短，窄屏下换行显示而不是折叠菜单，因此没有额外的键盘交互与焦点管理负担。

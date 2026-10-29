@@ -128,6 +128,7 @@ source: original          # 可选，默认 original。ai = AI 整理
 | 任务列表 | `- [x] 完成` | |
 | 脚注 | `[^1]` | 见第 5 节 |
 | 自动链接 | `<https://example.com>` | |
+| 提示框 | `:::note` | 见第 3.1 节 |
 
 **不支持**：MDX、HTML 里的 `<style>` / `<script>`（会被过滤）、`$数学公式$`（没开 math）。
 
@@ -137,6 +138,28 @@ source: original          # 可选，默认 original。ai = AI 整理
 > 单个孤立出现的 `~`（如 `3~4年`）不受影响。
 
 正文里可以直接写 HTML，比如 `<figure>`、`<img>`、`<kbd>`、`<sub>`，写法和 GitHub 上一致。
+
+### 3.1 提示框（`:::note`）
+
+五种类型：`note` / `tip` / `important` / `warning` / `caution`。方括号里写标题，不写就用默认标题（说明 / 技巧 / 要点 / 注意 / 警告）。
+
+```markdown
+:::caution[剧透提醒]
+本文涉及《边缘行者》与《边缘行者 2》的重大剧透。
+:::
+```
+
+渲染成 `<blockquote class="callout callout--caution">`，纯 CSS，没有 JS。
+
+三条约束：
+
+- **`:::` 必须顶格**，前后各留一个空行，否则会被当成普通段落。
+- **里面不能套提示框**（嵌套的 `:::` 会被外层吃掉）。
+- **类型名写错不会报错**，会退化成 `note`——这是故意的：宁可样式不对，也不要让内容消失。
+
+> 这个功能有个坑值得记：`satteri` 的 `features.directive` 只负责**解析** `:::`，不给 hast 处理器。
+> 只开开关、不挂 `src/lib/markdown-admonition.mjs`，整块内容会在 mdast→hast 那一步**静默消失**——
+> 不报错、不警告，页面上就是没了。所以两件事必须成对出现，`tests/markdown/admonition.test.mjs` 盯着插件本身。
 
 ---
 

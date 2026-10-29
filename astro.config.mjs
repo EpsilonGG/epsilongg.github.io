@@ -6,6 +6,7 @@ import { satteri } from '@astrojs/markdown-satteri';
 import { siteUrl } from './src/config/site.ts';
 import { figureCaptionPlugin } from './src/lib/markdown-figure.mjs';
 import { imageAttrsPlugin, imagePicturePlugin } from './src/lib/markdown-images.mjs';
+import { admonitionPlugin } from './src/lib/markdown-admonition.mjs';
 
 /**
  * 站点部署在 GitHub Pages 用户站点（username.github.io），
@@ -33,9 +34,14 @@ export default defineConfig({
         gfm: {
           footnotes: { label: '注释' },
         },
+        // `:::note` 这类容器指令（fuwari / Obsidian 同一套写法）。
+        // 只是把 `:::note` 解析成 `<div class="note">`，样式在 components.css。
+        directive: true,
       },
       // 顺序要紧：先补属性（lazy / 尺寸），再包 <picture>（WebP + srcset），
       // 最后才把带 title 的图升级成 figure（它要认得 picture / a 这两种包装）。
+      // `directive` 只负责解析 `:::`，必须挂 admonitionPlugin 才不会把内容丢掉。
+      mdastPlugins: [admonitionPlugin],
       hastPlugins: [imageAttrsPlugin, imagePicturePlugin, figureCaptionPlugin],
     }),
     shikiConfig: {

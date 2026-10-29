@@ -1,0 +1,311 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>笔记拓展功能：fuwari / PaperMod / Quartz 三个参考，能抄什么、不能抄什么</title>
+<style>
+  :root {
+    --ink: #111;
+    --ink-2: #555;
+    --ink-3: #888;
+    --line: #e3e3e3;
+    --line-2: #cfcfcf;
+    --bg: #fff;
+    --bg-2: #fafafa;
+    --radius: 6px;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    padding: 0 20px 96px;
+    background: var(--bg);
+    color: var(--ink);
+    font: 15px/1.75 -apple-system, BlinkMacSystemFont, "Segoe UI", "Hiragino Sans",
+      "Noto Sans CJK SC", "Microsoft YaHei", sans-serif;
+  }
+  .wrap { max-width: 1080px; margin: 0 auto; }
+  header.top { padding: 56px 0 28px; border-bottom: 1px solid var(--line); }
+  h1 { font-size: 26px; line-height: 1.4; margin: 0 0 10px; letter-spacing: -0.01em; }
+  .sub { color: var(--ink-2); margin: 0; }
+  .meta { margin-top: 14px; color: var(--ink-3); font-size: 13px; }
+  h2 {
+    font-size: 19px; margin: 48px 0 14px; padding-bottom: 8px;
+    border-bottom: 1px solid var(--line); letter-spacing: -0.01em;
+  }
+  h3 { font-size: 15px; margin: 26px 0 8px; }
+  p { margin: 0 0 12px; }
+  ul, ol { margin: 0 0 14px; padding-left: 22px; }
+  li { margin: 4px 0; }
+  code {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: 0.9em; background: var(--bg-2);
+    border: 1px solid var(--line); border-radius: 4px; padding: 1px 5px;
+  }
+  pre {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: 12px; line-height: 1.6; background: var(--bg-2);
+    border: 1px solid var(--line); border-radius: var(--radius);
+    padding: 14px 16px; overflow-x: auto; margin: 14px 0;
+  }
+  a { color: var(--ink); text-decoration-color: var(--line-2); }
+  a:hover { text-decoration-color: var(--ink); }
+  .note {
+    background: var(--bg-2); border: 1px solid var(--line);
+    border-radius: var(--radius); padding: 14px 18px; margin: 18px 0;
+  }
+  .note strong { font-weight: 600; }
+  .warn { border-left: 3px solid var(--ink); }
+  .scroll { overflow-x: auto; margin: 16px 0; border: 1px solid var(--line); border-radius: var(--radius); }
+  table { border-collapse: collapse; width: 100%; font-size: 13.5px; }
+  th, td { padding: 7px 10px; text-align: left; border-bottom: 1px solid var(--line); white-space: nowrap; }
+  thead th {
+    position: sticky; top: 0; background: var(--bg);
+    font-weight: 600; font-size: 12.5px; color: var(--ink-2);
+    border-bottom: 1px solid var(--line-2); z-index: 1;
+  }
+  tbody tr:nth-child(even) { background: #fcfcfc; }
+  tbody tr:hover { background: var(--bg-2); }
+  td.num { text-align: right; font-variant-numeric: tabular-nums; color: var(--ink-2); }
+  td.wrap-cell { white-space: normal; min-width: 15em; }
+  .tag {
+    display: inline-block; font-size: 11px; line-height: 1.6;
+    padding: 0 6px; border: 1px solid var(--line-2); border-radius: 4px;
+    color: var(--ink-2); vertical-align: 1px;
+  }
+  .tag.ok { border-color: #111; color: #111; }
+  .tag.no { border-style: dashed; color: var(--ink-3); }
+  .kpi { display: flex; gap: 32px; flex-wrap: wrap; margin: 18px 0 8px; }
+  .kpi div { min-width: 110px; }
+  .kpi b { display: block; font-size: 22px; font-variant-numeric: tabular-nums; }
+  .kpi span { font-size: 12.5px; color: var(--ink-3); }
+  .legend { color: var(--ink-3); font-size: 12.5px; }
+  footer { margin-top: 56px; padding-top: 20px; border-top: 1px solid var(--line); color: var(--ink-3); font-size: 12.5px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="top">
+  <h1>笔记拓展功能：三个参考，能抄什么、不能抄什么</h1>
+  <p class="sub">fuwari 的 markdown-extended 与 video、PaperMod 的 audio-video、以及 Quartz——逐条拆开看，哪些是真功能、哪些只是「粘一段 HTML」</p>
+  <p class="meta">2026-10-29 ｜ 参考页现场抓取 ｜ 本站指标为本机构建产物实测 ｜ 已落地一项：提示框 <code>:::note</code></p>
+  <div class="kpi">
+    <div><b>0</b><span>外部 JS 文件</span></div>
+    <div><b>2.8 KB</b><span>每页内联脚本中位</span></div>
+    <div><b>24</b><span>页面</span></div>
+    <div><b>1</b><span>本轮落地</span></div>
+  </div>
+</header>
+
+<h2>0 结论先说</h2>
+
+<p><strong>你给的三个页面加起来，其实只演示了三样东西：提示框、GitHub 仓库卡、媒体标签。</strong>没有表格、没有数学、没有图表——fuwari 那篇 Markdown 拓展全文只有 156 个英文单词，短得超出预期。所以「笔记拓展」这件事比看起来小得多。</p>
+
+<p>三样里：<strong>提示框今天已经做完了</strong>（`:::note` 一族，纯 CSS，7 个测试盯着）；<strong>媒体标签值得做</strong>（本地音视频零成本，外站视频改成点击加载）；<strong>GitHub 卡不做</strong>（要客户端拉 API，等于给零 JS 的站开一个口子）。</p>
+
+<p>Quartz 那边答案是：<strong>是，只能换架构</strong>。但它有三件事不用换也能学，其中「构建期算反向链接」真值得做——而且和本站的零 JS 不冲突。</p>
+
+<div class="note warn">
+<p><strong>本轮唯一动手的事</strong>：把 <code>:::note</code> / <code>:::tip</code> / <code>:::important</code> / <code>:::warning</code> / <code>:::caution</code> 五种提示框接进 Sätteri 管线，写法与 fuwari、Obsidian 完全一致。第一篇用上它的是《边缘行者 2》那篇译文——原文那句「本文涉及重大剧透」现在是一个 <code>:::caution[剧透提醒]</code>。</p>
+</div>
+
+<h2>1 三个参考页到底给了什么</h2>
+
+<h3>1.1 fuwari · Markdown Extended</h3>
+
+<p>只有两节：</p>
+
+<ul>
+<li><strong>GitHub 仓库卡</strong>：<code>::github{repo="owner/repo"}</code>。页面里写明「on page load, the repository information is pulled from the GitHub API」——也就是<strong>客户端请求</strong>，不是构建期生成。</li>
+<li><strong>Admonitions</strong>：<code>note</code> / <code>tip</code> / <code>important</code> / <code>warning</code> / <code>caution</code> 五种，语法 <code>:::note</code>，支持 <code>:::note[自定义标题]</code>，另外也认 GitHub 的 <code>&gt; [!NOTE]</code> 写法。</li>
+</ul>
+
+<p>就这些。整页 156 words，没有表格、数学、mermaid、脚注的任何演示。</p>
+
+<h3>1.2 fuwari · Video</h3>
+
+<p>这页更直接：<strong>没有任何组件</strong>。正文就是一句「把 YouTube 或其它平台的嵌入代码复制粘贴进 markdown 文件」，然后一个 <code>&lt;iframe width="100%" height="468" src="https://www.youtube.com/embed/…"&gt;</code>。<code>## YouTube</code> 与 <code>## Bilibili</code> 两个小节下面各只有一个 iframe，没有语法说明、没有参数、没有封面图。</p>
+
+<h3>1.3 PaperMod · Audio and Video</h3>
+
+<p>Hugo 的短代码：<code>{{&lt; audio src="/path.mp3" &gt;}}</code> 与 <code>{{&lt; video src="/path.mp4" &gt;}}</code>。文中紧接着就给了等价的裸 HTML——<code>&lt;audio controls&gt;&lt;source …&gt;&lt;/audio&gt;</code>、<code>&lt;video controls&gt;&lt;source …&gt;&lt;/video&gt;</code>。<strong>也就是说短代码只是省几个字符，产物就是浏览器原生播放器。</strong></p>
+
+<div class="scroll">
+<table>
+<thead><tr><th class="wrap-cell">参考页</th><th class="wrap-cell">看起来是</th><th class="wrap-cell">实际是</th><th class="wrap-cell">需要 JS 吗</th></tr></thead>
+<tbody>
+<tr><td class="wrap-cell">fuwari · Markdown Extended</td><td class="wrap-cell">一套 Markdown 超集</td><td class="wrap-cell">提示框 + GitHub 卡，两样</td><td class="wrap-cell">提示框不要；GitHub 卡<strong>要</strong>（客户端拉 API）</td></tr>
+<tr><td class="wrap-cell">fuwari · Video</td><td class="wrap-cell">视频组件</td><td class="wrap-cell">粘一段第三方 iframe</td><td class="wrap-cell">不要，但会加载对方的一整套脚本</td></tr>
+<tr><td class="wrap-cell">PaperMod · Audio and Video</td><td class="wrap-cell">音视频短代码</td><td class="wrap-cell">原生 <code>&lt;audio&gt;</code> / <code>&lt;video&gt;</code></td><td class="wrap-cell">不要</td></tr>
+</tbody>
+</table>
+</div>
+
+<h2>2 本站的判定</h2>
+
+<p>判断标准只有一条：<strong>会不会让访客多下载一个脚本</strong>。本站现在是 0 个外部 JS 文件、每页内联脚本中位 2.8 KB（最大 4.9 KB，出现在带阅读进度与侧栏的文章页）。这条线一旦破，后面就没有理由拒绝任何东西。</p>
+
+<div class="scroll">
+<table>
+<thead><tr><th class="wrap-cell">功能</th><th class="wrap-cell">参考实现</th><th class="wrap-cell">本站做法</th><th class="wrap-cell">代价</th><th>判定</th></tr></thead>
+<tbody>
+<tr>
+<td class="wrap-cell">提示框</td>
+<td class="wrap-cell">fuwari <code>:::note</code></td>
+<td class="wrap-cell">Sätteri <code>features.directive</code> + 自写 mdast 插件 + CSS</td>
+<td class="wrap-cell">一个插件文件（约 70 行）、7 个单测</td>
+<td><span class="tag ok">已做</span></td>
+</tr>
+<tr>
+<td class="wrap-cell">本地音频 / 视频</td>
+<td class="wrap-cell">PaperMod 短代码</td>
+<td class="wrap-cell">正文里直接写 <code>&lt;audio controls&gt;</code> / <code>&lt;video controls&gt;</code>，不需要短代码</td>
+<td class="wrap-cell">要先解决「视频怎么进仓库」（GitHub 单文件 100 MB 上限、仓库体积）</td>
+<td><span class="tag ok">可做</span></td>
+</tr>
+<tr>
+<td class="wrap-cell">外站视频（YouTube / B站）</td>
+<td class="wrap-cell">fuwari 的 iframe</td>
+<td class="wrap-cell">做成「封面图 + 播放标记」的链接卡，点了跳原站；不嵌 iframe</td>
+<td class="wrap-cell">一个 CSS 类 + 写作约定；<strong>不加载第三方任何东西</strong></td>
+<td><span class="tag ok">可做</span></td>
+</tr>
+<tr>
+<td class="wrap-cell">GitHub 仓库卡</td>
+<td class="wrap-cell">fuwari <code>::github</code></td>
+<td class="wrap-cell">不做</td>
+<td class="wrap-cell">构建期不联网（CI 无 token、不想加）；客户端拉 API 等于每页多一次第三方请求</td>
+<td><span class="tag no">不做</span></td>
+</tr>
+<tr>
+<td class="wrap-cell">数学公式</td>
+<td class="wrap-cell">Quartz / fuwari 都可开</td>
+<td class="wrap-cell">不做</td>
+<td class="wrap-cell">KaTeX 要 CSS + 字体（数百 KB）或运行时 JS；本站没有公式内容</td>
+<td><span class="tag no">不做</span></td>
+</tr>
+<tr>
+<td class="wrap-cell">Mermaid 图</td>
+<td class="wrap-cell">Quartz</td>
+<td class="wrap-cell">不做</td>
+<td class="wrap-cell">必须运行时 JS；需要图的地方用静态 SVG 更好</td>
+<td><span class="tag no">不做</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<h3>2.1 提示框：写法与边界</h3>
+
+<pre><code>:::caution[剧透提醒]
+本文涉及《边缘行者》与《边缘行者 2》的重大剧透。
+:::</code></pre>
+
+<p>渲染成 <code>&lt;blockquote class="callout callout--caution"&gt;</code>。五种类型不靠颜色区分（本站只有黑白灰），靠左边线的粗细：<code>note</code> / <code>tip</code> 是 2px，<code>important</code> / <code>warning</code> / <code>caution</code> 是 4px 且用正文色。</p>
+
+<p>三条边界：<code>:::</code> 必须顶格且前后空行；里面不能套提示框；<strong>类型名写错不报错，退化成 <code>note</code></strong>——这是故意的，宁可样式不对也不要内容消失。</p>
+
+<h2>3 一个必须记住的坑</h2>
+
+<p>这是本轮实测出来的，值得单独一节：<strong><code>satteri</code> 的 <code>features.directive</code> 只负责解析，不负责渲染。</strong></p>
+
+<p>只把开关打开、不挂处理器，会发生什么？</p>
+
+<pre><code># 开 directive、没挂插件时的产物
+&lt;div class="prose" data-pagefind-body&gt;&lt;/div&gt;      ← 整篇正文空了
+
+# 挂上 markdown-admonition.mjs 之后
+&lt;div class="prose" data-pagefind-body&gt;
+&lt;p&gt;开头这一段是普通段落，应该照常渲染。&lt;/p&gt;
+&lt;blockquote class="callout callout--note"&gt;
+&lt;p class="callout__title"&gt;说明&lt;/p&gt;
+&lt;p&gt;默认标题的提示。&lt;/p&gt;
+&lt;/blockquote&gt;
+…</code></pre>
+
+<p><strong>构建成功、退出码 0、没有任何警告</strong>——只是内容没了。这类「解析类开关」的共性风险是：它改变的是语法树，而语法树到 HTML 那一步缺处理器时不会报错，只会静默丢弃。教训是——<strong>凡是打开一个解析开关，都要拿一条真实内容跑一遍产物、肉眼看 HTML</strong>，不能只看构建通过。</p>
+
+<h2>4 Quartz：是不是只能换架构</h2>
+
+<p><strong>是。</strong>三条理由：</p>
+
+<ol>
+<li><strong>它是一个独立的静态站点生成器，不是插件。</strong>Quartz 5 要求 Node ≥ 22，流程是 <code>npx quartz create</code> → <code>npx quartz plugin install --from-config</code> → <code>npx quartz build</code>，内容放在它自己的 <code>content/</code>。和 Astro 并存等于两套构建、两套路由、两套部署。</li>
+<li><strong>它的招牌功能都长在「构建期链接图 + 客户端运行时」上。</strong>graph view、backlinks、popover 预览、wikilinks、Bases、Canvas——前三个要浏览器端渲染，后三个要 Obsidian 的文件组织方式。搬不过来。</li>
+<li><strong>它是「数字花园」的形态假设。</strong>文件夹即目录树、每篇是一个节点、靠 <code>[[链接]]</code> 织网。本站是「栏目 + 时间线」（笔记 / 日报），结构上就不是一个东西。</li>
+</ol>
+
+<p>但有三件事不用换架构也能学：</p>
+
+<div class="scroll">
+<table>
+<thead><tr><th class="wrap-cell">Quartz 的做法</th><th class="wrap-cell">本质</th><th class="wrap-cell">本站能不能做</th><th>结论</th></tr></thead>
+<tbody>
+<tr>
+<td class="wrap-cell">Backlinks（反向链接）</td>
+<td class="wrap-cell">构建期扫全站 <code>[[链接]]</code> 与 md 内链，算出「谁引用了这一篇」</td>
+<td class="wrap-cell">能。本站笔记之间已经有互链，扫 md 的链接就能算，纯静态输出一段 HTML，<strong>0 JS</strong></td>
+<td><span class="tag ok">值得做</span></td>
+</tr>
+<tr>
+<td class="wrap-cell">CustomOgImages（satori）</td>
+<td class="wrap-cell">HTML/CSS → 图片，所以能在图上排版标题与作者</td>
+<td class="wrap-cell">已经用更便宜的方式做了：<code>scripts/make_og.mjs</code> 只裁图不写字</td>
+<td><span class="tag ok">已学</span></td>
+</tr>
+<tr>
+<td class="wrap-cell">插件 / 发射器分层</td>
+<td class="wrap-cell">emitter 的职责是「产出一个文件」，配置决定开哪些</td>
+<td class="wrap-cell">已经是这个思路：<code>image-manifest.json</code>、<code>og-manifest.json</code> 都是「构建前算好、提交进仓、页面只读清单」</td>
+<td><span class="tag ok">已有</span></td>
+</tr>
+<tr>
+<td class="wrap-cell">Graph view / Popover / Wikilinks</td>
+<td class="wrap-cell">客户端渲染 + 全站索引</td>
+<td class="wrap-cell">不做。8 篇笔记画出来的图是 8 个点；popover 要 JS；wikilinks 要改写作习惯</td>
+<td><span class="tag no">不做</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<h3>4.1 关于 satori 那件事，值得说清楚</h3>
+
+<p>Quartz 的 <code>CustomOgImages</code> 用 <a href="https://github.com/vercel/satori">satori</a> 把 HTML/CSS 转成图片，默认 1200×630，支持明暗两套、支持 frontmatter 覆盖（优先级：frontmatter 的 <code>socialImage</code> &gt; 自动生成 &gt; 默认图）。这套东西真正的成本不在代码，在<strong>字体</strong>——satori 要把字形解析成路径，中文标题就得塞一份 CJK 字体进去，动辄几 MB，构建期还要逐字排版。</p>
+
+<p>本站的选择是「只裁图、不写字」：<code>npm run og</code> 把站点背景图切成 1200×630 当全站默认图，把每篇笔记正文的第一张本地图按 <code>attention</code> 裁一张当专属图，清单写进 <code>src/data/og-manifest.json</code>。同一个目标（分享出去能看出是哪一篇），成本是几十行 sharp 调用、0 个字体文件、0 毫秒构建期排版。</p>
+
+<h2>5 建议顺序</h2>
+
+<div class="scroll">
+<table>
+<thead><tr><th class="num">序</th><th class="wrap-cell">做什么</th><th class="wrap-cell">为什么排在这</th><th class="wrap-cell">成本</th></tr></thead>
+<tbody>
+<tr><td class="num">P0</td><td class="wrap-cell">提示框（已完成）</td><td class="wrap-cell">译文里的免责、剧透、译名说明一直只能写成普通段落，视觉上和正文没区别</td><td class="wrap-cell">已完成</td></tr>
+<tr><td class="num">P1</td><td class="wrap-cell">外站视频的「封面卡」</td><td class="wrap-cell">访谈类笔记迟早要引视频；现在只能贴链接，或者破例嵌 iframe</td><td class="wrap-cell">一个 CSS 类 + 写作约定</td></tr>
+<tr><td class="num">P2</td><td class="wrap-cell">反向链接（学 Quartz）</td><td class="wrap-cell">笔记多起来之后，「还有哪几篇提到这件事」比标签更准</td><td class="wrap-cell">一个构建期脚本 + 文章页一段</td></tr>
+<tr><td class="num">P3</td><td class="wrap-cell">本地音频 / 视频</td><td class="wrap-cell">暂时没有素材；等真有 10 MB 级的文件再谈存放方案</td><td class="wrap-cell">待定（存储是瓶颈）</td></tr>
+</tbody>
+</table>
+</div>
+
+<p class="legend">「不做」清单：GitHub 卡、数学公式、Mermaid、graph view、popover 预览、wikilinks、评论。每一条的理由都在 §2 与 §4 的表里。</p>
+
+<h2>6 数据来源</h2>
+
+<ul>
+<li>参考页：<code>fuwari.vercel.app/posts/markdown-extended/</code>、<code>/posts/video/</code>、<code>adityatelange.github.io/hugo-PaperMod/posts/audio-video/</code>、<code>quartz.jzhao.xyz</code>（含 <code>/features/</code>、<code>/features/social-images</code>、<code>/plugins/customogimages</code>）——2026-10-29 现场抓取。</li>
+<li>本站指标：本机 <code>dist</code> 实测。24 个 HTML，内联脚本合计 67,604 字节，中位 2,845、最大 4,924；外部 <code>&lt;script src&gt;</code> 0 个；<code>&lt;iframe&gt;</code> / <code>&lt;video&gt;</code> / <code>&lt;audio&gt;</code> 合计 0 处。</li>
+<li>测试：<code>npm run test:md</code> 18 条（新增 7 条提示框）、<code>npm run test:cien</code> 16 条、Python 250 条，合计 284。</li>
+<li>Quartz star 数 13,453（GitHub API，2026-10-26）；<code>satteri</code> 的 <code>Features</code> 字段以 <code>node_modules/satteri/dist/compile.d.ts</code> 为准。</li>
+</ul>
+
+<footer>
+<p>一次性产物，放在 <code>README/reports/</code>，不参与构建、不被站点链接。同批：<code>galgame-accounts-2026-10.html</code>（信息号 + 厂商侧个人号名单）。</p>
+</footer>
+
+</div>
+</body>
+</html>
