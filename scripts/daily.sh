@@ -67,7 +67,7 @@ fi
 echo
 echo "=== 步骤 3：出题 → 答题 → 判卷合并（M3.9 起）==="
 echo "  python scripts/daily_digest.py prompt --issue $ISSUE_ID --flat"
-echo "     → 题面 out/$ISSUE_ID/prompts/all.md（每条材料带来源 key）"
+echo "     → 题面 out/$ISSUE_ID/prompt/all.md（每条材料带来源 key）"
 echo "  python scripts/daily_digest.py apply --issue $ISSUE_ID --answer out/$ISSUE_ID/answer/all.json"
 echo "     → 回答不合格会逐条列出，改完再跑；通过才写进 out/$ISSUE_ID/report.json"
 echo "回答里要写四个地方："

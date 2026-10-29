@@ -292,3 +292,58 @@ $ npm run check:prose  → 27 页 · 没有落单的加粗标记
 - 厂商侧个人号 14 条（剧作者 8 / 导演 3 / 代表 3）还没入册，之后再补；入册时每条要挂 `max_items: 1`。
 - 信息号候选 11 条（个人向 4 + 平台／媒体 7）仍在报告里，`@getchucom` / `@bugbug_info` 标了优先。
 - Galgame 版还没有实盘数据：`data-galgame/` 要等 `update-galgame.yml` 第一次跑完才有。
+
+## 2026-10-29 · 两版进自动化，Ci-en 变成固定工序
+
+「日报：每日出稿并发布」那条自动化一直是**一期一版**：说明里还写着旧的小时制期号、
+20 分钟超时线，以及「社团号／厂商号 `active=false`」。两版拆分做完之后它就过时了。
+这次把它改成一天两期，并把 Ci-en 版从「记得就做」变成流程里的第 5 步。
+
+### 改了什么
+
+- `scripts/daily_prepare.py` 加 `--kind voice|galgame`。它原来把 `data/items` 和 `YYMMDD` 写死，
+  Galgame 版根本进不去。现在 kind 同时决定**期号后缀 / 数据目录 / 传给 digest 的 `--kind`**，
+  三者用一张表钉住（`KINDS`），并有测试对齐 `daily.issue` 的解析结果。
+- 自动化 prompt 重写：两版各走一遍「骨架 → 出题 → 答题 → 判卷 → 定稿 → 发布 → 推送」，
+  声优版多一道 `daily ja`；highlights 的取舍按版分开写（声优版看前 9 位声优，
+  Galgame 版看厂商新作／信息号情报／行业级事件）。
+- `docs/daily-report-guide.md`：步骤 0 给两条 `--kind`，速查块改成两版；顺手把
+  `prompts/all.md` 改成真实目录名 `prompt/all.md`（指南三处 + `daily.sh` 一处）。
+
+### 三个真会出事的坑
+
+1. **`schemas/report.schema.json` 的期号正则不认 `-g`。** 它还停在 `^[0-9]{6}(-[0-9]+)?$`，
+   而 `content.config.ts` 早就允许 `-g`。后果不是构建失败，是 **`apply` / `publish` 卡在流程中段**：
+   Galgame 版连判卷都过不去。上一轮只跑到 `build` 就收工，所以没暴露。
+   现在三处（JSON Schema / Zod / `daily.issue`）是同一套接受集，
+   `tests/test_daily_schema_limits.py` 同时比对接受集和字面串。
+2. **序号位数没限。** `daily.issue` 原来接受 `-123`，两处正则不接受——同上，先对齐再谈。
+   现在统一成 2–99。
+3. **`publish` 对 Galgame 版也提示「补跑 `daily ja`」**，而 `daily ja` 对 `-g` 是直接拒绝的，
+   等于指了一条走不通的路。改成按版给提示。
+
+### 验收
+
+```
+$ python -m unittest discover -s tests
+Ran 271 tests
+OK
+
+$ npm run build            → 23 页（含 261029 的 .ja.txt）
+$ npm run check:daily      → 5 期 · 3 期有 Ci-en 出口 · 金文件一致
+$ npm run test:cien        → 16 pass
+```
+
+Galgame 版用 10 条仿真条目（3 个厂商 + 2 个媒体号 + 2 个个人号）跑通了全链路：
+`build` 里 getchucom 的「営業時間変更」、bugbug 的「おやつ」被 `keep_if` 筛掉，剩下 8 条 / 7 位账号；
+`apply → confirm → publish` 全过；页面标题 `X 日报 · 2026-10-29 Galgame`，
+按钮「游戏制造商」（亮）／「信息号」，输出 `.json` + `.txt`，没有 `.ja.txt`。验完把临时期号删了。
+
+当天那期 `261029` 补上了 Ci-en 稿（`data/daily/261029/report.ja.json`）：45 位声优、
+4 条看点全收（`highlight_indexes` `[0,1,2,3]`），`/daily/261029.ja.txt` 132 行。
+
+### 遗留
+
+- `data-galgame/` 仍是空的：`update-galgame.yml` 还没跑过第一次。它跑通之前，
+  自动化的 Galgame 版会以退出码 2 跳过——这是设计好的路径，不是故障。
+- 厂商侧个人号 14 条、信息号个人向 4 条仍在等 M5 之后。

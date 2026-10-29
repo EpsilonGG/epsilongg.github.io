@@ -110,8 +110,8 @@ const dailyReports = defineCollection({
       id: z
         .string()
         .regex(
-          /^\d{6}(?:-(?:[2-9]\d*|g(?:[2-9]\d*)?))?$/,
-          '期号必须是 YYMMDD / YYMMDD-N / YYMMDD-g / YYMMDD-gN（N 从 2 起）'
+          /^[0-9]{6}(?:-(?:g(?:[2-9]|[1-9][0-9])?|(?:[2-9]|[1-9][0-9])))?$/,
+          '期号必须是 YYMMDD / YYMMDD-N / YYMMDD-g / YYMMDD-gN（N 从 2 起，最多两位）'
         ),
       published_at: z.string().trim().default(''),
       window: z.object({ start: z.string().optional(), end: z.string().optional() }).default({}),

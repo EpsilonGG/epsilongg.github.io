@@ -185,7 +185,7 @@ Galgame 版 = `261031-g`。
 - **日期只写一次**。标题里有 `M/D`，中文版开头有一行 `2026-10-27（日本时间）`，日文版没有——同一句话不用两种语言各写一遍。**时刻两版都不写**：这是 1 天份的总结，几点发的对读者没有信息量（期号里也没有小时了）。
 - **顺序与人数跟中文版走**。输出时按中文版 `people` 的顺序排，日语版缺的人在中日两版里都不出现，日语版里多出来的 handle（写错了）也不会出现。缺人不会让构建失败，但 `DailyLayout` 会在构建日志里报「日语版缺 N 人」——漏翻是允许的，漏了不知道不行。
 - **单独一份文件，不进 `report.json`**：正本由 `daily publish` 从 `out/` 搬过来，手写内容放进去会被下次重发冲掉；而且正本要过判卷（`apply` / `confirm`），翻译不该走那道闸门。
-- **翻译是人工的一步**（目前由 agent 或本人翻，出稿链路不跑它）。`prompt --flat` 的题目里没有日语字段，别去 `answer/all.json` 里找。**但每期都要做**——`confirm` 之后、`push` 之前补这份文件，否则那期就没有 Ci-en 按钮。
+- **翻译是固定的一道工序**（`daily ja`，不跑 API——模型只在本机）：`prompt --flat` 的题目里没有日语字段，别去 `answer/all.json` 里找。**每期都要做**，`confirm` 之后、`push` 之前补这份文件，否则那期就没有 Ci-en 出口。`scripts/daily.sh` 和「日报：每日出稿并发布」那条自动化都把它列进了流程；Galgame 版（`-g`）没有这一步，`daily ja` 会直接拒绝。
 
 ### Ci-en 的记法
 
@@ -258,28 +258,31 @@ npm run build         # 缺人、handle 写错都在构建日志里报
 
 ### 步骤 0 — 确认/获取当天数据
 
-digest 读取的目录是 **X-Reader checkout 的 `data/items`**。两种方式拿到数据：
+digest 读取的目录是 **X-Reader checkout 的两个库之一**：声优版 `data/items`、Galgame 版 `data-galgame/items`。两种方式拿到数据：
 
-- **方式 A（推荐，用 CI 已抓的数据）：** 在 `X-rss-workspace/X-Reader` 里执行 `git pull`，拉取 CI 提交的 `data/items/`。
-- **方式 B（本地现抓）：** 在 `X-rss-workspace/X-Reader` 里执行 `python main.py --json`（需要该仓库的依赖与凭证）。
+- **方式 A（推荐，用 CI 已抓的数据）：** 在 `X-rss-workspace/X-Reader` 里执行 `git pull`，拉取 CI 提交的 `data/` 与 `data-galgame/`。
+- **方式 B（本地现抓）：** 在 `X-rss-workspace/X-Reader` 里执行 `python main.py --json`（声优版）或
+  `python main.py --json --config config/config.galgame.yaml --accounts accounts.galgame.yaml`（Galgame 版，需要该仓库的依赖与凭证）。
 
-> CI 每天 **`03:00` 与 `15:00` UTC** 各跑一次。`15:00 UTC` = **JST 00:00**，
-> 那一刻 JST 自然日刚好闭合，所以此后拉到的就是完整的一天。
+> CI 每天 **`03:00` 与 `15:00` UTC** 各跑一次（Galgame 版是 `03:10` / `15:10`，错开十分钟）。
+> `15:00 UTC` = **JST 00:00**，那一刻 JST 自然日刚好闭合，所以此后拉到的就是完整的一天。
 > 换算到北京时间是 11:00 与 23:00，**日报在 23:00 之后跑才有完整数据**。
 
 **一条命令做完步骤 0–1（自动化走的就是这条）：**
 
 ```bash
-DAILY_PROXY=http://127.0.0.1:7897 python scripts/daily_prepare.py
+DAILY_PROXY=http://127.0.0.1:7897 python scripts/daily_prepare.py --kind voice
+DAILY_PROXY=http://127.0.0.1:7897 python scripts/daily_prepare.py --kind galgame
 ```
 
 它做三件事：`git pull` 抓取仓库 → 按 JST 自然日数一遍条数 → 调 digest 出骨架。
-默认处理「昨天的 JST 自然日」，`--date 2026-10-25` 可指定，`--no-pull` 跳过拉取。
+`--kind` 选哪一版（`voice` 默认 / `galgame`），同时决定期号后缀、用哪份名单、读哪个库。
+默认处理「昨天的 JST 自然日」，`--date 2026-10-25` 可指定，`--no-pull` 跳过拉取（第二版不必再拉一次）。
 
 | 退出码 | 含义 | 该怎么办 |
 |---|---|---|
 | 0 | 骨架已生成 | 继续步骤 2 |
-| 2 | 目标日在数据里**一条都没有** | 抓取侧没跑或失败，**不要写这一期** |
+| 2 | 目标日在数据里**一条都没有**（或该版的库还不存在） | 抓取侧没跑或失败，**不要写这一期**；Galgame 版第一次跑 `update-galgame.yml` 之前 `data-galgame/` 不存在，也走这个码 |
 | 3 | 抓取仓库拉取失败 | 检查网络/代理，同样不要写 |
 
 ### 步骤 1 — 组装日报草稿（确定性、无 LLM）
@@ -325,7 +328,7 @@ python scripts/daily_digest.py build --kind galgame --items-dir "<X-rss-workspac
 
 ```bash
 python scripts/daily_digest.py prompt --issue <期号> --flat   # 出题
-#   …读 out/<期号>/prompts/all.md，把回答写成 out/<期号>/answer/all.json…
+#   …读 out/<期号>/prompt/all.md，把回答写成 out/<期号>/answer/all.json…
 python scripts/daily_digest.py apply --issue <期号> --answer out/<期号>/answer/all.json   # 判卷 + 合并
 ```
 
@@ -334,7 +337,7 @@ python scripts/daily_digest.py apply --issue <期号> --answer out/<期号>/answ
 现在题面里每条材料都带来源 key（`[x:2113…]`），回答里的每句话都要指回一个 key，
 `apply` 逐条核对：来源不存在、handle 不在名单里、长度超限，都会**整份拒收**并指出是哪一句。
 
-**题面 `prompts/all.md` 里有什么**：本期全部条目，按账号分组，每条前面是 `[key] @账号 · 时间 · 类型`，
+**题面 `prompt/all.md` 里有什么**：本期全部条目，按账号分组，每条前面是 `[key] @账号 · 时间 · 类型`，
 外加本期的 handles 清单和回答模板。它是**唯一的事实来源**——只写里面有的东西。
 
 **回答 `answer/all.json` 的形状**（`category` 固定 `"all"`）：
@@ -494,7 +497,7 @@ commit（2026-10-26 就把一篇 496 行的新访谈卷进了「docs: 抓取侧�
 | 数据还没抓到 | 先 `git pull` X-Reader 仓库，或等 CI（17:10 UTC）跑完再操作 |
 | 想补过去的某天 | 用 `--date YYYY-MM-DD` 选数据（这一天就是期号），`--at` 只写真实发布时间；数据 append-only 会保留历史 |
 | 想换 Python 解释器 | `daily.sh` 顶部 `PY="${PYTHON:-python3}"`，可改为本机 Python 路径；或直接用 `PY=... bash scripts/daily.sh` |
-| `apply` 报「来源不存在」 | 回答里的 key 抄错了。题面 `prompts/all.md` 里每条材料前面的 `[x:…]` 才是合法值，不要自己拼 |
+| `apply` 报「来源不存在」 | 回答里的 key 抄错了。题面 `prompt/all.md` 里每条材料前面的 `[x:…]` 才是合法值，不要自己拼 |
 | `confirm` 说判卷没过 | 按输出的路径改正本/回答；真要让缺来源的稿子过去才用 `--no-audit`（会记一笔） |
 | 构建日志出现「N 行不是合法 JSON，已跳过」 | 抓取文件里有坏行。先看是哪几行（脚本会打印 `文件名#行号`），再看 X-Reader 那边是不是写到一半被杀 |
 | 金文件红了（`check:daily` 报 diff） | 先看 diff 是「版式真的变了」还是「内容真的改了」。确认是有意的，再 `npm run golden:daily:switch` 换基准；**不要为了让它变绿而无脑重抓** |
@@ -508,7 +511,7 @@ commit（2026-10-26 就把一篇 496 行的新访谈卷进了「docs: 抓取侧�
 | 文件 | 作用 |
 | --- | --- |
 | `scripts/daily_digest.py` | ★ **规范、唯一的组装脚本**（无 LLM 的一半）。**不要再改 `X-rss-workspace/daily-report/digest.py`**，那是被取代的旧原型 |
-| `scripts/daily_prepare.py` | ★ **自动化入口**：`git pull` 抓取仓库 → 数目标日条数（0 条退 2）→ 调 digest 出骨架。确定性、无 LLM |
+| `scripts/daily_prepare.py` | ★ **自动化入口**：`git pull` 抓取仓库 → 数目标日条数（0 条退 2）→ 调 digest 出骨架。`--kind voice/galgame` 选哪一版（决定期号后缀、名单、读 `data/` 还是 `data-galgame/`）。确定性、无 LLM |
 | `scripts/daily_condense.py` | 把 briefing 压成编辑视图（去 URL／互动数／纯转发，关键词优先）。5.2 万 → 1.5 万 token |
 | `scripts/daily/` | M1–M4 的包：`build` / `window` / `incremental` / `dedupe` / `order` / `export` / `prompt` / `apply` / `validate` / `audit` / `confirm` / `publish` / `migrate` |
 | `scripts/daily/audit.py` | ★ M3.9 事后判卷：来源 key 是否真实、handle 是否名单内且本期有条目、长度。`confirm` 定稿前自动跑 |
@@ -727,25 +730,30 @@ npm run golden:daily:switch -- --id 261025
 ## 三、一句话速查
 
 ```
-每天：
-  1) git -C X-rss-workspace/X-Reader pull        # 拿 CI 抓的数据
-  2) python scripts/daily_digest.py --items-dir X-rss-workspace/X-Reader/data/items
-     （期号 = --date 那一天；同一天第二期加 --new。--at 只写真实发布时间）
-  3) python scripts/daily_digest.py prompt --issue <期号> --flat
-     让 WorkBuddy 读 out/<期号>/prompts/all.md，把回答写成 out/<期号>/answer/all.json
+每天两期，一版一期；两版走同一套工序，声优版多一道 Ci-en：
+
+  0) 两版各出一份骨架（--kind 决定期号后缀、名单、数据目录）
+     python scripts/daily_prepare.py --kind voice      # 声优版 → 261031
+     python scripts/daily_prepare.py --kind galgame    # Galgame 版 → 261031-g
+     （退出码 2 = 那天没数据 / 该版还没开始抓，跳过这一版，不要写空稿）
+
+  1) python scripts/daily_digest.py prompt --issue <期号> --flat
+     让 WorkBuddy 读 out/<期号>/prompt/all.md，把回答写成 out/<期号>/answer/all.json
      （summary ≤70 字 / works / highlights / interactions / people[].summary，每条带 sources）
      python scripts/daily_digest.py apply --issue <期号> --answer out/<期号>/answer/all.json
-  4) python scripts/daily_digest.py confirm --issue <期号>   # 定稿（会再判一次卷）
-  5) python scripts/daily_digest.py ja --issue <期号>        # 出 Ci-en 版题面
+  2) python scripts/daily_digest.py confirm --issue <期号>   # 定稿（会再判一次卷）
+  3) python scripts/daily_digest.py ja --issue <期号>        # 只有声优版；Galgame 版跳过
      让 WorkBuddy 按 out/<期号>.ja-task.md 翻好，存成 out/<期号>.ja.json
      python scripts/daily_digest.py ja --issue <期号> --answer out/<期号>.ja.json
-  6) python scripts/daily_digest.py publish --issue <期号>   # 搬到 data/daily/（含 ja）
-  7) python scripts/push_site.py -m "daily: <期号>" --path data/daily/
+  4) python scripts/daily_digest.py publish --issue <期号>   # 搬到 data/daily/（声优版连 ja 一起）
+  5) python scripts/push_site.py -m "daily: <期号>" --path data/daily/
 
-期号：YYMMDD（JST，被覆盖的那一天）。2026-10-31 → 261031 → /daily/261031/
-同日第二期：261031-2（用 --new 排号）
+期号：YYMMDD = 声优版，YYMMDD-g = Galgame 版（都是 JST 被覆盖的那一天）。
+      2026-10-31 → 261031 / 261031-g → /daily/261031/ · /daily/261031-g/
+同日第二期：261031-2 / 261031-g2（用 --new 排号）
 存档：/daily/（按月分组） 订阅：/daily/rss.xml
-出口：/daily/<期号>.json（正本逐字节相同） · /daily/<期号>.txt（纯文本） · /daily/<期号>.ja.txt（Ci-en，需 report.ja.json）
+出口：/daily/<期号>.json（正本逐字节相同） · /daily/<期号>.txt（纯文本）
+      · /daily/<期号>.ja.txt（Ci-en，需 report.ja.json，只有声优版有）
 判卷：python scripts/daily_digest.py audit --issue <期号> [--published]
 ```
 

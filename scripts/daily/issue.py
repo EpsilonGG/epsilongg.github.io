@@ -40,7 +40,10 @@ KIND_LABEL = {VOICE: "声优", GALGAME: "Galgame"}
 
 # `261029` / `261029-2` / `261029-g` / `261029-g2`。用 `-` 而不是直接接数字：
 # `2610292` 分不清是「10-29 第 2 期」还是「10-29 02 时」（旧格式的读法）。
-ID_RE = re.compile(r"^(\d{2})(\d{2})(\d{2})(?:-(g?)(\d*))?$")
+# 序号限 2 位（2–99）：一天出到第 100 期不存在，限住才能和
+# `schemas/report.schema.json` / `content.config.ts` 的正则保持同一套接受集
+# （`tests/test_daily_schema_limits.py` 盯着这三处）。
+ID_RE = re.compile(r"^(\d{2})(\d{2})(\d{2})(?:-(g?)(\d{0,2}))?$")
 
 
 def issue_id_for(day: date_cls, seq: int = 1, kind: str = VOICE) -> str:

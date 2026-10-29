@@ -521,7 +521,7 @@ def _cmd_publish(args: argparse.Namespace) -> int:
     print(f"{verb}：{result.path}")
     if result.ja_path:
         print(f"Ci-en 版一起发了：{result.ja_path}")
-    else:
+    elif kind_of(args.issue) == VOICE:
         print(
             "注意：这一期没有 report.ja.json，/daily/<期号>.ja.txt 不会生成。"
             "要出 Ci-en 版就补跑 `daily ja --issue "
@@ -529,6 +529,9 @@ def _cmd_publish(args: argparse.Namespace) -> int:
             + "`。",
             file=sys.stderr,
         )
+    else:
+        # Galgame 版没有 Ci-en 出口（那栏只收声优），不用提醒——提醒了也没法补
+        print("Galgame 版没有 Ci-en 出口（`.ja.txt` 只给声优版）。")
     return 0
 
 
