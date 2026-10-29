@@ -1,6 +1,6 @@
 {
   "$comment": "由 scripts/optimize_images.mjs 生成，请勿手改。",
-  "generatedAt": "2026-10-28T16:59:25.262Z",
+  "generatedAt": "2026-10-29T01:51:20.986Z",
   "images": {
     "/images/blog/busara-bugbug-interview/01.jpg": {
       "w": 900,
@@ -299,6 +299,222 @@
           "w": 1080,
           "src": "/images/blog/busara-bugbug-interview/15-1080.webp",
           "bytes": 32608
+        }
+      ]
+    },
+    "/images/blog/famitsu-aniplex-roundtable/01.jpg": {
+      "w": 1280,
+      "h": 720,
+      "bytes": 343590,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/famitsu-aniplex-roundtable/01-600.webp",
+          "bytes": 45352
+        },
+        {
+          "w": 960,
+          "src": "/images/blog/famitsu-aniplex-roundtable/01-960.webp",
+          "bytes": 89444
+        },
+        {
+          "w": 1280,
+          "src": "/images/blog/famitsu-aniplex-roundtable/01-1280.webp",
+          "bytes": 135840
+        }
+      ]
+    },
+    "/images/blog/famitsu-aniplex-roundtable/02.jpg": {
+      "w": 509,
+      "h": 720,
+      "bytes": 186867,
+      "variants": [
+        {
+          "w": 509,
+          "src": "/images/blog/famitsu-aniplex-roundtable/02-509.webp",
+          "bytes": 80430
+        }
+      ]
+    },
+    "/images/blog/famitsu-aniplex-roundtable/03.jpg": {
+      "w": 452,
+      "h": 640,
+      "bytes": 164249,
+      "variants": [
+        {
+          "w": 452,
+          "src": "/images/blog/famitsu-aniplex-roundtable/03-452.webp",
+          "bytes": 73746
+        }
+      ]
+    },
+    "/images/blog/famitsu-aniplex-roundtable/04.jpg": {
+      "w": 453,
+      "h": 640,
+      "bytes": 164115,
+      "variants": [
+        {
+          "w": 453,
+          "src": "/images/blog/famitsu-aniplex-roundtable/04-453.webp",
+          "bytes": 72600
+        }
+      ]
+    },
+    "/images/blog/famitsu-aniplex-roundtable/05.jpg": {
+      "w": 532,
+      "h": 720,
+      "bytes": 113758,
+      "variants": [
+        {
+          "w": 532,
+          "src": "/images/blog/famitsu-aniplex-roundtable/05-532.webp",
+          "bytes": 61724
+        }
+      ]
+    },
+    "/images/blog/famitsu-aniplex-roundtable/06.jpg": {
+      "w": 510,
+      "h": 720,
+      "bytes": 174365,
+      "variants": [
+        {
+          "w": 510,
+          "src": "/images/blog/famitsu-aniplex-roundtable/06-510.webp",
+          "bytes": 74610
+        }
+      ]
+    },
+    "/images/blog/famitsu-aniplex-roundtable/07.jpg": {
+      "w": 802,
+      "h": 627,
+      "bytes": 226983,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/famitsu-aniplex-roundtable/07-600.webp",
+          "bytes": 56968
+        },
+        {
+          "w": 802,
+          "src": "/images/blog/famitsu-aniplex-roundtable/07-802.webp",
+          "bytes": 88348
+        }
+      ]
+    },
+    "/images/blog/famitsu-aniplex-roundtable/08.jpg": {
+      "w": 1280,
+      "h": 720,
+      "bytes": 412603,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/famitsu-aniplex-roundtable/08-600.webp",
+          "bytes": 52548
+        },
+        {
+          "w": 960,
+          "src": "/images/blog/famitsu-aniplex-roundtable/08-960.webp",
+          "bytes": 112254
+        },
+        {
+          "w": 1280,
+          "src": "/images/blog/famitsu-aniplex-roundtable/08-1280.webp",
+          "bytes": 181548
+        }
+      ]
+    },
+    "/images/blog/famitsu-aniplex-roundtable/09.jpg": {
+      "w": 516,
+      "h": 720,
+      "bytes": 320545,
+      "variants": [
+        {
+          "w": 516,
+          "src": "/images/blog/famitsu-aniplex-roundtable/09-516.webp",
+          "bytes": 153710
+        }
+      ]
+    },
+    "/images/blog/famitsu-aniplex-roundtable/10.jpg": {
+      "w": 1280,
+      "h": 720,
+      "bytes": 305391,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/famitsu-aniplex-roundtable/10-600.webp",
+          "bytes": 36200
+        },
+        {
+          "w": 960,
+          "src": "/images/blog/famitsu-aniplex-roundtable/10-960.webp",
+          "bytes": 70798
+        },
+        {
+          "w": 1280,
+          "src": "/images/blog/famitsu-aniplex-roundtable/10-1280.webp",
+          "bytes": 107662
+        }
+      ]
+    },
+    "/images/blog/famitsu-aniplex-roundtable/11.jpg": {
+      "w": 802,
+      "h": 627,
+      "bytes": 198639,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/famitsu-aniplex-roundtable/11-600.webp",
+          "bytes": 52844
+        },
+        {
+          "w": 802,
+          "src": "/images/blog/famitsu-aniplex-roundtable/11-802.webp",
+          "bytes": 84438
+        }
+      ]
+    },
+    "/images/blog/famitsu-aniplex-roundtable/12.jpg": {
+      "w": 1280,
+      "h": 721,
+      "bytes": 232927,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/famitsu-aniplex-roundtable/12-600.webp",
+          "bytes": 29154
+        },
+        {
+          "w": 960,
+          "src": "/images/blog/famitsu-aniplex-roundtable/12-960.webp",
+          "bytes": 55654
+        },
+        {
+          "w": 1280,
+          "src": "/images/blog/famitsu-aniplex-roundtable/12-1280.webp",
+          "bytes": 84698
+        }
+      ]
+    },
+    "/images/blog/famitsu-aniplex-roundtable/hero.jpg": {
+      "w": 1600,
+      "h": 900,
+      "bytes": 578461,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/famitsu-aniplex-roundtable/hero-600.webp",
+          "bytes": 51994
+        },
+        {
+          "w": 960,
+          "src": "/images/blog/famitsu-aniplex-roundtable/hero-960.webp",
+          "bytes": 104592
+        },
+        {
+          "w": 1600,
+          "src": "/images/blog/famitsu-aniplex-roundtable/hero-1600.webp",
+          "bytes": 237116
         }
       ]
     },
