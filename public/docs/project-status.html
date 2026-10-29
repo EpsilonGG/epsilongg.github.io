@@ -444,22 +444,23 @@
       一份写给未来的自己的体检报告：每个部分做到什么程度、哪些是刻意留白、哪些是欠账，
       以及如果要拿它当模板开新项目，哪些地方必须先动手改。
       第六节把本站与另外三个同类站点放在一起比页面构成和传输体积；
-      第七到第九节分别讲"只开一个邮箱框行不行""站点气质从哪来""fork 出去当内容备份怎么改"。
+      第七到第九节分别讲"只开一个邮箱框行不行""站点气质从哪来""fork 出去当内容备份怎么改"；
+      第十二节是交接单——给没有任何上下文的下一个执行者，用来直接开始 M5（日报图片生产）。
     </p>
     <div class="doc-meta">
       <span>站点 epsilongg.github.io</span>
       <span>版本 v0.4.0</span>
-      <span>构建 20 页面 / 约 10 s</span>
-      <span>体检 2026-10-24</span>
+      <span>构建 27 页面 / 约 45 s</span>
+      <span>体检 2026-10-29</span>
     </div>
 
     <div class="kpi">
       <div class="kpi__item">
-        <span class="kpi__num">23</span>
+        <span class="kpi__num">27</span>
         <span class="kpi__label">HTML 页面</span>
       </div>
       <div class="kpi__item">
-        <span class="kpi__num">6.8<small>KB</small></span>
+        <span class="kpi__num">7.3<small>KB</small></span>
         <span class="kpi__label">CSS（gzip）</span>
       </div>
       <div class="kpi__item">
@@ -471,7 +472,7 @@
         <span class="kpi__label">测试全过</span>
       </div>
       <div class="kpi__item">
-        <span class="kpi__num">10.1<small>KB</small></span>
+        <span class="kpi__num">10.8<small>KB</small></span>
         <span class="kpi__label">首页传输（gzip）</span>
       </div>
     </div>
@@ -490,6 +491,7 @@
         <li><a href="#fork">fork 出去当内容备份</a></li>
         <li><a href="#map">文件地图</a></li>
         <li><a href="#template">当模板用的话</a></li>
+        <li><a href="#m5">交接单：M5 从这里开始</a></li>
       </ol>
     </nav>
   </header>
@@ -525,7 +527,7 @@
     <div class="cards">
       <div class="card">
         <h4>能用</h4>
-        <p>27 个页面全部 200；构建 0 报错；<code>astro check</code> 0 错 0 警；284 个测试全过（Python 250 + Node 34）、984 个站内链接零死链；每次推送自动部署，线上已验证。</p>
+        <p>27 个页面全部 200；构建 0 报错；<code>astro check</code> 0 错 0 警；284 个测试全过（Python 250 + Node 34）、985 个站内链接零死链；每次推送自动部署，线上已验证。</p>
       </div>
       <div class="card">
         <h4>能改</h4>
@@ -1518,7 +1520,7 @@
           <code>.prose</code> 里的内容，其余页面没有 <code>data-pagefind-body</code>，整页排除。
         </p>
         <div class="block-item__left">
-          实测（8 篇 / 8.2 万字）：索引与片段 297 KB，平均每篇 37 KB；核心运行时 85 KB，
+          实测（12 篇 / 17.9 万字）：索引与片段 518 KB，平均每篇 43 KB；核心运行时 85 KB，
           与篇数无关。构建里挂了 2 MB 的闸门，超了先降档成"只收小标题"。
           中文按词切分（<code>lang="zh-CN"</code>），"打越"这种连写词也能命中；
           高亮由站点自己按字面重做——Pagefind 回标的记号在中文上会误伤（搜"声优"标到"优秀"）。
@@ -1607,7 +1609,7 @@
           <span class="pill">取舍</span>
         </div>
         <p>
-          分类要有意义，得每类至少三篇。现有 6 篇全落在「访谈 + 翻译」里，做出来就是四个空格子。
+          分类要有意义，得每类至少三篇。现有 12 篇几乎全落在「访谈 + 翻译」里，做出来还是四个空格子。
           标签筛选已经能顶一阵。
         </p>
         <div class="block-item__left">
@@ -1712,7 +1714,7 @@
           扫 <code>dist</code> 里所有 <code>href</code> / <code>src</code> / <code>srcset</code>，
           映射回文件系统，缺文件就退出 1；顺带查 <code>#锚点</code> 指向的 id 是否真的存在。
           只查站内（本地比对），外链默认跳过——外站限流、挡爬虫、偶发超时都会让流水线莫名变红，
-          那是另一件事，该用定时任务查。现在跑一遍：27 个页面、984 个站内链接、1461 处引用，
+          那是另一件事，该用定时任务查。现在跑一遍：27 个页面、985 个站内链接、1462 处引用，
           全部通过。
         </div>
         <div class="block-item__left">
@@ -1734,7 +1736,7 @@
         </div>
         <div class="block-item__left">
           当时的结论是"太费空间，不做"，前提是<strong>索引 15–25 KB/篇</strong>。
-          这一轮实测是 37 KB/篇（长访谈偏多），比估算更贵；但文章已经到八篇，
+          这一轮实测是 43 KB/篇（长访谈偏多），比估算更贵；但文章已经到十二篇，
           而最长的几篇正文里全是作品名和人名，标题搜不到它们——
           <strong>漏掉这些比省下几百 KB 更亏</strong>。于是翻案：索引随构建生成、
           第一次搜索时才下载，构建里的 2 MB 闸门负责在失控前报警。
@@ -1762,7 +1764,7 @@
       <li><strong>AVIF</strong>——比 WebP 只再省 10–20%，编码慢十倍，52 张图省不下多少，还多一套兜底逻辑</li>
       <li><strong>自托管中文字体</strong>——一个子集 0.8–1.5 MB，是首屏的 100 倍。要么标题单独子集化（仍要 300 KB+），要么放弃</li>
       <li><strong>评论后端 / 访问统计</strong>——都要能写数据的地方，都要第三方请求。轻量化的核心是"没有这些东西也能读"</li>
-      <li><strong>分类树（<code>/blog/c/…</code>）</strong>——6 篇文章分不出四类。标签筛选已经够用，等 12 篇以上再谈</li>
+      <li><strong>分类树（<code>/blog/c/…</code>）</strong>——当初的理由是"6 篇文章分不出四类"。现在已经 12 篇，这条门槛到了，M5 之后值得重新评估一次</li>
       <li><strong>标签进 URL、独立标签页</strong>——收益是"能分享筛选结果"，文章少的时候几乎没人会分享</li>
       <li><strong>窄屏注释面板改全屏 sheet</strong>——现在的 45vh 面板能用，改它属于打磨，不是修 bug</li>
       <li><strong>图标自动抓取</strong>——一次性劳动已经干完，自动化只对"以后频繁加链接"有用</li>
@@ -1773,7 +1775,7 @@
     <div class="note">
       <p>
         <strong>工程侧到此为止。</strong>剩下的短板只有一条，而且不是代码问题：
-        <strong>6 篇文章撑不起一个"站"的体积感</strong>。再优化下去就是拿 1% 的性能
+        <strong>12 篇文章还撑不起一个"站"的体积感</strong>。再优化下去就是拿 1% 的性能
         换 10% 的可读性下降，不划算。
       </p>
     </div>
@@ -2022,7 +2024,7 @@
       </div>
       <div class="card">
         <h4>缺点 · 内容撑不起体量</h4>
-        <p>6 篇、3.9 万字。轻量化在数字上是优势，在观感上就是"空"——首页除了一段简介，只剩一屏文章列表。</p>
+        <p>12 篇、17.9 万字。轻量化在数字上是优势，在观感上就是"空"——首页除了一段简介，只剩一屏文章列表。</p>
       </div>
       <div class="card">
         <h4>缺点 · 零互动</h4>
@@ -2043,7 +2045,7 @@
         <strong>最后一句判断。</strong>对照下来，本项目的短板<strong>不是功能，是内容</strong>。
         功能已经越过"够用"这条线：目录、筛选、分页、注释、图注、披露，该有的都有，
         再加功能只会往 ymgal 那个方向走，而那条路需要后端和运营。
-        接下来真正该做的是把文章从 6 篇写到 15 篇——那时候分类体系才有意义，
+        接下来真正该做的是把文章从 12 篇写到 15 篇——那时候分类体系才有意义，
         也才谈得上"这个站在讲什么"。
       </p>
     </div>
@@ -2588,12 +2590,335 @@
     </p>
   </section>
 
+  <!-- ============================================================ -->
+  <section id="m5">
+    <h2><span class="num">12</span>交接单：M5 从这里开始</h2>
+
+    <p class="lead">
+      这一节写给<strong>没有任何上下文的下一个执行者</strong>——包括新开一个会话、只能看到仓库文件的 agent。
+      读完这一节，你应该能直接排出 M5 的工作包顺序、知道每个包怎么验收、
+      以及哪几件事<strong>必须先等人拍板</strong>才能动手。
+      不需要先读完那两份上百 KB 的文档，但开工前请按「冷启动检查表」核一遍环境。
+    </p>
+
+    <div class="cards">
+      <div class="card">
+        <h4>M5 是什么</h4>
+        <p>日报的<strong>图片生产</strong>：把 <code>report.json</code> 渲染成封面图与内页卡片。SVG 做版式、<code>@resvg/resvg-js</code> 光栅化、中文字体随仓库外置并按 SHA 钉死。</p>
+      </div>
+      <div class="card">
+        <h4>为什么是现在</h4>
+        <p>M1–M4 已上线并跑出 4 期真实日报。M5 不需要新数据——它只是把同一份 <code>report.json</code> 换个 encoding，所以风险主要在「跨机一致」，不在数据。</p>
+      </div>
+      <div class="card">
+        <h4>做到什么算完</h4>
+        <p>同一期连跑两次，PNG 字节相同；改一条 claim，只有受影响那页的 hash 变；<code>status</code> 不是 <code>confirmed</code> 的一期直接拒绝出图。</p>
+      </div>
+      <div class="card">
+        <h4>先别做什么</h4>
+        <p>不做自动配图、不做在线模板编辑器、不把图片塞进 RSS。这三条是 M5 的边界，越界就变成另一个项目了。</p>
+      </div>
+    </div>
+
+    <h3>先读什么、后读什么</h3>
+    <p>
+      仓库里有四份文档跟 M5 有关，<strong>可信度不一样</strong>，别按文件名顺序读：
+    </p>
+    <table>
+      <thead>
+        <tr><th>文档</th><th>它管什么</th><th class="nowrap">可信度</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>public/docs/dailyrp-projectstatus.html</code> §07</td>
+          <td>M5 的<strong>正式规格</strong>：8 个工作包、出口闸门、关键设计、明确不做的事。要动代码就看它。</td>
+          <td><span class="pill pill--done">权威</span></td>
+        </tr>
+        <tr>
+          <td><code>README/reports/daily-m5-m6-options.html</code></td>
+          <td>选型对比与「最小可用路径」建议（2026-10-26 写）。<strong>是建议，不是规格</strong>——两者冲突时以上一行 §07 为准。</td>
+          <td><span class="pill pill--part">参考</span></td>
+        </tr>
+        <tr>
+          <td><code>docs/daily-report-guide.md</code></td>
+          <td>日常怎么跑一期日报：采集 → 出题 → 判卷 → 定稿 → 发布。M5 要读的输入字段全在这里。</td>
+          <td><span class="pill pill--done">权威</span></td>
+        </tr>
+        <tr>
+          <td><code>docs/daily-build-log.md</code></td>
+          <td>构建日志。<strong>只记到 M2</strong>，M3 / M4 的验收记录缺失——别拿它当现状，它是格式范例。</td>
+          <td><span class="pill pill--skip">过时</span></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>12.1 现在的硬事实</h3>
+    <p>
+      下面每个数字都可以用右边那条命令当场复核。<strong>如果对不上，先别开工</strong>——
+      说明仓库状态和你以为的不一样。
+    </p>
+    <table>
+      <thead>
+        <tr><th>事实</th><th>现在的值</th><th class="t-hide-sm">怎么复核</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>HTML 页面</td><td>27 个</td><td class="t-hide-sm"><code>find dist -name '*.html' | wc -l</code></td></tr>
+        <tr><td>笔记</td><td>12 篇已发布 + 1 篇 <code>example.md</code> 草稿</td><td class="t-hide-sm"><code>ls src/content/blog/*.md</code></td></tr>
+        <tr><td>日报期号</td><td>4 期：<code>261025</code>–<code>261028</code>，其中 2 期有日语版</td><td class="t-hide-sm"><code>ls -d data/daily/*/</code></td></tr>
+        <tr><td>采集名单</td><td>411 个账号，302 个 <code>active</code>（128 声优 / 109 社团 / 174 厂商）</td><td class="t-hide-sm"><code>src/config/daily-roster.json</code></td></tr>
+        <tr><td>术语表</td><td>50 条</td><td class="t-hide-sm"><code>npm run check:glossary</code></td></tr>
+        <tr><td>测试</td><td>284 个：250 Python + 34 Node（18 图注 + 16 Ci-en）</td><td class="t-hide-sm"><code>npm test</code> / <code>test:md</code> / <code>test:cien</code></td></tr>
+        <tr><td>站内链接</td><td>985 个（1462 处引用），零死链</td><td class="t-hide-sm"><code>npm run links</code></td></tr>
+        <tr><td>首屏传输</td><td>10.8 KB（HTML 3.5 + CSS 7.3，gzip）</td><td class="t-hide-sm"><code>gzip -c dist/index.html | wc -c</code></td></tr>
+        <tr><td>外部 JS 文件</td><td>0</td><td class="t-hide-sm">全站无第三方脚本</td></tr>
+        <tr><td>金文件基准</td><td><code>261025</code>（正文纯文本 66 行）</td><td class="t-hide-sm"><code>npm run golden:daily</code></td></tr>
+      </tbody>
+    </table>
+
+    <h3>12.2 M5 的八个工作包</h3>
+    <p>
+      表格照抄 §07，但把「依赖」理顺了：<strong>斜体那四个是封面路径</strong>，
+      做完就能给日报页接上分享图；剩下四个是内页卡片需要的。
+    </p>
+    <table>
+      <thead>
+        <tr><th>编号</th><th>工作内容</th><th>产出</th><th class="nowrap">依赖</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>M5.1</strong></td>
+          <td>选型验证：用 <code>resvg-js</code> 在本机渲染一张带中文的 SVG，与浏览器截图并排对照，确认字形与断行可接受</td>
+          <td>一段结论 + 对照图</td>
+          <td>—</td>
+        </tr>
+        <tr>
+          <td><strong>M5.2</strong></td>
+          <td>字体固定：<code>daily fonts --pin</code> 下载、校验 SHA、缓存到仓库外（<code>node_modules/.cache/</code>）</td>
+          <td><code>scripts/daily/fonts.py</code></td>
+          <td>M5.1</td>
+        </tr>
+        <tr>
+          <td><strong>M5.3</strong></td>
+          <td>排版原语：<code>{{slot}}</code> 替换、CJK 宽度估算折行、超容量硬截断（<strong>不缩字号</strong>）</td>
+          <td><code>scripts/daily/render/text.py</code></td>
+          <td>M5.2</td>
+        </tr>
+        <tr>
+          <td><strong>M5.4</strong></td>
+          <td>模板集：封面 1200×630、内页卡片 1080×1440、引文页；每个模板声明槽位与容量</td>
+          <td><code>templates/daily/*.svg</code><br /><code>templates/daily/templates.json</code></td>
+          <td>M5.3</td>
+        </tr>
+        <tr>
+          <td><strong>M5.8</strong></td>
+          <td>OG 接线：日报页 <code>og:image</code> 指向封面，缺图时退回默认分享图</td>
+          <td><code>DailyLayout.astro</code></td>
+          <td>M5.4、M4</td>
+        </tr>
+        <tr>
+          <td>M5.5</td>
+          <td>生成：<code>daily render-images &lt;id&gt;</code> → 图片 + <code>manifest.json</code>（模板版本、内容 hash、来源 claim）</td>
+          <td><code>scripts/daily/render/images.py</code></td>
+          <td>M5.4、M3</td>
+        </tr>
+        <tr>
+          <td>M5.6</td>
+          <td>只认正式版：<code>status !== confirmed</code> 直接拒绝；图片输出到 <code>dist</code> 之外，再由构建拷贝</td>
+          <td>同 M5.5</td>
+          <td>M5.5</td>
+        </tr>
+        <tr>
+          <td>M5.7</td>
+          <td>稳定性测试：同输入两次 → PNG 字节相同；改一条 claim → 只有受影响那页 hash 变</td>
+          <td><code>tests/test_daily_images.py</code></td>
+          <td>M5.6</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="note">
+      <p>
+        <strong>两个顺序建议。</strong>一是<strong>先做封面</strong>：M5.1 → M5.2 → M5.3 → M5.4 → M5.8 五个包就能让日报页有专属分享图，
+        这是收益最直接的一段；内页卡片（M5.5–M5.7）放到第二批。
+        二是 <strong>M5.6 要提前</strong>：没定稿的一期本来就不该能出图，否则图上写的东西和站点上的可能不一致——
+        这条比「生成」本身更像是安全边界。
+      </p>
+    </div>
+
+    <h3>12.3 出口闸门：五条，全部要贴实际输出</h3>
+    <ol>
+      <li>对同一期连跑两次 <code>render-images</code> → 所有 PNG 的 sha256 <strong>相同</strong>。</li>
+      <li>改 <code>highlights[1].text</code> 再跑 → <strong>只有封面图 hash 变</strong>，卡片图不变。</li>
+      <li>对 <code>status: draft</code> 的一期 → <strong>退出码非 0</strong>，报「未定稿」。</li>
+      <li><code>manifest.json</code> 里每个 <code>claims</code> 路径都能在 <code>report.json</code> 里取到值。</li>
+      <li>任意一页最长一行不超过模板声明的容量——<strong>用脚本数，不靠肉眼</strong>。</li>
+    </ol>
+    <p>
+      另外，工作包算「做完」要同时满足四条（来自日报文档 §09 的推进协议）：
+      代码在仓库里、有能<strong>因改坏而失败</strong>的测试、五条闸门命令全过
+      （<code>check</code> / <code>build</code> / <code>links</code> / <code>test</code> / <code>test:md</code>）、
+      在 <code>docs/daily-build-log.md</code> 追加一条记录（工作包编号 + 实际输出 + 遗留问题）。
+      少一条就是没做完，不许开下一个包。
+    </p>
+
+    <h3>12.4 开工前必须人拍板的三件事</h3>
+    <p>
+      这三条不是技术问题，<strong>不要自己决定</strong>。定错了后面要返工，定晚了会卡在第一个包。
+    </p>
+    <table>
+      <thead>
+        <tr><th>要定的事</th><th>为什么卡</th><th class="t-hide-sm">不定会怎样</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>中文字体用哪一个</strong></td>
+          <td>字体进不了 git（完整中文字体几 MB 到十几 MB），要定下载源和 SHA 校验方式。选思源黑体还是更窄的字重，直接影响体积和封面观感。</td>
+          <td class="t-hide-sm">M5.2 无法开工；后面所有图都不可复现</td>
+        </tr>
+        <tr>
+          <td><strong>这一期只做封面，还是连内页卡片一起</strong></td>
+          <td>决定是 5 个包还是 8 个包。内页卡片要定多页拆分规则（一页放几条 claim），那是版式决策，不是代码决策。</td>
+          <td class="t-hide-sm">范围漂移；或者做完封面发现模板容量全要重定</td>
+        </tr>
+        <tr>
+          <td><strong>PNG 产物要不要进 git</strong></td>
+          <td>规格说「输出到 <code>dist</code> 之外再由构建拷贝」。每期约 5 张、单张几百 KB，进库会让仓库随期数线性变胖；不进库则构建必须能自己生成。</td>
+          <td class="t-hide-sm">要么仓库膨胀，要么线上缺图</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>12.5 冷启动检查表</h3>
+    <p>
+      新会话第一件事跑这九条，<strong>把实际输出记下来</strong>。全部对得上再动手改代码。
+    </p>
+<pre><code>export PATH="/c/Program Files/nodejs:$PATH"     # node 不在默认 PATH 里
+
+npm ci                    # 首次；之后可跳过
+npm run check             # → 0 errors / 0 warnings（240 hints 属正常）
+npm run build             # → Complete!，27 页面，约 45 s
+npm run links             # → 27 个页面 · 985 个站内链接（共 1462 处引用）· 全部通过
+npm test                  # → Ran 250 tests … OK
+npm run test:md           # → 18 pass / 0 fail
+npm run test:cien         # → 16 pass / 0 fail
+npm run check:daily       # → 日报出口检查通过
+npm run golden:daily      # → 金文件一致：/daily/261025/ 正文纯文本逐字相同（66 行）</code></pre>
+    <p>
+      任何一条对不上，先修环境再谈 M5。<strong>尤其 <code>golden:daily</code></strong>——
+      它是唯一一条会告诉你「日报正文被改了」的检查，图片渲染不该动它。
+    </p>
+
+    <h3>12.6 已知的坑</h3>
+
+    <div class="group-label">环境</div>
+    <div class="block-list">
+      <div class="block-item">
+        <div class="block-item__head">
+          <span class="block-item__name">本机 <code>git push</code> 会握手失败</span>
+          <span class="block-item__src">schannel 后端</span>
+        </div>
+        <div class="block-item__left">
+          报 <code>schannel: failed to receive handshake</code>，但同一代理下 <code>curl</code> 是 200。
+          用 <code>git -c http.sslBackend=openssl push origin HEAD</code>，并带
+          <code>https_proxy=http://127.0.0.1:7897</code>。<code>scripts/push_site.py</code> 内部是裸 push，
+          会失败但<strong>提交已经完成</strong>——别以为没提交就重来。
+        </div>
+      </div>
+      <div class="block-item">
+        <div class="block-item__head">
+          <span class="block-item__name">构建前要先移走 <code>dist</code></span>
+          <span class="block-item__src">safe-delete 阈值</span>
+        </div>
+        <div class="block-item__left">
+          <code>mv dist out/_tmp/dist_prev_$(date +%H%M)</code> 再 <code>npm run build</code>。
+          直接覆盖有时会撞上删除保护。
+        </div>
+      </div>
+      <div class="block-item">
+        <div class="block-item__head">
+          <span class="block-item__name">改了 Markdown 插件看不到效果</span>
+          <span class="block-item__src">缓存</span>
+        </div>
+        <div class="block-item__left">
+          先删 <code>node_modules/.astro</code> 再构建，否则读的是缓存里的旧 HTML。这个坑一次能省半小时。
+        </div>
+      </div>
+      <div class="block-item">
+        <div class="block-item__head">
+          <span class="block-item__name">bash heredoc 会吃掉反斜杠</span>
+          <span class="block-item__src">改中文时</span>
+        </div>
+        <div class="block-item__left">
+          要批量改中文，用 Write 写一个 <code>.py</code> 再跑，别在命令行里拼 heredoc。
+        </div>
+      </div>
+    </div>
+
+    <div class="group-label">数据侧</div>
+    <div class="block-list">
+      <div class="block-item">
+        <div class="block-item__head">
+          <span class="block-item__name">构建日志断在 M2</span>
+          <span class="pill pill--part">欠账</span>
+        </div>
+        <div class="block-item__left">
+          M3 / M4 的代码在（<code>apply.py</code> / <code>confirm.py</code> / <code>publish.py</code> / <code>ja.py</code> 都在跑），
+          但日志没记。M5 开工时<strong>第一条记录就该补上「M5 起点」</strong>：
+          当时的闸门输出、4 期日报的状态、以及 M3/M4 的验收结论从哪来。
+        </div>
+      </div>
+      <div class="block-item">
+        <div class="block-item__head">
+          <span class="block-item__name">采集已经贴着超时线</span>
+          <span class="block-item__src">302 个 active 账号</span>
+        </div>
+        <div class="block-item__left">
+          一次全量抓取约 19.6 分钟，<code>update.yml</code> 的 20 分钟已经贴上限。
+          <strong>M5 不要顺手加账号</strong>——要加得先把 CI 拆成两个 workflow，那是另一件事。
+        </div>
+      </div>
+    </div>
+
+    <h3>12.7 一份合格的 M5 计划长什么样</h3>
+    <p>
+      这一节不是让你「参考」，是让你照着写。缺任何一条，那份计划都还不能开工。
+    </p>
+    <ul>
+      <li><strong>第一句写范围</strong>：这一期只做封面（5 个包），还是连内页卡片（8 个包）。这句定不下来，后面的排期都是假的。</li>
+      <li><strong>每个包一行，四列</strong>：编号 / 要动的文件 / 验收命令 / 停点是否安全。</li>
+      <li><strong>字体那一行必须写清「从哪下载、SHA 记在哪」</strong>。写不出这两项，M5.2 就还不是一个可执行的任务。</li>
+      <li><strong>停点</strong>：M5 不改数据源，所以任何停点站点都还能出——前提是 M5.8 之前没把 <code>og:image</code> 指过去。M5.8 之后要停，先确认缺图能退回默认分享图。</li>
+      <li><strong>第一条记录写进 <code>docs/daily-build-log.md</code></strong>，格式照 M2 的小节：工作包 / 实际命令输出 / 遗留问题 / 下一步。</li>
+    </ul>
+    <table>
+      <thead>
+        <tr><th>编号</th><th>要动的文件</th><th class="t-hide-sm">验收</th><th class="nowrap">停点</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>M5.1</td><td>无（验证性）</td><td class="t-hide-sm">对照图 + 一段结论，落在文档里</td><td>安全</td></tr>
+        <tr><td>M5.2</td><td><code>scripts/daily/fonts.py</code></td><td class="t-hide-sm">删缓存重跑 SHA 一致；字体不进 git</td><td>安全</td></tr>
+        <tr><td>M5.3</td><td><code>scripts/daily/render/text.py</code></td><td class="t-hide-sm">单测：长句截断不超容量、标点不在行首</td><td>安全</td></tr>
+        <tr><td>M5.4</td><td><code>templates/daily/*.svg</code></td><td class="t-hide-sm">同一期连跑两次 PNG 字节相同</td><td>安全</td></tr>
+        <tr><td>M5.8</td><td><code>DailyLayout.astro</code></td><td class="t-hide-sm"><code>npm run links</code> 通过；缺图退回默认分享图</td><td>留回滚点</td></tr>
+      </tbody>
+    </table>
+
+    <div class="note note--warn">
+      <p>
+        <strong>最后一句实话。</strong>M5 的难点不是「画图」，是<strong>跨机一致</strong>。
+        只要字体、模板、数据三者有任何一个是「这台机器上碰巧有的」，字节稳定就无从谈起，
+        后面所有闸门都变成摆设。<strong>先钉字体，再写模板</strong>，顺序反了就得返工。
+      </p>
+    </div>
+  </section>
+
   <footer class="doc-foot">
     <p>
-      体检时间 2026-10-25（页面、链接、体积数字为本次构建实测；第六节的外部站点对照仍是 2026-10-24 抓取）。数据来自实际构建产物、源码统计与现场抓取：
-      23 个 HTML 页面、单 CSS 38,825 字节（gzip 6,948）、0 个外部 JS 文件、284 个测试用例、
-      产物 15 MB（原图 7.2 MB + WebP 变体 6.3 MB + 字体 136 KB + 其余约 700 KB）、
-      <code>astro check</code> 0 错 0 警 0 提示，Astro 7.4.2 / Sätteri 0.4.5 / Node ≥ 22.23.4。
+      体检时间 2026-10-29（页面、链接、体积数字为本次构建实测；第六节的外部站点对照仍是 2026-10-24 抓取）。数据来自实际构建产物、源码统计与现场抓取：
+      27 个 HTML 页面、单 CSS 7,488 字节（gzip）、0 个外部 JS 文件、284 个测试用例（250 Python + 34 Node）、
+      985 个站内链接（共 1462 处引用）、首页 HTML 3,612 字节（gzip）、
+      <code>astro check</code> 0 错 0 警，Astro 7.4.2 / Sätteri 0.4.5 / Node ≥ 22.23.4。
+      第十二节是 M5 的交接单，写于同一天。
     </p>
     <p>
       第六节的对照数据于 2026-10-24 抓取：ymgal.games、blog.xueayi.site、eryuemu.com，

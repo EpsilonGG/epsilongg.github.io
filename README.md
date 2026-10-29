@@ -53,6 +53,7 @@ Life Science ｜ Vibe Coding ｜ Galgame ｜ Doujin ASMR
 | [广告位](README/ads.md) | 右侧栏广告位：默认关闭，怎么开、放得下什么尺寸、合规要求 |
 | [主页 README 指南](https://epsilongg.github.io/docs/github-profile-readme-guide.html) | GitHub Profile README 怎么搭、怎么长期维护（浏览器直接打开） |
 | [项目现状](https://epsilongg.github.io/docs/project-status.html) | 各部分完成度、已知不足与可优化点（浏览器直接打开） |
+| [M5 交接单](https://epsilongg.github.io/docs/project-status.html#m5) | 没有上下文也能直接开工：日报图片生产的 8 个工作包、闸门、环境检查表与要人拍板的决策点 |
 
 ---
 

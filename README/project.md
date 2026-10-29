@@ -100,6 +100,10 @@ npm test         # Python 单元测试（README 同步脚本）
 
 ## 3. 当前状态
 
+> **下表是建站初期的快照**（6 个页面、22 个用例），数字早已过时。
+> 要看现在的真实状态，读 [`public/docs/project-status.html`](../public/docs/project-status.html)：
+> 第 02 节是完成度总表，第 05 节是还剩什么，**第 12 节是 M5 的交接单**。
+
 已经完成并验证的部分：
 
 | 项目 | 状态 |
