@@ -248,10 +248,14 @@ if (ja) {
           }
 
           {
-            works.trim().length > 0 ? (
+            works.length > 0 ? (
               <section class="daily-block">
                 <h2>作品动态</h2>
-                <p>{works}</p>
+                <ul>
+                  {works.map((line) => (
+                    <li set:html={withMentions(line)} />
+                  ))}
+                </ul>
               </section>
             ) : null
           }

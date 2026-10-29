@@ -63,7 +63,11 @@ export interface CienIssue {
 export interface CienBody {
   description?: string;
   highlights?: string[];
-  works?: string;
+  /**
+   * 作品动态。站点上的正本已经是一条一条的数组；Ci-en 的日文稿（`report.ja.json`）
+   * 仍是一段话，所以两种形状都要收：字符串按一段出，数组按 `・` 逐条出。
+   */
+  works?: string | string[];
   people?: { handle: string; summary: string }[];
 }
 
@@ -212,6 +216,23 @@ function personLine(
   return `・[**${label}**](https://x.com/${handle})：${linkMentions(body, canonical)}${extra}`;
 }
 
+/**
+ * 作品動向の行。正本は一条ずつ（配列）だが、日文稿はいまも一段（文字列）。
+ * 配列なら `・` を付けて箇条書きに、文字列ならそのまま一段として出す——
+ * 日本語側を無理に割ると、文の切れ目が意味の切れ目と一致しないことがある。
+ */
+function worksLines(works: string | string[] | undefined): string[] {
+  if (!works) return [];
+  if (typeof works === 'string') {
+    const text = works.trim();
+    return text ? [text] : [];
+  }
+  return works
+    .map((line) => line.trim())
+    .filter((line) => line.length > 0)
+    .map((line) => `・${line}`);
+}
+
 /** 一言語ぶんの本文を組み立てる。 */
 function renderBody(
   lang: Lang,
@@ -239,7 +260,7 @@ function renderBody(
     headings.highlights,
     (body.highlights ?? []).map((text) => `・${linkMentions(text, canonical)}`)
   );
-  section(headings.works, body.works?.trim() ? [body.works.trim()] : []);
+  section(headings.works, worksLines(body.works));
 
   const summaries = new Map((body.people ?? []).map((person) => [person.handle, person.summary]));
   const roster = issue.people

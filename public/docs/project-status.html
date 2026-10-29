@@ -527,7 +527,7 @@
     <div class="cards">
       <div class="card">
         <h4>能用</h4>
-        <p>27 个页面全部 200；构建 0 报错；<code>astro check</code> 0 错 0 警；289 个测试全过（Python 255 + Node 34）、985 个站内链接零死链；每次推送自动部署，线上已验证。</p>
+        <p>27 个页面全部 200；构建 0 报错；<code>astro check</code> 0 错 0 警；306 个测试全过（Python 272 + Node 34）、1016 个站内链接零死链；每次推送自动部署，线上已验证。</p>
       </div>
       <div class="card">
         <h4>能改</h4>
@@ -627,7 +627,7 @@
           <td>脚本与测试</td>
           <td><span class="pill pill--done">完成</span></td>
           <td><span class="meter"><span class="meter__track"><span class="meter__fill" style="--pct:100%"></span></span><span class="meter__pct">100%</span></span></td>
-          <td class="t-hide-sm">305 个用例（271 Python + 34 Node），含链接检查、图片清单对账、日报出口闸门与 Ci-en 记法契约</td>
+          <td class="t-hide-sm">306 个用例（272 Python + 34 Node），含链接检查、图片清单对账、日报出口闸门与 Ci-en 记法契约</td>
         </tr>
         <tr>
           <td>文档</td>
@@ -1019,7 +1019,7 @@
           第二次运行基本是空转。
         </p>
         <p>
-          测试合计 <strong>289 个用例</strong>（Python 255 + Node 34）：
+          测试合计 <strong>306 个用例</strong>（Python 272 + Node 34）：
         </p>
         <ul>
           <li><code>test_readme_sync.py</code>（24 个）：marker 缺失、顺序错乱、内容为空、日期格式化</li>
@@ -2512,7 +2512,7 @@
 │   ├── daily.sh                一键：pull → digest → 提示写摘要（39 行）
 │   └── sample_items/           离线样例，供脚本自测
 ├── data/daily/{期号}/report.json   ★ 日报正本（站点读它，目录名即期号）
-├── tests/                    289 个用例（Python 255 + Node 34）+ golden/
+├── tests/                    306 个用例（Python 272 + Node 34）+ golden/
 ├── README.md                 主页名片 + 文档导航
 ├── README/                   quickstart / project / blog-guide / fork / ads + reports/
 ├── docs/                     daily-report-guide.md（跨仓库的日报流水线，不进部署）
@@ -2670,7 +2670,7 @@
         <tr><td>日报期号</td><td>4 期：<code>261025</code>–<code>261028</code>，其中 2 期有日语版</td><td class="t-hide-sm"><code>ls -d data/daily/*/</code></td></tr>
         <tr><td>采集名单</td><td>两份、416 个账号，全部 <code>active</code>：声优版 237（128 声优 + 109 音声社团）／Galgame 版 179（174 厂商 + 5 信息号）</td><td class="t-hide-sm"><code>src/config/daily-roster*.json</code></td></tr>
         <tr><td>术语表</td><td>50 条</td><td class="t-hide-sm"><code>npm run check:glossary</code></td></tr>
-        <tr><td>测试</td><td>305 个：271 Python + 34 Node（18 图注 + 16 Ci-en）</td><td class="t-hide-sm"><code>npm test</code> / <code>test:md</code> / <code>test:cien</code></td></tr>
+        <tr><td>测试</td><td>306 个：272 Python + 34 Node（18 图注 + 16 Ci-en）</td><td class="t-hide-sm"><code>npm test</code> / <code>test:md</code> / <code>test:cien</code></td></tr>
         <tr><td>站内链接</td><td>985 个（1462 处引用），零死链</td><td class="t-hide-sm"><code>npm run links</code></td></tr>
         <tr><td>首屏传输</td><td>10.8 KB（HTML 3.5 + CSS 7.3，gzip）</td><td class="t-hide-sm"><code>gzip -c dist/index.html | wc -c</code></td></tr>
         <tr><td>外部 JS 文件</td><td>0</td><td class="t-hide-sm">全站无第三方脚本</td></tr>
@@ -2920,7 +2920,7 @@ npm run golden:daily      # → 金文件一致：/daily/261025/ 正文纯文本
   <footer class="doc-foot">
     <p>
       体检时间 2026-10-29（页面、链接、体积数字为本次构建实测；第六节的外部站点对照仍是 2026-10-24 抓取）。数据来自实际构建产物、源码统计与现场抓取：
-      27 个 HTML 页面、单 CSS 7,488 字节（gzip）、0 个外部 JS 文件、289 个测试用例（255 Python + 34 Node）、
+      27 个 HTML 页面、单 CSS 7,488 字节（gzip）、0 个外部 JS 文件、306 个测试用例（272 Python + 34 Node）、
       985 个站内链接（共 1462 处引用）、首页 HTML 3,612 字节（gzip）、
       <code>astro check</code> 0 错 0 警，Astro 7.4.2 / Sätteri 0.4.5 / Node ≥ 22.23.4。
       第十二节是 M5 的交接单，写于同一天。

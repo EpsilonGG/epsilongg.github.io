@@ -44,7 +44,7 @@ REPORT = {
         {"text": "御子柴泉聊录音档期。"},
         {"text": "CHAOS-R 新作完工。"},
     ],
-    "works": "发售方面……",
+    "works": ["发售方面……", "另一部作品同日开卖。"],
     "interactions": [{"text": "两人互相转发。"}],
     "people": [
         {"handle": "re_re_tsubame", "summary": "生誕祭周边开卖。"},
@@ -60,7 +60,7 @@ ANSWER = {
     "description_zh": "柚木つばめ粉丝破5.7万",
     "highlights": ["柚木つばめのフォロワーが5.7万を突破。", "御子柴泉が収録枠の話。"],
     "highlight_indexes": [0, 1],
-    "works": "販売面では……",
+    "works": ["販売面では……"],
     "interactions": ["二人が互いにリポスト。"],
     "people": [
         {"handle": "re_re_tsubame", "summary": "生誕祭グッズがBOOTHで販売開始。"},
@@ -198,6 +198,7 @@ class JaTest(unittest.TestCase):
         self.assertEqual(target, paths.ja_report(paths.workspace(self.root, "261028")))
         saved = json.loads(target.read_text(encoding="utf-8"))
         self.assertEqual(saved["hook"], ANSWER["hook"])
+        self.assertEqual(saved["works"], ["販売面では……"])
         self.assertEqual([p["handle"] for p in saved["people"]], ["re_re_tsubame", "asuparama40"])
 
     def test_apply_refuses_to_overwrite(self) -> None:

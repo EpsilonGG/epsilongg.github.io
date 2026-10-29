@@ -41,6 +41,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
 from dataclasses import dataclass
 from datetime import date
 from pathlib import Path
@@ -116,6 +117,19 @@ def _claims(value) -> list[dict]:
     return [_claim(item) for item in (value or [])]
 
 
+def _works(value) -> list[str]:
+    """老简报里的 `works` 是一段话，正本要的是「一条一个作品」。
+
+    按句末标点切开（确定性切法，`--check` 才能逐字节比），数组原样收。
+    """
+    if not value:
+        return []
+    if isinstance(value, list):
+        return [str(item).strip() for item in value if str(item).strip()]
+    parts = [p.strip() for p in re.split(r"(?<=[。！？])", str(value).strip())]
+    return [p for p in parts if p]
+
+
 def _people(value) -> list[dict]:
     people: list[dict] = []
     for entry in value or []:
@@ -170,7 +184,7 @@ def report_from_meta(meta: dict, issue_id: str) -> dict:
         "highlights": _claims(meta.get("highlights")),
         "insights": _claims(meta.get("insights")),
         "interactions": _claims(meta.get("interactions")),
-        "works": str(meta.get("works") or "").strip(),
+        "works": _works(meta.get("works")),
         "categories": [],
         "accounts": accounts,
         "people": _people(meta.get("people")),

@@ -37,8 +37,10 @@
     },
     "description": { "type": "string", "maxLength": 70 },
     "works": {
-      "type": "string",
-      "description": "作品动态：一段跨人汇总（制作中 / 发售 / 销量里程碑），不带来源链接——人名在 people 里已经链到主号"
+      "type": "array",
+      "maxItems": 24,
+      "items": { "type": "string", "minLength": 1 },
+      "description": "作品动态：一条一个作品/一件事（制作中 / 发售 / 预约 / 销量里程碑），页面上按条渲染。不带来源链接——人名在 people 里已经链到主号。**作品开始发售或预约时必须写作品名**，不要用「多部作品」「一批新作」概括"
     },
     "accounts": {
       "type": "array",

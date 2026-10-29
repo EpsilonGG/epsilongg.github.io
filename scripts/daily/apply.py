@@ -10,6 +10,7 @@
 from __future__ import annotations
 
 import json
+import re
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -64,7 +65,8 @@ def new_report(issue_id: str, generate: dict) -> dict:
         "highlights": [],
         "insights": [],
         "interactions": [],
-        "works": "",
+        # 作品动态是一条一条的（页面上按条渲染），骨架给空列表而不是空串
+        "works": [],
         "categories": [
             {"id": str(c.get("id") or ""), "label": str(c.get("label") or c.get("id") or "")}
             for c in generate.get("categories") or []
@@ -85,6 +87,25 @@ def load_report(ws: Path, issue_id: str, generate: dict) -> dict:
     if path.exists():
         return json.loads(path.read_text(encoding="utf-8"))
     return new_report(issue_id, generate)
+
+
+def _works_lines(value) -> list[str]:
+    """把 `works` 归一成「一条一个作品」的字符串列表。
+
+    正本里 `works` 是数组。老答案（模型仍按旧题面写成一段话）不该整份作废——
+    按句号切开当多条，总比因为一个字段把整期判失败强。空串直接丢。
+    """
+    if value is None:
+        return []
+    if isinstance(value, str):
+        text = value.strip()
+        if not text:
+            return []
+        parts = [p.strip() for p in re.split(r"(?<=[。！？])", text)]
+        return [p for p in parts if p]
+    if isinstance(value, list):
+        return [str(v).strip() for v in value if str(v).strip()]
+    raise ApplyError("`works` 必须是字符串或字符串列表")
 
 
 def _merge_people(report: dict, people: list[dict], category: str, roster: Roster) -> None:
@@ -135,7 +156,7 @@ def apply(
             if "summary" in answer:
                 report["description"] = answer["summary"]
             if "works" in answer:
-                report["works"] = answer["works"]
+                report["works"] = _works_lines(answer["works"])
             if "highlights" in answer:
                 report["highlights"] = list(answer["highlights"])
             if "interactions" in answer:

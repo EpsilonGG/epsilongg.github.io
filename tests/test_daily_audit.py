@@ -208,9 +208,23 @@ class FlatPromptTest(Base):
             ISSUE, [flat_answer()], roster=self.roster, generate=generate(), out_dir=self.out
         )
         self.assertEqual(report["description"], "两人都在报新作")
-        self.assertEqual(report["works"], "alice 的新作今天上架，bob 的配信排在明晚。")
+        # 正本里 works 是「一条一个作品」的数组；老答案是一段话，按句切开兜住
+        self.assertEqual(report["works"], ["alice 的新作今天上架，bob 的配信排在明晚。"])
         self.assertEqual(len(report["highlights"]), 2)
         self.assertEqual([p["handle"] for p in report["people"]], ["alice", "bob"])
+
+    def test_works_is_a_list_not_a_paragraph(self) -> None:
+        """作品动态一条一个作品：数组原样收，一段话按句切开。"""
+        answer = flat_answer()
+        answer["works"] = ["alice 的《A》今天开卖", "bob 的《B》开预约"]
+        report = apply(ISSUE, [answer], roster=self.roster, generate=generate(), out_dir=self.out)
+        self.assertEqual(report["works"], ["alice 的《A》今天开卖", "bob 的《B》开预约"])
+
+        answer["works"] = "alice 的《A》今天开卖。bob 的《B》开预约。"
+        report = apply(
+            ISSUE, [answer], roster=self.roster, generate=generate(), out_dir=self.out, force=True
+        )
+        self.assertEqual(report["works"], ["alice 的《A》今天开卖。", "bob 的《B》开预约。"])
 
     def test_alt_handle_merges_into_the_main_row(self) -> None:
         """模型把小号当成另一个人来写时，不能真多出一行。"""

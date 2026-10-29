@@ -275,7 +275,7 @@ export function plainText(report: Daily): string {
     '今日看点',
     data.highlights.map((claim) => claim.text)
   );
-  section('作品动态', data.works ? [data.works] : []);
+  section('作品动态', data.works);
   section(
     '分类摘要',
     data.categories.filter((c) => c.summary).map((c) => `${c.label}：${c.summary}`)

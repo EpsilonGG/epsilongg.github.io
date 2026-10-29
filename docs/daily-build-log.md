@@ -347,3 +347,42 @@ Galgame 版用 10 条仿真条目（3 个厂商 + 2 个媒体号 + 2 个个人�
 - `data-galgame/` 仍是空的：`update-galgame.yml` 还没跑过第一次。它跑通之前，
   自动化的 Galgame 版会以退出码 2 跳过——这是设计好的路径，不是故障。
 - 厂商侧个人号 14 条、信息号个人向 4 条仍在等 M5 之后。
+
+## 2026-10-29 · 作品动态改成一条一个作品
+
+`works` 从「一段话」改成**字符串数组**（≤24 条），页面上渲染成 `<ul>`，和「互动」同一种样式。
+起因是 261029-g 里那句「getchucom 一天开了六部新作的预约」——作品名全被概括吞掉了。
+
+### 改了什么
+
+- 三处 schema 一起改：`schemas/report.schema.json`（正本）、`schemas/generation.schema.json`（模型回答）、
+  `src/content.config.ts` 的两份 Zod（正本 + Ci-en 稿）。描述里写明「开始发售或预约时必须写作品名，
+  不要用『多部作品』『一批新作』概括」。
+- `DailyLayout.astro` 用 `<ul>{works.map(...)}</ul>`；`src/lib/daily.ts` 的纯文本出口直接传数组。
+- `cien.ts` 的 `worksLines()` 同时吃数组和字符串：数组出「・」行，老字符串仍当一段。
+- Python 侧：`build.py` / `apply.py` 骨架给 `[]`；`apply.py` 的 `_works_lines()` 把老答案（一段话）
+  按 `。！？` 切开，不因为一个字段把整期判失败；`prompt.py` 第 5 条重写成「数组，一条一个作品」；
+  `ja.py` 的题面、模板、`apply()` 同步；`migrate.py` 加 `_works()`。
+- 六期正本 + 三份 Ci-en 稿按内容重切：261025 9 条 / 261026 14 / 261027 12 / 261028 15 / 261029 19 /
+  261029-g 21。`261029-g` 那条「六部新作」照 getchucom 的原始条目拆成六个作品名（另两条 master up
+  也点了名）；`261028` 的「みたかりん 有两部出演作」补成《ストレイ・シープと死人の恋 Vol.2》
+  与《天獄のヴィネア》。
+
+### 两条判断
+
+1. **Ci-en 的日文 `works` 也改成数组**，`cien.ts` 里中文段和日文段才对得上（都是「・」行）。
+   但**条数不要求相同**：Ci-en 版按规则要丢掉厂商侧作品，`ja.py` 只校验「是非空字符串数组」。
+2. 上限从 16 抬到 24：261029-g 按作品名展开后有 21 条，16 会把月末发售日那期卡住。
+
+### 闸门
+
+```
+$ python -m unittest discover -s tests   → 272 tests OK（新增 works 切分用例）
+$ npm run build                          → 24 页
+$ npm run check:daily                    → 6 期 · 3 期有 Ci-en 出口 · 金文件一致（重抓 261025）
+$ npm run test:cien                      → 16 pass
+$ npm run links                          → 1016/1588 通过
+$ npm run check:prose                    → 29 页，无落单加粗
+```
+
+金文件重新抓了一次（`golden:daily:switch --id 261025`），因为 261025 的作品动态由一段变成 9 行。

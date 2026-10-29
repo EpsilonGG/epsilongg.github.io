@@ -9,8 +9,10 @@
     "category": { "type": "string", "minLength": 1 },
     "summary": { "type": "string", "maxLength": 60 },
     "works": {
-      "type": "string",
-      "description": "作品动态：一段跨人汇总（制作中 / 发售 / 销量里程碑）。不带来源——人名在 people 里已经链到主号。只有整期题（category=all）会用到"
+      "type": "array",
+      "maxItems": 24,
+      "items": { "type": "string", "minLength": 1 },
+      "description": "作品动态：**一条一个作品**（制作中 / 发售 / 预约 / 销量里程碑），不要合成一段。作品开始发售或预约时必须写出作品名，不要用「多部作品」「一批新作」概括。不带来源——人名在 people 里已经链到主号。只有整期题（category=all）会用到"
     },
     "highlights": {
       "type": "array",

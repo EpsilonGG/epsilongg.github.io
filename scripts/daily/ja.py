@@ -109,6 +109,19 @@ def _name(roster: Roster, handle: str) -> str:
     return account.name if account and account.name else f"@{handle}"
 
 
+def _works_lines(value: object) -> list[str]:
+    """中文正本的 `works` 摊成一行一条，题面里照抄给模型看。
+
+    正本是数组；老期号是段落字符串，按句号切开——两种都能读，别在这里抛错。
+    """
+    if not value:
+        return []
+    if isinstance(value, str):
+        parts = [p.strip() for p in re.split(r"(?<=[。！？])", value.strip())]
+        return [f"- {p}" for p in parts if p]
+    return [f"- {str(line).strip()}" for line in value if str(line).strip()]
+
+
 def validate(answer: object, report: dict, roster: Roster) -> None:
     """判卷。一次性把所有问题报出来，不要让人一条条试。"""
     problems: list[str] = []
@@ -180,6 +193,16 @@ def validate(answer: object, report: dict, roster: Roster) -> None:
             f"highlights 条数对不上：给了 {len(highlights)} 条，"
             f"但 {'highlight_indexes 选了 ' + str(len(indexes)) + ' 条' if indexes else '中文正本有 ' + str(len(zh_highlights)) + ' 条'}"
         )
+
+    # 作品动态一条对一个作品。Ci-en 版会把厂商侧的作品整条丢掉（规则 1），
+    # 所以条数**不必**和中文正本一样，只要求是一条一条的、不是一整段。
+    works = answer.get("works")
+    if works is None:
+        works = []
+    if isinstance(works, str):  # 老答案：一段话，按句切开兜住
+        works = [p.strip() for p in re.split(r"(?<=[。！？])", works.strip()) if p.strip()]
+    if not isinstance(works, list) or not all(isinstance(w, str) and w.strip() for w in works):
+        problems.append("works 必须是非空字符串数组（一条一个作品，不要拼成一段）")
 
     people = answer.get("people") or []
     if not isinstance(people, list):
@@ -284,10 +307,13 @@ def build_task(issue_id: str, report: dict, roster: Roster) -> str:
             "4. `highlights` 只放声优侧的看点；用 `highlight_indexes` 指明保留中文第几条（0 起算、递增）。"
             "两者条数必须相等。厂商侧的看点直接不选。",
             "5. `people` 只收**声优**（下面标了「跳过」的不要），顺序和中文正本一致，`handle` 原样照抄。",
-            "6. 正文一律纯文本：不要 `**`、不要 `- ` 列表（要列就用「・」）、不要 `<a>`／`<span>`／`<iframe>`、不要 `#` 标题。"
+            "6. `works` 是**字符串数组，一条对一个作品**（不要拼成一整段）。"
+            "厂商侧的作品整条不选——中文正本里有几条会被丢掉，所以条数不必相同。"
+            "作品名保留日文原名。",
+            "7. 正文一律纯文本：不要 `**`、不要 `- ` 列表（要列就用「・」）、不要 `<a>`／`<span>`／`<iframe>`、不要 `#` 标题。"
             "加粗和字号由渲染器负责。",
-            "7. 人名第一次出现用日文原名（名单里的 `name`），作品名保留日文原名（『』）。",
-            "8. **末尾的联系邮箱不要写**——渲染器会从 `src/config/profile.json` 统一加到"
+            "8. 人名第一次出现用日文原名（名单里的 `name`），作品名保留日文原名（『』）。",
+            "9. **末尾的联系邮箱不要写**——渲染器会从 `src/config/profile.json` 统一加到"
             "文章最后，答案里写了就会重复。",
             "",
             "## 中文正本",
@@ -300,7 +326,7 @@ def build_task(issue_id: str, report: dict, roster: Roster) -> str:
             "",
             "### 作品动态",
             "",
-            str(report.get("works") or "（无）"),
+            *(_works_lines(report.get("works")) or ["（无）"]),
             "",
             "### 互动",
             "",
@@ -324,7 +350,7 @@ def build_task(issue_id: str, report: dict, roster: Roster) -> str:
             [
                 str(report.get("description") or ""),
                 " ".join(str(h.get("text") or "") for h in highlights),
-                str(report.get("works") or ""),
+                " ".join(_works_lines(report.get("works"))),
                 " ".join(str(p.get("summary") or "") for p in report.get("people") or []),
             ]
         )
@@ -346,7 +372,7 @@ def build_task(issue_id: str, report: dict, roster: Roster) -> str:
                     "description_zh": "",
                     "highlights": [],
                     "highlight_indexes": [],
-                    "works": "",
+                    "works": [""],
                     "interactions": [],
                     "people": [{"handle": "", "summary": ""}],
                     "insights": [],
@@ -381,6 +407,11 @@ def apply(
     answer = json.loads(Path(answer_path).read_text(encoding="utf-8"))
     validate(answer, report, roster)
 
+    # 判过卷之后 works 一定是字符串数组；老答案（一段话）在这里按句切开兜住
+    works = answer.get("works") or []
+    if isinstance(works, str):
+        works = [p.strip() for p in re.split(r"(?<=[。！？])", works.strip()) if p.strip()]
+
     payload = {
         "schema_version": int(answer.get("schema_version") or 1),
         "hook": str(answer.get("hook") or "").strip(),
@@ -388,7 +419,7 @@ def apply(
         "description_zh": str(answer.get("description_zh") or "").strip(),
         "highlights": [str(h).strip() for h in answer.get("highlights") or []],
         "highlight_indexes": [int(i) for i in answer.get("highlight_indexes") or []],
-        "works": str(answer.get("works") or "").strip(),
+        "works": [str(w).strip() for w in works],
         "interactions": [str(t).strip() for t in answer.get("interactions") or []],
         "people": [
             {"handle": str(p.get("handle") or ""), "summary": str(p.get("summary") or "").strip()}

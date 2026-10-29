@@ -93,7 +93,7 @@ class ReportFromMetaTest(unittest.TestCase):
             [{"text": "第一段看点", "sources": []}, {"text": "第二段看点", "sources": []}],
         )
         self.assertEqual(report["interactions"][0]["text"], "两人发了同一段说明")
-        self.assertEqual(report["works"], "一段作品动态")
+        self.assertEqual(report["works"], ["一段作品动态"])
 
     def test_people_keep_via_and_order(self) -> None:
         report = report_from_meta(self.meta(), "26102322")

@@ -163,7 +163,8 @@ def build_report(
         "highlights": [],
         "insights": [],
         "interactions": [],
-        "works": "",
+        # 作品动态是一条一条的（页面上按条渲染），骨架给空列表而不是空串
+        "works": [],
         "categories": [],
         "accounts": accounts,
         "people": [

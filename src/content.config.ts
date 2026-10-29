@@ -149,15 +149,16 @@ const dailyReports = defineCollection({
     /** 名单内多人之间的互动，每项一条；为空则整段不渲染 */
     interactions: z.array(claim).default([]),
     /**
-     * 作品动态：一段话，汇总名单里的人在推上提到的作品进度
-     * （制作中 / 正式发售 / 销量里程碑 / 上架平台）。
+     * 作品动态：**一条一个作品**，页面上按条渲染成列表。
      *
-     * 单独一段而不是塞进 highlights 或 people，是因为它是**跨人**的横向汇总：
-     * 同一条「秋季促销两部破 5000 DL」会牵涉到好几个人，按人写会重复，
-     * 按段写一句就够。**不加来源链接**——页面上每个人名已经链到主号，
-     * 再给每条加引用会让这一段变成链接堆，读者反而看不出哪件事更重要。
+     * 以前是一整段话，读起来像新闻通稿，而且「多部作品同日发售」这种概括会把作品名
+     * 吞掉——读者看不出到底是哪几部。改成数组之后，一条只说一个作品（或一件事），
+     * 开始发售 / 预约的那条必须带作品名。
+     *
+     * 不带来源链接：人名在 people 里已经链到主号，再给每条加引用会变成链接堆。
+     * 同一件事牵涉好几个人时可以写在一条里——但「几部作品同日发售」不行，那要一部一条。
      */
-    works: z.string().trim().default(''),
+    works: z.array(z.string().trim().min(1)).max(24).default([]),
     categories: z.array(category).default([]),
     /**
      * 当天有活动的账号（含只出现在 highlights 里、没有 people 行的人）。
@@ -236,7 +237,8 @@ const dailyJa = defineCollection({
      * 空なら全部載せる。**`highlights` と同じ件数**にすること（闸门が見ている）。
      */
     highlight_indexes: z.array(z.number().int().min(0)).default([]),
-    works: z.string().trim().default(''),
+    /** 中文正本と同じく一条一个作品（`cien.ts` 渲染成「・」行）。 */
+    works: z.array(z.string().trim().min(1)).max(24).default([]),
     interactions: z.array(z.string().trim().min(1)).default([]),
     /** 中文版 `people` 的顺序就是这里的顺序；`handle` 必须对得上。 */
     people: z
