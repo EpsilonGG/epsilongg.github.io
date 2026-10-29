@@ -1,7 +1,224 @@
 {
   "$comment": "由 scripts/optimize_images.mjs 生成，请勿手改。",
-  "generatedAt": "2026-10-29T01:51:20.986Z",
+  "generatedAt": "2026-10-29T02:24:01.432Z",
   "images": {
+    "/images/blog/bugbug-sca-interview/01.jpg": {
+      "w": 1280,
+      "h": 720,
+      "bytes": 256889,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/bugbug-sca-interview/01-600.webp",
+          "bytes": 51048
+        },
+        {
+          "w": 960,
+          "src": "/images/blog/bugbug-sca-interview/01-960.webp",
+          "bytes": 94586
+        },
+        {
+          "w": 1280,
+          "src": "/images/blog/bugbug-sca-interview/01-1280.webp",
+          "bytes": 142498
+        }
+      ]
+    },
+    "/images/blog/bugbug-sca-interview/02.jpg": {
+      "w": 1000,
+      "h": 700,
+      "bytes": 162069,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/bugbug-sca-interview/02-600.webp",
+          "bytes": 42946
+        },
+        {
+          "w": 1000,
+          "src": "/images/blog/bugbug-sca-interview/02-1000.webp",
+          "bytes": 91594
+        }
+      ]
+    },
+    "/images/blog/bugbug-sca-interview/03.jpg": {
+      "w": 1291,
+      "h": 986,
+      "bytes": 210420,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/bugbug-sca-interview/03-600.webp",
+          "bytes": 36126
+        },
+        {
+          "w": 960,
+          "src": "/images/blog/bugbug-sca-interview/03-960.webp",
+          "bytes": 65284
+        },
+        {
+          "w": 1291,
+          "src": "/images/blog/bugbug-sca-interview/03-1291.webp",
+          "bytes": 95560
+        }
+      ]
+    },
+    "/images/blog/bugbug-sca-interview/04.jpg": {
+      "w": 1251,
+      "h": 880,
+      "bytes": 350672,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/bugbug-sca-interview/04-600.webp",
+          "bytes": 36878
+        },
+        {
+          "w": 1251,
+          "src": "/images/blog/bugbug-sca-interview/04-1251.webp",
+          "bytes": 102918
+        }
+      ]
+    },
+    "/images/blog/bugbug-sca-interview/05.jpg": {
+      "w": 1280,
+      "h": 1006,
+      "bytes": 464786,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/bugbug-sca-interview/05-600.webp",
+          "bytes": 86982
+        },
+        {
+          "w": 960,
+          "src": "/images/blog/bugbug-sca-interview/05-960.webp",
+          "bytes": 173792
+        },
+        {
+          "w": 1280,
+          "src": "/images/blog/bugbug-sca-interview/05-1280.webp",
+          "bytes": 263086
+        }
+      ]
+    },
+    "/images/blog/bugbug-sca-interview/06.jpg": {
+      "w": 1500,
+      "h": 844,
+      "bytes": 191027,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/bugbug-sca-interview/06-600.webp",
+          "bytes": 43228
+        },
+        {
+          "w": 960,
+          "src": "/images/blog/bugbug-sca-interview/06-960.webp",
+          "bytes": 89780
+        },
+        {
+          "w": 1500,
+          "src": "/images/blog/bugbug-sca-interview/06-1500.webp",
+          "bytes": 159386
+        }
+      ]
+    },
+    "/images/blog/bugbug-sca-interview/07.jpg": {
+      "w": 960,
+      "h": 540,
+      "bytes": 208058,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/bugbug-sca-interview/07-600.webp",
+          "bytes": 33680
+        },
+        {
+          "w": 960,
+          "src": "/images/blog/bugbug-sca-interview/07-960.webp",
+          "bytes": 64428
+        }
+      ]
+    },
+    "/images/blog/bugbug-sca-interview/08.jpg": {
+      "w": 960,
+      "h": 1358,
+      "bytes": 317044,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/bugbug-sca-interview/08-600.webp",
+          "bytes": 103112
+        },
+        {
+          "w": 960,
+          "src": "/images/blog/bugbug-sca-interview/08-960.webp",
+          "bytes": 190592
+        }
+      ]
+    },
+    "/images/blog/bugbug-sca-interview/09.jpg": {
+      "w": 960,
+      "h": 586,
+      "bytes": 213268,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/bugbug-sca-interview/09-600.webp",
+          "bytes": 28142
+        },
+        {
+          "w": 960,
+          "src": "/images/blog/bugbug-sca-interview/09-960.webp",
+          "bytes": 61156
+        }
+      ]
+    },
+    "/images/blog/bugbug-sca-interview/10.jpg": {
+      "w": 1600,
+      "h": 1200,
+      "bytes": 311820,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/bugbug-sca-interview/10-600.webp",
+          "bytes": 37004
+        },
+        {
+          "w": 960,
+          "src": "/images/blog/bugbug-sca-interview/10-960.webp",
+          "bytes": 68726
+        },
+        {
+          "w": 1600,
+          "src": "/images/blog/bugbug-sca-interview/10-1600.webp",
+          "bytes": 142496
+        }
+      ]
+    },
+    "/images/blog/bugbug-sca-interview/11.jpg": {
+      "w": 1280,
+      "h": 900,
+      "bytes": 352351,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/bugbug-sca-interview/11-600.webp",
+          "bytes": 39088
+        },
+        {
+          "w": 960,
+          "src": "/images/blog/bugbug-sca-interview/11-960.webp",
+          "bytes": 79346
+        },
+        {
+          "w": 1280,
+          "src": "/images/blog/bugbug-sca-interview/11-1280.webp",
+          "bytes": 118166
+        }
+      ]
+    },
     "/images/blog/busara-bugbug-interview/01.jpg": {
       "w": 900,
       "h": 378,
