@@ -303,8 +303,9 @@ python scripts/daily_digest.py build --kind galgame --items-dir "<X-rss-workspac
 - **`active: false` 的账号照旧进名单，但条目不进这一期**：脚本会把跳过的账号名打到 stderr。
   2026-10-29 起两版名单里**全部是 `active: true`**（社团也开了），这条只在临时暂停某人时用得上。
 - **名单四类实体，分两份文件**：声优版 `daily-roster.json` = `seiyuu`（声优，128 条 / 98 人）+ `circle`（音声社团，109 条）；
-  Galgame 版 `daily-roster-galgame.json` = `manufacturer`（游戏厂商，174 条，含 Moepedia 情报站）+ `info`（信息号，3 条：
-  `@seiya_saiga` / `@youtan0309` / `@aikouka23`）。**一个 handle 只建一条**——同一个号既是厂商的又是社团的
+  Galgame 版 `daily-roster-galgame.json` = `manufacturer`（游戏厂商，174 条，含 Moepedia 情报站）+ `info`（信息号，5 条：
+  `@seiya_saiga` / `@youtan0309` / `@aikouka23` 三个个人向，加 `@getchucom`（发售日历）/
+  `@bugbug_info`（新作介绍）两个媒体号）。**一个 handle 只建一条**——同一个号既是厂商的又是社团的
   （`@cube_staff`、`@pachipachisoft`），或本来就是某位声优的主号（`@ayakaigasaki`），只保留已有那条，另一重身份写进 `note`。
   身份靠 `tags` 区分：声优 `["声优","创作者"]`、社团 `["创作者","音声"]`、厂商 `["创作者","游戏"]`、
   信息号 `["游戏情报","个人向"]`，有社团号的声优补 `"音声"`，近十年拿过萌えゲーアワード的厂商补 `"Moe Award"`。
@@ -543,7 +544,7 @@ commit（2026-10-26 就把一篇 496 行的新访谈卷进了「docs: 抓取侧�
 - **仓库：** `X-rss-workspace/X-Reader`（= `github.com/EpsilonGG/X-Reader`，**是真正的 git clone**，`git pull` 能拿到 CI 提交的数据）。
 - **CI：两个 workflow，各管一版。** 2026-10-29 拆分，因为声优版加进 109 个社团后已经顶到单条 20 分钟超时线。
   - `update.yml`（声优版，237 个账号）：每日 **`03:00` 与 `15:00` UTC** 各跑一次，`timeout-minutes: 30`，写 `data/`。
-  - `update-galgame.yml`（Galgame 版，177 个账号）：每日 **`03:10` 与 `15:10` UTC**（错开 10 分钟，避免两边抢同一个 push），
+  - `update-galgame.yml`（Galgame 版，179 个账号）：每日 **`03:10` 与 `15:10` UTC**（错开 10 分钟，避免两边抢同一个 push），
     用 `--config config/config.galgame.yaml --accounts accounts.galgame.yaml`，写 `data-galgame/`，超时 20 分钟。
   - `15:00 UTC` = **JST 00:00**，正好是 JST 自然日闭合的时刻，所以这一次的数据就是完整的一天；
     一天两跑是因为 Nitter RSS 每个账号最多返回约 20 条，单跑会丢掉话多的人最早那几条。
@@ -557,7 +558,7 @@ commit（2026-10-26 就把一篇 496 行的新访谈卷进了「docs: 抓取侧�
   python scripts/sync_xreader_accounts.py --out ... --galgame-out ... --check   # 只比对，不一致退 1
   ```
   只写 `active != false` 的条目，按各自名单的顺序排：`accounts.yaml` **237 个**（128 声优 + 109 社团），
-  `accounts.galgame.yaml` **177 个**（173 厂商 + Moepedia + 3 信息号）。
+  `accounts.galgame.yaml` **179 个**（173 厂商 + Moepedia + 5 信息号）。
   `category` 不参与「抓不抓」，它决定条目落在页面哪个栏目，而栏目由日报页的筛选按钮分开看。
   正本里的 `accounts` 由数据**自动推导**，同样不用手改。
 - **实例可靠性：** 公共 Nitter 实例大半已死（410 / 451 / 403 / 人机验证页）。2026-10-26 实测 13 个里只有 1 个能出 feed，
@@ -682,27 +683,38 @@ npm run golden:daily:switch -- --id 261025
 
 情报站（Moepedia）和大厂官号一天能发几十条，其中大半是转发抽奖、店铺特典、
 「○年前的本日发售」这种自动化回顾。它们不是不重要，是**重复**或**没有信息**。
-规则写在 `src/config/daily-roster.json` 的账号条目里，由 `scripts/daily/filter.py`
-在 `daily build` 时执行（`_pipeline` 里，merge 之后、`accounts` 之前）：
+规则写在名单的账号条目里（`daily-roster.json` / `daily-roster-galgame.json` 都支持），
+由 `scripts/daily/filter.py` 在 `daily build` 时执行（`_pipeline` 里，merge 之后、`accounts` 之前）：
 
 ```jsonc
 "filter": {
   "drop_kinds": ["repost"],                  // 整类丢掉
   "drop_if": ["プレゼント", "^moepedia\\.net/"],  // 正文命中就丢（正则，忽略大小写）
+  "keep_if": ["予約", "発売", "周年"],          // 白名单：给了就只留命中的（空 = 不启用）
   "prefer_if": ["新作", "発売", "体験版"],      // 封顶时优先保（**不是**必要条件）
   "max_items": 5                             // 一期最多几条
 }
 ```
 
-四条规则按顺序：`drop_kinds` → `drop_if` → `prefer_if` 排序 → `max_items` 封顶。
+五条规则按顺序：`drop_kinds` → `drop_if` → `keep_if` → `prefer_if` 排序 → `max_items` 封顶。
 
 - **匹配用的是去掉 URL、折平换行的正文**。链接里带 `sale`、`campaign` 这类词
   很常见，拿它当证据会误伤，所以先剥掉。
 - **`prefer_if` 只影响排序，不构成条件**。写成必要条件会漏掉「只写了作品名和链接」
   的真公告（实测 `【あざらしそふと＋1】…ADV『さくらぶトライアングル』` 就没有任何
   保留词）。封顶时先按「是否命中 `prefer_if`」、再按发布时间倒序取。
+- **`keep_if` 是白名单，不是加强版 `prefer_if`**。给了它，没命中的条目**直接丢**，
+  原因记作「不命中 keep_if（只收指定内容）」。媒体号用它：一天几十条里，杂谈、
+  店铺广告、转发抽奖混在一起，黑名单永远列不全，白名单一行就说得清。
+  现在只有两个号用——`@getchucom` 只收发售日历（预约／发售／体验版／特典／倒数／
+  CG 更新／周年），`@bugbug_info` 只收新作介绍与周年。个人号**不设**白名单：
+  他们的价值就在「想到什么说什么」，收窄了等于关掉。
+- **`drop_if` 先于 `keep_if`**。一条「新作发售，转发抽奖」两个都命中 → 丢：
+  抽奖部分是这条里唯一会过期的东西。白名单回答「是不是这一类」，黑名单回答
+  「这一类里有没有该剔的」。
 - **丢掉的条目会记进 `out/<期号>.generate.json` 的 `filtered`**（key / 账号 / 原因 /
   正文前 80 字）。「今天 Moepedia 一条都没有」必须能查：是它没发，还是规则全筛了。
+  白名单尤其要这样查——`keep_if` 写窄了，表现是「这个号从没出现过」，不是报错。
 - 一个号如果当天只剩这类条目，它**不会**出现在 `people` 里——不会出现「有名字没内容」的行。
 - 规则写错（正则不闭合）会在 `daily build` 当场报错，不会留到线上。
 

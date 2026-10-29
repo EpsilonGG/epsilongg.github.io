@@ -1,6 +1,6 @@
 {
   "schema_version": 5,
-  "note": "Galgame 版日报的名单（`daily build --kind galgame`，期号 `YYMMDD-g`）。厂商一个 handle 一条，同社多品牌写进 note；黑系（エロス系作品BLACK賞）这批没有建。信息号（category=info）2026-10-29 先启用三个：seiya_saiga / youtan0309 / aikouka23；厂商侧个人号（剧作者 / 导演 / 代表）等容量拆分之后再补，暂不入册。Moepedia 是作品情报站，仍挂在 manufacturer 下（tags: 资料站 / 作品情报）。",
+  "note": "Galgame 版日报的名单（`daily build --kind galgame`，期号 `YYMMDD-g`）。厂商一个 handle 一条，同社多品牌写进 note；黑系（エロス系作品BLACK賞）这批没有建。信息号（category=info）2026-10-29 先启用五个：seiya_saiga / youtan0309 / aikouka23 三个个人向，加 getchucom（发售日历）与 bugbug_info（新作介绍）两个媒体号——媒体号走 `keep_if` 白名单，只收指定内容。其余媒体号不再加，个人向候选与厂商侧个人号（剧作者 / 导演 / 代表）留表待议。Moepedia 是作品情报站，仍挂在 manufacturer 下（tags: 资料站 / 作品情报）。",
   "categories": [
     {
       "id": "manufacturer",
@@ -2257,6 +2257,68 @@
           "復刻",
           "新作"
         ]
+      }
+    },
+    {
+      "handle": "getchucom",
+      "name": "Getchu.com（げっちゅ屋）",
+      "category": "info",
+      "role": "info",
+      "active": true,
+      "tags": [
+        "游戏情报",
+        "平台",
+        "发售日历"
+      ],
+      "note": "发售日历：预约开始、店铺特典、发售日倒数、体验版／CG 更新、作品周年；其余一律不收 · 2026-10-29 启用",
+      "filter": {
+        "drop_kinds": [
+          "repost"
+        ],
+        "keep_if": [
+          "予約",
+          "発売",
+          "体験版",
+          "特典",
+          "カウントダウン",
+          "CG(?:更新|公開|ギャラリー)",
+          "周年"
+        ],
+        "prefer_if": [
+          "予約開始",
+          "発売日",
+          "カウントダウン",
+          "周年"
+        ],
+        "max_items": 8
+      }
+    },
+    {
+      "handle": "bugbug_info",
+      "name": "BugBug編集部",
+      "category": "info",
+      "role": "info",
+      "active": true,
+      "tags": [
+        "游戏情报",
+        "媒体",
+        "新作介绍"
+      ],
+      "note": "新作介绍：每天 2～4 条新作／体验版介绍，另收作品周年；销量排行、同人漫画、活动预告都不收 · 2026-10-29 启用",
+      "filter": {
+        "drop_kinds": [
+          "repost"
+        ],
+        "keep_if": [
+          "新作",
+          "紹介",
+          "周年"
+        ],
+        "prefer_if": [
+          "新作",
+          "周年"
+        ],
+        "max_items": 5
       }
     }
   ]

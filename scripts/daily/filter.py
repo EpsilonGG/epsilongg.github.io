@@ -18,17 +18,23 @@
 不用重新抓。规则存在名单里（`daily-roster.json` 的 `filter` 段）而不是代码里：
 谁该降噪是编辑决定，改 JSON 不用改脚本。
 
-## 四条规则，按顺序判
+## 五条规则，按顺序判
 
 1. `drop_kinds` —— 整类丢掉。`repost` 最常用：转发的内容原作者那条也在，
    而 Nitter 的 RSS 路由给不出「转的是谁」，留着只会把别人的话记在这个号名下。
 2. `drop_if` —— 正文命中任一正则就丢。用于抽奖、促销、周年回顾这类固定句式。
-3. `prefer_if` —— 命中任一正则的**排前面**，封顶时优先保它们。注意这是排序，
+3. `keep_if` —— **白名单**：给了就只留命中任一正则的条目。用于「这个号只收某一类内容」——
+   媒体号一天几十条，杂谈、店铺广告、转发抽奖混在一起，黑名单永远列不全，
+   白名单一行就说得清（例：`@getchucom` 只要发售日历）。
+   空等于不启用。
+4. `prefer_if` —— 命中任一正则的**排前面**，封顶时优先保它们。注意这是排序，
    不是必要条件：写成必要条件会漏掉「只写了作品名和链接」的真公告。
-4. `max_items` —— 一期最多留几条，按 `prefer_if` 命中 → 发布时间倒序取。
+5. `max_items` —— 一期最多留几条，按 `prefer_if` 命中 → 发布时间倒序取。
 
-`drop_if` 先于一切：一条「新作发售，转发抽奖」两个都命中，应该丢——
-抽奖部分是这条里唯一会过期的东西。
+`drop_if` 先于 `keep_if`：一条「新作发售，转发抽奖」两个都命中，应该丢——
+抽奖部分是这条里唯一会过期的东西。`keep_if` 写在 `drop_if` 之后，所以
+「命中白名单但命中黑名单」的结果是**丢**，这是有意的：白名单回答「是不是这一类」，
+黑名单回答「这一类里有没有该剔的」。
 
 ## 匹配用的正文
 
@@ -58,12 +64,13 @@ class Rule:
     handle: str = ""
     drop_kinds: frozenset[str] = frozenset()
     drop_if: tuple[re.Pattern, ...] = ()
+    keep_if: tuple[re.Pattern, ...] = ()
     prefer_if: tuple[re.Pattern, ...] = ()
     max_items: int | None = None
 
     @property
     def empty(self) -> bool:
-        return not (self.drop_kinds or self.drop_if or self.prefer_if or self.max_items)
+        return not (self.drop_kinds or self.drop_if or self.keep_if or self.prefer_if or self.max_items)
 
 
 def _compile(handle: str, patterns: Iterable[str]) -> tuple[re.Pattern, ...]:
@@ -87,6 +94,7 @@ def parse_rule(handle: str, data: dict) -> Rule:
         handle=handle,
         drop_kinds=frozenset(str(k).strip().lower() for k in kinds if str(k).strip()),
         drop_if=_compile(handle, data.get("drop_if") or ()),
+        keep_if=_compile(handle, data.get("keep_if") or ()),
         prefer_if=_compile(handle, data.get("prefer_if") or ()),
         max_items=int(limit) if limit else None,
     )
@@ -105,6 +113,8 @@ def drop_reason(item: Item, rule: Rule) -> str:
     for pattern in rule.drop_if:
         if pattern.search(text):
             return f"命中「{pattern.pattern}」"
+    if rule.keep_if and not any(p.search(text) for p in rule.keep_if):
+        return "不命中 keep_if（只收指定内容）"
     return ""
 
 

@@ -26,6 +26,7 @@ from daily.adapters.xreader import XReaderAdapter  # noqa: E402
 from daily.dedupe import identity, merge, normalize_url  # noqa: E402
 from daily.export import build as build_export  # noqa: E402
 from daily.export import interactions, low_value_reason  # noqa: E402
+from daily.filter import parse_rule  # noqa: E402
 from daily.incremental import classify, commit  # noqa: E402
 from daily.model import Item  # noqa: E402
 from daily.order import sort_accounts, sort_items  # noqa: E402
@@ -389,10 +390,11 @@ class InactiveAccountTest(unittest.TestCase):
             {"Moepedia_net"},
             "manufacturer 段里出现了非品牌号：确认它确实是情报来源，再改这条断言",
         )
-        # 带降噪规则的号：Moepedia + 2026-10-29 启用的三个信息号。
+        # 带降噪规则的号：Moepedia + 2026-10-29 启用的五个信息号。
         self.assertEqual(
             set(roster.filters),
-            {"moepedia_net", "seiya_saiga", "youtan0309", "aikouka23"},
+            {"moepedia_net", "seiya_saiga", "youtan0309", "aikouka23",
+             "getchucom", "bugbug_info"},
         )
         self.assertTrue(all("游戏" in a.tags or "资料站" in a.tags for a in makers))
         self.assertTrue(any("Moe Award" in a.tags for a in makers), "拿过萌奖的应该有标签")
@@ -413,13 +415,38 @@ class InactiveAccountTest(unittest.TestCase):
         self.assertTrue(voice.is_known("silkysplus"))
         self.assertEqual(galgame.category_of("yukanyan2525"), "seiyuu")
 
-    def test_info_accounts_are_the_three_enabled_ones(self) -> None:
-        """信息号 2026-10-29 只启用三个；厂商侧个人号还没入册。"""
+    def test_info_accounts_are_the_five_enabled_ones(self) -> None:
+        """信息号 2026-10-29 启用五个：三个个人向 + 两个媒体号。
+
+        媒体号（getchucom 发售日历 / bugbug_info 新作介绍）用 `keep_if` 白名单，
+        只收指定内容；其余媒体号明确不加。厂商侧个人号还没入册。
+        """
         roster = Roster.load(kind="galgame")
         info = [a.handle for a in roster.accounts if a.category == "info"]
-        self.assertEqual(sorted(info), ["aikouka23", "seiya_saiga", "youtan0309"])
+        self.assertEqual(
+            sorted(info),
+            ["aikouka23", "bugbug_info", "getchucom", "seiya_saiga", "youtan0309"],
+        )
         for handle in ("Famishin", "nakazawatakumi", "digitarou"):
             self.assertFalse(roster.is_known(handle), f"{handle} 是厂商侧个人号，暂时不入册")
+        # 媒体号必须是白名单，不是黑名单——黑名单列不全「不要什么」。
+        for handle in ("getchucom", "bugbug_info"):
+            self.assertIn("keep_if", roster.filters[handle], f"{handle} 应该走 keep_if")
+        for handle in ("seiya_saiga", "youtan0309", "aikouka23"):
+            self.assertNotIn("keep_if", roster.filters[handle], "个人号不收窄到白名单")
+
+    def test_every_roster_filter_compiles(self) -> None:
+        """名单里的正则全部当场编译一遍。
+
+        规则是数据，写错一个括号不会在 `Roster.load` 报错，要等那天真的抓到
+        这个号的条目、走到 `apply_rules` 才炸——而那时已经在出稿路径上了。
+        """
+        for kind in ("voice", "galgame"):
+            roster = Roster.load(kind=kind)
+            for handle, raw in roster.filters.items():
+                with self.subTest(kind=kind, handle=handle):
+                    rule = parse_rule(handle, raw)
+                    self.assertFalse(rule.empty, f"{handle} 的 filter 是空的，删掉它")
 
     def test_handles_are_unique(self) -> None:
         """一个 handle 只能有一条。

@@ -3,12 +3,14 @@
 """把日报名单导成一张总表（两版合并视图）。
 
 正本是 `src/config/daily-roster.json`（声优版）与 `daily-roster-galgame.json`
-（Galgame 版）；本表是它们的只读视图，外加
-`README/reports/galgame-accounts-2026-10.html` 里已核过、但**还没写进 JSON** 的
-候选（信息号 11 + 厂商侧个人号 14）。改名单请改 JSON，改完重跑：
+（Galgame 版）；本表是它们的只读视图，外加**还没写进 JSON** 的候选（厂商侧个人号 14 条，
+来自 `README/reports/galgame-accounts-2026-10.html`）。改名单请改 JSON，改完重跑：
 
     python scripts/build_roster_overview.py
     python scripts/build_roster_overview.py --out README/reports/xxx.html
+
+2026-10-29 的口径：媒体号只留 `@getchucom`（发售日历）与 `@bugbug_info`（新作介绍），
+其余媒体号不再加，候选表里已删掉；个人向信息号与厂商侧个人号留表待议。
 """
 
 from __future__ import annotations
@@ -41,6 +43,13 @@ ROLE_LABEL = {
 
 # ── 未入册候选：来自 galgame-accounts-2026-10.html，2026-10-29 实查 ──────────
 # 字段：handle, name, fans, last, tags, note, prio（"" / "优先" / "可缓"）
+#
+# 2026-10-29 的口径调整：
+#   * `@seiya_saiga` / `@aikouka23` / `@youtan0309` 已入册（个人向信息号），从这里删掉；
+#   * `@getchucom` / `@bugbug_info` 已入册（媒体号，走 keep_if 白名单），从这里删掉；
+#   * 其余媒体号（DLsite / アキバBlog / FANZAニュース / 月刊メガストア / newakiba）
+#     **明确不加**，整段删掉，不再留「候选」这个模糊状态；
+#   * 剩下的个人向信息号与厂商侧个人号「先存着」，等 M5 做完再议。
 INFO_PERSONAL = [
     ("masanlive", "まさん -VisualNovel-", "5,223", "2026-10-28",
      ["游戏情报", "个人向"],
@@ -51,40 +60,14 @@ INFO_PERSONAL = [
     ("RAGDIS27993204", "ねぷねぷギア", "5,011", "2026-10-28",
      ["游戏情报", "个人向"],
      "Leaf／アクアプラス／オーガスト／minori 老玩家。逐作回顾连载（#オーガストの作品を振り返る）、系列年表考据、旧作长文感想。", ""),
-    ("seiya_saiga", "誠也の部屋@公式", "3,824", "2026-10-23",
-     ["游戏情报", "个人向", "攻略站"],
-     "攻略站「誠也の部屋」官方号。逐条发新作攻略更新与当周打折情报，几乎日更。与 @uitachibana4 同一人，视角互补。", ""),
     ("B2F_", "Ｂ２Ｆ（地下二階）", "1,046", "2026-10-29",
      ["游戏情报", "个人向"],
      "个人博客连动号。自制排行榜企划（#マスト幼馴染エロゲ100 之类）、新作感想、和玩家互相 @ 讨论评分标准。", ""),
-    ("aikouka23", "エロゲ情報収集愛好家", "942", "2026-10-28",
-     ["游戏情报", "个人向"],
-     "「收藏侧」情报：初回版／修正版的刻印差异、流通撤退与廃盤动向、老作保存版考据。这类内容别的号不写。", ""),
 ]
 
-INFO_PLATFORM = [
-    ("DLsite", "DLsite公式", "101,843", "2026-10-27",
-     ["游戏情报", "平台"],
-     "同人／音声／漫画贩售平台官方。每日新作上架、期间特价、排行榜。量大，但同人比例高、galgame 占比低。", ""),
-    ("akibablog", "geek@akibablog", "84,446", "2026-10-28",
-     ["游戏情报", "平台"],
-     "アキバBlog 运营者号。几乎全是转推（秋叶原／御宅新闻，含新作与发售话题），无原创，噪音偏高。", "可缓"),
-    ("FANZA_NEWS", "FANZAニュース【公式／編集部】", "66,360", "2026-10-23",
-     ["游戏情报", "媒体"],
-     "FANZA 新闻编辑部。业界新闻、新作与销量话题、专栏转载，行业侧视角。", ""),
-    ("getchucom", "Getchu.com（げっちゅ屋）", "26,167", "2026-10-28",
-     ["游戏情报", "平台"],
-     "新作预约开始、店铺特典、发售日倒数、体验版与 CG 更新——最接近「发售日历」的号。", "优先"),
-    ("bugbug_info", "BugBug編集部", "24,666", "2026-10-28",
-     ["游戏情报", "媒体"],
-     "每天 2～4 条新作／同人漫画介绍并导流 bugbug.news，另有月度销量排行与特集。信息密度最高。", "优先"),
-    ("megastore_info", "月刊メガストア", "6,319", "2026-10-01",
-     ["游戏情报", "媒体"],
-     "每月发卖号的特集与收录作告知。月更节奏，适合补「杂志侧」话题。", ""),
-    ("newakiba", "newakiba", "1,885", "2026-10-28",
-     ["游戏情报", "平台"],
-     "秋叶原系新闻站。新作 18 禁 SLG／ADV 与漫画新刊的短讯，一条一作带链接，内容较杂。", ""),
-]
+# 媒体号候选整段删掉了（DLsite / アキバBlog / FANZAニュース / 月刊メガストア / newakiba）。
+# 2026-10-29 的决定是「其余的媒体号不加」，所以不再以候选形式留在这里——
+# 留着会让下一份报告又显示「还有 5 个待选」，等于没做决定。
 
 VENDOR_PEOPLE = [
     ("Butch_Gen", "虚淵玄", "386,515", "2026-10-27", "剧作者",
@@ -331,10 +314,9 @@ def build(out_path: Path) -> None:
     info_live = [a for a in accounts if a.get("category") == "info"]
     enabled = {a["handle"].lower() for a in info_live}
     info_personal = [x for x in INFO_PERSONAL if x[0].lower() not in enabled]
-    info_platform = [x for x in INFO_PLATFORM if x[0].lower() not in enabled]
-    n_candidates = len(info_personal) + len(info_platform) + len(VENDOR_PEOPLE)
+    n_candidates = len(info_personal) + len(VENDOR_PEOPLE)
 
-    prio = sum(1 for x in info_personal + info_platform + VENDOR_PEOPLE if x[-1] == "优先")
+    prio = sum(1 for x in info_personal + VENDOR_PEOPLE if x[-1] == "优先")
 
     tag_counts = collections.Counter()
     for a in accounts:
@@ -391,7 +373,7 @@ def build(out_path: Path) -> None:
         <tr><td class="name">声优</td><td><code>category: seiyuu</code></td><td class="num">{len(seiyuu)}</td><td>声优版</td><td>{people} 人 ／ {len(seiyuu)} 条：主号 {sum(1 for a in seiyuu if a.get("role")=="main")}、小号 {sum(1 for a in seiyuu if a.get("role")=="sub")}、告知号 {sum(1 for a in seiyuu if a.get("role")=="announce")}、社团号 {len(circle_role_live)}、其它 {sum(1 for a in seiyuu if a.get("role")=="other")}。同一人多号时 <code>role</code> 区分。</td></tr>
         <tr><td class="name">同人音声社团</td><td><code>category: circle</code></td><td class="num">{len(circles)}</td><td>声优版</td><td>2026-10-25 从 swsem 的 1,450 家里筛出（近三年 &gt; 5 部）344 家，其中 116 家拿到 X 账号，109 家进名单。<strong>2026-10-29 起全部 <code>active: true</code></strong>，和声优同版出。</td></tr>
         <tr><td class="name">游戏制造商</td><td><code>category: manufacturer</code></td><td class="num">{len(makers)}</td><td>Galgame 版</td><td>{sum(1 for a in makers if a.get("role")=="brand")} 个厂商官号（<code>role: brand</code>）+ 1 个非厂商（Moepedia，情报站，<code>role: other</code>）。同社多品牌写在 <code>note</code> 里，一个 handle 一条。</td></tr>
-        <tr><td class="name">游戏信息账号</td><td><code>category: info</code></td><td class="num">{len(info_live)}</td><td>Galgame 版</td><td>2026-10-29 新建这个 category，先启用三个个人向信息号（{"、".join("<code>@" + a["handle"] + "</code>" for a in info_live)}）。另有 {len(info_personal) + len(info_platform)} 个候选还在报告里，见第 4 节。</td></tr>
+        <tr><td class="name">游戏信息账号</td><td><code>category: info</code></td><td class="num">{len(info_live)}</td><td>Galgame 版</td><td>2026-10-29 新建这个 category，启用五个：三个个人向（<code>@seiya_saiga</code> / <code>@youtan0309</code> / <code>@aikouka23</code>）+ 两个媒体号（<code>@getchucom</code> 发售日历、<code>@bugbug_info</code> 新作介绍）。媒体号走 <code>keep_if</code> 白名单，只收指定内容；其余媒体号不加。另有 {len(info_personal)} 个个人向候选留表待议，见第 4 节。</td></tr>
       </tbody>
     </table>
   </div>
@@ -399,7 +381,7 @@ def build(out_path: Path) -> None:
   <div class="note-box">
     <p><strong>「在用」只看一个字段。</strong><code>scripts/sync_xreader_accounts.py</code> 只判断 <code>active != false</code>，把 handle 按名单顺序写成 X-Reader 的 <code>accounts.yaml</code> / <code>accounts.galgame.yaml</code>；<code>category</code> 不参与抓不抓，它只决定条目落在日报页哪个栏目。现在两版合计 <strong>{len(accounts)} 个账号全部 <code>active: true</code></strong>，待选 0——剩下 {n_candidates} 个是「核实过但还没写进 JSON」的候选，不在这两份名单里。</p>
     <p><strong>标签是名单里的原值，不是我加的。</strong>两版合并后只出现 {len(tag_counts)} 种：{tag_line}。候选那 {n_candidates} 条还没进 JSON，标签是我按来源报告补的临时标识（<code>游戏情报</code>／<code>厂商侧</code> 等），入册时要换成正式标签。</p>
-    <p><strong>抓取已经拆成两个 workflow。</strong>声优版 237 个账号跑 <code>update.yml</code>（超时线放宽到 30 分钟），Galgame 版 177 个跑 <code>update-galgame.yml</code>（<code>data-galgame</code> 独立目录）。两版互不阻塞，也避免同时 <code>git add data</code> 打架。</p>
+    <p><strong>抓取已经拆成两个 workflow。</strong>声优版 237 个账号跑 <code>update.yml</code>（超时线放宽到 30 分钟），Galgame 版 {len(makers) + len(info_live)} 个跑 <code>update-galgame.yml</code>（<code>data-galgame</code> 独立目录）。两版互不阻塞，也避免同时 <code>git add data</code> 打架。</p>
   </div>
 
   <h2 id="seiyuu">1 声优：{len(seiyuu)} 条（{people} 人）· 声优版 · 全部在用</h2>
@@ -439,7 +421,7 @@ def build(out_path: Path) -> None:
   <p class="legend">第 1 条 <code>@Moepedia_net</code> 不是厂商，是作品情报站（tags：资料站／作品情报），因为月度新作日历靠它才挂在 manufacturer 下。它广告味重，走名单里的 <code>filter</code> 段降噪：抽奖、店铺特典、周年回顾、发售日回顾全筛掉，每期最多 5 条。</p>
 
   <h2 id="info">4 游戏信息账号：在用 {len(info_live)} · Galgame 版</h2>
-  <p>这一类 2026-10-29 才有自己的 <code>category: info</code>，只启用三个个人向信息号；其余候选还停在报告里，没进 JSON。</p>
+  <p>这一类 2026-10-29 才有自己的 <code>category: info</code>，启用五个：三个个人向 + 两个媒体号。媒体号只收指定内容，走 <code>keep_if</code> 白名单——黑名单列不全「不要什么」，而媒体号一天几十条，杂谈、店铺广告、转发抽奖混在一起。</p>
 
   <h3>4.1 在用（{len(info_live)}）</h3>
   <div class="scroll" style="max-height:none">
@@ -450,10 +432,10 @@ def build(out_path: Path) -> None:
       </tbody>
     </table>
   </div>
-  <p class="legend">三个都在 <code>daily-roster-galgame.json</code> 里挂了 <code>filter</code>：<code>max_items: 5</code> + <code>prefer_if</code>（新作／発売／体験版／予約…）。信息号发帖频次高，不限量会把厂商官号挤掉。Moepedia 仍挂 manufacturer，不重复计入这里。</p>
+  <p class="legend">五个都挂了 <code>filter</code>。三个个人向是 <code>max_items: 5</code> + <code>prefer_if</code>（只排序，不设必要条件）；两个媒体号是 <code>keep_if</code> 白名单——<code>@getchucom</code> 只收预约／发售／体验版／特典／倒数／CG 更新／周年，<code>@bugbug_info</code> 只收新作／介绍／周年，其余一律不入。上限分别 8 条与 5 条：信息号发帖频次高，不限量会把厂商官号挤掉。Moepedia 仍挂 manufacturer，不重复计入这里。</p>
 
   <h3>4.2 待选·个人向信息号（{len(info_personal)}）</h3>
-  <p>定位是「有人在替读者做筛选」：原创感想 + 新作／旧作情报 + 回顾，会和业界、玩家来回互动。不是声优，不是厂商官号。</p>
+  <p>定位是「有人在替读者做筛选」：原创感想 + 新作／旧作情报 + 回顾，会和业界、玩家来回互动。不是声优，不是厂商官号。这四个 2026-10-29 决定<strong>先存着</strong>，等 M5（日报配图）做完再议。</p>
   <div class="scroll">
     <table>
       <thead><tr><th>#</th><th>名称</th><th>X 账号</th><th class="num">粉丝</th><th class="num">最近发帖</th><th>标签</th><th>发什么</th></tr></thead>
@@ -463,19 +445,11 @@ def build(out_path: Path) -> None:
     </table>
   </div>
 
-  <h3>4.3 待选·平台／媒体官方号（{len(info_platform)}）</h3>
-  <p>量和噪音都更大。真正每天值得抓的是 <code>@getchucom</code>（发售日历）和 <code>@bugbug_info</code>（新作介绍），其余按「补哪个栏目」再决定。</p>
-  <div class="scroll">
-    <table>
-      <thead><tr><th>#</th><th>名称</th><th>X 账号</th><th class="num">粉丝</th><th class="num">最近发帖</th><th>标签</th><th>发什么</th></tr></thead>
-      <tbody>
-        {"".join(candidate_rows(info_platform))}
-      </tbody>
-    </table>
-  </div>
+  <h3>4.3 其余媒体号：不加</h3>
+  <p>2026-10-29 的决定：媒体号只留 <code>@getchucom</code> 与 <code>@bugbug_info</code>，其余不再考虑——<code>@DLsite</code>（同人占比高）、<code>@akibablog</code>（几乎全转推）、<code>@FANZA_NEWS</code>（业界新闻）、<code>@megastore_info</code>（月更）、<code>@newakiba</code>（内容杂）。候选表里已经删掉，不留「待选」这个模糊状态。</p>
 
   <h2 id="vendor">5 待选·厂商侧个人号：{len(VENDOR_PEOPLE)}</h2>
-  <p>这一栏的人是「被报道的对象」，不是报道者。抓进来是为了在日报里出现「某人的新作动向」时能引到本人发言，而不是每天产出条目——入册时每条要挂 <code>max_items: 1</code>，否则一天五条日常会把厂商栏目挤掉。类别上归在「游戏制造商」这一大类的侧翼，名单里建议新增 <code>scenario</code> / <code>director</code> / <code>owner</code> 三个 role。</p>
+  <p>这一栏的人是「被报道的对象」，不是报道者。抓进来是为了在日报里出现「某人的新作动向」时能引到本人发言，而不是每天产出条目——入册时每条要挂 <code>max_items: 1</code>，否则一天五条日常会把厂商栏目挤掉。类别上归在「游戏制造商」这一大类的侧翼，名单里建议新增 <code>scenario</code> / <code>director</code> / <code>owner</code> 三个 role。<strong>2026-10-29 决定先存着，M5 之后再说。</strong></p>
   <div class="scroll">
     <table>
       <thead><tr><th>#</th><th>名称</th><th>X 账号</th><th class="num">粉丝</th><th class="num">最近原创</th><th>所属／代表作</th><th>标签</th><th>发什么</th></tr></thead>
@@ -488,10 +462,10 @@ def build(out_path: Path) -> None:
 
   <h2 id="gaps">6 还差什么（要不要动，你拍板）</h2>
   <div class="note-box">
-    <p><strong>一、厂商侧个人号 14 条还停在报告里。</strong>剧作者 / 导演 / 代表这批人不进名单，日报里就引不到「某人说」的原话。你说过之后再补，所以现在只留表；补的时候除了加 role，还要给每条挂 <code>max_items: 1</code>。</p>
-    <p><strong>二、信息号候选还有 {len(info_personal) + len(info_platform)} 条。</strong>其中 <code>@getchucom</code>（发售日历）与 <code>@bugbug_info</code>（新作介绍）标了「优先」，但都量大、要单独配 filter。加进来会让 Galgame 版从 {len(makers) + len(info_live)} 涨到 {len(makers) + len(info_live) + 2}，仍在 <code>update-galgame.yml</code> 的 20 分钟余量内。</p>
-    <p><strong>三、<code>other</code> 分类两份都空置。</strong>两份 <code>categories</code> 都登记了 <code>other</code>（未归类），实际 0 条。留着是给「以后说不清归哪类」的号兜底，不用急着删。</p>
-    <p><strong>四、名单顶层的 <code>note</code> 要跟着改。</strong>两份 JSON 的 <code>note</code> 已按新口径重写（声优版写「社团全部 active」、Galgame 版写「信息号先启用三个」）。以后改名单结构，记得同步这句，否则下次看名单的人会被旧说明误导。</p>
+    <p><strong>一、两个媒体号的白名单要拿真数据校一遍。</strong><code>keep_if</code> 是按「发售日历」「新作介绍」两条口径写的，还没见过真实条目。第一次跑完 <code>data-galgame/</code> 后要看两件事：① 该进的有没被漏掉（漏了就往 <code>keep_if</code> 加词）；② 白名单里的宽词有没有放进不该进的（<code>@getchucom</code> 的 <code>予約</code> 会把「グッズ予約」也放进来，届时考虑加 <code>drop_if</code>）。<code>generate.json</code> 里有被丢条目的正文预览，直接看得出丢得对不对。</p>
+    <p><strong>二、<code>@Moepedia_net</code> 仍在丢「周年」。</strong>它的 <code>drop_if</code> 里有 <code>周年</code>，当初是为了压「○年前的本日发售」这类周年回顾。既然这两个媒体号现在收「作品 XX 周年」，Moepedia 这条要不要松，得看过真实条目再定——松了可能重新变吵。</p>
+    <p><strong>三、厂商侧个人号 14 条 + 个人向信息号 {len(info_personal)} 条都先存着。</strong>按 2026-10-29 的决定，等 M5（日报配图）做完再议。补的时候个人号每条要挂 <code>max_items: 1</code>，并加 <code>scenario</code> / <code>director</code> / <code>owner</code> role。</p>
+    <p><strong>四、<code>other</code> 分类两份都空置。</strong>两份 <code>categories</code> 都登记了 <code>other</code>（未归类），实际 0 条。留着是给「以后说不清归哪类」的号兜底，不用急着删。</p>
   </div>
 
   <footer>

@@ -89,6 +89,64 @@ class DropPatternTest(unittest.TestCase):
             parse_rule("x", {"drop_if": ["(未闭合"]})
 
 
+class KeepPatternTest(unittest.TestCase):
+    """白名单：媒体号只收某一类内容（`@getchucom` 只要发售日历）。"""
+
+    def setUp(self) -> None:
+        self.rule = parse_rule(
+            "getchucom",
+            {"keep_if": ["予約", "発売", "体験版", "周年"]},
+        )
+
+    def test_hit_is_kept(self) -> None:
+        for text in (
+            "【予約開始】『○○』9月28日発売決定！",
+            "【本日発売】『△△』発売中",
+            "『□□』体験版を公開しました",
+            "『××』20周年記念特設サイト公開",
+        ):
+            with self.subTest(text=text):
+                self.assertEqual(drop_reason(make("1", "getchucom", text), self.rule), "")
+
+    def test_miss_is_dropped(self) -> None:
+        item = make("1", "getchucom", "秋葉原店舗の営業時間変更のお知らせ")
+        self.assertIn("keep_if", drop_reason(item, self.rule))
+
+    def test_keep_if_alone_is_not_an_empty_rule(self) -> None:
+        """只有白名单也是规则——否则 `apply_rules` 会把它当没配置整条跳过。"""
+        self.assertFalse(self.rule.empty)
+        kept, dropped = apply_rules(
+            [make("1", "getchucom", "本日発売"), make("2", "getchucom", "雑談")],
+            {"getchucom": {"keep_if": ["発売"]}},
+        )
+        self.assertEqual([i.native_id for i in kept], ["1"])
+        self.assertEqual(len(dropped), 1)
+
+    def test_drop_if_wins_over_keep_if(self) -> None:
+        """「新作发售，转发抽奖」两个都命中 → 丢。抽奖部分是唯一会过期的东西。"""
+        rule = parse_rule(
+            "getchucom",
+            {"drop_if": ["プレゼント"], "keep_if": ["発売"]},
+        )
+        item = make("1", "getchucom", "本日発売！プレゼントキャンペーンも実施")
+        self.assertIn("プレゼント", drop_reason(item, rule))
+
+    def test_url_does_not_satisfy_keep_if(self) -> None:
+        """链接里带 `release` 不算命中白名单，否则白名单会被 URL 骗过去。"""
+        rule = parse_rule("x", {"keep_if": ["発売"]})
+        item = make("1", "x", "新しいお知らせです https://example.com/housoku")
+        self.assertTrue(drop_reason(item, rule))
+
+    def test_repost_kind_beats_keep_if(self) -> None:
+        rule = parse_rule("x", {"drop_kinds": ["repost"], "keep_if": ["発売"]})
+        item = make("1", "x", "本日発売", kind="repost")
+        self.assertEqual(drop_reason(item, rule), "repost")
+
+    def test_invalid_keep_regex_fails_loudly(self) -> None:
+        with self.assertRaises(ValueError):
+            parse_rule("x", {"keep_if": ["(未闭合"]})
+
+
 class PreferAndCapTest(unittest.TestCase):
     def test_prefer_wins_over_newer(self) -> None:
         """封顶时优先留公告，而不是留最新的那条抽奖。"""
