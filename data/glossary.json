@@ -298,6 +298,22 @@
       "zh": "骗子社",
       "avoid": [],
       "note": "品牌名 Liar-soft。作为文章主题词时译「骗子社」并在首见处加注；只是偶尔提到可保留原名。"
+    },
+    {
+      "ja": "赫炎のインガノック",
+      "zh": "赫炎的印加诺克",
+      "avoid": [
+        "赫炎之Inganock"
+      ],
+      "note": "骗子社蒸汽朋克系列第 1 作。副标题 -what a beautiful people- 保留原文。"
+    },
+    {
+      "ja": "金色ラブリッチェ",
+      "zh": "金辉恋曲四重奏",
+      "avoid": [
+        "金色 Loveriche"
+      ],
+      "note": "SAGA PLANETS 作品。不要半音译成「金色 Loveriche」。"
     }
   ]
 }
