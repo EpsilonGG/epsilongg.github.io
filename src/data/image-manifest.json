@@ -1,6 +1,6 @@
 {
   "$comment": "由 scripts/optimize_images.mjs 生成，请勿手改。",
-  "generatedAt": "2026-10-29T05:19:39.023Z",
+  "generatedAt": "2026-10-30T14:27:38.836Z",
   "images": {
     "/images/blog/bugbug-sca-interview/01.jpg": {
       "w": 1280,
@@ -1368,6 +1368,211 @@
           "w": 670,
           "src": "/images/blog/mages-asada-makoto-interview/11-670.webp",
           "bytes": 45316
+        }
+      ]
+    },
+    "/images/blog/niijima-yu-fortune-world-talklive/01.jpg": {
+      "w": 640,
+      "h": 905,
+      "bytes": 157277,
+      "variants": [
+        {
+          "w": 640,
+          "src": "/images/blog/niijima-yu-fortune-world-talklive/01-640.webp",
+          "bytes": 92936
+        }
+      ]
+    },
+    "/images/blog/niijima-yu-fortune-world-talklive/02.jpg": {
+      "w": 1600,
+      "h": 1131,
+      "bytes": 473804,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/niijima-yu-fortune-world-talklive/02-600.webp",
+          "bytes": 69332
+        },
+        {
+          "w": 960,
+          "src": "/images/blog/niijima-yu-fortune-world-talklive/02-960.webp",
+          "bytes": 134600
+        },
+        {
+          "w": 1600,
+          "src": "/images/blog/niijima-yu-fortune-world-talklive/02-1600.webp",
+          "bytes": 259974
+        }
+      ]
+    },
+    "/images/blog/niijima-yu-fortune-world-talklive/03.jpg": {
+      "w": 1440,
+      "h": 1036,
+      "bytes": 292905,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/niijima-yu-fortune-world-talklive/03-600.webp",
+          "bytes": 40464
+        },
+        {
+          "w": 960,
+          "src": "/images/blog/niijima-yu-fortune-world-talklive/03-960.webp",
+          "bytes": 84558
+        },
+        {
+          "w": 1440,
+          "src": "/images/blog/niijima-yu-fortune-world-talklive/03-1440.webp",
+          "bytes": 155462
+        }
+      ]
+    },
+    "/images/blog/niijima-yu-fortune-world-talklive/04.jpg": {
+      "w": 1280,
+      "h": 720,
+      "bytes": 161364,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/niijima-yu-fortune-world-talklive/04-600.webp",
+          "bytes": 30116
+        },
+        {
+          "w": 960,
+          "src": "/images/blog/niijima-yu-fortune-world-talklive/04-960.webp",
+          "bytes": 56040
+        },
+        {
+          "w": 1280,
+          "src": "/images/blog/niijima-yu-fortune-world-talklive/04-1280.webp",
+          "bytes": 80952
+        }
+      ]
+    },
+    "/images/blog/niijima-yu-fortune-world-talklive/05.jpg": {
+      "w": 1600,
+      "h": 900,
+      "bytes": 256586,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/niijima-yu-fortune-world-talklive/05-600.webp",
+          "bytes": 35628
+        },
+        {
+          "w": 960,
+          "src": "/images/blog/niijima-yu-fortune-world-talklive/05-960.webp",
+          "bytes": 66536
+        },
+        {
+          "w": 1600,
+          "src": "/images/blog/niijima-yu-fortune-world-talklive/05-1600.webp",
+          "bytes": 127918
+        }
+      ]
+    },
+    "/images/blog/niijima-yu-fortune-world-talklive/06.jpg": {
+      "w": 1280,
+      "h": 720,
+      "bytes": 123219,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/niijima-yu-fortune-world-talklive/06-600.webp",
+          "bytes": 22700
+        },
+        {
+          "w": 960,
+          "src": "/images/blog/niijima-yu-fortune-world-talklive/06-960.webp",
+          "bytes": 44266
+        },
+        {
+          "w": 1280,
+          "src": "/images/blog/niijima-yu-fortune-world-talklive/06-1280.webp",
+          "bytes": 69038
+        }
+      ]
+    },
+    "/images/blog/niijima-yu-fortune-world-talklive/07.jpg": {
+      "w": 1600,
+      "h": 900,
+      "bytes": 244706,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/niijima-yu-fortune-world-talklive/07-600.webp",
+          "bytes": 33200
+        },
+        {
+          "w": 960,
+          "src": "/images/blog/niijima-yu-fortune-world-talklive/07-960.webp",
+          "bytes": 60768
+        },
+        {
+          "w": 1600,
+          "src": "/images/blog/niijima-yu-fortune-world-talklive/07-1600.webp",
+          "bytes": 115894
+        }
+      ]
+    },
+    "/images/blog/niijima-yu-fortune-world-talklive/08.jpg": {
+      "w": 1600,
+      "h": 895,
+      "bytes": 234671,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/niijima-yu-fortune-world-talklive/08-600.webp",
+          "bytes": 29752
+        },
+        {
+          "w": 960,
+          "src": "/images/blog/niijima-yu-fortune-world-talklive/08-960.webp",
+          "bytes": 56236
+        },
+        {
+          "w": 1600,
+          "src": "/images/blog/niijima-yu-fortune-world-talklive/08-1600.webp",
+          "bytes": 111106
+        }
+      ]
+    },
+    "/images/blog/niijima-yu-fortune-world-talklive/09.jpg": {
+      "w": 1600,
+      "h": 1134,
+      "bytes": 457520,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/niijima-yu-fortune-world-talklive/09-600.webp",
+          "bytes": 48160
+        },
+        {
+          "w": 960,
+          "src": "/images/blog/niijima-yu-fortune-world-talklive/09-960.webp",
+          "bytes": 113198
+        },
+        {
+          "w": 1600,
+          "src": "/images/blog/niijima-yu-fortune-world-talklive/09-1600.webp",
+          "bytes": 275642
+        }
+      ]
+    },
+    "/images/blog/niijima-yu-fortune-world-talklive/10.png": {
+      "w": 900,
+      "h": 862,
+      "bytes": 85767,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/niijima-yu-fortune-world-talklive/10-600.webp",
+          "bytes": 26516
+        },
+        {
+          "w": 900,
+          "src": "/images/blog/niijima-yu-fortune-world-talklive/10-900.webp",
+          "bytes": 18562
         }
       ]
     },
