@@ -1,0 +1,938 @@
+{
+  "schema_version": 1,
+  "issue": {
+    "id": "261030",
+    "published_at": "2026-10-31T00:40:51.234097+09:00",
+    "window": {
+      "start": "2026-10-30T00:00:00+09:00",
+      "end": "2026-10-31T00:00:00+09:00"
+    },
+    "status": "confirmed",
+    "confirmed_at": "2026-10-30T15:45:41+00:00"
+  },
+  "counts": {
+    "items": 295,
+    "accounts": 83,
+    "late": 2159,
+    "skipped_duplicate": 0
+  },
+  "description": "陽向葵ゅか 的 YouTube 频道申诉被驳回、无法恢复，今后以 Ci-en 与 ニコ生 为主；大山チロル 两作同日开卖",
+  "highlights": [
+    {
+      "text": "陽向葵ゅか 的 YouTube 频道申诉被驳回、确定无法恢复，她请求平台派人工复审，并宣布今后以 Ci-en 与 ニコ生 为中心",
+      "sources": [
+        "x:2115847081449623695",
+        "x:2115960348390084845"
+      ]
+    },
+    {
+      "text": "大山チロル 同日发售两作：桜鎮魂歌 的健身房教练题材与一部学园大小姐题材，另外还录完一个「アホの子」角色，自称是音声作品里的 SSR",
+      "sources": [
+        "x:2116000199869153475",
+        "x:2116000228365263291",
+        "x:2116068082472906773"
+      ]
+    },
+    {
+      "text": "餅梨あむ 的『清楚系書店員さん×偽恋人暗示（解除）』与 Hysterical Doll 的『はじめてのせいきょういく 乙女のたしなみ』同日开卖",
+      "sources": [
+        "x:2115823447398134036",
+        "x:2115840221778710779"
+      ]
+    },
+    {
+      "text": "涼貴涼 出演的「千里さん」达成 500 DL 并登上日榜第三，她说在 10 円 セール 期间拿到这个名次是第一次",
+      "sources": [
+        "x:2115821676072153401"
+      ]
+    }
+  ],
+  "insights": [],
+  "interactions": [
+    {
+      "text": "陽向葵ゅか 频道确定回不来之后，逢坂成美 与 天知遥 都转发了她的说明，逢坂成美 还呼吁大家趁这个机会去登记 Ci-en 与 ニコ生",
+      "sources": [
+        "x:2115960348390084845",
+        "x:2115994997015331063"
+      ]
+    },
+    {
+      "text": "小倉結衣 转发了 柚木つばめ 感谢生誕祭花篮的帖子",
+      "sources": [
+        "x:2115925791716602016"
+      ]
+    }
+  ],
+  "works": [
+    "柚木つばめ 出演的『養花師の背徳愛』本日发售",
+    "大山チロル 出演、桜鎮魂歌 的『ダウナー系クールジムトレーナーと密着搾精トレーニング』发售",
+    "大山チロル 与 かえで君 共演的学园大小姐题材作品发售",
+    "餅梨あむ 出演、非日常性■辱症候群 的『清楚系書店員さん×偽恋人暗示（解除）』发售，她演 更識茉莉花",
+    "餅梨あむ 出演、Hysterical Doll 的『はじめてのせいきょういく 乙女のたしなみ』发售",
+    "浅木式・高梨はなみ・来夢ふらん 出演、にゅうにゅう 的『下町銭湯エルフ混浴物語』发售",
+    "天知遥 特别出演的『同人声優・糸巻まきはファンの身体を使って収録する』开卖",
+    "春乃つくし 在 コンプレックス・ハニー 新作里演精英教练 ミカ，作品开卖",
+    "歩サラ 出演的『トリプルペアリング ミニファンディスク』本日发售，她演 沖田和歌",
+    "歩サラ 出演的『スタディ§ステディ』コンプリートパック 本日发售，她演 墹之上由乃",
+    "みたかりん 出演、MOONSTONE 的『ストレイ・シープと死人の恋 Vol.2』本日发售，她演 水科真琴",
+    "涼貴涼 出演的 CRAVEALL「千里さん」达成 500 DL，并拿到日榜第三",
+    "涼貴涼 出演的新作『卑蜜の入院性活～献身的な君は堕ちていく媚肉～』开始预告",
+    "巨乳大好き屋 的「メンエス嬢は爆乳人妻で元同級生」累计 500 本达成",
+    "巨乳大好き屋 在 FANZA 的 10 円 100 円 促销里首次拿到销量第一",
+    "G-Sound 的 中辻あき「ほろ酔いオナニー」在 DLsite 与 FANZA 上架",
+    "G-Sound 的 月桂樹「洗面器におしっこ」累计 1000 本达成",
+    "オトヨメ 的『エルフパラダイス』总销量突破 1000 本",
+    "ふぁいばーどろっぷ 的『ねぇ、勃ってるでしょ?』累计 10000 本达成",
+    "音声サークル potte 的『甘Sイジワル先輩/後輩とエロ同人みたいなマゾバレあまあまイジワルえっち♡』收藏破 700、预告榜第十，11 月中旬发售",
+    "青春×フェティシズム 的『ドスケベASMRみたいな青春Hを陽キャ彼女の水渡さんと』定于 10/31 发售",
+    "上海飯店 与 ココロノビート 合组的新社团『上海猫々』将在 10/31 深夜推出新作",
+    "スタジオ拘束少女図鑑 的『【粘すぺ】教え子の学生対魔ヒロインズへの性的な口止め要求』开卖，涼貴涼 与 藤村莉央 出演",
+    "へきらぼ 的『常識改変人妻と【偽】純愛SEX【NTR】』成为本周新作"
+  ],
+  "categories": [],
+  "accounts": [
+    "yukanyan2525",
+    "re_re_tsubame",
+    "suzuka_minase",
+    "akinokaedevo",
+    "narumiaisaka",
+    "asuparama40",
+    "mirai_chiroru",
+    "chiroru_o_",
+    "devil_chiroru_v",
+    "mochiri_0909",
+    "harurupanda0827",
+    "ryonarab",
+    "shiho_moai",
+    "__amachi",
+    "322yui3",
+    "ayakaigasaki",
+    "momokar181",
+    "mame_ruse",
+    "asagishiki00",
+    "yuzuki_momoka",
+    "momoka_vtuber",
+    "koyama9haru",
+    "nashihanami",
+    "bee_ryo",
+    "CV_kumoyahachi",
+    "oOYuKiKoOo",
+    "jiaomidsu3187",
+    "kuroseimu_000",
+    "flanklm",
+    "yuzukiakari",
+    "DLyukimidaifuku",
+    "namimimiobot",
+    "mitakarin",
+    "kotoritoko_1015",
+    "nemurinerima",
+    "girlscreationpr",
+    "mmegumu",
+    "ikuraeru",
+    "yukirinrin1191",
+    "my_mimichinchin",
+    "jtjitkub5r_uuka",
+    "haruno_tsukushi",
+    "shimotsukiyuu",
+    "AMAKARAsyndrome",
+    "hekilab",
+    "ayumi_sarah",
+    "potte1919",
+    "aoitokio",
+    "refle_ookami",
+    "maihal_yuu",
+    "ogurayui1017",
+    "runhanami",
+    "shindo_azusa",
+    "Kyonyu0821",
+    "bocchilab2",
+    "G_Sound0721",
+    "pawnlank7",
+    "uninimu",
+    "schildkrote00",
+    "072labo",
+    "okkun_2",
+    "aohachannel",
+    "TodoTodoproduce",
+    "VicornF",
+    "kazutamadoujin",
+    "nyu_nyu_fantasy",
+    "omoomo8818",
+    "otoyome_18",
+    "RomaPro_CR",
+    "tareme4569",
+    "honeylovers_sbe",
+    "ohshimap_new",
+    "cielo20245",
+    "Nyamaretto",
+    "kousoku1118",
+    "milkhuuka",
+    "niinashinjou",
+    "Elysium_ASMR",
+    "skp175",
+    "mahorobaasmr",
+    "quiquiqui",
+    "fiberdrop",
+    "ogami_nt"
+  ],
+  "people": [
+    {
+      "handle": "yukanyan2525",
+      "category": "",
+      "summary": "YouTube 频道申诉被驳回、确定无法恢复，请求平台人工复审，今后以 Ci-en 与 ニコ生 为中心",
+      "via": [],
+      "sources": [
+        "x:2115847081449623695"
+      ]
+    },
+    {
+      "handle": "re_re_tsubame",
+      "category": "",
+      "summary": "『養花師の背徳愛』本日发售，并公开生誕祭「FIRST FLIGHT」感想文后篇，回顾演唱环节",
+      "via": [],
+      "sources": [
+        "x:2115820958049239175",
+        "x:2115923522119975107",
+        "x:2115947384371073227"
+      ]
+    },
+    {
+      "handle": "suzuka_minase",
+      "category": "",
+      "summary": "Ci-en 特典的 Discord 有已连携却进不去的人，她请对方私信 Discord ID 单独处理",
+      "via": [],
+      "sources": [
+        "x:2116098572584468991"
+      ]
+    },
+    {
+      "handle": "akinokaedevo",
+      "category": "",
+      "summary": "读《逃げ若》读到终盘，觉得那些色气描写比情色漫画更色，还表白自己是小笠原貞宗派",
+      "via": [],
+      "sources": [
+        "x:2115965104105943481",
+        "x:2115965317642092664"
+      ]
+    },
+    {
+      "handle": "narumiaisaka",
+      "category": "",
+      "summary": "今天做 Ci-en 与 Skeb；看到 ゅかにゃん 频道回不来，呼吁大家趁机登记 Ci-en 和 ニコ生",
+      "via": [],
+      "sources": [
+        "x:2115940300707463222",
+        "x:2115960348390084845"
+      ]
+    },
+    {
+      "handle": "asuparama40",
+      "category": "",
+      "summary": "大阪酒吧联动改到 11/28，票还有余；有人说她直播像「只觉醒一半辣妹因子的宅女」",
+      "via": [],
+      "sources": [
+        "x:2115996197609697484",
+        "x:2116078881803583635"
+      ]
+    },
+    {
+      "handle": "mirai_chiroru",
+      "category": "",
+      "summary": "健身房教练作与学园大小姐作同日发售，还录完一个「アホの子」角色，自称 SSR",
+      "via": [
+        "chiroru_o_",
+        "devil_chiroru_v"
+      ],
+      "sources": [
+        "x:2116000199869153475",
+        "x:2116000228365263291",
+        "x:2116068082472906773"
+      ]
+    },
+    {
+      "handle": "mochiri_0909",
+      "category": "",
+      "summary": "『清楚系書店員さん×偽恋人暗示（解除）』等两作开卖，31 日夜还安排了恐怖诊断直播",
+      "via": [],
+      "sources": [
+        "x:2115823447398134036",
+        "x:2115840221778710779",
+        "x:2116096647503691796"
+      ]
+    },
+    {
+      "handle": "harurupanda0827",
+      "category": "",
+      "summary": "九月有 7 条引用社团的帖被判违规，11 月起改成只转推加遮住肤色的插图",
+      "via": [
+        "ryonarab"
+      ],
+      "sources": [
+        "x:2115947891357524140",
+        "x:2115947855135551582"
+      ]
+    },
+    {
+      "handle": "shiho_moai",
+      "category": "",
+      "summary": "收到很多点心",
+      "via": [],
+      "sources": [
+        "x:2115861734305235426"
+      ]
+    },
+    {
+      "handle": "__amachi",
+      "category": "",
+      "summary": "在『同人声優・糸巻まきはファンの身体を使って収録する』里特别出演并开卖，还宣传东京游戏地牢14",
+      "via": [],
+      "sources": [
+        "x:2115822716003725657",
+        "x:2115820961509364158"
+      ]
+    },
+    {
+      "handle": "322yui3",
+      "category": "",
+      "summary": "感叹 2026 年只剩 63 天；看到别人被叫「老妈」，说自己也被这么叫惯了",
+      "via": [],
+      "sources": [
+        "x:2115991071071379863",
+        "x:2115988540148592758"
+      ]
+    },
+    {
+      "handle": "ayakaigasaki",
+      "category": "",
+      "summary": "菫ブラン 的出演作开卖；17:30 起参加 キャララ，带上 M3 的余货，Ci-en 也更新了",
+      "via": [],
+      "sources": [
+        "x:2115821458962128946",
+        "x:2116070096489656565",
+        "x:2116100798824222823"
+      ]
+    },
+    {
+      "handle": "momokar181",
+      "category": "",
+      "summary": "忙碌低浮上，仍在推进《テイルズ オブ エターニア》，已到 セレスティア 的 ヴォルト",
+      "via": [],
+      "sources": [
+        "x:2115936568859054369"
+      ]
+    },
+    {
+      "handle": "mame_ruse",
+      "category": "",
+      "summary": "会员限定直播衍生的「色气但脑子里是小学男生的大姐姐」录完了，周末剪辑就发",
+      "via": [],
+      "sources": [
+        "x:2115840000843780596",
+        "x:2115883856121471354"
+      ]
+    },
+    {
+      "handle": "asagishiki00",
+      "category": "",
+      "summary": "『クールJKキメセク堕ち』到 11/12 为止 20%OFF，她也出演了『下町銭湯エルフ混浴物語』",
+      "via": [],
+      "sources": [
+        "x:2116096559683416297",
+        "x:2115820956975337730"
+      ]
+    },
+    {
+      "handle": "yuzuki_momoka",
+      "category": "",
+      "summary": "在 Ci-en 公布『ゴーストバスター≪堕ちヒロインとあまあま幸せ囚われ編≫』，开卖前还带病直播推这部",
+      "via": [
+        "momoka_vtuber"
+      ],
+      "sources": [
+        "x:2116002182000792009",
+        "x:2116031745208537182",
+        "x:2115824913433120775"
+      ]
+    },
+    {
+      "handle": "koyama9haru",
+      "category": "",
+      "summary": "把自由声优的委托窗口、样本音、通贩与 2026 秋 M3 交叉淡入一次贴齐",
+      "via": [],
+      "sources": [
+        "x:2116072037039153531",
+        "x:2116072042726560163"
+      ]
+    },
+    {
+      "handle": "nashihanami",
+      "category": "",
+      "summary": "在『下町銭湯エルフ混浴物語』里演银发精灵 サラ，作品本日发售",
+      "via": [],
+      "sources": [
+        "x:2116034548157092033"
+      ]
+    },
+    {
+      "handle": "bee_ryo",
+      "category": "",
+      "summary": "庆祝「千里さん」500 DL 与日榜第三，新作『卑蜜の入院性活』的预告也开了",
+      "via": [],
+      "sources": [
+        "x:2115821676072153401",
+        "x:2116104644862869524"
+      ]
+    },
+    {
+      "handle": "CV_kumoyahachi",
+      "category": "",
+      "summary": "生日直播请来 逢坂成美、涼花みなせ、浅木式 当嘉宾；BOXMAN v1.1 的日语配音也上线",
+      "via": [],
+      "sources": [
+        "x:2116061389609701682",
+        "x:2115821272064246178"
+      ]
+    },
+    {
+      "handle": "oOYuKiKoOo",
+      "category": "",
+      "summary": "",
+      "via": [],
+      "sources": [
+        "x:2115942277457801480"
+      ]
+    },
+    {
+      "handle": "jiaomidsu3187",
+      "category": "",
+      "summary": "因家人会面回信会慢，31 日起陆续处理；夜里还烤了面包、做了红薯塔",
+      "via": [
+        "kuroseimu_000"
+      ],
+      "sources": [
+        "x:2115829730423538002",
+        "x:2116054220759871837"
+      ]
+    },
+    {
+      "handle": "flanklm",
+      "category": "",
+      "summary": "花粉症的药是「我就是草莓」气势的草莓味，吓了一跳",
+      "via": [],
+      "sources": [
+        "x:2116020519200084347"
+      ]
+    },
+    {
+      "handle": "yuzukiakari",
+      "category": "",
+      "summary": "交付了一件 Skeb，说虽然难但很开心",
+      "via": [],
+      "sources": [
+        "x:2115883888769978530"
+      ]
+    },
+    {
+      "handle": "DLyukimidaifuku",
+      "category": "",
+      "summary": "Fantia 一天更新两次，都是万圣节魅魔造型的写真集",
+      "via": [],
+      "sources": [
+        "x:2115820979402518996",
+        "x:2116089855461798021"
+      ]
+    },
+    {
+      "handle": "namimimiobot",
+      "category": "",
+      "summary": "聊「Niconico 动画像淫梦」的现状与 M!LK 二创的分寸，也顺带夸了兔子",
+      "via": [],
+      "sources": [
+        "x:2115823228073701812",
+        "x:2116001854790553786"
+      ]
+    },
+    {
+      "handle": "mitakarin",
+      "category": "",
+      "summary": "MOONSTONE『ストレイ・シープと死人の恋 Vol.2』本日发售，她继续演水科真琴",
+      "via": [],
+      "sources": [
+        "x:2116003462748189134",
+        "x:2115986251002323069"
+      ]
+    },
+    {
+      "handle": "kotoritoko_1015",
+      "category": "",
+      "summary": "出演 性癖孫の手研究室 11/1 发售的新作；生日周边到 10/31 23:59 截止",
+      "via": [],
+      "sources": [
+        "x:2116033140850663589",
+        "x:2116052383524610151"
+      ]
+    },
+    {
+      "handle": "nemurinerima",
+      "category": "",
+      "summary": "YouTube 一周年，开了棉花糖杂谈直播",
+      "via": [],
+      "sources": [
+        "x:2115950742481801598"
+      ]
+    },
+    {
+      "handle": "girlscreationpr",
+      "category": "",
+      "summary": "三周年第二弹活动『【A.S.】天才を突き動かすもの』31 日开始",
+      "via": [],
+      "sources": [
+        "x:2116002159389241430",
+        "x:2116024930139857300"
+      ]
+    },
+    {
+      "handle": "mmegumu",
+      "category": "",
+      "summary": "月末工口游戏日，转推 はむはむソフト 的『ハイアングル』",
+      "via": [],
+      "sources": [
+        "x:2115828093151817803"
+      ]
+    },
+    {
+      "handle": "ikuraeru",
+      "category": "",
+      "summary": "玩 たまごっち 诊断测出「ちょどらこっち」，也转推了 DLsite 30 周年",
+      "via": [],
+      "sources": [
+        "x:2115867691819184607",
+        "x:2116003658399928465"
+      ]
+    },
+    {
+      "handle": "yukirinrin1191",
+      "category": "",
+      "summary": "31 日 13:10 起在 withny 开万圣节直播，收藏数达标就发 cos 照",
+      "via": [],
+      "sources": [
+        "x:2116091615614013509",
+        "x:2116093111080558828"
+      ]
+    },
+    {
+      "handle": "my_mimichinchin",
+      "category": "",
+      "summary": "脖子淋巴肿了在家围围巾静养，10 月截稿的录音已结束，今天只做检查",
+      "via": [],
+      "sources": [
+        "x:2116033539343020529",
+        "x:2116033695123718405"
+      ]
+    },
+    {
+      "handle": "jtjitkub5r_uuka",
+      "category": "",
+      "summary": "『女子12人 キス特化♡』开卖，28 天半价",
+      "via": [],
+      "sources": [
+        "x:2115822044390863137"
+      ]
+    },
+    {
+      "handle": "haruno_tsukushi",
+      "category": "",
+      "summary": "在 コンプレックス・ハニー 新作演精英教练 ミカ 开卖，自家社团新作预告也公开",
+      "via": [],
+      "sources": [
+        "x:2115923016651858375",
+        "x:2115927911370981872"
+      ]
+    },
+    {
+      "handle": "shimotsukiyuu",
+      "category": "",
+      "summary": "以为卖完了，去书店一看还有",
+      "via": [],
+      "sources": [
+        "x:2116085050131595401"
+      ]
+    },
+    {
+      "handle": "AMAKARAsyndrome",
+      "category": "",
+      "summary": "『湿度高めなえっぐい囁き淫語で性なる支配』到 11/12 为止半价；へきらぼ 本周新作是 NTR 纯爱",
+      "via": [
+        "hekilab"
+      ],
+      "sources": [
+        "x:2116047515560935559",
+        "x:2115991631929491595"
+      ]
+    },
+    {
+      "handle": "ayumi_sarah",
+      "category": "",
+      "summary": "『トリプルペアリング ミニFD』与『スタディ§ステディ』CP 同日发售；自家 potte 新作收藏破 700",
+      "via": [
+        "potte1919"
+      ],
+      "sources": [
+        "x:2116063955772989803",
+        "x:2116076434624319558",
+        "x:2116097619386900730"
+      ]
+    },
+    {
+      "handle": "aoitokio",
+      "category": "",
+      "summary": "明天的准备做完了，路上拆 カービィ 巧克力蛋抽到 ワドルディ",
+      "via": [],
+      "sources": [
+        "x:2115832124683219419",
+        "x:2115992014240252098"
+      ]
+    },
+    {
+      "handle": "refle_ookami",
+      "category": "",
+      "summary": "对节目把「アンビリバボー」打成「アンバビボリー」忍不住吐槽",
+      "via": [],
+      "sources": [
+        "x:2116007819241742638"
+      ]
+    },
+    {
+      "handle": "maihal_yuu",
+      "category": "",
+      "summary": "接单排到 2027/1/15 以后，急件也接；久违地开了自由谈话直播",
+      "via": [],
+      "sources": [
+        "x:2115980651560423437",
+        "x:2115988469952757767"
+      ]
+    },
+    {
+      "handle": "ogurayui1017",
+      "category": "",
+      "summary": "转推 柚木つばめ 的花篮答谢，自己则惊讶 ピカチュウ 的毛这么蓬",
+      "via": [],
+      "sources": [
+        "x:2115925791716602016",
+        "x:2115932957852700794"
+      ]
+    },
+    {
+      "handle": "runhanami",
+      "category": "",
+      "summary": "Skeb 全部交付完毕，之后也常时接单",
+      "via": [],
+      "sources": [
+        "x:2116103566591246495"
+      ]
+    },
+    {
+      "handle": "shindo_azusa",
+      "category": "",
+      "summary": "人气新作的折扣下周结束；今天自嘲没本事，请大家在回复里夸她",
+      "via": [],
+      "sources": [
+        "x:2115975199653085630",
+        "x:2116098011768168604"
+      ]
+    },
+    {
+      "handle": "Kyonyu0821",
+      "category": "",
+      "summary": "「メンエス嬢」达成 500 本，还在 FANZA 10 円 100 円 促销里首次拿到第一",
+      "via": [],
+      "sources": [
+        "x:2115938001083916613",
+        "x:2115946608097636680"
+      ]
+    },
+    {
+      "handle": "bocchilab2",
+      "category": "",
+      "summary": "宮内りるる 新作 11/1 公开，预告已上；旧作也突破 100 本",
+      "via": [],
+      "sources": [
+        "x:2115951934297530403",
+        "x:2116064056167579662"
+      ]
+    },
+    {
+      "handle": "G_Sound0721",
+      "category": "",
+      "summary": "中辻あき「ほろ酔いオナニー」上架，月桂樹 那部破 1000 本，另发四支预告",
+      "via": [],
+      "sources": [
+        "x:2115828574511079852",
+        "x:2115891500542501332",
+        "x:2116070133361963036"
+      ]
+    },
+    {
+      "handle": "pawnlank7",
+      "category": "",
+      "summary": "转推 B-bishop 新作与 CRAVEALL 的巫女作",
+      "via": [],
+      "sources": [
+        "x:2115878769881927706",
+        "x:2115878799942578666"
+      ]
+    },
+    {
+      "handle": "uninimu",
+      "category": "",
+      "summary": "抓到一只异色的 デカヌチャン",
+      "via": [],
+      "sources": [
+        "x:2116015555148972198"
+      ]
+    },
+    {
+      "handle": "schildkrote00",
+      "category": "",
+      "summary": "预告出来了，只回了句「笑眯眯」",
+      "via": [],
+      "sources": [
+        "x:2116062573514870946"
+      ]
+    },
+    {
+      "handle": "072labo",
+      "category": "",
+      "summary": "播客「我慢できるかな？」更新，这期嘉宾是 椎名怜",
+      "via": [],
+      "sources": [
+        "x:2116018694656766008"
+      ]
+    },
+    {
+      "handle": "okkun_2",
+      "category": "",
+      "summary": "只转推了一条「おじさんにやられちゃった…」的短视频，自己没多说什么",
+      "via": [],
+      "sources": [
+        "x:2115955611674485220"
+      ]
+    },
+    {
+      "handle": "aohachannel",
+      "category": "",
+      "summary": "『ドスケベASMRみたいな青春Hを陽キャ彼女の水渡さんと』31 日发售，今夜 24 时见",
+      "via": [],
+      "sources": [
+        "x:2115820970606764440",
+        "x:2116092748348699117"
+      ]
+    },
+    {
+      "handle": "TodoTodoproduce",
+      "category": "",
+      "summary": "四部同时购入九折优惠与抽奖活动都在进行，10/31 截止",
+      "via": [],
+      "sources": [
+        "x:2115917039760277515"
+      ]
+    },
+    {
+      "handle": "VicornF",
+      "category": "",
+      "summary": "游戏主线女主们的剧情终于快写完了",
+      "via": [],
+      "sources": [
+        "x:2115962874816606524"
+      ]
+    },
+    {
+      "handle": "kazutamadoujin",
+      "category": "",
+      "summary": "感叹 パトリック・スチュワート 去世",
+      "via": [],
+      "sources": [
+        "x:2116064464185495667"
+      ]
+    },
+    {
+      "handle": "nyu_nyu_fantasy",
+      "category": "",
+      "summary": "『下町銭湯エルフ混浴物語』上架，第一次走这套设定流程，改了好几次申请",
+      "via": [],
+      "sources": [
+        "x:2115820956975337730",
+        "x:2115821939839385618"
+      ]
+    },
+    {
+      "handle": "omoomo8818",
+      "category": "",
+      "summary": "转推 300c.c.『おもにばす』预告，说赛博朋克很好看",
+      "via": [],
+      "sources": [
+        "x:2116073321519628504",
+        "x:2116077468838965561"
+      ]
+    },
+    {
+      "handle": "otoyome_18",
+      "category": "",
+      "summary": "『エルフパラダイス』总销量破 1000 本，体验版在 Ci-en 免费公开",
+      "via": [],
+      "sources": [
+        "x:2116093213572256212",
+        "x:2116101055050317961"
+      ]
+    },
+    {
+      "handle": "RomaPro_CR",
+      "category": "",
+      "summary": "在 Ci-en 更新 小山内にい 原作『自慰復讐』游戏化的进度，这次讲流程与 H 场景",
+      "via": [],
+      "sources": [
+        "x:2116092794452549832"
+      ]
+    },
+    {
+      "handle": "tareme4569",
+      "category": "",
+      "summary": "新作催眠音声开卖，CV 陽向葵ゅか、Extra 大山チロル 与 涼花みなせ，11/19 前有早期特典",
+      "via": [],
+      "sources": [
+        "x:2116047799985086973",
+        "x:2116047818033111171"
+      ]
+    },
+    {
+      "handle": "honeylovers_sbe",
+      "category": "",
+      "summary": "感谢大家的应援，说以后也请多支持",
+      "via": [],
+      "sources": [
+        "x:2116042753788584418"
+      ]
+    },
+    {
+      "handle": "ohshimap_new",
+      "category": "",
+      "summary": "年内还要写三个剧本，并明确说自家作品不会用 AI",
+      "via": [],
+      "sources": [
+        "x:2115838820428222521",
+        "x:2115878913604006279"
+      ]
+    },
+    {
+      "handle": "cielo20245",
+      "category": "",
+      "summary": "惊讶成人商业志里居然能这样用跨页，说这是编辑的提案",
+      "via": [],
+      "sources": [
+        "x:2115999861464310173"
+      ]
+    },
+    {
+      "handle": "Nyamaretto",
+      "category": "",
+      "summary": "发售纪念活动的截止是明天 10/31",
+      "via": [],
+      "sources": [
+        "x:2115981538181759443"
+      ]
+    },
+    {
+      "handle": "kousoku1118",
+      "category": "",
+      "summary": "『【粘すぺ】教え子の学生対魔ヒロインズへの性的な口止め要求』开卖，涼貴涼 演 カルミア",
+      "via": [],
+      "sources": [
+        "x:2116026087780344037"
+      ]
+    },
+    {
+      "handle": "milkhuuka",
+      "category": "",
+      "summary": "「イク家畜」突破 3150 DL，顺势把三部色气作一起推",
+      "via": [],
+      "sources": [
+        "x:2116073604148506701",
+        "x:2115841591139033424"
+      ]
+    },
+    {
+      "handle": "niinashinjou",
+      "category": "",
+      "summary": "看《アイカツプラネット》21 话，二周目更爱 月城愛弓 了",
+      "via": [],
+      "sources": [
+        "x:2116098281646268505",
+        "x:2115951207248458034"
+      ]
+    },
+    {
+      "handle": "Elysium_ASMR",
+      "category": "",
+      "summary": "发现自己比起假喘，更喜欢被直说「不舒服」，自称抖 M",
+      "via": [],
+      "sources": [
+        "x:2115842677136871560"
+      ]
+    },
+    {
+      "handle": "skp175",
+      "category": "",
+      "summary": "看到 オカズボランティア部 的周边解禁，兴奋地数挂轴和徽章",
+      "via": [],
+      "sources": [
+        "x:2116087328548835539",
+        "x:2116097656133194008"
+      ]
+    },
+    {
+      "handle": "mahorobaasmr",
+      "category": "",
+      "summary": "簡体・繁体中文版预告同时公开，CV 涼貴涼",
+      "via": [],
+      "sources": [
+        "x:2116092756489884116",
+        "x:2116093009456722366"
+      ]
+    },
+    {
+      "handle": "quiquiqui",
+      "category": "",
+      "summary": "上海飯店 与 ココロノビート 合作的新社团『上海猫々』，31 日 24 时出新作",
+      "via": [],
+      "sources": [
+        "x:2115838680254619806",
+        "x:2116077692433101208"
+      ]
+    },
+    {
+      "handle": "fiberdrop",
+      "category": "",
+      "summary": "『ねぇ、勃ってるでしょ?』达成 10000 本",
+      "via": [],
+      "sources": [
+        "x:2116094314157936861"
+      ]
+    },
+    {
+      "handle": "ogami_nt",
+      "category": "",
+      "summary": "浅木式 主演的新作『毒舌クールなクイーンサキュバスさま』预告公开",
+      "via": [],
+      "sources": [
+        "x:2116096454360228270",
+        "x:2116097036378612049"
+      ]
+    }
+  ],
+  "provenance": {
+    "generator": "daily",
+    "prompt_version": 1,
+    "cache_key": "answers:1",
+    "generated_at": "2026-10-30T15:45:40+00:00"
+  }
+}
