@@ -39,6 +39,11 @@ export const about: AboutConfig = {
       href: 'https://github.com/EpsilonGG/X-Reader',
       description: '抓取 X、RSS 与 YouTube 的更新，推送到 Telegram 和 QQ。',
     },
+    {
+      title: 'blog-template',
+      href: 'https://github.com/EpsilonGG/blog-template',
+      description: '本站的主页模板：首页 / 名片 / 链接库 / 笔记，笔记自带一篇语法总览，改几个 JSON 就能上线。',
+    },
   ],
   experience: [
     {

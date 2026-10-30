@@ -20,6 +20,7 @@ Life Science ｜ Vibe Coding ｜ Galgame ｜ Doujin ASMR
 
 - **[X-rss](https://github.com/EpsilonGG/X-rss)** — 基于 Actions 的 X / Twitter RSS 聚合器
 - **[X-Reader](https://github.com/EpsilonGG/X-Reader)** — 抓取 X、RSS 与 YouTube，推送 TG / QQ
+- **[blog-template](https://github.com/EpsilonGG/blog-template)** — 这个站的模板版：Astro 静态主页，改几个 JSON 就能换成你的
 
 ## 个人站点导航
 

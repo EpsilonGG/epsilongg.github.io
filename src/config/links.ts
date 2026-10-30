@@ -101,6 +101,12 @@ export const linkGroups: LinkGroup[] = [
         description: '抓取 X、RSS 与 YouTube 的更新，推送到 Telegram 和 QQ。',
         meta: 'Python',
       },
+      {
+        label: 'blog-template',
+        href: 'https://github.com/EpsilonGG/blog-template',
+        description: '这个站的模板版：Astro 静态主页，去掉日报，笔记只留一篇语法总览。',
+        meta: 'Astro',
+      },
     ],
   },
   {
