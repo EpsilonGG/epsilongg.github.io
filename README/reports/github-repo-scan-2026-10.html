@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GitHub 仓库扫描 · 五个人 · 2026-10</title>
+<style>
+  :root {
+    --bg: #ffffff;
+    --fg: #111111;
+    --muted: #6b6b6b;
+    --line: #e5e5e5;
+    --soft: #f6f6f6;
+    --accent: #111111;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    padding: 56px 24px 96px;
+    background: var(--bg);
+    color: var(--fg);
+    font: 15px/1.75 -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+          "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 1020px; margin: 0 auto; }
+
+  header.top { border-bottom: 2px solid var(--fg); padding-bottom: 22px; margin-bottom: 40px; }
+  h1 { font-size: 30px; line-height: 1.3; margin: 0 0 10px; letter-spacing: -0.3px; }
+  .sub { color: var(--muted); font-size: 14px; }
+  .kpis { display: flex; flex-wrap: wrap; gap: 28px; margin-top: 22px; }
+  .kpi b { display: block; font-size: 22px; font-weight: 600; }
+  .kpi span { font-size: 12px; color: var(--muted); letter-spacing: .04em; }
+
+  .note {
+    background: var(--soft); border-left: 3px solid #c9c9c9;
+    padding: 14px 18px; margin: 0 0 44px; font-size: 14px; color: #333;
+  }
+  .note b { font-weight: 600; }
+
+  section.person { margin-bottom: 54px; }
+  .phead { display: flex; align-items: baseline; flex-wrap: wrap; gap: 12px; margin-bottom: 6px; }
+  .phead h2 { font-size: 21px; margin: 0; letter-spacing: -0.2px; }
+  .phead .handle { font-size: 13px; color: var(--muted); font-weight: 400; }
+  .phead .num { margin-left: auto; font-size: 12px; color: var(--muted); }
+  .persona { margin: 0 0 22px; color: #333; max-width: 76ch; }
+  .persona em { font-style: normal; border-bottom: 1px solid #bbb; }
+
+  .group { margin-bottom: 22px; }
+  .group h3 {
+    font-size: 12px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase;
+    color: var(--muted); margin: 0 0 10px; padding-bottom: 6px; border-bottom: 1px solid var(--line);
+  }
+  ul.repos { list-style: none; margin: 0; padding: 0; }
+  ul.repos li {
+    display: grid; grid-template-columns: 250px 1fr; gap: 6px 22px;
+    padding: 11px 0; border-bottom: 1px solid #f0f0f0;
+  }
+  ul.repos li:last-child { border-bottom: none; }
+  ul.repos a { color: var(--fg); font-weight: 600; text-decoration: none; word-break: break-all; }
+  ul.repos a:hover { text-decoration: underline; text-underline-offset: 3px; }
+  .meta { display: block; font-size: 12px; color: var(--muted); margin-top: 2px; font-weight: 400; }
+  .meta .star { color: #111; }
+  ul.repos p { margin: 0; color: #3a3a3a; font-size: 14px; }
+  li.dim a, li.dim p { color: #8a8a8a; }
+  li.dim a { font-weight: 500; }
+
+  .ideas { border-top: 2px solid var(--fg); padding-top: 26px; margin-top: 60px; }
+  .ideas h2 { font-size: 21px; margin: 0 0 6px; }
+  .ideas > p { color: var(--muted); font-size: 14px; margin: 0 0 26px; }
+  ol.idea { margin: 0; padding-left: 22px; }
+  ol.idea > li { margin-bottom: 18px; }
+  ol.idea b { font-weight: 600; }
+  ol.idea .from { font-size: 12px; color: var(--muted); }
+  .habits { margin-top: 34px; background: var(--soft); padding: 20px 24px; }
+  .habits h3 { font-size: 13px; letter-spacing: .08em; text-transform: uppercase; margin: 0 0 12px; color: var(--muted); }
+  .habits ul { margin: 0; padding-left: 20px; }
+  .habits li { margin-bottom: 8px; font-size: 14px; }
+
+  footer { margin-top: 56px; padding-top: 18px; border-top: 1px solid var(--line); font-size: 12px; color: var(--muted); }
+
+  @media (max-width: 720px) {
+    body { padding: 32px 16px 64px; }
+    ul.repos li { grid-template-columns: 1fr; gap: 2px; }
+    .phead .num { margin-left: 0; width: 100%; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="top">
+  <h1>GitHub 仓库扫描：五个账号，81 个仓库</h1>
+  <div class="sub">扫描时间 2026-10-30 · 按「这个人拿 GitHub 干什么」分组，不是按 star 排</div>
+  <div class="kpis">
+    <div class="kpi"><b>5 / 6</b><span>可访问账号</span></div>
+    <div class="kpi"><b>81</b><span>仓库（含 fork）</span></div>
+    <div class="kpi"><b>~4.2k</b><span>stars，几乎全在 KunMoe</span></div>
+    <div class="kpi"><b>9</b><span>有独立域名的线上站</span></div>
+  </div>
+</header>
+
+<div class="note">
+  <b>elentokei 没扫到。</b>GitHub 用户页、用户搜索、Gitee 全部 404，也试了 <code>ElenToki</code> / <code>elen-tokei</code> / <code>elen_tokei</code> 等变体。要么是改名了（改名后旧链接通常仍会跳转，所以更像拼写不同），要么这个人在别的平台。给我个主页链接或者他做过的仓库名，我补上。
+</div>
+
+<!-- ============ KunMoe ============ -->
+<section class="person">
+  <div class="phead">
+    <h2>KUN</h2><span class="handle">@KunMoe · 510 followers</span>
+    <span class="num">29 仓库 · ~4.2k stars</span>
+  </div>
+  <p class="persona">六个人里唯一在做<em>真产品</em>的：一整套 Galgame 站群，论坛、补丁站、表情包站、导航、OAuth、管理后台各自独立仓库，共用一套账号体系。技术栈换得很勤——Koa→Go Fiber、Vue→Nuxt→Next→SolidStart，明显在拿真实项目试框架。也是唯一有运维向项目的人。</p>
+
+  <div class="group">
+    <h3>站群主线（有域名、有用户）</h3>
+    <ul class="repos">
+      <li><a href="https://github.com/KunMoe/kun-galgame-forum">kun-galgame-forum</a><span class="meta">Go · Nuxt4 · PostgreSQL <span class="star">★2191</span></span><p>第六代论坛。Nuxt4 前端 + Go Fiber 后端 + PostgreSQL/Redis，Docker 部署。整个站群的门面。</p></li>
+      <li><a href="https://github.com/KunMoe/kun-touchgal-next">kun-touchgal-next</a><span class="meta">TypeScript · Next.js 15 <span class="star">★834</span></span><p>TouchGal 文化社区：论坛 + 下载。Prisma、NextUI、milkdown 编辑器、Cloudflare Workers、S3。</p></li>
+      <li><a href="https://github.com/KunMoe/kun-galgame-patch">kun-galgame-patch</a><span class="meta">Go · Next.js 15 <span class="star">★344</span></span><p>补丁资源站（moyu.moe）。和 TouchGal 同一套模板改出来的第二个站——<b>一套骨架复制成多个站</b>的做法值得看。</p></li>
+      <li><a href="https://github.com/KunMoe/kun-galgame-stickers">kun-galgame-stickers</a><span class="meta">Go · SvelteKit <span class="star">★503</span></span><p>Galgame 表情包仓库 + 检索站（sticker.kungal.com）。用表情包给作品导流，很轻的切入点。</p></li>
+      <li><a href="https://github.com/KunMoe/kun-galgame-nav-solid">kun-galgame-nav-solid</a><span class="meta">SolidStart <span class="star">★40</span></span><p>站群导航页。i18n + 主题切换 + SEO 元数据，小项目但结构完整。</p></li>
+      <li><a href="https://github.com/KunMoe/kun-galgame-oauth-solid-axum">kun-galgame-oauth-solid-axum</a><span class="meta">Rust axum · Solid <span class="star">★3</span></span><p>站群统一 OAuth / OIDC 服务。<b>多站共用登录</b>的最小实现，比上 Keycloak 轻。</p></li>
+      <li><a href="https://github.com/KunMoe/kun-galgame-koa">kun-galgame-koa</a> / <a href="https://github.com/KunMoe/kun-galgame-vue">kun-galgame-vue</a><span class="meta">Koa · MongoDB / Vue3 · Vite <span class="star">★40 / ★95</span></span><p>上一代论坛的前后端，已被 Fiber + Nuxt 取代。可以看两代之间的取舍。</p></li>
+      <li class="dim"><a href="https://github.com/KunMoe/kun-galgame-admin-koa">kun-galgame-admin-koa</a> / <a href="https://github.com/KunMoe/kun-galgame-admin-react-swc">…-react-swc</a><span class="meta">TypeScript <span class="star">★14 / ★14</span></span><p>管理后台的后端与前端两版（React + antd + Vite）。</p></li>
+    </ul>
+  </div>
+
+  <div class="group">
+    <h3>工具与实验</h3>
+    <ul class="repos">
+      <li><a href="https://github.com/KunMoe/kun-domain-monitor">kun-domain-monitor</a><span class="meta">Nuxt4 · Nitro · Prisma <span class="star">★3</span></span><p><b>这次扫描里最值得抄的一个。</b>用 RDAP 查域名生命周期（正常/宽限/赎回/待删除/可注册），按「离掉落还有多远」自适应轮询：平时一周一次，进待删除 15 分钟，临近掉落每分钟。阶段跃迁才发通知。Nuxt 的 scheduledTasks 做进程内调度，没有外部 cron。</p></li>
+      <li><a href="https://github.com/KunMoe/movie2galagame">movie2galagame</a><span class="meta">Python · Ren'Py <span class="star">★7</span></span><p>把视频 + srt 直接转成 Ren'Py 项目：抽帧当立绘、切片当音频、字幕当台词。<b>视频→可交互</b>的最短路径。</p></li>
+      <li><a href="https://github.com/KunMoe/assemble-malie-dzi">assemble-malie-dzi</a><span class="meta">Rust <span class="star">★2</span></span><p>malie 引擎的 CG 拼合工具，读 dzi 坐标把差分图层合回整图。极窄但极硬的领域工具。</p></li>
+      <li><a href="https://github.com/KunMoe/kun-touchgal-dlsite-api">kun-touchgal-dlsite-api</a><span class="meta">HTML <span class="star">★2</span></span><p>DLsite 元数据 API，给 TouchGal 供数据。</p></li>
+      <li><a href="https://github.com/KunMoe/kun-channel-to-site">kun-channel-to-site</a><span class="meta">Vue <span class="star">★1</span></span><p>把 Telegram 频道变成网站。<b>和你的日报出站是同构问题</b>：频道消息 → 静态页。</p></li>
+      <li><a href="https://github.com/KunMoe/sync-patch">sync-patch</a><span class="meta">TypeScript <span class="star">★2</span></span><p>补丁仓库同步脚本。</p></li>
+      <li><a href="https://github.com/KunMoe/tenshi-patch-fix">tenshi-patch-fix</a><span class="meta">— <span class="star">★28</span></span><p>《天使☆嚣嚣》去私货汉化补丁。star 数说明这类需求真实存在。</p></li>
+      <li class="dim"><a href="https://github.com/KunMoe/kun-galgame-pure-css">kun-galgame-pure-css</a> / <a href="https://github.com/KunMoe/Axiom-sakura">Axiom-sakura</a><span class="meta">HTML·CSS / C# <span class="star">★30 / ★4</span></span><p>前者是论坛的纯 HTML/CSS 设计稿（先设计后实现）；后者是《さくら、もゆ。》主题皮肤。</p></li>
+      <li class="dim"><a href="https://github.com/KunMoe/kun-nuxt-template">kun-nuxt-template</a> / <a href="https://github.com/KunMoe/kun-vitepress-template">kun-vitepress-template</a><span class="meta">Vue / SCSS <span class="star">★2 / ★4</span></span><p>自己的起步模板。项目一多就会需要这个。</p></li>
+      <li class="dim"><a href="https://github.com/KunMoe/kun-galgame-tg-bot-rust">kun-galgame-tg-bot-rust</a> / <a href="https://github.com/KunMoe/milkdown-vue3-demo">milkdown-vue3-demo</a> / <a href="https://github.com/KunMoe/ren">ren</a> / <a href="https://github.com/KunMoe/heptadecahedron">heptadecahedron</a> / <a href="https://github.com/KunMoe/shinnku-algorithm">shinnku-algorithm</a><span class="meta">杂项</span><p>Telegram bot、编辑器 demo、角色页、十七面体、算法练习。都是小东西。</p></li>
+      <li class="dim"><a href="https://github.com/KunMoe/alist">alist</a> / <a href="https://github.com/KunMoe/claude-code-source">claude-code-source</a><span class="meta">fork</span><p>两个 fork，不是自研。</p></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============ kasumi-ppp ============ -->
+<section class="person">
+  <div class="phead">
+    <h2>kasumi-ppp</h2><span class="handle">@kasumi-ppp · 11 仓库 · 无 bio</span>
+    <span class="num">11 仓库 · 7 stars</span>
+  </div>
+  <p class="persona">做<em>「把重复劳动自动化掉」</em>的那类人，而且全都围绕 QQ 群 / 周报 / 日报这种真实工作流。AstrBot 插件占一半，另外几个是把 LLM 塞进既有流程的工具。项目不大但 README 写得比很多千星库细。</p>
+
+  <div class="group">
+    <h3>自动化 / Agent</h3>
+    <ul class="repos">
+      <li><a href="https://github.com/kasumi-ppp/LabLog-Agent">LabLog-Agent</a><span class="meta">Python</span><p><b>和你的日报流水线最像的一个。</b>把本机 Codex 会话 + 授权 Git 仓库 + Markdown 笔记，整理成学生日报/周报/月报，映射到钉钉日志模板。亮点是三段：预览 → 查重 → 经草稿确认后提交，提交后还读回核验。周报月报会「冻结」来源再汇总。</p></li>
+      <li><a href="https://github.com/kasumi-ppp/WeeklyImageToolbox">WeeklyImageToolbox</a><span class="meta">Python · Windows 便携版</span><p>周报配图采集工具箱：从一份 DOCX 开始，按栏目（新作/汉化/周边）去官网、VNDB、Steam、X 抓候选图，<b>由人逐条核对来源再决定入选</b>，最后导出。打包成免安装 exe。</p></li>
+      <li><a href="https://github.com/kasumi-ppp/astrbot_plugin_codex_reset">astrbot_plugin_codex_reset</a><span class="meta">Python · AstrBot ≥4.16</span><p>「Codex 重置雷达」：读第三方站点公开数据，往订阅群推重置确认/预警/概率四类消息。<b>工程细节值得抄</b>：每群每天只发一张（数据库主键兜底，重启不重发）、数据过期不发、发送超时记 uncertain 不补发、失败按窗口重试。</p></li>
+      <li><a href="https://github.com/kasumi-ppp/GameInsight-Agent">GameInsight-Agent</a><span class="meta">Python · Ollama</span><p>游戏评论批量分析：本地 LLM 逐条抽「一句话总结 / 优缺点 / 情感标签」，落 JSON 再导两版 Excel。带中断保护（Ctrl+C 也存进度）和增量导出。</p></li>
+    </ul>
+  </div>
+
+  <div class="group">
+    <h3>AstrBot 插件 / 模型</h3>
+    <ul class="repos">
+      <li><a href="https://github.com/kasumi-ppp/astrbot_meme_plugin">astrbot_meme_plugin</a><span class="meta">Python <span class="star">★6</span></span><p>表情包插件：按目录分类，把表情包用法注入 LLM 提示词，模型输出标签时替换成图。带概率控制和单条上限。</p></li>
+      <li><a href="https://github.com/kasumi-ppp/Meme-Classification-Project">Meme-Classification-Project</a><span class="meta">Python · CLIP</span><p>动漫表情包六情绪分类（愤怒/困惑/开心/悲伤/震惊/害羞）。三阶段训练：小样本 → 半监督迭代 → 全量微调，用 CLIP 文本-图像关联做提示词增强。</p></li>
+      <li class="dim"><a href="https://github.com/kasumi-ppp/astrbot_plugin_bilibiliobs">astrbot_plugin_bilibiliobs</a><span class="meta">fork · Python</span><p>B 站直播订阅插件（转的别人的）。</p></li>
+    </ul>
+  </div>
+
+  <div class="group">
+    <h3>课设 / 数据整理</h3>
+    <ul class="repos">
+      <li><a href="https://github.com/kasumi-ppp/campus-fresh-quality-lab">campus-fresh-quality-lab</a><span class="meta">Python · Django <span class="star">★1</span></span><p>软件测试课设：拿 DailyFresh 生鲜商城做基线，重做需求分析、测试设计、缺陷验证。README 里明确写「测试用例不由 AI 生成」。</p></li>
+      <li class="dim"><a href="https://github.com/kasumi-ppp/ymproject">ymproject</a><span class="meta">Python · Excel</span><p>没有 README。看文件是一套 Excel 数据清洗脚本：BGM 表合并、别名匹配、组织信息合并、筛选。<code>主表_updated_processed_aliases_*.xlsx</code> 这种命名说明是给某张主表做实体对齐。</p></li>
+      <li class="dim"><a href="https://github.com/kasumi-ppp/ArkmeDemo-kasumi">ArkmeDemo-kasumi</a><span class="meta">fork</span><p>fork，无内容说明。</p></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============ kokubunshu ============ -->
+<section class="person">
+  <div class="phead">
+    <h2>kokubunshu</h2><span class="handle">@kokubunshu · 8 followers · 2026-02 注册</span>
+    <span class="num">6 仓库 · 6 stars · 一半是 fork</span>
+  </div>
+  <p class="persona">账号很新，自研的只有两个，但都是<em>「把 AI 工具接到手机上」</em>和<em>「把线下社群搬到线上」</em>这种有明确缺口的题目。其余是 DeepSeek Harness 生态的 fork。</p>
+
+  <div class="group">
+    <h3>自研</h3>
+    <ul class="repos">
+      <li><a href="https://github.com/kokubunshu/DSH-mobile-sync">DSH-mobile-sync</a><span class="meta">JavaScript · Flutter <span class="star">★3</span></span><p>「三件套」：Harness 桌面插件（LAN WebSocket + WSS relay 出站 + 配对 + HTTP 隧道）+ Node relay 服务（Docker/Caddy）+ Android APK 与可复现源码。<b>把桌面 Agent 接到手机</b>的完整链路，连脱敏清单都写了。</p></li>
+      <li><a href="https://github.com/kokubunshu/astrbot-chat-bridge">astrbot-chat-bridge</a><span class="meta">Python · AstrBot</span><p>QQ ↔ Discord 双向消息桥：三个翻译引擎、按方向设目标语言、文件三种转发模式、用户 ID 映射、基于内容哈希的防循环。<b>防循环 + 限流</b>这块是同类项目最容易翻车的地方。</p></li>
+      <li><a href="https://github.com/kokubunshu/china-visualnovelcircle-maps">china-visualnovelcircle-maps</a><span class="meta">HTML · Go <span class="star">★3</span></span><p>fork 自 VNFestMap，但已经大幅自研：全国高校 Galgame/视觉小说同好会地图，扩成了 VNFest 平台（地图导航 + 社团资料 + 成员管理 + 活动发布 + 刊物征稿 + 企划赛事 + Wiki）。v2.3 把后端从 PHP 迁到 Go，v2.4 补多设备登录和 OAuth。<b>「一张地图长成一个社区」的样本。</b></p></li>
+    </ul>
+  </div>
+
+  <div class="group">
+    <h3>fork / 关注的方向</h3>
+    <ul class="repos">
+      <li class="dim"><a href="https://github.com/kokubunshu/dsh-purge">dsh-purge</a><span class="meta">fork</span><p>DeepSeek Harness 的提示词「破甲」合集，按模型换提示词。</p></li>
+      <li class="dim"><a href="https://github.com/kokubunshu/deepseek-harness">deepseek-harness</a><span class="meta">fork</span><p>「Everything is a Plugin」的 Agent 框架本体。</p></li>
+      <li class="dim"><a href="https://github.com/kokubunshu/Shinsekai">Shinsekai</a><span class="meta">fork</span><p>AI RPG maker。</p></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============ Broken-Mirror215 ============ -->
+<section class="person">
+  <div class="phead">
+    <h2>broken / 菠萝啃</h2><span class="handle">@Broken-Mirror215 · 46 followers · 20 岁</span>
+    <span class="num">14 仓库 · 18 stars</span>
+  </div>
+  <p class="persona">典型的<em>「CS 自学路线全留痕」</em>型：C++ 网络库、muduo、线程池、编译原理、Go、算法模板，一个阶段一个仓库，README 里直接写「跟着敲的，大佬勿喷」。唯一的产品向项目是 GalStar。Key/VA 厨。</p>
+
+  <div class="group">
+    <h3>后端 / 网络（主线）</h3>
+    <ul class="repos">
+      <li><a href="https://github.com/Broken-Mirror215/broken_Webserver">broken_Webserver</a><span class="meta">C++ <span class="star">★4</span></span><p>HTTPS 高性能服务器框架，Reactor 模型。他的招牌项目。</p></li>
+      <li><a href="https://github.com/Broken-Mirror215/Game-Server">Game-Server</a><span class="meta">C++ <span class="star">★2</span></span><p>学 muduo 之后写的双人游戏服务器。</p></li>
+      <li><a href="https://github.com/Broken-Mirror215/GalStar">GalStar / Gal Finder</a><span class="meta">Go · Vue3 · MySQL <span class="star">★1</span></span><p><b>他唯一的产品向项目，也是最接近你能用的。</b>Galgame 个人检索收藏系统：Gin + GORM + JWT + bcrypt，代理 VNDB API，Vue3 + Element Plus 前端。README 老实说「重点是练请求链路和前后端接口约定」。</p></li>
+      <li class="dim"><a href="https://github.com/Broken-Mirror215/CWXU-backend">CWXU-backend</a><span class="meta">fork · Go</span><p>fork 的 Go 后端。</p></li>
+    </ul>
+  </div>
+
+  <div class="group">
+    <h3>学习仓库</h3>
+    <ul class="repos">
+      <li><a href="https://github.com/Broken-Mirror215/compiler-studying">compiler-studying</a><span class="meta">C++ <span class="star">★2</span></span><p>跟 PKU 编译原理（csdiy 路线）的作业与笔记。</p></li>
+      <li><a href="https://github.com/Broken-Mirror215/Algorithm-template">Algorithm-template</a><span class="meta">C++ <span class="star">★4</span></span><p>整理好的算法模板，个人向。</p></li>
+      <li><a href="https://github.com/Broken-Mirror215/Dive-into-Deep-Learning-II">Dive-into-Deep-Learning-II</a><span class="meta">Python</span><p>《动手学深度学习》PyTorch 版的学习记录，书里的项目后续也放这儿。</p></li>
+      <li class="dim"><a href="https://github.com/Broken-Mirror215/Go-study">Go-study</a> / <a href="https://github.com/Broken-Mirror215/Threadpools">Threadpools</a> / <a href="https://github.com/Broken-Mirror215/tcp-chat">tcp-chat</a> / <a href="https://github.com/Broken-Mirror215/C-">C-</a> / <a href="https://github.com/Broken-Mirror215/mit-web">mit-web</a> / <a href="https://github.com/Broken-Mirror215/cs162">cs162</a><span class="meta">杂项</span><p>Go 笔记、线程池、TCP 聊天室、竞赛代码、MIT web 课（代码 AI 生成，标注了）、CS162。</p></li>
+      <li class="dim"><a href="https://github.com/Broken-Mirror215/Broken-Mirror215">Broken-Mirror215</a><span class="meta">C++ <span class="star">★1</span></span><p>个人主页仓库，自我介绍 + 技能栈 + 统计卡片。</p></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============ betterway614 ============ -->
+<section class="person">
+  <div class="phead">
+    <h2>betterway</h2><span class="handle">@betterway614 · 21 仓库 · 1 follower</span>
+    <span class="num">21 仓库 · 0 stars · 8 个 fork</span>
+  </div>
+  <p class="persona">做<em>「AI 落到具体行业」</em>的：医疗、政务、制造、招聘、翻译、教育，每个都是一套能演示的完整应用，README 写成产品文档（版本号、基线、OpenAPI 版本都标）。自研里最轻、最好抄的是 Galgame 那个。</p>
+
+  <div class="group">
+    <h3>行业应用（自研）</h3>
+    <ul class="repos">
+      <li><a href="https://github.com/betterway614/pregnant_care_agent">pregnant_care_agent</a><span class="meta">Python · Agno · pgvector</span><p>AI-Care 孕期管理平台：孕妇/护士/医生三端，16 个 tool 按角色硬隔离，pgvector 混合检索，语音 ASR/TTS，FGR（胎儿生长受限）专病风险评估，产检排期规则引擎按 ACOG 指南硬编码 13 次产检。</p></li>
+      <li><a href="https://github.com/betterway614/12315agent">12315agent</a><span class="meta">HTML · 文档基线</span><p>12345 政务工单智办助手。这个仓库主要是<b>工程文档基线</b>：PRD、UX、OpenAPI、测试基线，把「受理分流→审核分类→转派签收→SLA→回复审核→回访→督办→办结」整条闭环写成机器契约。</p></li>
+      <li><a href="https://github.com/betterway614/mini_industry_app_total">mini_industry_app_total</a><span class="meta">Java 17 · Spring Boot 3</span><p>基于华为 iDME/xDM-F 的轻量 MES：设备台账、BOM、工艺路线、可视化工艺画布（无限画布拖拽编排）、生产计划，加一个 DeepSeek 智能助手做工具调用 + RAG + SSE 流式。</p></li>
+      <li><a href="https://github.com/betterway614/heckson">heckson / YOU TIME</a><span class="meta">Vue3 · FastAPI</span><p>「AI 人生电影」：记录日常记忆（文字+图），选一种文风把若干条记忆生成日记或故事。前端 Vue3、后端 FastAPI + SQLAlchemy。</p></li>
+      <li><a href="https://github.com/betterway614/gal-criticism-toolkit-view">gal-criticism-toolkit-view</a><span class="meta">uni-app · Vue3 <span class="star">★0</span></span><p><b>跟你兴趣最对口的。</b>「Galgame 批评工具箱」：智能对话 + 偏好问卷 + 趣味小游戏，摸出你的口味画像再推荐作品。uni-app 一套代码出小程序/H5/App，粉色二次元主题，纯前端。</p></li>
+      <li><a href="https://github.com/betterway614/AI_transalater_and_summary">AI_transalater_and_summary</a><span class="meta">Electron · React</span><p>VoiceBridge 语桥：同声传译桌面端。三种音源（视频 URL / 系统音频 / 麦克风）、双语字幕浮窗置顶、翻完自动出结构化总结 + markmap 思维导图、会话历史可导出 Markdown。API Key 走 safeStorage 加密。</p></li>
+      <li><a href="https://github.com/betterway614/new_year_wish_exchange">new_year_wish_exchange</a><span class="meta">Vue3 · Koa</span><p>新年祝福交换：写祝福 → 系统匹配互换 → 生成卡片。三套主题、Canvas 粒子背景、3D 信封翻转、敏感词过滤、管理后台。限 100 人。</p></li>
+      <li><a href="https://github.com/betterway614/workbuddy2api-hub">workbuddy2api-hub</a><span class="meta">Python · fork</span><p>多账号反代网关（Codex / Claude Code / 标准 OpenAI 客户端）。已进低频维护，README 顶部就是风控警告。</p></li>
+    </ul>
+  </div>
+
+  <div class="group">
+    <h3>小工具 / 作业</h3>
+    <ul class="repos">
+      <li><a href="https://github.com/betterway614/essay_abstract_to_email">essay_abstract_to_email</a><span class="meta">Python</span><p>arXiv 摘要抓取 → 邮件推送。30 多行能写完的那种，但确实有人天天用。</p></li>
+      <li><a href="https://github.com/betterway614/astrbot_plugin_document_sync">astrbot_plugin_document_sync</a><span class="meta">Python</span><p>文档同步的 AstrBot 插件。</p></li>
+      <li class="dim"><a href="https://github.com/betterway614/solfware_requirement_homework">solfware_requirement_homework</a> / <a href="https://github.com/betterway614/homework">homework</a> / <a href="https://github.com/betterway614/learn">learn</a><span class="meta">TypeScript / Python</span><p>课程作业与学习记录，基本空。</p></li>
+      <li class="dim"><a href="https://github.com/betterway614/smart-hr">smart-hr</a> / <a href="https://github.com/betterway614/testhub_platform">testhub_platform</a> / <a href="https://github.com/betterway614/huaweicloud-sdk-java-v3">huaweicloud-sdk-java-v3</a> / <a href="https://github.com/betterway614/Test-Automation-Framework">Test-Automation-Framework</a> / <a href="https://github.com/betterway614/LangGPT">LangGPT</a> / <a href="https://github.com/betterway614/claude-code-reverse">claude-code-reverse</a> / <a href="https://github.com/betterway614/deer-flow">deer-flow</a> / <a href="https://github.com/betterway614/python_sqlalchemy">python_sqlalchemy</a><span class="meta">fork</span><p>八个 fork：招聘知识图谱、AI 测试平台、华为云 SDK、测试框架、提示词范式、Claude Code 可视化、Deep Research、SQLAlchemy 示例。</p></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============ 灵感 ============ -->
+<section class="ideas">
+  <h2>能直接搬到你站上的六个点子</h2>
+  <p>按「改动量 ÷ 新鲜度」排的，不是按 star。</p>
+  <ol class="idea">
+    <li><b>给日报加「配图候选」环节。</b><span class="from">来自 WeeklyImageToolbox</span><br>现在日报只有文字和链接。可以照它的三段式：抓候选（作品官网 / VNDB / Steam）→ 人工逐条核来源 → 导出确认结果。你已经有 <code>npm run images</code> 和 manifest，缺的只是「候选池 + 审图」这一层。审图界面可以做成 <code>/admin/images</code> 的本地页，不进 dist。</li>
+    <li><b>把固定 30 分钟抓取换成自适应轮询。</b><span class="from">来自 kun-domain-monitor</span><br>它的规则很干净：离事件远就一周一次，近了 15 分钟，临门一分钟。你的 X-Reader 现在是固定间隔，发售日/生诞祭那几天其实可以临时升频。顺带抄它「阶段跃迁才通知」——只在「预约开始」「开始发售」这种状态变化时出稿，而不是每天全量重写。</li>
+    <li><b>做站内「口味测试」。</b><span class="from">来自 gal-criticism-toolkit-view</span><br>问卷 + 小游戏 → 口味画像 → 推荐作品。纯前端就能跑，和你「无后端」的约束完全兼容。数据可以直接从你已有的 <code>data/</code> 里出，不用引第三方 API。做完是个很好的入口页，比链接库更容易被转发。</li>
+    <li><b>加一条「频道归档」出口。</b><span class="from">来自 kun-channel-to-site</span><br>你已经有 <code>/daily</code> 的六个出口，但都是「一期一页」。频道归档是另一种切法：按时间线连续读，不按天切。Telegram/QQ 频道 → 静态页这套结构可以直接套在现有的 <code>data/daily/</code> 上，只是换一种聚合。</li>
+    <li><b>视频 → 可点的东西。</b><span class="from">来自 movie2galagame</span><br>把 PV 抽帧、切片、字幕转成 Ren'Py 项目，本质是「线性素材 → 可交互」。轻一点的版本：日报里每期挑一条 PV，自动抽 6 帧做成分镜图，比一张封面图信息量大得多。</li>
+    <li><b>把「履历」做成一个页面。</b><span class="from">来自 GalStar</span><br>VNDB API 代理 + 个人收藏 + 评分。你的站现在是「输出型」（日报、笔记），缺一个「我玩过什么」的静态页。数据手写在 <code>src/config/</code>，渲染成时间轴 + 评分分布，不需要后端。</li>
+  </ol>
+
+  <div class="habits">
+    <h3>三个可以直接抄的工程习惯</h3>
+    <ul>
+      <li><b>幂等按「业务日 + 群/频道」建主键</b>，重启不重发。你日报的期号已经是这个思路，但 publish 环节还没有「今天发过就不再发」的硬约束。</li>
+      <li><b>结果未知就不补发。</b>发送超时记 <code>uncertain</code> 而不是失败，宁可不发也不刷屏。日报的 <code>push_site.py</code> 现在失败就裸重试，值得区分「确定失败」和「不知道成没成」。</li>
+      <li><b>数据过期就不发。</b>源数据超过 N 分钟直接 skip 并记原因，比发一条半旧的日报好。这和你的 <code>apply</code> 校验是同一层，可以合并。</li>
+    </ul>
+  </div>
+</section>
+
+<footer>
+  数据来源：GitHub REST API（2026-10-30 抓取，star 数为当时值）。<br>
+  elentokei 未找到，其余五个账号共 81 个仓库，其中 fork 18 个。
+</footer>
+
+</div>
+</body>
+</html>
