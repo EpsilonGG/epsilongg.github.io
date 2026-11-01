@@ -23,7 +23,7 @@
 **数据流（每天一次）：**
 
 ```
-X-Reader CI (每日 03:00 / 15:00 UTC)
+X-Reader CI (每日 04:05 / 15:05 UTC)
    └─ fetch → 写 data/items/x.jsonl → git commit/push 进 X-Reader 仓库
         │
    本地：git pull X-Reader 仓库（拿到最新 data/items）
@@ -63,7 +63,7 @@ data/daily/261031-g/report.json    →   /daily/261031-g/     Galgame 版
 Galgame 版 = `261031-g`。
 
 **为什么不再带小时。** 旧格式是 `YYMMDDHH`，小时固定写 22:00——那是「名义发布时间」，
-不是真实发布时刻。一天的数据要到 JST 24:00 才闭合（X-Reader 的 CI 每天 15:00 UTC 抓最后一次），
+不是真实发布时刻。一天的数据要到 JST 24:00 才闭合（X-Reader 的 CI 每天 15:05 UTC 抓最后一次），
 真实出稿必然落在次日凌晨（`provenance.generated_at` 通常是 01:2x）。于是「发布于 22:00」
 比实际早约 3.5 小时，和内容覆盖的 00:00–24:00 自相矛盾。把小时从期号里拿掉之后，
 期号只说「这是哪一天、哪一版」，真实发布时刻交给 `issue.published_at`，两边不再打架。
@@ -273,8 +273,8 @@ digest 读取的目录是 **X-Reader checkout 的两个库之一**：声优版 `
 > 切片只是「够用」，不是「全量」：它滚存 14 天，十年历史仍在 `.xreader/` 那份库里。
 > 想把窗口改长：`python scripts/xreader_slice.py --keep 30`。
 
-> CI 每天 **`03:00` 与 `15:00` UTC** 各跑一次（Galgame 版是 `03:10` / `15:10`，错开十分钟）。
-> `15:00 UTC` = **JST 00:00**，那一刻 JST 自然日刚好闭合——但**数据不会在那时落地**。
+> CI 每天 **`04:05` 与 `15:05` UTC** 各跑一次（Galgame 版是 `04:15` / `15:15`，错开十分钟）。
+> `15:05 UTC` = **JST 00:05**，那一刻 JST 自然日刚好闭合——但**数据不会在那时落地**。
 >
 > **实测（2026-10-26 ~ 10-31，12 次定时运行）：GitHub 的 `schedule` 每次都比 cron 晚
 > 4.2–6.9 小时才创建 run**，而 job 本身只要 3–19 分钟。所以「15:00 那轮」实际是
@@ -292,6 +292,11 @@ digest 读取的目录是 **X-Reader checkout 的两个库之一**：声优版 `
 > `workflow_dispatch` 的 run 是**立刻创建**的，5–15 分钟落地，不用赌 scheduler。
 > 没有 token 时退回「等 cron」，那就得接受数据可能只到 18:30——`daily_prepare` 会因此返回 5。
 > 复核这条结论还成不成立：`python scripts/trigger_fetch.py --report`。
+>
+> **进行中的实验（2026-11-01 起）：** cron 从整点 `0 3,15` 挪到 `5 4,15`，即
+> 12:05 / 23:05 北京时间。假设是「整点是高负载时段，偏离整点能少排队」。
+> 观察两个数据点：11-01 的 12:05 与 23:05 两轮，`created_at` 比计划晚多少。
+> 如果仍然晚几小时，就不要再调 cron 了——那条路已经证伪，只能上 `workflow_dispatch`。
 
 **一条命令做完步骤 0–1（自动化走的就是这条）：**
 
@@ -584,10 +589,10 @@ commit（2026-10-26 就把一篇 496 行的新访谈卷进了「docs: 抓取侧�
   每次都要重克隆 14 MB。`daily_prepare.py` 的 `default_xreader()` 会先找 `.xreader/`，
   找不到才退回老的 `../X-rss-workspace/X-Reader`。
 - **CI：两个 workflow，各管一版。** 2026-10-29 拆分，因为声优版加进 109 个社团后已经顶到单条 20 分钟超时线。
-  - `update.yml`（声优版，237 个账号）：每日 **`03:00` 与 `15:00` UTC** 各跑一次，`timeout-minutes: 30`，写 `data/`。
-  - `update-galgame.yml`（Galgame 版，185 个账号）：每日 **`03:10` 与 `15:10` UTC**（错开 10 分钟，避免两边抢同一个 push），
+  - `update.yml`（声优版，237 个账号）：每日 **`04:05` 与 `15:05` UTC** 各跑一次，`timeout-minutes: 30`，写 `data/`。
+  - `update-galgame.yml`（Galgame 版，185 个账号）：每日 **`04:15` 与 `15:15` UTC**（错开 10 分钟，避免两边抢同一个 push），
     用 `--config config/config.galgame.yaml --accounts accounts.galgame.yaml`，写 `data-galgame/`，超时 20 分钟。
-  - `15:00 UTC` = **JST 00:00**，是 JST 自然日闭合的时刻——**但 run 不是那时创建的**。
+  - `15:05 UTC` = **JST 00:05**，是 JST 自然日闭合的时刻——**但 run 不是那时创建的**。
     2026-10-26 ~ 10-31 的 12 次定时运行全部晚 4.2–6.9 小时（job 本身 3–19 分钟），
     所以这一天真正落地要到 JST 04:00–07:00。要当天闭合就用 `scripts/trigger_fetch.py`
     走 `workflow_dispatch`（立刻创建，5–15 分钟跑完），**别指望 cron**。
