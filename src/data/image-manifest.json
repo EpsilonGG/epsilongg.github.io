@@ -1,6 +1,6 @@
 {
   "$comment": "由 scripts/optimize_images.mjs 生成，请勿手改。",
-  "generatedAt": "2026-11-01T13:56:08.096Z",
+  "generatedAt": "2026-11-01T17:19:31.507Z",
   "images": {
     "/images/blog/bugbug-sca-interview/01.jpg": {
       "w": 1280,
@@ -852,6 +852,78 @@
           "w": 670,
           "src": "/images/blog/gamespark-edgerunners2-interview/10-670.webp",
           "bytes": 35698
+        }
+      ]
+    },
+    "/images/blog/gamespark-kojima-ai-interview/01.png": {
+      "w": 670,
+      "h": 454,
+      "bytes": 437114,
+      "variants": [
+        {
+          "w": 670,
+          "src": "/images/blog/gamespark-kojima-ai-interview/01-670.webp",
+          "bytes": 20338
+        }
+      ]
+    },
+    "/images/blog/gamespark-kojima-ai-interview/02.png": {
+      "w": 670,
+      "h": 464,
+      "bytes": 434158,
+      "variants": [
+        {
+          "w": 670,
+          "src": "/images/blog/gamespark-kojima-ai-interview/02-670.webp",
+          "bytes": 16804
+        }
+      ]
+    },
+    "/images/blog/gamespark-kojima-ai-interview/03.png": {
+      "w": 670,
+      "h": 392,
+      "bytes": 412566,
+      "variants": [
+        {
+          "w": 670,
+          "src": "/images/blog/gamespark-kojima-ai-interview/03-670.webp",
+          "bytes": 37864
+        }
+      ]
+    },
+    "/images/blog/gamespark-kojima-ai-interview/04.jpg": {
+      "w": 670,
+      "h": 1005,
+      "bytes": 101899,
+      "variants": [
+        {
+          "w": 670,
+          "src": "/images/blog/gamespark-kojima-ai-interview/04-670.webp",
+          "bytes": 30972
+        }
+      ]
+    },
+    "/images/blog/gamespark-kojima-ai-interview/05.png": {
+      "w": 670,
+      "h": 456,
+      "bytes": 456933,
+      "variants": [
+        {
+          "w": 670,
+          "src": "/images/blog/gamespark-kojima-ai-interview/05-670.webp",
+          "bytes": 28710
+        }
+      ]
+    },
+    "/images/blog/gamespark-kojima-ai-interview/06.png": {
+      "w": 670,
+      "h": 471,
+      "bytes": 444395,
+      "variants": [
+        {
+          "w": 670,
+          "src": "/images/blog/gamespark-kojima-ai-interview/06-670.webp",
+          "bytes": 15788
         }
       ]
     },
