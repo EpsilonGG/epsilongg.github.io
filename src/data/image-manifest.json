@@ -1,6 +1,6 @@
 {
   "$comment": "由 scripts/optimize_images.mjs 生成，请勿手改。",
-  "generatedAt": "2026-10-30T14:27:38.836Z",
+  "generatedAt": "2026-11-01T13:56:08.096Z",
   "images": {
     "/images/blog/bugbug-sca-interview/01.jpg": {
       "w": 1280,
@@ -1368,6 +1368,23 @@
           "w": 670,
           "src": "/images/blog/mages-asada-makoto-interview/11-670.webp",
           "bytes": 45316
+        }
+      ]
+    },
+    "/images/blog/mistilteinn-debanking/01.jpg": {
+      "w": 800,
+      "h": 709,
+      "bytes": 114960,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/mistilteinn-debanking/01-600.webp",
+          "bytes": 33076
+        },
+        {
+          "w": 800,
+          "src": "/images/blog/mistilteinn-debanking/01-800.webp",
+          "bytes": 51804
         }
       ]
     },
