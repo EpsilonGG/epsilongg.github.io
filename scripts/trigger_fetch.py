@@ -70,20 +70,30 @@ COVERAGE_SLACK = timedelta(hours=2)
 # 放用户目录而不是仓库里，免得哪天 `git add -A` 把它卷进去。
 DEFAULT_TOKEN_FILE = Path.home() / ".workbuddy-ai" / "secrets" / "xreader_token"
 
+# 同一个文件常被存成 `xreader_token.txt`——Windows 默认隐藏已知扩展名，
+# 在资源管理器里两个名字长得一模一样，用户没有理由知道要改名。
+# 两个都认；带后缀的排在后面，不影响已经按无后缀放好的机器。
+TOKEN_FILE_CANDIDATES = (DEFAULT_TOKEN_FILE, DEFAULT_TOKEN_FILE.with_suffix(".txt"))
+
 
 def read_token(token_env: str, token_file: str | None) -> tuple[str, str]:
     """按「环境变量 → 文件」找 token，返回 (token, 来源)。找不到返回 ("", "")。
 
     两个来源都留着：环境变量适合临时跑一次，文件适合自动化——自动化进程的
     环境变量不一定继承到你 `setx` 之后新开的窗口，文件则是每次现读。
+
+    读出来顺手去掉首尾空白和成对的引号：从网页复制 token 时很容易带上
+    `"..."`，而多一个引号的表现是 401，不是「格式错误」，很难自己看出来。
     """
     for name in (token_env, "GITHUB_TOKEN"):
         value = (os.environ.get(name) or "").strip()
         if value:
             return value, f"环境变量 {name}"
-    path = Path(token_file) if token_file else DEFAULT_TOKEN_FILE
-    if path.exists():
-        value = path.read_text(encoding="utf-8").strip()
+    candidates = (Path(token_file),) if token_file else TOKEN_FILE_CANDIDATES
+    for path in candidates:
+        if not path.exists():
+            continue
+        value = path.read_text(encoding="utf-8").strip().strip("\"'").strip()
         if value:
             return value, str(path)
     return "", ""
@@ -234,7 +244,8 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--token-env", default="XREADER_TOKEN",
                         help="从哪个环境变量读 token（默认 XREADER_TOKEN，退回 GITHUB_TOKEN）")
     parser.add_argument("--token-file", default=None,
-                        help=f"环境变量没有时读这个文件（默认 {DEFAULT_TOKEN_FILE}）")
+                        help=f"环境变量没有时读这个文件（默认 {DEFAULT_TOKEN_FILE}，"
+                             "同名 .txt 也认）")
     parser.add_argument("--timeout", type=int, default=25, help="等多久算超时（分钟）")
     parser.add_argument("--no-wait", action="store_true", help="触发后立刻返回，不等完成")
     parser.add_argument("--no-pull", action="store_true", help="跑完不 git pull")
@@ -264,7 +275,7 @@ def main(argv: list[str] | None = None) -> int:
         print(
             "没有 token。两种放法，任选一种：\n"
             f"  1) 写文件（自动化用这个）：{DEFAULT_TOKEN_FILE}\n"
-            "     文件里只放一行 token，不要引号。\n"
+            f"     存成 {DEFAULT_TOKEN_FILE.name}.txt 也认。文件里只放一行 token，不要引号。\n"
             f"  2) 环境变量：set {args.token_env}=github_pat_xxx（临时跑用）\n"
             "建 token：https://github.com/settings/personal-access-tokens/new\n"
             "  Repository access → Only select repositories → EpsilonGG/X-Reader\n"

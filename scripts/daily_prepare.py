@@ -176,6 +176,15 @@ def refresh_slices(kind: str, xreader: Path) -> None:
     xreader_slice.refresh_quiet(kind, xreader)
 
 
+def _head(xreader: Path, env: dict[str, str]) -> str:
+    """当前 HEAD 的短哈希；拿不到就返回 `?`（不影响拉取本身）。"""
+    result = subprocess.run(
+        ["git", "-C", str(xreader), "rev-parse", "--short", "HEAD"],
+        capture_output=True, text=True, env=env,
+    )
+    return result.stdout.strip() if result.returncode == 0 else "?"
+
+
 def pull(xreader: Path) -> int:
     """`git pull --ff-only`。CI 每 12 小时提交一次 data/，本地必须先拉。"""
     if not (xreader / ".git").exists():
@@ -187,6 +196,10 @@ def pull(xreader: Path) -> int:
     if proxy:
         env.setdefault("https_proxy", proxy)
         env.setdefault("http_proxy", proxy)
+    # 先记下 HEAD：`pull --quiet` 成功时 stdout 是空的，光看它分不出
+    # 「拉到了新数据」和「本来就是最新」——2026-11-01 之前这里一直打印
+    # 假的 "up to date"，而实际上确实拉到了 83 条新条目。
+    before = _head(xreader, env)
     result = subprocess.run(
         ["git", "-C", str(xreader), "pull", "--ff-only", "--quiet"],
         capture_output=True, text=True, env=env,
@@ -194,7 +207,11 @@ def pull(xreader: Path) -> int:
     if result.returncode != 0:
         print("git pull 失败：\n" + (result.stderr or result.stdout), file=sys.stderr)
         return 3
-    print(f"已拉取 {xreader.name}：{(result.stdout or 'up to date').strip()}")
+    after = _head(xreader, env)
+    if before == after:
+        print(f"{xreader.name} 已是最新（{after}）")
+    else:
+        print(f"已拉取 {xreader.name}：{before} → {after}")
     return 0
 
 
