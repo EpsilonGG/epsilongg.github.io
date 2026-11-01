@@ -23,6 +23,14 @@
     python scripts/daily_prepare.py --date 2026-10-25
     python scripts/daily_prepare.py --no-pull       # 已经拉过，跳过 git
 
+数据从哪来（两条路，自动挑）：
+
+    .xreader/data/items/            全量库，`git pull` 后现读（优先）
+    data/xreader/<kind>/*.jsonl     按日切片，随站点仓库一起版本化（兜底）
+
+切片由 `xreader_slice.py` 在 `git pull` 之后自动刷新（`--no-slice` 可关掉）。
+`.xreader/` 被清掉时仍然能出稿，这正是把切片放进仓库的原因。
+
 退出码：
 
     0  骨架已生成，可以填内容
@@ -64,6 +72,10 @@ def default_xreader() -> Path:
 
 DEFAULT_XREADER = default_xreader()
 JST = timezone(timedelta(hours=9))
+
+# 按日切片的落脚点（`xreader_slice.py` 写、本脚本读）。它在 `data/` 而不是
+# `public/` 里，所以随仓库版本化但**不进 `dist/`**，不会出现在公开站点上。
+SLICES_ROOT = REPO_ROOT / "data" / "xreader"
 
 # kind → (期号后缀, 抓取仓库里的数据目录, 人话名字)
 # 两版各有一份 JSONL 库：update.yml 写 data/，update-galgame.yml 写 data-galgame/。
@@ -129,6 +141,41 @@ def count_items(items_dir: Path, day: date) -> tuple[int, int]:
     return inside, total
 
 
+def items_dir_for(kind: str, xreader: Path) -> Path | None:
+    """这一版该读哪个目录：先找 checkout 的全量库，没有就退回仓库里的按日切片。
+
+    两条路的目录形状是一样的（一堆 `*.jsonl`，`scan_day` 只按 `published_at`
+    过滤），所以切片目录可以直接当 `items_dir` 用，不需要另写一套读法。
+
+    都不存在时返回 None——那是「抓取侧真的没跑过」，不是「今天没人发推」。
+    """
+    _, data_name, _ = KINDS[kind]
+    live = xreader / data_name / "items"
+    if live.exists():
+        return live
+    slices = SLICES_ROOT / kind
+    if slices.exists() and any(slices.glob("*.jsonl")):
+        return slices
+    return None
+
+
+def refresh_slices(kind: str, xreader: Path) -> None:
+    """拉完数据顺手刷新 `data/xreader/` 的切片。
+
+    放在这里而不是 `trigger_fetch.py`：`daily_prepare` 是每天必然跑的那一步，
+    而 `trigger_fetch` 只是「等不及 cron」时的补抓。挂在必然路径上才不会漏。
+
+    失败不致命——切片是给「checkout 丢了」兜底用的，读不到全量库时它也不该
+    拖垮当天出稿。所以这里吞掉异常，只在 stderr 留一句。
+    """
+    try:
+        import xreader_slice  # 局部 import：本模块被它 import，顶层会成环
+    except ImportError as exc:  # pragma: no cover - 只在脚本被单独拷走时发生
+        print(f"（切片跳过：{exc}）", file=sys.stderr)
+        return
+    xreader_slice.refresh_quiet(kind, xreader)
+
+
 def pull(xreader: Path) -> int:
     """`git pull --ff-only`。CI 每 12 小时提交一次 data/，本地必须先拉。"""
     if not (xreader / ".git").exists():
@@ -166,6 +213,8 @@ def main(argv: list[str] | None = None) -> int:
                         default=Path(os.environ.get("XREADER_DIR") or default_xreader()),
                         help="X-Reader 的 checkout 路径（默认 .xreader/，退回 ../X-rss-workspace/X-Reader）")
     parser.add_argument("--no-pull", action="store_true", help="跳过 git pull")
+    parser.add_argument("--no-slice", action="store_true",
+                        help="不刷新 data/xreader/ 的按日切片（默认拉完就刷新）")
     parser.add_argument("--force", action="store_true", help="允许覆盖已存在的期号")
     parser.add_argument("--new", action="store_true", help="同一天再出一期：排成 -2、-3")
     parser.add_argument(
@@ -178,15 +227,22 @@ def main(argv: list[str] | None = None) -> int:
     suffix, data_name, label = KINDS[args.kind]
     day = args.date or jst_yesterday()
     xreader: Path = args.xreader
-    items_dir = xreader / data_name / "items"
 
     if not args.no_pull:
-        code = pull(xreader)
-        if code:
-            return code
+        if (xreader / ".git").exists():
+            code = pull(xreader)
+            if code:
+                return code
+        else:
+            print(f"{xreader} 不在，跳过 git pull —— 改用 data/xreader/ 的切片", file=sys.stderr)
 
-    if not items_dir.exists():
-        print(f"找不到 {items_dir}：{label}还没有任何抓取数据", file=sys.stderr)
+    if not args.no_slice and (xreader / ".git").exists():
+        refresh_slices(args.kind, xreader)
+
+    items_dir = items_dir_for(args.kind, xreader)
+    if items_dir is None:
+        print(f"找不到 {xreader / data_name / 'items'}，也没有 {SLICES_ROOT / args.kind} 的切片："
+              f"{label}还没有任何抓取数据", file=sys.stderr)
         if args.kind == "galgame":
             print(
                 "Galgame 版由 update-galgame.yml 抓（03:10 / 15:10 UTC，写 data-galgame/）。"
@@ -196,7 +252,10 @@ def main(argv: list[str] | None = None) -> int:
         return 2
 
     inside, total, latest = scan_day(items_dir, day)
-    print(f"{label} · {day} (JST) 窗口内 {inside} 条 / 全部 {total} 条")
+    # 切片目录是 `data/xreader/<kind>`，全量库是 `<checkout>/<data>/items`——
+    # 只看父目录就能分清，不用再传一个「从哪来」的参数。
+    source = "切片" if items_dir.parent == SLICES_ROOT else "全量库"
+    print(f"{label} · {day} (JST) 窗口内 {inside} 条 / {source} {total} 条")
     if inside == 0:
         print(
             f"\n{day} 没有任何条目，不生成这一期（{label}）。\n"

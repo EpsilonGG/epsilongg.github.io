@@ -265,6 +265,14 @@ digest 读取的目录是 **X-Reader checkout 的两个库之一**：声优版 `
 - **方式 B（本地现抓）：** 在 `.xreader/` 里执行 `python main.py --json`（声优版）或
   `python main.py --json --config config/config.galgame.yaml --accounts accounts.galgame.yaml`（Galgame 版，需要该仓库的依赖与凭证）。
 
+> **`.xreader/` 不在了也能出稿。** 拉完数据会顺手把最近 14 天切成
+> `data/xreader/voice/YYYY-MM-DD.jsonl`（`scripts/xreader_slice.py`，`daily_prepare`
+> 自动调用），这份切片**随站点仓库版本化**，克隆下来就有。`daily_prepare` 挑数据源
+> 的顺序是「`.xreader/` 全量库 → `data/xreader/` 切片」，两条都没有才退 2。
+>
+> 切片只是「够用」，不是「全量」：它滚存 14 天，十年历史仍在 `.xreader/` 那份库里。
+> 想把窗口改长：`python scripts/xreader_slice.py --keep 30`。
+
 > CI 每天 **`03:00` 与 `15:00` UTC** 各跑一次（Galgame 版是 `03:10` / `15:10`，错开十分钟）。
 > `15:00 UTC` = **JST 00:00**，那一刻 JST 自然日刚好闭合——但**数据不会在那时落地**。
 >
@@ -487,8 +495,12 @@ python scripts/daily_digest.py ja --issue <期号> --answer out/<期号>.ja.json
 ### 步骤 3 — 提交并推送站点仓库
 
 ```bash
-python scripts/push_site.py -m "daily: <期号>" --path data/daily/
+python scripts/push_site.py -m "daily: <期号>" --path data/daily/ --path data/xreader/
 ```
+
+`--path data/xreader/` 是 2026-11-01 起加上的：那天新增的切片（`daily_prepare`
+在 `git pull` 之后自动写）要跟着这一期一起进仓库，否则它只留在本机，换台机器
+就退回「没有数据」。
 
 **必须带 `--path`**：不带时脚本是 `git add -A`，工作区里任何未提交的改动都会卷进这一期日报的
 commit（2026-10-26 就把一篇 496 行的新访谈卷进了「docs: 抓取侧改成每天两跑」，提交信息与内容对不上）。
@@ -514,6 +526,7 @@ commit（2026-10-26 就把一篇 496 行的新访谈卷进了「docs: 抓取侧�
 | --- | --- |
 | 某天没有新推文 | digest 仍会生成骨架，但 `accounts` 为空；这种日子直接跳过、不发布即可（骨架页会显示「今日看点待补充」） |
 | 数据还没抓到 | 先 `git pull` X-Reader 仓库，或等 CI（17:10 UTC）跑完再操作 |
+| `.xreader/` 整个不见了 | 不影响出稿：`daily_prepare` 会自动改用 `data/xreader/` 的切片（最近 14 天）。要更早的数据再重建 checkout：`git clone --depth 1 https://github.com/EpsilonGG/X-Reader .xreader` |
 | 想补过去的某天 | 用 `--date YYYY-MM-DD` 选数据（这一天就是期号），`--at` 只写真实发布时间；数据 append-only 会保留历史 |
 | 想换 Python 解释器 | `daily.sh` 顶部 `PY="${PYTHON:-python3}"`，可改为本机 Python 路径；或直接用 `PY=... bash scripts/daily.sh` |
 | `apply` 报「来源不存在」 | 回答里的 key 抄错了。题面 `prompt/all.md` 里每条材料前面的 `[x:…]` 才是合法值，不要自己拼 |
@@ -532,6 +545,8 @@ commit（2026-10-26 就把一篇 496 行的新访谈卷进了「docs: 抓取侧�
 | `scripts/daily_digest.py` | ★ **规范、唯一的组装脚本**（无 LLM 的一半）。**不要再改 `X-rss-workspace/daily-report/digest.py`**，那是被取代的旧原型 |
 | `scripts/daily_prepare.py` | ★ **自动化入口**：`git pull` 抓取仓库 → 数目标日条数（0 条退 2，只抓到一半退 5）→ 调 digest 出骨架。`--kind voice/galgame` 选哪一版（决定期号后缀、名单、读 `data/` 还是 `data-galgame/`）。确定性、无 LLM |
 | `scripts/trigger_fetch.py` | ★ 用 `workflow_dispatch` **立刻**触发 X-Reader 抓取（两版），等 run 完成 → `git pull` → 验目标日覆盖到几点。`--report` 复核 cron 延迟，`--verify-only` 只查本地数据。需要 `XREADER_TOKEN` |
+| `scripts/xreader_slice.py` | 把 `.xreader/` 的全量库切成 `data/xreader/<kind>/YYYY-MM-DD.jsonl`（按 JST 分日、按 `identity_key` 去重、滚存 14 天）。`daily_prepare` 拉完数据自动调它；`--date` 补单天，`--keep` 改窗口 |
+| `data/xreader/` | 上面那份切片。**日报原料，不进 `dist/`**——`data/` 不在 `public/` 里，`deploy.yml` 也对它设了 `paths-ignore`。见目录内 `README.md` |
 | `scripts/daily_condense.py` | 把 briefing 压成编辑视图（去 URL／互动数／纯转发，关键词优先）。5.2 万 → 1.5 万 token |
 | `scripts/daily/` | M1–M4 的包：`build` / `window` / `incremental` / `dedupe` / `order` / `export` / `prompt` / `apply` / `validate` / `audit` / `confirm` / `publish` / `migrate` |
 | `scripts/daily/audit.py` | ★ M3.9 事后判卷：来源 key 是否真实、handle 是否名单内且本期有条目、长度。`confirm` 定稿前自动跑 |
@@ -541,7 +556,7 @@ commit（2026-10-26 就把一篇 496 行的新访谈卷进了「docs: 抓取侧�
 | `schemas/generation.schema.json` | 模型回答的形状（含整期题的 `works`） |
 | `tests/golden/current.json` | 金文件基准指针（`{"id": "261025"}`），换基准用 `npm run golden:daily:switch` |
 | `README/reports/daily-m5-m6-options.html` | M5（图片）/ M6（视频稿）的选型比较、代价与顺序。开工前先读 |
-| `scripts/push_site.py` | 提交并推送，绕开本机 `git push` 被 SIGTERM 的问题（GCM 取 token → 临时 askpass → 推完即删）。**日报要带 `--path data/daily/`**，否则 `git add -A` 会卷进无关改动 |
+| `scripts/push_site.py` | 提交并推送，绕开本机 `git push` 被 SIGTERM 的问题（GCM 取 token → 临时 askpass → 推完即删）。**日报要带 `--path data/daily/ --path data/xreader/`**，否则 `git add -A` 会卷进无关改动 |
 | `scripts/sync_xreader_accounts.py` | 站点名单 → `X-Reader/accounts.yaml` + `accounts.galgame.yaml`（两版分开写，只收 `active != false`）。`--check` 只比对 |
 | `scripts/daily.sh` | 一键流程包装：组装 → 提示用 WorkBuddy 填摘要 → 打印 git 命令（第二个参数之外还可给 `voice` / `galgame`） |
 | `scripts/build_roster_overview.py` | 两版名单合并成一张只读总表 `README/reports/daily-roster-2026-10.html`（四个大类 + 未入册候选） |
@@ -579,7 +594,11 @@ commit（2026-10-26 就把一篇 496 行的新访谈卷进了「docs: 抓取侧�
     一天两跑的理由仍在：Nitter RSS 每个账号最多返回约 20 条，单跑会丢掉话多的人最早那几条。
   - 两个库分开之后，两边 `git add` 不会互相 rebase，也不会因为一边超时拖死另一边。
 - **数据：** 规范存储是 `data/items/<source_id>.jsonl`（`NormalizedItem`，**append-only**）。X 数据 `source_id` 为 `x`，
-  声优版落在 `data/items/x.jsonl`，Galgame 版落在 `data-galgame/items/x.jsonl`。
+  声优版落在 `data/items/x.jsonl`（14 MB / 11438 条，最早 2016-10-13），Galgame 版落在 `data-galgame/items/x.jsonl`（5.3 MB）。
+  另有 `data/accounts/`（30 MB）存每个账号的原始推文归档，日报用不到，**不进站点仓库**。
+- **站点仓库里的镜像：** `data/xreader/<kind>/YYYY-MM-DD.jsonl`，最近 14 天的按日切片。
+  全量库 append-only，整份提交等于每天存一份新文件（一天 20 MB），所以只切窗口内的天：
+  一天约 550 KB，滚存 14 天约 9 MB，git 里 zlib 后一天约 150 KB。写入见 `scripts/xreader_slice.py`。
 - **加/减监控账号：** **不要手改 `accounts*.yaml`**，它们由站点名单生成：
   ```bash
   python scripts/sync_xreader_accounts.py \
@@ -587,7 +606,7 @@ commit（2026-10-26 就把一篇 496 行的新访谈卷进了「docs: 抓取侧�
   python scripts/sync_xreader_accounts.py --out ... --galgame-out ... --check   # 只比对，不一致退 1
   ```
   只写 `active != false` 的条目，按各自名单的顺序排：`accounts.yaml` **237 个**（128 声优 + 109 社团），
-  `accounts.galgame.yaml` **179 个**（173 厂商 + Moepedia + 5 信息号）。
+  `accounts.galgame.yaml` **185 个**（178 厂商 + 7 信息号，2026-11-01 补了 akaeroCore 四个语言号与 hiro_in / AKOUtw）。
   `category` 不参与「抓不抓」，它决定条目落在页面哪个栏目，而栏目由日报页的筛选按钮分开看。
   正本里的 `accounts` 由数据**自动推导**，同样不用手改。
 - **实例可靠性：** 公共 Nitter 实例大半已死（410 / 451 / 403 / 人机验证页）。2026-10-26 实测 13 个里只有 1 个能出 feed，

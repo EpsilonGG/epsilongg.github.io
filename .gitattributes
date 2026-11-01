@@ -14,3 +14,11 @@ data/daily/**/report.json text eol=lf
 # 快照由脚本以 `newline="\n"` 写出，仓库里也必须保持 LF。
 tests/golden/*.txt text eol=lf
 tests/golden/current.json text eol=lf
+
+# X-Reader 的按日切片（`scripts/xreader_slice.py` 写）。
+#
+# 这些文件是**不可变**的：写完就不再改，一天一个。所以任何一次「整文件重写」
+# 都会在历史里留下一个和上次毫无关系的 diff。本机 `core.autocrlf=true`，
+# 没有这条规则时 checkout 会把它们变成 CRLF，再跑一次切片又写回 LF——
+# 每天都会看到 700 行的假改动。钉成 LF 之后，`git status` 只会显示新加的那一天。
+data/xreader/**/*.jsonl text eol=lf

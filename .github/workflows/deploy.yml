@@ -3,6 +3,13 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches: [main]
+    # 抓取数据的按日切片（`data/xreader/`）每天都会新增一个文件，但它**不进站点**：
+    # Astro 只把 `public/` 和路由生成的页面放进 `dist/`，`data/` 是构建时读的原料。
+    # 所以只改这些文件时没必要重跑一遍 check + build + 部署（一次约 3 分钟）。
+    # 注意 `paths-ignore` 是「全部改动都命中才跳过」：日报发布同时改了
+    # `data/daily/`，那次推送照常部署。
+    paths-ignore:
+      - 'data/xreader/**'
   workflow_dispatch:
 
 # 最小权限：只允许读取仓库、写入 Pages、使用 OIDC 令牌
