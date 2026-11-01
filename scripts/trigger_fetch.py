@@ -50,7 +50,7 @@ from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from daily_prepare import KINDS, default_xreader, pull, scan_day  # noqa: E402
+from daily_prepare import KINDS, default_xreader, items_dir_for, pull, scan_day  # noqa: E402
 
 JST = timezone(timedelta(hours=9))
 OWNER = "EpsilonGG"
@@ -204,9 +204,11 @@ def verify(xreader: Path, day: date, kinds: list[str]) -> int:
     worst = 0
     for kind in kinds:
         _, data_name, label = KINDS[kind]
-        items_dir = xreader / data_name / "items"
-        if not items_dir.exists():
-            print(f"{label}: 没有 {items_dir}")
+        # 和 `daily_prepare` 用同一套挑法：checkout 不在时退回 `data/xreader/` 的切片，
+        # 否则 `.xreader/` 一被清掉，`--verify-only` 会报「一条都没有」——那是错的。
+        items_dir = items_dir_for(kind, xreader)
+        if items_dir is None:
+            print(f"{label}: 既没有 {xreader / data_name / 'items'}，也没有 data/xreader/{kind} 的切片")
             worst = max(worst, 5)
             continue
         inside, total, latest = scan_day(items_dir, day)
