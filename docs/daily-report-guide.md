@@ -265,12 +265,29 @@ digest 读取的目录是 **X-Reader checkout 的两个库之一**：声优版 `
   `python main.py --json --config config/config.galgame.yaml --accounts accounts.galgame.yaml`（Galgame 版，需要该仓库的依赖与凭证）。
 
 > CI 每天 **`03:00` 与 `15:00` UTC** 各跑一次（Galgame 版是 `03:10` / `15:10`，错开十分钟）。
-> `15:00 UTC` = **JST 00:00**，那一刻 JST 自然日刚好闭合，所以此后拉到的就是完整的一天。
-> 换算到北京时间是 11:00 与 23:00，**日报在 23:00 之后跑才有完整数据**。
+> `15:00 UTC` = **JST 00:00**，那一刻 JST 自然日刚好闭合——但**数据不会在那时落地**。
+>
+> **实测（2026-10-26 ~ 10-31，12 次定时运行）：GitHub 的 `schedule` 每次都比 cron 晚
+> 4.2–6.9 小时才创建 run**，而 job 本身只要 3–19 分钟。所以「15:00 那轮」实际是
+> JST 04:00–07:00 才 push，23:40 出稿时拿到的永远只有 18:30 之前的数据。
+> 261031 就是这么丢的：全天 542 条只进了 291 条，柚木つばめ 20:21 的ぬいぐるみ再販
+> 正好落在缺口里，四个半小时后才被 CI 抓到。
+>
+> **别等 cron，按一下：**
+>
+> ```bash
+> export XREADER_TOKEN=github_pat_xxx   # fine-grained PAT：Actions = Read and write
+> python scripts/trigger_fetch.py       # 立刻 dispatch 两版 → 等完成 → git pull → 验覆盖
+> ```
+>
+> `workflow_dispatch` 的 run 是**立刻创建**的，5–15 分钟落地，不用赌 scheduler。
+> 没有 token 时退回「等 cron」，那就得接受数据可能只到 18:30——`daily_prepare` 会因此返回 5。
+> 复核这条结论还成不成立：`python scripts/trigger_fetch.py --report`。
 
 **一条命令做完步骤 0–1（自动化走的就是这条）：**
 
 ```bash
+DAILY_PROXY=http://127.0.0.1:7897 python scripts/trigger_fetch.py   # 先让抓取立刻跑完
 DAILY_PROXY=http://127.0.0.1:7897 python scripts/daily_prepare.py --kind voice
 DAILY_PROXY=http://127.0.0.1:7897 python scripts/daily_prepare.py --kind galgame
 ```
@@ -284,6 +301,7 @@ DAILY_PROXY=http://127.0.0.1:7897 python scripts/daily_prepare.py --kind galgame
 | 0 | 骨架已生成 | 继续步骤 2 |
 | 2 | 目标日在数据里**一条都没有**（或该版的库还不存在） | 抓取侧没跑或失败，**不要写这一期**；Galgame 版第一次跑 `update-galgame.yml` 之前 `data-galgame/` 不存在，也走这个码 |
 | 3 | 抓取仓库拉取失败 | 检查网络/代理，同样不要写 |
+| 5 | 这一天**只抓到一半**（最后一条距 24:00 超过 2 小时） | 先 `trigger_fetch.py` 补抓再重跑；确认要出残稿才加 `--allow-partial` |
 
 ### 步骤 1 — 组装日报草稿（确定性、无 LLM）
 
@@ -511,7 +529,8 @@ commit（2026-10-26 就把一篇 496 行的新访谈卷进了「docs: 抓取侧�
 | 文件 | 作用 |
 | --- | --- |
 | `scripts/daily_digest.py` | ★ **规范、唯一的组装脚本**（无 LLM 的一半）。**不要再改 `X-rss-workspace/daily-report/digest.py`**，那是被取代的旧原型 |
-| `scripts/daily_prepare.py` | ★ **自动化入口**：`git pull` 抓取仓库 → 数目标日条数（0 条退 2）→ 调 digest 出骨架。`--kind voice/galgame` 选哪一版（决定期号后缀、名单、读 `data/` 还是 `data-galgame/`）。确定性、无 LLM |
+| `scripts/daily_prepare.py` | ★ **自动化入口**：`git pull` 抓取仓库 → 数目标日条数（0 条退 2，只抓到一半退 5）→ 调 digest 出骨架。`--kind voice/galgame` 选哪一版（决定期号后缀、名单、读 `data/` 还是 `data-galgame/`）。确定性、无 LLM |
+| `scripts/trigger_fetch.py` | ★ 用 `workflow_dispatch` **立刻**触发 X-Reader 抓取（两版），等 run 完成 → `git pull` → 验目标日覆盖到几点。`--report` 复核 cron 延迟，`--verify-only` 只查本地数据。需要 `XREADER_TOKEN` |
 | `scripts/daily_condense.py` | 把 briefing 压成编辑视图（去 URL／互动数／纯转发，关键词优先）。5.2 万 → 1.5 万 token |
 | `scripts/daily/` | M1–M4 的包：`build` / `window` / `incremental` / `dedupe` / `order` / `export` / `prompt` / `apply` / `validate` / `audit` / `confirm` / `publish` / `migrate` |
 | `scripts/daily/audit.py` | ★ M3.9 事后判卷：来源 key 是否真实、handle 是否名单内且本期有条目、长度。`confirm` 定稿前自动跑 |
@@ -547,10 +566,13 @@ commit（2026-10-26 就把一篇 496 行的新访谈卷进了「docs: 抓取侧�
 - **仓库：** `X-rss-workspace/X-Reader`（= `github.com/EpsilonGG/X-Reader`，**是真正的 git clone**，`git pull` 能拿到 CI 提交的数据）。
 - **CI：两个 workflow，各管一版。** 2026-10-29 拆分，因为声优版加进 109 个社团后已经顶到单条 20 分钟超时线。
   - `update.yml`（声优版，237 个账号）：每日 **`03:00` 与 `15:00` UTC** 各跑一次，`timeout-minutes: 30`，写 `data/`。
-  - `update-galgame.yml`（Galgame 版，179 个账号）：每日 **`03:10` 与 `15:10` UTC**（错开 10 分钟，避免两边抢同一个 push），
+  - `update-galgame.yml`（Galgame 版，185 个账号）：每日 **`03:10` 与 `15:10` UTC**（错开 10 分钟，避免两边抢同一个 push），
     用 `--config config/config.galgame.yaml --accounts accounts.galgame.yaml`，写 `data-galgame/`，超时 20 分钟。
-  - `15:00 UTC` = **JST 00:00**，正好是 JST 自然日闭合的时刻，所以这一次的数据就是完整的一天；
-    一天两跑是因为 Nitter RSS 每个账号最多返回约 20 条，单跑会丢掉话多的人最早那几条。
+  - `15:00 UTC` = **JST 00:00**，是 JST 自然日闭合的时刻——**但 run 不是那时创建的**。
+    2026-10-26 ~ 10-31 的 12 次定时运行全部晚 4.2–6.9 小时（job 本身 3–19 分钟），
+    所以这一天真正落地要到 JST 04:00–07:00。要当天闭合就用 `scripts/trigger_fetch.py`
+    走 `workflow_dispatch`（立刻创建，5–15 分钟跑完），**别指望 cron**。
+    一天两跑的理由仍在：Nitter RSS 每个账号最多返回约 20 条，单跑会丢掉话多的人最早那几条。
   - 两个库分开之后，两边 `git add` 不会互相 rebase，也不会因为一边超时拖死另一边。
 - **数据：** 规范存储是 `data/items/<source_id>.jsonl`（`NormalizedItem`，**append-only**）。X 数据 `source_id` 为 `x`，
   声优版落在 `data/items/x.jsonl`，Galgame 版落在 `data-galgame/items/x.jsonl`。

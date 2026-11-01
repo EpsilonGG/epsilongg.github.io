@@ -73,5 +73,49 @@ class CountItemsTest(unittest.TestCase):
             self.assertEqual(daily_prepare.count_items(Path(tmp), date(2026, 10, 29)), (0, 0))
 
 
+class CoverageTest(unittest.TestCase):
+    """「条数够」不等于「这一天抓全了」。
+
+    261031 有 291 条，却只覆盖到 18:30 —— 后面五个半小时一条都没有，
+    因为最后一轮抓取还没落地。这组测试钉住「最后一条几点」这个判断。
+    """
+
+    def _write(self, path: Path, moments: list[str]) -> None:
+        lines = [json.dumps({"item_id": f"i{i}", "published_at": at}) for i, at in enumerate(moments)]
+        path.write_text("\n".join(lines) + "\n", encoding="utf-8")
+
+    def test_scan_day_returns_the_last_item_inside_the_window(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            items = Path(tmp)
+            self._write(
+                items / "x.jsonl",
+                ["2026-10-29T09:00:00+09:00", "2026-10-29T18:30:09+09:00", "2026-10-29T12:00:00+09:00"],
+            )
+            inside, total, latest = daily_prepare.scan_day(items, date(2026, 10, 29))
+            self.assertEqual((inside, total), (3, 3))
+            self.assertIsNotNone(latest)
+            self.assertEqual(latest.astimezone(daily_prepare.JST).strftime("%H:%M"), "18:30")
+
+    def test_latest_ignores_the_next_day(self) -> None:
+        """次日凌晨的条目不属于这一天，不能把「覆盖到几点」抬上去。"""
+        with tempfile.TemporaryDirectory() as tmp:
+            items = Path(tmp)
+            self._write(
+                items / "x.jsonl",
+                ["2026-10-29T18:30:00+09:00", "2026-10-30T04:11:00+09:00"],
+            )
+            _, _, latest = daily_prepare.scan_day(items, date(2026, 10, 29))
+            self.assertEqual(latest.astimezone(daily_prepare.JST).strftime("%H:%M"), "18:30")
+
+    def test_partial_day_refuses_to_build(self) -> None:
+        """最后一条停在 18:30 就返回 5，不去写一期残稿。"""
+        with tempfile.TemporaryDirectory() as tmp:
+            items = Path(tmp) / "data" / "items"
+            items.mkdir(parents=True)
+            self._write(items / "x.jsonl", ["2026-10-29T09:00:00+09:00", "2026-10-29T18:30:09+09:00"])
+            code = daily_prepare.main(["--no-pull", "--xreader", tmp, "--date", "2026-10-29"])
+            self.assertEqual(code, 5)
+
+
 if __name__ == "__main__":
     unittest.main()

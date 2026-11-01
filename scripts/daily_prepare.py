@@ -30,6 +30,8 @@
        （Galgame 版第一次跑 `update-galgame.yml` 之前 `data-galgame/` 还不存在，
         也走这个码：跳过这一版，不要写空稿）
     3  抓取仓库拉取失败
+    5  这一期只抓到一半（最后一条距 24:00 超过 2 小时）——先 `trigger_fetch.py`
+       立刻抓一轮；确认要出残的，加 `--allow-partial`
 """
 from __future__ import annotations
 
@@ -56,16 +58,26 @@ KINDS: dict[str, tuple[str, str, str]] = {
 # 目标日只有 1-2 条时几乎肯定抓取失败（不是「大家都没发推」），提示一句。
 SUSPICIOUSLY_FEW = 3
 
+# 最后一条距 24:00 超过这个时长，就当「这一天没抓全」。
+# 实测每期只覆盖到 18:30–18:54（见 docs/daily-report-guide.md「调度延迟」），
+# 2 小时能把「正常收工」和「少了一个晚上」分开。
+COVERAGE_SLACK = timedelta(hours=2)
+
 
 def jst_yesterday() -> date:
     return (datetime.now(JST).date() - timedelta(days=1))
 
 
-def count_items(items_dir: Path, day: date) -> tuple[int, int]:
-    """返回 (窗口内条数, 全部条数)。窗口是 JST 自然日 [00:00, 次日 00:00)。"""
+def scan_day(items_dir: Path, day: date) -> tuple[int, int, datetime | None]:
+    """返回 (窗口内条数, 全部条数, 窗口内**最后一条**的时间)。
+
+    第三个值是用来判断「这一天抓全了没有」的：条数够多不代表覆盖完整——
+    261031 有 291 条，但最后一条停在 18:30，后面五个半小时是空的。
+    """
     start = datetime.combine(day, datetime.min.time(), tzinfo=JST)
     end = start + timedelta(days=1)
     inside = total = 0
+    latest: datetime | None = None
     for path in sorted(items_dir.glob("*.jsonl")):
         with path.open(encoding="utf-8") as handle:
             for line in handle:
@@ -88,6 +100,14 @@ def count_items(items_dir: Path, day: date) -> tuple[int, int]:
                     moment = moment.replace(tzinfo=timezone.utc)
                 if start <= moment < end:
                     inside += 1
+                    if latest is None or moment > latest:
+                        latest = moment
+    return inside, total, latest
+
+
+def count_items(items_dir: Path, day: date) -> tuple[int, int]:
+    """返回 (窗口内条数, 全部条数)。窗口是 JST 自然日 [00:00, 次日 00:00)。"""
+    inside, total, _ = scan_day(items_dir, day)
     return inside, total
 
 
@@ -130,6 +150,11 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--no-pull", action="store_true", help="跳过 git pull")
     parser.add_argument("--force", action="store_true", help="允许覆盖已存在的期号")
     parser.add_argument("--new", action="store_true", help="同一天再出一期：排成 -2、-3")
+    parser.add_argument(
+        "--allow-partial",
+        action="store_true",
+        help="这一天只抓到一半也照出（默认返回 5，等抓取补齐再跑）",
+    )
     args = parser.parse_args(argv)
 
     suffix, data_name, label = KINDS[args.kind]
@@ -152,7 +177,7 @@ def main(argv: list[str] | None = None) -> int:
             )
         return 2
 
-    inside, total = count_items(items_dir, day)
+    inside, total, latest = scan_day(items_dir, day)
     print(f"{label} · {day} (JST) 窗口内 {inside} 条 / 全部 {total} 条")
     if inside == 0:
         print(
@@ -163,6 +188,21 @@ def main(argv: list[str] | None = None) -> int:
         return 2
     if inside < SUSPICIOUSLY_FEW:
         print(f"注意：只有 {inside} 条，可能抓取不完整，建议看一眼 briefing 再决定", file=sys.stderr)
+
+    if latest is not None:
+        end = datetime.combine(day, datetime.min.time(), tzinfo=JST) + timedelta(days=1)
+        gap = end - latest
+        if gap > COVERAGE_SLACK:
+            print(
+                f"⚠ {day} 只覆盖到 {latest.astimezone(JST).strftime('%H:%M')} JST，"
+                f"后面 {gap.total_seconds() / 3600:.1f} 小时没有条目 —— 最后一轮抓取大概还没落地。\n"
+                "  261031 就是这样丢掉 18:30 之后的 251 条（含柚木つばめ 20:21 的ぬいぐるみ再販）。\n"
+                "  先跑 `python scripts/trigger_fetch.py` 立刻抓一轮，再重跑本脚本；"
+                "确实要出一期残的，加 --allow-partial。",
+                file=sys.stderr,
+            )
+            if not args.allow_partial:
+                return 5
 
     # 不再传 `--at`：期号只到天，`issue.published_at` 取真实运行时刻
     # （旧做法是钉一个名义 22:00，比真实出稿早约 3.5 小时）
