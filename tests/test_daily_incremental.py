@@ -384,17 +384,22 @@ class InactiveAccountTest(unittest.TestCase):
         makers = [a for a in roster.accounts if a.category == "manufacturer"]
         self.assertTrue(makers, "制造商应该已经在名单里")
         self.assertTrue(all(a.active for a in makers), "厂商号一律 active=true")
-        # 这一栏里只有一家不是品牌号：Moepedia 是作品情报站。
+        # 这一栏里非品牌号的只有两类，都要有明确理由：
+        #   Moepedia        —— 作品情报站，不是厂商；
+        #   akaeroCore 四号 —— 同一家发行商的四个语言号（繁中主号 + 英/日/韩分号）。
+        #                     用 main/sub 让 build 按 name 合并成一行：主号当行首，
+        #                     其余进 people[].via。它们是同一家公司，不是四家。
         self.assertEqual(
             {a.handle for a in makers if a.role != "brand"},
-            {"Moepedia_net"},
+            {"Moepedia_net", "akaerocore", "akaeroCore_en",
+             "akaeroCore_JP", "akaeroCore_kr"},
             "manufacturer 段里出现了非品牌号：确认它确实是情报来源，再改这条断言",
         )
-        # 带降噪规则的号：Moepedia + 2026-10-29 启用的五个信息号。
+        # 带降噪规则的号：Moepedia + 2026-10-29 启用的五个信息号 + 2026-11-01 的 hiro_in。
         self.assertEqual(
             set(roster.filters),
             {"moepedia_net", "seiya_saiga", "youtan0309", "aikouka23",
-             "getchucom", "bugbug_info"},
+             "getchucom", "bugbug_info", "hiro_in"},
         )
         self.assertTrue(all("游戏" in a.tags or "资料站" in a.tags for a in makers))
         self.assertTrue(any("Moe Award" in a.tags for a in makers), "拿过萌奖的应该有标签")
@@ -415,17 +420,22 @@ class InactiveAccountTest(unittest.TestCase):
         self.assertTrue(voice.is_known("silkysplus"))
         self.assertEqual(galgame.category_of("yukanyan2525"), "seiyuu")
 
-    def test_info_accounts_are_the_five_enabled_ones(self) -> None:
+    def test_info_accounts_are_the_enabled_ones(self) -> None:
         """信息号 2026-10-29 启用五个：三个个人向 + 两个媒体号。
 
+        2026-11-01 再补两个：hiro_in（ErogameScape 管理人，资料站侧）与
+        AKOUtw（アミューズクラフト 导演个人号——用户点名要的，破了「厂商侧个人号
+        不入册」这条旧规矩，所以下面那几个仍然拦着）。
+
         媒体号（getchucom 发售日历 / bugbug_info 新作介绍）用 `keep_if` 白名单，
-        只收指定内容；其余媒体号明确不加。厂商侧个人号还没入册。
+        只收指定内容；其余媒体号明确不加。
         """
         roster = Roster.load(kind="galgame")
         info = [a.handle for a in roster.accounts if a.category == "info"]
         self.assertEqual(
             sorted(info),
-            ["aikouka23", "bugbug_info", "getchucom", "seiya_saiga", "youtan0309"],
+            ["AKOUtw", "aikouka23", "bugbug_info", "getchucom",
+             "hiro_in", "seiya_saiga", "youtan0309"],
         )
         for handle in ("Famishin", "nakazawatakumi", "digitarou"):
             self.assertFalse(roster.is_known(handle), f"{handle} 是厂商侧个人号，暂时不入册")

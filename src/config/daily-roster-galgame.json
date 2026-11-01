@@ -1,6 +1,6 @@
 {
   "schema_version": 5,
-  "note": "Galgame 版日报的名单（`daily build --kind galgame`，期号 `YYMMDD-g`）。厂商一个 handle 一条，同社多品牌写进 note；黑系（エロス系作品BLACK賞）这批没有建。信息号（category=info）2026-10-29 先启用五个：seiya_saiga / youtan0309 / aikouka23 三个个人向，加 getchucom（发售日历）与 bugbug_info（新作介绍）两个媒体号——媒体号走 `keep_if` 白名单，只收指定内容。其余媒体号不再加，个人向候选与厂商侧个人号（剧作者 / 导演 / 代表）留表待议。Moepedia 是作品情报站，仍挂在 manufacturer 下（tags: 资料站 / 作品情报）。",
+  "note": "Galgame 版日报的名单（`daily build --kind galgame`，期号 `YYMMDD-g`）。厂商一个 handle 一条，同社多品牌写进 note；黑系（エロス系作品BLACK賞）这批没有建。信息号（category=info）2026-10-29 先启用五个：seiya_saiga / youtan0309 / aikouka23 三个个人向，加 getchucom（发售日历）与 bugbug_info（新作介绍）两个媒体号——媒体号走 `keep_if` 白名单，只收指定内容。2026-11-01 再补两个：hiro_in（ErogameScape 管理人）与 AKOUtw（アミューズクラフト 导演个人号）。Moepedia 是作品情报站，仍挂在 manufacturer 下（tags: 资料站 / 作品情报）。akaeroCore 的四个语言号 2026-11-01 起并入 manufacturer，按 name 合并成一行（主号 akaerocore，其余进 via）。",
   "categories": [
     {
       "id": "manufacturer",
@@ -2191,6 +2191,54 @@
       "note": "五年 1 部"
     },
     {
+      "handle": "akaerocore",
+      "name": "akaeroCore",
+      "category": "manufacturer",
+      "role": "main",
+      "active": true,
+      "tags": [
+        "发行商",
+        "游戏"
+      ],
+      "note": "台湾发行商（akaeroCore Co., Ltd.）· 繁中主号，英／日／韩三个分号按 name 合并成一行 · 发行《與魔性的她…》《妹系羅盤》《我與空狐的日常》《我與蘇菲亞的秘密》《幸福家裡蹲的養成方法》· 2026-11-01 启用"
+    },
+    {
+      "handle": "akaeroCore_en",
+      "name": "akaeroCore",
+      "category": "manufacturer",
+      "role": "sub",
+      "active": true,
+      "tags": [
+        "发行商",
+        "游戏"
+      ],
+      "note": "akaeroCore 英文号（2026-02 开）· 与主号同步发新作、愿望单与补丁公告 · 2026-11-01 启用"
+    },
+    {
+      "handle": "akaeroCore_JP",
+      "name": "akaeroCore",
+      "category": "manufacturer",
+      "role": "sub",
+      "active": true,
+      "tags": [
+        "发行商",
+        "游戏"
+      ],
+      "note": "akaeroCore 日文号（2026-09 开，粉丝尚少）· 新作与促销信息 · 2026-11-01 启用"
+    },
+    {
+      "handle": "akaeroCore_kr",
+      "name": "akaeroCore",
+      "category": "manufacturer",
+      "role": "sub",
+      "active": true,
+      "tags": [
+        "发行商",
+        "游戏"
+      ],
+      "note": "akaeroCore 韩文号（2026-04 开）· 新作、补丁与促销 · 2026-11-01 启用"
+    },
+    {
       "handle": "seiya_saiga",
       "name": "誠也の部屋@公式",
       "category": "info",
@@ -2320,6 +2368,41 @@
         ],
         "max_items": 5
       }
+    },
+    {
+      "handle": "hiro_in",
+      "name": "ひろいん（ErogameScape）",
+      "category": "info",
+      "role": "info",
+      "active": true,
+      "tags": [
+        "游戏情报",
+        "资料站",
+        "个人向"
+      ],
+      "note": "ErogameScape -エロゲー批評空間- 管理人 · 批评空间的站务公告、作品情报与促销（含 FANZA 低价活动）· 2026-11-01 启用",
+      "filter": {
+        "max_items": 5,
+        "prefer_if": [
+          "新作",
+          "発売",
+          "レビュー",
+          "アップデート",
+          "メンテナンス"
+        ]
+      }
+    },
+    {
+      "handle": "AKOUtw",
+      "name": "AKOU（アミューズクラフト）",
+      "category": "info",
+      "role": "info",
+      "active": true,
+      "tags": [
+        "游戏情报",
+        "个人向"
+      ],
+      "note": "アミューズクラフト ディレクター個人号 · 开发中作品的近况与杂谈，非官方公告，产品问题走官网 · 2026-11-01 启用"
     }
   ]
 }
