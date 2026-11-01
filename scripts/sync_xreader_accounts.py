@@ -21,7 +21,7 @@ X-Reader 那边用两个 workflow 分别跑（`--accounts` 指到各自的文件
 用法：
 
     python scripts/sync_xreader_accounts.py \
-        --out "../X-rss-workspace/X-Reader/accounts.yaml"
+        --out ".xreader/accounts.yaml"
 
     # 不给 --galgame-out 时，默认写在 --out 同目录的 accounts.galgame.yaml
     python scripts/sync_xreader_accounts.py --out ... --galgame-out ...

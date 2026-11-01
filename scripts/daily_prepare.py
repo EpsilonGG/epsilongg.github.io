@@ -44,7 +44,25 @@ from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
-DEFAULT_XREADER = REPO_ROOT.parent / "X-rss-workspace" / "X-Reader"
+
+# X-Reader 的 checkout 位置。优先用仓库内的 `.xreader/`（2026-11-01 起）——
+# 原来的 Desktop/X-rss-workspace 两天里被清掉两次，每次都要重克隆。
+# 老的兄弟目录仍然认，迁移期两边都在时不至于跑错。
+XREADER_CANDIDATES = (
+    REPO_ROOT / ".xreader",
+    REPO_ROOT.parent / "X-rss-workspace" / "X-Reader",
+)
+
+
+def default_xreader() -> Path:
+    """挑一个存在的 checkout；都不在就返回首选路径，让报错指向该建的地方。"""
+    for path in XREADER_CANDIDATES:
+        if (path / ".git").exists():
+            return path
+    return XREADER_CANDIDATES[0]
+
+
+DEFAULT_XREADER = default_xreader()
 JST = timezone(timedelta(hours=9))
 
 # kind → (期号后缀, 抓取仓库里的数据目录, 人话名字)
@@ -145,8 +163,8 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--date", type=date.fromisoformat, default=None,
                         help="汇总哪一天（JST 自然日），默认昨天")
     parser.add_argument("--xreader", type=Path,
-                        default=Path(os.environ.get("XREADER_DIR") or DEFAULT_XREADER),
-                        help="X-Reader 的 checkout 路径")
+                        default=Path(os.environ.get("XREADER_DIR") or default_xreader()),
+                        help="X-Reader 的 checkout 路径（默认 .xreader/，退回 ../X-rss-workspace/X-Reader）")
     parser.add_argument("--no-pull", action="store_true", help="跳过 git pull")
     parser.add_argument("--force", action="store_true", help="允许覆盖已存在的期号")
     parser.add_argument("--new", action="store_true", help="同一天再出一期：排成 -2、-3")

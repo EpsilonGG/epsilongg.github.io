@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""按一下就让 CI 立刻抓一轮（`workflow_dispatch`），并等数据真正落地。
+r"""按一下就让 CI 立刻抓一轮（`workflow_dispatch`），并等数据真正落地。
 
 ## 为什么需要这个脚本
 
@@ -15,7 +15,9 @@ GitHub 的 `schedule` 是 **best-effort**：cron 写了 03:00 / 15:00 UTC，实�
 
 ## 用法
 
-    # fine-grained PAT：Actions = Read and write，Contents = Read（只这一个仓库）
+    # 放法一（自动化用）：写进文件，一行，不要引号
+    #   C:\Users\<你>\.workbuddy-ai\secrets\xreader_token
+    # 放法二（临时跑）：环境变量
     export XREADER_TOKEN=github_pat_xxx
 
     python scripts/trigger_fetch.py                      # 两版都抓，等完成，再 git pull
@@ -24,6 +26,9 @@ GitHub 的 `schedule` 是 **best-effort**：cron 写了 03:00 / 15:00 UTC，实�
     python scripts/trigger_fetch.py --report             # 只看最近的调度延迟，不触发
     python scripts/trigger_fetch.py --verify-only --date 2026-10-31
                                                         # 只查本地数据覆盖到几点
+
+token 只需建一次。之后把它写进上面那个文件，自动化每天调用本脚本时自己读，
+**不需要每天手动**。
 
 ## 退出码
 
@@ -45,7 +50,7 @@ from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from daily_prepare import DEFAULT_XREADER, KINDS, pull, scan_day  # noqa: E402
+from daily_prepare import KINDS, default_xreader, pull, scan_day  # noqa: E402
 
 JST = timezone(timedelta(hours=9))
 OWNER = "EpsilonGG"
@@ -60,6 +65,28 @@ WORKFLOWS = {
 
 # 目标日最后一条距 24:00 超过这个时长，就当「没覆盖完整」。
 COVERAGE_SLACK = timedelta(hours=2)
+
+# token 的默认落脚点：环境变量没设时读这个文件（一行，纯 token）。
+# 放用户目录而不是仓库里，免得哪天 `git add -A` 把它卷进去。
+DEFAULT_TOKEN_FILE = Path.home() / ".workbuddy-ai" / "secrets" / "xreader_token"
+
+
+def read_token(token_env: str, token_file: str | None) -> tuple[str, str]:
+    """按「环境变量 → 文件」找 token，返回 (token, 来源)。找不到返回 ("", "")。
+
+    两个来源都留着：环境变量适合临时跑一次，文件适合自动化——自动化进程的
+    环境变量不一定继承到你 `setx` 之后新开的窗口，文件则是每次现读。
+    """
+    for name in (token_env, "GITHUB_TOKEN"):
+        value = (os.environ.get(name) or "").strip()
+        if value:
+            return value, f"环境变量 {name}"
+    path = Path(token_file) if token_file else DEFAULT_TOKEN_FILE
+    if path.exists():
+        value = path.read_text(encoding="utf-8").strip()
+        if value:
+            return value, str(path)
+    return "", ""
 
 
 def _api(method: str, path: str, token: str, payload: dict | None = None) -> tuple[int, dict | list | None]:
@@ -204,11 +231,13 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--kind", choices=["voice", "galgame", "both"], default="both")
     parser.add_argument("--token-env", default="XREADER_TOKEN",
                         help="从哪个环境变量读 token（默认 XREADER_TOKEN，退回 GITHUB_TOKEN）")
+    parser.add_argument("--token-file", default=None,
+                        help=f"环境变量没有时读这个文件（默认 {DEFAULT_TOKEN_FILE}）")
     parser.add_argument("--timeout", type=int, default=25, help="等多久算超时（分钟）")
     parser.add_argument("--no-wait", action="store_true", help="触发后立刻返回，不等完成")
     parser.add_argument("--no-pull", action="store_true", help="跑完不 git pull")
     parser.add_argument("--xreader", type=Path,
-                        default=Path(os.environ.get("XREADER_DIR") or DEFAULT_XREADER))
+                        default=Path(os.environ.get("XREADER_DIR") or default_xreader()))
     parser.add_argument("--report", action="store_true", help="只打印最近的调度延迟，不触发")
     parser.add_argument("--verify-only", action="store_true", help="只检查本地数据覆盖，不触发")
     parser.add_argument("--date", type=date.fromisoformat, default=None,
@@ -218,7 +247,7 @@ def main(argv: list[str] | None = None) -> int:
     kinds = ["voice", "galgame"] if args.kind == "both" else [args.kind]
     day = args.date or (datetime.now(JST).date() - timedelta(days=1))
 
-    token = os.environ.get(args.token_env) or os.environ.get("GITHUB_TOKEN") or ""
+    token, source = read_token(args.token_env, args.token_file)
 
     # --verify-only 只读本地文件；--report 只读公开的 run 列表——两条都不需要 token，
     # 所以放在 token 检查之前。
@@ -231,16 +260,18 @@ def main(argv: list[str] | None = None) -> int:
 
     if not token:
         print(
-            f"没有 token：设 {args.token_env} 或 GITHUB_TOKEN。\n"
-            "建一个 fine-grained PAT（只选 X-Reader 仓库）：\n"
-            "  Actions      → Read and write\n"
-            "  Contents     → Read（要顺带 pull 的话）\n"
-            "  Metadata     → Read（自动带上）\n"
-            "地址：https://github.com/settings/personal-access-tokens/new",
+            "没有 token。两种放法，任选一种：\n"
+            f"  1) 写文件（自动化用这个）：{DEFAULT_TOKEN_FILE}\n"
+            "     文件里只放一行 token，不要引号。\n"
+            f"  2) 环境变量：set {args.token_env}=github_pat_xxx（临时跑用）\n"
+            "建 token：https://github.com/settings/personal-access-tokens/new\n"
+            "  Repository access → Only select repositories → EpsilonGG/X-Reader\n"
+            "  Permissions → Actions: Read and write（其余不用给）",
             file=sys.stderr,
         )
         return 2
 
+    print(f"token 来源：{source}")
     print(f"触发：{'、'.join(WORKFLOWS[k] for k in kinds)}（ref=main）")
     stamps = {kind: dispatch(kind, token) for kind in kinds}
 

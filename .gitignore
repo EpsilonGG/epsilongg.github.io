@@ -38,3 +38,8 @@ data/daily/state.json
 
 # 本地查询缓存（VNDB 等），随时可删、随时重建
 .cache/
+
+# 抓取侧 X-Reader 的 checkout（`git clone --depth 1` 到这儿，约 14 MB 数据）。
+# 2026-11-01 从 Desktop/X-rss-workspace 搬进来：那个位置两天里被清掉两次，
+# 每次都要重克隆。放在仓库目录内是唯一稳定的位置。用 daily_prepare.py 自动识别。
+.xreader/

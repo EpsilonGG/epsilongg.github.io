@@ -1,7 +1,8 @@
 # X 每日推特日报 — 日常运营指南与维护指南
 
 > 适用项目：EpsilonGG 个人站（`github.com/EpsilonGG/epsilongg.github.io`，本机路径 `Desktop\github page work`）
-> 配套工具：X-Reader（抓取+规范化）。X-rss 仓库的"储存地"= `X-rss-workspace`。
+> 配套工具：X-Reader（抓取+规范化）。本机 checkout 在 `github page work/.xreader`（2026-11-01 起；
+> 原先的 `Desktop/X-rss-workspace/X-Reader` 两天里被清掉两次，别再放回桌面）。
 > 最后更新：2026-10-26（M3.9：出稿改走「出题 → 答题 → 判卷合并」，`confirm` 定稿前再判一次；
 > 金文件基准期改成可切换的 `tests/golden/current.json`）
 
@@ -15,7 +16,7 @@
 
 | 角色 | 位置 | 负责什么 |
 | --- | --- | --- |
-| **X-Reader（抓取侧）** | GitHub 上的 X-Reader 仓库；本机 checkout 在 `X-rss-workspace/X-Reader` | 每日自动抓取 X 推文，规范化为 `NormalizedItem`，写入并提交 `data/items/*.jsonl` |
+| **X-Reader（抓取侧）** | GitHub 上的 X-Reader 仓库；本机 checkout 在 `github page work/.xreader` | 每日自动抓取 X 推文，规范化为 `NormalizedItem`，写入并提交 `data/items/*.jsonl` |
 | **本地组装 + 本地 LLM** | 站点仓库 `scripts/daily_digest.py` + `scripts/daily.sh`，外加本机 WorkBuddy | 把 `data/items` 确定性组装成 `out/<期号>/report.json` 骨架；由 WorkBuddy 填 `description` / `highlights` / `works` / `interactions` / `people` |
 | **站点仓库（发布侧）** | `Desktop\github page work` = `epsilongg.github.io` | 存放脚本与 `data/daily/<期号>/report.json`；`git push` 后 Actions 自动构建部署到 GitHub Pages |
 
@@ -260,8 +261,8 @@ npm run build         # 缺人、handle 写错都在构建日志里报
 
 digest 读取的目录是 **X-Reader checkout 的两个库之一**：声优版 `data/items`、Galgame 版 `data-galgame/items`。两种方式拿到数据：
 
-- **方式 A（推荐，用 CI 已抓的数据）：** 在 `X-rss-workspace/X-Reader` 里执行 `git pull`，拉取 CI 提交的 `data/` 与 `data-galgame/`。
-- **方式 B（本地现抓）：** 在 `X-rss-workspace/X-Reader` 里执行 `python main.py --json`（声优版）或
+- **方式 A（推荐，用 CI 已抓的数据）：** 在 `.xreader/` 里执行 `git pull`，拉取 CI 提交的 `data/` 与 `data-galgame/`。
+- **方式 B（本地现抓）：** 在 `.xreader/` 里执行 `python main.py --json`（声优版）或
   `python main.py --json --config config/config.galgame.yaml --accounts accounts.galgame.yaml`（Galgame 版，需要该仓库的依赖与凭证）。
 
 > CI 每天 **`03:00` 与 `15:00` UTC** 各跑一次（Galgame 版是 `03:10` / `15:10`，错开十分钟）。
@@ -308,9 +309,9 @@ DAILY_PROXY=http://127.0.0.1:7897 python scripts/daily_prepare.py --kind galgame
 ```bash
 cd "Desktop/github page work"
 # 声优版（声优 + 音声社团）
-python scripts/daily_digest.py --items-dir "<X-rss-workspace>/X-Reader/data/items"
+python scripts/daily_digest.py --items-dir ".xreader/data/items"
 # Galgame 版（游戏制造商 + 信息号）——库和名单都是另一份
-python scripts/daily_digest.py build --kind galgame --items-dir "<X-rss-workspace>/X-Reader/data-galgame/items"
+python scripts/daily_digest.py build --kind galgame --items-dir ".xreader/data-galgame/items"
 ```
 
 - `--kind voice|galgame`：**哪一版**，默认 `voice`。它同时决定期号带不带 `-g`、用哪份名单、
@@ -563,7 +564,10 @@ commit（2026-10-26 就把一篇 496 行的新访谈卷进了「docs: 抓取侧�
 
 ### 2.2 X-Reader 端（抓取侧）
 
-- **仓库：** `X-rss-workspace/X-Reader`（= `github.com/EpsilonGG/X-Reader`，**是真正的 git clone**，`git pull` 能拿到 CI 提交的数据）。
+- **仓库：** `github page work/.xreader`（= `github.com/EpsilonGG/X-Reader`，**是真正的 git clone**，`git pull` 能拿到 CI 提交的数据）。
+  放仓库目录内、写进 `.gitignore`：桌面那个位置 2026-10-31 和 11-01 各被清掉一次，
+  每次都要重克隆 14 MB。`daily_prepare.py` 的 `default_xreader()` 会先找 `.xreader/`，
+  找不到才退回老的 `../X-rss-workspace/X-Reader`。
 - **CI：两个 workflow，各管一版。** 2026-10-29 拆分，因为声优版加进 109 个社团后已经顶到单条 20 分钟超时线。
   - `update.yml`（声优版，237 个账号）：每日 **`03:00` 与 `15:00` UTC** 各跑一次，`timeout-minutes: 30`，写 `data/`。
   - `update-galgame.yml`（Galgame 版，185 个账号）：每日 **`03:10` 与 `15:10` UTC**（错开 10 分钟，避免两边抢同一个 push），
