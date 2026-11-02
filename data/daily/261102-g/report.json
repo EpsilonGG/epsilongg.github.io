@@ -1,0 +1,563 @@
+{
+  "schema_version": 1,
+  "issue": {
+    "id": "261102-g",
+    "published_at": "2026-11-03T00:31:17.624759+09:00",
+    "window": {
+      "start": "2026-11-02T00:00:00+09:00",
+      "end": "2026-11-03T00:00:00+09:00"
+    },
+    "status": "confirmed",
+    "confirmed_at": "2026-11-02T15:32:46+00:00"
+  },
+  "counts": {
+    "items": 203,
+    "accounts": 44,
+    "late": 41,
+    "skipped_duplicate": 1
+  },
+  "description": "SMEE 与 FGREMAKE 新作同日大师升级；名越工作室解散",
+  "highlights": [
+    {
+      "text": "SMEE『ワンナイトアフター』大师升级完成，11 月 27 日发售定档；体验版、DL 版预约与各店特典一起公开，HOOKSOFT 与剧本阵都在转发庆祝",
+      "sources": [
+        "x:2117119512692822294",
+        "x:2117119512323760577"
+      ]
+    },
+    {
+      "text": "FGREMAKE『遺作リメイク』也完成大师升级，按计划 12 月 25 日发售，体验版与店铺特典情报已上线",
+      "sources": [
+        "x:2117210128176787963",
+        "x:2117215300697604230"
+      ]
+    },
+    {
+      "text": "CHAOS-R『血刻継承クレイドペイン ―少女たちの終焉―』DL 版在 DLsite 发卖中，主题歌「紅蓮の糸」全曲在 YouTube 公开，三位女主 CV 花社めい、隼クレハ、月野夕紀 陆续介绍",
+      "sources": [
+        "x:2117094609931444445",
+        "x:2117096853988848063"
+      ]
+    },
+    {
+      "text": "名越スタジオ 依 10 月 31 日股东会决议解散，业界人士在 X 上转发消息",
+      "sources": [
+        "x:2117091455068188751"
+      ]
+    }
+  ],
+  "insights": [],
+  "interactions": [
+    {
+      "text": "HOOKSOFT 转发 SMEE 的『ワンナイトアフター』大师升级公告，同集团两个官号一起庆祝",
+      "sources": [
+        "x:2117119512323760577",
+        "x:2117119512692822294"
+      ]
+    },
+    {
+      "text": "project_citrus 转发 project_navel 的「ねぶチューブ」第 363 回，两边一起推这期电台",
+      "sources": [
+        "x:2117135898999722294",
+        "x:2117121879567982758"
+      ]
+    }
+  ],
+  "works": [
+    "SMEE『ワンナイトアフター』大师升级完成，11 月 27 日发售；体验版、DL 版预约与各店特典同时公开",
+    "FGREMAKE『遺作リメイク』大师升级完成，12 月 25 日发售，体验版与店铺特典已公开",
+    "CHAOS-R『血刻継承クレイドペイン ―少女たちの終焉―』DL 版在 DLsite 发卖中，主题歌「紅蓮の糸」全曲公开",
+    "sprite『小金井荘と金色の揚羽蝶』11 月 26 日发售，大师升级纪念活动第 4 弹送 藤寺美徳 签名色纸",
+    "DESSERT Soft『どいなかガールズゆーとぴあ』11 月 27 日发售，大师升级影片 22 时首播，抱枕套在秋叶原展示",
+    "エスクード『廃村少女［弐］外伝 ～千艶万匣～』发卖中，官网更新応援キャンペーン 中奖名单",
+    "はむはむソフト『ハイアングル～幼馴染のバレー部エースが、俺にだけ甘えてくる～』发卖中，ソフマップ 通贩库存少量复活",
+    "debonosu『神楽新風記～陽葵の章～』体验版公开，11 月 20 日发售",
+    "Overflow『Summer Days』12 月 18 日发售，ソフマップ 有偿特典公开；SchoolDays 抽奖 C 赏是四款浴场海报",
+    "WendyBell『夢見るアプリ』11 月 27 日发售",
+    "自宅すたじお『ギャルズフィクション』FD 制作中，公开征集看板与周边联名，体验版收录已完成",
+    "まどそふと 的 DL 版在 DLsite 创业祭最大 70%OFF，到 11 月 12 日",
+    "Navel『ハピメア RE』主题歌「非実空想アムネジア」开始配信，OP 影片同步公开",
+    "circus『D.C.5 to 4 Luminous Memories』DMM 刮刮乐 11 月 16 日 18 时开卖",
+    "AzarashiSoft『アマカノ３～Perfect Edition～』在 Fantia 谈开发中的烦恼",
+    "crowd『ママラブ！ ～僕の彼女は僕のママ☆おっとり巨乳愛奈ママ～［PG EDITION］』DVDPG 发卖中",
+    "kiss『ネオセージ』公开 Amazon 特典衣装「ネオセージ・ユニフォーム」",
+    "TRYSET Break『催眠痴漢Episode2～イジメっ子の牝穴は催眠アプリで僕の♂サイズに作り替えられる～』2027 年 1 月 29 日发售",
+    "Innocent Grey 官方通贩改版重开，『カラノショウジョ』COMPLETE BOX 附赠黑胶「Film Noir」试听公开",
+    "nitroplus『刀剣乱舞無双』下载版黑五五折"
+  ],
+  "categories": [],
+  "accounts": [
+    "Moepedia_net",
+    "TRYSET",
+    "silkysplus",
+    "kiss_staff",
+    "chaos_R_public",
+    "debonosu",
+    "AzarashiSoft",
+    "HOOKSOFT",
+    "crowd_anim",
+    "escude1998",
+    "circus_info",
+    "purple_NewWork",
+    "smee_official",
+    "key_official",
+    "POISON_NEW1992",
+    "dessertsoft_tw",
+    "u_me_soft",
+    "hamham_soft",
+    "FANDC_Staff",
+    "NanaWind",
+    "Amuse_sub",
+    "luneman_etc",
+    "fgremake",
+    "sprite_fairys",
+    "madostaff",
+    "project_navel",
+    "willplus_staff",
+    "info_9_nine_",
+    "jitaku_st",
+    "project_citrus",
+    "fortuneglovety",
+    "Muvluv_Official",
+    "BEEP_SHOP",
+    "twit_Gungnir",
+    "Liaison__info",
+    "adahemas",
+    "SukeraSparo",
+    "Overflow_staff",
+    "nitroplus_staff",
+    "youtan0309",
+    "getchucom",
+    "bugbug_info",
+    "hiro_in",
+    "AKOUtw"
+  ],
+  "people": [
+    {
+      "handle": "Moepedia_net",
+      "category": "",
+      "summary": "转 遺作リメイク 大师升级；报 WendyBell 11/27、ゆずソフト 七海 亚克力钟、対魔忍 登录活动。",
+      "via": [],
+      "sources": [
+        "x:2117215300697604230",
+        "x:2117216399475052798"
+      ]
+    },
+    {
+      "handle": "TRYSET",
+      "category": "",
+      "summary": "2027 年 1 月 29 日『催眠痴漢Episode2』官网页面公开，海藤志保 一角出演。",
+      "via": [],
+      "sources": [
+        "x:2117226217825067332"
+      ]
+    },
+    {
+      "handle": "silkysplus",
+      "category": "",
+      "summary": "ツイキャス 维护中「たまキャス」暂停，修好就恢复；谢过 秋叶原キャララ 的来场。",
+      "via": [],
+      "sources": [
+        "x:2117080038382428265"
+      ]
+    },
+    {
+      "handle": "kiss_staff",
+      "category": "",
+      "summary": "公开 Amazon 特典衣装「ネオセージ・ユニフォーム」。",
+      "via": [],
+      "sources": [
+        "x:2117217463872213353"
+      ]
+    },
+    {
+      "handle": "chaos_R_public",
+      "category": "",
+      "summary": "『血刻継承クレイドペイン』DL 版在 DLsite 发卖中；主题歌全曲与三位女主 CV 陆续公开。",
+      "via": [],
+      "sources": [
+        "x:2117094609931444445",
+        "x:2117096853988848063"
+      ]
+    },
+    {
+      "handle": "debonosu",
+      "category": "",
+      "summary": "『神楽新風記～陽葵の章～』官网更新、体验版公开，11 月 20 日发售。",
+      "via": [],
+      "sources": [
+        "x:2117206084037546195"
+      ]
+    },
+    {
+      "handle": "AzarashiSoft",
+      "category": "",
+      "summary": "在 Fantia 谈『アマカノ３～Perfect Edition～』开发中的烦恼。",
+      "via": [],
+      "sources": [
+        "x:2117182815897079931"
+      ]
+    },
+    {
+      "handle": "HOOKSOFT",
+      "category": "",
+      "summary": "转发 SMEE 大师升级消息；另推『トリプルペアリング』迷你 FD 的 DL 版。",
+      "via": [],
+      "sources": [
+        "x:2117119512323760577",
+        "x:2117225220104741282"
+      ]
+    },
+    {
+      "handle": "crowd_anim",
+      "category": "",
+      "summary": "DVDPG 版『ママラブ！』发卖中，用 DVD 播放机就能玩。",
+      "via": [],
+      "sources": [
+        "x:2117171158210810016"
+      ]
+    },
+    {
+      "handle": "escude1998",
+      "category": "",
+      "summary": "『廃村少女［弐］外伝』发卖中，応援キャンペーン 开奖，FANZA 评论转发活动开跑。",
+      "via": [],
+      "sources": [
+        "x:2117116118964052429",
+        "x:2117195009426616351"
+      ]
+    },
+    {
+      "handle": "circus_info",
+      "category": "",
+      "summary": "萌えゲーアワード 10 月期月间赏投票开跑（到 11/30）；D.C.5 to 4 刮刮乐 11/16 开卖。",
+      "via": [],
+      "sources": [
+        "x:2117156299456848000",
+        "x:2117179915669835878"
+      ]
+    },
+    {
+      "handle": "purple_NewWork",
+      "category": "",
+      "summary": "『ハピメア RE』主题歌「非実空想アムネジア」开始配信，OP 影片同步公开。",
+      "via": [],
+      "sources": [
+        "x:2117195026207797338"
+      ]
+    },
+    {
+      "handle": "smee_official",
+      "category": "",
+      "summary": "『ワンナイトアフター』大师升级，11 月 27 日发售；体验版与 DL 版预约全开。",
+      "via": [],
+      "sources": [
+        "x:2117119512692822294",
+        "x:2117217660777701734"
+      ]
+    },
+    {
+      "handle": "key_official",
+      "category": "",
+      "summary": "11 月 6 日 Discord 电台，聊『Summer Pockets』新作与 KSL2026 总结。",
+      "via": [],
+      "sources": [
+        "x:2117179924406763906"
+      ]
+    },
+    {
+      "handle": "POISON_NEW1992",
+      "category": "",
+      "summary": "『完堕ちXギャル母娘』FANZA 同人发卖中，11 月 14 日前五折。",
+      "via": [],
+      "sources": [
+        "x:2117240311508348948"
+      ]
+    },
+    {
+      "handle": "dessertsoft_tw",
+      "category": "",
+      "summary": "『どいなかガールズゆーとぴあ』11 月 27 日发售，大师升级影片 22 时首播，抱枕套在秋叶原展示。",
+      "via": [],
+      "sources": [
+        "x:2117235275395105105",
+        "x:2117256503853990102"
+      ]
+    },
+    {
+      "handle": "u_me_soft",
+      "category": "",
+      "summary": "コミックDAYS 第 184 话「黒旗」限时免费；顺带聊了棒球续约与摔角赛程。",
+      "via": [],
+      "sources": [
+        "x:2117029165786345805",
+        "x:2117104420442022107"
+      ]
+    },
+    {
+      "handle": "hamham_soft",
+      "category": "",
+      "summary": "『ハイアングル』发卖中，ソフマップ 通贩库存少量复活，附直笔特典。",
+      "via": [],
+      "sources": [
+        "x:2117096691082129716",
+        "x:2117194810285298110"
+      ]
+    },
+    {
+      "handle": "FANDC_Staff",
+      "category": "",
+      "summary": "『虹の彼方に』野々村孝美 11 月 2 日生日；另推 亀戸 的宅向居酒屋。",
+      "via": [],
+      "sources": [
+        "x:2116908128121852002",
+        "x:2117172752880996779"
+      ]
+    },
+    {
+      "handle": "NanaWind",
+      "category": "",
+      "summary": "官网限定公开 11 月壁纸日历，有 PC 与手机两版。",
+      "via": [],
+      "sources": [
+        "x:2117257998469087658"
+      ]
+    },
+    {
+      "handle": "Amuse_sub",
+      "category": "",
+      "summary": "介绍『養花師の背徳愛』的逆 NTR 诱惑 CG 与便利功能。",
+      "via": [],
+      "sources": [
+        "x:2117099378225955275",
+        "x:2117177140462682399"
+      ]
+    },
+    {
+      "handle": "luneman_etc",
+      "category": "",
+      "summary": "OVA『さくら裂ク 散ル花びら』#1#2 店铺特典公开；『悪の女幹部PNM』11/4 维护。",
+      "via": [],
+      "sources": [
+        "x:2117174422838841667",
+        "x:2117179999543259177"
+      ]
+    },
+    {
+      "handle": "fgremake",
+      "category": "",
+      "summary": "『遺作リメイク』大师升级，12 月 25 日发售，体验版与店铺特典公开。",
+      "via": [],
+      "sources": [
+        "x:2117210128176787963"
+      ]
+    },
+    {
+      "handle": "sprite_fairys",
+      "category": "",
+      "summary": "『小金井荘と金色の揚羽蝶』11 月 26 日发售，纪念活动第 4 弹送 藤寺美徳 签名色纸。",
+      "via": [],
+      "sources": [
+        "x:2117191077879046364"
+      ]
+    },
+    {
+      "handle": "madostaff",
+      "category": "",
+      "summary": "DLsite 创业祭，自家 DL 版最大 70%OFF，到 11 月 12 日。",
+      "via": [],
+      "sources": [
+        "x:2117239506512544082"
+      ]
+    },
+    {
+      "handle": "project_navel",
+      "category": "",
+      "summary": "ねぶチューブ 第 363 回更新，聊 NavPA2026 与幕后。",
+      "via": [],
+      "sources": [
+        "x:2117121879567982758",
+        "x:2117198935311982981"
+      ]
+    },
+    {
+      "handle": "willplus_staff",
+      "category": "",
+      "summary": "11 月 5 日凌晨 1 点到 8 点服务器维护，旗下品牌停服两三小时。",
+      "via": [],
+      "sources": [
+        "x:2117129352513290262"
+      ]
+    },
+    {
+      "handle": "info_9_nine_",
+      "category": "",
+      "summary": "『9-nine-』九條都 11 月 2 日生日，开生日祭标签征集祝福。",
+      "via": [],
+      "sources": [
+        "x:2117110161387200836"
+      ]
+    },
+    {
+      "handle": "jitaku_st",
+      "category": "",
+      "summary": "『ギャルズフィクション』FD 制作中，征集看板与周边联名；体验版收录完成。",
+      "via": [],
+      "sources": [
+        "x:2116994017091322243",
+        "x:2117191199383863339"
+      ]
+    },
+    {
+      "handle": "project_citrus",
+      "category": "",
+      "summary": "转发 ねぶチューブ 第 363 回；晒家里三只 17 岁的猫。",
+      "via": [],
+      "sources": [
+        "x:2117135898999722294",
+        "x:2117015165573165406"
+      ]
+    },
+    {
+      "handle": "fortuneglovety",
+      "category": "",
+      "summary": "只回了一句「这里是……」，配「ボロゲ」标签。",
+      "via": [],
+      "sources": [
+        "x:2117140269154152784"
+      ]
+    },
+    {
+      "handle": "Muvluv_Official",
+      "category": "",
+      "summary": "『マブラヴ ごはん』更新，这回是橘町的汉堡，预算一人 750 日元。",
+      "via": [],
+      "sources": [
+        "x:2117195027747336577"
+      ]
+    },
+    {
+      "handle": "BEEP_SHOP",
+      "category": "",
+      "summary": "入荷 ディグダグ 的 プーカ PVC 气球；修理班来了新人，正在修 PCエンジンGT。",
+      "via": [],
+      "sources": [
+        "x:2117113730970599554",
+        "x:2117140916519735723"
+      ]
+    },
+    {
+      "handle": "twit_Gungnir",
+      "category": "",
+      "summary": "官方通贩改版重开；『カラノショウジョ』COMPLETE BOX 附赠黑胶「Film Noir」试听公开。",
+      "via": [],
+      "sources": [
+        "x:2117041396658176092",
+        "x:2117173761569067372"
+      ]
+    },
+    {
+      "handle": "Liaison__info",
+      "category": "",
+      "summary": "『天瀬島は色恋ざかり』好评配信中。",
+      "via": [],
+      "sources": [
+        "x:2117203390413537409"
+      ]
+    },
+    {
+      "handle": "adahemas",
+      "category": "",
+      "summary": "被截稿日逼出两册分镜，自嘲「假装着急其实心里有底」。",
+      "via": [],
+      "sources": [
+        "x:2117132992036638755",
+        "x:2117133640652165142"
+      ]
+    },
+    {
+      "handle": "SukeraSparo",
+      "category": "",
+      "summary": "列出十年来自家四部含 R18 场景的百合视觉小说；转 文学フリマ东京43 新刊入稿消息。",
+      "via": [],
+      "sources": [
+        "x:2117004054786146626",
+        "x:2116908293839106535"
+      ]
+    },
+    {
+      "handle": "Overflow_staff",
+      "category": "",
+      "summary": "『Summer Days』12 月 18 日发售、ソフマップ 特典公开；SchoolDays 抽奖 C 赏是浴场海报。",
+      "via": [],
+      "sources": [
+        "x:2117121294944862273",
+        "x:2117179909550563793"
+      ]
+    },
+    {
+      "handle": "nitroplus_staff",
+      "category": "",
+      "summary": "『刀剣乱舞無双』下载版黑五五折。",
+      "via": [],
+      "sources": [
+        "x:2117091065488699585"
+      ]
+    },
+    {
+      "handle": "youtan0309",
+      "category": "",
+      "summary": "记『家族計画』25 周年与『猫忍えくすはーと+PLUS なち編』九周年；转 アノマリス 签名色纸活动。",
+      "via": [],
+      "sources": [
+        "x:2116908121884901614",
+        "x:2117210122841940133"
+      ]
+    },
+    {
+      "handle": "getchucom",
+      "category": "",
+      "summary": "『いけにえの母 3』店铺特典、『田舎の人妻たち THE ANIMATION』抽选、にゅう工房 动画化预约陆续开。",
+      "via": [],
+      "sources": [
+        "x:2117137444869128703",
+        "x:2117209019643568597"
+      ]
+    },
+    {
+      "handle": "bugbug_info",
+      "category": "",
+      "summary": "速报 WendyBell『夢見るアプリ』，拍照生成梦境题材。",
+      "via": [],
+      "sources": [
+        "x:2117165312877674537"
+      ]
+    },
+    {
+      "handle": "hiro_in",
+      "category": "",
+      "summary": "DLsite 创业祭：三件以上七折，AXL 旧作九折后 253 日元，还算了叠加优惠券的价。",
+      "via": [],
+      "sources": [
+        "x:2117235981539807607",
+        "x:2117239489139720531"
+      ]
+    },
+    {
+      "handle": "AKOUtw",
+      "category": "",
+      "summary": "报名越スタジオ 依 10 月 31 日股东会决议解散；另写了 BugBug 12 月号『遺作リメイク』专访。",
+      "via": [],
+      "sources": [
+        "x:2117091455068188751",
+        "x:2117160063723020702"
+      ]
+    }
+  ],
+  "provenance": {
+    "generator": "daily",
+    "prompt_version": 1,
+    "cache_key": "answers:1",
+    "generated_at": "2026-11-02T15:32:42+00:00"
+  }
+}
