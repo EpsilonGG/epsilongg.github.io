@@ -67,8 +67,16 @@ RULES_FLAT = """\
    别把两三个作品塞进同一条。**作品开始发售或开放预约的那条必须写出作品名**——
    不许用「多部作品」「一批新作」「某系列」概括，读者要的是名字。
    不写链接、不需要 sources——人名在 `people` 里已经链到主号。最多 24 条，当天没有就空数组。
-6. 只输出 JSON，不要 Markdown 代码围栏，不要在 JSON 前后写解释。
+6. 术语照下面「## 术语」那张表写，`avoid` 列出的写法一律不许出现。
+   最容易犯的是**按字面拆词**：`マスターアップ` 是「装盘完成」（母盘做完、进量产准备发售），
+   不是「大师升级」。拿不准就照表，表里没有的保留原词并加一句解释。
+7. 只输出 JSON，不要 Markdown 代码围栏，不要在 JSON 前后写解释。
 """
+
+# 术语表是 `data/glossary.json`：`ja` 原词、`zh` 本站统一写法、`avoid` 明确不许出现的写法。
+# 以前只有日语版题面（`ja.py`）会带这张表，中文稿没有——「マスターアップ → 大师升级」
+# 就是这么漏出去的。中文题面也带上，代价是题面长两行，收益是不用每次事后返工。
+GLOSSARY = Path(__file__).resolve().parents[2] / "data" / "glossary.json"
 
 ANSWER_SKELETON_FLAT = """\
 {
@@ -103,6 +111,24 @@ class Prompt:
     json_path: Path
     cached: bool
     items: int
+
+
+def _glossary_lines(limit: int = 80) -> str:
+    """术语表 → 题面里那张对照表。读不到就返回空串（不让术语表挡住出题）。"""
+    try:
+        terms = json.loads(GLOSSARY.read_text(encoding="utf-8")).get("terms") or []
+    except (OSError, ValueError):
+        return ""
+    lines: list[str] = []
+    for term in terms[:limit]:
+        ja = str(term.get("ja") or "").strip()
+        zh = str(term.get("zh") or "").strip()
+        if not ja or not zh:
+            continue
+        avoid = [str(a).strip() for a in (term.get("avoid") or []) if str(a).strip()]
+        tail = f"（不要写：{'、'.join(avoid)}）" if avoid else ""
+        lines.append(f"- `{ja}` → {zh}{tail}")
+    return "\n".join(lines)
 
 
 def _item_lines(items: list[dict]) -> str:
@@ -288,6 +314,10 @@ def build_flat(
             "## 要求",
             "",
             RULES_FLAT,
+            "## 术语（照这张表写，`avoid` 里的写法一律不许出现）",
+            "",
+            _glossary_lines() or "（术语表为空）",
+            "",
             "## 本题的 handles（`people[].handle` 只能从这里取）",
             "",
             "、".join(f"`{h}`" for h in handles) or "（空）",
