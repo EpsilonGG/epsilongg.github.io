@@ -51,6 +51,9 @@ const WEEK = ['星期日', '星期一', '星期二', '星期三', '星期四', '
 const isG = String(issue.id || ISSUE).includes('-g');
 const kindLabel = isG ? 'Galgame 日报' : '声优日报';
 const kindEn = isG ? 'GALGAME DAILY' : 'SEIYUU DAILY';
+// 报头上方那行小字。两版不一样——Galgame 版写「Galgame X まとめ」，
+// 写成「声優Xまとめ」是把声优版的名字套过去了。
+const kickerName = isG ? 'Galgame X まとめ' : '声優Xまとめ';
 
 const works = report.works || [];
 const highlights = (report.highlights || []).map((h) => (typeof h === 'string' ? h : h.text));
@@ -261,7 +264,7 @@ ${d.css}
 <div class="page">
   <header class="mast">
     <div class="mast-left">
-      <div class="kicker">声優Xまとめ · 第 ${esc(issue.id || ISSUE)} 期</div>
+      <div class="kicker">${esc(kickerName)} · 第 ${esc(issue.id || ISSUE)} 期</div>
       <h1 class="title">${esc(kindLabel)}</h1>
       <div class="sub">${esc(kindEn)}</div>
     </div>
