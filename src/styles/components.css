@@ -456,6 +456,24 @@ a.link-row:hover .link-row__label {
   margin-top: var(--space-6);
 }
 
+/*
+  整期长图。由 `daily publish` 顺手出（`scripts/daily-image/render.mjs`），
+  落在 `public/images/daily/<期号>.png`，插在「作品动态」后面——
+  读者扫完文字想要一张能直接转存的图，就是这一张。
+  图本身就是 1080 宽的设计稿，所以按容器宽度等比缩放，不加边框不裁切。
+*/
+.daily-figure {
+  margin: var(--space-6) 0 0;
+}
+
+.daily-figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 6px;
+  background: var(--color-bg-subtle);
+}
+
 /* 详细栏：「名字（链接） ：一句话」。
    名字加粗但不加色——本站没有强调色，靠字重和链接下划线区分即可。 */
 .daily-roster {
@@ -603,9 +621,14 @@ a.link-row:hover .link-row__label {
 
 .daily-archive__link {
   display: grid;
-  grid-template-columns: 5.5rem minmax(0, 1fr);
+  /*
+    日期 + 版别那一列：`10-29 Galgame · 第 2 期` 比 `10-29 声优` 宽一倍，
+    5.5rem 装不下会溢出到 gap 里，看起来像「日期和导语贴在一起」。
+    按最长的那种写法定宽，gap 也从 12 拉到 20，两种期号才都留得下空隙。
+  */
+  grid-template-columns: 9.5rem minmax(0, 1fr);
   align-items: baseline;
-  gap: var(--space-3);
+  gap: var(--space-5);
   padding-block: var(--space-3);
   text-decoration: none;
 }

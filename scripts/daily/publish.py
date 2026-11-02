@@ -16,9 +16,11 @@ M3 的正本在 `out/`（工作区，gitignore），站点读的是 `data/daily/
 from __future__ import annotations
 
 import json
+import sys
 from dataclasses import dataclass
 from pathlib import Path
 
+from . import image as image_mod
 from . import paths
 from .schema import SchemaError, load_schema, validate
 
@@ -36,6 +38,7 @@ class Published:
     path: Path
     replaced: bool
     ja_path: Path | None = None
+    image_path: Path | None = None
 
 
 def publish(
@@ -44,6 +47,7 @@ def publish(
     out_dir: str | Path = "out",
     dest_root: str | Path = DEFAULT_DEST,
     force: bool = False,
+    with_image: bool = True,
 ) -> Published:
     source = paths.report(paths.workspace(out_dir, issue_id))
     if not source.exists():
@@ -84,4 +88,15 @@ def publish(
             ja_source.read_text(encoding="utf-8"), encoding="utf-8", newline="\n"
         )
 
-    return Published(issue_id, target, replaced, ja_target)
+    # 长图是发布的一部分：页面「作品动态」后面要插它。图挂了不拦发布——
+    # 文字版才是正本，缺图是可见的（页面上少一块），不必为此把整期压下来。
+    img: Path | None = None
+    if with_image:
+        try:
+            img = image_mod.render(issue_id)
+        except image_mod.ImageError as exc:
+            print(f"⚠ 长图没出成：{exc}", file=sys.stderr)
+            print("  文字版已发布；补图跑 `node scripts/daily-image/render.mjs "
+                  f"{issue_id} --final`", file=sys.stderr)
+
+    return Published(issue_id, target, replaced, ja_target, img)

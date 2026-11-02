@@ -39,6 +39,17 @@ data/daily/state.json
 # 本地查询缓存（VNDB 等），随时可删、随时重建
 .cache/
 
+# 出图草稿：pic/ 是 174 个模板跑出来的样张 + 日报长图各轮稿（约 84 MB），
+# 只用来挑样式，正式产物在 public/images/daily/。别进仓库。
+pic/
+
+# 上游模板库 juya-news-card-main 的整份 checkout（自带 Next.js 应用，约 37 MB）。
+# 我们只抄它的视觉语言，成品是 scripts/daily-image/render.mjs，不参与构建。
+juya-news-card-main/
+
+# 本机工具与模型权重（tools/audio-translate 约 7.8 GB），永远不进仓库
+tools/
+
 # 抓取侧 X-Reader 的 checkout（`git clone --depth 1` 到这儿，约 14 MB 数据）。
 # 2026-11-01 从 Desktop/X-rss-workspace 搬进来：那个位置两天里被清掉两次，
 # 每次都要重克隆。放在仓库目录内是唯一稳定的位置。用 daily_prepare.py 自动识别。

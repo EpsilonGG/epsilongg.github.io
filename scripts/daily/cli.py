@@ -512,13 +512,19 @@ def _cmd_publish(args: argparse.Namespace) -> int:
     """M4：把定稿的正本从 out/ 搬到站点读的 data/daily/。"""
     try:
         result = publish_mod.publish(
-            args.issue, out_dir=args.out, dest_root=args.dest, force=args.force
+            args.issue,
+            out_dir=args.out,
+            dest_root=args.dest,
+            force=args.force,
+            with_image=not args.no_image,
         )
     except publish_mod.PublishError as exc:
         print(str(exc), file=sys.stderr)
         return 1
     verb = "已覆盖" if result.replaced else "已发布"
     print(f"{verb}：{result.path}")
+    if result.image_path:
+        print(f"长图：{result.image_path}")
     if result.ja_path:
         print(f"Ci-en 版一起发了：{result.ja_path}")
     elif kind_of(args.issue) == VOICE:
@@ -700,6 +706,9 @@ def main(argv: list[str] | None = None) -> int:
         "--dest", default=str(publish_mod.DEFAULT_DEST), help="发布根目录（默认 data/daily）"
     )
     publish_cmd.add_argument("--force", action="store_true", help="已发布过的期号也覆盖")
+    publish_cmd.add_argument(
+        "--no-image", action="store_true", help="只发 JSON，不出长图（调试用）"
+    )
     publish_cmd.set_defaults(func=_cmd_publish)
 
     migrate_cmd = sub.add_parser("migrate", help="M4.1 Markdown 日报迁成 report.json（一次性）")
