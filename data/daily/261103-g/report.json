@@ -1,0 +1,473 @@
+{
+  "schema_version": 1,
+  "issue": {
+    "id": "261103-g",
+    "published_at": "2026-11-04T00:36:14.729548+09:00",
+    "window": {
+      "start": "2026-11-03T00:00:00+09:00",
+      "end": "2026-11-04T00:00:00+09:00"
+    },
+    "status": "confirmed",
+    "confirmed_at": "2026-11-03T15:37:39+00:00"
+  },
+  "counts": {
+    "items": 157,
+    "accounts": 38,
+    "late": 21,
+    "skipped_duplicate": 1
+  },
+  "description": "WendyBell『夢見るアプリ』装盘完成，SMEE 与 Triangle 同日开放体验版。",
+  "highlights": [
+    {
+      "text": "WendyBell『夢見るアプリ』宣布装盘完成，BugBug 同日发出速报介绍这款「把梦自动生成」的恋爱游戏。",
+      "sources": [
+        "x:2117538001257640388",
+        "x:2117590112074690722",
+        "x:2117292111615987811"
+      ]
+    },
+    {
+      "text": "SMEE『ワンナイトアフター』体验版公开，DL 版也在 FANZA GAMES 开始预约，11/27 发售。",
+      "sources": [
+        "x:2117580046114460107",
+        "x:2117582562390348027"
+      ]
+    },
+    {
+      "text": "Triangle『魔法戦士ソルシエルナイツ』公开体验版与两名角色试听，11/27、28 的签名会按会场分不同签名色纸。",
+      "sources": [
+        "x:2117535062065578330",
+        "x:2117443726029308217"
+      ]
+    },
+    {
+      "text": "akaeroCore『False Myth 2』定于 11/5 在 Steam 发售，中文、英文、韩文三个号同步公告。",
+      "sources": [
+        "x:2117585321730691231",
+        "x:2117587235608625543",
+        "x:2117585987362795817"
+      ]
+    }
+  ],
+  "insights": [],
+  "interactions": [
+    {
+      "text": "CyberworksKoho 转发 BugBug編集部 对『夢見るアプリ』的速报，同一天再宣布自家装盘完成。",
+      "sources": [
+        "x:2117292111615987811",
+        "x:2117538001257640388"
+      ]
+    },
+    {
+      "text": "Moepedia 与 BugBug編集部 同日都为 WendyBell 的『夢見るアプリ』发速报，一家转官方口径、一家给试玩感想。",
+      "sources": [
+        "x:2117590112074690722",
+        "x:2117538001257640388"
+      ]
+    }
+  ],
+  "works": [
+    "WendyBell『夢見るアプリ』装盘完成（マスターアップ）。",
+    "SMEE『ワンナイトアフター』体验版公开，DL 版在 FANZA GAMES 开始预约，11/27 发售，并陆续公布各店特典。",
+    "CHAOS-R『血刻継承クレイドペイン ―少女たちの終焉―』DL 版在 DLsite 发售中，连日介绍三位女主与主题歌「紅蓮の糸」完整版。",
+    "Triangle『魔法戦士ソルシエルナイツ』公开体验版与エメロードミスティ、レムティアイオタ 的试听，11/27、28 办发售纪念签名会。",
+    "エスクード『廃村少女［弐］外伝 ～千艶万匣～』开卖纪念：受注 B2 挂布（12/1 截止）、FANZA 评论转发抽签名色纸、追加浏览器版。",
+    "akaeroCore『False Myth 2～愛憎的自我沉溺～』定于 11/5 在 Steam 发售，中文、英文、韩文三语同步。",
+    "フロントウイング『ディスディスディスカッション』Steam 商店页新增游戏画面与试玩视频。",
+    "でぼの巣製作所『神楽新風記～陽葵の章～』体验版公开。",
+    "BISHOP『牝教師～淫辱の教室～モーションプラス』11/27 发售，追加店铺特典信息。",
+    "HOOKSOFT『トリプルペアリング ミニファンディスク』DL 版在 FANZA GAMES 配信中。",
+    "アパタイト『スク水ｖｓ競泳水着』获 BugBug 专文介绍，主打泳装质感与姐妹之间的抉择。",
+    "Amuse『カノジョの妹のあざと誘惑～純愛なんてゴミですよ先輩♡』体验版公开。",
+    "Purple『ハピメア REGRET END』主题歌『非実空想アムネジア』的 MV 在官方 YouTube 公开。",
+    "サガプラネッツ 11/23 在秋叶原办面板展，公开絢華 与エル 的新绘。",
+    "Lovelet『西園家のかくしゴト』追加浏览器版，手机与 Mac 均可游玩。",
+    "SukeraSparo 的文学フリマ东京43 新刊《存在証明 百合短編小説アンソロジー EGOIST》预约到 11/6。",
+    "Overflow『SchoolDays』FANZA 线上抽奖公开 D 赏徽章全 8 种，12/4 截止。",
+    "D.C.5 to 4 Luminous Memories 登上 DMM 抽奖。",
+    "hiro_in 发现《月陽炎 DVD Edition》打到 90%OFF、313 日元，称 Win11 也能跑。"
+  ],
+  "categories": [],
+  "accounts": [
+    "Moepedia_net",
+    "appetite_game",
+    "kiss_staff",
+    "chaos_R_public",
+    "HOOKSOFT",
+    "CyberworksKoho",
+    "Route2_tri",
+    "crowd_anim",
+    "escude1998",
+    "purple_NewWork",
+    "smee_official",
+    "POISON_NEW1992",
+    "u_me_soft",
+    "hamham_soft",
+    "FANDC_Staff",
+    "NanaWind",
+    "Amuse_sub",
+    "SAGAPLANETS",
+    "sprite_fairys",
+    "AQUAPLUS_JP",
+    "project_citrus",
+    "holic_works",
+    "Muvluv_Official",
+    "BEEP_SHOP",
+    "twit_Gungnir",
+    "info_lovelet",
+    "rail_romanesque",
+    "adahemas",
+    "SukeraSparo",
+    "zombilica_com",
+    "Overflow_staff",
+    "akaerocore",
+    "akaeroCore_en",
+    "akaeroCore_kr",
+    "youtan0309",
+    "bugbug_info",
+    "hiro_in",
+    "AKOUtw"
+  ],
+  "people": [
+    {
+      "handle": "Moepedia_net",
+      "category": "",
+      "summary": "一天转介五条：でぼの巣 体验版、BISHOP 特典、WendyBell 速报、D.C.5 to 4 抽奖等。",
+      "via": [],
+      "sources": [
+        "x:2117563687850365004",
+        "x:2117573626182635563",
+        "x:2117590112074690722",
+        "x:2117618046164766861",
+        "x:2117620310979858779"
+      ]
+    },
+    {
+      "handle": "appetite_game",
+      "category": "",
+      "summary": "『スク水ｖｓ競泳水着』获 BugBug 专文，主打泳装质感与姐妹之间的抉择。",
+      "via": [],
+      "sources": [
+        "x:2117522237775544497"
+      ]
+    },
+    {
+      "handle": "kiss_staff",
+      "category": "",
+      "summary": "公布 Sofmap 店铺特典的魔法少女服装。",
+      "via": [],
+      "sources": [
+        "x:2117573294614610026"
+      ]
+    },
+    {
+      "handle": "chaos_R_public",
+      "category": "",
+      "summary": "『血刻継承クレイドペイン』DL 版在 DLsite 发售中，连发三位女主介绍与主题歌完整版。",
+      "via": [],
+      "sources": [
+        "x:2117487870273581354"
+      ]
+    },
+    {
+      "handle": "HOOKSOFT",
+      "category": "",
+      "summary": "『トリプルペアリング ミニFD』DL 版在 FANZA GAMES 配信中。",
+      "via": [],
+      "sources": [
+        "x:2117587599577792908"
+      ]
+    },
+    {
+      "handle": "CyberworksKoho",
+      "category": "",
+      "summary": "WendyBell『夢見るアプリ』装盘完成，并转发 BugBug 的速报。",
+      "via": [],
+      "sources": [
+        "x:2117538001257640388"
+      ]
+    },
+    {
+      "handle": "Route2_tri",
+      "category": "",
+      "summary": "『魔法戦士ソルシエルナイツ』公开体验版与两角色试听；签名会按会场分不同色纸。",
+      "via": [],
+      "sources": [
+        "x:2117535062065578330"
+      ]
+    },
+    {
+      "handle": "crowd_anim",
+      "category": "",
+      "summary": "『きつ×みこ』在 Sofmap 秋叶原展示野々原幹 绘制的 B2 挂布样本。",
+      "via": [],
+      "sources": [
+        "x:2117516445009735839"
+      ]
+    },
+    {
+      "handle": "escude1998",
+      "category": "",
+      "summary": "『廃村少女［弐］外伝』开卖纪念：受注挂布、FANZA 抽奖、追加浏览器版三连发。",
+      "via": [],
+      "sources": [
+        "x:2117557399368143162",
+        "x:2117592250087805201"
+      ]
+    },
+    {
+      "handle": "purple_NewWork",
+      "category": "",
+      "summary": "『ハピメア REGRET END』主题歌『非実空想アムネジア』MV 在官方 YouTube 公开。",
+      "via": [],
+      "sources": [
+        "x:2117557399422992744"
+      ]
+    },
+    {
+      "handle": "smee_official",
+      "category": "",
+      "summary": "『ワンナイトアフター』体验版公开、DL 版开始预约，11/27 发售。",
+      "via": [],
+      "sources": [
+        "x:2117580046114460107"
+      ]
+    },
+    {
+      "handle": "POISON_NEW1992",
+      "category": "",
+      "summary": "『完堕ちXギャル母娘』FANZA 同人 50%OFF 到 11/14，主推母女双人场景。",
+      "via": [],
+      "sources": [
+        "x:2117602706881720560"
+      ]
+    },
+    {
+      "handle": "u_me_soft",
+      "category": "",
+      "summary": "只说去看了《哥斯拉 -0.0》。",
+      "via": [],
+      "sources": [
+        "x:2117454240109236640"
+      ]
+    },
+    {
+      "handle": "hamham_soft",
+      "category": "",
+      "summary": "",
+      "via": [],
+      "sources": [
+        "x:2117325037560820017"
+      ]
+    },
+    {
+      "handle": "FANDC_Staff",
+      "category": "",
+      "summary": "为《Canvas2》美咲菫 庆生；另宣传上野的动画歌曲酒馆出摊。",
+      "via": [],
+      "sources": [
+        "x:2117270515413024963"
+      ]
+    },
+    {
+      "handle": "NanaWind",
+      "category": "",
+      "summary": "本周四格由ちょぼらうにょぽみ 画《ユユカナ》的高咲ほのか 与楠響。",
+      "via": [],
+      "sources": [
+        "x:2117543806837125186"
+      ]
+    },
+    {
+      "handle": "Amuse_sub",
+      "category": "",
+      "summary": "『カノジョの妹のあざと誘惑』体验版公开。",
+      "via": [],
+      "sources": [
+        "x:2117537011888267604"
+      ]
+    },
+    {
+      "handle": "SAGAPLANETS",
+      "category": "",
+      "summary": "11/23 在秋叶原办面板展，公开絢華 与エル 的新绘。",
+      "via": [],
+      "sources": [
+        "x:2117451713435099570"
+      ]
+    },
+    {
+      "handle": "sprite_fairys",
+      "category": "",
+      "summary": "签名色纸抽奖第 6 弹定在 11/10，公布应募规则。",
+      "via": [],
+      "sources": [
+        "x:2117572855512649972"
+      ]
+    },
+    {
+      "handle": "AQUAPLUS_JP",
+      "category": "",
+      "summary": "为《ToHeart2》草壁優季 庆生。",
+      "via": [],
+      "sources": [
+        "x:2117270514335207647"
+      ]
+    },
+    {
+      "handle": "project_citrus",
+      "category": "",
+      "summary": "文化之日发《西又家の猫》ダイヤ 的视频。",
+      "via": [],
+      "sources": [
+        "x:2117415131730854220"
+      ]
+    },
+    {
+      "handle": "holic_works",
+      "category": "",
+      "summary": "BAR Arca 六周年纪念的一識星明 亚克力立牌即将截止受注。",
+      "via": [],
+      "sources": [
+        "x:2117451716161368480"
+      ]
+    },
+    {
+      "handle": "Muvluv_Official",
+      "category": "",
+      "summary": "连载世界观解说：1966 年的 Alternative 计划如何研究同 BETA 沟通。",
+      "via": [],
+      "sources": [
+        "x:2117557413759070698"
+      ]
+    },
+    {
+      "handle": "BEEP_SHOP",
+      "category": "",
+      "summary": "上架内藤寛 参与的 LED 搭载 FC 游戏《シューティングゲームKG-007》特别版。",
+      "via": [],
+      "sources": [
+        "x:2117542300930695538"
+      ]
+    },
+    {
+      "handle": "twit_Gungnir",
+      "category": "",
+      "summary": "公开《殻ノ少女》完整盒限定版附赠黑胶的 Jazz 改编曲片段。",
+      "via": [],
+      "sources": [
+        "x:2117445752914055588"
+      ]
+    },
+    {
+      "handle": "info_lovelet",
+      "category": "",
+      "summary": "『西園家のかくしゴト』追加浏览器版。",
+      "via": [],
+      "sources": [
+        "x:2117549921377398905"
+      ]
+    },
+    {
+      "handle": "rail_romanesque",
+      "category": "",
+      "summary": "公开 summit 物贩的旗帜，称今年布料与配色都升级。",
+      "via": [],
+      "sources": [
+        "x:2117523066960154928"
+      ]
+    },
+    {
+      "handle": "adahemas",
+      "category": "",
+      "summary": "文化之日发《碧蓝幻想》卡莉奥斯特罗 的午后插画；另吐槽 Fanbox 诈骗留言。",
+      "via": [],
+      "sources": [
+        "x:2117497001440837740"
+      ]
+    },
+    {
+      "handle": "SukeraSparo",
+      "category": "",
+      "summary": "文学フリマ东京43 新刊《存在証明 EGOIST》预约到 11/6。",
+      "via": [],
+      "sources": [
+        "x:2117535449279549497"
+      ]
+    },
+    {
+      "handle": "zombilica_com",
+      "category": "",
+      "summary": "为《贄の町》的燈 庆生。",
+      "via": [],
+      "sources": [
+        "x:2117270513605358002"
+      ]
+    },
+    {
+      "handle": "Overflow_staff",
+      "category": "",
+      "summary": "公开《SchoolDays》FANZA 抽奖的 D 赏徽章全 8 种，12/4 截止。",
+      "via": [],
+      "sources": [
+        "x:2117542296589844536"
+      ]
+    },
+    {
+      "handle": "akaerocore",
+      "category": "",
+      "summary": "『False Myth 2』11/5 在 Steam 发售，中英韩三语号同步；英文号另办 50 人抽奖。",
+      "via": [
+        "akaeroCore_en",
+        "akaeroCore_kr"
+      ],
+      "sources": [
+        "x:2117585321730691231",
+        "x:2117446102513488294"
+      ]
+    },
+    {
+      "handle": "youtan0309",
+      "category": "",
+      "summary": "回顾 33 年前《DEAD OF THE BRAIN 2》发售，谈 FairyTale 当时避开 R18 的路线。",
+      "via": [],
+      "sources": [
+        "x:2117270516553908477"
+      ]
+    },
+    {
+      "handle": "bugbug_info",
+      "category": "",
+      "summary": "报 DLsite 创业祭 2026 与 10–11 月同人志、CG 集销量排行。",
+      "via": [],
+      "sources": [
+        "x:2117572999746298007"
+      ]
+    },
+    {
+      "handle": "hiro_in",
+      "category": "",
+      "summary": "发现《月陽炎 DVD Edition》打到 90%OFF、313 日元，称 Win11 也能跑。",
+      "via": [],
+      "sources": [
+        "x:2117590770995941526"
+      ]
+    },
+    {
+      "handle": "AKOUtw",
+      "category": "",
+      "summary": "清点 10 月末到货的六部作品并写《養花師の背徳愛》感想；另更新「あくあ総研」的 AI 检索。",
+      "via": [],
+      "sources": [
+        "x:2117576683427631288",
+        "x:2117468388570374328"
+      ]
+    }
+  ],
+  "provenance": {
+    "generator": "daily",
+    "prompt_version": 1,
+    "cache_key": "answers:1",
+    "generated_at": "2026-11-03T15:37:34+00:00"
+  }
+}
