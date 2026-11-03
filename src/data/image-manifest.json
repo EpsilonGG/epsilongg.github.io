@@ -1,6 +1,6 @@
 {
   "$comment": "由 scripts/optimize_images.mjs 生成，请勿手改。",
-  "generatedAt": "2026-11-01T17:19:31.507Z",
+  "generatedAt": "2026-11-03T12:04:44.290Z",
   "images": {
     "/images/blog/bugbug-sca-interview/01.jpg": {
       "w": 1280,
@@ -1188,6 +1188,66 @@
           "w": 670,
           "src": "/images/blog/gamespark-nicolith-interview/22-670.webp",
           "bytes": 19684
+        }
+      ]
+    },
+    "/images/blog/gamespark-servant-of-the-lake-interview/01.jpg": {
+      "w": 670,
+      "h": 376,
+      "bytes": 79202,
+      "variants": [
+        {
+          "w": 670,
+          "src": "/images/blog/gamespark-servant-of-the-lake-interview/01-670.webp",
+          "bytes": 25762
+        }
+      ]
+    },
+    "/images/blog/gamespark-servant-of-the-lake-interview/02.jpg": {
+      "w": 670,
+      "h": 376,
+      "bytes": 62250,
+      "variants": [
+        {
+          "w": 670,
+          "src": "/images/blog/gamespark-servant-of-the-lake-interview/02-670.webp",
+          "bytes": 17366
+        }
+      ]
+    },
+    "/images/blog/gamespark-servant-of-the-lake-interview/03.jpg": {
+      "w": 670,
+      "h": 376,
+      "bytes": 80453,
+      "variants": [
+        {
+          "w": 670,
+          "src": "/images/blog/gamespark-servant-of-the-lake-interview/03-670.webp",
+          "bytes": 28302
+        }
+      ]
+    },
+    "/images/blog/gamespark-servant-of-the-lake-interview/04.jpg": {
+      "w": 670,
+      "h": 376,
+      "bytes": 65548,
+      "variants": [
+        {
+          "w": 670,
+          "src": "/images/blog/gamespark-servant-of-the-lake-interview/04-670.webp",
+          "bytes": 21888
+        }
+      ]
+    },
+    "/images/blog/gamespark-servant-of-the-lake-interview/05.jpg": {
+      "w": 670,
+      "h": 376,
+      "bytes": 79026,
+      "variants": [
+        {
+          "w": 670,
+          "src": "/images/blog/gamespark-servant-of-the-lake-interview/05-670.webp",
+          "bytes": 25344
         }
       ]
     },
