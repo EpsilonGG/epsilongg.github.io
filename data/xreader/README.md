@@ -18,7 +18,7 @@ X-Reader 的库是 **append-only** 的单文件：`data/items/x.jsonl` 14 MB、
 `data-galgame/items/x.jsonl` 5.3 MB，每天还在长。整份提交等于让 git 每天存一份
 全新的整文件——一天 20 MB、一年 7 GB，仓库会被撑爆。
 
-切一片约 550 KB（700 条上下），滚存 14 天约 7.5 MB；git 里 zlib 之后一天约 150 KB，
+切一片约 550 KB（700 条上下），滚存 40 天约 21 MB；git 里 zlib 之后一天约 150 KB，
 一年 55 MB 量级。这是「数据进仓库」能付得起的最低代价。
 
 ## 会不会出现在网站上
@@ -37,7 +37,7 @@ X-Reader 的库是 **append-only** 的单文件：`data/items/x.jsonl` 14 MB、
 |---|---|
 | 写 | `scripts/xreader_slice.py`（`daily_prepare.py` 在 `git pull` 之后自动调用） |
 | 读 | `scripts/daily_prepare.py` → `items_dir_for()`：`.xreader/` 在就用全量库，不在就用这里 |
-| 保留 | 默认 14 天（`--keep`），窗口外的旧片自动删除 |
+| 保留 | 默认 **40 天**（`--keep`），窗口外的旧片自动删除。2026-11-04 从 14 改到 40，为周报/月报最长 35 天的窗口留余量（日报行为不变） |
 
 `.xreader/` 被 `.gitignore` 挡在外面，所以克隆下来只有这里的切片。这正好是
 「抓取 checkout 又没了」时还能出稿的原因——不是备份，是**能用的副本**。
@@ -45,7 +45,7 @@ X-Reader 的库是 **append-only** 的单文件：`data/items/x.jsonl` 14 MB、
 ## 手动操作
 
 ```bash
-python scripts/xreader_slice.py                 # 两版都切，滚存 14 天
+python scripts/xreader_slice.py                 # 两版都切，滚存 40 天
 python scripts/xreader_slice.py --keep 30       # 想回看更久
 python scripts/xreader_slice.py --date 2026-10-31   # 只补某一天
 python scripts/xreader_slice.py --dry-run       # 只看会写什么
