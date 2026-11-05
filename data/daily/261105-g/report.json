@@ -1,0 +1,552 @@
+{
+  "schema_version": 1,
+  "issue": {
+    "id": "261105-g",
+    "published_at": "2026-11-06T00:52:24.587251+09:00",
+    "window": {
+      "start": "2026-11-05T00:00:00+09:00",
+      "end": "2026-11-06T00:00:00+09:00"
+    },
+    "status": "confirmed",
+    "confirmed_at": "2026-11-05T15:53:34+00:00"
+  },
+  "counts": {
+    "items": 193,
+    "accounts": 45,
+    "late": 33,
+    "skipped_duplicate": 3
+  },
+  "description": "ゆずソフト『千恋＊万花』アニメ化が決定、CHAOS-R新作のDL版とSMEE体験版も始動",
+  "highlights": [
+    {
+      "text": "ゆずソフト『千恋＊万花』がアニメ化決定、全世界100万本突破で2027年放送、原作キャストは続投",
+      "sources": [
+        "x:2118176482279248339",
+        "x:2118234460298821869"
+      ]
+    },
+    {
+      "text": "CHAOS-R『血刻継承クレイドペイン ―少女たちの終焉―』のDL版がDLsiteで発売中、ソフ倫コラボ特典も",
+      "sources": [
+        "x:2118347845900370152",
+        "x:2118251799996154100"
+      ]
+    },
+    {
+      "text": "SMEE『ワンナイトアフター』がマスターアップし体験版を公開、11/27の発売へ店舗特典も出揃う",
+      "sources": [
+        "x:2118259759585620211",
+        "x:2118304821598179340"
+      ]
+    },
+    {
+      "text": "DESSERT Soft『どいなかガールズゆーとぴあ』が11/6 19時から出演声優の体験版実況を配信",
+      "sources": [
+        "x:2118176478190022894",
+        "x:2118223545981657311"
+      ]
+    }
+  ],
+  "insights": [],
+  "interactions": [
+    {
+      "text": "AKOUがエレクトリップ『養花師の背徳愛』の収録を振り返り、最後のシーンを「竿役アベンジャーズ」と表現",
+      "sources": [
+        "x:2118305216093475123"
+      ]
+    },
+    {
+      "text": "MoepediaがDESSERT Softの『どいなかガールズゆーとぴあ』体験版実況の配信を案内",
+      "sources": [
+        "x:2118331246313197693"
+      ]
+    }
+  ],
+  "works": [
+    "ゆずソフト『千恋＊万花』がアニメ化決定、全世界累計100万本突破で2027年放送、原作キャスト続投とOPのKOTOKO起用も発表",
+    "ゆずソフト『小雲雀来海』のフィギュアが11/6から予約開始、11/6 20時30分のゆず生ラジオで紹介",
+    "CHAOS-R『血刻継承クレイドペイン ―少女たちの終焉―』のDL版がDLsiteで発売中、ソフ倫コラボの情景イラストカード特典も",
+    "『血刻継承クレイドペイン』の主題歌「紅蓮の糸」（亜月ちえみ）がフルバージョンでYouTube公開",
+    "SMEE『ワンナイトアフター』がマスターアップし体験版も公開、11/27発売で店舗別特典とDL版予約を受付中",
+    "HOOKSOFT『トリプルペアリング ミニファンディスク』のダウンロード版がFANZA GAMESで配信中",
+    "AirVelocity『ハッピーウィークエンド』Switch・PS4版のサンプルCGが追加公開、SwitchDL版は10%OFF",
+    "DESSERT Soft『どいなかガールズゆーとぴあ』が11/27発売、11/6 19時から花月さやと赤月ゆむの体験版実況",
+    "sprite『小金井荘と金色の揚羽蝶』が今月発売、秋葉原トレーダーでパネルが展開中",
+    "akaeroCore『False Myth 2～愛憎的自我沉溺～』がSteamで発売、期間限定で10%OFF",
+    "Key『サマポケSS』のオープニングムービーが発表、12/18の発売に向け制作中",
+    "オーバーフロー『School Days』20周年くじの第2弾と、12/4から秋葉原でコラボカフェを開催",
+    "エスクード『廃村少女［弐］外伝 ～千艶万匣～』の発売を記念したレビューキャンペーンが開始",
+    "エンターグラム『あじゅ～るメモリア』完全生産限定版の予約受付が開始",
+    "Miel『異世界孕ませハーレム』が発売記念20%OFFで販売中",
+    "POISON『悲鳴 -地下室に囚われた11人-』が11/14まで50%OFF、『完堕ちXギャル母娘』と連動セール",
+    "SAGA PLANETS『金色ラブリッチェ』のエルと絢華の描き下ろしイラストが公開、11/23にピカットパネル展",
+    "NANACAN『妹調』高解像度版の演出強化パッチがBOOTHとギガファイルで配布開始",
+    "Triangle『魔法戦士ソルシエルナイツ』のオフィシャル通販特典ミニADVの完成CGが公開",
+    "Innocent Grey『殻ノ少女／虚ノ少女／天ノ少女 FHD Edition』のDL版予約が開始、2027年1月29日発売",
+    "ニトロプラス『楽園追放 心のレゾナンス』の公開記念舞台挨拶が11/14・15に新宿・横浜・梅田で開催",
+    "くまのみそふと『Lycee Overture Ver.アミューズクラフト2.0』が発売中、箔押しサインカードのCPも",
+    "Purple software『クナド国記』のオープニングとエンディング主題歌がサブスクで配信中",
+    "エレクトリップ『養花師の背徳愛』のイラストがネットワークプリントで配布、11/29まで利用可能"
+  ],
+  "categories": [],
+  "accounts": [
+    "Moepedia_net",
+    "appetite_game",
+    "Miel37319007",
+    "TRYSET",
+    "silkysplus",
+    "kiss_staff",
+    "chaos_R_public",
+    "AzarashiSoft",
+    "HOOKSOFT",
+    "cocoro_fw",
+    "escude1998",
+    "purple_NewWork",
+    "smee_official",
+    "entergram_info",
+    "Amuse_kenzen",
+    "key_official",
+    "POISON_NEW1992",
+    "dessertsoft_tw",
+    "u_me_soft",
+    "FANDC_Staff",
+    "Amuse_sub",
+    "luneman_etc",
+    "SAGAPLANETS",
+    "sprite_fairys",
+    "alice_soft",
+    "KUMANOMISoft",
+    "yuzusoft",
+    "jitaku_st",
+    "project_citrus",
+    "fortuneglovety",
+    "Muvluv_Official",
+    "BEEP_SHOP",
+    "Liaison__info",
+    "nanaca_box",
+    "adahemas",
+    "SukeraSparo",
+    "Overflow_staff",
+    "nitroplus_staff",
+    "akaerocore",
+    "akaeroCore_en",
+    "akaeroCore_kr",
+    "youtan0309",
+    "aikouka23",
+    "getchucom",
+    "AKOUtw"
+  ],
+  "people": [
+    {
+      "handle": "Moepedia_net",
+      "category": "",
+      "summary": "『サクラノ詩』商品やTriangle新作の特典CG、Innocent Greyの予約開始を紹介",
+      "via": [],
+      "sources": [
+        "x:2118313629963768111",
+        "x:2118319922866778538"
+      ]
+    },
+    {
+      "handle": "appetite_game",
+      "category": "",
+      "summary": "担当シナリオについて「岡ちゃん」と呼んでほしいと投稿",
+      "via": [],
+      "sources": [
+        "x:2118138879270437103"
+      ]
+    },
+    {
+      "handle": "Miel37319007",
+      "category": "",
+      "summary": "『異世界孕ませハーレム』のCGを紹介し発売記念20%OFFを告知",
+      "via": [],
+      "sources": [
+        "x:2118303464652767622"
+      ]
+    },
+    {
+      "handle": "TRYSET",
+      "category": "",
+      "summary": "『エロゲ会社のセクハラ事情』の色紙にまつわる投稿を引用",
+      "via": [],
+      "sources": [
+        "x:2118285337076310327"
+      ]
+    },
+    {
+      "handle": "silkysplus",
+      "category": "",
+      "summary": "ツイキャスの接続不調で本日のたまキャスを休止",
+      "via": [],
+      "sources": [
+        "x:2118186707602559435"
+      ]
+    },
+    {
+      "handle": "kiss_staff",
+      "category": "",
+      "summary": "コスチュームセットVol.90の配信開始とメロンブックス特典を告知",
+      "via": [],
+      "sources": [
+        "x:2118283365048840535",
+        "x:2118297283242652095"
+      ]
+    },
+    {
+      "handle": "chaos_R_public",
+      "category": "",
+      "summary": "『血刻継承クレイドペイン』のヒロイン3人を紹介し主題歌も公開",
+      "via": [],
+      "sources": [
+        "x:2118348847172956527",
+        "x:2118349861728977407"
+      ]
+    },
+    {
+      "handle": "AzarashiSoft",
+      "category": "",
+      "summary": "Fantiaで「ひまわり郵便」第107通を公開",
+      "via": [],
+      "sources": [
+        "x:2118267719917375503"
+      ]
+    },
+    {
+      "handle": "HOOKSOFT",
+      "category": "",
+      "summary": "『ワンナイトアフター』のマスターアップを報告、ミニFDも配信中",
+      "via": [],
+      "sources": [
+        "x:2118259759585620211",
+        "x:2118312387107504483"
+      ]
+    },
+    {
+      "handle": "cocoro_fw",
+      "category": "",
+      "summary": "『COCORO』感想キャンペーンの締切が11/6と告知",
+      "via": [],
+      "sources": [
+        "x:2118259595693232430"
+      ]
+    },
+    {
+      "handle": "escude1998",
+      "category": "",
+      "summary": "『廃村少女［弐］外伝』の発売記念レビューCPを案内",
+      "via": [],
+      "sources": [
+        "x:2118149882909479115"
+      ]
+    },
+    {
+      "handle": "purple_NewWork",
+      "category": "",
+      "summary": "『クナド国記』のOP・ED主題歌が配信中と告知",
+      "via": [],
+      "sources": [
+        "x:2118282176890626283"
+      ]
+    },
+    {
+      "handle": "smee_official",
+      "category": "",
+      "summary": "『ワンナイトアフター』の体験版公開と店舗別特典、DL版予約を案内",
+      "via": [],
+      "sources": [
+        "x:2118304821598179340",
+        "x:2118307338348003507"
+      ]
+    },
+    {
+      "handle": "entergram_info",
+      "category": "",
+      "summary": "『あじゅ～るメモリア』完全生産限定版の予約受付を開始",
+      "via": [],
+      "sources": [
+        "x:2118176727809789987"
+      ]
+    },
+    {
+      "handle": "Amuse_kenzen",
+      "category": "",
+      "summary": "寒さで上着に迷う近況と、ドタバタの一日を報告",
+      "via": [],
+      "sources": [
+        "x:2118147559390912571",
+        "x:2118283179039564140"
+      ]
+    },
+    {
+      "handle": "key_official",
+      "category": "",
+      "summary": "『サマポケSS』のOPムービー発表を受け、12/18発売へ制作中と報告",
+      "via": [],
+      "sources": [
+        "x:2118251975074529525"
+      ]
+    },
+    {
+      "handle": "POISON_NEW1992",
+      "category": "",
+      "summary": "『悲鳴』を11/14まで50%OFF、『完堕ちXギャル母娘』と連動",
+      "via": [],
+      "sources": [
+        "x:2118327478452371710"
+      ]
+    },
+    {
+      "handle": "dessertsoft_tw",
+      "category": "",
+      "summary": "『どいなかガールズゆーとぴあ』の体験版実況と店舗展開を告知",
+      "via": [],
+      "sources": [
+        "x:2118176478190022894",
+        "x:2118267082462867475"
+      ]
+    },
+    {
+      "handle": "u_me_soft",
+      "category": "",
+      "summary": "デレマス×HUBコラボの詳細を公開、11/6 17時から予約開始",
+      "via": [],
+      "sources": [
+        "x:2118267076372812034"
+      ]
+    },
+    {
+      "handle": "FANDC_Staff",
+      "category": "",
+      "summary": "『部活規格』市川香織の誕生日を祝し、Dead of the Brainのdevlogも紹介",
+      "via": [],
+      "sources": [
+        "x:2117995291328524491",
+        "x:2118025993541542094"
+      ]
+    },
+    {
+      "handle": "Amuse_sub",
+      "category": "",
+      "summary": "『養花師の背徳愛』のイラストをネットワークプリントで配布",
+      "via": [],
+      "sources": [
+        "x:2118304317933601140"
+      ]
+    },
+    {
+      "handle": "luneman_etc",
+      "category": "",
+      "summary": "『悪の女幹部』の復刻ニュームーンフェストを開催中",
+      "via": [],
+      "sources": [
+        "x:2118191846396502138"
+      ]
+    },
+    {
+      "handle": "SAGAPLANETS",
+      "category": "",
+      "summary": "『金色ラブリッチェ』エルと絢華の描き下ろしを公開、11/23にパネル展",
+      "via": [],
+      "sources": [
+        "x:2118277603748667544"
+      ]
+    },
+    {
+      "handle": "sprite_fairys",
+      "category": "",
+      "summary": "『小金井荘と金色の揚羽蝶』の今月発売に向けパネル展開を報告",
+      "via": [],
+      "sources": [
+        "x:2118254060071682513"
+      ]
+    },
+    {
+      "handle": "alice_soft",
+      "category": "",
+      "summary": "アリスソフト放送局第58回で超昂大戦6周年の話題を配信",
+      "via": [],
+      "sources": [
+        "x:2118271192486551654"
+      ]
+    },
+    {
+      "handle": "KUMANOMISoft",
+      "category": "",
+      "summary": "Lycee Overture新弾の発売を記念したサインカードCPを開催",
+      "via": [],
+      "sources": [
+        "x:2118282181789253924"
+      ]
+    },
+    {
+      "handle": "yuzusoft",
+      "category": "",
+      "summary": "『千恋＊万花』のアニメ化を発表、小雲雀来海フィギュアの予約も開始",
+      "via": [],
+      "sources": [
+        "x:2118176482279248339",
+        "x:2118251999137599595"
+      ]
+    },
+    {
+      "handle": "jitaku_st",
+      "category": "",
+      "summary": "『ギャルフィク』の紹介と、他社や声優の投稿への支援を重ねて投稿",
+      "via": [],
+      "sources": [
+        "x:2118103495022657723"
+      ]
+    },
+    {
+      "handle": "project_citrus",
+      "category": "",
+      "summary": "朝のルーティンと飼い猫の写真を投稿",
+      "via": [],
+      "sources": [
+        "x:2118125977029242891"
+      ]
+    },
+    {
+      "handle": "fortuneglovety",
+      "category": "",
+      "summary": "『ボロゲ』の舞台になったスカイビルの思い出を綴る",
+      "via": [],
+      "sources": [
+        "x:2118135155789603283"
+      ]
+    },
+    {
+      "handle": "Muvluv_Official",
+      "category": "",
+      "summary": "『マブラヴ：ディメンションズ』のWEB小説最新話を公開予告",
+      "via": [],
+      "sources": [
+        "x:2118282182926196835"
+      ]
+    },
+    {
+      "handle": "BEEP_SHOP",
+      "category": "",
+      "summary": "PS2のピックアップ調整を行う修理班の様子を投稿",
+      "via": [],
+      "sources": [
+        "x:2118243952155574714"
+      ]
+    },
+    {
+      "handle": "Liaison__info",
+      "category": "",
+      "summary": "『天瀬島は色恋ざかり』の体格差シチュエーションを絶賛",
+      "via": [],
+      "sources": [
+        "x:2118293250301993034"
+      ]
+    },
+    {
+      "handle": "nanaca_box",
+      "category": "",
+      "summary": "『妹調』高解像度版の演出強化パッチを配布",
+      "via": [],
+      "sources": [
+        "x:2118160903938216207"
+      ]
+    },
+    {
+      "handle": "adahemas",
+      "category": "",
+      "summary": "漫画制作の苦労とヨーグルト製造機の感想を投稿",
+      "via": [],
+      "sources": [
+        "x:2118169282614050834",
+        "x:2118253916056068116"
+      ]
+    },
+    {
+      "handle": "SukeraSparo",
+      "category": "",
+      "summary": "文学フリマ東京43の情報を公開、2027年度の表紙は明日発表",
+      "via": [],
+      "sources": [
+        "x:2118301295979516086",
+        "x:2118268331186905092"
+      ]
+    },
+    {
+      "handle": "Overflow_staff",
+      "category": "",
+      "summary": "『School Days』20周年くじ第2弾と12月からのコラボカフェを告知",
+      "via": [],
+      "sources": [
+        "x:2117995282164228382",
+        "x:2118263320423567815"
+      ]
+    },
+    {
+      "handle": "nitroplus_staff",
+      "category": "",
+      "summary": "『楽園追放 心のレゾナンス』の舞台挨拶を11/14・15に開催と告知",
+      "via": [],
+      "sources": [
+        "x:2118252224887607647"
+      ]
+    },
+    {
+      "handle": "akaerocore",
+      "category": "",
+      "summary": "『False Myth 2』がSteamで発売、期間限定で10%OFF",
+      "via": [
+        "akaeroCore_en",
+        "akaeroCore_kr"
+      ],
+      "sources": [
+        "x:2118257997768217051",
+        "x:2118281535048888417"
+      ]
+    },
+    {
+      "handle": "youtan0309",
+      "category": "",
+      "summary": "22年前の『六ツ星きらり』など過去作の発売日を振り返る",
+      "via": [],
+      "sources": [
+        "x:2117995285544686020"
+      ]
+    },
+    {
+      "handle": "aikouka23",
+      "category": "",
+      "summary": "エロゲの買取相場が駿河屋基準になっていると指摘",
+      "via": [],
+      "sources": [
+        "x:2118262401414164574"
+      ]
+    },
+    {
+      "handle": "getchucom",
+      "category": "",
+      "summary": "ブルーアーカイブのノアなど新作フィギュアの予約を案内",
+      "via": [],
+      "sources": [
+        "x:2118282124503773406",
+        "x:2118282450266882460"
+      ]
+    },
+    {
+      "handle": "AKOUtw",
+      "category": "",
+      "summary": "『NYM！』の来週の告知を予告し、『養花師の背徳愛』の収録も振り返る",
+      "via": [],
+      "sources": [
+        "x:2118241410671686071",
+        "x:2118305216093475123"
+      ]
+    }
+  ],
+  "provenance": {
+    "generator": "daily",
+    "prompt_version": 1,
+    "cache_key": "answers:1",
+    "generated_at": "2026-11-05T15:53:29+00:00"
+  }
+}
