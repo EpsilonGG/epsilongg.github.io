@@ -1,7 +1,160 @@
 {
   "$comment": "由 scripts/optimize_images.mjs 生成，请勿手改。",
-  "generatedAt": "2026-11-03T12:04:44.290Z",
+  "generatedAt": "2026-11-05T16:27:39.088Z",
   "images": {
+    "/images/blog/automaton-toyoch-interview/01.png": {
+      "w": 1024,
+      "h": 576,
+      "bytes": 141944,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/automaton-toyoch-interview/01-600.webp",
+          "bytes": 8394
+        },
+        {
+          "w": 1024,
+          "src": "/images/blog/automaton-toyoch-interview/01-1024.webp",
+          "bytes": 16856
+        }
+      ]
+    },
+    "/images/blog/automaton-toyoch-interview/02.png": {
+      "w": 1024,
+      "h": 576,
+      "bytes": 184398,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/automaton-toyoch-interview/02-600.webp",
+          "bytes": 9654
+        },
+        {
+          "w": 1024,
+          "src": "/images/blog/automaton-toyoch-interview/02-1024.webp",
+          "bytes": 18514
+        }
+      ]
+    },
+    "/images/blog/automaton-toyoch-interview/03.png": {
+      "w": 1024,
+      "h": 640,
+      "bytes": 168518,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/automaton-toyoch-interview/03-600.webp",
+          "bytes": 9934
+        },
+        {
+          "w": 1024,
+          "src": "/images/blog/automaton-toyoch-interview/03-1024.webp",
+          "bytes": 21376
+        }
+      ]
+    },
+    "/images/blog/automaton-toyoch-interview/04.png": {
+      "w": 1024,
+      "h": 576,
+      "bytes": 554486,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/automaton-toyoch-interview/04-600.webp",
+          "bytes": 34990
+        },
+        {
+          "w": 1024,
+          "src": "/images/blog/automaton-toyoch-interview/04-1024.webp",
+          "bytes": 87560
+        }
+      ]
+    },
+    "/images/blog/automaton-toyoch-interview/05.png": {
+      "w": 1024,
+      "h": 576,
+      "bytes": 166165,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/automaton-toyoch-interview/05-600.webp",
+          "bytes": 9256
+        },
+        {
+          "w": 1024,
+          "src": "/images/blog/automaton-toyoch-interview/05-1024.webp",
+          "bytes": 19114
+        }
+      ]
+    },
+    "/images/blog/automaton-toyoch-interview/06.png": {
+      "w": 1024,
+      "h": 576,
+      "bytes": 144795,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/automaton-toyoch-interview/06-600.webp",
+          "bytes": 10886
+        },
+        {
+          "w": 1024,
+          "src": "/images/blog/automaton-toyoch-interview/06-1024.webp",
+          "bytes": 24560
+        }
+      ]
+    },
+    "/images/blog/automaton-toyoch-interview/07.png": {
+      "w": 1024,
+      "h": 576,
+      "bytes": 471031,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/automaton-toyoch-interview/07-600.webp",
+          "bytes": 28172
+        },
+        {
+          "w": 1024,
+          "src": "/images/blog/automaton-toyoch-interview/07-1024.webp",
+          "bytes": 66722
+        }
+      ]
+    },
+    "/images/blog/automaton-toyoch-interview/08.png": {
+      "w": 1024,
+      "h": 640,
+      "bytes": 408871,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/automaton-toyoch-interview/08-600.webp",
+          "bytes": 21188
+        },
+        {
+          "w": 1024,
+          "src": "/images/blog/automaton-toyoch-interview/08-1024.webp",
+          "bytes": 50250
+        }
+      ]
+    },
+    "/images/blog/automaton-toyoch-interview/09.png": {
+      "w": 1024,
+      "h": 576,
+      "bytes": 384096,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/automaton-toyoch-interview/09-600.webp",
+          "bytes": 19692
+        },
+        {
+          "w": 1024,
+          "src": "/images/blog/automaton-toyoch-interview/09-1024.webp",
+          "bytes": 41060
+        }
+      ]
+    },
     "/images/blog/bugbug-sca-interview/01.jpg": {
       "w": 1280,
       "h": 720,
