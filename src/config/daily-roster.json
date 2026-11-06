@@ -2847,6 +2847,18 @@
       "note": "近三年 7 部 / 累计 11 部"
     },
     {
+      "handle": "yoyukisenni",
+      "name": "ふぁいばーどろっぷ",
+      "category": "circle",
+      "role": "sub",
+      "active": true,
+      "tags": [
+        "创作者",
+        "音声"
+      ],
+      "note": "夜行繊維。社团实际掌控者（兼剧本）的本人号，不是社团官号；挂在 fiberdrop 名下按同一人合并"
+    },
+    {
       "handle": "C_Little_Oasis",
       "name": "Little Oasis",
       "category": "circle",
