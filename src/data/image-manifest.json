@@ -1,7 +1,126 @@
 {
   "$comment": "由 scripts/optimize_images.mjs 生成，请勿手改。",
-  "generatedAt": "2026-11-05T16:27:39.088Z",
+  "generatedAt": "2026-11-06T16:19:43.993Z",
   "images": {
+    "/images/blog/automaton-crymelight-mugenzakura-roundtable/01.jpg": {
+      "w": 1080,
+      "h": 609,
+      "bytes": 138268,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/automaton-crymelight-mugenzakura-roundtable/01-600.webp",
+          "bytes": 45038
+        },
+        {
+          "w": 1080,
+          "src": "/images/blog/automaton-crymelight-mugenzakura-roundtable/01-1080.webp",
+          "bytes": 104086
+        }
+      ]
+    },
+    "/images/blog/automaton-crymelight-mugenzakura-roundtable/02.jpg": {
+      "w": 1080,
+      "h": 608,
+      "bytes": 89026,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/automaton-crymelight-mugenzakura-roundtable/02-600.webp",
+          "bytes": 25394
+        },
+        {
+          "w": 1080,
+          "src": "/images/blog/automaton-crymelight-mugenzakura-roundtable/02-1080.webp",
+          "bytes": 49568
+        }
+      ]
+    },
+    "/images/blog/automaton-crymelight-mugenzakura-roundtable/03.jpg": {
+      "w": 1080,
+      "h": 609,
+      "bytes": 106437,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/automaton-crymelight-mugenzakura-roundtable/03-600.webp",
+          "bytes": 29648
+        },
+        {
+          "w": 1080,
+          "src": "/images/blog/automaton-crymelight-mugenzakura-roundtable/03-1080.webp",
+          "bytes": 66734
+        }
+      ]
+    },
+    "/images/blog/automaton-crymelight-mugenzakura-roundtable/04.jpg": {
+      "w": 1080,
+      "h": 609,
+      "bytes": 130358,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/automaton-crymelight-mugenzakura-roundtable/04-600.webp",
+          "bytes": 41624
+        },
+        {
+          "w": 1080,
+          "src": "/images/blog/automaton-crymelight-mugenzakura-roundtable/04-1080.webp",
+          "bytes": 89074
+        }
+      ]
+    },
+    "/images/blog/automaton-crymelight-mugenzakura-roundtable/05.jpg": {
+      "w": 1080,
+      "h": 609,
+      "bytes": 124165,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/automaton-crymelight-mugenzakura-roundtable/05-600.webp",
+          "bytes": 39792
+        },
+        {
+          "w": 1080,
+          "src": "/images/blog/automaton-crymelight-mugenzakura-roundtable/05-1080.webp",
+          "bytes": 88440
+        }
+      ]
+    },
+    "/images/blog/automaton-crymelight-mugenzakura-roundtable/06.jpg": {
+      "w": 1080,
+      "h": 609,
+      "bytes": 116260,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/automaton-crymelight-mugenzakura-roundtable/06-600.webp",
+          "bytes": 36076
+        },
+        {
+          "w": 1080,
+          "src": "/images/blog/automaton-crymelight-mugenzakura-roundtable/06-1080.webp",
+          "bytes": 77340
+        }
+      ]
+    },
+    "/images/blog/automaton-crymelight-mugenzakura-roundtable/07.jpg": {
+      "w": 1080,
+      "h": 608,
+      "bytes": 109663,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/automaton-crymelight-mugenzakura-roundtable/07-600.webp",
+          "bytes": 34128
+        },
+        {
+          "w": 1080,
+          "src": "/images/blog/automaton-crymelight-mugenzakura-roundtable/07-1080.webp",
+          "bytes": 70738
+        }
+      ]
+    },
     "/images/blog/automaton-toyoch-interview/01.png": {
       "w": 1024,
       "h": 576,
