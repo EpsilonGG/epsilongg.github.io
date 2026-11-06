@@ -1256,6 +1256,57 @@ a.link-row:hover .link-row__label {
 }
 
 /* --------------------------------------------------------------------------
+   文章 · 视频嵌入
+   写作时用 :::video 包一行地址，构建阶段由 src/lib/markdown-video.mjs 转成
+   <figure class="article-video"><div class="article-video__frame"><iframe>…
+   16:9 由 aspect-ratio 撑出来，iframe 绝对定位铺满——不写死宽高，所以
+   手机上不会横向溢出，也不会在加载前塌成 0 高把下面的文字顶上来。
+   -------------------------------------------------------------------------- */
+
+.article-video {
+  max-width: 100%;
+  margin-block: var(--space-5);
+}
+
+.article-video__frame {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  /* 加载中 / 被拦掉时留一块灰，不要露出后面的页面 */
+  background: var(--color-bg-subtle);
+}
+
+.article-video__frame iframe {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.article-video__caption {
+  margin-top: var(--space-2);
+  font-size: var(--text-xs);
+  line-height: var(--leading-normal);
+  color: var(--color-text-muted);
+  overflow-wrap: anywhere;
+}
+
+.article-video__caption a {
+  color: inherit;
+  text-decoration: none;
+  border-bottom: 1px solid var(--color-border-strong);
+}
+
+.article-video__caption a:hover {
+  color: var(--color-text);
+  border-bottom-color: var(--color-text);
+}
+
+/* --------------------------------------------------------------------------
    文章 · 注释（脚注）
    正文里的 [^1] 渲染成右上角的小方块数字，点击由 article-notes.ts
    在页面底部弹出面板；文章末尾同时保留完整列表。

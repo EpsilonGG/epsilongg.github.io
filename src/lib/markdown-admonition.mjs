@@ -18,7 +18,13 @@
  * 认得的五种：note / tip / important / warning / caution（未知名字原样退化成
  * note，宁可样式不对也不要丢内容）。输出是 `<blockquote class="callout …">`，
  * 语义上本来就该是引用块，样式在 components.css 的 `.callout` 一族。
+ *
+ * 另外 `:::video` 交给 `markdown-video.mjs` 处理（同一个访问器里分派，而不是
+ * 再注册一个插件——两个插件都写 `containerDirective` 时，先跑的那个会把
+ * `:::video` 变成提示框，后跑的再也看不见它）。认不出地址就退回下面的 note。
  */
+
+import { videoDirective } from './markdown-video.mjs';
 
 /** 五种类型：名字 → 中文默认标题 */
 const KINDS = {
@@ -56,8 +62,15 @@ export const admonitionPlugin = {
    */
   containerDirective(node) {
     const raw = String(node.name ?? '').toLowerCase();
-    const kind = Object.prototype.hasOwnProperty.call(KINDS, raw) ? raw : 'note';
     const { label, rest } = splitLabel(node.children);
+
+    // 视频先分派走：认得出地址就出 iframe，认不出就往下走成 note，内容不丢。
+    if (raw === 'video') {
+      const video = videoDirective(rest, label);
+      if (video) return video;
+    }
+
+    const kind = Object.prototype.hasOwnProperty.call(KINDS, raw) ? raw : 'note';
     const title = label || KINDS[kind];
 
     /** @type {any[]} */

@@ -161,6 +161,49 @@ source: original          # 可选，默认 original。ai = AI 整理
 > 只开开关、不挂 `src/lib/markdown-admonition.mjs`，整块内容会在 mdast→hast 那一步**静默消失**——
 > 不报错、不警告，页面上就是没了。所以两件事必须成对出现，`tests/markdown/admonition.test.mjs` 盯着插件本身。
 
+### 3.2 视频嵌入（`:::video`）
+
+**一行地址就够，不要手写 `<iframe>`。**
+
+```markdown
+:::video
+https://www.youtube.com/watch?v=VIDEO_ID
+:::
+
+:::video[标题可选，会变成 iframe 的 title 和下面的链接文字]
+https://www.bilibili.com/video/BV1V8x96kE6c
+:::
+```
+
+| 支持的地址 | 说明 |
+| --- | --- |
+| `youtube.com/watch?v=` / `youtu.be/` / `youtube.com/embed/` / `youtube.com/shorts/` | 都归一成同一个 11 位 ID |
+| `bilibili.com/video/BV…` | 新版 BV 号 |
+| `bilibili.com/video/av…` | 老 av 号，仍然有效 |
+
+构建时由 `src/lib/markdown-video.mjs` 转成：
+
+```html
+<figure class="article-video">
+  <div class="article-video__frame"><iframe src="…" loading="lazy" allowfullscreen></iframe></div>
+  <figcaption class="article-video__caption"><a href="原站地址">在 YouTube 观看</a></figcaption>
+</figure>
+```
+
+四条已经做好的适配：
+
+- **16:9 由 CSS 撑**（`aspect-ratio`），iframe 绝对定位铺满。不写死宽高，手机上不会横向溢出，加载前也不会塌成 0 高把下面的字顶上来。
+- **YouTube 走 `youtube-nocookie.com`**，播放前不落第三方 Cookie；`referrerpolicy` 只带 origin。
+- **`loading="lazy"`**，正文里塞三四个视频也不会一起抢带宽。
+- **永远留一条「在原站观看」的链接**。嵌入被拦、被墙、或访客不想加载第三方脚本时，这是唯一的出口。
+
+> **认不出的地址不会让内容消失**：`:::video` 里没有可识别的链接时，整块退回成普通的「说明」提示框，文字还在。
+> 想加 Vimeo、ニコニコ 之类的站点，改 `parseVideoUrl` 加一条正则，再补 `tests/markdown/video.test.mjs`。
+
+> **改了 Markdown 插件要清缓存。** 内容层把渲染结果按文件内容缓存在 `node_modules/.astro`，
+> 只改插件、不改 `.md` 的话，构建会**沿用旧的渲染结果**，看起来像插件没生效。
+> 遇到这种情况：`rm -rf node_modules/.astro` 再构建。
+
 ---
 
 ## 4. 图片与图注
@@ -285,7 +328,8 @@ python scripts/check_remote_images.py --write-dims
 流程（以 Game\*Spark 为例）：
 
 1. **定位正文容器**：`<article class="arti-body">`。别的站点先搜 `<article`、`class="…content…"` 再定。
-2. **按顺序取 `<figure>` 里的 `img`，跳过 `<iframe>`**（YouTube 嵌入不是图，不要当图下载）。
+2. **按顺序取 `<figure>` 里的 `img`**；`<iframe>` 不要当图下载——但**也别直接丢掉**，
+   原文的 YouTube / Bilibili 嵌入按 [3.2](#32-视频嵌入video) 用 `:::video` 搬过来。
 3. **下载**：带桌面 UA + `Referer: https://www.gamespark.jp/`，否则 403；
    注意该站 `src` 用**单引号**（`src='https://…'`），懒加载站点还要试 `data-src` / `data-original`。
    存成 `public/images/blog/<slug>/01.png`、`02.jpg`…，**编号即出现顺序**。
@@ -427,6 +471,8 @@ npm run check:images  # 用了远程图才需要：逐张请求，报坏链
 | 想改什么 | 改哪里 |
 | --- | --- |
 | 图片 → 图注的转换规则 | `src/lib/markdown-figure.mjs` |
+| 视频嵌入（`:::video`） | `src/lib/markdown-video.mjs`，样式搜「文章 · 视频嵌入」 |
+| 提示框（`:::note`） | `src/lib/markdown-admonition.mjs` |
 | 注释面板的交互 | `src/scripts/article-notes.ts` |
 | 注释 / 图注 / 代码块的样式 | `src/styles/components.css`（搜「文章 ·」） |
 | 文章字段校验 | `src/content.config.ts` |
