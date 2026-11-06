@@ -29,6 +29,7 @@ if str(ROOT / "scripts") not in sys.path:
     sys.path.insert(0, str(ROOT / "scripts"))
 
 import daily_golden  # noqa: E402  —— 同目录的小工具，复用它的 .prose 抽取
+import daily_lang  # noqa: E402  —— 语言闸门：已发布正本再扫一遍
 from daily.issue import VOICE, parse_issue_id  # noqa: E402
 
 DATA = ROOT / "data" / "daily"
@@ -82,7 +83,19 @@ def check(dist: Path) -> list[str]:
         if not text_out.read_text(encoding="utf-8").strip():
             raise Failure(f"/daily/{issue_id}.txt 是空的")
 
-    notes.append(f"{len(sources)} 期：HTML + JSON + TXT 三种出口齐全，JSON 与正本逐字节相同")
+        # 已发布正本兜底扫一遍。apply 判卷那道闸门只对**新稿**生效，历史数据
+        # 与手工改正本要从这里过；日文整句漂移会直接把中文版页面变成日文。
+        drift = daily_lang.scan_report(json.loads(source.decode("utf-8")))
+        if drift:
+            sample = "; ".join(f"{path}: {text[:30]}" for path, text in drift[:3])
+            raise Failure(
+                f"data/daily/{issue_id}/report.json 有 {len(drift)} 句整句日文：{sample}"
+                "——中文日报只收简体中文叙述，日文作品名/人名不算"
+            )
+
+    notes.append(
+        f"{len(sources)} 期：HTML + JSON + TXT 三种出口齐全，JSON 与正本逐字节相同，中文文案语言扫描通过"
+    )
 
     # Ci-en 出口（中日双语）：有 `report.ja.json` 就必须有 `.ja.txt`，
     # 反过来没有的期号不许冒出空文件——否则页面上会多一个点开是空的按钮。
@@ -116,6 +129,12 @@ def check(dist: Path) -> list[str]:
             )
         if "\n# 中文版\n" not in body:
             raise Failure(f"/daily/{issue_id}.ja.txt 里没有「# 中文版」这一段")
+        # 标题里已有 M/D，中文版正文不再单独写一行日期（2026-11-06 用户裁决）。
+        if "（日本时间）" in body:
+            raise Failure(
+                f"/daily/{issue_id}.ja.txt 的中文版还留着独立日期行——"
+                "标题已经含日期，正文里不要再写一遍"
+            )
         if "\n# 日本語版\n" not in body:
             raise Failure(f"/daily/{issue_id}.ja.txt 里没有「# 日本語版」这一段")
         if body.index("# 日本語版") < body.index("# 中文版"):

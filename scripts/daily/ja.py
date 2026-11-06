@@ -17,8 +17,11 @@
   seiyuu` 的人。剔哪几条是编辑判断，不交给脚本猜。
 * **`description_zh` 要重写**。正本的副标题可能提了厂商（「CHAOS-R 新作完工」），
   日文版不收厂商，所以中文那句也得换一句——这也是它单独存一个字段的原因。
-* **中日副标题一句对一句**。`hook`／`description`／`description_zh` 三个「标题类」
-  字段的分句数必须一样：片方 2 句、片方 3 句，读起来就是两篇不同的稿子。
+* **标题钩子不替人删改**。`hook` 是 Ci-en 标题的后半句，**不设字数上限、不参与
+  分句数判卷**。Ci-en 的列表视图确实会截长标题，但截哪里是发布时的人为判断，
+  脚本不该先把内容删掉（2026-11-06 用户裁决）。只要求它是单行纯文本。
+* **中日副标题一句对一句**。`description`（日文）／`description_zh`（中文）
+  两个副标题的分句数必须一样：片方 2 句、片方 3 句，读起来就是两篇不同的稿子。
   句数由 `_clauses()` 数（`、` `。` `，` `,` `！` `？` 断句），判卷直接拦下。
 * **正文不许自带记法**。`**`、`- ` 列表、`<a>`、`<span>`、`#` 标题都由渲染器
   （`src/lib/cien.ts`）负责，数据里出现就会被原样打进 Ci-en，所以这里直接拦下。
@@ -33,7 +36,8 @@ from pathlib import Path
 from . import paths
 from .roster import Roster
 
-HOOK_MAX = 40
+# hook（Ci-en 标题后半句）**没有字数上限**：列表视图会截长标题，但删哪里由
+# 发布时的人决定，脚本不预先删内容。副标题仍要有上限——它们是正文里的一句。
 DESCRIPTION_MAX = 140
 DESCRIPTION_ZH_MAX = 70
 
@@ -133,8 +137,13 @@ def validate(answer: object, report: dict, roster: Roster) -> None:
     if unknown:
         problems.append(f"不认识的字段：{'、'.join(sorted(unknown))}（是不是拼错了？）")
 
+    hook = answer.get("hook", "")
+    if not isinstance(hook, str):
+        problems.append("hook 必须是字符串")
+    elif "\n" in hook or "\r" in hook:
+        problems.append("hook 必须是单行：Ci-en 的标题只有一行，换行会把正文顶到标题里")
+
     for key, limit in (
-        ("hook", HOOK_MAX),
         ("description", DESCRIPTION_MAX),
         ("description_zh", DESCRIPTION_ZH_MAX),
     ):
@@ -147,24 +156,23 @@ def validate(answer: object, report: dict, roster: Roster) -> None:
 
     # 中日副标题一句对一句。`description_zh` 空着就退回正本的 `description`——
     # 渲染器也是这么退的（`lib/daily.ts`），检查必须跟同一个规则走，否则判卷和
-    # 页面各说各话。
+    # 页面各说各话。`hook` 不在这里：它是标题，删改由发布时的人工决定。
     titles = {
-        "hook": str(answer.get("hook") or "").strip(),
-        "description": str(answer.get("description") or "").strip(),
+        "日文副标题": str(answer.get("description") or "").strip(),
         "中文副标题": str(answer.get("description_zh") or "").strip()
         or str(report.get("description") or "").strip(),
     }
     counts = {key: len(_clauses(text)) for key, text in titles.items() if text}
     if len(set(counts.values())) > 1:
         problems.append(
-            "标题类字段的分句数不一致："
+            "中日副标题的分句数不一致："
             + "、".join(f"{key} {n} 句" for key, n in counts.items())
-            + "。中日副标题要一句对一句（「，」「、」断句，句数相同、顺序相同）"
+            + "。要一句对一句（「，」「、」断句，句数相同、顺序相同）"
         )
     over = {key: n for key, n in counts.items() if n > CLAUSE_MAX}
     if over:
         problems.append(
-            f"分句太多（≤ {CLAUSE_MAX} 句）："
+            f"副标题分句太多（≤ {CLAUSE_MAX} 句）："
             + "、".join(f"{key} {n} 句" for key, n in over.items())
             + "。副标题不是段落，多出来的内容写进 highlights"
         )
@@ -297,13 +305,15 @@ def build_task(issue_id: str, report: dict, roster: Roster) -> str:
             "",
             "## 规则",
             "",
-            f"1. `hook` ≤ {HOOK_MAX} 字：接在 `【声優Xまとめ M/D】` 后面的一小句，写当天最具体的那件事。",
+            "1. `hook`：接在 `【声優Xまとめ M/D】` 后面、写当天最具体的那件事。"
+            "**不设字数上限，也不参与分句数判卷**——Ci-en 列表会截长标题，但截哪里"
+            "由发布时人工决定，这里不要预先删内容。只要求单行纯文本、不写日期。",
             f"2. `description` ≤ {DESCRIPTION_MAX} 字（日文副标题）、`description_zh` ≤ {DESCRIPTION_ZH_MAX} 字（中文副标题）。"
             "**两句都不能提厂商**——正本的副标题如果写了厂商，这里要换一句只说声优的。",
-            "3. **`hook`／`description`／`description_zh` 三者的分句数必须一样**（≤ "
+            "3. **`description` 与 `description_zh` 的分句数必须一样**（≤ "
             f"{CLAUSE_MAX} 句，`、` `。` `，` 断句）。一句对一句、顺序也一样："
             "片方 2 句片方 3 句，读起来就是两篇不同的稿子。中文副标题就照着日文那句"
-            "逐句翻，别自己加信息。",
+            "逐句翻，别自己加信息。标题钩子 `hook` 不受这条约束。",
             "4. `highlights` 只放声优侧的看点；用 `highlight_indexes` 指明保留中文第几条（0 起算、递增）。"
             "两者条数必须相等。厂商侧的看点直接不选。",
             "5. `people` 只收**声优**（下面标了「跳过」的不要），顺序和中文正本一致，`handle` 原样照抄。",

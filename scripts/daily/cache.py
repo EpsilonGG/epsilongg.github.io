@@ -19,7 +19,7 @@ from dataclasses import asdict, dataclass, field
 from datetime import datetime, timezone
 from pathlib import Path
 
-PROMPT_VERSION = 2  # 2：中文题面带上 data/glossary.json 的术语表
+PROMPT_VERSION = 3  # 3：中文题面补「叙述一律用简体中文」硬规则（261105 日文漂移事故）
 
 FRESH = "fresh"
 STALE = "stale"

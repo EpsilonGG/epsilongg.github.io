@@ -33,10 +33,11 @@ export interface CienPerson {
 export interface CienIssue {
   id: string;
   /**
-   * **被覆盖的那一天**（JST 零点）。タイトルの `10/27` と中国語版の日付行はここから作る。
+   * **被覆盖的那一天**（JST 零点）。タイトルの `10/27` はここから作る。
    *
    * 発行時刻ではない——この記事は翌日未明に出るので、発行時刻を使うと
    * 中身が 10/27 なのにタイトルが 10/28 になる。
+   * 日期はタイトル**だけ**に置く：本文（中文版・日本語版とも）に日付行は出さない。
    */
   day: Date;
   /** 集計窓（ISO）。無ければ出典の時刻は書かない。 */
@@ -156,7 +157,13 @@ export function splitClauses(text: string): string[] {
     .filter((part) => part.length > 0);
 }
 
-/** 中国語版の日付 `2026-10-27`（JST）。 */
+/**
+ * 中国語版の日付 `2026-10-27`（JST）。
+ *
+ * 2026-11-06 以降、**本文では使わない**——タイトルに `M/D` が入っているので
+ * 中文版の冒頭に日付行を出すと同じ情報を二度書くことになる（本人の判断）。
+ * 出典の集計窓（`windowLabel`）と、日付の単体検証用に残している。
+ */
 export function formatCienDayZh(date: Date): string {
   return zhDayFormat.format(date).replace(/\//g, '-');
 }
@@ -244,10 +251,13 @@ function renderBody(
   const headings = HEADINGS[lang];
   const blocks: string[] = [];
 
-  // 日付は**中国語版にだけ**置く。日本語版は直上のタイトルが `10/27` を持っているので、
-  // 同じ言語で二度書くことになる。時刻（22:00）はどちらにも書かない——
-  // この記事は 1 日ぶんのまとめで、何時に公開したかは読者にとって情報ではない。
-  if (lang === 'zh') blocks.push(`${formatCienDayZh(issue.day)}（日本时间）`);
+  // 日付は**タイトルだけ**（`【声優Xまとめ M/D】`）。2026-11-06 の判断で
+  // `# 中文版` の直後に置いていた `YYYY-MM-DD（日本时间）` の行は廃止——
+  // 同じ情報を二度書くことになるし、タイトルを自分で削るときに本文の日付が
+  // 取り残される。時刻（22:00）もどちらにも書かない：この記事は 1 日ぶんの
+  // まとめで、何時に公開したかは読者にとって情報ではない。
+  // 出典の `## 出处 / 出典` にある集計窓は「投稿を集めた時間範囲」なので別物、
+  // こちらは残す。
 
   if (body.description?.trim()) blocks.push(body.description.trim());
 

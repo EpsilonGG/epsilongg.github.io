@@ -1,6 +1,6 @@
 {
   "schema_version": 5,
-  "note": "声优版日报的名单（`daily build --kind voice`，期号 `YYMMDD`）。只决定分组与显示顺序，不决定谁进日报（进不进由数据决定）。handle 不带 @。category 只能取 categories 里的 id；一个实体只给一个 category，跨类用 tags 补充。role 是账号身份（main/sub/announce/circle/other）。active=false 表示「在名单里但暂不参与日报」。2026-10-29 起社团（category=circle）全部 active，日报拆成声优版与 Galgame 版两份，Galgame 侧的名单在 daily-roster-galgame.json。",
+  "note": "声优版日报的名单（`daily build --kind voice`，期号 `YYMMDD`）。只决定分组与显示顺序，不决定谁进日报（进不进由数据决定）。handle 不带 @。category 只能取 categories 里的 id；一个实体只给一个 category，跨类用 tags 补充。role 是账号身份（main/sub/announce/circle/other）。active=false 表示「在名单里但暂不参与日报」。2026-10-29 起社团（category=circle）全部 active，日报拆成声优版与 Galgame 版两份，Galgame 侧的名单在 daily-roster-galgame.json。2026-11-06 起：按 name 合并只认「同一个人的多个号」，广告号/官方号不能借同名挂进声优链接（见 girlscreationpr 的隔离记录）。",
   "categories": [
     {
       "id": "seiyuu",
@@ -845,6 +845,15 @@
     },
     {
       "handle": "girlscreationpr",
+      "name": "ガールズクリエイション公式",
+      "category": "other",
+      "role": "other",
+      "active": false,
+      "tags": [],
+      "note": "2026-11-06 用户订正：这不是佐倉江美的账号，是《ガールズクリエイション》的广告/PR 号（她曾转发过）。保留为隔离记录：category=other 不进声优栏目、name 不同不会按人合并、active=false 不再抓取，绝不能并进声优链接捆绑。"
+    },
+    {
+      "handle": "sakuraemi2",
       "name": "佐倉江美",
       "category": "seiyuu",
       "role": "main",
@@ -852,18 +861,8 @@
       "tags": [
         "声优",
         "创作者"
-      ]
-    },
-    {
-      "handle": "sakuraemi2",
-      "name": "佐倉江美",
-      "category": "seiyuu",
-      "role": "sub",
-      "active": true,
-      "tags": [
-        "声优",
-        "创作者"
-      ]
+      ],
+      "note": "2026-11-06 用户订正：佐倉江美的推特号是 @sakuraemi2，这是她唯一的主号；不要再把广告号 girlscreationpr 当主号或写进 via。"
     },
     {
       "handle": "nekomi_hime",

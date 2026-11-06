@@ -124,10 +124,31 @@ class JaTest(unittest.TestCase):
             ja.validate(self.answer(people=people), REPORT, self.roster)
         self.assertIn("**", str(ctx.exception))
 
-    def test_rejects_long_hook(self) -> None:
+    def test_long_hook_is_kept_verbatim(self) -> None:
+        """2026-11-06 裁决：标题不替人删改，超长也原样留着给发布时人工决定。"""
+        long_hook = "柚木つばめ生誕祭の記念曲が公開され、" * 8 + "当日の動きを全部書く"
+        ja.validate(self.answer(hook=long_hook), REPORT, self.roster)
+        answer_path = self.root / "a.json"
+        answer_path.write_text(
+            json.dumps(self.answer(hook=long_hook), ensure_ascii=False), encoding="utf-8"
+        )
+        target = ja.apply("261028", answer_path, REPORT, self.roster, self.root)
+        self.assertEqual(json.loads(target.read_text(encoding="utf-8"))["hook"], long_hook)
+
+    def test_rejects_multiline_hook(self) -> None:
+        """不设长度上限，但标题仍然只能是一行。"""
         with self.assertRaises(ja.JaError) as ctx:
-            ja.validate(self.answer(hook="あ" * (ja.HOOK_MAX + 1)), REPORT, self.roster)
-        self.assertIn("hook 超长", str(ctx.exception))
+            ja.validate(self.answer(hook="一行目\n二行目"), REPORT, self.roster)
+        self.assertIn("单行", str(ctx.exception))
+
+    def test_hook_is_free_from_title_clause_parity(self) -> None:
+        """hook 的分句数不再拖着副标题走。"""
+        ja.validate(
+            self.answer(hook="一、二、三、四、五、六、七", description="一句だけ。",
+                        description_zh="只有一句"),
+            REPORT,
+            self.roster,
+        )
 
     def test_rejects_people_out_of_order(self) -> None:
         """顺序要跟中文正本走，否则中日两版的人名对不上。"""
@@ -186,9 +207,11 @@ class JaTest(unittest.TestCase):
         self.assertIn("`re_re_tsubame`（柚木つばめ）｜声优", task)
 
     def test_task_states_the_title_and_contact_rules(self) -> None:
-        """两条新规矩要写进题面，否则只有判卷知道、写的人不知道。"""
+        """新规矩要写进题面，否则只有判卷知道、写的人不知道。"""
         task = ja.build_task("261028", REPORT, self.roster)
         self.assertIn("分句数必须一样", task)
+        self.assertIn("不设字数上限", task)
+        self.assertIn("发布时人工决定", task)
         self.assertIn("联系邮箱不要写", task)
 
     def test_apply_writes_workspace_file(self) -> None:

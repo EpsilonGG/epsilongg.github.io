@@ -6,16 +6,25 @@
 检查顺序（先便宜后贵）：
 
 1. 形状：走 `schemas/generation.schema.json`（M1.4 的极简校验器，零依赖）。
-2. 来源：每条 claim 至少一个 `sources`，且每个 key 都真实存在于本期材料里。
-3. 归属：`handle` 必须在名单内，且必须是本题 `handles` 里的（防止把 A 的话写进 B 的名下）。
-4. 唯一：同一个 handle 不许出现两次。
+2. 语言：整句写成日文的回答直接作废（2026-11-05 261105 事故）。
+3. 来源：每条 claim 至少一个 `sources`，且每个 key 都真实存在于本期材料里。
+4. 归属：`handle` 必须在名单内，且必须是本题 `handles` 里的（防止把 A 的话写进 B 的名下）。
+5. 唯一：同一个 handle 不许出现两次。
+
+第 2 条不是靠提示词自觉：`scripts/daily_lang.py` 数日语语法信号与中文独有标记，
+只在「日文信号 ≥ 2 且中文标记 == 0」时判日文，所以日文作品名／人名不会误杀。
+它和题面里的简体中文硬规则是一对——提示词会漂移，判卷不会。
 """
 from __future__ import annotations
 
 from dataclasses import dataclass, field
 
-from .roster import Roster
-from .schema import DESCRIPTION_MAX, SchemaError, load_schema, validate
+# `daily_lang` 与 `daily` 包同在 scripts/ 下；包能被 import 就说明 scripts/ 在 sys.path。
+# 判卷层不依赖统一内容层，也不依赖任何第三方包。
+import daily_lang  # noqa: E402
+
+from .roster import Roster  # noqa: E402
+from .schema import DESCRIPTION_MAX, SchemaError, load_schema, validate  # noqa: E402
 
 
 @dataclass
@@ -64,6 +73,18 @@ def validate_answer(
         problems.append(Problem(exc.path, exc.message))
         # 形状都不对，后面的检查没有意义（字段可能是字符串而不是列表）
         raise ValidationError(problems) from None
+
+    # 语言闸门：材料全是日文推文，模型有时会顺着材料把整篇中文稿写成日文。
+    # 单靠题面那句「请用简体中文」拦不住——这里是 apply 之前的机械判卷。
+    drift = daily_lang.scan_answer(answer)
+    for path, text in drift[:8]:
+        problems.append(
+            Problem(path, f"整句写成了日文，中文日报只收简体中文叙述：{text[:48]}")
+        )
+    if len(drift) > 8:
+        problems.append(
+            Problem("$", f"另有 {len(drift) - 8} 句日文漂移（本期合计 {len(drift)} 句）")
+        )
 
     cid = str(answer.get("category") or category or "")
     if category and cid and cid != category:

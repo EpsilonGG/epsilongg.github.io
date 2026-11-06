@@ -105,12 +105,26 @@ test('各版の中は ## の小見出しだけで、やりとり の節は出さ
   assert.ok(!text.includes('互动'));
 });
 
-test('日付は中国語版にだけ、時刻はどこにも書かない', () => {
-  assert.ok(text.includes('2026-10-27（日本时间）'));
+test('日付はタイトルだけ。本文には日付行も時刻も出さない', () => {
+  // 2026-11-06 判断：題名に M/D が入っているので `# 中文版` の直後の
+  // `2026-10-27（日本时间）` は廃止。同じ情報を二度書かない。
+  assert.ok(lines[0].startsWith('【声優Xまとめ 10/27】'));
+  assert.ok(!text.includes('2026-10-27（日本时间）'));
+  assert.ok(!text.includes('（日本时间）'));
   assert.ok(!text.includes('22:00'), '公開時刻は読者にとって情報ではない');
-  // 日本語版は日付の行から始まらず、副標題（無ければ見出し）から始まる
+  // 両言語とも副標題（無ければ見出し）から始まる
+  assert.ok(text.split('# 中文版\n\n')[1].startsWith('柚木つばめ生日祭与川乃瀬由羽九周年直播撑场。'));
   assert.ok(text.split('# 日本語版\n\n')[1].startsWith('生誕祭と9周年が並んだ一日。'));
   assert.ok(!text.includes('<span'), '大きさ指定は使っていない（大きくする対象がもう無い）');
+  // 出典の集計窓は「投稿を集めた範囲」なので日付が残る（別物）
+  assert.ok(text.includes('2026-10-27 00:00〜24:00 JST'));
+});
+
+test('長い钩子も切らずにそのまま題名に載せる', () => {
+  const longHook = '柚木つばめ生誕祭、川乃瀬由羽は9周年、'.repeat(6) + 'ほか多数の話題';
+  const out = cienText({ ...issue, hook: longHook }, zh, ja, options);
+  assert.ok(longHook.length > 100, 'テスト材料自体が十分に長いこと');
+  assert.equal(out.split('\n')[0], `【声優Xまとめ 10/27】${longHook}`);
 });
 
 test('Ci-en で化ける書き方を混ぜない（- 箇条書き / 生 HTML リンク / iframe）', () => {
@@ -207,8 +221,8 @@ test('掲載済みの全期で、中日の副標題が一句対一句になっ�
     const jaData = JSON.parse(readFileSync(new URL(`${id}/report.ja.json`, dir), 'utf8'));
     const zhData = JSON.parse(readFileSync(new URL(`${id}/report.json`, dir), 'utf8'));
     const zhSubtitle = (jaData.description_zh || zhData.description || '').trim();
+    // hook は 2026-11-06 以降「人が投稿時に削る」ものなので、この物差しから外す。
     const counts = {
-      hook: splitClauses(jaData.hook ?? '').length,
       description: splitClauses(jaData.description ?? '').length,
       description_zh: splitClauses(zhSubtitle).length,
     };

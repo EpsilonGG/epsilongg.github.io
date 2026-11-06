@@ -15,6 +15,7 @@ import json
 import sys
 import tempfile
 import unittest
+from datetime import datetime, timezone
 from pathlib import Path
 
 SCRIPTS_DIR = Path(__file__).resolve().parents[1] / "scripts"
@@ -187,9 +188,13 @@ class ConfirmTest(Base):
         self.assertIn("已经定稿", str(ctx.exception))
 
     def test_reopen_moves_old_version_to_history(self) -> None:
+        # 历史文件名只有秒级精度。两步若跨秒，`draft-confirm` 会排在
+        # `confirmed-reopen` 前面，history[0] 就不再是定稿版了——传固定时刻，
+        # 让这条断言不依赖机器有多快。（只改测试，不动 daily/ 生产代码。）
+        fixed = datetime(2026, 10, 26, 0, 0, 0, tzinfo=timezone.utc)
         self.apply(good_answer())
-        confirm_mod.confirm(ISSUE, self.out)
-        confirm_mod.reopen(ISSUE, self.out)
+        confirm_mod.confirm(ISSUE, self.out, now=fixed)
+        confirm_mod.reopen(ISSUE, self.out, now=fixed)
 
         history = sorted(path_mod.history(path_mod.workspace(self.out, ISSUE)).glob("*.json"))
         self.assertTrue(history, "history/ 里应该有旧版本")
