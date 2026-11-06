@@ -23,6 +23,7 @@ import argparse
 import glob
 import io
 import json
+import re
 import sys
 from pathlib import Path
 
@@ -59,7 +60,17 @@ def validate(terms: list[dict]) -> list[str]:
 
 
 def count(text: str, needle: str) -> int:
-    return text.count(needle) if needle else 0
+    """数出现次数。
+
+    纯 ASCII 的词按**整词**匹配：`cult` 这条 avoid 本来是要抓「写 cult 不写小众」，
+    但直接 substring 会命中《The Occultist》这种专有名词，报出来是纯误报。
+    含中文的写法（「试玩版」「脚本家」）仍按 substring 数，那才是想要的行为。
+    """
+    if not needle:
+        return 0
+    if re.fullmatch(r"[A-Za-z0-9 .\-]+", needle):
+        return len(re.findall(r"(?<![A-Za-z0-9])" + re.escape(needle) + r"(?![A-Za-z0-9])", text))
+    return text.count(needle)
 
 
 def main() -> int:
