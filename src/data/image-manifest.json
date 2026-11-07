@@ -1,6 +1,6 @@
 {
   "$comment": "由 scripts/optimize_images.mjs 生成，请勿手改。",
-  "generatedAt": "2026-11-06T16:19:43.993Z",
+  "generatedAt": "2026-11-07T11:11:55.794Z",
   "images": {
     "/images/blog/automaton-crymelight-mugenzakura-roundtable/01.jpg": {
       "w": 1080,
@@ -1640,6 +1640,502 @@
           "w": 670,
           "src": "/images/blog/gamespark-uchikoshi-crashkeys-interview/07-670.webp",
           "bytes": 28784
+        }
+      ]
+    },
+    "/images/blog/ksl-live-world-2026-report/01.jpg": {
+      "w": 1600,
+      "h": 1067,
+      "bytes": 833562,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/ksl-live-world-2026-report/01-600.webp",
+          "bytes": 58290
+        },
+        {
+          "w": 960,
+          "src": "/images/blog/ksl-live-world-2026-report/01-960.webp",
+          "bytes": 132568
+        },
+        {
+          "w": 1600,
+          "src": "/images/blog/ksl-live-world-2026-report/01-1600.webp",
+          "bytes": 305026
+        }
+      ]
+    },
+    "/images/blog/ksl-live-world-2026-report/02.jpg": {
+      "w": 1600,
+      "h": 1067,
+      "bytes": 672830,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/ksl-live-world-2026-report/02-600.webp",
+          "bytes": 44112
+        },
+        {
+          "w": 960,
+          "src": "/images/blog/ksl-live-world-2026-report/02-960.webp",
+          "bytes": 95344
+        },
+        {
+          "w": 1600,
+          "src": "/images/blog/ksl-live-world-2026-report/02-1600.webp",
+          "bytes": 215118
+        }
+      ]
+    },
+    "/images/blog/ksl-live-world-2026-report/03.jpg": {
+      "w": 1600,
+      "h": 1067,
+      "bytes": 556757,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/ksl-live-world-2026-report/03-600.webp",
+          "bytes": 44148
+        },
+        {
+          "w": 960,
+          "src": "/images/blog/ksl-live-world-2026-report/03-960.webp",
+          "bytes": 85852
+        },
+        {
+          "w": 1600,
+          "src": "/images/blog/ksl-live-world-2026-report/03-1600.webp",
+          "bytes": 176916
+        }
+      ]
+    },
+    "/images/blog/ksl-live-world-2026-report/04.jpg": {
+      "w": 1600,
+      "h": 1067,
+      "bytes": 358814,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/ksl-live-world-2026-report/04-600.webp",
+          "bytes": 17842
+        },
+        {
+          "w": 960,
+          "src": "/images/blog/ksl-live-world-2026-report/04-960.webp",
+          "bytes": 37224
+        },
+        {
+          "w": 1600,
+          "src": "/images/blog/ksl-live-world-2026-report/04-1600.webp",
+          "bytes": 84148
+        }
+      ]
+    },
+    "/images/blog/ksl-live-world-2026-report/05.jpg": {
+      "w": 1067,
+      "h": 1600,
+      "bytes": 256383,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/ksl-live-world-2026-report/05-600.webp",
+          "bytes": 22086
+        },
+        {
+          "w": 1067,
+          "src": "/images/blog/ksl-live-world-2026-report/05-1067.webp",
+          "bytes": 53214
+        }
+      ]
+    },
+    "/images/blog/ksl-live-world-2026-report/06.jpg": {
+      "w": 1600,
+      "h": 1067,
+      "bytes": 320674,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/ksl-live-world-2026-report/06-600.webp",
+          "bytes": 11758
+        },
+        {
+          "w": 960,
+          "src": "/images/blog/ksl-live-world-2026-report/06-960.webp",
+          "bytes": 25374
+        },
+        {
+          "w": 1600,
+          "src": "/images/blog/ksl-live-world-2026-report/06-1600.webp",
+          "bytes": 62192
+        }
+      ]
+    },
+    "/images/blog/ksl-live-world-2026-report/07.jpg": {
+      "w": 1600,
+      "h": 1067,
+      "bytes": 338806,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/ksl-live-world-2026-report/07-600.webp",
+          "bytes": 14834
+        },
+        {
+          "w": 960,
+          "src": "/images/blog/ksl-live-world-2026-report/07-960.webp",
+          "bytes": 30498
+        },
+        {
+          "w": 1600,
+          "src": "/images/blog/ksl-live-world-2026-report/07-1600.webp",
+          "bytes": 70988
+        }
+      ]
+    },
+    "/images/blog/ksl-live-world-2026-report/08.jpg": {
+      "w": 1600,
+      "h": 1067,
+      "bytes": 413794,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/ksl-live-world-2026-report/08-600.webp",
+          "bytes": 24544
+        },
+        {
+          "w": 960,
+          "src": "/images/blog/ksl-live-world-2026-report/08-960.webp",
+          "bytes": 52944
+        },
+        {
+          "w": 1600,
+          "src": "/images/blog/ksl-live-world-2026-report/08-1600.webp",
+          "bytes": 119360
+        }
+      ]
+    },
+    "/images/blog/ksl-live-world-2026-report/09.jpg": {
+      "w": 1600,
+      "h": 1067,
+      "bytes": 454132,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/ksl-live-world-2026-report/09-600.webp",
+          "bytes": 23678
+        },
+        {
+          "w": 960,
+          "src": "/images/blog/ksl-live-world-2026-report/09-960.webp",
+          "bytes": 48484
+        },
+        {
+          "w": 1600,
+          "src": "/images/blog/ksl-live-world-2026-report/09-1600.webp",
+          "bytes": 115646
+        }
+      ]
+    },
+    "/images/blog/ksl-live-world-2026-report/10.jpg": {
+      "w": 1600,
+      "h": 1067,
+      "bytes": 473594,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/ksl-live-world-2026-report/10-600.webp",
+          "bytes": 28384
+        },
+        {
+          "w": 960,
+          "src": "/images/blog/ksl-live-world-2026-report/10-960.webp",
+          "bytes": 58722
+        },
+        {
+          "w": 1600,
+          "src": "/images/blog/ksl-live-world-2026-report/10-1600.webp",
+          "bytes": 123942
+        }
+      ]
+    },
+    "/images/blog/ksl-live-world-2026-report/11.jpg": {
+      "w": 1600,
+      "h": 1067,
+      "bytes": 318491,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/ksl-live-world-2026-report/11-600.webp",
+          "bytes": 23936
+        },
+        {
+          "w": 960,
+          "src": "/images/blog/ksl-live-world-2026-report/11-960.webp",
+          "bytes": 43852
+        },
+        {
+          "w": 1600,
+          "src": "/images/blog/ksl-live-world-2026-report/11-1600.webp",
+          "bytes": 87324
+        }
+      ]
+    },
+    "/images/blog/ksl-live-world-2026-report/12.jpg": {
+      "w": 1600,
+      "h": 1067,
+      "bytes": 329037,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/ksl-live-world-2026-report/12-600.webp",
+          "bytes": 19204
+        },
+        {
+          "w": 960,
+          "src": "/images/blog/ksl-live-world-2026-report/12-960.webp",
+          "bytes": 42808
+        },
+        {
+          "w": 1600,
+          "src": "/images/blog/ksl-live-world-2026-report/12-1600.webp",
+          "bytes": 103736
+        }
+      ]
+    },
+    "/images/blog/ksl-live-world-2026-report/13.jpg": {
+      "w": 1067,
+      "h": 1600,
+      "bytes": 297684,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/ksl-live-world-2026-report/13-600.webp",
+          "bytes": 21412
+        },
+        {
+          "w": 1067,
+          "src": "/images/blog/ksl-live-world-2026-report/13-1067.webp",
+          "bytes": 55690
+        }
+      ]
+    },
+    "/images/blog/ksl-live-world-2026-report/14.jpg": {
+      "w": 1600,
+      "h": 1067,
+      "bytes": 329583,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/ksl-live-world-2026-report/14-600.webp",
+          "bytes": 15122
+        },
+        {
+          "w": 960,
+          "src": "/images/blog/ksl-live-world-2026-report/14-960.webp",
+          "bytes": 31804
+        },
+        {
+          "w": 1600,
+          "src": "/images/blog/ksl-live-world-2026-report/14-1600.webp",
+          "bytes": 74178
+        }
+      ]
+    },
+    "/images/blog/ksl-live-world-2026-report/15.jpg": {
+      "w": 1600,
+      "h": 1067,
+      "bytes": 735257,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/ksl-live-world-2026-report/15-600.webp",
+          "bytes": 51664
+        },
+        {
+          "w": 960,
+          "src": "/images/blog/ksl-live-world-2026-report/15-960.webp",
+          "bytes": 108966
+        },
+        {
+          "w": 1600,
+          "src": "/images/blog/ksl-live-world-2026-report/15-1600.webp",
+          "bytes": 262218
+        }
+      ]
+    },
+    "/images/blog/ksl-live-world-2026-report/16.jpg": {
+      "w": 1600,
+      "h": 1067,
+      "bytes": 406624,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/ksl-live-world-2026-report/16-600.webp",
+          "bytes": 24450
+        },
+        {
+          "w": 960,
+          "src": "/images/blog/ksl-live-world-2026-report/16-960.webp",
+          "bytes": 47500
+        },
+        {
+          "w": 1600,
+          "src": "/images/blog/ksl-live-world-2026-report/16-1600.webp",
+          "bytes": 99792
+        }
+      ]
+    },
+    "/images/blog/ksl-live-world-2026-report/17.jpg": {
+      "w": 1600,
+      "h": 1067,
+      "bytes": 424437,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/ksl-live-world-2026-report/17-600.webp",
+          "bytes": 27148
+        },
+        {
+          "w": 960,
+          "src": "/images/blog/ksl-live-world-2026-report/17-960.webp",
+          "bytes": 55066
+        },
+        {
+          "w": 1600,
+          "src": "/images/blog/ksl-live-world-2026-report/17-1600.webp",
+          "bytes": 120202
+        }
+      ]
+    },
+    "/images/blog/ksl-live-world-2026-report/18.jpg": {
+      "w": 1600,
+      "h": 1067,
+      "bytes": 351578,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/ksl-live-world-2026-report/18-600.webp",
+          "bytes": 20030
+        },
+        {
+          "w": 960,
+          "src": "/images/blog/ksl-live-world-2026-report/18-960.webp",
+          "bytes": 40862
+        },
+        {
+          "w": 1600,
+          "src": "/images/blog/ksl-live-world-2026-report/18-1600.webp",
+          "bytes": 85426
+        }
+      ]
+    },
+    "/images/blog/ksl-live-world-2026-report/19.jpg": {
+      "w": 1600,
+      "h": 1067,
+      "bytes": 484189,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/ksl-live-world-2026-report/19-600.webp",
+          "bytes": 35102
+        },
+        {
+          "w": 960,
+          "src": "/images/blog/ksl-live-world-2026-report/19-960.webp",
+          "bytes": 77898
+        },
+        {
+          "w": 1600,
+          "src": "/images/blog/ksl-live-world-2026-report/19-1600.webp",
+          "bytes": 168598
+        }
+      ]
+    },
+    "/images/blog/ksl-live-world-2026-report/20.jpg": {
+      "w": 1600,
+      "h": 900,
+      "bytes": 465036,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/ksl-live-world-2026-report/20-600.webp",
+          "bytes": 40434
+        },
+        {
+          "w": 960,
+          "src": "/images/blog/ksl-live-world-2026-report/20-960.webp",
+          "bytes": 79456
+        },
+        {
+          "w": 1600,
+          "src": "/images/blog/ksl-live-world-2026-report/20-1600.webp",
+          "bytes": 150708
+        }
+      ]
+    },
+    "/images/blog/ksl-live-world-2026-report/21.jpg": {
+      "w": 1600,
+      "h": 900,
+      "bytes": 411699,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/ksl-live-world-2026-report/21-600.webp",
+          "bytes": 35822
+        },
+        {
+          "w": 960,
+          "src": "/images/blog/ksl-live-world-2026-report/21-960.webp",
+          "bytes": 68978
+        },
+        {
+          "w": 1600,
+          "src": "/images/blog/ksl-live-world-2026-report/21-1600.webp",
+          "bytes": 135774
+        }
+      ]
+    },
+    "/images/blog/ksl-live-world-2026-report/22.jpg": {
+      "w": 1600,
+      "h": 900,
+      "bytes": 552739,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/ksl-live-world-2026-report/22-600.webp",
+          "bytes": 51326
+        },
+        {
+          "w": 960,
+          "src": "/images/blog/ksl-live-world-2026-report/22-960.webp",
+          "bytes": 100454
+        },
+        {
+          "w": 1600,
+          "src": "/images/blog/ksl-live-world-2026-report/22-1600.webp",
+          "bytes": 203350
+        }
+      ]
+    },
+    "/images/blog/ksl-live-world-2026-report/23.jpg": {
+      "w": 1600,
+      "h": 900,
+      "bytes": 478258,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/ksl-live-world-2026-report/23-600.webp",
+          "bytes": 44798
+        },
+        {
+          "w": 960,
+          "src": "/images/blog/ksl-live-world-2026-report/23-960.webp",
+          "bytes": 85484
+        },
+        {
+          "w": 1600,
+          "src": "/images/blog/ksl-live-world-2026-report/23-1600.webp",
+          "bytes": 162522
         }
       ]
     },
