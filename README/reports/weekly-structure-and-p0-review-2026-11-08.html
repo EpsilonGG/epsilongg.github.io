@@ -126,31 +126,71 @@
 <div class="wrap">
 
 <header class="top">
-  <h1>两套周报目录能不能合并 · 卡点 D 与 B/C 裁决项释义 · 存量账号名单</h1>
+  <h1>周报两套目录的分工与合并代价 · 出稿链路怎么接 · B/C 八项裁决落地 · 存量账号</h1>
   <p class="sub">
-    这份报告回答三件互不相干的事：<code>scripts/weekly/</code> 和 <code>weekly_studio/</code> 到底是不是重复实现、能不能并到一个母目录；
-    P0 里「卡点 D」「B1–B4 / C1–C4」这些字母代号各指什么、要你拍什么板；P2-18 那批存量账号现在还在不在。
-    结论先说：<strong>两套是上下两层，不是重复；现在不该合并；那 8 个字母项全是「拍板」不是「写代码」。</strong>
+    这份报告回答四件事：<code>scripts/weekly/</code> 和 <code>weekly_studio/</code> 各自负责出稿链路的哪一段、要不要并成一个母目录；
+    你要的「初稿 → 本地删 → 推送」现在断在哪、这一轮怎么补上；P0 里「卡点 D」「B1–B4 / C1–C4」这些字母代号各指什么、按你的口径落到了哪；
+    P2-18 那批存量账号现在还剩几个。
+    结论先说：<strong>两套是上下两层，不合并；断点不在目录，在「删完的结果没回流成稿件」，这一轮已经把桥接上；8 个字母项全部按你的口径落地。</strong>
   </p>
   <p class="meta">
-    实测：2026-11-08 下午，仓库根 <code>Desktop/github page work</code>。<br>
-    口径：模块数、行数、引用数、名单条数都是当场数的；不引用任何旧报告里的数字。
+    实测：2026-11-08 下午第一版，同日晚按你的裁决更新到第二版。<br>
+    口径：模块数、行数、引用数、名单条数、用例数都是当场数的；不引用任何旧报告里的数字。
   </p>
 </header>
 
 <div class="kpi">
   <div><b>2 套</b><span>周报相关包（不是两套重复实现）</span></div>
-  <div><b>0 行</b><span>本轮改动的周报底层代码</span></div>
-  <div><b>8 项</b><span>等你拍板的裁决项（B1–B4 / C1–C4）</span></div>
-  <div><b>1.0 GB</b><span>本轮清掉的 out/ 可重建产物</span></div>
+  <div><b>6 文件</b><span>本轮改动的代码与测试</span></div>
+  <div><b>8 项</b><span>裁决项全部落地（B1–B4 / C1–C4）</span></div>
+  <div><b>649</b><span>回归用例，全绿</span></div>
 </div>
 
-<h2 id="s0">0. 三句话</h2>
-<ol>
-  <li><strong>不是两套重复实现。</strong><code>weekly_studio/</code> 直接 <code>import</code> <code>scripts/weekly/</code> 的 <code>period</code> 与 <code>validate</code> 两个模块——它是站在 <code>scripts/weekly/</code> 之上的旁路层，两者是「管线」与「只读工作台」的关系。</li>
-  <li><strong>现在不该合并。</strong>合并要动 <code>import</code>、<code>sys.path</code>、<code>-m</code> 入口和 136 处文档/测试引用，与你「不动周报底层代码」的要求直接冲突。要合并也得等 M6 之后单开一轮。</li>
-  <li><strong>P0 那两条不是技术活。</strong>卡点 D 是「没人看过成稿」，B1–B4 / C1–C4 是「8 个设计取舍等你点头」。两条都不需要写代码，但都需要你本人看和答。</li>
-</ol>
+<h2 id="s0">0. 四个问题的直接回答</h2>
+
+<h3>0.1 「初稿生成与推送在 A 套，人工筛选在 B 套？」——一半对</h3>
+<p>
+  准确说法是：<strong>A 套管「稿件的形状 + 判卷 + 定稿 + 发布白名单」，B 套管「选材 + 人工筛选」。</strong>
+  两边都能出初稿，但只有 B 套的初稿是<strong>给人删的</strong>。
+</p>
+<div class="scroll">
+<table>
+  <thead><tr><th>环节</th><th class="wrap">谁负责</th><th class="wrap">产物</th></tr></thead>
+  <tbody>
+    <tr><td>取数 / 期号 / 窗口</td><td class="wrap">A 套 <code>period.py</code>、<code>prepare.py</code></td><td class="wrap"><code>snapshot</code>、<code>candidates.json</code></td></tr>
+    <tr><td>机器初稿（20 条口径）</td><td class="wrap">A 套 <code>draft.py</code></td><td class="wrap"><code>report.json</code>（stage=preview）</td></tr>
+    <tr><td><strong>选材库 + 可删的初稿</strong></td><td class="wrap">B 套 <code>catalog.py</code> → <code>editor.py</code></td><td class="wrap"><code>draft.md</code>、<code>editor.html</code>、<code>editor-data.json</code></td></tr>
+    <tr><td><strong>人工删除 / 改序</strong></td><td class="wrap">B 套 <code>editor.html</code> → <code>apply-decisions</code></td><td class="wrap"><code>selection.json</code>、<code>draft-selected.md</code></td></tr>
+    <tr><td><strong>删完 → 可发布稿件</strong></td><td class="wrap"><strong>本轮新增</strong>：<code>weekly_studio finalize</code></td><td class="wrap"><code>bridge/&lt;期号&gt;/report.json</code>（confirmed / final）</td></tr>
+    <tr><td>上线到站点</td><td class="wrap">A 套 <code>publish.py</code>（M7，<code>FORMALLY_ENABLED=False</code>）</td><td class="wrap"><code>data/weekly/</code>（目前不写）</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h3>0.2 「是否应该把两套内容放到一起？」——不合并，补最后一段</h3>
+<p>
+  你要的顺序本身没有问题，问题是<strong>中间那一段没接线</strong>：<code>apply-decisions</code> 只把删除结果落成
+  <code>draft-selected.md</code>，而 <code>report.json</code> 读的是另一条链路（M3 的 <code>selected.json</code>）。
+  也就是说，<strong>你删掉的内容只留在 markdown 里，进不了稿件。</strong>
+</p>
+<p>
+  所以这一轮补的不是合并，是<strong>一段桥</strong>：
+  <code>selection.json</code> → <code>adapter.items_from_selection()</code> → <code>bridge/report.json</code> → <code>weekly.finalize()</code>。
+  合并要动 136 处引用，而这段桥只动了 2 个文件。
+</p>
+
+<h3>0.3 卡点 D 与档位——档位已删出选稿，人工筛选成为唯一取舍环节</h3>
+<p>
+  你说「A 档偏斜可以接受，但档位现在没什么用」——实测数字支持这个判断：255 个事件里 167 个够 A 档（167 / 21 / 0）。
+  所以档位<strong>退出选稿</strong>，配额常量 <code>A_CAP</code> / <code>B_CAP</code> 删除，选稿只看分数排序、不设上限。
+  卡点 D 的「人工看稿」因此有了明确的承载工具：<code>editor.html</code> 里删，<code>finalize</code> 定稿。
+</p>
+
+<h3>0.4 「全 L0 够发」——已确认，不改背景段策略</h3>
+<p>
+  L0（厂牌官方号自证）保留为默认；L1/L2 降级逻辑不动。后期需要补充时人工处理，不在自动链里加成本。
+</p>
+
 
 <h2 id="s1">1. <code>scripts/weekly/</code> 与 <code>weekly_studio/</code> 是什么关系</h2>
 
@@ -170,8 +210,8 @@
     <tr><td>自称</td><td class="wrap">「周报 / 月报共用包（M3–M5 / v1.0 冻结）」</td><td class="wrap">「独立周报工作台（weekly-studio）」</td></tr>
     <tr><td>定位</td><td class="wrap">生产管线：取数 → 初稿 → 判卷 → 定稿 → 发布</td><td class="wrap">只读工作台：选材 → 初稿 → 适配 → 判卷，<strong>不发布</strong></td></tr>
     <tr><td>规模</td><td class="num">11 模块 / 1,824 行</td><td class="num">12 模块 / 6,496 行</td></tr>
-    <tr><td>入口</td><td class="wrap"><code>python scripts/weekly.py prepare|draft|preview|finalize</code></td><td class="wrap"><code>python -m weekly_studio week|build|daily|draft|check|preview|vndb</code></td></tr>
-    <tr><td>能否发布</td><td class="wrap"><code>publish</code> 子命令存在，但 <code>FORMALLY_ENABLED = False</code>，一律退 3</td><td class="wrap">根本没有 publish；只写 <code>out/weekly_studio/**</code></td></tr>
+    <tr><td>入口</td><td class="wrap"><code>python scripts/weekly.py prepare|draft|preview|finalize</code></td><td class="wrap"><code>python -m weekly_studio week|build|daily|draft|check|preview|vndb|finalize</code></td></tr>
+    <tr><td>能否发布</td><td class="wrap"><code>publish</code> 子命令存在，但 <code>FORMALLY_ENABLED = False</code>，一律退 3</td><td class="wrap">没有 publish；本轮新增 <code>finalize</code> 只把人工删完的结果定稿到 <code>out/weekly_studio/**/bridge/</code>，仍不写发布目录</td></tr>
     <tr><td>数据来源</td><td class="wrap">全量抓取库 <code>.xreader/</code> → 统一内容层 <code>scripts/content/</code></td><td class="wrap">日报正本 <code>data/daily/**</code> + 分句索引 <code>out/clauses/**</code></td></tr>
     <tr><td>依赖对方</td><td class="wrap">不依赖 B 套</td><td class="wrap"><strong>依赖 A 套</strong>：<code>weekly.period</code>（期号/窗口）、<code>weekly.validate</code>（L1–L7 判卷）</td></tr>
     <tr><td>文档</td><td class="wrap"><code>docs/architecture/weekly-m1-m5-delivery.md</code></td><td class="wrap"><code>docs/clause-source-index.md</code> §10 起</td></tr>
@@ -249,6 +289,27 @@
 </div>
 
 <p><strong>结论：能合，但现在不合。</strong>方案 B 是唯一不碰逻辑的合并方式，代价是 136 处引用要一次性改完再跑一遍 641 项回归；而这套东西<strong>连 git 都还没入库</strong>。先入库、再合并，顺序反了会很难查。</p>
+
+<h3>1.5 这一轮补的是「最后一段」，不是合并</h3>
+<div class="layers">
+  <div class="row"><span class="badge">1</span><b>选材</b><code>weekly_studio build</code> → <code>draft.md</code> / <code>editor.html</code>（101 个小单元，其中 47 条可进稿）</div>
+  <div class="row"><span class="badge">2</span><b>人工删</b>在 <code>editor.html</code> 里删单元 / 拖顺序，导出 <code>decisions.json</code></div>
+  <div class="row"><span class="badge">3</span><b>落盘</b><code>apply-decisions</code> → <code>selection.json</code> + <code>draft-selected.md</code></div>
+  <div class="row gap"><span class="badge bad">断</span><b>此处原来断开</b>删除结果进不了 <code>report.json</code>，稿件还是机器稿</div>
+  <div class="row ok"><span class="badge ok">新</span><b>定稿</b><code>weekly_studio finalize</code> → <code>bridge/&lt;期号&gt;/report.json</code>，判卷 L1–L7 通过后 <code>confirmed / final</code></div>
+  <div class="row"><span class="badge">4</span><b>上线</b>A 套 <code>publish</code>（M7，开关仍关；本轮不写 <code>data/weekly/</code>）</div>
+</div>
+
+<pre><code># 真实语料实测（261101-w，Galgame 版）
+python -m weekly_studio build    261101-w --kind galgame --refresh
+python -m weekly_studio finalize 261101-w --kind galgame
+#   → 人工保留 49 条（其中带来源 45 条）
+#   → 状态 confirmed / final，未写 data/weekly/、未翻 FORMALLY_ENABLED</code></pre>
+
+<p>
+  两个刻意的限制：<strong>①</strong> <code>finalize</code> 只写 <code>out/weekly_studio/**</code>，不碰发布目录，也不翻开关——上线属 M7，需要单独授权；
+  <strong>②</strong> 没有来源的条目会退回 <code>decision_source=auto</code> 并标 <code>needs_review</code>，不冒充人工决策（L7 要求人工条目必须带来源）。
+</p>
 
 <h2 id="s2">2. 卡点 A–F 速查（你之前没看到的字母表）</h2>
 <p>「卡点」是 <code>README/reports/project-status-2026-11-05.md</code> 里给周报/月报阻塞项编的号。P0-2 说的是 <strong>卡点 D</strong>，P0-3 说的是 <strong>卡点 B</strong> 里的裁决项。</p>
@@ -424,6 +485,76 @@
   <p>这 8 项<strong>一项都不需要写代码</strong>，但拍完 B3 就要重跑基线（<code>s004</code> → <code>s005</code>），这是唯一有实际成本的一条。</p>
 </div>
 
+<h3>4.4 八项裁决的落地结果（2026-11-08 第二版）</h3>
+<p>
+  下面这一栏是<strong>按你的答复改完之后</strong>的状态。要注意：其中 4 项在代码里本来就是「建议方案」的实现，
+  这一轮只是把口径确认下来并补测试；另外 4 项与你这次的口径相反，是真改了代码。
+</p>
+<div class="scroll">
+<table>
+  <thead>
+    <tr><th>项</th><th class="wrap">你的裁决</th><th class="wrap">落地情况</th><th class="wrap">落在哪个文件</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="name">B1</td>
+      <td class="wrap">错报可接受，<strong>漏报更不可接受</strong></td>
+      <td class="wrap"><span class="tag ok">已改</span> 稀有类型（延期 / 发售日变更）置信度不足时<strong>不再降 <code>OTHER</code></strong>，保留原类型 + 标 <code>needs_review</code>，日期也不丢</td>
+      <td class="wrap"><code>content/events.py::_resolve_type</code></td>
+    </tr>
+    <tr>
+      <td class="name">B2</td>
+      <td class="wrap">不用黑名单，但不知道怎么改</td>
+      <td class="wrap"><span class="tag ok">原本就是</span> 代码里早就是「结构判定」而不是黑名单：括号内容不像作品名时按三条规则拒收（状态短语 / 被引用的一句话 / 人名）</td>
+      <td class="wrap"><code>content/entities.py::work_hood_rejection</code></td>
+    </tr>
+    <tr>
+      <td class="name">B3</td>
+      <td class="wrap">没看出「该折的不折」，重跑可接受</td>
+      <td class="wrap"><span class="tag ok">原本就是</span> 折叠键已经是 <code>event_id</code> 本身；<code>C3</code> 归一后会改变部分 <code>event_id</code>，基线需按你的授权重跑</td>
+      <td class="wrap"><code>content/state.py::fold_key</code></td>
+    </tr>
+    <tr>
+      <td class="name">B4</td>
+      <td class="wrap">不拆行，但新作条目<strong>不该有上限</strong></td>
+      <td class="wrap"><span class="tag ok">已改</span> <code>MAX_NEW_RELEASES</code> / <code>MAX_TOTAL</code> 改为 <code>None</code>，业界仍 6；L1 判卷跳过上限检查</td>
+      <td class="wrap"><code>weekly/draft.py</code>、<code>weekly/validate.py</code>、<code>studio/adapter.py</code></td>
+    </tr>
+    <tr>
+      <td class="name">C1</td>
+      <td class="wrap">档位没什么用，<strong>可以考虑不做或删去</strong></td>
+      <td class="wrap"><span class="tag ok">已改</span> 档位退出选稿，<code>A_CAP</code> / <code>B_CAP</code> 删除；<code>tier</code> 只留作展示标签；选稿改为「按分排序、不设上限」</td>
+      <td class="wrap"><code>content/scoring.py::auto_select</code></td>
+    </tr>
+    <tr>
+      <td class="name">C2</td>
+      <td class="wrap">改就改，没问题</td>
+      <td class="wrap"><span class="tag ok">原本就是</span> <code>op_pv → PROMOTION</code>、<code>announce → WORK_ANNOUNCEMENT</code> 的映射已在 <code>lifecycle.py</code> 落好</td>
+      <td class="wrap"><code>content/lifecycle.py</code></td>
+    </tr>
+    <tr>
+      <td class="name">C3</td>
+      <td class="wrap">两个词都出现 / 只出现一个，<strong>都写「游戏名 制作完成」</strong></td>
+      <td class="wrap"><span class="tag ok">已改</span> <code>DEVELOPMENT_COMPLETE</code> 归一成 <code>MASTER_UP</code>；同句两个词都出现时 bucket key 相同，自然合成一条</td>
+      <td class="wrap"><code>content/events.py::_resolve_type</code></td>
+    </tr>
+    <tr>
+      <td class="name">C4</td>
+      <td class="wrap">预约要充分去重，<strong>同游戏只收第一次</strong></td>
+      <td class="wrap"><span class="tag ok">已改</span> 新增 <code>_dedupe_reservations()</code>：同一作品只保留最早一条 <code>RESERVATION</code>，后续剔除（原消息仍留在消息库）</td>
+      <td class="wrap"><code>content/events.py</code></td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<div class="note">
+  <p><strong>连带影响（已处理）：</strong><code>test_weekly_draft_cap.py</code> 整份重写为「不设上限」口径；
+  <code>test_content_recognition.py</code> 的档位截断断言改成按分排序；
+  <code>test_weekly_studio.py</code> 的「适配层不超 20 条」改成「不设上限」。
+  另新增 <code>test_content_decisions.py</code>（7 条）钉住 B1 / C3 / C4，避免以后被无声改回去。</p>
+</div>
+
 <h2 id="s5">5. P2-18：那批存量账号，现在还剩几个</h2>
 
 <div class="note warn">
@@ -482,6 +613,13 @@
 </div>
 <p class="dim">口径提醒：这 3 条都是 <code>info</code> 类，会走 §19「信息号整条剔除」那道闸门——它们的发文不进周报，只作线索。这是设计如此，不是遗漏。</p>
 
+<p>
+  <strong>本轮按你的口径核对了一遍：</strong>「不在名单的个人号全部清除」——
+  两版名单逐个查过，那 <strong>14 个厂商侧个人号命中 0 个</strong>（此前随名单重整已经清掉），所以没有可删的；
+  上表 3 个 <code>info</code> 号<strong>在册</strong>，不属于「不在名单」，且被 §19 整条剔除、本来就不进周报，因此保留。
+  真要恢复某个个人号，照 §5.1 的表抄回 <code>daily-roster-galgame.json</code> 即可。
+</p>
+
 <h2 id="s6">6. 本轮执行记录</h2>
 <p>你这一轮给的指令，逐条对账如下。</p>
 <div class="scroll">
@@ -520,16 +658,60 @@
 </div>
 <p class="dim">out/ 剩下的 216 MB 里，<code>_trial</code> 48 MB 是卡点 D 的看稿对象、<code>_dryrun_real</code> 81 MB 是验收证据、<code>_tmp</code> 里还有 15 个一次性 py 脚本——都不满足「可重建」，所以留着。</p>
 
-<h2 id="s7">7. 下一步（按投入产出排）</h2>
+<h3>6.2 第二版：按你的裁决改代码（同日）</h3>
+<p>上一版是「解释 + 清理」，这一版是「按裁决改口径 + 补出稿链路」。</p>
+<div class="scroll">
+<table>
+  <thead><tr><th class="wrap">文件</th><th class="wrap">改了什么</th><th class="wrap">为什么</th></tr></thead>
+  <tbody>
+    <tr><td class="wrap"><code>content/scoring.py</code></td><td class="wrap">删除 <code>A_CAP</code> / <code>B_CAP</code>；<code>auto_select()</code> 改为按分排序取全部 eligible</td><td class="wrap">C1：档位无区分度（167/21/0）</td></tr>
+    <tr><td class="wrap"><code>weekly/draft.py</code></td><td class="wrap"><code>MAX_NEW_RELEASES</code> / <code>MAX_TOTAL</code> → <code>None</code>；新增 <code>MAX_INDUSTRY = 6</code></td><td class="wrap">B4：长窗口不该被 20 条砍半</td></tr>
+    <tr><td class="wrap"><code>weekly/validate.py</code></td><td class="wrap">L1 上限检查支持 <code>None</code>；业界仍 6</td><td class="wrap">跟着 B4 改，否则 60 条的月报会被整份退回</td></tr>
+    <tr><td class="wrap"><code>content/events.py</code></td><td class="wrap">稀有类型不再降 <code>OTHER</code>；<code>DEVELOPMENT_COMPLETE</code> → <code>MASTER_UP</code>；新增 <code>_dedupe_reservations()</code></td><td class="wrap">B1 / C3 / C4</td></tr>
+    <tr><td class="wrap"><code>studio/adapter.py</code></td><td class="wrap">新增 <code>items_from_selection()</code>；<code>MAX_ITEMS</code> → <code>None</code>；handle 只从 URL 取</td><td class="wrap">出稿链路最后一段 + B4</td></tr>
+    <tr><td class="wrap"><code>studio/cli.py</code></td><td class="wrap">新增 <code>finalize</code> 子命令</td><td class="wrap">「删完 → 可发布稿件」</td></tr>
+    <tr><td class="wrap"><code>docs/weekly-report.md</code><br><code>docs/architecture/unified-content-design.md</code></td><td class="wrap">§7.3 档位表、§15 L1 行、D1 裁决补 D1′ 改判</td><td class="wrap">文档不能继续写「6–20 / 总数 22」</td></tr>
+  </tbody>
+</table>
+</div>
+
+<div class="kpi">
+  <div><b>649</b><span>回归用例（原 641，净 +8）</span></div>
+  <div><b>7 条</b><span>新增 B1 / C3 / C4 钉桩</span></div>
+  <div><b>49 条</b><span>真实语料定稿条目（261101-w）</span></div>
+  <div><b>0</b><span>写入 <code>data/weekly/</code> 的文件数</span></div>
+</div>
+
+<p class="dim">
+  真实语料重跑（<code>--refresh</code>，1,619 条消息）后：作品情报 40 个品牌大单元 / 47 个游戏小单元，
+  多游戏叙述 46 条，M2 分句对齐率 60.3%（证据不足 133 句），VNDB 未标注品牌 9 件 → 查实 3 / 归类 3 / 查不实 6，
+  品牌回填 6 → 6（100%），原链接索引 335/335 句。判卷 L1–L7 通过。
+</p>
+
+<h2 id="s7">7. 还剩什么（按投入产出排）</h2>
 <ol>
-  <li><strong>看那 20 张成稿</strong>（卡点 D）。这是唯一一件「不写代码、不做设计、只看」就能解锁下游的事。</li>
-  <li><strong>答 §4.2 那 8 个问题</strong>。可以先只答 B3 / B4 两条，其余的等 B2 定了再答。</li>
-  <li><strong>决定周报要不要入库</strong>（P0-1，本轮按你说的没动）。不入库的话，上面两条的成果随时可能随一次误操作消失。</li>
+  <li><strong>真删一轮</strong>（这是卡点 D 的真正落地）。现在链路是通的，但 <code>selection.json</code> 还是「什么都没删」的默认态；
+      在 <code>editor.html</code> 里删完 → <code>apply-decisions</code> → <code>finalize</code>，才算走过一遍人工筛选。
+      真实语料下默认态是 49 条，删到 15–25 条大概就是一份周报的正常体量。</li>
+  <li><strong>周报入库</strong>（P0-1）。这一轮改了 6 个文件、新增 1 个测试文件，全部还只在本地工作区。
+      不入库的话，下一次误操作就会把这轮的口径改动一起带走。</li>
+  <li><strong>M7：页面 + publish + 调度</strong>。这三件都还锁着 <code>FORMALLY_ENABLED = False</code>，
+      而且需要你单独授权；本轮只做到「产出 confirmed 的 <code>report.json</code>」为止。</li>
+  <li><strong>一个已知缺口：栏目映射</strong>。<code>report.json</code> 只有 <code>new_releases</code> / <code>industry</code> 两栏，
+      而工作台有「作品情报 / 品牌动向 / 商业信息」三栏；现在<strong>全部并进 <code>new_releases</code></strong>。
+      这不影响判卷和定稿，但周报页面做出来之前需要一次映射裁决（属 M7 范围）。</li>
 </ol>
+
+<div class="note">
+  <p><strong>本轮没做的两件：</strong>① <code>B3</code> 的基线编号没改成 <code>s005</code>——折叠键本来就是 <code>event_id</code>，
+  但 <code>C3</code> 归一后部分 <code>event_id</code> 会变，旧 <code>s004</code> 的编号对不上，需要重跑一次才谈得上改号；
+  ② <code>finalize</code> 的跨期状态写在 <code>&lt;包&gt;/bridge/weekly/state/</code>，与 A 套全局的
+  <code>out/weekly/state/</code> 分开——这样不会污染正式状态，代价是跨期折叠暂时不跨包累积，M7 时再合并。</p>
+</div>
 
 <footer>
   <p>本报告的模块数、行数、引用数、名单条数取自 2026-11-08 下午的实测；卡点定义与 B/C 裁决项原文见 <code>README/reports/project-status-2026-11-05.md</code> §3–§4 与 <code>docs/architecture/lifecycle-event-design.md</code> §7。</p>
-  <p>本轮未改动任何周报相关底层代码：<code>scripts/weekly/**</code>、<code>weekly_studio/**</code>、<code>scripts/content/**</code> 逐字节未变。</p>
+  <p>第一版（同日早些时候）未改动周报代码；<strong>第二版按你的裁决改了 6 个文件</strong>：<code>content/scoring.py</code>、<code>content/events.py</code>、<code>weekly/draft.py</code>、<code>weekly/validate.py</code>、<code>weekly_studio/adapter.py</code>、<code>weekly_studio/cli.py</code>，以及 2 份规范文档与 3 份测试。周报仍未启用、未发布、未写 <code>data/weekly/</code>。</p>
 </footer>
 
 </div>
