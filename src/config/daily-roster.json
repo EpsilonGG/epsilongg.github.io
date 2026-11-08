@@ -233,14 +233,12 @@
     },
     {
       "handle": "ryonarab",
-      "name": "秋山はるる",
-      "category": "seiyuu",
+      "name": "ryonarab（リョナ同人社团）",
+      "category": "other",
       "role": "other",
-      "active": true,
-      "tags": [
-        "声优",
-        "创作者"
-      ]
+      "active": false,
+      "tags": [],
+      "note": "2026-11-09 用户订正：不是秋山はるる（@harurupanda0827）的号。BOOTH 上是个人リョナ同人サークル（『リョナモンクエスト』CG 集），初代名单冻结时误按小号并入。保留为隔离记录：category=other 不进声优栏目、name 不同不会按人合并、active=false 不再抓取，绝不能并进声优链接捆绑。"
     },
     {
       "handle": "shiho_moai",
