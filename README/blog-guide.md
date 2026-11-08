@@ -439,6 +439,18 @@ npm run check:images  # 用了远程图才需要：逐张请求，报坏链
 > 前面是 `）`、后面是 `先`，Markdown 认为它不能收尾，于是 `**` 原样印在页面上。
 > 写成 `**小川公貴**（Ogawa Koki）先生` 就好：加粗只包名字，罗马音放括号里。
 
+### 8.1 提交：README 的「最近更新」会自己跟上
+
+仓库首页 `README.md` 的「最近更新」区块由定时任务维护：每月 1 日与 15 日在 GitHub 上读一遍线上仓库，取 `src/content/blog/` 里 `pubDate` 最新的三篇，改写那三行。
+
+**不要手工改那三行**——下次定时任务会覆盖。想立刻看到效果就本地跑一次：
+
+```bash
+python scripts/sync_profile_readme.py --readme README.md
+```
+
+它只替换 `<!-- RECENT:START -->` 与 `<!-- RECENT:END -->` 之间的内容，Marker 外面一个字都不动。
+
 ---
 
 ## 9. 给 AI 的提示词

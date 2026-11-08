@@ -25,6 +25,10 @@
 commit。2026-10-26 就这么把一篇新写的访谈（`gamespark-nicolith-interview.md`，496 行）
 卷进了「docs: 抓取侧改成每天两跑」——提交信息与实际内容对不上，事后很难查。
 日报自动化只该发布 `src/content/daily/` 下的新一期，所以务必带上 `--path`。
+
+推送前会先 `git fetch` 一次：远端有新提交（例如 `Sync README recent posts` 这个
+两周一次的定时任务改了 `README.md`）时自动 `rebase --autostash` 再推。
+否则本地会一直落后一个提交，每次推送都 non-fast-forward 失败。
 """
 from __future__ import annotations
 
@@ -80,6 +84,46 @@ def write_askpass(username: str, password: str) -> Path:
     return script
 
 
+def _git(env: dict[str, str], *args: str) -> subprocess.CompletedProcess:
+    return subprocess.run(
+        ["git", "-c", "credential.helper=", *args],
+        cwd=str(REPO_ROOT), capture_output=True, text=True, env=env,
+    )
+
+
+def rebase_onto_remote(env: dict[str, str]) -> None:
+    """远端有新提交时先 rebase，避免每次推送都 non-fast-forward。
+
+    服务端会出现本地不知道的提交：`Sync README recent posts` 这个两周一次的
+    定时任务会改 `README.md`。本地不 fetch 的话，之后每次推送都被拒——
+    包括 23:15 的日报自动化。
+
+    工作区里常有一批未提交的改动，所以用 `--autostash`：先收起来，rebase 完放回。
+    冲突时中止并报错，不猜。
+    """
+    fetch = _git(env, "fetch", "--quiet", "origin", "main")
+    if fetch.returncode != 0:
+        print(
+            "git fetch 失败，跳过 rebase 直接推送：\n" + (fetch.stderr or fetch.stdout).strip(),
+            file=sys.stderr,
+        )
+        return
+
+    behind = _git(env, "rev-list", "--count", "HEAD..origin/main")
+    count = behind.stdout.strip() if behind.returncode == 0 else ""
+    if not count.isdigit() or int(count) == 0:
+        return
+
+    print(f"远端多 {count} 个提交，先 rebase 到 origin/main")
+    rebase = _git(env, "rebase", "--autostash", "origin/main")
+    if rebase.returncode != 0:
+        subprocess.run(
+            ["git", "rebase", "--abort"], cwd=str(REPO_ROOT), capture_output=True, text=True,
+        )
+        print((rebase.stderr or rebase.stdout).strip(), file=sys.stderr)
+        raise SystemExit("rebase 失败：先手动处理冲突，再重新提交推送")
+
+
 def push(proxy: str | None) -> None:
     username, password = git_credentials()
     askpass = write_askpass(username, password)
@@ -88,6 +132,7 @@ def push(proxy: str | None) -> None:
         if proxy:
             env["https_proxy"] = proxy
             env["http_proxy"] = proxy
+        rebase_onto_remote(env)
         result = subprocess.run(
             ["git", "-c", "credential.helper=", "push", "origin", "HEAD"],
             cwd=str(REPO_ROOT), capture_output=True, text=True, env=env,
@@ -129,6 +174,7 @@ def main(argv: list[str] | None = None) -> int:
     if not staged:
         print("没有需要提交的改动")
         return 0
+
     print("改动：\n" + staged)
 
     if paths:

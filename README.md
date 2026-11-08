@@ -34,9 +34,9 @@ Life Science ｜ Vibe Coding ｜ Galgame ｜ Doujin ASMR
 ## 最近更新
 
 <!-- RECENT:START -->
-- [冒险游戏名门 MAGES. 还有出人意料的新作与复刻在筹备！？——代表董事社长浅田诚访谈](https://epsilongg.github.io/blog/mages-asada-makoto-interview/)
-- [新島夕 Long Interview](https://epsilongg.github.io/blog/niijima-yu-long-interview/)
-- [BugBug 2023年10月号 声优采访特辑——歩サラ](https://epsilongg.github.io/blog/busara-bugbug-interview/)
+- [「11 月 5 日」其实是游戏的好发售日——同日发售的美少女 Roguelike《无尽幻樱阁》《恸哭幽光》，开发者谈「为什么敢贴着 GTA6 上」](https://epsilongg.github.io/blog/automaton-crymelight-mugenzakura-roundtable/)
+- [以新作《anemoi》为轴织出的 Key 音乐轨迹——“KSL Live World 2026 – Sing with the Wind -”现场报道](https://epsilongg.github.io/blog/ksl-live-world-2026-report/)
+- [为了"用更好的日文玩游戏"直接找开发者谈判的玩家，后来成了自由游戏翻译者——"边玩边译"这份工作严苛的幕后【访谈】](https://epsilongg.github.io/blog/automaton-toyoch-interview/)
 <!-- RECENT:END -->
 
 ---

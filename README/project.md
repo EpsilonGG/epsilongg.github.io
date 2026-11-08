@@ -382,6 +382,33 @@ python scripts/sync_profile_readme.py --readme ../EpsilonGG/README.md --check
 - 相同输入重复执行结果一致；内容没有变化时不写文件。
 - 写文件采用「临时文件 + 原子替换」，失败不会留下半写入的文件。
 
+### 7.1 本站 README 的「最近更新」
+
+本站 `README.md` 只用了 `RECENT` 一对 Marker（脚本允许只用部分区域），内容 = 最近三篇笔记的标题链接，按 `pubDate` 倒序。
+
+**它不需要手工维护，也不依赖本地推送。** `.github/workflows/sync-readme-recent.yml` 每月 1 日与 15 日（UTC 00:17，北京时间 08:17）在 GitHub 上跑一次：
+
+```
+checkout 线上仓库 → sync_profile_readme.py --readme README.md
+→ 有变化就 commit + push（只改 README.md，没变化就什么都不做）
+```
+
+几个刻意的选择：
+
+- **定时而不是 push 触发**：README 只是门面，晚两周更新没有代价；每次 push 都跑会让历史里塞满机器人提交。
+- **不会死循环**：用默认 `GITHUB_TOKEN` 推送产生的 push 事件不会再触发任何 workflow，既不会重跑本任务，也不会触发 `deploy.yml`（README 不在站点产物里，本来也不需要重新部署）。
+- **只读线上仓库**：`src/content/blog/` 与 `src/config/` 都从 checkout 出来的版本读，本地有没有未提交的改动完全无关。
+- **幂等**：脚本在内容没变时不写文件，那一步就产生不了提交。
+
+想手动刷一次：
+
+```bash
+python scripts/sync_profile_readme.py --readme README.md
+python scripts/sync_profile_readme.py --readme README.md --check   # 只比对，不写
+```
+
+> 定时任务会在服务端给 `main` 加提交，本地因此会落后一格。`push_site.py` 推送前会先 `fetch`，落后就 `rebase --autostash` 再推——所以 23:15 的日报自动化不会被它挡住。
+
 跨仓库自动同步工作流 `.github/workflows/sync-profile-readme.yml` 只在手动触发时运行。启用前需要：
 
 1. 创建 fine-grained token，只授予个人资料仓库的 **Contents: Read and write** 权限。

@@ -1,0 +1,55 @@
+name: Sync README recent posts
+
+# 仓库首页 README 的「最近更新」区块（`<!-- RECENT:START -->` … `<!-- RECENT:END -->`）
+# 由 `scripts/sync_profile_readme.py` 从 `src/content/blog/` 的 frontmatter 生成：
+# 最近三篇笔记的标题链接，按 pubDate 倒序。
+#
+# 为什么是定时任务而不是 push 触发：README 只是给人看的门面，晚两周更新没有代价；
+# 而每次 push 都跑一遍会让历史里塞满机器人提交。
+#
+# 为什么不会死循环：用默认 GITHUB_TOKEN 推送产生的 push 事件**不会**再触发任何
+# workflow（GitHub 的内置行为），所以既不会再跑一次本任务，也不会触发 deploy.yml。
+# 站点产物里没有 README，不重新部署是对的。
+
+on:
+  schedule:
+    # 每月 1 日与 15 日 00:17 UTC（北京时间 08:17）——即每两周一次。
+    # 用「每月两天」而不是 `*/14`：后者跨月会漂，月初月末挤在一起。
+    - cron: '17 0 1,15 * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sync-readme
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      # 只替换 Marker 之间的内容；Marker 之外的手写内容逐字保留。
+      # 脚本是幂等的：内容没变时不写文件，下面这一步就不会产生提交。
+      - name: Sync recent posts into README
+        run: python scripts/sync_profile_readme.py --readme README.md
+
+      - name: Commit if changed
+        run: |
+          if git diff --quiet -- README.md; then
+            echo "README 已是最新，无需提交。"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add README.md
+          git commit -m "docs: 同步 README 最近更新（定时，每两周）"
+          git push
