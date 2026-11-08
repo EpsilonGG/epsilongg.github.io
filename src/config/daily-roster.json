@@ -276,6 +276,18 @@
       ]
     },
     {
+      "handle": "yui_RP32",
+      "name": "乙倉ゆい",
+      "category": "seiyuu",
+      "role": "announce",
+      "active": true,
+      "tags": [
+        "声优",
+        "创作者"
+      ],
+      "note": "X 告知号（主号 322yui3）：每天随机介绍自己出演的 DLsite 作品，2026-11-08 用户补录"
+    },
+    {
       "handle": "ayakaigasaki",
       "name": "伊ヶ崎綾香",
       "category": "seiyuu",
@@ -435,7 +447,7 @@
     },
     {
       "handle": "1_rito",
-      "name": "一之瀬りと",
+      "name": "一ノ瀬りと",
       "category": "seiyuu",
       "role": "main",
       "active": true,
@@ -2906,6 +2918,18 @@
         "音声"
       ],
       "note": "胡桃ふゅ（@kurumihuyu963）的社团，2026-11-08 加入"
+    },
+    {
+      "handle": "ichinoya_info",
+      "name": "一ノ瀬りと",
+      "category": "circle",
+      "role": "circle",
+      "active": true,
+      "tags": [
+        "创作者",
+        "音声"
+      ],
+      "note": "いちのや＝一ノ瀬りと（@1_rito）的社团，2026-11-08 用户补录"
     }
   ]
 }

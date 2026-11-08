@@ -126,16 +126,25 @@ def build_report(
     if roster is None:
         rows = [(handle, []) for handle in accounts]
     else:
+        # 「行首」看的是**名单里的主号**，不是「今天恰好发了帖的号」。
+        # 只按当天有内容的号挑主号的话，主号没发帖那天就会退成小号 / 社团号顶上去，
+        # 页面上「秋山はるる」四个字就链到了 @ryonarab（2026-11-08 用户报的问题）。
+        main_of_name: dict[str, str] = {}
+        for account in roster.accounts:
+            if account.role == "main" and account.active and account.name:
+                main_of_name.setdefault(account.name, account.handle)
         groups: dict[str, list[str]] = {}
         for handle in accounts:
             account = roster.account(handle)
             key = (account.name if account and account.name else handle)
             groups.setdefault(key, []).append(handle)
-        for handles in groups.values():
-            main = next(
-                (h for h in handles if (roster.account(h) and roster.account(h).role == "main")),
-                handles[0],
-            )
+        for name, handles in groups.items():
+            main = main_of_name.get(name)
+            if main is None:
+                main = next(
+                    (h for h in handles if (roster.account(h) and roster.account(h).role == "main")),
+                    handles[0],
+                )
             rows.append((main, [h for h in handles if h != main]))
 
     # 副标题是「今日看点」的 70 字以内简报，不是日期 + 账号名。

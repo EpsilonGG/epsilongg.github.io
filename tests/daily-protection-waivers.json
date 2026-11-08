@@ -2,7 +2,26 @@
   "schema_version": 1,
   "note": "日报保护集的显式授权白名单。不是关掉闸门：未登记的保护路径仍逐字节比对、保护目录里出现新文件仍一律拦下。每条都要写清授权日与理由；改动一旦 commit，diff 归零、豁免自动失效，届时应把该条从这里删掉。batches 用于「一次用户裁决要改一批同构文件」的场景，仍然逐条列出完整文件路径，不接受目录或通配符。",
   "cleared_on": "2026-11-08",
-  "cleared_reason": "261108 两条授权（副标题 + 前两条看点、Ci-en 日文版同步）已 commit（0e6d643），`git diff HEAD -- data/daily` 为空，豁免按设计自动失效。空列表才是正常状态。",
-  "waivers": [],
+  "cleared_reason": "261108 头条那批授权已 commit（0e6d643 / d85ff74），本轮是 2026-11-08 深夜的名单订正与 build 行首修复，commit 后清空。",
+  "waivers": [
+    {
+      "path": "data/daily/261108/report.json",
+      "authorized_by": "用户",
+      "authorized_on": "2026-11-08",
+      "reason": "用户报「秋山はるる 的号在网页内显示错了」：当天只有小号 @ryonarab 发帖，行首退成了小号。把行首改回主号 @harurupanda0827、小号进 via；commit 后立刻删本条"
+    },
+    {
+      "path": "data/daily/261108/report.ja.json",
+      "authorized_by": "用户",
+      "authorized_on": "2026-11-08",
+      "reason": "同上，Ci-en 版的 people 跟着换行首 handle"
+    },
+    {
+      "path": "scripts/daily/build.py",
+      "authorized_by": "用户",
+      "authorized_on": "2026-11-08",
+      "reason": "根因修复：分组取行首改成「名单里的主号」而不是「当天恰好发帖的号」，主号没发帖那天不再让小号/社团号顶上去（用户 2026-11-08 报的问题）"
+    }
+  ],
   "batches": []
 }
