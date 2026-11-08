@@ -13,20 +13,21 @@
 
 ## 1. 本地运行
 
-需要 Node.js **>= 22.12**（本项目在 Node 22.22.2 上验证），以及 Python 3.9+（仅 README 同步脚本与单元测试需要）。
+需要 Node.js **>= 22.23.4**（`package.json` 的 `engines` 写死；`astro@7.4` 起有这个下限），以及 Python 3.9+（构建脚本与单元测试需要）。
 
 ```bash
 npm install      # 安装依赖
 npm run dev      # 开发服务器，默认 http://localhost:4321
-npm run build    # 生产构建，输出到 dist/
+npm run build    # 生产构建，输出到 dist/（含图片优化与搜索索引）
 npm run preview  # 预览生产构建
 npm run check    # Astro / TypeScript 类型检查
-npm test         # Python 单元测试（README 同步脚本）
+npm run links    # 站内死链检查（要先 build）
+npm test         # Python 回归（日报、内容层、周报与脚本）
 ```
 
 > 如果 `npm run dev` 提示端口被占用，可以用 `npm run dev -- --port 4322`。
 >
-> `astro` 版本锁定在 `7.3.8`：`astro@7.4.x` 要求 Node `>= 22.23.4`，在 22.22.x 上安装会报 `EBADENGINE`。升级 Astro 之前请先升级 Node。
+> 改完东西的标准门禁顺序是：`npm run check` → `npm run build` → `npm run links` → `npm test`。日报另有 `npm run check:daily`，见第 3 节。
 
 ---
 
@@ -37,37 +38,69 @@ npm test         # Python 单元测试（README 同步脚本）
 ├── README.md                  仓库首页（与 GitHub Profile README 基本一致）
 ├── README/                    文档
 │   ├── project.md             本文件：项目说明
+│   ├── quickstart.md          20 分钟改成自己的主页
 │   ├── blog-guide.md          博客写作指南（frontmatter / 图注 / 注释）
-│   └── fork.md                如何 fork 出你自己的个人主页
+│   ├── translation-style.md   译文口径（词表本体在 data/glossary.json）
+│   ├── fork.md                如何 fork 出你自己的个人主页
+│   ├── ads.md                 右侧广告位（默认关闭）
+│   └── reports/               一次性报告存档（含工作区现状）
 ├── public/
 │   ├── docs/                  给维护者看的 HTML 指南，部署后可在 /docs/ 下直接访问
 │   │   ├── github-profile-readme-guide.html   主页 README 怎么搭、怎么维护
-│   │   └── project-status.html                项目现状：完成度、不足与可优化点
+│   │   ├── project-status.html                项目现状：完成度、不足与可优化点
+│   │   ├── notes-maintenance.html             笔记栏目的维护约定
+│   │   └── ai-articles-proposal.html          AI 整理类文章的区分机制
 │   ├── fonts/                 本地字体（Inter / Cormorant Garamond / Fira Code）+ 许可文本
 │   ├── images/
 │   │   ├── avatar.jpg         头像（460×460，与 GitHub 头像同步）
-│   │   ├── bg/sky.jpg|webp    可选背景图（1920 宽，webp 159 KB / jpg 226 KB）
-│   │   ├── blog/rurudo-unreal/  第一篇真实文章用的 11 张插图
+│   │   ├── bg/sky.jpg|webp    可选背景图（1920 宽）
+│   │   ├── blog/<slug>/       每篇文章的本地插图（按出现顺序 01、02…）
+│   │   ├── daily/             日报长图（`npm run images` 之外单独出）
 │   │   ├── links/icons/       常用链接的小图标（按 22×22 显示，存 64×64）
 │   │   ├── people/            GitHub 朋友的头像（按 22×22 显示，存 64×64）
 │   │   └── tools/             工具图标（48×48 白色圆角方块，按 2 倍图存放）
 │   ├── favicon.svg
 │   └── og/default.jpg         默认 Open Graph 分享图（1200×630，由 npm run og 生成）
 ├── src/
-│   ├── components/            Header / Footer / 导航 / 链接行 / 链接列表 / 卡片 / 图标网格 / 徽章墙 / 最近文章 / 主题切换 / 背景开关 / 阅读进度条
-│   ├── config/                站点、个人资料、导航、链接、名片页的全部数据
-│   ├── content/blog/          Markdown 文章
-│   │   ├── rurudo-unreal-interview.md   第一篇真实文章
-│   │   └── example.md                   草稿示例（draft: true，可以删除）
-│   ├── content.config.ts      文章集合定义与 Zod 校验
-│   ├── layouts/               BaseLayout（HTML 骨架与 SEO）/ ArticleLayout（文章阅读布局）
-│   ├── lib/posts.ts           读取、排序、按年分组文章
-│   ├── pages/                 路由：/ /me/ /morelinks/ /blog/ /blog/[slug]/ /404 /rss.xml /robots.txt
+│   ├── components/            Header / Footer / 导航 / 链接 / 卡片 / 图标网格 / 徽章墙 / 最近文章 / 主题与背景开关 / 阅读进度条
+│   ├── config/                ★ 唯一数据源
+│   │   ├── site.json          站点名、域名、描述、作者
+│   │   ├── profile.json       首页个人简介与头像
+│   │   ├── about.ts           名片页内容
+│   │   ├── navigation.json    顶部导航
+│   │   ├── links.ts           链接库
+│   │   ├── tags.json          笔记标签的封闭集合
+│   │   ├── daily-roster.json          日报名单·声优版
+│   │   └── daily-roster-galgame.json  日报名单·Galgame 版
+│   ├── content/blog/          笔记正文（Markdown，文件名即 URL）
+│   ├── content.config.ts      blog 与 dailyReports 两个集合的 Zod 校验
+│   ├── layouts/               BaseLayout / ArticleLayout / DailyLayout
+│   ├── lib/                   posts（笔记）· daily（期号与纯文本）· roster（名单）· cien（Ci-en 记法）· markdown 插件
+│   ├── pages/                 路由：/ /me/ /morelinks/ /blog/ /daily/ /404 /rss.xml /robots.txt
 │   ├── scripts/theme.ts       主题状态的唯一实现
 │   ├── scripts/background.ts  背景图开关状态的唯一实现
 │   └── styles/                tokens / global / typography / components / fonts
-├── scripts/sync_profile_readme.py   README 同步脚本
-├── tests/test_readme_sync.py        同步脚本单元测试（22 个用例）
+├── scripts/
+│   ├── daily/                 日报包：窗口、增量、去重、排序、组装、出题、判卷、定稿、发布、Ci-en
+│   ├── daily-image/           日报长图渲染（render.mjs）
+│   ├── content/               统一内容层：规范化、实体、事件、评分、快照、状态
+│   ├── daily_prepare.py       日报自动化入口（拉取 → 数条数 → 出骨架）
+│   ├── daily_digest.py        日报命令门面（build / prompt / apply / confirm / ja / publish）
+│   ├── xreader_slice.py       抓取全量库 → 按日切片
+│   ├── trigger_fetch.py       立刻触发抓取并等完成
+│   ├── check_daily_site.py    日报出口闸门
+│   ├── check_links.py         站内死链
+│   ├── push_site.py           提交推送（必带 --path）
+│   ├── sync_profile_readme.py README 同步
+│   └── make_og.mjs / optimize_images.mjs  分享图与 WebP 变体
+├── data/
+│   ├── daily/<期号>/          日报正本（进 git、永久、站点只读这里）
+│   ├── xreader/               抓取库的按日切片（进 git，窗口内滚存）
+│   ├── period-sources/        日报来源回填台账
+│   └── glossary.json          译名与术语表
+├── schemas/                   3 份 JSON Schema：report / generation / item
+├── tests/                     Python 回归 + markdown / cien 的 node 测试 + golden 基准
+├── docs/                      运营手册与架构契约
 ├── .github/workflows/         deploy.yml（部署）/ sync-profile-readme.yml（可选同步）
 ├── astro.config.mjs
 └── package.json
@@ -81,6 +114,7 @@ npm test         # Python 单元测试（README 同步脚本）
 - 站内链接一律写成根绝对路径（`/blog/` 等），所以站点**必须部署在域名根路径**。这条限制的具体影响见 [Fork 指南](fork.md#0-站点必须部署在域名根路径)。
 - 页头是 `1fr auto 1fr` 三栏网格：站名 / 导航 / 开关。两边等宽导航才会真正居中，**不要**改回 `space-between`。
 - 背景图（`/images/bg/sky.*`）是可选功能，默认关闭，宽于 1280px 才生效。它由 `<html>` 上的三层背景画出来（纸面 → 纱 → 照片），**不参与布局**；纸面宽度 `--paper-w`、纱的浓度 `--bg-veil` 都在 tokens.css。不要改成给 `body` 设 `max-width`——那会把文章页 68rem 的网格挤坏。
+- `data/` 不在 `public/` 里，构建时读取、不进 `dist/`；`deploy.yml` 也对 `data/xreader/**` 设了 `paths-ignore`。
 
 ### 路由说明
 
@@ -91,35 +125,61 @@ npm test         # Python 单元测试（README 同步脚本）
 | `/morelinks/` | 链接库（分类展示） |
 | `/blog/` | 笔记（文章列表）：按年份分组，支持搜索、标签筛选与分页 |
 | `/blog/{slug}/` | 单篇文章，`slug` 即 Markdown 文件名 |
+| `/daily/` | 日报归档：按月分组，一行一期（日期 + 看点简报） |
+| `/daily/{期号}/` | 单期日报详情，`getStaticPaths` 从内容集合生成，没有手写路由 |
+| `/daily/rss.xml` | 日报归档 feed，**独立于**主 `/rss.xml`（主 feed 只收笔记） |
+| `/daily/{期号}.json` | 与正本 `report.json` 逐字节相同的 JSON 出口 |
+| `/daily/{期号}.txt` | 纯文本出口（复制粘贴用） |
+| `/daily/{期号}.ja.txt` | Ci-en 版（中日双语），只有声优版生成 |
 | `/rss.xml`、`/robots.txt`、`/sitemap-index.xml` | 自动生成 |
 | 其他任意地址 | `404.html` |
 
 **本站有 `/blog/` 文章列表页**（即「笔记」页）：文章入口为首页「最近文章」、单篇文章的上一篇/下一篇导航，以及 `/blog/`（按年份分组、可搜索、可按标签筛选、分页）。
 
+### 日报（`/daily/`）
+
+日报是站内唯一自动生产的内容。它不写 Markdown：`data/daily/<期号>/report.json` 是正本，页面只渲染它的结构化字段。
+
+**期号就是被覆盖的那一天 + 哪一版，也是网址。** 格式 `YYMMDD`（JST）：
+
+| 期号 | 意思 |
+| --- | --- |
+| `261107` | 声优版第 1 期（**不带后缀的永远是声优版**） |
+| `261107-g` | Galgame 版第 1 期 |
+| `261107-2` / `261107-g2` | 同一天的第二个声优版 / Galgame 版 |
+| `261107-1` / `261107-g1` | **写错了**，第 1 期不写后缀 |
+
+期号不带小时：真实出稿落在次日凌晨，和「覆盖 00:00–24:00」的窗口对齐；真实发布时刻存在 `issue.published_at`。
+
+**四段版式，顺序固定**：`highlights`（今日看点）→ `works`（作品动态，一条一个作品）→ `interactions`（互动）→ `people`（名单，一人一句）。空段整节不渲染。
+
+**两版分工**：声优版用 `daily-roster.json`（声优 + 音声社团），Galgame 版用 `daily-roster-galgame.json`（游戏厂商 + 信息号）。两版是两次独立的 build，各读自己的库，一份失败不拖住另一份。Ci-en 出口只有声优版有。
+
+**位置就是状态**：草稿留在 `out/`，`publish` 搬到 `data/daily/` 才算发布；正本里没有 `draft` 字段。`sources` 是唯一能回溯的凭据，页面不显示，但 `.json` 出口会原样输出。
+
+运营流程、退出码、抓取侧的 cron 实测、schema 与排查表见 [日报运营与维护指南](../docs/daily-report-guide.md)。
+
 ---
 
 ## 3. 当前状态
 
-> **下表是建站初期的快照**（6 个页面、22 个用例），数字早已过时。
-> 要看现在的真实状态，读 [`public/docs/project-status.html`](../public/docs/project-status.html)：
-> 第 02 节是完成度总表，第 05 节是还剩什么，**第 12 节是 M5 的交接单**。
+> 本节只写**结构性事实**（哪些线在跑、靠什么闸门守着），不写页数与用例数——那些每天都在变，写进来必然过时。
+> 要数字和逐项待办，读 [工作区现状](reports/workspace-status-2026-11-08.md)（实测快照）或 [`public/docs/project-status.html`](../public/docs/project-status.html)（完成度总表与剩余项）。
 
-已经完成并验证的部分：
-
-| 项目 | 状态 |
+| 子系统 | 状态 |
 | --- | --- |
-| 四个页面 + 文章页 + 404 | 构建通过，共 6 个页面 |
-| 站点名称 / 域名 / 作者 / 邮箱 | 已填写为 EpsilonGG |
-| 个人简介（姓名、定位、两段 intro、邮箱、description） | 已填写 |
-| 头像 | 已下载到 `public/images/avatar.jpg`，并在 `profile.json` 中引用 |
-| 第一篇真实文章 | `INTERVIEW with rurudo——UNREAL 画集专访`，含 11 张本地插图 |
-| 链接库 | 个人平台/项目用卡片、工具用图标网格、研究资料用列表、常用链接用一行五个的小按钮（GitHub / ACG 资源两个子栏目） |
-| 类型检查 | `npm run check`：36 个文件，0 error / 0 warning / 0 hint |
-| 单元测试 | `npm test`：22 个用例全部通过 |
-| 主题切换 / 阅读进度条 / 响应式 | 320 / 390 / 768 / 1280 宽度下无横向溢出，深浅色均已截图验证 |
-| 空站点降级 | 删掉全部文章后仍可构建（5 个页面），归档页显示「暂无文章」，RSS 输出空频道 |
-| GitHub Actions 部署 | 已上线 `https://epsilongg.github.io`，每次 push 自动构建部署（约 40–90 秒） |
-| 文档 | 仓库首页、本文件、[博客写作指南](blog-guide.md)、[Fork 指南](fork.md)、`public/docs/` 下两个 HTML 指南 |
+| 站点构建 | `npm run build` 通过，产物进 `dist/`；push 到 `main` 由 `deploy.yml` 自动部署到 `https://epsilongg.github.io` |
+| 个人主页 / 名片 / 链接库 | 数据齐备，改 `src/config/` 即可，无需动组件 |
+| 笔记 | 20 篇 Markdown（含 1 篇 `draft: true` 的示例）；标签封闭集合、搜索、分页、图注与脚注插件均可用 |
+| 日报双版 | 每天自动出稿：抓取 → 组装 → 出题答题 → 判卷 → 定稿 → 发布。六出口齐全，金文件守着渲染不漂移 |
+| 日报长图 | `scripts/daily-image/render.mjs` 定稿 `rail-12x`；失败只告警，不阻断日报 |
+| 类型检查 | `npm run check` 0 error |
+| 回归 | `npm test`（Python）+ `npm run test:md` + `npm run test:cien`，均在 `deploy.yml` 里跑 |
+| 出口闸门 | `npm run check:daily`：三产物齐全、JSON 与正本逐字节相同、两个 feed 不混、金文件一致 |
+| 死链 | `npm run links` 对构建产物跑，只查站内、不联网 |
+| 空站点降级 | 删掉全部文章后仍可构建，归档页显示「暂无文章」，RSS 输出空频道 |
+
+日报的保护集（`data/daily/**`、`scripts/daily/**`、日报 schema、`content.config.ts` 的日报集合、两条抓取 workflow、金文件）在 M6 前按约定**零改动**，改动需走 `tests/daily-protection-waivers.json` 的显式授权登记。
 
 仍为占位、需要你自己补的部分见第 4 节。
 
@@ -262,7 +322,7 @@ git push -u origin main
 1. 仓库 **Settings → Pages**。
 2. **Build and deployment → Source** 选择 **GitHub Actions**（不要选 "Deploy from a branch"）。
 3. 回到 **Actions** 标签，等待 `Deploy to GitHub Pages` 运行完成（首次约 1–2 分钟）。
-4. 打开 `https://epsilongg.github.io/` 确认首页；再检查 `/blog/`、`/me/`、`/morelinks/`、`/blog/rurudo-unreal-interview/`、`/rss.xml`、`/sitemap-index.xml`、`/robots.txt`，以及一个不存在的地址（应显示 404 页面）。
+4. 打开 `https://epsilongg.github.io/` 确认首页；再检查 `/blog/`、`/me/`、`/morelinks/`、`/daily/`、一篇文章页、一期日报页、`/rss.xml`、`/daily/rss.xml`、`/sitemap-index.xml`、`/robots.txt`，以及一个不存在的地址（应显示 404 页面）。
 
 ### 6.3 部署失败排查
 
@@ -360,4 +420,4 @@ git restore --source=<commit> -- path/to/file   # 把单个文件恢复到某个
 - **主题**：默认浅色，用户选择保存在 `localStorage`；读取或写入失败时回退到浅色，不影响页面使用。首屏有内联脚本预先应用主题，避免闪烁。
 - **移动端导航**：五个入口文字都很短，窄屏下换行显示而不是折叠菜单，因此没有额外的键盘交互与焦点管理负担。
 - **转载文章**：第一篇是翻译作品，文首保留了原文出处、作者与版权说明。这类文章请自行确认授权范围。
-- **`public/docs/`**：放给维护者看的说明性文件（目前是两个 HTML 指南）。因为在 `public/` 下，它们会随站点一起发布，可通过 `/docs/github-profile-readme-guide.html` 和 `/docs/project-status.html` 直接打开；不在导航里，也不会进 sitemap。
+- **`public/docs/`**：放给维护者看的说明性文件（目前 5 份 HTML 指南）。因为在 `public/` 下，它们会随站点一起发布，可通过 `/docs/<文件名>` 直接打开；不在导航里，也不会进 sitemap。

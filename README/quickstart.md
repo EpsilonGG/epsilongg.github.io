@@ -88,13 +88,14 @@ npm run links    # 站内死链检查（要先 build）
 ```
 仓库：Astro 7 静态个人主页，Node ≥ 22.23.4，零后端零依赖框架。
 构建：npm run build（会先跑 scripts/optimize_images.mjs 生成 WebP）
-门禁：npm run check（0 错）→ npm run build → npm run links → npm test → npm run test:md
+门禁：npm run check（0 错）→ npm run build → npm run links → npm run check:daily → npm test → npm run test:md
 必须改：src/config/{site,profile,navigation}.json、about.ts、links.ts
          以及 public/images/avatar.jpg、public/favicon.svg、scripts/make_og.mjs（分享图源）
 不能碰：src/styles/tokens.css 是唯一的样式数值来源，组件里不许写死颜色/字号/间距
 个人信息：只允许出现在 src/config/，页面组件里不许硬编码姓名、域名
-路由：/ /me/ /morelinks/ /blog/ /blog/<slug>/，必须部署在域名根路径
+路由：/ /me/ /morelinks/ /blog/ /blog/<slug>/ /daily/ /daily/<期号>/，必须部署在域名根路径
 文章：src/content/blog/<slug>.md，文件名即 URL；图片写 ![alt](/path "图注")
+日报：data/daily/<期号>/report.json 是正本，不要手改；不要这个栏目就删 data/daily/ 与 src/pages/daily/
 ```
 
 完整的约定和踩坑记录在[项目说明](project.md)，比这段长得多，但值得在动手前扫一眼。
