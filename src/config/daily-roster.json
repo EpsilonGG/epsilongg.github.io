@@ -1563,6 +1563,19 @@
       "note": "美しょゲ声優歌手コラボBAR2026Autumn 出演（2026-10-30〜11-08）"
     },
     {
+      "handle": "kurumihuyu963",
+      "name": "胡桃ふゅ",
+      "category": "seiyuu",
+      "role": "main",
+      "active": true,
+      "tags": [
+        "声优",
+        "创作者",
+        "音声"
+      ],
+      "note": "2026-11-08 加入；别名义「餅月ひまり」。所属社团 桃尻乳業（@momojiri_nyugyo）"
+    },
+    {
       "handle": "Kyonyu0821",
       "name": "巨乳大好き屋",
       "category": "circle",
@@ -2881,6 +2894,18 @@
         "音声"
       ],
       "note": "近三年 7 部 / 累计 9 部"
+    },
+    {
+      "handle": "momojiri_nyugyo",
+      "name": "桃尻乳業",
+      "category": "circle",
+      "role": "circle",
+      "active": true,
+      "tags": [
+        "创作者",
+        "音声"
+      ],
+      "note": "胡桃ふゅ（@kurumihuyu963）的社团，2026-11-08 加入"
     }
   ]
 }
