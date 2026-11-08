@@ -1,0 +1,426 @@
+{
+  "schema_version": 1,
+  "issue": {
+    "id": "261108-g",
+    "published_at": "2026-11-09T00:36:11.770297+09:00",
+    "window": {
+      "start": "2026-11-08T00:00:00+09:00",
+      "end": "2026-11-09T00:00:00+09:00"
+    },
+    "status": "confirmed",
+    "confirmed_at": "2026-11-08T15:37:13+00:00"
+  },
+  "counts": {
+    "items": 132,
+    "accounts": 32,
+    "late": 29,
+    "skipped_duplicate": 3
+  },
+  "description": "SMEE『ワンナイトアフター』体验版公开、11/27 开卖；アパタイト 新作定 12/25。",
+  "highlights": [
+    {
+      "text": "SMEE『ワンナイトアフター』在官网公开体验版，11/27 发售，FANZA GAMES 的 DL 版也开了预约并配优惠券。",
+      "sources": [
+        "x:2119266155806228846",
+        "x:2119394501399544082"
+      ]
+    },
+    {
+      "text": "アパタイト『憑いてる彼女はオカルト女子～俺しか見えてないのかよっ～』定 12/25 发售，原画 urute 的签名海报随店铺预约抽选。",
+      "sources": [
+        "x:2119285910282076402",
+        "x:2119326895536054379"
+      ]
+    },
+    {
+      "text": "SukeraSparo『私たちフェイクマリッジ？』开发终于看到终点，目标 12 月送 Valve 审核、1 月下旬发售，本编体验版也在考虑中。",
+      "sources": [
+        "x:2119386970761928931"
+      ]
+    },
+    {
+      "text": "情报号 Moepedia 报 WendyBell『夢見るアプリ』体验版公开，同一条时间线上还报了 どいなかガールズ 11/27 与 王様恋愛 的联动。",
+      "sources": [
+        "x:2119432250114953241",
+        "x:2119389468406714657",
+        "x:2119424700476764410"
+      ]
+    }
+  ],
+  "insights": [],
+  "interactions": [],
+  "works": [
+    "SMEE『ワンナイトアフター』在官网公开体验版，11/27 发售，DL 版已开预约并发放优惠券。",
+    "アパタイト『憑いてる彼女はオカルト女子～俺しか見えてないのかよっ～』定 12/25 发售，原画 urute 直笔签名海报随预约抽选。",
+    "SukeraSparo『私たちフェイクマリッジ？』开发收尾，目标 12 月送 Valve 审核、1 月下旬发售。",
+    "WendyBell『夢見るアプリ』体验版公开。",
+    "アミューズクラフトエロチカ『養花師の背徳愛～純真天使は抱かれて色めく～』发售中，公开 近持ささら 的片段视频。",
+    "エスクード『廃村少女［弐］外伝 ～千艶万匣～』B2 挂画完全受注到 12/1，WEB 问卷与 FANZA 评价活动送声优签名色纸。",
+    "ASaProject『王様恋愛』发售纪念，AKIHABARA BENTO 联动开跑。",
+    "DESSERT Soft『どいなかガールズゆーとぴあ』11/27 发售，Getchu 页面已开。",
+    "HOOKSOFT／AirVelocity『ハッピーウィークエンド』Switch・PS4 版追加 sample CG，Switch 下载版预约 10% OFF。",
+    "HOOKSOFT『トリプルペアリング ミニファンディスク』FANZA GAMES 下载版开卖。",
+    "くまのみそふと『転性魔王さまは勇者に勝てない！２』DL 版预约中，11/12 前 10% OFF。",
+    "POISON『悲鳴』公布女主角 島村寛子，FANZA 同人版 11/14 前 50% OFF。",
+    "Muvluv 系列 Switch 版最大 35% OFF，到 11/12。",
+    "COSPATIO『ハミダシクリエイティブ』千玉学園女子制服开始预约。",
+    "の～すとらいく『女装百合嵐』包装版应援活动到 11/15。",
+    "CLOWN『アンスリウム-i entrust to you-』11/27 发售，Alice Net 店头展示海报。",
+    "SAGA PLANETS 万圣节商店开到 11/9，售成人版立绘亚克力立牌。",
+    "kiss『ミッドナイトダンサー』公开店铺特典服装。",
+    "purple『リアライブ』主题歌「i:\\DRIVE」与片尾曲开始配信，OP 影像公开。",
+    "akaeroCore『False Myth 2』公开桥上的一幕。",
+    "TinkerBell『ヌキコレvol.109 兄嫁はいじっぱり』获 bugbug 激推评论。",
+    "BEEP 引进 MSX ROM 版《Prisoner of War》，附日文说明书与封面。",
+    "chaos-R 亚克力立牌样品到位。",
+    "ダイヤミックデイズ 的 初芝希沙 过生日。"
+  ],
+  "categories": [],
+  "accounts": [
+    "Moepedia_net",
+    "appetite_game",
+    "TRYSET",
+    "kiss_staff",
+    "chaos_R_public",
+    "HOOKSOFT",
+    "CyberworksKoho",
+    "escude1998",
+    "circus_info",
+    "purple_NewWork",
+    "smee_official",
+    "Amuse_kenzen",
+    "POISON_NEW1992",
+    "lumpofsuger",
+    "u_me_soft",
+    "hamham_soft",
+    "Amuse_sub",
+    "SAGAPLANETS",
+    "sprite_fairys",
+    "nisidahajime",
+    "KUMANOMISoft",
+    "jitaku_st",
+    "project_citrus",
+    "Muvluv_Official",
+    "BEEP_SHOP",
+    "rail_romanesque",
+    "adahemas",
+    "SukeraSparo",
+    "Overflow_staff",
+    "akaeroCore_JP",
+    "youtan0309",
+    "AKOUtw"
+  ],
+  "people": [
+    {
+      "handle": "Moepedia_net",
+      "category": "",
+      "summary": "情报号：WendyBell『夢見るアプリ』体验版公开，另报 どいなかガールズ 11/27、王様恋愛 联动。",
+      "via": [],
+      "sources": [
+        "x:2119432250114953241",
+        "x:2119389468406714657",
+        "x:2119424700476764410"
+      ]
+    },
+    {
+      "handle": "appetite_game",
+      "category": "",
+      "summary": "『憑いてる彼女はオカルト女子』定 12/25 发售，原画 urute 的签名海报随预约抽选。",
+      "via": [],
+      "sources": [
+        "x:2119285910282076402",
+        "x:2119326895536054379"
+      ]
+    },
+    {
+      "handle": "TRYSET",
+      "category": "",
+      "summary": "与社长远程开会，谈明年 25 周年的活动；会后继续做 世紀末みのる 新春和装系列。",
+      "via": [],
+      "sources": [
+        "x:2119304213314544112",
+        "x:2119303515667562990"
+      ]
+    },
+    {
+      "handle": "kiss_staff",
+      "category": "",
+      "summary": "公开『ミッドナイトダンサー』的店铺特典服装，提醒以各店预约页为准。",
+      "via": [],
+      "sources": [
+        "x:2119402561933660631"
+      ]
+    },
+    {
+      "handle": "chaos_R_public",
+      "category": "",
+      "summary": "收到亚克力立牌样品，转发说「壮観」。",
+      "via": [],
+      "sources": [
+        "x:2119251642893951282"
+      ]
+    },
+    {
+      "handle": "HOOKSOFT",
+      "category": "",
+      "summary": "转发『ワンナイトアフター』B2 挂画情报；另宣传 AirVelocity 新作追加 CG 与 10% OFF。",
+      "via": [],
+      "sources": [
+        "x:2119218728953094281",
+        "x:2119376130394526157"
+      ]
+    },
+    {
+      "handle": "CyberworksKoho",
+      "category": "",
+      "summary": "TinkerBell『ヌキコレvol.109 兄嫁はいじっぱり』获 bugbug 激推评论。",
+      "via": [],
+      "sources": [
+        "x:2119339641321263303"
+      ]
+    },
+    {
+      "handle": "escude1998",
+      "category": "",
+      "summary": "『廃村少女［弐］外伝』B2 挂画完全受注到 12/1，WEB 问卷与 FANZA 活动送签名色纸。",
+      "via": [],
+      "sources": [
+        "x:2119384443718889608",
+        "x:2119384435015790770"
+      ]
+    },
+    {
+      "handle": "circus_info",
+      "category": "",
+      "summary": "转发 CLOWN『アンスリウム』11/27 发售的店头海报展示。",
+      "via": [],
+      "sources": [
+        "x:2119332104668668360"
+      ]
+    },
+    {
+      "handle": "purple_NewWork",
+      "category": "",
+      "summary": "『リアライブ』主题歌「i:\\DRIVE」与片尾曲开始配信，OP 影像公开。",
+      "via": [],
+      "sources": [
+        "x:2119369335630094800"
+      ]
+    },
+    {
+      "handle": "smee_official",
+      "category": "",
+      "summary": "『ワンナイトアフター』体验版公开，11/27 发售、DL 版已开预约并配券。",
+      "via": [],
+      "sources": [
+        "x:2119266155806228846",
+        "x:2119394501399544082"
+      ]
+    },
+    {
+      "handle": "Amuse_kenzen",
+      "category": "",
+      "summary": "アミューズクラフトエロチカ『養花師の背徳愛』发售中，公布 STAFF 与两位声优。",
+      "via": [],
+      "sources": [
+        "x:2119268421133107206"
+      ]
+    },
+    {
+      "handle": "POISON_NEW1992",
+      "category": "",
+      "summary": "『悲鳴』介绍女主角 島村寛子，FANZA 同人版 11/14 前五折。",
+      "via": [],
+      "sources": [
+        "x:2119414635921121359"
+      ]
+    },
+    {
+      "handle": "lumpofsuger",
+      "category": "",
+      "summary": "为『ダイヤミックデイズ』的 初芝希沙 庆生。",
+      "via": [],
+      "sources": [
+        "x:2119263650363936934"
+      ]
+    },
+    {
+      "handle": "u_me_soft",
+      "category": "",
+      "summary": "转发 青木真也 年内引退、大晦日打 桜庭大世 的消息。",
+      "via": [],
+      "sources": [
+        "x:2119343945125855412"
+      ]
+    },
+    {
+      "handle": "hamham_soft",
+      "category": "",
+      "summary": "账号被冻结后重建，重新上传加笔版本；当天还遇上地震。",
+      "via": [],
+      "sources": [
+        "x:2119111639450747261",
+        "x:2119100557868822727"
+      ]
+    },
+    {
+      "handle": "Amuse_sub",
+      "category": "",
+      "summary": "『カノジョの妹のあざと誘惑』FANZA 豪华版预约中；『養花師の背徳愛』公开 近持ささら 片段。",
+      "via": [],
+      "sources": [
+        "x:2119345679600636043",
+        "x:2119392991643074599"
+      ]
+    },
+    {
+      "handle": "SAGAPLANETS",
+      "category": "",
+      "summary": "万圣节商店开到 11/9，卖成人版立绘亚克力立牌。",
+      "via": [],
+      "sources": [
+        "x:2119082456837931423"
+      ]
+    },
+    {
+      "handle": "sprite_fairys",
+      "category": "",
+      "summary": "在 AFG2026 的五岛市摊位买土产，另报告 蒼の彼方 圣地展。",
+      "via": [],
+      "sources": [
+        "x:2119351738495066437",
+        "x:2119372728172220856"
+      ]
+    },
+    {
+      "handle": "nisidahajime",
+      "category": "",
+      "summary": "『女装百合嵐』包装版应援活动到 11/15，征集贴横幅。",
+      "via": [],
+      "sources": [
+        "x:2119339021625380946"
+      ]
+    },
+    {
+      "handle": "KUMANOMISoft",
+      "category": "",
+      "summary": "『転性魔王さまは勇者に勝てない！２』DL 版预约中，11/12 前 10% OFF。",
+      "via": [],
+      "sources": [
+        "x:2119369340592275741"
+      ]
+    },
+    {
+      "handle": "jitaku_st",
+      "category": "",
+      "summary": "写完 ひまり 线的大纲，交稿前要再核对一遍；下一个是 葵。",
+      "via": [],
+      "sources": [
+        "x:2119202052018782594"
+      ]
+    },
+    {
+      "handle": "project_citrus",
+      "category": "",
+      "summary": "转发 松平健 粉丝会大阪场的参加报告。",
+      "via": [],
+      "sources": [
+        "x:2119392358777471167"
+      ]
+    },
+    {
+      "handle": "Muvluv_Official",
+      "category": "",
+      "summary": "介绍 94 式战术步行战斗机 不知火；Switch 版系列最大 35% OFF 到 11/12。",
+      "via": [],
+      "sources": [
+        "x:2119263709977882954",
+        "x:2119369355100348569"
+      ]
+    },
+    {
+      "handle": "BEEP_SHOP",
+      "category": "",
+      "summary": "引进 MSX ROM 版《Prisoner of War》，附日文说明书；另报告 麻雀ファイトガール 进店。",
+      "via": [],
+      "sources": [
+        "x:2119263660421882157",
+        "x:2119331717135966291"
+      ]
+    },
+    {
+      "handle": "rail_romanesque",
+      "category": "",
+      "summary": "从 湯前駅 出发的列车时刻提醒，记得领一日乘车券。",
+      "via": [],
+      "sources": [
+        "x:2119210758307516614"
+      ]
+    },
+    {
+      "handle": "adahemas",
+      "category": "",
+      "summary": "说两个月没见今天终于抽到两个「おヒヒ」，又分不清是自己晃还是地面晃。",
+      "via": [],
+      "sources": [
+        "x:2119244512522559788",
+        "x:2119391106358222880"
+      ]
+    },
+    {
+      "handle": "SukeraSparo",
+      "category": "",
+      "summary": "文学跳蚤市场东京 43 收摊道谢；『私たちフェイクマリッジ？』目标 12 月送审、1 月下旬发售。",
+      "via": [],
+      "sources": [
+        "x:2119372120522428491",
+        "x:2119386970761928931"
+      ]
+    },
+    {
+      "handle": "Overflow_staff",
+      "category": "",
+      "summary": "SchoolDays 迎来 20 周年，参与 FANZAキャッチ 抽选；晒四年来的画稿。",
+      "via": [],
+      "sources": [
+        "x:2119278593394311470",
+        "x:2119263656387219928"
+      ]
+    },
+    {
+      "handle": "akaeroCore_JP",
+      "category": "",
+      "summary": "公开『False Myth 2』桥上的一幕。",
+      "via": [],
+      "sources": [
+        "x:2119369346103279973"
+      ]
+    },
+    {
+      "handle": "youtan0309",
+      "category": "",
+      "summary": "回顾 うたう絵本 24 周年与 花よりダンゴ 35 周年，另办礼品卡抽选。",
+      "via": [],
+      "sources": [
+        "x:2119082446570336744",
+        "x:2119083704374943769"
+      ]
+    },
+    {
+      "handle": "AKOUtw",
+      "category": "",
+      "summary": "通关『養花師の背徳愛』写感想，夸 柚木つばめ 的 OP；另谈重制版 志保 结局。",
+      "via": [],
+      "sources": [
+        "x:2119264898261659868",
+        "x:2119324014527271402"
+      ]
+    }
+  ],
+  "provenance": {
+    "generator": "daily",
+    "prompt_version": 1,
+    "cache_key": "answers:1",
+    "generated_at": "2026-11-08T15:37:08+00:00"
+  }
+}
