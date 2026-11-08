@@ -22,6 +22,11 @@
  * 另外 `:::video` 交给 `markdown-video.mjs` 处理（同一个访问器里分派，而不是
  * 再注册一个插件——两个插件都写 `containerDirective` 时，先跑的那个会把
  * `:::video` 变成提示框，后跑的再也看不见它）。认不出地址就退回下面的 note。
+ *
+ * 一个救不回来的坑：`:::video https://…` 把地址写在**同一行**时，解析器直接
+ * 丢掉那段文本（`children` 是空数组），插件拿不到任何原文。所以这里对「空的
+ * video 指令」单独给一句能看懂的提示——至少页面上不会出现一个什么都没有的框。
+ * 真正的防线在 `tests/markdown/directive-syntax.test.mjs`：构建期就拦下来。
  */
 
 import { videoDirective } from './markdown-video.mjs';
@@ -53,6 +58,33 @@ function splitLabel(children) {
   return { label: '', rest: list };
 }
 
+/**
+ * 造一个提示框节点：标题段 + 正文。
+ *
+ * 返回值的类型要收窄成 satteri 的 `MdastVisitorResult`（它认的是 mdast 的
+ * `Blockquote` 字面量类型），这里手工造节点只能是 `any`，否则 astro check 报 2322。
+ *
+ * @param {string} kind 五种类型之一
+ * @param {string} title 标题文字
+ * @param {any[]} children 正文
+ * @returns {any}
+ */
+function buildCallout(kind, title, children) {
+  return {
+    type: 'blockquote',
+    data: { hProperties: { className: ['callout', `callout--${kind}`] } },
+    children: [
+      // 标题用段落包一层，避免它和正文第一段粘在一起
+      {
+        type: 'paragraph',
+        data: { hProperties: { className: ['callout__title'] } },
+        children: [{ type: 'text', value: title }],
+      },
+      ...children,
+    ],
+  };
+}
+
 export const admonitionPlugin = {
   name: 'article-admonition',
   /**
@@ -68,32 +100,27 @@ export const admonitionPlugin = {
     if (raw === 'video') {
       const video = videoDirective(rest, label);
       if (video) return video;
+
+      // 地址写在同一行时解析器已经把文本丢了，这里只能明说，不能给一个空框。
+      if (rest.length === 0) {
+        return buildCallout('caution', '视频地址没读到', [
+          {
+            type: 'paragraph',
+            children: [
+              {
+                type: 'text',
+                value:
+                  ':::video 里的地址要单独占一行。写在 :::video 同一行的话，'
+                  + 'Markdown 解析器会把它整段丢掉，这里什么也拿不到。',
+              },
+            ],
+          },
+        ]);
+      }
     }
 
     const kind = Object.prototype.hasOwnProperty.call(KINDS, raw) ? raw : 'note';
-    const title = label || KINDS[kind];
-
-    /** @type {any[]} */
-    const children = [];
-
-    // 标题用段落包一层，避免它和正文第一段粘在一起
-    children.push({
-      type: 'paragraph',
-      data: { hProperties: { className: ['callout__title'] } },
-      children: [{ type: 'text', value: title }],
-    });
-
-    children.push(...rest);
-
-    // 返回值的类型要收窄成 satteri 的 `MdastVisitorResult`（它认的是 mdast 的
-    // `Blockquote` 字面量类型），这里手工造节点只能是 `any`，否则 astro check 报 2322。
-    /** @type {any} */
-    const block = {
-      type: 'blockquote',
-      data: { hProperties: { className: ['callout', `callout--${kind}`] } },
-      children,
-    };
-    return block;
+    return buildCallout(kind, label || KINDS[kind], rest);
   },
 };
 

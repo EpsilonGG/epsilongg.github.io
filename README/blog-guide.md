@@ -181,6 +181,15 @@ https://www.bilibili.com/video/BV1V8x96kE6c
 | `bilibili.com/video/BV…` | 新版 BV 号 |
 | `bilibili.com/video/av…` | 老 av 号，仍然有效 |
 
+**地址必须单独占一行。** 两个看着像能过、实际会出事的写法：
+
+| 写法 | 结果 |
+| --- | --- |
+| `:::video https://youtu.be/xxx`（地址写在同一行） | 解析器把地址**整段丢掉**，页面上只剩一个空框。插件拿不到原文，救不回来 |
+| `::: video`（冒号后多一个空格） | 指令没被识别，`::: video https://…` 整行原样印在页面上 |
+
+这两种都由 `tests/markdown/directive-syntax.test.mjs` 在 `npm run test:md` 里拦下（构建期就红），不用等到看页面。
+
 构建时由 `src/lib/markdown-video.mjs` 转成：
 
 ```html
@@ -197,7 +206,8 @@ https://www.bilibili.com/video/BV1V8x96kE6c
 - **`loading="lazy"`**，正文里塞三四个视频也不会一起抢带宽。
 - **永远留一条「在原站观看」的链接**。嵌入被拦、被墙、或访客不想加载第三方脚本时，这是唯一的出口。
 
-> **认不出的地址不会让内容消失**：`:::video` 里没有可识别的链接时，整块退回成普通的「说明」提示框，文字还在。
+> **认不出的地址不会让内容消失**：`:::video` 里有链接但不是 YouTube / Bilibili 时，整块退回成普通的「说明」提示框，文字还在。
+> 整块是空的（地址写在同一行被解析器丢掉）时，会印一个「视频地址没读到」的警告框——至少页面上不会出现一个什么都没有的框。
 > 想加 Vimeo、ニコニコ 之类的站点，改 `parseVideoUrl` 加一条正则，再补 `tests/markdown/video.test.mjs`。
 
 > **改了 Markdown 插件要清缓存。** 内容层把渲染结果按文件内容缓存在 `node_modules/.astro`，
