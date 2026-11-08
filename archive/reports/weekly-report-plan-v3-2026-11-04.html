@@ -1,0 +1,497 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>周报 v3：单栏起步，先跑通 X 能支撑的部分</title>
+<style>
+  :root {
+    --ink: #111;
+    --ink-2: #555;
+    --ink-3: #888;
+    --line: #e3e3e3;
+    --line-2: #cfcfcf;
+    --bg: #fff;
+    --bg-2: #fafafa;
+    --radius: 6px;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    padding: 0 20px 96px;
+    background: var(--bg);
+    color: var(--ink);
+    font: 15px/1.75 -apple-system, BlinkMacSystemFont, "Segoe UI", "Hiragino Sans",
+      "Noto Sans CJK SC", "Microsoft YaHei", sans-serif;
+  }
+  .wrap { max-width: 1080px; margin: 0 auto; }
+  header.top { padding: 56px 0 28px; border-bottom: 1px solid var(--line); }
+  h1 { font-size: 26px; line-height: 1.4; margin: 0 0 10px; letter-spacing: -0.01em; }
+  .sub { color: var(--ink-2); margin: 0; }
+  .meta { margin-top: 14px; color: var(--ink-3); font-size: 13px; }
+  h2 {
+    font-size: 19px; margin: 48px 0 14px; padding-bottom: 8px;
+    border-bottom: 1px solid var(--line); letter-spacing: -0.01em;
+  }
+  h3 { font-size: 15px; margin: 26px 0 8px; }
+  h4 { font-size: 14px; margin: 20px 0 6px; color: var(--ink-2); }
+  p { margin: 0 0 12px; }
+  ul, ol { margin: 0 0 14px; padding-left: 22px; }
+  li { margin: 4px 0; }
+  code {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: 0.9em; background: var(--bg-2);
+    border: 1px solid var(--line); border-radius: 4px; padding: 1px 5px;
+  }
+  a { color: var(--ink); text-decoration-color: var(--line-2); }
+  a:hover { text-decoration-color: var(--ink); }
+  .note {
+    background: var(--bg-2); border: 1px solid var(--line);
+    border-radius: var(--radius); padding: 14px 18px; margin: 18px 0;
+  }
+  .note strong { font-weight: 600; }
+  .warn { border-left: 3px solid var(--ink); }
+  .scroll { overflow-x: auto; margin: 16px 0; border: 1px solid var(--line); border-radius: var(--radius); }
+  table { border-collapse: collapse; width: 100%; font-size: 13.5px; }
+  th, td { padding: 7px 10px; text-align: left; border-bottom: 1px solid var(--line); white-space: nowrap; vertical-align: top; }
+  td.wrap, th.wrap { white-space: normal; min-width: 200px; }
+  thead th {
+    position: sticky; top: 0; background: var(--bg);
+    font-weight: 600; font-size: 12.5px; color: var(--ink-2);
+    border-bottom: 1px solid var(--line-2); z-index: 1;
+  }
+  tbody tr:last-child td { border-bottom: 0; }
+  td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+  td.name { font-weight: 600; }
+  .tag {
+    display: inline-block; font-size: 11px; line-height: 1.6; padding: 0 6px;
+    border: 1px solid var(--line-2); border-radius: 4px; color: var(--ink-2);
+    white-space: nowrap;
+  }
+  .tag.ok { border-color: var(--ink); color: var(--ink); }
+  .tag.bad { border-color: var(--ink-3); color: var(--ink-3); text-decoration: line-through; }
+  .kpi {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1px; background: var(--line); border: 1px solid var(--line);
+    border-radius: var(--radius); overflow: hidden; margin: 26px 0 8px;
+  }
+  .kpi > div { background: var(--bg); padding: 16px 18px; }
+  .kpi b { display: block; font-size: 24px; font-weight: 600; line-height: 1.3; font-variant-numeric: tabular-nums; }
+  .kpi span { display: block; color: var(--ink-3); font-size: 12.5px; margin-top: 2px; }
+  .dim { color: var(--ink-3); }
+  pre {
+    margin: 14px 0; padding: 14px 16px; background: var(--bg-2);
+    border: 1px solid var(--line); border-radius: var(--radius);
+    overflow-x: auto; font-size: 12.5px; line-height: 1.7;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  }
+  pre code { background: none; border: 0; padding: 0; }
+  .wire {
+    border: 1px solid var(--line-2); border-radius: var(--radius);
+    padding: 0; margin: 16px 0; display: grid; grid-template-columns: 1fr 1fr;
+    overflow: hidden; min-height: 240px;
+  }
+  .wire > div { padding: 18px 20px; }
+  .wire .l { background: var(--bg-2); border-right: 1px solid var(--line-2); }
+  .wire h5 { margin: 0 0 10px; font-size: 12px; letter-spacing: 0.08em; color: var(--ink-3); font-weight: 600; }
+  .wire p { font-size: 13px; margin: 0 0 8px; }
+  footer {
+    margin-top: 56px; padding-top: 20px; border-top: 1px solid var(--line);
+    color: var(--ink-3); font-size: 12.5px;
+  }
+  @media (max-width: 720px) {
+    body { padding: 0 14px 64px; font-size: 14px; }
+    h1 { font-size: 21px; }
+    th, td { padding: 6px 8px; }
+    .wire { grid-template-columns: 1fr; }
+    .wire .l { border-right: 0; border-bottom: 1px solid var(--line-2); }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="top">
+  <h1>周报 v3：单栏起步，先跑通 X 能支撑的部分</h1>
+  <p class="sub">
+    按四条拍板收敛形态：不做周边栏、一览图只在月报带字、封面与正文不出现量化信息、
+    汉化栏留占位不补数据。周报因此从「三条栏」变成「一条栏 + 两个空壳」，
+    一次性投入降到 14 人日，但选材与跨周去重成了新的主要难点。
+  </p>
+  <p class="meta">
+    数据：<code>data/xreader/galgame/</code> 全量 2,370 条（2026-10-22 → 11-04，14 天）、
+    作品名 492 个、VNDB 抽样 12 个。<br>
+    基线：<code>scripts/daily/</code> 27 个模块 4,668 行、<code>scripts/daily-image/render.mjs</code>、
+    <code>scripts/make_og.mjs</code>、<code>src/config/daily-roster-galgame.json</code>（185 号）。<br>
+    写于 2026-11-04，取代 v2（<code>weekly-report-plan-v2-2026-11-04.html</code>）。
+  </p>
+</header>
+
+<div class="kpi">
+  <div><b>1 栏</b><span>新作资讯。汉化、周边留空壳</span></div>
+  <div><b>140</b><span>事件/周（作品 × 动作，14 天 279）</span></div>
+  <div><b>208</b><span>完整周事件数（10-26 → 11-01）</span></div>
+  <div><b>14%</b><span>事件跨 2 周以上重复出现</span></div>
+  <div><b>43%</b><span>事件有 2 条以上来源可交叉验证</span></div>
+  <div><b>58%</b><span>VNDB 标题精确命中率</span></div>
+</div>
+
+<h2>0. 这一版改了什么</h2>
+
+<p>四条决定都落到了具体位置上，不是删功能，是<strong>改形状</strong>：</p>
+
+<ol>
+  <li><strong>不做周边栏</strong> → 少 11.7 条/期、少约 20 张图，也少掉唯一没有图源的一栏。周报的图片瓶颈随之消失。</li>
+  <li><strong>一览图只在月报带字</strong> → 常规周报不做一览图，月报做一张带编号的对照图。省掉每周一次拼版，但月报需要跨 30 天窗口，而 <code>data/xreader/</code> 只保留 14 天，<strong>保留期必须放宽到 40 天</strong>。</li>
+  <li><strong>封面与正文不出现量化信息</strong> → 不写「22 条 / 43 图」，短周不会显寒酸，也免掉一个统计口径。</li>
+  <li><strong>汉化栏占位不补全</strong> → 栏目、schema、适配器接口都留好，<code>enabled: false</code>，不进题面、不进渲染、不进判卷。</li>
+</ol>
+
+<div class="note warn">
+  <strong>新发现：周报有日报不存在的问题——跨周重复。</strong>
+  279 个事件里，241 个只出现在 1 周，31 个横跨 2 周，7 个横跨 3 周。也就是<strong>约 14% 的事件会在两周以上的时间窗里反复被同一个人发推</strong>（体验版公告连发、PV 二投、发售倒计时）。
+  日报按日期切窗天然不会重复，周报不做「已报道事件」状态就会连着两周报同一件事。
+</div>
+
+<h2>1. 收敛后的形态</h2>
+
+<table>
+<thead><tr><th>项目</th><th class="num">v2（三栏）</th><th class="num">v3（单栏）</th><th class="wrap">变化原因</th></tr></thead>
+<tbody>
+<tr><td class="name">条目</td><td class="num">24.9</td><td class="num">10–12</td><td class="wrap">只留新作栏，原站新作栏均值 10.5</td></tr>
+<tr><td class="name">配图</td><td class="num">43</td><td class="num">18–22</td><td class="wrap">按 1.72 图/条，新作栏单条图偏多取上限</td></tr>
+<tr><td class="name">字数</td><td class="num">5,000</td><td class="num">2,300–2,600</td><td class="wrap">原站 250 字/条，新作栏略长</td></tr>
+<tr><td class="name">栏目标题</td><td class="num">3 个</td><td class="num">0 个</td><td class="wrap">只有一栏时不出「新作资讯」这个 h2，直接进条目</td></tr>
+<tr><td class="name">封面</td><td class="num">1</td><td class="num">1</td><td class="wrap">去掉条数/图数</td></tr>
+<tr><td class="name">一览图</td><td class="num">每月 1</td><td class="num">每月 1</td><td class="wrap">仅月报，带字</td></tr>
+</tbody>
+</table>
+
+<p>单栏之后有一个副作用值得注意：<strong>原站「新作资讯」这个 h2 是为了分隔三栏才存在的</strong>。只剩一栏时，栏目标题变成纯噪音，正文直接从第一条开始。这也意味着页面模板要能处理「零个栏目」的情况，不能硬编码三个 h2。</p>
+
+<h2>2. 选材：208 挑 12</h2>
+
+<p>这是 v3 最大的工程变化。v2 假设「事件聚合完就差不多能用了」，实测不成立：一个完整周有 <strong>208 个事件</strong>，要挑出 12 条，<strong>淘汰率 94%</strong>。原站靠 9 个人挑，我们得靠规则挑。</p>
+
+<h3>2.1 动作分布</h3>
+
+<div class="scroll">
+<table>
+<thead><tr><th>动作</th><th class="num">事件数/14 天</th><th class="num">占比</th><th class="wrap">说明</th></tr></thead>
+<tbody>
+<tr><td class="name">release</td><td class="num">150</td><td class="num">54%</td><td class="wrap">发售、定档、配信开始。含「今天发售」的复述</td></tr>
+<tr><td class="name">op_pv</td><td class="num">82</td><td class="num">29%</td><td class="wrap">OP、PV、宣传片、试听动画</td></tr>
+<tr><td class="name">master_up</td><td class="num">22</td><td class="num">8%</td><td class="wrap">装盘完成，进量产</td></tr>
+<tr><td class="name">port</td><td class="num">12</td><td class="num">4%</td><td class="wrap">主机版、移植、Switch/PS5</td></tr>
+<tr><td class="name">trial</td><td class="num">10</td><td class="num">4%</td><td class="wrap">体验版公开</td></tr>
+<tr><td class="name">announce</td><td class="num">3</td><td class="num">1%</td><td class="wrap">新品牌、制作决定。关键词收得最紧</td></tr>
+</tbody>
+</table>
+</div>
+
+<p><code>delay</code>（延期）在这 14 天里是 0 条——不是没有延期，而是延期公告几乎都同时含「発売日」，被 release 吞掉了。这说明<strong>动作判定不能是「命中即归类」的多标签，必须定优先级</strong>：delay &gt; master_up &gt; trial &gt; port &gt; release &gt; op_pv &gt; announce。</p>
+
+<h3>2.2 排序信号</h3>
+
+<p>规则先排，人只做减法。打分项全部来自已有字段，不需要新数据源：</p>
+
+<div class="scroll">
+<table>
+<thead><tr><th>信号</th><th class="num">权重</th><th class="wrap">取值方式</th></tr></thead>
+<tbody>
+<tr><td class="name">动作权重</td><td class="num">+10 / +8 / …</td><td class="wrap">release 10、master_up 8、trial 7、port 6、op_pv 5、announce 4</td></tr>
+<tr><td class="name">来源数</td><td class="num">+3 × log₂(1+n)</td><td class="wrap">多个号同时发同一事件 = 重要。43% 的事件有 2 条以上</td></tr>
+<tr><td class="name">官方号</td><td class="num">+2</td><td class="wrap"><code>role == manufacturer</code> 且 handle 属于该作品厂牌</td></tr>
+<tr><td class="name">有日期</td><td class="num">+1.5</td><td class="wrap">正则命中「N 月 N 日」或「N 年 N 月」。仅 40% 有</td></tr>
+<tr><td class="name">有价格</td><td class="num">+1</td><td class="wrap">仅 5%。几乎可以忽略，但不能给负分</td></tr>
+<tr><td class="name">本周内新</td><td class="num">−5</td><td class="wrap">事件首次出现早于本期窗口起点</td></tr>
+<tr><td class="name">已报道</td><td class="num">−∞</td><td class="wrap">命中 <code>state/reported-events.json</code> 直接排除</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>输出 <code>candidates.json</code>（按分数排序的 30 条，每条带 1–3 个来源原文），人在这 30 条里勾 12 条。这就是 v2 里的「编辑台 W4」，只是候选从 190 条降到 30 条，勾选时间从 30 分钟降到 8 分钟。</p>
+
+<h3>2.3 跨周去重</h3>
+
+<p>事件指纹 = <code>sha1(归一化作品名 + 动作)</code>。发版时写进 <code>data/weekly/state/events.json</code>，格式与日报的 <code>state.py</code> 一致（记录首次报道期号 + 最后出现时间）。</p>
+
+<pre><code>{
+  "261101-w": {
+    "reported_at": "2026-11-02T00:31:12+08:00",
+    "events": {
+      "9f2c1a…": { "work": "廃村少女［弐］ 外伝", "action": "release", "issue": "261101-w" }
+    }
+  }
+}</code></pre>
+
+<p>两个细节：<strong>①</strong> 指纹只锁 8 周，之后自动失效（复刻版、再贩要用同一个作品名）；<strong>②</strong> 同一作品的不同动作是不同指纹，所以「上周发体验版、这周发售」能正常出两条。</p>
+
+<h2>3. 占位：汉化与周边怎么留口子</h2>
+
+<p>占位不是注释掉一段代码，是<strong>让空壳在每一层都合法</strong>。具体四层：</p>
+
+<h3>3.1 数据结构</h3>
+
+<pre><code>{
+  "issue": { "id": "261101-w", "kind": "galgame", "window": { "start": "2026-10-26", "end": "2026-11-01" } },
+  "sections": {
+    "new_releases": { "enabled": true,  "source": "x",   "items": [ … ] },
+    "localization": { "enabled": false, "source": "bbs", "items": [] },
+    "goods":        { "enabled": false, "source": "x+shop", "items": [] }
+  }
+}</code></pre>
+
+<p><code>enabled: false</code> 的栏<strong>必须存在且形状合法</strong>，但不进题面、不进渲染、不进判卷。以后打开只改一个布尔，不用动 schema。</p>
+
+<h3>3.2 数据源接口</h3>
+
+<pre><code>class Source(Protocol):
+    name: str          # "x" / "bbs" / "shop"
+    section: str       # "new_releases" / "localization" / "goods"
+    def fetch(self, window: Window) -&gt; list[Event]: ...
+
+class XSource:      # 已实现，读 data/xreader/galgame/*.jsonl
+class BbsSource:    # 占位：贴吧 / 绯月，M6 再做
+    def fetch(self, window): raise NotImplementedError("汉化栏数据源未接入")</code></pre>
+
+<p>接口先定，是因为汉化栏的数据形状和 X 完全不同：BBS 是<strong>帖子 + 楼层</strong>，不是<strong>推文 + 作者</strong>。要抽的字段是「作品名 / 汉化组 / 版本（汉化补丁 / 官中 / 民间整合）/ 发布形态（补丁 / 硬盘版）/ 原帖链接」，没有一个是 X 的字段能映射的。如果等到做的时候才定接口，<code>Event</code> 结构会被迫返工。</p>
+
+<h3>3.3 渲染</h3>
+
+<p>页面模板按 <code>enabled</code> 过滤后再渲染，<strong>不渲染「本周无汉化情报」这种占位文案</strong>。原站 15 期里有 2 期整栏缺席，做法就是标题都不出现——照抄这个。</p>
+
+<h3>3.4 判卷</h3>
+
+<p><code>validate.py</code> 只校验 <code>enabled: true</code> 的栏的条目。空壳栏只校验「键存在、items 是空数组」，避免以后打开时才发现形状不对。</p>
+
+<h2>4. 事实层：VNDB 只能当参考，不能当答案</h2>
+
+<p>新作栏的背景段（厂牌、剧本、原画、原发售日）是原站每条必写的。v2 假设「查 VNDB 就行」，实测 12 个样本：</p>
+
+<div class="scroll">
+<table>
+<thead><tr><th>结果</th><th class="num">数量</th><th class="wrap">例子</th></tr></thead>
+<tbody>
+<tr><td class="name">精确命中</td><td class="num">7</td><td class="wrap">廃村少女［弐］ 外伝、小金井荘と金色の揚羽蝶、さくらぶトライアングル</td></tr>
+<tr><td class="name">前缀可救</td><td class="num">3</td><td class="wrap">養花師の背徳愛（X 写短名，VNDB 带副标题）、ハイアングル、西園家のかくしゴト</td></tr>
+<tr><td class="name">错配</td><td class="num">2</td><td class="wrap">ワンナイトアフター → 命中 2011 年的 Lover Able；マブラヴ：ディメンションズ → 命中 Muv-Luv Alternative</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>错配的两个都是「短名 + 新作」，VNDB 按热度排就把老作顶上来。<strong>所以匹配必须过三道闸</strong>：</p>
+
+<ol>
+  <li><strong>标题归一</strong>：NFKC、去空格、去波浪号差异（<code>～</code> / <code>~</code>）、去全角括号差异。</li>
+  <li><strong>前缀或别名</strong>：X 名是 VNDB 名的前缀（长度 ≥ 6 字）才算命中，或命中 <code>aliases</code>。</li>
+  <li><strong>发售日窗口</strong>：VNDB <code>released</code> 必须落在「事件日期 ± 18 个月」内。这一条能挡掉两个错配——Lover Able 是 2011 年，差 15 年。</li>
+</ol>
+
+<p>三道都过不了就<strong>不写背景段</strong>，只写事件本身。这比写错厂牌好。另外实测 <code>developers</code> 字段 6/12 为空，厂牌要走 <code>/release</code> 的 <code>producers</code> 取，不要指望 <code>/vn</code> 的 <code>developers</code>。</p>
+
+<h2>5. 图：瓶颈消失，只剩两件事</h2>
+
+<p>v2 的结论是「周边栏卡死因为没图源」。周边栏砍掉后，剩下的新作栏全部有稳定图源：</p>
+
+<div class="scroll">
+<table>
+<thead><tr><th>来源</th><th class="wrap">能给什么</th><th class="wrap">实测</th></tr></thead>
+<tbody>
+<tr><td class="name">VNDB <code>/vn</code></td><td class="wrap">封面 1 张 + 截图 10 张（带 <code>sexual</code> 标记）</td><td class="wrap">字段稳定，需按 <code>sexual == 0</code> 过滤</td></tr>
+<tr><td class="name">Steam <code>appdetails</code></td><td class="wrap">header 图 + 8 张截图 + 官方中文名 + 发售日 + 价格</td><td class="wrap">无 key、无需代理，<code>l=schinese</code> 直接给中文名</td></tr>
+<tr><td class="name">官网 <code>og:image</code></td><td class="wrap">KV、活动海报</td><td class="wrap">兜底，取不到就跳过</td></tr>
+<tr><td class="name">X 抓取</td><td class="wrap">几乎无图</td><td class="wrap">9,247 条里 16 条带 <code>media</code>（0.3%）</td></tr>
+</tbody>
+</table>
+</div>
+
+<h3>5.1 封面（每期）</h3>
+
+<div class="wire">
+  <div class="l">
+    <h5>左 58%</h5>
+    <p>白底，黑字。</p>
+    <p><code>Galgame 周报 · 第 267 期</code>（12px，字距 0.08em，灰色）</p>
+    <p>主标题两行，40px / 1.35，取本期第一条的作品名 + 动作，超长截断。</p>
+    <p><code>2026.10.26 — 11.01</code>（13px，灰）</p>
+  </div>
+  <div>
+    <h5>右 42%</h5>
+    <p>本期最重要那条的 KV，<code>object-fit: cover</code> 裁切，右侧出血。</p>
+    <p>中间 1px 细线分隔，不做渐变、不做斜置期号。</p>
+    <p class="dim">无条数、无图数、无「本期共 N 部作品」。</p>
+  </div>
+</div>
+
+<p>1200×630，直接走 <code>scripts/daily-image/render.mjs</code> 那套（HTML + Playwright + sharp），换模板即可。<strong>不上 satori</strong>：那套要另外解决 CJK 字体子集和断行，而现有渲染器已经在跑全量 CJK 字体。</p>
+
+<h3>5.2 一览图（仅月报，带字）</h3>
+
+<p>常规周报不做一览图。月报（每月第一周那期）做一张<strong>带编号的对照图</strong>：</p>
+
+<ul>
+  <li>3 列网格，每格：<code>01</code> 编号 + VNDB 封面（3:4 裁切）+ 中文名（两行）+ 厂牌 + 发售日。</li>
+  <li>编号与正文条目序号一致，正文里写「见图 01」就能对上。</li>
+  <li>数据全部来自 <code>dossier.json</code>，不额外请求。</li>
+</ul>
+
+<p>原站那张图只解决「一眼看到有哪些新作」，不解决「哪部是哪部」——没有编号、没有名字、尺寸每次都不一样（1192×1548 到 2436×1838）。这是我们唯一有结构性优势的图，值得做好。</p>
+
+<div class="note">
+  <strong>月报的前置条件：</strong><code>data/xreader/</code> 只保留 14 天，月报要 30 天。<strong>保留期必须改到 40 天</strong>（约 2,300 → 6,600 条，JSONL 从 3 MB 涨到 9 MB，可接受）。这是 M4 的硬前置。
+</div>
+
+<h2>6. 工作量</h2>
+
+<h3>6.1 一次性</h3>
+
+<div class="scroll">
+<table>
+<thead><tr><th>模块</th><th class="wrap">内容</th><th class="num">人日</th><th class="num">行数</th></tr></thead>
+<tbody>
+<tr><td class="name">events.py</td><td class="wrap">事件聚合：作品名抽取 + 动作优先级判定 + 指纹</td><td class="num">3</td><td class="num">380</td></tr>
+<tr><td class="name">select.py</td><td class="wrap">打分排序 + 跨周状态读写 + candidates.json</td><td class="num">2</td><td class="num">260</td></tr>
+<tr><td class="name">dossier.py</td><td class="wrap">VNDB 三道闸 + Steam 补充 + 缓存 30 天</td><td class="num">2</td><td class="num">300</td></tr>
+<tr><td class="name">window</td><td class="wrap"><code>IssueWindow.for_week</code>，不动现有 <code>for_day</code></td><td class="num">0.5</td><td class="num">40</td></tr>
+<tr><td class="name">weekly_prompt</td><td class="wrap">单栏题面，复用 <code>prompt.py</code> 的渲染器</td><td class="num">1</td><td class="num">150</td></tr>
+<tr><td class="name">封面模板</td><td class="wrap">1200×630，接进 <code>render.mjs</code></td><td class="num">1.5</td><td class="num">180</td></tr>
+<tr><td class="name">页面</td><td class="wrap"><code>/weekly/</code> + <code>/weekly/[id]/</code>，零栏兼容</td><td class="num">2</td><td class="num">260</td></tr>
+<tr><td class="name">出口</td><td class="wrap">RSS / JSON，复用 <code>export.py</code></td><td class="num">1</td><td class="num">120</td></tr>
+<tr><td class="name">判卷</td><td class="wrap">L1–L4 闸门 + <code>check:weekly</code></td><td class="num">1.5</td><td class="num">200</td></tr>
+<tr><td class="name">调度</td><td class="wrap">周一 00:30 自动化，接 <code>push_site.py</code></td><td class="num">0.5</td><td class="num">60</td></tr>
+<tr><td class="name">月报一览图</td><td class="wrap">M4，带字网格</td><td class="num">1.5</td><td class="num">170</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>合计 <strong>16.5 人日、约 2,120 行</strong>。v2 的 A 方案是 16–22 人日 / 2,600–3,200 行——单栏之后总量没降多少，因为<strong>事件层和选材层是新增的，砍掉的两栏本来就没写</strong>。</p>
+
+<h3>6.2 每期</h3>
+
+<div class="scroll">
+<table>
+<thead><tr><th>步骤</th><th class="num">机器</th><th class="num">人</th></tr></thead>
+<tbody>
+<tr><td class="name">拉数据 + 聚合 + 打分</td><td class="num">90 秒</td><td class="num">—</td></tr>
+<tr><td class="name">VNDB / Steam 取档案与图（12 条，带缓存）</td><td class="num">40 秒</td><td class="num">—</td></tr>
+<tr><td class="name">出题</td><td class="num">5 秒</td><td class="num">—</td></tr>
+<tr><td class="name">勾选 12 条</td><td class="num">—</td><td class="num">8 分钟</td></tr>
+<tr><td class="name">写稿（LLM）</td><td class="num">3 分钟</td><td class="num">—</td></tr>
+<tr><td class="name">判卷 + 修</td><td class="num">20 秒</td><td class="num">3 分钟</td></tr>
+<tr><td class="name">封面 + 发布</td><td class="num">40 秒</td><td class="num">—</td></tr>
+</tbody>
+</table>
+</div>
+
+<p><strong>每期约 11 分钟，其中人 11 分钟</strong>（勾选 8 + 修稿 3）。比 v2 的 A 方案 30 分钟降了一半多，主要省在选图和排图上。</p>
+
+<h2>7. 工作流</h2>
+
+<p>核心原则：<strong>周报是日报管线的第二个 kind，不是第二套管线</strong>。<code>model.py</code> / <code>roster.py</code> / <code>adapters/</code> / <code>state.py</code> / <code>validate.py</code> / <code>publish.py</code> 全部复用，只新增事件层与选材层。</p>
+
+<h3>7.1 五个命令</h3>
+
+<pre><code># 1. 聚合 + 打分，出 candidates.json 与 prompt（无 LLM）
+python scripts/weekly_prepare.py --week 2026-10-26
+
+# 2. 人勾选：改 out/261101-w/candidates.json 里的 picked: true（12 条）
+#    也可以用 --pick 1,4,7,12,... 一次性给
+
+# 3. 写稿后判卷合并
+python -m weekly apply --issue 261101-w --answer out/261101-w/answer/all.json
+
+# 4. 定稿
+python -m weekly confirm --issue 261101-w
+
+# 5. 发布（封面自动生成）
+python -m weekly publish --issue 261101-w
+python scripts/push_site.py --path data/weekly/ --path public/images/weekly/</code></pre>
+
+<p>与日报的 <code>daily build → prompt → apply → confirm → publish</code> 完全对称，只是把 <code>build</code> 拆成 <code>weekly_prepare</code>（聚合）+ 人工勾选（<code>pick</code>）。</p>
+
+<h3>7.2 目录</h3>
+
+<pre><code>scripts/weekly/
+  __init__.py
+  events.py       # 作品 × 动作 聚合、指纹
+  select.py       # 打分、状态、candidates
+  dossier.py      # VNDB / Steam 档案与图
+  sources/
+    __init__.py   # Source 协议
+    x.py          # 已实现
+    bbs.py        # 占位，raise NotImplementedError
+    shop.py       # 占位（周边栏用）
+  cli.py          # prepare / apply / confirm / publish
+  prompt.py
+  cover.py        # 封面 + 月报一览图
+scripts/weekly_prepare.py   # 入口，仿 daily_prepare.py</code></pre>
+
+<h3>7.3 调度</h3>
+
+<table>
+<thead><tr><th>任务</th><th>时间</th><th class="wrap">说明</th></tr></thead>
+<tbody>
+<tr><td class="name">日报（现有）</td><td>每天 23:15</td><td class="wrap">抓取 → 出稿 → 发布，不动</td></tr>
+<tr><td class="name">周报（新增）</td><td>周一 00:30</td><td class="wrap">覆盖上周一 00:00 → 上周日 24:00，等数据闭合</td></tr>
+<tr><td class="name">月报一览图</td><td>同周报</td><td class="wrap">每月第一个周一，多跑一个 <code>--monthly</code></td></tr>
+</tbody>
+</table>
+
+<p>期号用<strong>周日日期</strong>：<code>261101-w</code>（2026-11-01 是周日）。这比 v1/v2 建议的「周一日期」更自洽——日报的期号是「被覆盖的那一天」，周报被覆盖的最后一天是周日。</p>
+
+<h2>8. 判卷</h2>
+
+<div class="scroll">
+<table>
+<thead><tr><th>闸门</th><th class="wrap">查什么</th><th class="wrap">失败处理</th></tr></thead>
+<tbody>
+<tr><td class="name">L1 结构</td><td class="wrap">条目数 10–12、每条第 1 段 ≥ 40 字、总字数 2,000–3,000、<code>sections</code> 三个键齐全</td><td class="wrap">整份退回</td></tr>
+<tr><td class="name">L2 来源</td><td class="wrap">每条 <code>sources</code> 里的 handle 必须在 <code>candidates</code> 里出现过，URL 域名白名单</td><td class="wrap">整份退回</td></tr>
+<tr><td class="name">L3 事实</td><td class="wrap">文本里的日期、价格、版本数、厂牌名，必须能在 <code>sources</code> 原文或 <code>dossier</code> 里逐字找到</td><td class="wrap"><strong>按条拒收</strong>，其余照发</td></tr>
+<tr><td class="name">L4 图片</td><td class="wrap">每张图有 <code>source_url</code>、最短边 ≥ 600、<code>sexual == 0</code>、pHash 不与本期已有图重复</td><td class="wrap">按条拒收</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>L3 的「按条拒收」是关键：周报 12 条，掉 1 条还能发；整份作废会让人不想跑。日报做不到按条拒收是因为它是「一个人一段」的连续叙事，周报每条独立，天然可以拆。</p>
+
+<h2>9. 排期</h2>
+
+<table>
+<thead><tr><th>里程碑</th><th class="wrap">交付</th><th class="num">人日</th><th class="wrap">验收</th></tr></thead>
+<tbody>
+<tr><td class="name">M1</td><td class="wrap">events + select + 单栏出稿，命令行跑通，先不发页面</td><td class="num">6</td><td class="wrap">跑出 261101-w 的 <code>report.json</code>，12 条</td></tr>
+<tr><td class="name">M2</td><td class="wrap">dossier + 图片，档案段与配图</td><td class="num">4</td><td class="wrap">12 条里 ≥ 9 条有厂牌与发售日，≥ 18 张图</td></tr>
+<tr><td class="name">M3</td><td class="wrap">封面 + 页面 + 出口 + 调度</td><td class="num">5</td><td class="wrap">线上 <code>/weekly/</code> 200，封面 1200×630</td></tr>
+<tr><td class="name">M4</td><td class="wrap">月报一览图 + 保留期改 40 天</td><td class="num">1.5</td><td class="wrap">月报那期有一张带编号的 12 部作品图</td></tr>
+<tr><td class="name">M5</td><td class="wrap"><span class="tag bad">暂缓</span> 汉化栏（贴吧 / 绯月）</td><td class="num">—</td><td class="wrap">接口已留，<code>enabled</code> 改 true 即可接</td></tr>
+<tr><td class="name">M6</td><td class="wrap"><span class="tag bad">暂缓</span> 周边栏（图源问题未解）</td><td class="num">—</td><td class="wrap">同上</td></tr>
+</tbody>
+</table>
+
+<p>M1 就能出第一份可读的周报。M1–M3 合计 <strong>15 人日</strong>，两周内能上线。</p>
+
+<h2>10. 需要你拍板</h2>
+
+<ol>
+  <li><strong>期号用周日还是周一</strong>。我建议周日（<code>261101-w</code>），与日报「被覆盖的那一天」口径一致；代价是发布时刻在周一凌晨。</li>
+  <li><strong>声优版周报做不做</strong>。X 能支撑，但声优的事件单位是「人 × 活动」，不是「作品 × 动作」，<code>events.py</code> 要再写一套。建议 M4 之后再定。</li>
+  <li><strong>勾选这一步要不要留</strong>。留，质量最好，但每周 8 分钟人工；不留，全自动，但 94% 的淘汰率完全交给规则，会漏掉重要的冷门作品。我倾向留，至少前 8 周留。</li>
+</ol>
+
+<div class="note warn">
+  <strong>一句话总结：</strong>砍掉两栏之后，周报的难点从「素材从哪来」变成了「208 条里挑哪 12 条」。
+  M1 要解决的是选材，不是写稿——写稿这一层日报已经证明可行。
+</div>
+
+<footer>
+  数据截止 2026-11-04，<code>data/xreader/galgame/</code> 14 天全量 2,370 条。<br>
+  事件聚合口径：正则抽 <code>『』</code> 作品名 + 动作词命中，排除周年/生日/抽奖类回顾推文。<br>
+  VNDB 抽样 12 个作品名，<code>api.vndb.org/kana/vn</code>，<code>filters: ["search","=",…]</code>。
+</footer>
+
+</div>
+</body>
+</html>

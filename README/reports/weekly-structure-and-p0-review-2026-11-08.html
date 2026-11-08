@@ -1,0 +1,537 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>两套周报目录能不能合并 · 卡点 D 与 B/C 裁决项释义 · 存量账号名单</title>
+<style>
+  :root {
+    --ink: #111;
+    --ink-2: #555;
+    --ink-3: #888;
+    --line: #e3e3e3;
+    --line-2: #cfcfcf;
+    --bg: #fff;
+    --bg-2: #fafafa;
+    --radius: 6px;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    padding: 0 20px 96px;
+    background: var(--bg);
+    color: var(--ink);
+    font: 15px/1.75 -apple-system, BlinkMacSystemFont, "Segoe UI", "Hiragino Sans",
+      "Noto Sans CJK SC", "Microsoft YaHei", sans-serif;
+  }
+  .wrap { max-width: 1080px; margin: 0 auto; }
+  header.top { padding: 56px 0 28px; border-bottom: 1px solid var(--line); }
+  h1 { font-size: 26px; line-height: 1.4; margin: 0 0 10px; letter-spacing: -0.01em; }
+  .sub { color: var(--ink-2); margin: 0; }
+  .meta { margin-top: 14px; color: var(--ink-3); font-size: 13px; }
+  h2 {
+    font-size: 19px; margin: 48px 0 14px; padding-bottom: 8px;
+    border-bottom: 1px solid var(--line); letter-spacing: -0.01em;
+  }
+  h3 { font-size: 15px; margin: 26px 0 8px; }
+  h4 { font-size: 14px; margin: 20px 0 6px; color: var(--ink-2); }
+  p { margin: 0 0 12px; }
+  ul, ol { margin: 0 0 14px; padding-left: 22px; }
+  li { margin: 4px 0; }
+  code {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: 0.9em; background: var(--bg-2);
+    border: 1px solid var(--line); border-radius: 4px; padding: 1px 5px;
+  }
+  a { color: var(--ink); text-decoration-color: var(--line-2); }
+  a:hover { text-decoration-color: var(--ink); }
+  .note {
+    background: var(--bg-2); border: 1px solid var(--line);
+    border-radius: var(--radius); padding: 14px 18px; margin: 18px 0;
+  }
+  .note p:last-child { margin-bottom: 0; }
+  .note strong { font-weight: 600; }
+  .warn { border-left: 3px solid var(--ink); }
+  .scroll { overflow-x: auto; margin: 16px 0; border: 1px solid var(--line); border-radius: var(--radius); }
+  table { border-collapse: collapse; width: 100%; font-size: 13.5px; }
+  th, td { padding: 7px 10px; text-align: left; border-bottom: 1px solid var(--line); white-space: nowrap; vertical-align: top; }
+  td.wrap, th.wrap { white-space: normal; min-width: 180px; }
+  thead th {
+    position: sticky; top: 0; background: var(--bg);
+    font-weight: 600; font-size: 12.5px; color: var(--ink-2);
+    border-bottom: 1px solid var(--line-2); z-index: 1;
+  }
+  tbody tr:last-child td { border-bottom: 0; }
+  td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+  td.name { font-weight: 600; }
+  .tag {
+    display: inline-block; font-size: 11px; line-height: 1.6; padding: 0 6px;
+    border: 1px solid var(--line-2); border-radius: 4px; color: var(--ink-2);
+    white-space: nowrap;
+  }
+  .tag.ok { border-color: var(--ink); color: var(--ink); }
+  .tag.bad { border-color: var(--ink-3); color: var(--ink-3); text-decoration: line-through; }
+  .kpi {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1px; background: var(--line); border: 1px solid var(--line);
+    border-radius: var(--radius); overflow: hidden; margin: 26px 0 8px;
+  }
+  .kpi > div { background: var(--bg); padding: 16px 18px; }
+  .kpi b { display: block; font-size: 24px; font-weight: 600; line-height: 1.3; font-variant-numeric: tabular-nums; }
+  .kpi span { display: block; color: var(--ink-3); font-size: 12.5px; margin-top: 2px; }
+  .dim { color: var(--ink-3); }
+  pre {
+    margin: 14px 0; padding: 14px 16px; background: var(--bg-2);
+    border: 1px solid var(--line); border-radius: var(--radius);
+    overflow-x: auto; font-size: 12.5px; line-height: 1.7;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  }
+  pre code { background: none; border: 0; padding: 0; }
+  .layers {
+    border: 1px solid var(--line-2); border-radius: var(--radius);
+    margin: 18px 0; overflow: hidden;
+  }
+  .layers .row {
+    display: grid; grid-template-columns: 150px 1fr 120px;
+    border-bottom: 1px solid var(--line);
+  }
+  .layers .row:last-child { border-bottom: 0; }
+  .layers .k {
+    background: var(--bg-2); padding: 13px 14px; font-size: 12.5px;
+    border-right: 1px solid var(--line);
+  }
+  .layers .k b { display: block; font-size: 13px; font-weight: 600; }
+  .layers .k span { color: var(--ink-3); font-size: 11.5px; }
+  .layers .v { padding: 13px 16px; font-size: 13px; }
+  .layers .s { padding: 13px 14px; font-size: 12px; text-align: right; border-left: 1px solid var(--line); }
+  .qa { border: 1px solid var(--line-2); border-radius: var(--radius); padding: 14px 16px; margin: 12px 0; }
+  .qa .q { font-weight: 600; margin: 0 0 6px; }
+  .qa .a { color: var(--ink-2); font-size: 13.5px; margin: 0; }
+  footer {
+    margin-top: 56px; padding-top: 20px; border-top: 1px solid var(--line);
+    color: var(--ink-3); font-size: 12.5px;
+  }
+  @media (max-width: 720px) {
+    body { padding: 0 14px 64px; font-size: 14px; }
+    h1 { font-size: 21px; }
+    th, td { padding: 6px 8px; }
+    .layers .row { grid-template-columns: 1fr; }
+    .layers .k { border-right: 0; border-bottom: 1px solid var(--line); }
+    .layers .s { border-left: 0; text-align: left; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="top">
+  <h1>两套周报目录能不能合并 · 卡点 D 与 B/C 裁决项释义 · 存量账号名单</h1>
+  <p class="sub">
+    这份报告回答三件互不相干的事：<code>scripts/weekly/</code> 和 <code>weekly_studio/</code> 到底是不是重复实现、能不能并到一个母目录；
+    P0 里「卡点 D」「B1–B4 / C1–C4」这些字母代号各指什么、要你拍什么板；P2-18 那批存量账号现在还在不在。
+    结论先说：<strong>两套是上下两层，不是重复；现在不该合并；那 8 个字母项全是「拍板」不是「写代码」。</strong>
+  </p>
+  <p class="meta">
+    实测：2026-11-08 下午，仓库根 <code>Desktop/github page work</code>。<br>
+    口径：模块数、行数、引用数、名单条数都是当场数的；不引用任何旧报告里的数字。
+  </p>
+</header>
+
+<div class="kpi">
+  <div><b>2 套</b><span>周报相关包（不是两套重复实现）</span></div>
+  <div><b>0 行</b><span>本轮改动的周报底层代码</span></div>
+  <div><b>8 项</b><span>等你拍板的裁决项（B1–B4 / C1–C4）</span></div>
+  <div><b>1.0 GB</b><span>本轮清掉的 out/ 可重建产物</span></div>
+</div>
+
+<h2 id="s0">0. 三句话</h2>
+<ol>
+  <li><strong>不是两套重复实现。</strong><code>weekly_studio/</code> 直接 <code>import</code> <code>scripts/weekly/</code> 的 <code>period</code> 与 <code>validate</code> 两个模块——它是站在 <code>scripts/weekly/</code> 之上的旁路层，两者是「管线」与「只读工作台」的关系。</li>
+  <li><strong>现在不该合并。</strong>合并要动 <code>import</code>、<code>sys.path</code>、<code>-m</code> 入口和 136 处文档/测试引用，与你「不动周报底层代码」的要求直接冲突。要合并也得等 M6 之后单开一轮。</li>
+  <li><strong>P0 那两条不是技术活。</strong>卡点 D 是「没人看过成稿」，B1–B4 / C1–C4 是「8 个设计取舍等你点头」。两条都不需要写代码，但都需要你本人看和答。</li>
+</ol>
+
+<h2 id="s1">1. <code>scripts/weekly/</code> 与 <code>weekly_studio/</code> 是什么关系</h2>
+
+<h3>1.1 一句话</h3>
+<p>
+  同一个周报系统的<strong>上下两层</strong>：<code>scripts/weekly/</code> 是「能把一份周报从取数做到发布」的生产管线（但发布开关是关的）；
+  <code>weekly_studio/</code> 是「只读日报成果、把选材和初稿做出来」的工作台（连发布命令都没有）。
+  后者的产物要交给前者的判卷器去验，所以它必须 <code>import</code> 前者。
+</p>
+
+<div class="scroll">
+<table>
+  <thead>
+    <tr><th>维度</th><th class="wrap"><code>scripts/weekly/</code>（A 套）</th><th class="wrap"><code>weekly_studio/</code>（B 套）</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>自称</td><td class="wrap">「周报 / 月报共用包（M3–M5 / v1.0 冻结）」</td><td class="wrap">「独立周报工作台（weekly-studio）」</td></tr>
+    <tr><td>定位</td><td class="wrap">生产管线：取数 → 初稿 → 判卷 → 定稿 → 发布</td><td class="wrap">只读工作台：选材 → 初稿 → 适配 → 判卷，<strong>不发布</strong></td></tr>
+    <tr><td>规模</td><td class="num">11 模块 / 1,824 行</td><td class="num">12 模块 / 6,496 行</td></tr>
+    <tr><td>入口</td><td class="wrap"><code>python scripts/weekly.py prepare|draft|preview|finalize</code></td><td class="wrap"><code>python -m weekly_studio week|build|daily|draft|check|preview|vndb</code></td></tr>
+    <tr><td>能否发布</td><td class="wrap"><code>publish</code> 子命令存在，但 <code>FORMALLY_ENABLED = False</code>，一律退 3</td><td class="wrap">根本没有 publish；只写 <code>out/weekly_studio/**</code></td></tr>
+    <tr><td>数据来源</td><td class="wrap">全量抓取库 <code>.xreader/</code> → 统一内容层 <code>scripts/content/</code></td><td class="wrap">日报正本 <code>data/daily/**</code> + 分句索引 <code>out/clauses/**</code></td></tr>
+    <tr><td>依赖对方</td><td class="wrap">不依赖 B 套</td><td class="wrap"><strong>依赖 A 套</strong>：<code>weekly.period</code>（期号/窗口）、<code>weekly.validate</code>（L1–L7 判卷）</td></tr>
+    <tr><td>文档</td><td class="wrap"><code>docs/architecture/weekly-m1-m5-delivery.md</code></td><td class="wrap"><code>docs/clause-source-index.md</code> §10 起</td></tr>
+    <tr><td>状态</td><td class="wrap">做完，未启用，未入库</td><td class="wrap">做完，未启用，未入库</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h3>1.2 依赖是单向的，所以不是「两套」</h3>
+<div class="layers">
+  <div class="row">
+    <div class="k"><b>数据底座</b><span>只读</span></div>
+    <div class="v"><code>data/daily/&lt;期号&gt;/report.json</code>（日报正本，永久） · <code>out/clauses/&lt;期号&gt;.json</code>（分句索引，可重建） · <code>data/xreader/*/*.jsonl</code>（40 天滚存）</div>
+    <div class="s">不进 git 的只有 clauses</div>
+  </div>
+  <div class="row">
+    <div class="k"><b>B 套<br>weekly_studio</b><span>只读工作台</span></div>
+    <div class="v">把日报「详细」栏切成带出处的分句 → 按品牌/作品折叠成选材库 → 人工勾选 → 出初稿 → <strong>调 A 套的判卷器</strong>验一遍</div>
+    <div class="s">只写 out/weekly_studio/</div>
+  </div>
+  <div class="row">
+    <div class="k"><b>A 套<br>scripts/weekly</b><span>生产管线</span></div>
+    <div class="v">统一内容层 <code>scripts/content/</code>（18 模块 + 3 子包）→ 快照 / 事件 / 评分 / 选稿 / 判卷 / 定稿 / 发布（发布关闭）</div>
+    <div class="s">FORMALLY_ENABLED=False</div>
+  </div>
+  <div class="row">
+    <div class="k"><b>日报保护集</b><span>逐字节零改动</span></div>
+    <div class="v"><code>scripts/daily/**</code> · <code>data/daily/**</code> · 日报 schema · <code>content.config.ts</code> · 23:15 自动化——两套都只能读</div>
+    <div class="s">由 641 项回归守着</div>
+  </div>
+</div>
+
+<h3>1.3 为什么会被分到两个层级</h3>
+<p>三条原因，都不是随手放的：</p>
+<ol>
+  <li><strong>运行方式不同。</strong><code>weekly_studio</code> 的调用形式是 <code>python -m weekly_studio</code>，Python 只会在 <code>sys.path</code> 根上找这个包名。它必须待在仓库根，否则 <code>-m</code> 找不到。而 <code>scripts/weekly/</code> 是被 <code>scripts/weekly.py</code> 这个门面「先塞 <code>sys.path</code> 再 import」的，天然属于 <code>scripts/</code>。</li>
+  <li><strong>责任边界不同。</strong>A 套有 <code>publish.py</code>——它是唯一能把稿子写进 <code>data/weekly/</code> 的代码；B 套从设计上就拒绝发布（连子命令都不给）。放进同一个包里，「能不能发布」就从包级约束降级成模块细节，保护语义会被稀释。</li>
+  <li><strong>出生时间不同。</strong>A 套是 2026-11-04 的 M1–M5 交付；B 套是 11-06 夜起为绕开「日报保护集零改动」另起的旁路。B 套刻意不改 A 套一行，所以只能另立一个包。</li>
+</ol>
+
+<div class="note">
+  <p><strong>顺带一个命名坑</strong>：<code>scripts/weekly.py</code>（门面）与 <code>scripts/weekly/</code>（包）同名。<code>import weekly</code> 一定解析到包，所以门面里只能写 <code>from weekly.xxx import</code>。这个坑在 <code>scripts/weekly.py</code> 的注释里已经写明了——合并目录时它是第一个会踩的雷。</p>
+</div>
+
+<h3>1.4 能合并吗？三个方案与各自的代价</h3>
+<div class="scroll">
+<table>
+  <thead>
+    <tr><th>方案</th><th class="wrap">做什么</th><th class="wrap">要改的地方</th><th>代价</th><th>建议</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="name">A 不动</td>
+      <td class="wrap">保持现状，只在文档里把「A 套 / B 套」的关系写清（就是本报告 §1）</td>
+      <td class="wrap">无</td>
+      <td>零</td>
+      <td><span class="tag ok">推荐</span></td>
+    </tr>
+    <tr>
+      <td class="name">B 归位</td>
+      <td class="wrap">只挪目录：根下建 <code>weekly/</code>，把两个包塞成 <code>weekly/pipeline/</code> 与 <code>weekly/studio/</code>，代码一行不改</td>
+      <td class="wrap">3 处 <code>sys.path</code> 注入（<code>weekly_studio/core.py</code>、<code>scripts/weekly.py</code>、<code>weekly_studio/__main__.py</code>）+ 全部 <code>-m</code> 调用写法</td>
+      <td class="wrap">136 处引用（<code>weekly_studio</code> 81 · <code>scripts/weekly</code> 55），含 14 个测试文件与 4 份契约文档</td>
+      <td>等 M6 后单开一轮</td>
+    </tr>
+    <tr>
+      <td class="name">C 真合并</td>
+      <td class="wrap">合成一个包，A/B 变成子模块，共用一套 <code>__main__</code> 分派</td>
+      <td class="wrap">上面全部，再加 <code>import</code> 重写与 <code>FORMALLY_ENABLED</code> 语义重划</td>
+      <td class="wrap">会动到周报底层代码——与「现在不动」冲突</td>
+      <td><span class="tag bad">不做</span></td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<p><strong>结论：能合，但现在不合。</strong>方案 B 是唯一不碰逻辑的合并方式，代价是 136 处引用要一次性改完再跑一遍 641 项回归；而这套东西<strong>连 git 都还没入库</strong>。先入库、再合并，顺序反了会很难查。</p>
+
+<h2 id="s2">2. 卡点 A–F 速查（你之前没看到的字母表）</h2>
+<p>「卡点」是 <code>README/reports/project-status-2026-11-05.md</code> 里给周报/月报阻塞项编的号。P0-2 说的是 <strong>卡点 D</strong>，P0-3 说的是 <strong>卡点 B</strong> 里的裁决项。</p>
+<div class="scroll">
+<table>
+  <thead><tr><th>编号</th><th class="wrap">卡点是什么</th><th class="wrap">性质</th><th class="wrap">现状</th></tr></thead>
+  <tbody>
+    <tr><td class="name">A</td><td class="wrap">Galgame 周报「建成未启用」：M0–M5 都做完了，但 <code>FORMALLY_ENABLED=False</code>，不发布、无页面、无调度</td><td>决策（要你授权 M6/M7）</td><td class="wrap">仍未启用</td></tr>
+    <tr><td class="name">B</td><td class="wrap">作品生命周期事件的根本缺陷：现状是「关键词命中 → 7 个 action 桶」，不是「事实 → 生命周期事件」</td><td>设计 + 决策（B1–B4 / C1–C4 待裁决）</td><td class="wrap">只出了审计与设计文档，未写生产代码</td></tr>
+    <tr><td class="name">C</td><td class="wrap">日报保护集零改动约束：M6 之前不许碰 <code>scripts/daily/**</code>、<code>data/daily/**</code>、日报 schema、23:15 自动化</td><td>约束（要 M6 授权才解）</td><td class="wrap">仍生效</td></tr>
+    <tr><td class="name">D</td><td class="wrap"><strong>人工看稿没做</strong>：20 张成稿和两份总览从来没人从头看过</td><td>人力 / 流程</td><td class="wrap">阻塞所有 M6/M7 与生命周期实施</td></tr>
+    <tr><td class="name">E</td><td class="wrap">月报 M7 与多源 M8 未启动；两个调度假设（抓取任务位置、数据新鲜度检查）没验证</td><td>决策 + 排期</td><td class="wrap"><code>scripts/monthly/</code> 只有一个 <code>__init__.py</code></td></tr>
+    <tr><td class="name">F</td><td class="wrap">零散待办：OG 带字版、术语表条数、Moepedia「周年」口径、存量个人号</td><td>杂项</td><td class="wrap">本轮已逐条处置（见 §6）</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h2 id="s3">3. P0-2：卡点 D 到底要你看什么</h2>
+
+<h3>3.1 它不是 bug，是「没人看过」</h3>
+<p>
+  周报的自动初稿已经能跑出 20 条成稿（试水期 <code>out/_trial/261101-w/</code>：1,619 条消息 → 255 个事件 → 20 条成稿）。
+  代码是绿的、测试是过的，但<strong>没有任何人从头到尾读过这 20 条成稿判断「能不能发」</strong>。
+  所有下游（M6 日报接入、M7 月报、生命周期重构）都要等这个判断，所以它卡在最前面。
+</p>
+<p>P0-2 那句「A 档偏斜、全 L0」用了两个内部术语，先解释清楚，否则没法判断。</p>
+
+<h4>术语一：A / B / C 档 = 自动选稿的分数档</h4>
+<p>每个事件按 <code>docs/weekly-report.md</code> §7.2 算一个分，然后分三档：</p>
+<div class="scroll">
+<table>
+  <thead><tr><th>档</th><th>分数线</th><th class="wrap">自动初稿怎么用</th><th>全览</th></tr></thead>
+  <tbody>
+    <tr><td class="name">A</td><td class="num">≥ 14 分</td><td class="wrap">全选，但<strong>最多 14 条</strong>（超出的降级到 B）</td><td>全列</td></tr>
+    <tr><td class="name">B</td><td class="num">8 – 14 分</td><td class="wrap">按分降序取前 6 条</td><td>全列</td></tr>
+    <tr><td class="name">C</td><td class="num">&lt; 8 分</td><td class="wrap">不选</td><td>全列</td></tr>
+  </tbody>
+</table>
+</div>
+<p><strong>「A 档偏斜 167 / 21 / 0」的意思是：</strong>255 个事件里 167 个都够到 A 档（65%），21 个 B，C 档一个都没有。而 A 档只取 14 条——也就是说「A 档」这个标签完全没起到筛选作用，实际起作用的只是「按分数排前 14」。<strong>你要判断的是：这种「绝大多数都算重要」的评分口径能不能接受，还是要把分数线抬上去。</strong></p>
+
+<h4>术语二：L0 / L1 / L2 = 背景段的三级降级</h4>
+<p>成稿里每个作品下面有一段背景（厂牌、发售日、平台）。这段内容按「证据强度」分三级，写不出就不写：</p>
+<div class="scroll">
+<table>
+  <thead><tr><th>级别</th><th class="wrap">触发条件</th><th class="wrap">允许写什么</th></tr></thead>
+  <tbody>
+    <tr><td class="name">L0 自证</td><td class="wrap">消息来自该厂牌自己的官方号（<code>category == manufacturer</code> 且 handle 对得上）</td><td class="wrap">厂牌、发售日、平台</td></tr>
+    <tr><td class="name">L1 双源</td><td class="wrap">信息号的说法 + VNDB 的厂牌归一相等，发售日差 ≤ 7 天</td><td class="wrap">厂牌 + 发售日</td></tr>
+    <tr><td class="name">L2 单源</td><td class="wrap">只有 VNDB，或标题靠前缀猜</td><td class="wrap"><strong>什么都不写</strong></td></tr>
+  </tbody>
+</table>
+</div>
+<p><strong>「全 L0」的意思是：</strong>20 条成稿的背景段全部停在一句话级别（厂牌 / 发售日 / 平台），没有一条走到 L1 那种「两个来源互相印证后可以说得更细」的状态。<strong>你要判断的是：这个深度够不够发</strong>——如果够，L1 那套交叉验证就可以先不做；如果不够，就得回头补 L1 的触发率。</p>
+
+<h3>3.2 具体动作：看两份东西，回答三个问题</h3>
+<div class="scroll">
+<table>
+  <thead><tr><th class="wrap">看什么</th><th class="wrap">在哪</th><th class="wrap">看什么</th></tr></thead>
+  <tbody>
+    <tr><td class="wrap">20 张成稿 + 两份总览（消息全览 / 事件全览）</td><td class="wrap"><code>out/_trial/261101-w/preview.html</code></td><td class="wrap">黑名单有没有误伤真作品</td></tr>
+    <tr><td class="wrap">工作台当前底板（Galgame 单版）</td><td class="wrap"><code>out/weekly_studio/preview/base/</code></td><td class="wrap">三栏结构、归栏是否合理</td></tr>
+  </tbody>
+</table>
+</div>
+
+<div class="qa">
+  <p class="q">问题 1：黑名单有没有误伤真作品？</p>
+  <p class="a">审计发现 164 个「伪作品实体」（角色名、剧情散文、栏目名被当成作品）。为了剔掉它们用了黑名单，但黑名单同时可能把真作品剔了。<strong>你只需要在成稿里找「明明是真作品却没出现」的条目。</strong></p>
+</div>
+<div class="qa">
+  <p class="q">问题 2：A 档偏斜（167 / 21 / 0）能不能接受？</p>
+  <p class="a">接受 → 评分口径先不动，靠「取前 14」控制篇幅。不接受 → 要抬分数线，连带 C1（<code>has_date</code> 改解析值后档位重洗）一起定。</p>
+</div>
+<div class="qa">
+  <p class="q">问题 3：全 L0 能不能接受？</p>
+  <p class="a">接受 → L1 交叉验证先搁置，背景段就保持一句话。不接受 → 要先补 L1 的触发率，再谈发不发。</p>
+</div>
+
+<div class="note warn">
+  <p><strong>三条红线</strong>（原文照抄）：不要碰 <code>finalize</code> / <code>publish</code>；不要手改 <code>report.json</code>；不要在没看完的情况下翻 <code>FORMALLY_ENABLED</code>。</p>
+</div>
+
+<p><strong>看完要产出什么：</strong>一份「信息缺口清单」+ 上面三问的结论。这三句结论就是 M6/M7 的准入条件。</p>
+
+<h2 id="s4">4. P0-3：B1–B4 / C1–C4 是 8 个设计取舍</h2>
+
+<h3>4.1 为什么会有这 8 项</h3>
+<p>
+  D3 审计（<code>docs/architecture/lifecycle-event-audit.md</code>）查了 14 项问题（F1–F14），结论是：<strong>11 项靠加关键词解决不了</strong>，因为根子在结构——现在是「命中一个动作词就丢进 7 个桶之一」，而不是「先认事实、再归生命周期事件」。
+  于是设计文档给出 9 条重构方案，其中 8 处会改变现有口径，必须你点头才能进代码。
+</p>
+<p>几个最刺眼的实测数字（<code>s004</code>：1,619 消息 / 255 事件 / 20 成稿）：</p>
+<ul>
+  <li><code>event_type</code> 255/255 全是 <code>work_action</code>——<strong>死字段</strong>；<code>delay</code> 事件 = 0（结构上不可能产生）。</li>
+  <li><code>event_id</code> 只由「作品 + 动作」派生 ⇒ 同一作品的「发售日公布」和「正式发售」<strong>是同一个 ID</strong>。</li>
+  <li><code>has_date</code> 虚报 84/131（64%）；20 条成稿里 15 条混了多个生命周期，8 条标了 release 却没有正式发售证据。</li>
+</ul>
+
+<h3>4.2 八项逐条</h3>
+<div class="scroll">
+<table>
+  <thead><tr><th>编号</th><th class="wrap">问题</th><th class="wrap">建议怎么做</th><th class="wrap">影响面</th><th class="wrap">你要回答的一句话</th></tr></thead>
+  <tbody>
+    <tr>
+      <td class="name">B1</td>
+      <td class="wrap">延期 / 发售日变更在全库只有 5 + 4 条样本，做不准</td>
+      <td class="wrap">置信度 &lt; 0.85 一律降成 <code>OTHER</code>，另进人工复核清单</td>
+      <td class="wrap">漏报 vs 错报的取舍</td>
+      <td class="wrap">宁可漏掉延期，还是宁可偶尔错报？</td>
+    </tr>
+    <tr>
+      <td class="name">B2</td>
+      <td class="wrap">怎么判断「这是一部作品」——现在靠黑名单，导致 164 个伪实体</td>
+      <td class="wrap">改用五级优先级 + 结构信号（标题形态、平台、发售日等），不用黑名单</td>
+      <td class="wrap">要确认规则 3/4/5 的边界</td>
+      <td class="wrap">接受「按结构判断」而不是「按名单排除」吗？</td>
+    </tr>
+    <tr>
+      <td class="name">B3</td>
+      <td class="wrap">跨期折叠用「作品 + 动作并集」当键，该折的不折、不该折的折</td>
+      <td class="wrap">改用 <code>event_id</code> 本身当折叠键</td>
+      <td class="wrap"><strong>旧快照失效</strong>，<code>s004</code> → <code>s005</code>，基线要重跑</td>
+      <td class="wrap">接受旧验收数据作废、重跑一遍基线吗？</td>
+    </tr>
+    <tr>
+      <td class="name">B4</td>
+      <td class="wrap">成稿要不要把一件事拆成多行（一行一个事件）</td>
+      <td class="wrap"><strong>不拆</strong>：一行一个作品，行内挂 <code>events[]</code> 时间线</td>
+      <td class="wrap">保住 D1 的「新作上限 20 / 总数 22」口径</td>
+      <td class="wrap">接受「一行一个作品 + 行内时间线」的排版吗？</td>
+    </tr>
+    <tr>
+      <td class="name">C1</td>
+      <td class="wrap"><code>has_date</code> 现在虚报 64%；改成解析真实日期后，分数与档位全部重洗</td>
+      <td class="wrap">先查真实分布，再定阈值（建议沿用 14 / 8）</td>
+      <td class="wrap">A/B/C 比例会变</td>
+      <td class="wrap">接受档位比例变动吗？（和问题 2 是同一件事）</td>
+    </tr>
+    <tr>
+      <td class="name">C2</td>
+      <td class="wrap"><code>op_pv</code> / <code>announce</code> 两个旧桶没有对应到新事件类型</td>
+      <td class="wrap"><code>op_pv</code> → <code>PROMOTION</code>；<code>announce</code> → <code>WORK_ANNOUNCEMENT</code></td>
+      <td class="wrap">全览的筛选器要跟着改</td>
+      <td class="wrap">这个映射有异议吗？（没有就按建议）</td>
+    </tr>
+    <tr>
+      <td class="name">C3</td>
+      <td class="wrap"><code>MASTER_UP</code>（装盘完成）与 <code>DEVELOPMENT_COMPLETE</code>（开发完了）怎么区分</td>
+      <td class="wrap">「制作完了 / 開発完了」→ 开发完成；「マスターアップ」→ 装盘；<strong>同一句里两个词都出现就都记</strong></td>
+      <td class="wrap">存量 MASTER_UP 99 条 / DEV 1 条，边界要确认</td>
+      <td class="wrap">「同一句都记」会不会太啰嗦？</td>
+    </tr>
+    <tr>
+      <td class="name">C4</td>
+      <td class="wrap">预约（<code>RESERVATION</code>）如果全量成事件，事件数从 255 涨到近 900</td>
+      <td class="wrap"><code>RESERVATION</code> <strong>不进自动初稿默认池</strong>，但进全览</td>
+      <td class="wrap">事件数与选稿上限</td>
+      <td class="wrap">接受「预约进全览、不进初稿」吗？</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<h3>4.3 建议顺序</h3>
+<ol>
+  <li><strong>先 B3 / B4</strong>——风险最低，一个换折叠键、一个只定排版，而且 B4 直接保住 20/22 上限。</li>
+  <li><strong>再 B2</strong>——作品性机制是根治 164 个伪实体的那条，但要先确认规则边界。</li>
+  <li><strong>B1 / C1 保守处理</strong>——都是「宁可少说也不错说」的方向，跟着 B2 一起落。</li>
+  <li><strong>C2–C4 随设计落地</strong>——纯映射与顺序问题，不用单独决策。</li>
+</ol>
+<div class="note">
+  <p>这 8 项<strong>一项都不需要写代码</strong>，但拍完 B3 就要重跑基线（<code>s004</code> → <code>s005</code>），这是唯一有实际成本的一条。</p>
+</div>
+
+<h2 id="s5">5. P2-18：那批存量账号，现在还剩几个</h2>
+
+<div class="note warn">
+  <p><strong>先说结论：这条已经过时了。</strong>P2-18 写的是「厂商侧个人号 14 + 个人向信息号 4 先存着」——但 2026-11-08 实测，那 14 个厂商侧个人号在<strong>两版名单里都已经不存在</strong>，6 个个人向信息号里也只剩 2 个。所以「要不要清」这个问题已经自动消失：<strong>没有可清的</strong>。</p>
+  <p>下面把历史名单和当前在册状态并排列出，方便你要恢复时照着抄。</p>
+</div>
+
+<h3>5.1 厂商侧个人号 14 个（2026-10 第二轮名单）</h3>
+<div class="scroll">
+<table>
+  <thead><tr><th>类别</th><th>handle</th><th>显示名</th><th>现在还在名单里吗</th></tr></thead>
+  <tbody>
+    <tr><td rowspan="8">シナリオ<br>（8）</td><td><code>@Butch_Gen</code></td><td>虚淵玄</td><td><span class="tag bad">不在</span></td></tr>
+    <tr><td><code>@Higashide_Yu</code></td><td>東出祐一郎</td><td><span class="tag bad">不在</span></td></tr>
+    <tr><td><code>@kionachi</code></td><td>木緒なち</td><td><span class="tag bad">不在</span></td></tr>
+    <tr><td><code>@F_Maruto_staff</code></td><td>丸戸史明（公式）</td><td><span class="tag bad">不在</span></td></tr>
+    <tr><td><code>@shimokura_vio</code></td><td>下倉バイオ</td><td><span class="tag bad">不在</span></td></tr>
+    <tr><td><code>@Toshi_Ikebukuro</code></td><td>王雀孫</td><td><span class="tag bad">不在</span></td></tr>
+    <tr><td><code>@hozumik</code></td><td>保住圭</td><td><span class="tag bad">不在</span></td></tr>
+    <tr><td><code>@gyyuiuui</code></td><td>瀬戸口廉也</td><td><span class="tag bad">不在</span></td></tr>
+    <tr><td rowspan="3">ディレクター<br>（3）</td><td><code>@uchikoshi</code></td><td>打越鋼太郎</td><td><span class="tag bad">不在</span></td></tr>
+    <tr><td><code>@nakazawatakumi</code></td><td>中澤工</td><td><span class="tag bad">不在</span></td></tr>
+    <tr><td><code>@rodorin</code></td><td>ろど</td><td><span class="tag bad">不在</span></td></tr>
+    <tr><td rowspan="3">老板<br>（3）</td><td><code>@digitarou</code></td><td>でじたろう@ニトロプラス</td><td><span class="tag bad">不在</span></td></tr>
+    <tr><td><code>@Famishin</code></td><td>Famishin</td><td><span class="tag bad">不在</span></td></tr>
+    <tr><td><code>@vavasyatyou</code></td><td>馬場隆博</td><td><span class="tag bad">不在</span></td></tr>
+  </tbody>
+</table>
+</div>
+
+<h3>5.2 个人向信息号 6 个（同一份名单）</h3>
+<div class="scroll">
+<table>
+  <thead><tr><th>handle</th><th>显示名</th><th class="wrap">是什么</th><th>现在还在名单里吗</th></tr></thead>
+  <tbody>
+    <tr><td><code>@masanlive</code></td><td>まさん -VisualNovel-</td><td class="wrap">个人测评号</td><td><span class="tag bad">不在</span></td></tr>
+    <tr><td><code>@erogehou</code></td><td>なつまる（YouTube ラジオ）</td><td class="wrap">YouTube『エロゲー放送局』主播个人号</td><td><span class="tag bad">不在</span></td></tr>
+    <tr><td><code>@RAGDIS27993204</code></td><td>ねぷねぷギア</td><td class="wrap">个人博客连动号</td><td><span class="tag bad">不在</span></td></tr>
+    <tr><td><code>@B2F_</code></td><td>Ｂ２Ｆ（地下二階）</td><td class="wrap">个人感想号</td><td><span class="tag bad">不在</span></td></tr>
+    <tr><td><code>@seiya_saiga</code></td><td>誠也の部屋@公式</td><td class="wrap">攻略站官方号（个人运营，与 <code>@uitachibana4</code> 同一人）</td><td><span class="tag ok">在册</span></td></tr>
+    <tr><td><code>@aikouka23</code></td><td>エロゲ情報収集愛好家</td><td class="wrap">收藏侧情报：初回版/修正版刻印差异、廃盤动向</td><td><span class="tag ok">在册</span></td></tr>
+  </tbody>
+</table>
+</div>
+
+<h3>5.3 现在名单里真正还留着的「个人号」</h3>
+<div class="scroll">
+<table>
+  <thead><tr><th>handle</th><th>显示名</th><th>分类 / 角色</th><th class="wrap">说明</th></tr></thead>
+  <tbody>
+    <tr><td><code>@seiya_saiga</code></td><td>誠也の部屋@公式</td><td><code>info / info</code></td><td class="wrap">攻略站，几乎日更</td></tr>
+    <tr><td><code>@aikouka23</code></td><td>エロゲ情報収集愛好家</td><td><code>info / info</code></td><td class="wrap">收藏侧情报</td></tr>
+    <tr><td><code>@AKOUtw</code></td><td>AKOU（アミューズクラフト）</td><td><code>info / info</code></td><td class="wrap">ディレクター個人号，2026-11-01 启用；非官方公告</td></tr>
+  </tbody>
+</table>
+</div>
+<p class="dim">口径提醒：这 3 条都是 <code>info</code> 类，会走 §19「信息号整条剔除」那道闸门——它们的发文不进周报，只作线索。这是设计如此，不是遗漏。</p>
+
+<h2 id="s6">6. 本轮执行记录</h2>
+<p>你这一轮给的指令，逐条对账如下。</p>
+<div class="scroll">
+<table>
+  <thead><tr><th>编号</th><th class="wrap">事项</th><th class="wrap">你的指令</th><th class="wrap">实际做了什么</th></tr></thead>
+  <tbody>
+    <tr><td class="name">P0-1</td><td class="wrap">周报子系统入库</td><td>先不动</td><td class="wrap">未动。58 项未提交仍在工作区</td></tr>
+    <tr><td class="name">P0-2</td><td class="wrap">人工看稿（卡点 D）</td><td>没看懂，要求解释</td><td class="wrap">见本报告 §3</td></tr>
+    <tr><td class="name">P0-3</td><td class="wrap">裁决 B1–B4 / C1–C4</td><td>没看懂，要求解释</td><td class="wrap">见本报告 §4</td></tr>
+    <tr><td class="name">P0-4</td><td class="wrap">清理 <code>tests/daily-protection-waivers.json</code></td><td>直接执行</td><td class="wrap">已清空 <code>waivers</code> / <code>batches</code>，保留说明与清空理由；先确认保护集 <code>git diff</code> 为空</td></tr>
+    <tr><td class="name">P1-5</td><td class="wrap"><code>works[]</code> 补 <code>sources</code></td><td>日报做到账号可追溯就够，周报月报再做推文可追溯</td><td class="wrap">未做，记入 <code>docs/backlog.md</code></td></tr>
+    <tr><td class="name">P1-6</td><td class="wrap">栏目事实层缺口</td><td>忽略</td><td class="wrap">不做</td></tr>
+    <tr><td class="name">P1-7</td><td class="wrap">§13.6 三级降级 + 事件级跨期聚合</td><td>放到之后的待办</td><td class="wrap">记入 <code>docs/backlog.md</code></td></tr>
+    <tr><td class="name">P1-8</td><td class="wrap">清 <code>out/</code></td><td>只删「自动化或推送一次就能完全重建」的</td><td class="wrap">删 31 个 <code>dist_prev_*</code> + <code>dist-old</code> + 日志，<strong>1.2 GB → 216 MB</strong>；<code>_trial</code>（看稿用）、<code>_dryrun_real</code>（验收证据）、一次性脚本全部保留</td></tr>
+    <tr><td class="name">P1-9</td><td class="wrap">归档实验脚本</td><td>直接执行</td><td class="wrap"><code>daily1</code> / <code>daily2</code> / <code>out</code> / <code>daily_repair_sakuraemi.py</code> → <code>archive/scripts/</code>；<code>docs/daily-image-method.md</code> 补路径换算表</td></tr>
+    <tr><td class="name">P1-10</td><td class="wrap"><code>src/templates/</code> 定性</td><td>直接执行</td><td class="wrap">174 个 tsx → <code>tools/templates/</code>（<code>tools/</code> 被 gitignore，从此不再出现在 <code>git status</code>）</td></tr>
+    <tr><td class="name">P1-11</td><td class="wrap"><code>tools/audio-translate/</code></td><td>直接删</td><td class="wrap">7.8 GB 已删（模型权重 + 音频中间件）；<strong>60 KB 源码 + 177 KB 转写结果留在 <code>archive/audio-translate/</code></strong></td></tr>
+    <tr><td class="name">P1-12</td><td class="wrap">报告索引</td><td>加</td><td class="wrap">新建 <code>README/reports/INDEX.md</code>，24 份按主题分组、逐份标「现行 / 历史 / 已被取代」</td></tr>
+    <tr><td class="name">P1-13</td><td class="wrap">旧方案归档</td><td>按说的方法</td><td class="wrap"><code>weekly-report-plan</code> v1–v5 → <code>archive/reports/</code>；<code>og-demo/</code> → <code>archive/reports/</code>；<code>ASR project/</code> → <code>archive/asr-project/</code></td></tr>
+    <tr><td class="name">P2-14/15</td><td class="wrap">M6 / M7</td><td>先不管</td><td class="wrap">不动</td></tr>
+    <tr><td class="name">P2-17</td><td class="wrap">账号订正残留</td><td>先不管</td><td class="wrap">不动</td></tr>
+    <tr><td class="name">P2-18</td><td class="wrap">存量账号口径</td><td>不清除，但要重列</td><td class="wrap">见本报告 §5；实测这批号已不在名单里</td></tr>
+    <tr><td class="name">P2-19</td><td class="wrap">Moepedia「周年」</td><td>放到之后的待办</td><td class="wrap">记入 <code>docs/backlog.md</code></td></tr>
+    <tr><td class="name">P2-20</td><td class="wrap">术语表 51 → 60 条</td><td>不设上限</td><td class="wrap">记入 <code>docs/backlog.md</code>：只按需增，不设目标条数</td></tr>
+    <tr><td class="name">P2-21</td><td class="wrap">OG 带字版</td><td>不做</td><td class="wrap">不做</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h3>6.1 磁盘对账</h3>
+<div class="kpi">
+  <div><b>216 MB</b><span>out/ 现状（原 1.2 GB）</span></div>
+  <div><b>7.8 GB</b><span>audio-translate 已删</span></div>
+  <div><b>24 份</b><span>README/reports 现存（原 29）</span></div>
+  <div><b>177 KB</b><span>archive/audio-translate 保留量</span></div>
+</div>
+<p class="dim">out/ 剩下的 216 MB 里，<code>_trial</code> 48 MB 是卡点 D 的看稿对象、<code>_dryrun_real</code> 81 MB 是验收证据、<code>_tmp</code> 里还有 15 个一次性 py 脚本——都不满足「可重建」，所以留着。</p>
+
+<h2 id="s7">7. 下一步（按投入产出排）</h2>
+<ol>
+  <li><strong>看那 20 张成稿</strong>（卡点 D）。这是唯一一件「不写代码、不做设计、只看」就能解锁下游的事。</li>
+  <li><strong>答 §4.2 那 8 个问题</strong>。可以先只答 B3 / B4 两条，其余的等 B2 定了再答。</li>
+  <li><strong>决定周报要不要入库</strong>（P0-1，本轮按你说的没动）。不入库的话，上面两条的成果随时可能随一次误操作消失。</li>
+</ol>
+
+<footer>
+  <p>本报告的模块数、行数、引用数、名单条数取自 2026-11-08 下午的实测；卡点定义与 B/C 裁决项原文见 <code>README/reports/project-status-2026-11-05.md</code> §3–§4 与 <code>docs/architecture/lifecycle-event-design.md</code> §7。</p>
+  <p>本轮未改动任何周报相关底层代码：<code>scripts/weekly/**</code>、<code>weekly_studio/**</code>、<code>scripts/content/**</code> 逐字节未变。</p>
+</footer>
+
+</div>
+</body>
+</html>

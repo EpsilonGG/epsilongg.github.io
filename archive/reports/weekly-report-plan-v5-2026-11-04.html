@@ -1,0 +1,440 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>周报 v5：预览版先行，全览复核，未选即发布</title>
+<style>
+  :root {
+    --ink: #111;
+    --ink-2: #555;
+    --ink-3: #888;
+    --line: #e3e3e3;
+    --line-2: #cfcfcf;
+    --bg: #fff;
+    --bg-2: #fafafa;
+    --radius: 6px;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    padding: 0 20px 96px;
+    background: var(--bg);
+    color: var(--ink);
+    font: 15px/1.75 -apple-system, BlinkMacSystemFont, "Segoe UI", "Hiragino Sans",
+      "Noto Sans CJK SC", "Microsoft YaHei", sans-serif;
+  }
+  .wrap { max-width: 1080px; margin: 0 auto; }
+  header.top { padding: 56px 0 28px; border-bottom: 1px solid var(--line); }
+  h1 { font-size: 26px; line-height: 1.4; margin: 0 0 10px; letter-spacing: -0.01em; }
+  .sub { color: var(--ink-2); margin: 0; }
+  .meta { margin-top: 14px; color: var(--ink-3); font-size: 13px; }
+  h2 {
+    font-size: 19px; margin: 48px 0 14px; padding-bottom: 8px;
+    border-bottom: 1px solid var(--line); letter-spacing: -0.01em;
+  }
+  h3 { font-size: 15px; margin: 26px 0 8px; }
+  h4 { font-size: 14px; margin: 20px 0 6px; color: var(--ink-2); }
+  p { margin: 0 0 12px; }
+  ul, ol { margin: 0 0 14px; padding-left: 22px; }
+  li { margin: 4px 0; }
+  code {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: 0.9em; background: var(--bg-2);
+    border: 1px solid var(--line); border-radius: 4px; padding: 1px 5px;
+  }
+  a { color: var(--ink); text-decoration-color: var(--line-2); }
+  a:hover { text-decoration-color: var(--ink); }
+  .note {
+    background: var(--bg-2); border: 1px solid var(--line);
+    border-radius: var(--radius); padding: 14px 18px; margin: 18px 0;
+  }
+  .note strong { font-weight: 600; }
+  .warn { border-left: 3px solid var(--ink); }
+  .scroll { overflow-x: auto; margin: 16px 0; border: 1px solid var(--line); border-radius: var(--radius); }
+  table { border-collapse: collapse; width: 100%; font-size: 13.5px; }
+  th, td { padding: 7px 10px; text-align: left; border-bottom: 1px solid var(--line); white-space: nowrap; vertical-align: top; }
+  td.wrap, th.wrap { white-space: normal; min-width: 200px; }
+  thead th {
+    position: sticky; top: 0; background: var(--bg);
+    font-weight: 600; font-size: 12.5px; color: var(--ink-2);
+    border-bottom: 1px solid var(--line-2); z-index: 1;
+  }
+  tbody tr:last-child td { border-bottom: 0; }
+  td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+  td.name { font-weight: 600; }
+  .tag {
+    display: inline-block; font-size: 11px; line-height: 1.6; padding: 0 6px;
+    border: 1px solid var(--line-2); border-radius: 4px; color: var(--ink-2);
+    white-space: nowrap;
+  }
+  .tag.ok { border-color: var(--ink); color: var(--ink); }
+  .tag.bad { border-color: var(--ink-3); color: var(--ink-3); text-decoration: line-through; }
+  .kpi {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1px; background: var(--line); border: 1px solid var(--line);
+    border-radius: var(--radius); overflow: hidden; margin: 26px 0 8px;
+  }
+  .kpi > div { background: var(--bg); padding: 16px 18px; }
+  .kpi b { display: block; font-size: 24px; font-weight: 600; line-height: 1.3; font-variant-numeric: tabular-nums; }
+  .kpi span { display: block; color: var(--ink-3); font-size: 12.5px; margin-top: 2px; }
+  .dim { color: var(--ink-3); }
+  pre {
+    margin: 14px 0; padding: 14px 16px; background: var(--bg-2);
+    border: 1px solid var(--line); border-radius: var(--radius);
+    overflow-x: auto; font-size: 12.5px; line-height: 1.7;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  }
+  pre code { background: none; border: 0; padding: 0; }
+  .flow {
+    border: 1px solid var(--line-2); border-radius: var(--radius);
+    margin: 16px 0; overflow: hidden;
+  }
+  .flow .row {
+    display: grid; grid-template-columns: 104px 1fr;
+    border-bottom: 1px solid var(--line);
+  }
+  .flow .row:last-child { border-bottom: 0; }
+  .flow .k {
+    background: var(--bg-2); padding: 12px 14px; font-size: 12px;
+    color: var(--ink-3); letter-spacing: 0.06em; border-right: 1px solid var(--line);
+  }
+  .flow .v { padding: 12px 16px; font-size: 13px; }
+  .flow .v b { font-weight: 600; }
+  .mock {
+    border: 1px solid var(--line-2); border-radius: var(--radius);
+    padding: 16px 18px; margin: 16px 0; background: var(--bg);
+    font-size: 13px; line-height: 1.9;
+  }
+  .mock .h {
+    font-size: 12px; letter-spacing: 0.08em; color: var(--ink-3);
+    padding-bottom: 10px; border-bottom: 1px solid var(--line); margin-bottom: 12px;
+  }
+  .mock .row { display: flex; gap: 10px; }
+  .mock .no {
+    font-variant-numeric: tabular-nums; color: var(--ink-3);
+    min-width: 38px; flex: 0 0 38px;
+  }
+  .mock .on { font-weight: 600; }
+  .mock .off { color: var(--ink-3); }
+  footer {
+    margin-top: 56px; padding-top: 20px; border-top: 1px solid var(--line);
+    color: var(--ink-3); font-size: 12.5px;
+  }
+  @media (max-width: 720px) {
+    body { padding: 0 14px 64px; font-size: 14px; }
+    h1 { font-size: 21px; }
+    th, td { padding: 6px 8px; }
+    .flow .row { grid-template-columns: 1fr; }
+    .flow .k { border-right: 0; border-bottom: 1px solid var(--line); }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="top">
+  <h1>周报 v5：预览版先行，全览复核，未选即发布</h1>
+  <p class="sub">
+    把「人必须勾选」改成「机器先出一份能直接发的预览版，同时给一份带编号的全览」。
+    人不操作就发预览版，操作了只重写变动的那几条。分数线退居为排序器，不再是需要理解的概念。
+    月报取消 12 月兜底，固定每月最后一个周日。
+  </p>
+  <p class="meta">
+    数据基线同 v4：<code>data/xreader/galgame/</code> 2,370 条、208 事件/完整周、业界严格召回 3 条。<br>
+    新增设计：两阶段产出、<code>decision.json</code> 增量重写、全览清单编号、08:00 兜底发布。<br>
+    写于 2026-11-04，取代 v4（<code>weekly-report-plan-v4-2026-11-04.html</code>）。
+  </p>
+</header>
+
+<div class="kpi">
+  <div><b>2 阶段</b><span>预览版 + 全览复核</span></div>
+  <div><b>0 分钟</b><span>不操作时的人工投入</span></div>
+  <div><b>10 分钟</b><span>复核时的人工投入</span></div>
+  <div><b>08:00</b><span>兜底发布时刻</span></div>
+  <div><b>+2.5</b><span>相对 v4 的新增人日</span></div>
+  <div><b>23.5</b><span>一次性总人日</span></div>
+</div>
+
+<h2>0. 这一版改了什么</h2>
+
+<ol>
+  <li><strong>人从「必须勾」变成「可以不管」。</strong>机器先按默认规则出一份完整预览版（已写稿、已配图、已过判卷），同时生成一份带编号的全览清单。人不操作，08:00 自动发预览版；操作了，只重写变动的那几条。</li>
+  <li><strong>分数线退居为排序器。</strong>你不需要理解 A 档 ≥ 14 是什么意思——它只决定「预览版默认选哪些」和「全览里怎么排」。你只需要看全览里的编号，说「加 23、41，去掉 7」。</li>
+  <li><strong>月报取消 12 月兜底。</strong>就是每月最后一个周日，2028-12-31 就发 12-31，不管距圣诞几天。</li>
+</ol>
+
+<div class="note warn">
+  <strong>一句话结论：</strong>这一版把「人工判断」从<strong>流程的必经环节</strong>降级为<strong>可选的优化环节</strong>。
+  代价是多一次增量重写，收益是这周忙的时候周报照样能发出去——而不是因为没人勾选就断更。
+</div>
+
+<h2>1. 两阶段流程</h2>
+
+<div class="flow">
+  <div class="row"><div class="k">00:30 准备</div><div class="v">
+    <b>聚合 → 分类 → 排序 → 去重 → 编号冻结。</b>出 <code>candidates.json</code>，每条带一个稳定的编号（<code>E01</code>–<code>E30</code> / <code>I01</code>–<code>I20</code>）。
+    同时按默认规则填好 <code>picks</code>：A 档全选、B 档取前 6。
+  </div></div>
+  <div class="row"><div class="k">00:35 档案</div><div class="v">
+    <b>VNDB / Steam 取档案与图，做三级降级判定。</b>只对 <code>picks</code> 里的条目请求，避免 30 条全查。
+  </div></div>
+  <div class="row"><div class="k">00:40 写稿</div><div class="v">
+    <b>出预览版。</b>LLM 只写被 pick 的条目 → <code>report.json</code>（状态 <code>preview</code>）→ 判卷 → 封面。
+    这份文件此时已经<strong>可以直接发布</strong>。
+  </div></div>
+  <div class="row"><div class="k">00:45 全览</div><div class="v">
+    <b>出 <code>overview.md</code>。</b>本周全部候选按编号列出，已选的打 <code>[x]</code>、未选打 <code>[ ]</code>。
+    周报列 A+B 档（约 40 条），月报列 A+B 档（约 60 条）并折叠 C 档。
+  </div></div>
+  <div class="row"><div class="k">00:45–08:00</div><div class="v">
+    <b>人的窗口。</b>看 <code>overview.md</code>，要么回一句「加 23、41，去掉 7」，要么直接改 <code>decision.json</code>。不操作也没关系。
+  </div></div>
+  <div class="row"><div class="k">08:00 定稿</div><div class="v">
+    <b>检查 <code>decision.json</code>。</b>不存在 → 发布预览版。<br>
+    存在 → 增量重写（只写新增的、移除取消的、保留已写的不动）→ 判卷 → 发布。
+  </div></div>
+</div>
+
+<p>关键点：<strong>预览版在 00:45 就已经是完整可发布的成品</strong>，不是草稿。全览复核是「优化」，不是「补齐」。这样任何一天出问题（没人看、模型挂了、人不在），最坏结果是发出一份按规则选好的周报，而不是断更。</p>
+
+<h3>1.1 兜底判定的实现</h3>
+
+<p>不引入额外状态机，就看一个文件存不存在：</p>
+
+<pre><code># scripts/weekly/decide.py
+def resolve(ws: Path) -&gt; Path:
+    d = ws / "decision.json"
+    if d.exists():
+        return rerun_incremental(ws, d)   # 增量重写
+    return ws / "report.json"             # 预览版原样</code></pre>
+
+<p>这样人也可以「先写 decision 但故意不改任何东西」来强制走一遍重写，便于测试。</p>
+
+<h2>2. 全览清单</h2>
+
+<p>给人看的东西必须能一眼扫完，所以只有四列：编号、标题、来源、当前状态。分数、档位、指纹全部收起来——它们只在排序时用过一次。</p>
+
+<div class="mock">
+  <div class="h">2026-10-26 → 11-01 · 候选 208 条 · 已选 12 条 · 更新 2026-11-02 00:45</div>
+  <div class="row"><span class="no">E01</span><span class="on">[x] 廃村少女［弐］ 外伝 ～千艶万匣～ — 发售</span></div>
+  <div class="row"><span class="no">E02</span><span class="on">[x] ハイアングル — PV 公开</span></div>
+  <div class="row"><span class="no">E03</span><span class="on">[x] さくらぶトライアングル — 制作完成</span></div>
+  <div class="row"><span class="no">E04</span><span class="off">[ ] 小金井荘と金色の揚羽蝶 — 官网更新</span></div>
+  <div class="row"><span class="no">E05</span><span class="off">[ ] ライムライト・レモネードジャム — 主机版</span></div>
+  <div class="row" style="margin-top:8px"><span class="no">I01</span><span class="on">[x] Nitroplus 官方商店闭站重建，11 月下旬重开</span></div>
+  <div class="row"><span class="no">I02</span><span class="off">[ ] DLsite 创业祭打折（判为广告，未选）</span></div>
+  <div class="row" style="margin-top:8px"><span class="no dim">—</span><span class="dim">C 档另有 168 条未列出，见 candidates.json</span></div>
+</div>
+
+<p>人的回复只要一句话：<strong>「E04 加上，E07 去掉，I02 不要」</strong>。编号是冻结的，所以隔一天再回也对得上。</p>
+
+<h3>2.1 编号为什么必须冻结</h3>
+
+<p>编号在 <code>00:30</code> 生成候选时就写进 <code>candidates.json</code> 的 <code>no</code> 字段，之后任何一次重跑都不重算。原因有两个：</p>
+
+<ul>
+  <li><strong>人会隔天才回。</strong>如果编号随分数重排，昨天的「加 23」今天就指向别的东西了。</li>
+  <li><strong>增量抓取会插新条目。</strong>周报窗口内如果 CI 又补抓了一批，新条目排在末尾拿 <code>E31</code> 起，不打乱已有编号。</li>
+</ul>
+
+<p>编号规则：新作栏 <code>E</code> + 两位序号（<code>E01</code>–<code>E99</code>），业界栏 <code>I</code> + 两位序号。月报候选多，用三位（<code>E001</code>）。</p>
+
+<h3>2.2 月报的全览会长很多</h3>
+
+<p>月报窗口 28–35 天，事件量约 600–800 个。全览不能全列，否则人根本扫不完。所以：</p>
+
+<div class="scroll">
+<table>
+<thead><tr><th>档</th><th class="wrap">周报全览</th><th class="wrap">月报全览</th></tr></thead>
+<tbody>
+<tr><td class="name">A</td><td class="wrap">全列（约 10 条）</td><td class="wrap">全列（约 20 条）</td></tr>
+<tr><td class="name">B</td><td class="wrap">全列（约 30 条）</td><td class="wrap">只列前 40 条</td></tr>
+<tr><td class="name">C</td><td class="wrap">折叠成一行计数</td><td class="wrap">折叠成一行计数</td></tr>
+<tr><td class="name">合计可见</td><td class="wrap">约 40 行</td><td class="wrap">约 60 行</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>60 行是上限——超过这个数，人就不看了，直接放行预览版，全览就白做了。</p>
+
+<h2>3. 增量重写</h2>
+
+<p>预览版已经写了 12 条，人又加 3 条、删 2 条。三种处理方式，选第三种：</p>
+
+<div class="scroll">
+<table>
+<thead><tr><th>方式</th><th class="wrap">做法</th><th class="wrap">问题</th></tr></thead>
+<tbody>
+<tr><td class="name">全量重写</td><td class="wrap">13 条全部重新写</td><td class="wrap">慢、贵，而且<strong>会冲掉人手工改过的句子</strong></td></tr>
+<tr><td class="name">只写增量</td><td class="wrap">新增的 3 条单独写</td><td class="wrap">删除的 2 条还留在文件里，需要手工删</td></tr>
+<tr><td class="name">增量 + 差量合并</td><td class="wrap">新增写、删除移除、保留不动</td><td class="wrap"><strong>采用</strong></td></tr>
+</tbody>
+</table>
+</div>
+
+<pre><code>def rerun_incremental(ws, decision):
+    report = load(ws / "report.json")
+    for sec, d in decision["sections"].items():
+        keep = [it for it in report["sections"][sec]["items"] if it["id"] not in d["remove"]]
+        fresh = write_items([c for c in candidates if c["no"] in d["add"]])   # 只调这几条
+        report["sections"][sec]["items"] = reorder(keep + fresh, candidates)
+    report["revision"] = report.get("revision", 1) + 1
+    return report</code></pre>
+
+<p><code>revision</code> 每次重写 +1，页面上不显示，但发布时写进 <code>issue.revision</code>，便于事后查「这期是不是人改过」。</p>
+
+<h3>3.1 保护人工修改</h3>
+
+<p>每条带一个 <code>edited_by_human: true</code> 标记。人改过的条目在重跑时<strong>即使落在 <code>remove</code> 里也不删</strong>，只在末尾留一行提示「E07 被人工编辑过，未移除，请确认」。这条规则是为了防止「人在 00:50 改了一句，08:00 重跑把它冲掉」。</p>
+
+<h2>4. 分数线现在是什么角色</h2>
+
+<p>你不需要看懂它，因为它只做两件事：</p>
+
+<ol>
+  <li><strong>决定预览版默认选哪些。</strong>A 档全选、B 档按分数取前 6。这是「机器替你做的第一版选择」。</li>
+  <li><strong>决定全览里的顺序。</strong>分高的排前面，所以你要是只有 3 分钟，看前 15 行就够了。</li>
+</ol>
+
+<p>它<strong>不决定</strong>你能不能改、改多少、总数必须几条。那些都由你在全览里说。</p>
+
+<div class="note">
+  <strong>所以「先按这个顺序跑」是对的。</strong>跑 3–4 期之后，把预览版和你实际改的结果对一遍：
+  如果某类条目你每次都加，说明它的分太低；每次都删，说明分太高。这就是回标——不需要先设计一套精确的分数，
+  让数据告诉你该怎么调。
+</div>
+
+<h3>4.1 一个必须写的上限</h3>
+
+<p>A 档全选会失控：旺季 208 个事件里 A 档可能 20 条，预览版就会写到 20 条。所以加一条硬约束：<strong>A 档最多 14 条，超出的降级到 B</strong>。这样预览版条数恒在 6–14 之间，不随事件量爆炸。</p>
+
+<h2>5. 月报：取消 12 月兜底</h2>
+
+<p>规则简化成一句：<strong>每月最后一个周日</strong>。不再判断距圣诞几天。</p>
+
+<div class="scroll">
+<table>
+<thead><tr><th>月份</th><th>发布日</th><th class="wrap">窗口</th><th class="num">天数</th></tr></thead>
+<tbody>
+<tr><td class="name">2026-11</td><td>11-29（日）</td><td class="wrap">10-26 → 11-29</td><td class="num">35</td></tr>
+<tr><td class="name">2026-12</td><td>12-27（日）</td><td class="wrap">11-30 → 12-27</td><td class="num">28</td></tr>
+<tr><td class="name">2027-01</td><td>01-31（日）</td><td class="wrap">12-28 → 01-31</td><td class="num">35</td></tr>
+<tr><td class="name">2028-12</td><td>12-31（日）</td><td class="wrap">12-04 → 12-31</td><td class="num">28</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>2028 年会落在 12-31，距圣诞 6 天。这没关系——月报覆盖的是<strong>整月发售</strong>，不是圣诞档；12 月末那几天本来就有年末商战的新作，晚一点反而收得更全。取消兜底之后，代码里少一个分支，人也不用记特例。</p>
+
+<p>期号仍是 <code>YYMMDD-m</code>，替代当周周报（同一天不出两份）。</p>
+
+<h2>6. 命令与目录</h2>
+
+<pre><code># 00:30 起，机器跑完三个阶段，中间不需要人
+python scripts/weekly_prepare.py --week 2026-10-26     # 候选 + 编号 + 默认 picks
+python -m weekly dossier --issue 261101-w              # 档案 + 图（只查 picked）
+python -m weekly draft   --issue 261101-w              # 预览版 report.json + overview.md + 封面
+
+# 00:45–08:00，人可选
+#   · 改 out/261101-w/overview.md 的 [ ] → [x]，或
+#   · 写 out/261101-w/decision.json，或
+#   · 什么都不做
+
+# 08:00 定稿，机器判断走哪条
+python -m weekly finalize --issue 261101-w             # 无 decision → 用预览版；有 → 增量重写
+python -m weekly publish  --issue 261101-w
+python scripts/push_site.py --path data/weekly/ --path public/images/weekly/</code></pre>
+
+<p>比 v4 少一个 <code>apply</code>、多一个 <code>draft</code> 和 <code>finalize</code>。<code>apply</code> 的判卷逻辑被 <code>draft</code> 和 <code>finalize</code> 各调一次，复用同一份代码。</p>
+
+<div class="scroll">
+<table>
+<thead><tr><th>文件</th><th class="wrap">谁写</th><th class="wrap">内容</th></tr></thead>
+<tbody>
+<tr><td class="name">candidates.json</td><td class="wrap">prepare</td><td class="wrap">全量候选 + 冻结编号 + 默认 picks</td></tr>
+<tr><td class="name">overview.md</td><td class="wrap">draft</td><td class="wrap">给人看的编号清单，<code>[x]</code> / <code>[ ]</code></td></tr>
+<tr><td class="name">report.json</td><td class="wrap">draft / finalize</td><td class="wrap">正文，带 <code>revision</code></td></tr>
+<tr><td class="name">decision.json</td><td class="wrap"><strong>人</strong></td><td class="wrap">可选。存在即触发增量重写</td></tr>
+</tbody>
+</table>
+</div>
+
+<h2>7. 工作量</h2>
+
+<div class="scroll">
+<table>
+<thead><tr><th>模块</th><th class="wrap">内容</th><th class="num">v4</th><th class="num">v5</th></tr></thead>
+<tbody>
+<tr><td class="name">events / select</td><td class="wrap">聚合、双主语、分档、跨期去重</td><td class="num">6.5</td><td class="num">6.5</td></tr>
+<tr><td class="name">dossier</td><td class="wrap">三级降级、VNDB 三道闸</td><td class="num">3</td><td class="num">3</td></tr>
+<tr><td class="name">industry</td><td class="wrap">业界召回 + manual 校验</td><td class="num">1.5</td><td class="num">1.5</td></tr>
+<tr><td class="name">window</td><td class="wrap">周 / 月窗口（<span class="tag ok">少一个分支</span>）</td><td class="num">1</td><td class="num">0.5</td></tr>
+<tr><td class="name">draft / finalize</td><td class="wrap">预览版出稿、增量重写、<code>revision</code></td><td class="num">—</td><td class="num">2.5</td></tr>
+<tr><td class="name">overview</td><td class="wrap">编号清单生成、<code>[x]</code> 回写解析</td><td class="num">—</td><td class="num">1</td></tr>
+<tr><td class="name">prompt / 判卷</td><td class="wrap">两栏题面、区间校验</td><td class="num">3</td><td class="num">3</td></tr>
+<tr><td class="name">封面 / 一览图</td><td class="wrap">周报封面 + 月报带字网格</td><td class="num">2.5</td><td class="num">2.5</td></tr>
+<tr><td class="name">页面 / 出口</td><td class="wrap">两栏渲染、空栏不渲染</td><td class="num">3</td><td class="num">3</td></tr>
+<tr><td class="name">调度</td><td class="wrap">三个时点：00:30 / 08:00 / 月末</td><td class="num">1</td><td class="num">1.5</td></tr>
+<tr><td class="name">RSS</td><td class="wrap"><span class="tag">M5</span> 业界召回源</td><td class="num">1.5</td><td class="num">1.5</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>不含 RSS 合计 <strong>23.5 人日</strong>（v4 是 21）。多的 2.5 花在预览版/增量重写（2.5）和全览生成（1）上，少的 0.5 是月报分支简化。</p>
+
+<h3>7.1 每期</h3>
+
+<div class="scroll">
+<table>
+<thead><tr><th>情况</th><th class="num">机器</th><th class="num">人</th><th class="wrap">说明</th></tr></thead>
+<tbody>
+<tr><td class="name">不看，直接发</td><td class="num">6 分钟</td><td class="num">0</td><td class="wrap">发预览版</td></tr>
+<tr><td class="name">扫一眼，改几条</td><td class="num">9 分钟</td><td class="num">5</td><td class="wrap">增量重写 3 条左右</td></tr>
+<tr><td class="name">认真复核</td><td class="num">12 分钟</td><td class="num">10</td><td class="wrap">40 行全览 + 手写业界 1–2 条</td></tr>
+<tr><td class="name">月报（认真）</td><td class="num">18 分钟</td><td class="num">18</td><td class="wrap">60 行全览 + 一览图校对</td></tr>
+</tbody>
+</table>
+</div>
+
+<h2>8. 排期</h2>
+
+<div class="scroll">
+<table>
+<thead><tr><th>里程碑</th><th class="wrap">交付</th><th class="num">人日</th><th class="wrap">验收</th></tr></thead>
+<tbody>
+<tr><td class="name">M1</td><td class="wrap">事件层 + 分档 + 预览版出稿 + 全览清单</td><td class="num">8.5</td><td class="wrap">跑出 261101-w，<code>report.json</code> 可直接发，<code>overview.md</code> 40 行</td></tr>
+<tr><td class="name">M2</td><td class="wrap">三级降级档案 + 配图</td><td class="num">3</td><td class="wrap">L0/L1 ≥ 8 条有厂牌，L2 不写背景段</td></tr>
+<tr><td class="name">M3</td><td class="wrap">增量重写 + 兜底发布 + 两栏页面 + 出口</td><td class="num">6</td><td class="wrap">改 <code>decision.json</code> 后 revision +1，未改则原样发</td></tr>
+<tr><td class="name">M4</td><td class="wrap">月窗口 + 带字一览图 + 月报调度</td><td class="num">3</td><td class="wrap">11-29 那期是月报，一览图 14 部编号</td></tr>
+<tr><td class="name">M5</td><td class="wrap">RSS 接入</td><td class="num">1.5</td><td class="wrap">业界候选从 20 条涨到 60 条</td></tr>
+<tr><td class="name">M6</td><td class="wrap"><span class="tag bad">暂缓</span> 汉化栏</td><td class="num">—</td><td class="wrap">接口已留</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>M1–M4 合计 <strong>20.5 人日</strong>。M1 结束就能出第一份可发布的周报，M3 结束「改与不改」两条路都通。</p>
+
+<h2>9. 三个还没定的</h2>
+
+<ol>
+  <li><strong>08:00 这个时点</strong>。现在的假设是「周一早上发布，人在上班前扫一眼」。如果你习惯晚上看，改到 20:00 也行，只是发布晚一天。</li>
+  <li><strong><code>overview.md</code> 还是 <code>overview.html</code></strong>。Markdown 便于你在对话里回编号，HTML 便于扫读。我倾向两个都出——生成成本几乎为零，各取所需。</li>
+  <li><strong>业界栏手写内容的存放</strong>。现在设计成写在 <code>decision.json</code> 里，跟着这一期走。如果同一件事要在两期之间延续（比如「闭站重建，11 月下旬重开」），需要一条「跟踪项」机制，M6 再说。</li>
+</ol>
+
+<div class="note warn">
+  <strong>一句话总结：</strong>预览版是保底，全览是提优。
+  这样即使某一周完全没人管，周报也不会断——而这一点，比「每期都精确选对 12 条」重要得多。
+</div>
+
+<footer>
+  数据基线同 v4。候选量与事件量引自 <code>data/xreader/galgame/</code> 14 天 2,370 条的实测聚合（279 事件 / 208 事件每完整周）。<br>
+  编号冻结、增量重写、<code>edited_by_human</code> 保护三条是实现约束，不是可选项——缺任何一条，隔天复核都会出错。<br>
+  月报日期按 <code>Asia/Shanghai</code> 日历计算，窗口含首尾。
+</footer>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,689 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>周报：把「一周的作品动态」做成能自动跑的栏目</title>
+<style>
+  :root {
+    --ink: #111;
+    --ink-2: #555;
+    --ink-3: #888;
+    --line: #e3e3e3;
+    --line-2: #cfcfcf;
+    --bg: #fff;
+    --bg-2: #fafafa;
+    --radius: 6px;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    padding: 0 20px 96px;
+    background: var(--bg);
+    color: var(--ink);
+    font: 15px/1.75 -apple-system, BlinkMacSystemFont, "Segoe UI", "Hiragino Sans",
+      "Noto Sans CJK SC", "Microsoft YaHei", sans-serif;
+  }
+  .wrap { max-width: 1080px; margin: 0 auto; }
+  header.top { padding: 56px 0 28px; border-bottom: 1px solid var(--line); }
+  h1 { font-size: 26px; line-height: 1.4; margin: 0 0 10px; letter-spacing: -0.01em; }
+  .sub { color: var(--ink-2); margin: 0; }
+  .meta { margin-top: 14px; color: var(--ink-3); font-size: 13px; }
+  h2 {
+    font-size: 19px; margin: 48px 0 14px; padding-bottom: 8px;
+    border-bottom: 1px solid var(--line); letter-spacing: -0.01em;
+  }
+  h3 { font-size: 15px; margin: 26px 0 8px; }
+  h4 { font-size: 14px; margin: 20px 0 6px; color: var(--ink-2); }
+  p { margin: 0 0 12px; }
+  ul, ol { margin: 0 0 14px; padding-left: 22px; }
+  li { margin: 4px 0; }
+  code {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: 0.9em; background: var(--bg-2);
+    border: 1px solid var(--line); border-radius: 4px; padding: 1px 5px;
+  }
+  a { color: var(--ink); text-decoration-color: var(--line-2); }
+  a:hover { text-decoration-color: var(--ink); }
+  .note {
+    background: var(--bg-2); border: 1px solid var(--line);
+    border-radius: var(--radius); padding: 14px 18px; margin: 18px 0;
+  }
+  .note strong { font-weight: 600; }
+  .warn { border-left: 3px solid var(--ink); }
+  .scroll { overflow-x: auto; margin: 16px 0; border: 1px solid var(--line); border-radius: var(--radius); }
+  table { border-collapse: collapse; width: 100%; font-size: 13.5px; }
+  th, td { padding: 7px 10px; text-align: left; border-bottom: 1px solid var(--line); white-space: nowrap; vertical-align: top; }
+  td.wrap, th.wrap { white-space: normal; min-width: 200px; }
+  thead th {
+    position: sticky; top: 0; background: var(--bg);
+    font-weight: 600; font-size: 12.5px; color: var(--ink-2);
+    border-bottom: 1px solid var(--line-2); z-index: 1;
+  }
+  tbody tr:last-child td { border-bottom: 0; }
+  td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+  td.name { font-weight: 600; }
+  .tag {
+    display: inline-block; font-size: 11px; line-height: 1.6; padding: 0 6px;
+    border: 1px solid var(--line-2); border-radius: 4px; color: var(--ink-2);
+    white-space: nowrap;
+  }
+  .tag.ok { border-color: var(--ink); color: var(--ink); }
+  .tag.bad { border-color: var(--ink-3); color: var(--ink-3); text-decoration: line-through; }
+  .kpi {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1px; background: var(--line); border: 1px solid var(--line);
+    border-radius: var(--radius); overflow: hidden; margin: 26px 0 8px;
+  }
+  .kpi > div { background: var(--bg); padding: 16px 18px; }
+  .kpi b { display: block; font-size: 24px; font-weight: 600; line-height: 1.3; font-variant-numeric: tabular-nums; }
+  .kpi span { display: block; color: var(--ink-3); font-size: 12.5px; margin-top: 2px; }
+  .dim { color: var(--ink-3); }
+  pre {
+    margin: 14px 0; padding: 14px 16px; background: var(--bg-2);
+    border: 1px solid var(--line); border-radius: var(--radius);
+    overflow-x: auto; font-size: 12.5px; line-height: 1.7;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  }
+  pre code { background: none; border: 0; padding: 0; }
+  footer {
+    margin-top: 56px; padding-top: 20px; border-top: 1px solid var(--line);
+    color: var(--ink-3); font-size: 12.5px;
+  }
+  @media (max-width: 720px) {
+    body { padding: 0 14px 64px; font-size: 14px; }
+    h1 { font-size: 21px; }
+    th, td { padding: 6px 8px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="top">
+  <h1>周报：把「一周的作品动态」做成能自动跑的栏目</h1>
+  <p class="sub">拆解 Hikarinagi《Gal 周报》的结构，对照本站日报管线，给出元素清单、四种内容方案与四套工作流。</p>
+  <p class="meta">
+    样本：<a href="https://www.hikarinagi.org/articles/323">【Gal周报267期】十月新作本周发售，《樱花云＊绯红恋》官中将登陆Steam</a>
+    （Hikarinagi，2026-11-01，授权转载自 B 站 opus，22 条正文 + 10 人文案 + 5 人审核）。<br>
+    基线：<code>data/xreader/galgame/</code> 与 <code>voice/</code> 2026-10-21 → 11-03 共 14 天真实抓取（2,252 / 6,706 条），
+    以及已上线的 4 期日报（<code>261031</code>、<code>261101</code>、<code>261101-g</code>、<code>261102</code>）。<br>
+    写于 2026-11-03。本文只做决策参考，不改变任何现有行为。
+  </p>
+</header>
+
+<div class="kpi">
+  <div><b>1,126</b><span>一周 Galgame 条目（实测折算）</span></div>
+  <div><b>194</b><span>规则聚合后的事件数／周</span></div>
+  <div><b>22</b><span>原站一期正文条数</span></div>
+  <div><b>21.8 万字</b><span>一周原文，一份题面塞不下</span></div>
+</div>
+
+<h2>0. 先说结论</h2>
+
+<div class="note warn">
+<p><strong>1. 周报的单位是「事件」，日报的单位是「发言」。这是所有分歧的源头。</strong>
+日报写「某人今天说了什么」，一句话一个人；周报写「某部作品这周发生了什么」，一段一件事。
+两者的聚合键不同（<code>account</code> vs <code>作品 × 动作</code>），判卷对象不同（<code>handle</code> vs <code>work</code>），
+选材逻辑也不同。<strong>把日报的时间窗从 1 天改成 7 天，得到的是一份很长的日报，不是周报。</strong></p>
+
+<p><strong>2. 素材量够，但结构不对。</strong>
+两周 2,252 条 Galgame 条目（折一周 1,126 条）、111 个号、479 部作品；按「作品 × 动作」粗聚合，
+两周压到 <strong>388 个事件，折一周 194 个</strong>，和原站一期 22 条同一个数量级，选材压力可控。
+真正的问题是<strong>62% 的条目归不进任何事件</strong>（没有『作品名』或没有动作词），
+以及<strong>汉化情报几乎没有数据</strong>——14 天只有 9 条，且没有一条来自海外发行商。</p>
+
+<p><strong>3. 三处硬约束必须先解决，否则写了也跑不起来。</strong>
+① 一周 21.8 万字，是日报单期题面（8.4 万字节）的七倍，必须先在数据层聚合再出题；
+② 现有 <code>filter</code> 规则<strong>主动删掉周边信息</strong>（Moepedia 的 <code>drop_if</code> 里有
+<code>キーホルダー</code>／<code>タペストリー</code>／<code>色紙</code>，<code>max_items: 5</code>），周报要另一套规则集；
+③ 周报每句话都带数字（日期、价格、版本数），判卷要从「有没有 sources」升级到「数字能不能对上」。</p>
+
+<p><strong>4. 推荐路线：Galgame 周报走「编辑台 → 事件层」，声优周报走「日报 reduce」。</strong>
+前者内容单位变了，必须新建；后者主体还是人，7 份日报的 <code>people</code> 汇总就能出稿，几乎零数据层成本。
+两件事不要用同一套代码硬凑。</p>
+</div>
+
+<h2>1. 原文结构拆解</h2>
+
+<h3>1.1 骨架</h3>
+
+<pre><code>【Gal周报267期】&lt;头条 A&gt;，&lt;头条 B&gt;        ← 期号 + 两个并列头条，没有导语
+├── 新作资讯（9 条）
+│   ├── 十月新作本周发售            ← 唯一的列表型条目：9 部作品 + 平台 + 厂牌
+│   ├── 《遺作リメイク》制作完成      ← 动作 + 背景 + 状态
+│   ├── 《アンスリウム》体验版公开
+│   ├── 《Summer Pockets》OP 公开
+│   ├── 《D.C.5 Future Link》主机版制作决定
+│   ├── 《Magicalcharming!》NS 版
+│   ├── 《Lilac》NS 版
+│   ├── 《Happy Weekend》主机版体验版
+│   └── 《Sentimental Graffiti》背景图更新
+├── 汉化情报（1 条）
+│   └── 《樱花云＊绯红恋》登陆 Steam + 官中
+├── 周边信息（12 条）
+│   ├── 联名活动（WePlay 特别合作区）
+│   ├── 快闪店 ×2（H2O 20 周年 / SAGA PLANETS 台北）
+│   ├── 联动咖啡厅 ×3（アマツツミ / CLANNAD / HOOKSOFT 等）
+│   └── 新周边 ×6（ドワンゴ、FAVORITE 玩偶、抱枕、再贩…）
+└── 文末：文案 9 人 / 审核 5 人 / 原文链接 / 授权转载声明</code></pre>
+
+<p>三个栏目是<strong>固定顺序</strong>的，栏目内按重要性排。没有「本周回顾」「编者按」这类内容——
+标题本身就是导读，这跟日报必须写「今日看点」把散点串起来完全不同。</p>
+
+<h3>1.2 一条的最小结构：三段式</h3>
+
+<p>22 条里，除了「十月新作本周发售」这个列表条目，其余 21 条都是同一个模板。以《Lilac》NS 版为例：</p>
+
+<div class="scroll">
+<table>
+<thead><tr><th>段</th><th class="wrap">原文</th><th class="wrap">作用</th><th class="wrap">可自动化程度</th></tr></thead>
+<tbody>
+<tr>
+  <td class="name">① 事件</td>
+  <td class="wrap">本周，Frontwing 宣布制作《Lilac》NS 版，并同步公开了游戏的发售日期，感兴趣的玩家可以前往相关网站了解详情。</td>
+  <td class="wrap">谁、对哪部作品、做了什么</td>
+  <td class="wrap">LLM 组句，但主体/作品/动作三元组必须来自事件表</td>
+</tr>
+<tr>
+  <td class="name">② 背景</td>
+  <td class="wrap">本作原版是 Frontwing 于 2023 年发售的 galgame，改编自 Project RICORO 的同名舞台剧。本作由河野悠花、浅生咏负责剧本，大枪苇人负责原画。</td>
+  <td class="wrap">档案：原厂牌、原发售年、类型、剧本、原画</td>
+  <td class="wrap">纯查表。VNDB + 累积 registry 能给到厂牌/日期/人员</td>
+</tr>
+<tr>
+  <td class="name">③ 交易</td>
+  <td class="wrap">其中"side Witch"和"side Wizard"是剧情相同但角色性别相异的两个版本。NS 版售价 3480 日元（含税），预计于 2026 年 11 月 5 日发售。</td>
+  <td class="wrap">版本分档、价格、发售日</td>
+  <td class="wrap">规则抽取 + 事实判卷。这是最容易写错、也最该被机器管住的一段</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<p>三段的信息来源完全不同：① 来自本周的动态，② 来自长期档案，③ 来自公告原文。<strong>混在一起写是文风，分开生产是工程。</strong>
+把 ② 做成查表，周报的成本立刻从「每期查十几部作品的资料」降到「维护一张作品表」。</p>
+
+<h3>1.3 数字</h3>
+
+<div class="scroll">
+<table>
+<thead><tr><th>维度</th><th class="num">值</th><th class="wrap">说明</th></tr></thead>
+<tbody>
+<tr><td class="name">正文条数</td><td class="num">22</td><td class="wrap">新作 9 / 汉化 1 / 周边 12</td></tr>
+<tr><td class="name">涉及作品</td><td class="num">32</td><td class="wrap">9 部本周新发售 + 8 部旧作有新动作 + 1 部官中 + 14 部只出现在周边栏</td></tr>
+<tr><td class="name">出现价格</td><td class="num">11 条</td><td class="wrap">含税/不含税混用，版本分档 4 处</td></tr>
+<tr><td class="name">出现具体日期</td><td class="num">18 条</td><td class="wrap">精确到日，无一条写「近日」</td></tr>
+<tr><td class="name">配图</td><td class="num">0</td><td class="wrap">纯文字。与本站笔记「必须补图」的规矩相反</td></tr>
+<tr><td class="name">脚注/来源链接</td><td class="num">0</td><td class="wrap">只在文末给一条原文链接。本站周报若上站，需自己补作品脚注</td></tr>
+<tr><td class="name">收尾句</td><td class="num">21/22</td><td class="wrap">都以「感兴趣的玩家…」收尾，措辞有变化（了解详情／查看详情／持续关注）——纯排版冗余，可去</td></tr>
+</tbody>
+</table>
+</div>
+
+<h3>1.4 与本站日报的七个差异</h3>
+
+<div class="scroll">
+<table>
+<thead><tr><th>维度</th><th class="wrap">本站日报</th><th class="wrap">目标周报</th><th class="wrap">影响</th></tr></thead>
+<tbody>
+<tr><td class="name">聚合键</td><td class="wrap">账号（人）</td><td class="wrap">作品 × 动作</td><td class="wrap">数据结构不能复用</td></tr>
+<tr><td class="name">时间窗</td><td class="wrap">JST 自然日</td><td class="wrap">JST 周一 00:00 → 下周一</td><td class="wrap">窗口可复用，但要新类型</td></tr>
+<tr><td class="name">段落数</td><td class="wrap">4 段（看点/作品/互动/详细）</td><td class="wrap">3 栏 × 每栏 N 条，每条 3 段</td><td class="wrap">页面布局要新写</td></tr>
+<tr><td class="name">事实密度</td><td class="wrap">低（谁说了什么）</td><td class="wrap">高（日期/价格/版本/人员）</td><td class="wrap">判卷要加事实闸门</td></tr>
+<tr><td class="name">条数</td><td class="wrap">1 期 1 篇，60–90 人</td><td class="wrap">1 期 20–30 条独立事件</td><td class="wrap">选材比写作难</td></tr>
+<tr><td class="name">降噪规则</td><td class="wrap">删周边/抽奖/周年</td><td class="wrap">周边是主栏，周年仍要删</td><td class="wrap">必须另一套 filter</td></tr>
+<tr><td class="name">协作</td><td class="wrap">单人 + AI</td><td class="wrap">原站 10 人写 5 人审</td><td class="wrap">我们靠机器做「审核」这一层</td></tr>
+</tbody>
+</table>
+</div>
+
+<h2>2. 元素清单</h2>
+
+<h3>2.1 内容元素：一条事件需要什么</h3>
+
+<div class="scroll">
+<table>
+<thead><tr><th>#</th><th>元素</th><th class="wrap">原文表现</th><th class="wrap">本站可得性（实测）</th></tr></thead>
+<tbody>
+<tr><td class="num">1</td><td class="name">主体</td><td class="wrap">Frontwing / ENTERGRAM / キズナリンク / メロンブックス</td><td class="wrap"><span class="tag ok">有</span> 名单 185 个号，名字都在 <code>name</code> 字段</td></tr>
+<tr><td class="num">2</td><td class="name">作品</td><td class="wrap">『Lilac』『遺作リメイク』</td><td class="wrap"><span class="tag ok">有</span> 推文里 479 部带『』，可直接抽</td></tr>
+<tr><td class="num">3</td><td class="name">动作</td><td class="wrap">制作完成 / 体验版 / OP / 移植 / 发售 / 官中 / 周边</td><td class="wrap"><span class="tag ok">可推</span> 关键词表可覆盖九成，需封闭集合</td></tr>
+<tr><td class="num">4</td><td class="name">时间</td><td class="wrap">2026 年 11 月 5 日 / 11 月 21–22 日 / 截止 11/25</td><td class="wrap"><span class="tag ok">可推</span> 37% 的事件原文含日期</td></tr>
+<tr><td class="num">5</td><td class="name">价格</td><td class="wrap">3480 日元（含税）/ 12980／8980 分档</td><td class="wrap"><span class="tag bad">缺</span> 只有 5% 的事件原文含价格</td></tr>
+<tr><td class="num">6</td><td class="name">平台</td><td class="wrap">PC / NS / PS5 / Steam</td><td class="wrap"><span class="tag ok">可推</span> 关键词即可</td></tr>
+<tr><td class="num">7</td><td class="name">语言</td><td class="wrap">简体中文、繁体中文、英语</td><td class="wrap"><span class="tag bad">缺</span> 依赖汉化源，见 2.4</td></tr>
+<tr><td class="num">8</td><td class="name">人员</td><td class="wrap">河野悠花、浅生咏（剧本）／大枪苇人（原画）</td><td class="wrap"><span class="tag ok">可查</span> VNDB 的 <code>staff</code> 字段，需建表</td></tr>
+<tr><td class="num">9</td><td class="name">状态</td><td class="wrap">预约中 / 已发售 / 待公布</td><td class="wrap"><span class="tag ok">可推</span> 由日期与动作推导</td></tr>
+<tr><td class="num">10</td><td class="name">来源</td><td class="wrap">（原文不写）</td><td class="wrap"><span class="tag ok">有</span> 每条推文的 <code>key</code>，比原站更严</td></tr>
+</tbody>
+</table>
+</div>
+
+<h3>2.2 生产元素：一条链路需要什么</h3>
+
+<div class="scroll">
+<table>
+<thead><tr><th>#</th><th>环节</th><th class="wrap">现有资产</th><th class="wrap">周报要新增的</th></tr></thead>
+<tbody>
+<tr><td class="num">1</td><td class="name">抓取</td><td class="wrap"><code>adapters/xreader.py</code>，两版各一个库，CI 30／20 分钟一轮</td><td class="wrap">非 X 源（汉化发行商、Steam、日历站）</td></tr>
+<tr><td class="num">2</td><td class="name">时间窗</td><td class="wrap"><code>window.IssueWindow</code>（单日半开区间）</td><td class="wrap"><code>WeekWindow</code>，7 天半开区间</td></tr>
+<tr><td class="num">3</td><td class="name">去重</td><td class="wrap"><code>dedupe.merge</code> + <code>state.seen</code>（跨期去重）</td><td class="wrap">周内去重即可，跨周不必</td></tr>
+<tr><td class="num">4</td><td class="name">降噪</td><td class="wrap"><code>filter.py</code> 五条规则（drop_kinds/drop_if/keep_if/prefer_if/max_items）</td><td class="wrap">周报专用规则集（周边不能删）</td></tr>
+<tr><td class="num">5</td><td class="name">事件聚合</td><td class="wrap">无</td><td class="wrap"><code>events.py</code>：作品 × 动作 → 一条事件</td></tr>
+<tr><td class="num">6</td><td class="name">事实抽取</td><td class="wrap">无</td><td class="wrap"><code>extract.py</code>：日期、价格、平台、版本数</td></tr>
+<tr><td class="num">7</td><td class="name">作品档案</td><td class="wrap"><code>vndb_game.py</code>（按名查，缓存 30 天）</td><td class="wrap">累积 registry：中文名、别名、厂牌、人员</td></tr>
+<tr><td class="num">8</td><td class="name">选材排序</td><td class="wrap"><code>order.sort_items</code>（按名单序 + 时间）</td><td class="wrap">动作权重打分 + 每栏封顶</td></tr>
+<tr><td class="num">9</td><td class="name">出题</td><td class="wrap"><code>prompt.build_flat</code>（一期一份题）</td><td class="wrap">按事件出题，材料是事件表不是推文</td></tr>
+<tr><td class="num">10</td><td class="name">判卷</td><td class="wrap"><code>validate.py</code>（handle 归属 + sources 存在 + 长度）</td><td class="wrap">+ 事实闸门（数字必须能对上）</td></tr>
+<tr><td class="num">11</td><td class="name">出口</td><td class="wrap">HTML / RSS / JSON / TXT / ja.txt / 长图，六出口</td><td class="wrap">HTML / RSS / JSON 三个即可</td></tr>
+<tr><td class="num">12</td><td class="name">归档</td><td class="wrap">期号 = <code>YYMMDD[-g]</code></td><td class="wrap">期号 = <code>YYMMDD-w[-g]</code>，见 §6</td></tr>
+</tbody>
+</table>
+</div>
+
+<h3>2.3 数据够不够：实测</h3>
+
+<p>把 14 天的 Galgame 库按「作品 × 动作」做了一次<strong>纯规则</strong>聚合（无 LLM），结果如下。
+这不是设计稿，是拿真实数据跑出来的量级：</p>
+
+<div class="scroll">
+<table>
+<thead><tr><th>指标</th><th class="num">14 天</th><th class="num">折一周</th><th class="wrap">结论</th></tr></thead>
+<tbody>
+<tr><td class="name">条目</td><td class="num">2,252</td><td class="num">1,126</td><td class="wrap">与日报单期 80–150 条相比，是 7–14 倍</td></tr>
+<tr><td class="name">账号</td><td class="num">111</td><td class="num">≈ 90</td><td class="wrap">两周内 111 个号有动作（名单 185 的六成）</td></tr>
+<tr><td class="name">出现『作品名』</td><td class="num">479 部</td><td class="num">≈ 250</td><td class="wrap">作品层足够密，不缺素材</td></tr>
+<tr><td class="name">可归为事件</td><td class="num">388</td><td class="num">194</td><td class="wrap">压到原站一期 22 条的 9 倍，选材有余量</td></tr>
+<tr><td class="name">无法归属</td><td class="num">1,405（62%）</td><td class="num">≈ 700</td><td class="wrap">杂谈、感想、无作品名的转发——周报用不上</td></tr>
+<tr><td class="name">多源事件</td><td class="num">172（44%）</td><td class="num">≈ 86</td><td class="wrap">同一件事多人提及，聚合确实在合并</td></tr>
+<tr><td class="name">事件含日期</td><td class="num">144（37%）</td><td class="num">≈ 72</td><td class="wrap">够写「预计于…发售」，但不足以保证全有</td></tr>
+<tr><td class="name">事件含价格</td><td class="num">18（5%）</td><td class="num">≈ 9</td><td class="wrap">价格必须靠商店页/官网，不能指望 X</td></tr>
+</tbody>
+</table>
+</div>
+
+<h4>动作分布（14 天）</h4>
+
+<div class="scroll">
+<table>
+<thead><tr><th>动作</th><th class="num">事件数</th><th class="wrap">备注</th></tr></thead>
+<tbody>
+<tr><td class="name">release 发售</td><td class="num">149</td><td class="wrap">噪声最大：含「N 年前本日发售」回顾，需先按日期过滤</td></tr>
+<tr><td class="name">op_pv OP／PV</td><td class="num">86</td><td class="wrap">信息价值中等，适合合并进「新作资讯」</td></tr>
+<tr><td class="name">goods 周边</td><td class="num">62</td><td class="wrap">原站周边栏的主力；现有 filter 会删掉一半</td></tr>
+<tr><td class="name">event 活动</td><td class="num">47</td><td class="wrap">快闪店、联动咖啡厅、展会</td></tr>
+<tr><td class="name">master_up 制作完成</td><td class="num">21</td><td class="wrap">周报的「硬新闻」，优先级最高</td></tr>
+<tr><td class="name">port 移植／主机版</td><td class="num">12</td><td class="wrap">每条都值得单列</td></tr>
+<tr><td class="name">trial 体验版</td><td class="num">8</td><td class="wrap">偏少，可能被关键词漏掉（「お試し版」「先行プレイ」）</td></tr>
+<tr><td class="name">localization 汉化</td><td class="num">3</td><td class="wrap"><strong>这就是缺口</strong>：14 天只有 3 条</td></tr>
+</tbody>
+</table>
+</div>
+
+<h3>2.4 三个硬缺口</h3>
+
+<div class="note">
+<p><strong>① 汉化情报没有源。</strong>
+14 天里提到「中国語／簡体字／英語版／Steam版」的条目只有 9 条，来自 7 个账号，
+全部是日本厂牌顺口提一句「海外版也上了」。而原文这条讲的是 Shiravune 代理、Steam 页面上线、支持三种语言——
+<strong>Shiravune 不在名单里</strong>，NekoNyan、Sekai Project、JAST、Kagura 也都不在。
+名单 185 个号里只有 1 个发行商（akaeroCore，4 个语言号）。
+不补源，这一栏写不出来；补源，是唯一必须新增数据的地方。</p>
+
+<p><strong>② 价格和版本几乎不在 X 上。</strong>
+5% 的事件含价格。原文那种「完全生产限定版 12980／通常版 8980／下载版 8800／NS 早期下载版 7920」
+来自官网和商店页，不是推文。要么放弃价格（周报降级为「告知型」），要么接商店页抓取。</p>
+
+<p><strong>③ 现有降噪规则会删掉周边。</strong>
+<code>daily-roster-galgame.json</code> 里 Moepedia 的 <code>drop_if</code> 含
+<code>キーホルダー</code>／<code>タペストリー</code>／<code>色紙</code>／<code>プレゼント</code>，
+<code>max_items: 5</code>。日报这么做是对的（一天只写一句话），周报这么做等于自断一栏。
+周报必须有自己的 <code>filter</code> 段，而不是共用名单里的那一份。</p>
+</div>
+
+<h2>3. 内容方案：周报到底写什么</h2>
+
+<p>四个方案，差别不在「写得好不好」，而在<strong>需要哪些数据、要判几道卷、每周要几个人盯</strong>。</p>
+
+<h3>3.1 方案 A：全仿四段</h3>
+
+<p>照原文来：头条 + 新作资讯 + 汉化情报 + 周边信息，每期 20–26 条。</p>
+
+<ul>
+<li><strong>需要的数据</strong>：事件表（作品×动作）、作品档案（厂牌/人员/原发售日）、价格与版本（商店页）、汉化源（发行商/Steam）。</li>
+<li><strong>判卷强度</strong>：L1 结构 + L2 归属 + L3 事实 + L4 术语，四道全上。价格与日期都要能对上。</li>
+<li><strong>新增模块</strong>：<code>events</code>、<code>extract</code>、<code>works</code>、<code>sections</code>、<code>prompt</code>、<code>apply</code>，
+外加一个非 X 适配器（汉化源）和一个商店页抓取。</li>
+<li><strong>风险</strong>：周边栏条数最多、事实最杂（价格区间、活动起止、抽选条件），也是最容易写错的一栏。
+第一版就做全，判卷会长期红。</li>
+</ul>
+
+<h3>3.2 方案 B：两段（新作 + 汉化）</h3>
+
+<p>只做信息密度最高的两栏，每期 10–14 条。周边留到 P2。</p>
+
+<ul>
+<li><strong>需要的数据</strong>：事件表 + 作品档案 + 汉化源。不需要价格抓取（发售日 + 平台足够）。</li>
+<li><strong>判卷强度</strong>：L1–L3，但事实闸门只查日期与平台，不查价格。</li>
+<li><strong>新增模块</strong>：与 A 相同，少一个商店页抓取、少一套周边规则。</li>
+<li><strong>优点</strong>：一期 12 条，判卷跑得动，人复核 10 分钟内能过。原文的头条结构也能保住
+（一条「本周发售」+ 一条「官中/移植」）。</li>
+<li><strong>缺点</strong>：不像「周报」，更像「本周新作简报」。读者拿不到周边信息。</li>
+</ul>
+
+<h3>3.3 方案 C：只出结构化清单，不写成文</h3>
+
+<p>不出段落，页面直接渲染事件表（作品 / 动作 / 日期 / 平台 / 厂牌 / 来源链接），配一句机器生成的摘要。</p>
+
+<ul>
+<li><strong>需要的数据</strong>：事件表 + 档案表。不需要 LLM 写作。</li>
+<li><strong>判卷强度</strong>：只有 L1 结构 + L2 归属。因为没有人写的句子，就没有「编造」的空间。</li>
+<li><strong>新增模块</strong>：<code>events</code>、<code>works</code>、页面表格。工作量是 A 的三分之一。</li>
+<li><strong>优点</strong>：一周就能上线；数据可以先用两周校准规则；日后想写成文，事件表已经在了。</li>
+<li><strong>缺点</strong>：可读性差，跟「周报」的期待不符。适合做中间产物，不适合做终态。</li>
+</ul>
+
+<h3>3.4 方案 D：双版（Galgame 四段 + 声优三段）</h3>
+
+<p>两个版各自成篇，同一周发两期。声优周报建议的栏目（原文没有，需自己定）：</p>
+
+<ul>
+<li><strong>出演情报</strong>：新番、新作游戏、舞台、朗读剧的主演决定</li>
+<li><strong>作品与音声</strong>：角色歌、专辑、音声作品发售，销量里程碑</li>
+<li><strong>活动与人</strong>：生诞祭、线下活动开票、移籍／独立／毕业</li>
+</ul>
+
+<p>这三栏的素材，日报里已经每天在产出（<code>people[].summary</code> + <code>works</code>），
+所以<strong>声优周报不需要事件层</strong>——把 7 天的 <code>report.json</code> 按人合并、去重、只留有「状态变化」的，就能出稿。
+这是唯一一个「周报 = 日报的 reduce」成立的地方，原因见 §4.3。</p>
+
+<h3>3.5 对比</h3>
+
+<div class="scroll">
+<table>
+<thead><tr><th>方案</th><th class="num">条/期</th><th class="wrap">要新增的数据</th><th class="wrap">判卷</th><th class="wrap">首期工程量</th><th class="wrap">主要风险</th></tr></thead>
+<tbody>
+<tr><td class="name">A 全仿四段</td><td class="num">20–26</td><td class="wrap">事件 + 档案 + 价格 + 汉化源</td><td class="wrap">L1–L4</td><td class="wrap">10 个新文件 + 2 个抓取</td><td class="wrap">周边栏事实太杂，判卷长期红</td></tr>
+<tr><td class="name">B 两段</td><td class="num">10–14</td><td class="wrap">事件 + 档案 + 汉化源</td><td class="wrap">L1–L3</td><td class="wrap">9 个新文件 + 1 个抓取</td><td class="wrap">不像周报</td></tr>
+<tr><td class="name">C 清单</td><td class="num">全量 190</td><td class="wrap">事件 + 档案</td><td class="wrap">L1–L2</td><td class="wrap">5 个新文件</td><td class="wrap">可读性差，不像栏目</td></tr>
+<tr><td class="name">D 双版</td><td class="num">12 + 8</td><td class="wrap">B 的全套 + 无（声优复用日报）</td><td class="wrap">L1–L3 / L1–L2</td><td class="wrap">B + 3 个文件</td><td class="wrap">两版口径不一，维护翻倍</td></tr>
+</tbody>
+</table>
+</div>
+
+<p><strong>建议：C 作为中间产物（本来就要算事件表），B 作为首发形态，A 作为 P2 的扩展。</strong>
+先跑两周 B，把「周边到底该不该进」用真实数据回答，再决定要不要扩到 A。</p>
+
+<h3>3.6 元素 → 生产方式</h3>
+
+<p>这张表是「拼接元素所需的工作」的全部答案。四列分别回答：谁产出、放在哪、怎么验、坏了怎么办。</p>
+
+<div class="scroll">
+<table>
+<thead><tr><th>元素</th><th class="wrap">生产方式</th><th class="wrap">实现位置</th><th class="wrap">怎么验</th></tr></thead>
+<tbody>
+<tr><td class="name">主体 / 作品</td><td class="wrap"><strong>规则</strong>：<code>『…』</code> 正则 + NFKC 归一 + 别名表</td><td class="wrap"><code>events.py</code></td><td class="wrap">必须来自本期条目，不许新造</td></tr>
+<tr><td class="name">动作</td><td class="wrap"><strong>规则</strong>：关键词表 → 九类封闭集合</td><td class="wrap"><code>events.py: ACTIONS</code></td><td class="wrap">不在集合内直接丢弃并记日志</td></tr>
+<tr><td class="name">厂牌 / 原发售日 / 人员</td><td class="wrap"><strong>档案</strong>：VNDB + 累积 registry</td><td class="wrap"><code>works.py</code> + <code>data/works/registry.json</code></td><td class="wrap">查不到就留空，<strong>不许猜</strong></td></tr>
+<tr><td class="name">日期</td><td class="wrap"><strong>规则</strong>：<code>\d{1,2}月\d{1,2}日</code> 等四种写法</td><td class="wrap"><code>extract.py</code></td><td class="wrap">必须在来源原文里逐字出现</td></tr>
+<tr><td class="name">价格</td><td class="wrap"><strong>规则</strong>；X 里缺时留空，不补</td><td class="wrap"><code>extract.py</code></td><td class="wrap">同上；含税/不含税要跟着原文</td></tr>
+<tr><td class="name">平台 / 语言</td><td class="wrap"><strong>规则</strong>：关键词 → 枚举</td><td class="wrap"><code>extract.py</code></td><td class="wrap">枚举内</td></tr>
+<tr><td class="name">栏目归属</td><td class="wrap"><strong>规则</strong>：动作 → 栏目映射表</td><td class="wrap"><code>sections.py</code></td><td class="wrap">一栏封顶，溢出进「其他」</td></tr>
+<tr><td class="name">排序 / 头条</td><td class="wrap"><strong>规则</strong>：动作权重 + 多源加成 + 日期加成</td><td class="wrap"><code>sections.py: score()</code></td><td class="wrap">头条必须一「新作」一「汉化/移植」</td></tr>
+<tr><td class="name">句子</td><td class="wrap"><strong>LLM</strong>：按事件写三段，事实只能用给定字段</td><td class="wrap"><code>prompt.py</code> + <code>apply.py</code></td><td class="wrap">L3 事实闸门</td></tr>
+<tr><td class="name">术语</td><td class="wrap"><strong>词表</strong>：<code>data/glossary.json</code>（现 51 条）</td><td class="wrap">题面「## 术语」一节</td><td class="wrap"><code>npm run check:glossary</code></td></tr>
+<tr><td class="name">脚注</td><td class="wrap"><strong>档案</strong>：与笔记同规矩，每个作品一条</td><td class="wrap"><code>apply.py</code> 生成 defs</td><td class="wrap">refs 数 == defs 数</td></tr>
+<tr><td class="name">配图</td><td class="wrap"><strong>不做</strong>（原文也没有）。要图就只放长图</td><td class="wrap">—</td><td class="wrap">—</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="note">
+<p><strong>一句话总结这张表：选材、事实、排序全部交给规则，LLM 只负责把结构化的三元组写成中文。</strong>
+这不是为了省钱，是为了<strong>可判卷</strong>。让模型自己挑事件、自己算日期、自己决定谁上头条，
+判卷就只能查「这句话像不像」，而周报最不能错的就是日期和价格。</p>
+</div>
+
+<h2>4. 工作流方案</h2>
+
+<h3>4.1 W1：在 <code>daily</code> 里加 <code>--window week</code></h3>
+
+<pre><code>scripts/daily/
+  window.py   + WeekWindow          # 7 天半开区间
+  issue.py    + weekly 期号
+  cli.py      + --window week
+  export.py   不动（按 account 分组）
+  apply.py    不动（判 handle 归属）</code></pre>
+
+<ul>
+<li><strong>成本最低</strong>：三个文件改，一天能跑出「很长的日报」。</li>
+<li><strong>致命问题</strong>：<code>export.py</code> 按账号分组、<code>build_report</code> 生成 <code>people</code> 表、
+<code>validate_answer</code> 要求 <code>handle</code> 在本期账号里——整套语义是「人」，周报要的是「作品」。
+硬套的结果是：周报的每条内容都要先挂到一个人名下，而「某厂宣布移植」这件事的主体是作品，不是账号。
+<strong>只在做声优周报时成立</strong>（主体确实是人）。</li>
+</ul>
+
+<h3>4.2 W2：新建 <code>scripts/weekly/</code></h3>
+
+<pre><code>scripts/weekly/
+  week.py       WeekWindow + 期号（YYMMDD-w / -wg）
+  events.py     作品 × 动作 聚合
+  extract.py    日期 / 价格 / 平台 / 语言
+  works.py      registry 查询与写回（VNDB 兜底）
+  sections.py   栏目映射 + 打分 + 封顶
+  prompt.py     按事件出题
+  apply.py      判卷 + 合并
+  publish.py    搬到 data/weekly/
+  cli.py        prepare / prompt / apply / confirm / publish
+
+复用：daily.model / daily.roster / daily.adapters / daily.filter（换规则集）/ daily.state</code></pre>
+
+<ul>
+<li><strong>优点</strong>：日报完全不受影响；周报可以有自己的判卷、自己的 schema、自己的页面。
+<code>filter</code> 与 <code>adapters</code> 是纯函数与接口，复用没有副作用。</li>
+<li><strong>成本</strong>：9 个新文件 + 1 个 collection + 3 个页面 + 1 个 schema。</li>
+<li><strong>适合</strong>：Galgame 周报（内容单位变了，必须新建）。</li>
+</ul>
+
+<h3>4.3 W3：周报 = 7 份日报的 reduce</h3>
+
+<pre><code>输入  data/daily/261027-g/report.json
+      data/daily/261028-g/report.json
+      …（7 份）
+      只读 works[] + highlights[] + people[].summary
+处理  按作品名合并 works、按人去重 people、丢掉「同一天说过两次」的
+输出  data/weekly/261102-wg/report.json</code></pre>
+
+<ul>
+<li><strong>优点</strong>：零数据层工作。日报已经过了判卷、每条都有 <code>sources</code>，
+汇总只是字符串合并 + 去重。<strong>一天能上线。</strong></li>
+<li><strong>致命限制</strong>：日报的 <code>works</code> 只写「哪个作品 / 什么事」，没有价格、版本、人员；
+周边与活动在 <code>filter</code> 阶段就被删了；同一件事会连续 3 天出现在 <code>works</code> 里（需要按作品名去重并取最新）。
+所以它只能产出<strong>「本周新作动向」</strong>这一栏，做不了汉化和周边。</li>
+<li><strong>适合</strong>：声优周报（<code>people</code> 本来就是主体，去重后正好是「这周谁做了什么」）。</li>
+</ul>
+
+<h3>4.4 W4：编辑台（脚本出候选表，人挑，LLM 润色）</h3>
+
+<pre><code>① python -m weekly prepare --week 2026-11-02
+   → out/261102-wg/events.md    190 条事件，带 key / 动作 / 日期 / 价格 / 来源
+② 人在 events.md 里把要用的条目勾出来（改 picks.json，20 行）
+③ python -m weekly prompt --issue 261102-wg
+   → 只对 picks 出题，题面 8 条事件，模型写 8 段
+④ apply / confirm / publish</code></pre>
+
+<ul>
+<li><strong>优点</strong>：质量最高、风险最低，而且<strong>能校准规则</strong>——人挑两周，就知道哪类事件该自动进、哪类永远不该。
+这不是「偷懒方案」，是把人工判断变成规则的过程。</li>
+<li><strong>成本</strong>：每周 30–60 分钟人工；代码量与 W2 相同（<code>picks.json</code> 只是一层过滤）。</li>
+<li><strong>适合</strong>：P0 阶段的前两周，以及所有「第一次做」的栏目。</li>
+</ul>
+
+<h3>4.5 对比与组合</h3>
+
+<div class="scroll">
+<table>
+<thead><tr><th>方案</th><th class="wrap">改动面</th><th class="wrap">能做的栏目</th><th class="wrap">判卷</th><th class="wrap">上线速度</th><th class="wrap">长期维护</th></tr></thead>
+<tbody>
+<tr><td class="name">W1 daily --window week</td><td class="wrap">3 个文件</td><td class="wrap">只有声优（人主体）</td><td class="wrap">复用</td><td class="wrap">最快</td><td class="wrap">语义拧，越改越乱</td></tr>
+<tr><td class="name">W2 新建 weekly 包</td><td class="wrap">9 文件 + 页面</td><td class="wrap">全部</td><td class="wrap">新建</td><td class="wrap">2–3 周</td><td class="wrap">清晰，推荐</td></tr>
+<tr><td class="name">W3 日报 reduce</td><td class="wrap">1 个脚本</td><td class="wrap">新作动向 / 声优</td><td class="wrap">复用</td><td class="wrap">1 天</td><td class="wrap">受日报口径限制</td></tr>
+<tr><td class="name">W4 编辑台</td><td class="wrap">W2 + picks</td><td class="wrap">全部</td><td class="wrap">新建</td><td class="wrap">2–3 周</td><td class="wrap">每周 30–60 分钟人工</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="note warn">
+<p><strong>推荐组合：声优周报走 W3，Galgame 周报走 W4 → W2。</strong></p>
+<p>理由不是「哪个先进」，而是<strong>两个版的内容单位根本不同</strong>：
+声优周报的主体还是人，日报 7 天的 <code>people</code> 已经是判过卷的成品，再写一套事件层是重复建设；
+Galgame 周报的主体是作品，日报里根本没有这个维度，只能新建。
+而 Galgame 这一侧先走 W4，是因为规则还没校准——第一周就把 190 条事件全自动写出来，
+一定会出现「17 年前本日发售」混进「本周新作」这类错，人工挑两周比事后返工便宜。</p>
+</div>
+
+<h2>5. 判卷：周报要多一道「事实闸门」</h2>
+
+<p>日报的判卷回答三个问题：这句话有来源吗？这个人在本期吗？字数超了吗？
+周报还要回答第四个：<strong>这句话里的数字，原文里有吗？</strong></p>
+
+<div class="scroll">
+<table>
+<thead><tr><th>层</th><th class="wrap">查什么</th><th class="wrap">实现</th><th class="wrap">失败处理</th></tr></thead>
+<tbody>
+<tr><td class="name">L1 结构</td><td class="wrap">栏目、条数上限、字段齐全</td><td class="wrap">JSON Schema（<code>schemas/weekly.schema.json</code>）</td><td class="wrap">整份拒收</td></tr>
+<tr><td class="name">L2 归属</td><td class="wrap"><code>work</code> 在本期事件表里；<code>sources</code> 命中 <code>key</code></td><td class="wrap"><code>apply.py</code>（同 <code>validate_answer</code>）</td><td class="wrap">整份拒收</td></tr>
+<tr><td class="name">L3 事实</td><td class="wrap">文本里的日期／价格／版本数／语言，必须能在 sources 原文或 registry 里逐字找到</td><td class="wrap"><code>facts.py</code>：抽 token → 归一 → 比对</td><td class="wrap"><strong>按条拒收</strong></td></tr>
+<tr><td class="name">L4 术语</td><td class="wrap"><code>glossary.avoid</code> 里的写法不许出现</td><td class="wrap"><code>check_glossary.py</code>（已有）</td><td class="wrap">报错，人工改</td></tr>
+<tr><td class="name">L5 重复</td><td class="wrap">同一 <code>(work, action)</code> 只许出现一次；与上周标题不重复</td><td class="wrap"><code>apply.py</code></td><td class="wrap">按条拒收</td></tr>
+</tbody>
+</table>
+</div>
+
+<p><strong>为什么 L3 按条拒收，而日报是整份拒收？</strong>
+日报一期就是一篇文章，缺一段就读不通，整份作废是对的；周报是 20 条彼此独立的短讯，
+一条价格写错不该拖累其余 19 条。拒收的条目进 <code>out/&lt;期号&gt;/rejected.json</code>，
+日志逐条列出原因，页面上不渲染——<strong>宁可少一条，不可错一条</strong>。</p>
+
+<h4>L3 的归一化规则（不归一一定误报）</h4>
+
+<pre><code>日期  11月27日 ≡ 11/27 ≡ 2026-11-27      价格  1,050円 ≡ 1050日元 ≡ 1050
+版本  4 种 ≡ 四种 ≡ 4版本                语言  简中 ≡ 简体中文 ≡ 中国語（簡体字）</code></pre>
+
+<p>规则表放在 <code>data/facts-normalize.json</code>，改写法不用改代码——和 <code>glossary.json</code> 同一个思路。</p>
+
+<h2>6. 期号、出口与发布节奏</h2>
+
+<h3>6.1 期号三个方案</h3>
+
+<div class="scroll">
+<table>
+<thead><tr><th>方案</th><th class="wrap">形态</th><th class="wrap">优点</th><th class="wrap">缺点</th></tr></thead>
+<tbody>
+<tr><td class="name">ISO 周</td><td class="wrap"><code>2026-W45</code></td><td class="wrap">国际通用，一眼知道是第几周</td><td class="wrap">跨年周（第 53 周、1 月 1 日归上周）容易算错</td></tr>
+<tr><td class="name">沿用日期</td><td class="wrap"><code>261102-w</code> / <code>261102-wg</code></td><td class="wrap">与日报 <code>261102-g</code> 同构；日期 = 该周周一；跨年无坑</td><td class="wrap">读者看不出「第几期」</td></tr>
+<tr><td class="name">连续期号</td><td class="wrap"><code>weekly-3</code></td><td class="wrap">读者有追更感，仿原站</td><td class="wrap">要维护计数器，补录会错位</td></tr>
+</tbody>
+</table>
+</div>
+
+<p><strong>建议：数据层用「沿用日期」，显示层两个都写。</strong>
+目录名 <code>data/weekly/261102-wg/</code>，页面标题写
+<code>Gal 周报 · 2026 年第 45 周（第 3 期）</code>。
+期号管「覆盖哪一周」，<code>issue.seq</code> 管「第几期」——和日报「期号管日期、<code>published_at</code> 管时刻」是同一个原则：
+<strong>一个字段只回答一个问题。</strong></p>
+
+<h3>6.2 出口</h3>
+
+<div class="scroll">
+<table>
+<thead><tr><th>出口</th><th class="wrap">要不要</th><th class="wrap">理由</th></tr></thead>
+<tbody>
+<tr><td class="name"><code>/weekly/&lt;期号&gt;/</code></td><td class="wrap"><span class="tag ok">要</span></td><td class="wrap">主产物</td></tr>
+<tr><td class="name"><code>/weekly/rss.xml</code></td><td class="wrap"><span class="tag ok">要</span></td><td class="wrap">周报是订阅型内容，比日报更需要 RSS</td></tr>
+<tr><td class="name"><code>.json</code></td><td class="wrap"><span class="tag ok">要</span></td><td class="wrap">与正本逐字节相同，<code>check:weekly</code> 才能钉住</td></tr>
+<tr><td class="name"><code>.txt</code> / <code>.ja.txt</code></td><td class="wrap"><span class="tag bad">不要</span></td><td class="wrap">Ci-en 只收声优栏目，Galgame 周报没有日文出口；声优周报要不要再定</td></tr>
+<tr><td class="name">长图</td><td class="wrap"><span class="tag">P2</span></td><td class="wrap">周报 20 条，长图会很长；现有 <code>rail-12x</code> 模板是为日报设计的，需重排</td></tr>
+</tbody>
+</table>
+</div>
+
+<h3>6.3 节奏</h3>
+
+<ul>
+<li><strong>覆盖窗口</strong>：JST 周一 00:00 → 下周一 00:00（半开区间，与日报同一套写法）。</li>
+<li><strong>发布时间</strong>：周一 08:00（北京）。周日夜里发会漏掉周日晚的公告；周一早上是周报的自然阅读时间。</li>
+<li><strong>抓取</strong>：不新增抓取任务，复用现有两个 workflow（30／20 分钟一轮）。周报只是多读一次库。</li>
+<li><strong>自动化</strong>：单独一个 <code>FREQ=WEEKLY;BYDAY=MO;BYHOUR=8;BYMINUTE=0</code> 的任务，<strong>不要并进 23:15 的日报任务</strong>——
+两者失败原因不同，混在一起会让「日报挂了」和「周报挂了」分不清。</li>
+</ul>
+
+<h2>7. 分期路线</h2>
+
+<h3>P0：事件表（可验收，不上线）</h3>
+
+<ul>
+<li>新建 <code>scripts/weekly/{week,events,extract}.py</code>，<code>weekly_prepare.py</code>。</li>
+<li>产出 <code>out/&lt;期号&gt;/events.md</code> + <code>events.json</code>：190 条候选，带动作、日期、价格、来源 key。</li>
+<li>周报专用 <code>filter</code> 段：新增 <code>src/config/weekly-filter.json</code>，<strong>不共用名单里的 <code>filter</code></strong>。</li>
+<li><strong>验收</strong>：拿 2026-10-26 → 11-01 那一周跑一遍，人工核对「本周发售」列表和原文 9 部作品的差距；
+「17 年前本日发售」一条都不许进。</li>
+</ul>
+
+<h3>P1：一期能上线（方案 B + W4）</h3>
+
+<ul>
+<li>加 <code>sections.py</code>、<code>prompt.py</code>、<code>apply.py</code>、<code>publish.py</code>、<code>cli.py</code>。</li>
+<li><code>src/content.config.ts</code> 加 <code>weeklyReports</code>；<code>src/pages/weekly/{index,[id],rss}</code>。</li>
+<li>判卷 L1–L3 全上；<code>npm run check:weekly</code> 钉住「JSON 出口 == 正本」。</li>
+<li><strong>验收</strong>：一期 10–14 条，页面 + RSS 上线，人工复核 ≤ 15 分钟。</li>
+</ul>
+
+<h3>P2：补缺口与扩栏</h3>
+
+<ul>
+<li>汉化源：给名单加 Shiravune／NekoNyan／Sekai Project／JAST／Kagura 等海外发行商（需先确认账号与降噪规则）；
+或写一个 <code>adapters/steam_news.py</code>（<code>SourceAdapter</code> 只有三条契约，加源不影响主流程）。</li>
+<li>周边栏：周报专用规则放开 <code>キーホルダー</code> 一类关键词，但保留「抽奖/周年」的过滤。</li>
+<li>声优周报：W3，从 7 份日报 <code>report.json</code> 汇总。</li>
+<li>价格：商店页抓取（可选）。没有也能出报，只是「交易段」只能写日期。</li>
+</ul>
+
+<h2>8. 风险与未决</h2>
+
+<div class="scroll">
+<table>
+<thead><tr><th>风险</th><th class="wrap">表现</th><th class="wrap">缓解</th></tr></thead>
+<tbody>
+<tr><td class="name">汉化源缺失</td><td class="wrap">这一栏只能空着或写「本周无」</td><td class="wrap">P2 补名单；在那之前方案 B 少一栏，改成「新作 + 移植」</td></tr>
+<tr><td class="name">事实判卷成本</td><td class="wrap">L3 误报率高会让人绕过闸门</td><td class="wrap">归一化规则先跑 200 条真实事件校准，误报率 &lt; 5% 再上</td></tr>
+<tr><td class="name">与日报重复</td><td class="wrap">读者觉得「周报只是日报合集」</td><td class="wrap">口径分开：日报写「今天说了什么」，周报只收「有状态变化的」（发售/移植/官中/活动开票）</td></tr>
+<tr><td class="name">62% 条目归不进事件</td><td class="wrap">素材利用率低，可能漏掉真新闻</td><td class="wrap">先接受；两周后看「人工补进去的条目」长什么样，再扩关键词表</td></tr>
+<tr><td class="name">版权</td><td class="wrap">原站是授权转载，我们不能照搬</td><td class="wrap">周报是自己写的事实性综述，每条带来源 key，文末给原文/官网链接；不复制原站句子</td></tr>
+<tr><td class="name">期号与归档</td><td class="wrap">周报和日报混在 <code>/daily/</code> 里会乱</td><td class="wrap">独立路由 <code>/weekly/</code>、独立 collection、独立目录</td></tr>
+</tbody>
+</table>
+</div>
+
+<h3>待定（需要拍板的三件事）</h3>
+
+<ol>
+<li><strong>周报要不要做周边栏？</strong> 数据够（62 事件／14 天），但事实最杂。建议先不做，跑两周再定。</li>
+<li><strong>声优周报的栏目定几个？</strong> 本文给的是三栏（出演 / 作品 / 活动与人），但没跑过数据，需要拿 7 份日报试汇总一次再定。</li>
+<li><strong>期号显示要不要「第 N 期」？</strong> 要的话得先定 <code>issue.seq</code> 由谁写（<code>prepare</code> 数目录，还是人手填）。</li>
+</ol>
+
+<footer>
+  <p>本文只做决策参考，不改变任何现有行为。样本与数字：<code>data/xreader/galgame/</code>（14 天 / 2,252 条）、
+  <code>data/xreader/voice/</code>（14 天 / 6,706 条）、<code>out/261101-g/prompt/all.md</code>（84 KB 单期题面）、
+  以及 <a href="https://www.hikarinagi.org/articles/323">Hikarinagi 第 267 期</a>（22 条正文）。</p>
+  <p>事件聚合的数字是用关键词表跑的<strong>粗聚合</strong>（无 LLM、无别名归一），目的是量级而非准确率；
+  真实实现应在此基础上加别名表与日期过滤，事件数会再降一到两成。</p>
+  <p class="dim">写于 2026-11-03。§2.3 的实测脚本未入库（一次性统计），需要复现时按「作品 × 动作」重新聚合即可。</p>
+</footer>
+
+</div>
+</body>
+</html>

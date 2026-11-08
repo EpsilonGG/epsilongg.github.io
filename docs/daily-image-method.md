@@ -3,6 +3,17 @@
 > **用途**：把 `data/daily/<id>/report.json` 渲染成一张「每日晨报」长图。
 > **读者**：agent（或下次接手的自己）。本文件是**操作手册**，照 §0 就能出图；§3 是这次重选的风格方案与理由。
 > **关联文档**：`README/reports/daily-m5-m6-options.html` §9.6（M5 目标）；`docs/daily-report-guide.md`（日报运营流程）；`schemas/report.schema.json`（数据契约）；`src/styles/tokens.css`（配色来源）。
+>
+> **路径变更（2026-11-08）**：本文里的实验脚本与试验产物已归档，命令里的旧路径按下表换算，照抄旧路径会失败。
+>
+> | 旧路径 | 现在的位置 |
+> | --- | --- |
+> | `README/reports/og-demo/` | `archive/reports/og-demo/` |
+> | `src/templates/`（174 个 tsx） | `tools/templates/`（`tools/` 被 gitignore，不再出现在 `git status`） |
+> | `scripts/daily1/`、`scripts/daily2/` | `archive/scripts/` |
+> | `scripts/out/`（旧期号产物） | `archive/scripts/out/` |
+>
+> **正式版长图只用 `scripts/daily-image/render.mjs`**（§10 起）。§5 与 §8–§9 保留的是实验过程的记录，不是当前入口。
 
 ---
 
@@ -209,8 +220,8 @@ node README/reports/og-demo/morning-paper.mjs \
 
 ```bash
 # 依赖：playwright 装在 vendored 的 juya-news-card-main/node_modules 里，脚本按绝对路径加载
-node scripts/daily1/render.mjs 261101              # 全量 18 套
-node scripts/daily1/render.mjs 261101 --only=001,024
+node archive/scripts/daily1/render.mjs 261101              # 全量 18 套
+node archive/scripts/daily1/render.mjs 261101 --only=001,024
 ```
 
 产出 `pic/daily1/NNN-<id>.png`（1080 CSS 宽 × DSF 2 = 2160px，高度随内容 2170–2750px）+ `index.html` 联络表。

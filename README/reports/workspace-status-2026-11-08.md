@@ -3,6 +3,13 @@
 > 范围：`Desktop/github page work` 整仓。包括个人主页与笔记、日报双版自动化、周报/月报旁路工作台、以及全部遗留产物。
 > 口径：只写**仓库里实际存在的东西**。数字取自 2026-11-08 上午的实测（`ls` / `git status` / 配置统计），不是计划值。
 > 读者：下一次接手的自己，或者要判断「这块能不能动」的人。
+>
+> **同日下午已执行一批清理（2026-11-08）**：§4 的待办按用户逐条裁决处置过，本文部分路径已失效。
+> 对账表见 [`weekly-structure-and-p0-review-2026-11-08.html`](weekly-structure-and-p0-review-2026-11-08.html) §6，
+> 仍未做的记在 [`../../docs/backlog.md`](../../docs/backlog.md)。主要变化：
+> `src/templates/` → `tools/templates/`；`tools/audio-translate/` 已删（源码留 `archive/audio-translate/`）；
+> `scripts/daily1`/`daily2`/`out`/`daily_repair_sakuraemi.py` → `archive/scripts/`；
+> `og-demo`、`weekly-report-plan` v1–v5 → `archive/reports/`；`out/` 由 1.1 GB 降到 216 MB。
 
 ---
 

@@ -1,0 +1,529 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>周报 v4：两栏、弹性条数、双源背景段与月末月报</title>
+<style>
+  :root {
+    --ink: #111;
+    --ink-2: #555;
+    --ink-3: #888;
+    --line: #e3e3e3;
+    --line-2: #cfcfcf;
+    --bg: #fff;
+    --bg-2: #fafafa;
+    --radius: 6px;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    padding: 0 20px 96px;
+    background: var(--bg);
+    color: var(--ink);
+    font: 15px/1.75 -apple-system, BlinkMacSystemFont, "Segoe UI", "Hiragino Sans",
+      "Noto Sans CJK SC", "Microsoft YaHei", sans-serif;
+  }
+  .wrap { max-width: 1080px; margin: 0 auto; }
+  header.top { padding: 56px 0 28px; border-bottom: 1px solid var(--line); }
+  h1 { font-size: 26px; line-height: 1.4; margin: 0 0 10px; letter-spacing: -0.01em; }
+  .sub { color: var(--ink-2); margin: 0; }
+  .meta { margin-top: 14px; color: var(--ink-3); font-size: 13px; }
+  h2 {
+    font-size: 19px; margin: 48px 0 14px; padding-bottom: 8px;
+    border-bottom: 1px solid var(--line); letter-spacing: -0.01em;
+  }
+  h3 { font-size: 15px; margin: 26px 0 8px; }
+  h4 { font-size: 14px; margin: 20px 0 6px; color: var(--ink-2); }
+  p { margin: 0 0 12px; }
+  ul, ol { margin: 0 0 14px; padding-left: 22px; }
+  li { margin: 4px 0; }
+  code {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: 0.9em; background: var(--bg-2);
+    border: 1px solid var(--line); border-radius: 4px; padding: 1px 5px;
+  }
+  a { color: var(--ink); text-decoration-color: var(--line-2); }
+  a:hover { text-decoration-color: var(--ink); }
+  .note {
+    background: var(--bg-2); border: 1px solid var(--line);
+    border-radius: var(--radius); padding: 14px 18px; margin: 18px 0;
+  }
+  .note strong { font-weight: 600; }
+  .warn { border-left: 3px solid var(--ink); }
+  .scroll { overflow-x: auto; margin: 16px 0; border: 1px solid var(--line); border-radius: var(--radius); }
+  table { border-collapse: collapse; width: 100%; font-size: 13.5px; }
+  th, td { padding: 7px 10px; text-align: left; border-bottom: 1px solid var(--line); white-space: nowrap; vertical-align: top; }
+  td.wrap, th.wrap { white-space: normal; min-width: 200px; }
+  thead th {
+    position: sticky; top: 0; background: var(--bg);
+    font-weight: 600; font-size: 12.5px; color: var(--ink-2);
+    border-bottom: 1px solid var(--line-2); z-index: 1;
+  }
+  tbody tr:last-child td { border-bottom: 0; }
+  td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+  td.name { font-weight: 600; }
+  .tag {
+    display: inline-block; font-size: 11px; line-height: 1.6; padding: 0 6px;
+    border: 1px solid var(--line-2); border-radius: 4px; color: var(--ink-2);
+    white-space: nowrap;
+  }
+  .tag.ok { border-color: var(--ink); color: var(--ink); }
+  .tag.bad { border-color: var(--ink-3); color: var(--ink-3); text-decoration: line-through; }
+  .kpi {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1px; background: var(--line); border: 1px solid var(--line);
+    border-radius: var(--radius); overflow: hidden; margin: 26px 0 8px;
+  }
+  .kpi > div { background: var(--bg); padding: 16px 18px; }
+  .kpi b { display: block; font-size: 24px; font-weight: 600; line-height: 1.3; font-variant-numeric: tabular-nums; }
+  .kpi span { display: block; color: var(--ink-3); font-size: 12.5px; margin-top: 2px; }
+  .dim { color: var(--ink-3); }
+  pre {
+    margin: 14px 0; padding: 14px 16px; background: var(--bg-2);
+    border: 1px solid var(--line); border-radius: var(--radius);
+    overflow-x: auto; font-size: 12.5px; line-height: 1.7;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  }
+  pre code { background: none; border: 0; padding: 0; }
+  .flow {
+    border: 1px solid var(--line-2); border-radius: var(--radius);
+    margin: 16px 0; overflow: hidden;
+  }
+  .flow .row {
+    display: grid; grid-template-columns: 92px 1fr;
+    border-bottom: 1px solid var(--line);
+  }
+  .flow .row:last-child { border-bottom: 0; }
+  .flow .k {
+    background: var(--bg-2); padding: 12px 14px; font-size: 12px;
+    color: var(--ink-3); letter-spacing: 0.06em; border-right: 1px solid var(--line);
+  }
+  .flow .v { padding: 12px 16px; font-size: 13px; }
+  .flow .v b { font-weight: 600; }
+  footer {
+    margin-top: 56px; padding-top: 20px; border-top: 1px solid var(--line);
+    color: var(--ink-3); font-size: 12.5px;
+  }
+  @media (max-width: 720px) {
+    body { padding: 0 14px 64px; font-size: 14px; }
+    h1 { font-size: 21px; }
+    th, td { padding: 6px 8px; }
+    .flow .row { grid-template-columns: 1fr; }
+    .flow .k { border-right: 0; border-bottom: 1px solid var(--line); }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="top">
+  <h1>周报 v4：两栏、弹性条数、双源背景段与月末月报</h1>
+  <p class="sub">
+    加「业界动态」栏，取消 12 条硬线改为分档勾选，背景段改成「多源一致才写」，
+    月报固定在每月最后一个周日。核心结论：新作栏已经能自动跑，
+    业界栏在 X 上基本抓不到东西，必须靠人工增添和媒体 RSS。
+  </p>
+  <p class="meta">
+    数据：<code>data/xreader/galgame/</code> 2,370 条（2026-10-22 → 11-04）、作品名 492 个、
+    名单 185 号（178 manufacturer / 7 info）。<br>
+    新测：业界召回严格口径、媒体 RSS 五家、VNDB 12 样本、月报日期 2026–2035。<br>
+    写于 2026-11-04，取代 v3（<code>weekly-report-plan-v3-2026-11-04.html</code>）。
+  </p>
+</header>
+
+<div class="kpi">
+  <div><b>2 栏</b><span>新作资讯 + 业界动态</span></div>
+  <div><b>3 条</b><span>X 上 14 天能召回的业界候选</span></div>
+  <div><b>2 / 3</b><span>其中是噪音的比例</span></div>
+  <div><b>189</b><span>三家可用 RSS 的条目总数</span></div>
+  <div><b>61%</b><span>新作条目里的链接是 nitter 镜像</span></div>
+  <div><b>28–35</b><span>月报窗口天数（浮动）</span></div>
+</div>
+
+<h2>0. 这一版改了什么</h2>
+
+<ol>
+  <li><strong>加业界栏</strong>，但它<strong>不能靠 X 自动生成</strong>。严格口径实测：14 天 2,370 条里只召回 3 条，2 条是噪音（自家众筹进度、DLsite 促销），1 条是 6 年前发售回顾。<strong>X 上真正的业界新闻接近 0</strong>——厂商官方号只发自家作品，破产、并购、讣告不会在自己号上宣布，名单里也没有行业媒体。所以这一栏初期以<strong>人工增添为主</strong>，RSS 召回为辅。</li>
+  <li><strong>取消 12 条硬线</strong>，改成分档勾选：A 档必收、B 档建议、C 档备选，条数由档位截断决定，不写死数字。判卷从「等于 12」改成区间校验。</li>
+  <li><strong>背景段改成三级降级</strong>，而不是「VNDB 查到就写」。实测发现 61% 的新作条目链接是 nitter 镜像（<code>nitter.cf</code> / <code>nitter.meowing.monster</code>），<strong>官网 URL 根本拿不到</strong>，所以「VNDB + 官网」这条校验链是断的，得换成「官方 X 号自证」。</li>
+  <li><strong>月报固定在每月最后一个周日</strong>，窗口是「上月最后周日 + 1 → 本月最后周日」，28–35 天浮动。12 月天然落在圣诞后一两天（2026 是 12-27，+2 天），但 2028 年会漂到 12-31（+6），需要一条兜底。</li>
+</ol>
+
+<div class="note warn">
+  <strong>一句话结论：</strong>新作栏的自动化是「挑」，业界栏的自动化只能是「找」。
+  前者 208 条里挑 12 条，规则能做完 90%；后者 14 天只有 3 条噪音，机器判不了「这件事重不重要」，
+  只能把候选摊开给人看。<strong>两栏的人工成本差 10 倍，不该用同一套流程。</strong>
+</div>
+
+<h2>1. 两栏形态</h2>
+
+<div class="scroll">
+<table>
+<thead><tr><th>栏目</th><th class="wrap">条数</th><th class="wrap">数据来源</th><th class="wrap">自动化程度</th><th class="wrap">人工</th></tr></thead>
+<tbody>
+<tr><td class="name">新作资讯</td><td class="wrap"><strong>8–14 条</strong>（弹性，按分档截断）</td><td class="wrap">X 抓取（<code>data/xreader/galgame/</code>）</td><td class="wrap">聚合 / 分类 / 排序 / 去重 / 档案 / 配图 / 写稿 / 判卷 / 封面全自动</td><td class="wrap">勾选 + 修稿，约 8 分钟</td></tr>
+<tr><td class="name">业界动态</td><td class="wrap"><strong>0–5 条</strong>（允许为空，不渲染）</td><td class="wrap">人工增添（初期主力）+ 媒体 RSS（M5）+ X 宽松召回（补充）</td><td class="wrap">只做召回与去重；<strong>内容本身由人写</strong></td><td class="wrap">审 20–30 条候选 + 写 1–3 条，约 6 分钟</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>两栏的顺序固定：新作在前、业界在后。理由是新作栏是「本周发生了什么」的事实部分，业界栏是「这周有什么值得说的」，后者需要前者做语境。原站的「周边信息」放在最后也是这个逻辑，只是我们用业界替掉了它。</p>
+
+<h2>2. 业界栏：召回容易，判定难</h2>
+
+<h3>2.1 实测：X 上几乎没有</h3>
+
+<p>用最严格的口径跑了一遍：<strong>文本命中名单内 170 个制造商名</strong> + <strong>命中行业级动作词</strong>（设立 / 解散 / 并购 / 人事 / 讣告 / 众筹 / 诉讼 / 市场统计 / 协会 / 中止）+ <strong>排除营销词</strong>（ご支援 / ご予約 / キャンペーン / セール / 抽選 …）。14 天 2,370 条里只剩 3 条：</p>
+
+<div class="scroll">
+<table>
+<thead><tr><th>来源</th><th class="wrap">命中</th><th class="wrap">实际是什么</th></tr></thead>
+<tbody>
+<tr><td class="name">kiss_staff</td><td class="wrap">クラウドファンディング</td><td class="wrap">自家众筹第 2 弹延长目标，博客更新通知</td></tr>
+<tr><td class="name">Moepedia_net</td><td class="wrap">創業</td><td class="wrap">DLsite 创业祭打折广告</td></tr>
+<tr><td class="name">youtan0309</td><td class="wrap">設立</td><td class="wrap">6 年前发售回顾，讲的是作品里的社团设立</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>把口径放宽（去掉「必须命中制造商名」）能召回 78 条，但第一条就是「キュアメイドカフェ 预约无需排队」、第二条是「Sunrise 被万代收购的动画产业采访」——<strong>精度不到 10%</strong>。放宽召回换来的不是覆盖，是噪音。</p>
+
+<div class="note">
+  <strong>为什么会这样：</strong>① 厂商官方号只发自家作品，行业级消息发在媒体号和编辑个人号上；② 名单 185 个号里<strong>没有一家行业媒体</strong>；③ 破产、并购、讣告这类消息，当事方通常不首发在 X，而是官网公告或媒体爆料。
+</div>
+
+<h3>2.2 三条供给路线</h3>
+
+<div class="scroll">
+<table>
+<thead><tr><th>路线</th><th class="wrap">能给什么</th><th class="wrap">实测</th><th class="wrap">上线时机</th></tr></thead>
+<tbody>
+<tr><td class="name">人工增添</td><td class="wrap">任何来源：官网公告、媒体报道、业内传闻核实后</td><td class="wrap">质量最高，成本 2–3 分钟/条</td><td class="wrap"><span class="tag ok">M1 就有</span></td></tr>
+<tr><td class="name">媒体 RSS</td><td class="wrap">AUTOMATON 60 条、4Gamer 100 条、GameWatch 29 条</td><td class="wrap">三家 200 OK，共 189 条；<strong>Game*Spark 与 Famitsu 无 RSS（404）</strong></td><td class="wrap"><span class="tag">M5</span></td></tr>
+<tr><td class="name">X 宽松召回</td><td class="wrap">编辑个人号偶发的行业评论</td><td class="wrap">精度 &lt;10%，只能当「提醒有人提到了」</td><td class="wrap"><span class="tag">M1 附带</span></td></tr>
+</tbody>
+</table>
+</div>
+
+<p>RSS 这条最值得做，因为它是标准协议，<code>scripts/rss_to_items.py</code> 已经存在。但要注意：这三家是<strong>综合游戏媒体</strong>，galgame 相关可能只占 10–20%，需要在入库时就用名单和关键词筛一遍，否则一周 189 条会把候选列表淹掉。</p>
+
+<h3>2.3 人工增添怎么落</h3>
+
+<p>人不需要碰 Markdown，只在 <code>candidates.json</code> 里加一个对象：</p>
+
+<pre><code>{
+  "section": "industry",
+  "manual": true,
+  "title": "Nitroplus 官方商店闭站重建，11 月下旬重开",
+  "summary": "官方公告称现有系统难以修补 PHP 漏洞，站点全面改修。",
+  "source_url": "https://nitroplus.co.jp/company/info/",
+  "source_handle": "nitroplus_staff",
+  "date": "2026-11-02",
+  "picked": true
+}</code></pre>
+
+<p>四个字段必填：<code>title</code>（≤ 40 字）、<code>summary</code>（80–200 字）、<code>source_url</code>、<code>date</code>。<code>source_handle</code> 可空——很多消息来自官网而不是 X。</p>
+
+<p><strong>人工写的内容不过 LLM。</strong>这一栏的价值就在判断，让模型润色会引入它自己编的因果。只做两件机器检查：字数区间、<code>source_url</code> 可达（HEAD 200，或域名在白名单内）。</p>
+
+<h3>2.4 空栏怎么办</h3>
+
+<p>允许 0 条，<strong>不渲染「本周无业界动态」</strong>。原站汉化栏 15 期里有 2 期整栏缺席，做法就是标题都不出现。业界栏的缺席率会更高——按 X 的实测，不人工补的话基本每周都空。</p>
+
+<h2>3. 选材：分类 → 排序 → 去重 → 人筛</h2>
+
+<p>四个步骤全部在出题之前完成，人看到的是一份<strong>已经分好栏、排好序、去过重</strong>的列表。机器负责到「候选」，人负责「收不收」。</p>
+
+<div class="flow">
+  <div class="row"><div class="k">① 分类</div><div class="v">
+    <b>按主语分两路。</b>作品主语（<code>『作品名』+ 动作</code>）→ 新作栏；
+    主体主语（公司 / 品牌 / 人 / 行业）→ 业界栏。两路的抽取规则不同：前者抽书名号，后者抽名单内的制造商名与固定动作词。
+  </div></div>
+  <div class="row"><div class="k">② 排序</div><div class="v">
+    <b>每栏一套权重。</b>新作栏看动作权重 + 来源数 + 是否官方号 + 有无日期；业界栏看动作类型（讣告 / 并购 / 解散 &gt; 众筹 / 人事 &gt; 展会 / 统计）+ 是否首发 + 媒体是否跟进。
+  </div></div>
+  <div class="row"><div class="k">③ 去重</div><div class="v">
+    <b>两层。</b>栏内去重：同一作品同一动作的多条来源合并成一条（43% 的事件有 2 条以上来源）。
+    跨期去重：<code>state/reported-events.json</code>，指纹 <code>sha1(归一化主语 + 动作)</code>，锁 8 周。
+  </div></div>
+  <div class="row"><div class="k">④ 人筛</div><div class="v">
+    <b>分档勾选，不设死线。</b>A 档（必看，默认全收）/ B 档（建议）/ C 档（备选）。
+    人在 <code>candidates.json</code> 里改 <code>picked</code>，可增可删。
+  </div></div>
+</div>
+
+<h3>3.1 分档规则</h3>
+
+<div class="scroll">
+<table>
+<thead><tr><th>档</th><th class="wrap">进入条件</th><th class="wrap">默认状态</th><th class="wrap">说明</th></tr></thead>
+<tbody>
+<tr><td class="name">A</td><td class="wrap">score ≥ 14，或「本周发售」+ 官方号首发</td><td class="wrap">全选</td><td class="wrap">漏掉会明显缺内容</td></tr>
+<tr><td class="name">B</td><td class="wrap">8 ≤ score &lt; 14</td><td class="wrap">按 score 降序取前 6</td><td class="wrap">篇幅够就多收</td></tr>
+<tr><td class="name">C</td><td class="wrap">score &lt; 8</td><td class="wrap">不选，折叠显示</td><td class="wrap">人想补冷门时翻</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>这样条数自然浮动：淡周 A 档可能只有 4 条，B 档补到 8；旺季 A 档就 12 条，直接 12 条不加 B。<strong>没有「必须 12 条」这回事，但也不会掉到 3 条</strong>——A 档兜住了下限。</p>
+
+<h3>3.2 判卷改成区间</h3>
+
+<div class="scroll">
+<table>
+<thead><tr><th>检查项</th><th class="wrap">v3（死线）</th><th class="wrap">v4（区间）</th></tr></thead>
+<tbody>
+<tr><td class="name">新作栏条数</td><td class="wrap">= 12</td><td class="wrap">6 ≤ n ≤ 18</td></tr>
+<tr><td class="name">业界栏条数</td><td class="wrap">—</td><td class="wrap">0 ≤ n ≤ 6</td></tr>
+<tr><td class="name">总条数</td><td class="wrap">= 12</td><td class="wrap">6 ≤ n ≤ 22</td></tr>
+<tr><td class="name">总字数</td><td class="wrap">2,000–3,000</td><td class="wrap">1,200–3,600（按条数比例算，不写绝对值）</td></tr>
+<tr><td class="name">低于下限</td><td class="wrap">判失败</td><td class="wrap">告警但放行，标注「短周」</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>「短周放行」很重要：原站期与期浮动 3.4 倍，最小的一期只有 14 条三栏合计。硬性下限会逼着模型凑数，凑出来的必然是废话。</p>
+
+<h2>4. 背景段：三级降级，过不了就不写</h2>
+
+<p>原方案是「查 VNDB，查到就写」。实测发现两件事，把这条链打断了：</p>
+
+<ul>
+  <li><strong>VNDB 标题匹配只有 58% 精确</strong>（12 样本：精确 7、前缀可救 3、错配 2）。错配的两个都是「短名 + 新作」，VNDB 按热度排把老作顶上来。</li>
+  <li><strong>官网 URL 拿不到</strong>。新作类条目 61% 带链接，但域名全是 <code>nitter.cf</code> / <code>nitter.meowing.monster</code> 镜像，不是官网。原文里提到「株式会社 / ブランド / より発売」的只有 3%。</li>
+</ul>
+
+<p>所以校验源只能是<strong>发布这条消息的账号本身</strong>。改成三级：</p>
+
+<div class="scroll">
+<table>
+<thead><tr><th>级别</th><th class="wrap">条件</th><th class="wrap">能写什么</th><th class="wrap">覆盖率（估）</th></tr></thead>
+<tbody>
+<tr><td class="name">L0 自证</td><td class="wrap">来源账号是名单内的该厂牌官方号（<code>category: manufacturer</code> 且 handle 对应）</td><td class="wrap">厂牌名、发售日、平台——<strong>全部可写</strong></td><td class="wrap">约 45%</td></tr>
+<tr><td class="name">L1 双源</td><td class="wrap">来源是信息号（bugbug / Moepedia / Getchu），且 VNDB 厂牌与原文表述归一后相等</td><td class="wrap">厂牌 + 发售日（相差 ≤ 7 天）</td><td class="wrap">约 30%</td></tr>
+<tr><td class="name">L2 单源</td><td class="wrap">只有 VNDB 能对上，或标题靠前缀猜的</td><td class="wrap"><strong>什么都不写</strong>，只写事件本身</td><td class="wrap">约 25%</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>L0 是这次的关键发现：<strong>如果消息就是厂牌自己发的，厂牌不需要外部校验</strong>——名单里那条记录的 <code>name</code> 就是答案。这比查 VNDB 可靠得多，也解释了为什么 L0 能覆盖近一半。</p>
+
+<h3>4.1 归一与一致性判定</h3>
+
+<pre><code>归一：NFKC → 去空格 → 全角括号转半角 → 波浪号统一（～/~）→ 去「株式会社」「有限会社」前缀 → 小写
+厂牌一致：归一后相等，或一方是另一方的前缀且长度 ≥ 4
+发售日一致：相差 ≤ 7 天（VNDB 记的是首发日，主机版可能不同）
+标题命中：归一后相等，或 X 名是 VNDB 名的前缀且长度 ≥ 6，或命中 aliases
+日期窗口：VNDB released 必须落在事件日期 ± 18 个月内</code></pre>
+
+<p>「发售日相差 ≤ 7 天」而不是「相等」，是因为 VNDB 记 PC 首发日，Switch 版可能晚一周。超过 7 天就是两个不同的发售，不能合并。</p>
+
+<h3>4.2 不写背景段会长什么样</h3>
+
+<p>L2 的条目只有一句事件 + 一句补充，比原站的「三段式」薄。这是<strong>刻意的取舍</strong>：写错厂牌（比如把 <code>ワンナイトアフター</code> 标成 Lover Able 的开发商）比写短严重得多，而且读者不会去核。</p>
+
+<h2>5. 月报：每月最后一个周日</h2>
+
+<h3>5.1 日期表</h3>
+
+<div class="scroll">
+<table>
+<thead><tr><th>月份</th><th>最后一个周六</th><th>最后一个周日（采用）</th><th class="wrap">窗口</th><th class="num">天数</th></tr></thead>
+<tbody>
+<tr><td class="name">2026-11</td><td>11-28</td><td>11-29</td><td class="wrap">10-26 → 11-29</td><td class="num">35</td></tr>
+<tr><td class="name">2026-12</td><td>12-26</td><td><strong>12-27</strong>（圣诞 +2）</td><td class="wrap">11-30 → 12-27</td><td class="num">28</td></tr>
+<tr><td class="name">2027-01</td><td>01-30</td><td>01-31</td><td class="wrap">12-28 → 01-31</td><td class="num">35</td></tr>
+<tr><td class="name">2027-02</td><td>02-27</td><td>02-28</td><td class="wrap">02-01 → 02-28</td><td class="num">28</td></tr>
+<tr><td class="name">2027-03</td><td>03-27</td><td>03-28</td><td class="wrap">03-01 → 03-28</td><td class="num">28</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>选周日不选周六，三个理由：① 周日发布，读者当天有时间读；② 窗口右端是周日 24:00，与周报口径完全一致；③ 2026 / 2027 的 12 月恰好落在 12-27 / 12-26，正好是「圣诞后一两天」，不用特例。</p>
+
+<h3>5.2 12 月兜底</h3>
+
+<p>「最后一个周日」在 12 月并不总是落在圣诞后一两天。查了 2026–2035：</p>
+
+<div class="scroll">
+<table>
+<thead><tr><th>年份</th><th>最后周日</th><th class="num">距圣诞</th><th class="wrap">处理</th></tr></thead>
+<tbody>
+<tr><td class="name">2026</td><td>12-27</td><td class="num">+2</td><td class="wrap">采用</td></tr>
+<tr><td class="name">2027</td><td>12-26</td><td class="num">+1</td><td class="wrap">采用</td></tr>
+<tr><td class="name">2028</td><td>12-31</td><td class="num">+6</td><td class="wrap">提前 7 天 → <strong>12-24</strong></td></tr>
+<tr><td class="name">2029</td><td>12-30</td><td class="num">+5</td><td class="wrap">提前 7 天 → 12-23</td></tr>
+<tr><td class="name">2030</td><td>12-29</td><td class="num">+4</td><td class="wrap">提前 7 天 → 12-22</td></tr>
+<tr><td class="name">2031</td><td>12-28</td><td class="num">+3</td><td class="wrap">采用（边界）</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>规则：<strong>12 月若最后周日晚于 12-28，则提前 7 天</strong>。提前而不是推后，是因为推后会跨到下一年 1 月，而当月发售已经结束，等于漏掉整月商战。提前到 12-22～12-24 能覆盖圣诞前的发售高峰（galgame 多在本月第 3–4 个周五发售）。</p>
+
+<h3>5.3 月报与周报的关系</h3>
+
+<div class="scroll">
+<table>
+<thead><tr><th></th><th class="wrap">周报</th><th class="wrap">月报</th></tr></thead>
+<tbody>
+<tr><td class="name">期号</td><td class="wrap"><code>YYMMDD-w</code>（周日日期）</td><td class="wrap"><code>YYMMDD-m</code></td></tr>
+<tr><td class="name">窗口</td><td class="wrap">周一 00:00 → 周日 24:00（7 天）</td><td class="wrap">上月最后周日 +1 → 本月最后周日（28–35 天）</td></tr>
+<tr><td class="name">替代关系</td><td class="wrap">—</td><td class="wrap"><strong>替代当周周报</strong>，同一天不出两份</td></tr>
+<tr><td class="name">新作栏</td><td class="wrap">8–14 条</td><td class="wrap">14–22 条（按档位上限放宽）</td></tr>
+<tr><td class="name">业界栏</td><td class="wrap">0–5 条</td><td class="wrap">3–8 条</td></tr>
+<tr><td class="name">一览图</td><td class="wrap">不做</td><td class="wrap"><strong>带字</strong>，编号 + 中文名 + 厂牌 + 发售日</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>月报替代当周周报，是因为月末那周本来就在月报窗口里，出两份会重复报道同一批发售。这也是为什么月报窗口从「上月最后周日」起算——它天然接上了上一期月报。</p>
+
+<h2>6. 制作流程</h2>
+
+<h3>6.1 三条线的时序</h3>
+
+<div class="flow">
+  <div class="row"><div class="k">每天 23:15</div><div class="v">
+    <b>日报</b>（不变）抓取 → 出稿 → 发布。周报不参与这条线，只读它的产出。
+  </div></div>
+  <div class="row"><div class="k">周一 00:30</div><div class="v">
+    <b>周报</b>覆盖上周一 00:00 → 上周日 24:00。数据在周日 24:00 闭合后才跑。
+  </div></div>
+  <div class="row"><div class="k">月末周日 00:30</div><div class="v">
+    <b>月报</b>替代当周周报。窗口从上月最后周日 +1 起算，28–35 天。
+  </div></div>
+</div>
+
+<h3>6.2 单期流程（周报 / 月报共用）</h3>
+
+<pre><code># ① 机器：聚合 + 分类 + 排序 + 去重 + 召回业界候选（无 LLM）
+python scripts/weekly_prepare.py --week 2026-10-26
+#    月报用 --month 2026-11，自动算窗口与期号
+
+# ② 机器：VNDB / Steam 取档案与图，做三级降级判定
+python -m weekly dossier --issue 261101-w
+
+# ③ 人：打开 out/261101-w/candidates.json
+#    · 新作栏：A 档已全选，B 档挑几条，可取消
+#    · 业界栏：审 20–30 条召回候选；或直接手写 manual 条目
+#    · 勾完把 picked 数量记下来（不强制等于某个数）
+
+# ④ 机器：出题（只包含被勾中的条目）
+python -m weekly prompt --issue 261101-w
+
+# ⑤ 机器写稿 → 人修稿 → 判卷
+python -m weekly apply --issue 261101-w --answer out/261101-w/answer/all.json
+
+# ⑥ 定稿 → 封面（月报加一览图）→ 发布
+python -m weekly confirm --issue 261101-w
+python -m weekly publish --issue 261101-w
+python scripts/push_site.py --path data/weekly/ --path public/images/weekly/</code></pre>
+
+<p>与 v3 的差别只在第 ② 步（档案与降级判定独立成一条命令）和第 ③ 步（两栏分档勾选，业界栏可手写）。<strong>人的动作只有一处：改 <code>candidates.json</code></strong>，其余全是命令。</p>
+
+<h3>6.3 人的那一处长什么样</h3>
+
+<pre><code>{
+  "issue": "261101-w",
+  "sections": {
+    "new_releases": {
+      "tiers": {
+        "A": [ { "id": "e01", "picked": true,  "title": "廃村少女［弐］ 外伝", "action": "release", "score": 18 } ],
+        "B": [ { "id": "e07", "picked": true,  "title": "ハイアングル",       "action": "op_pv",   "score": 11 } ],
+        "C": [ { "id": "e21", "picked": false, "title": "…",                 "action": "op_pv",   "score": 5  } ]
+      }
+    },
+    "industry": {
+      "recalled": [ { "id": "i03", "picked": false, "note": "DLsite 促销，非业界" } ],
+      "manual":   [ { "id": "m01", "picked": true,  "title": "…", "summary": "…", "source_url": "…" } ]
+    }
+  }
+}</code></pre>
+
+<p>三档分开存，是为了让「这次为什么只写了 7 条」可追溯：看 A 档有几条就知道是淡周还是漏了。</p>
+
+<h2>7. 工作量</h2>
+
+<div class="scroll">
+<table>
+<thead><tr><th>模块</th><th class="wrap">内容</th><th class="num">v3</th><th class="num">v4</th></tr></thead>
+<tbody>
+<tr><td class="name">events</td><td class="wrap">事件聚合、动作优先级、双主语（作品 / 主体）</td><td class="num">3</td><td class="num">4</td></tr>
+<tr><td class="name">select</td><td class="wrap">打分、分档、跨期去重、candidates</td><td class="num">2</td><td class="num">2.5</td></tr>
+<tr><td class="name">dossier</td><td class="wrap">三级降级判定、VNDB 三道闸、Steam 补充</td><td class="num">2</td><td class="num">3</td></tr>
+<tr><td class="name">industry</td><td class="wrap">业界召回（X 宽松）+ 人工增添校验</td><td class="num">—</td><td class="num">1.5</td></tr>
+<tr><td class="name">window</td><td class="wrap">周窗口 + 月窗口 + 12 月兜底</td><td class="num">0.5</td><td class="num">1</td></tr>
+<tr><td class="name">prompt / apply</td><td class="wrap">两栏题面、区间判卷</td><td class="num">1</td><td class="num">1.5</td></tr>
+<tr><td class="name">封面 / 一览图</td><td class="wrap">周报封面 + 月报带字网格</td><td class="num">1.5</td><td class="num">2.5</td></tr>
+<tr><td class="name">页面 / 出口</td><td class="wrap">两栏渲染、空栏不渲染、RSS / JSON</td><td class="num">3</td><td class="num">3</td></tr>
+<tr><td class="name">判卷</td><td class="wrap">区间校验、manual 条目校验</td><td class="num">1.5</td><td class="num">1.5</td></tr>
+<tr><td class="name">调度</td><td class="wrap">周报 + 月报两个定时</td><td class="num">0.5</td><td class="num">1</td></tr>
+<tr><td class="name">RSS 接入</td><td class="wrap"><span class="tag">M5</span> AUTOMATON / 4Gamer / GameWatch</td><td class="num">—</td><td class="num">1.5</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>不含 RSS 合计 <strong>21 人日</strong>，含 RSS 22.5。比 v3 的 16.5 多 4.5，主要花在双主语抽取、三级降级判定、业界召回、月窗口上。</p>
+
+<h3>7.1 每期</h3>
+
+<div class="scroll">
+<table>
+<thead><tr><th>步骤</th><th class="num">周报</th><th class="num">月报</th></tr></thead>
+<tbody>
+<tr><td class="name">机器（聚合 / 档案 / 图 / 写稿 / 判卷 / 封面）</td><td class="num">4 分钟</td><td class="num">9 分钟</td></tr>
+<tr><td class="name">人：新作栏勾选 + 修稿</td><td class="num">8 分钟</td><td class="num">14 分钟</td></tr>
+<tr><td class="name">人：业界栏审候选 + 手写</td><td class="num">6 分钟</td><td class="num">10 分钟</td></tr>
+<tr><td class="name">合计</td><td class="num">18 分钟</td><td class="num">33 分钟</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>业界栏的人工占比从 0 涨到 1/3。<strong>这是这一版最贵的部分</strong>，也是唯一不能自动化的部分——判「这条行业消息重不重要」需要人。</p>
+
+<h2>8. 排期</h2>
+
+<div class="scroll">
+<table>
+<thead><tr><th>里程碑</th><th class="wrap">交付</th><th class="num">人日</th><th class="wrap">验收</th></tr></thead>
+<tbody>
+<tr><td class="name">M1</td><td class="wrap">事件层 + 分档选材 + 单栏出稿 + 人工增添通道</td><td class="num">7.5</td><td class="wrap">跑出 261101-w，新作栏 8 条 + 手写业界 2 条</td></tr>
+<tr><td class="name">M2</td><td class="wrap">三级降级档案 + 配图</td><td class="num">3</td><td class="wrap">L0/L1 合计 ≥ 8 条有厂牌，L2 条目不写背景段</td></tr>
+<tr><td class="name">M3</td><td class="wrap">封面 + 两栏页面 + 出口 + 周报调度</td><td class="num">5</td><td class="wrap">线上 <code>/weekly/</code> 200，空栏不渲染</td></tr>
+<tr><td class="name">M4</td><td class="wrap">月窗口 + 12 月兜底 + 带字一览图 + 月报调度</td><td class="num">3</td><td class="wrap">11-29 那期是月报，一览图 14 部编号</td></tr>
+<tr><td class="name">M5</td><td class="wrap">RSS 接入（业界栏召回）</td><td class="num">1.5</td><td class="wrap">业界候选从 20 条涨到 60 条，精度 ≥ 30%</td></tr>
+<tr><td class="name">M6</td><td class="wrap"><span class="tag bad">暂缓</span> 汉化栏（贴吧 / 绯月）</td><td class="num">—</td><td class="wrap">接口已留</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>M1–M4 合计 <strong>18.5 人日</strong>，约两周半。M1 结束就能出第一份两栏周报，M4 结束月报上线。</p>
+
+<h2>9. 需要你拍板</h2>
+
+<ol>
+  <li><strong>业界栏初期靠手写，能接受吗</strong>。按 X 的实测，不手写的话这栏每周都空。手写成本 2–3 分钟/条，一期 1–3 条。如果不想手写，M5 的 RSS 就得提前到 M1。</li>
+  <li><strong>分档的分数线要不要调</strong>。现在 A ≥ 14、B 8–14，是按 208 个事件的分布拍的，跑两三期后应该按实际收稿情况回标。</li>
+  <li><strong>月报提前 7 天那条规则</strong>。2028 年会变成 12-24（圣诞前一天），如果你更想要「圣诞后」，就得改成推后到 1 月初，但那样 12 月发售就漏了。</li>
+  <li><strong>声优版周报</strong>。仍然建议 M4 之后再定——它的主语是「人 × 活动」，<code>events.py</code> 要再写一套，业界栏也不适用。</li>
+</ol>
+
+<div class="note warn">
+  <strong>一句话总结：</strong>新作栏已经能自动化到「人只勾选」的程度；业界栏不行，
+  X 上根本没有素材，只能人写 + RSS 补。所以这一版真正的新增工作量不在代码，
+  在<strong>每周 6 分钟的人工判断</strong>，以及 M5 那个 RSS 源。
+</div>
+
+<footer>
+  数据截止 2026-11-04。业界召回严格口径 = 名单内 170 个制造商名 + 41 个行业动作词 + 11 个营销词排除。<br>
+  RSS 实测：AUTOMATON <code>/feed/</code> 60 条、4Gamer <code>/rss/index.xml</code> 100 条、
+  GameWatch <code>feed.rdf</code> 29 条；Game*Spark 与 Famitsu 各试 4 个路径均 404。<br>
+  月报日期按 <code>Asia/Shanghai</code> 日历计算，窗口含首尾。
+</footer>
+
+</div>
+</body>
+</html>

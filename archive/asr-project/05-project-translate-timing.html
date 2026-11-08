@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>翻译与打轴自动化工具 · 项目清单与启动规划书</title>
+<style>
+:root{
+  --bg:#f6f7f9;--card:#fff;--ink:#16181d;--ink2:#4a5160;--ink3:#7c8494;
+  --line:#e5e8ee;--line2:#f0f2f5;--accent:#2f5bff;--accent-soft:#eef2ff;
+  --gold:#a9770b;--gold-soft:#fdf6e3;--teal:#0d8f7a;--teal-soft:#e6f7f4;
+  --violet:#6b46c1;--violet-soft:#f3eefe;--rose:#b8385f;--rose-soft:#fdeef3;
+  --gray:#5b6472;--gray-soft:#eff1f4;--red:#c0392b;--red-soft:#fdecea;
+  --green:#1e7a4a;--green-soft:#e9f7ef;
+}
+*{box-sizing:border-box;}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+  font-size:15px;line-height:1.75;-webkit-font-smoothing:antialiased;}
+.wrap{max-width:1060px;margin:0 auto;padding:46px 28px 90px;}
+.eyebrow{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink3);font-weight:600;}
+h1{font-size:32px;line-height:1.3;margin:10px 0 12px;letter-spacing:-.02em;font-weight:750;}
+.sub{color:var(--ink2);font-size:15.5px;max-width:80ch;}
+.meta-row{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px;}
+.pill{background:var(--card);border:1px solid var(--line);border-radius:999px;padding:6px 14px;font-size:13px;color:var(--ink2);}
+.pill b{color:var(--ink);font-weight:650;}
+h2.sec{font-size:20px;margin:50px 0 6px;letter-spacing:-.01em;font-weight:700;
+  padding-top:8px;border-top:2px solid var(--ink);}
+h2.sec .no{color:var(--ink3);font-weight:600;margin-right:8px;font-variant-numeric:tabular-nums;}
+.sec-note{color:var(--ink3);font-size:13.5px;margin:8px 0 18px;}
+h3.sub3{font-size:16px;margin:28px 0 8px;font-weight:700;}
+h4.sub4{font-size:13.5px;margin:18px 0 6px;font-weight:700;color:var(--ink2);}
+p{margin:0 0 12px;}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px 22px;margin-bottom:14px;}
+.card h3{margin:0 0 8px;font-size:15.5px;font-weight:700;}
+.tag{display:inline-block;padding:2px 9px;border-radius:6px;font-size:11.5px;font-weight:600;white-space:nowrap;vertical-align:middle;}
+.t1{background:var(--accent-soft);color:var(--accent);}
+.t2{background:var(--teal-soft);color:var(--teal);}
+.t3{background:var(--violet-soft);color:var(--violet);}
+.t4{background:var(--gold-soft);color:var(--gold);}
+.t5{background:var(--rose-soft);color:var(--rose);}
+.t6{background:var(--gray-soft);color:var(--gray);}
+.t7{background:var(--green-soft);color:var(--green);}
+.t8{background:var(--red-soft);color:var(--red);}
+.tbl{border:1px solid var(--line);border-radius:12px;overflow:hidden;margin:14px 0 18px;background:#fff;}
+table{width:100%;border-collapse:collapse;font-size:13.5px;}
+th{text-align:left;padding:10px 12px;background:#fafbfc;color:var(--ink3);font-weight:600;
+  font-size:11.5px;letter-spacing:.04em;border-bottom:1px solid var(--line);white-space:nowrap;}
+td{padding:9px 12px;border-bottom:1px solid var(--line2);vertical-align:top;}
+tr:last-child td{border-bottom:none;}
+tr:hover td{background:#fcfcfd;}
+code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12.5px;background:#f2f4f7;
+  padding:1px 5px;border-radius:4px;color:#2b3242;}
+pre{background:#1d2129;color:#e6e9ef;border-radius:12px;padding:15px 17px;overflow-x:auto;
+  font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12.5px;line-height:1.65;margin:14px 0;}
+pre code{background:none;color:inherit;padding:0;font-size:inherit;}
+ul,ol{margin:0 0 12px;padding-left:22px;}
+li{margin-bottom:6px;color:var(--ink2);}
+li b{color:var(--ink);font-weight:650;}
+.callout{border-radius:12px;padding:16px 20px;margin:16px 0;}
+.callout h4{margin:0 0 8px;font-size:14px;font-weight:700;}
+.callout p{margin:0 0 8px;font-size:14px;}
+.callout p:last-child{margin:0;}
+.callout ul{margin:6px 0 0;font-size:14px;}
+.c-blue{background:var(--accent-soft);border:1px solid #d9e2ff;}
+.c-gold{background:var(--gold-soft);border:1px solid #f0e2b8;}
+.c-red{background:var(--red-soft);border:1px solid #f5cfc9;}
+.c-green{background:var(--green-soft);border:1px solid #c8e6d5;}
+.c-gray{background:var(--gray-soft);border:1px solid var(--line);}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:13px;}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:13px;}
+.mini{background:#fff;border:1px solid var(--line);border-radius:12px;padding:13px 15px;}
+.mini .k{font-size:11px;color:var(--ink3);letter-spacing:.06em;text-transform:uppercase;font-weight:600;}
+.mini .v{font-size:14.5px;font-weight:700;margin-top:3px;}
+.mini .d{font-size:12.5px;color:var(--ink2);margin-top:4px;line-height:1.6;}
+.flow{background:#fff;border:1px solid var(--line);border-radius:12px;padding:17px 19px;margin:14px 0;
+  font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12.5px;line-height:1.8;
+  white-space:pre;overflow-x:auto;color:var(--ink2);}
+.stars{color:var(--gold);font-weight:650;}
+.muted{color:var(--ink3);font-size:13px;}
+footer{margin-top:52px;padding-top:20px;border-top:1px solid var(--line);font-size:12.5px;color:var(--ink3);}
+.toc{background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px 20px;margin:24px 0 8px;}
+.toc .h{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink3);font-weight:600;margin-bottom:8px;}
+.toc ol{margin:0;padding-left:20px;font-size:13.5px;columns:2;column-gap:26px;}
+.toc li{margin-bottom:4px;}
+.toc a{color:var(--ink2);text-decoration:none;}
+.toc a:hover{color:var(--accent);}
+.badge{display:inline-block;padding:1px 7px;border-radius:5px;font-size:11px;font-weight:700;letter-spacing:.02em;}
+.b-p0{background:#16181d;color:#fff;}
+.b-p1{background:var(--accent-soft);color:var(--accent);}
+.b-p2{background:var(--gray-soft);color:var(--gray);}
+.b-no{background:var(--red-soft);color:var(--red);}
+@media (max-width:800px){
+  .wrap{padding:30px 16px 60px;}
+  h1{font-size:24px;}
+  .grid2,.grid3{grid-template-columns:1fr;}
+  .toc ol{columns:1;}
+  table{font-size:12.5px;}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="eyebrow">Project Charter · 05</div>
+<h1>翻译与打轴自动化工具<br>项目清单与启动规划书</h1>
+<p class="sub">约束是硬的：<b>不调用任何云 API，不经过 Whisper 流程</b>。这不是自我设限，而是把架构从"先猜再改"换成<b>"先有文本，只求时间"</b>——因为你要翻的东西，原文本来就是已知的。整份文档围绕一个判断展开：<b>音频只用来定边界，不用来定内容。</b></p>
+<div class="meta-row">
+  <span class="pill">周期 <b>6 周</b></span>
+  <span class="pill">约束 <b>零云 API · 零 Whisper</b></span>
+  <span class="pill">形态 <b>CLI 优先 + 本地 GUI</b></span>
+  <span class="pill">运行成本 <b>0 元 / 月</b></span>
+</div>
+
+<div class="toc">
+  <div class="h">目录</div>
+  <ol>
+    <li><a href="#s0">项目定义与边界</a></li>
+    <li><a href="#s1">为什么"不用 Whisper"反而是更优解</a></li>
+    <li><a href="#s2">项目清单</a></li>
+    <li><a href="#s3">技术方案与选型</a></li>
+    <li><a href="#s4">数据模型与产物契约</a></li>
+    <li><a href="#s5">里程碑</a></li>
+    <li><a href="#s6">验收标准</a></li>
+    <li><a href="#s7">风险与对策</a></li>
+    <li><a href="#s8">Day 0 启动清单</a></li>
+  </ol>
+</div>
+
+<h2 class="sec" id="s0"><span class="no">00</span>项目定义与边界</h2>
+
+<div class="grid3">
+<div class="mini"><div class="k">一句话</div><div class="v">把"原文 + 音视频"变成"双语字幕文件"的本地流水线</div><div class="d">输入台词文本和音轨，输出带正确时间轴的 ASS/SRT。全程离线。</div></div>
+<div class="mini"><div class="k">核心未知量</div><div class="v">只有"时间"</div><div class="d">内容已知（台本/日文字幕），要解的是每个字符落在音频的哪一秒——这是一个对齐问题，不是识别问题。</div></div>
+<div class="mini"><div class="k">成功标准</div><div class="v">4 个数字</div><div class="d">对齐中位误差 ≤80ms、术语命中 100%、24 分钟单集 ≤90s（GPU）、断网可跑通。</div></div>
+</div>
+
+<h4 class="sub4">明确不做的事（Non-goals）</h4>
+<ul>
+<li><b>不接任何在线服务</b>：不调 OpenAI / DeepL / 百度 / 有道，不发一个字节出去。断网必须是正常状态，不是降级状态。</li>
+<li><b>不走 Whisper 系</b>：不用 whisper、faster-whisper、whisperX、stable-ts、whisper.cpp。也不做"先 ASR 再翻译"这个结构。</li>
+<li><b>不做配音（TTS）</b>：只做文本与时间轴。语音合成是另一个项目，混进来会让范围失控。</li>
+<li><b>不做视频压制</b>：输出字幕文件，封装交给 ffmpeg 一行命令，工具本身不碰编码参数。</li>
+<li><b>不追求"一键全自动无人值守"</b>：目标是<b>把人工从 100% 降到 20%</b>，而不是 0%。全自动的字幕一定需要人看一遍。</li>
+</ul>
+
+<h2 class="sec" id="s1"><span class="no">01</span>为什么"不用 Whisper"反而是更优解</h2>
+<div class="sec-note">大多数人听到"不用 Whisper"的第一反应是"那质量不就差了"。恰恰相反——在你的场景里，Whisper 是那个多余的环节。</div>
+
+<h3 class="sub3">1.1 ASR-first 的四个结构性缺陷</h3>
+<p>主流方案是 <code>音频 → Whisper 识别 → 得到文本和轴 → 翻译 → 输出</code>。这条路在你关心的场景（日语动画、Galgame、广播剧、舞台影像）里有四个绕不过去的问题：</p>
+
+<div class="callout c-red">
+<h4>问题一：错误会级联，一次错三处</h4>
+<p>识别把角色名听错 → 翻译跟着错 → 时间轴也切在错的位置。改一个字要重跑整条链。而<b>文本优先</b>的方案里，内容从一开始就是对的，出错只可能出在"边界偏了几十毫秒"，改起来是拖一下鼠标。</p>
+</div>
+
+<div class="callout c-red">
+<h4>问题二：Whisper 的静音幻觉是结构性的，不是调参能解决的</h4>
+<p>在纯 BGM 段、音效段、长静音段，Whisper 会凭空生成文本——最常见的产物是"ご視聴ありがとうございました"、"字幕由 XX 提供"这类训练数据里的高频尾巴。这是自回归解码在低信息量输入上的必然行为。你只能事后过滤，但过滤规则永远漏。</p>
+</div>
+
+<div class="callout c-red">
+<h4>问题三：专有名词恰恰是 ASR 最弱、翻译最需要的地方</h4>
+<p>人名、招式名、拟声词、方言、造语，这些在通用 ASR 的发音词典里几乎不存在。而术语一致性正是字幕质量的第一道门槛（报告 01 的踩坑清单里，"术语不统一"是出现频率最高的一条）。<b>用最不可靠的环节去决定最需要可靠的部分</b>，这个结构本身就不对。</p>
+</div>
+
+<div class="callout c-red">
+<h4>问题四：重叠语音无法分条</h4>
+<p>多人同时说话时，ASR 只能给出一条混合文本流。但字幕必须按说话人切成多条、分别定位。ASR 的输出形态和字幕的需求形态天生不匹配。</p>
+</div>
+
+<h3 class="sub3">1.2 换个问法，问题规模小一个数量级</h3>
+<div class="tbl"><table>
+<thead><tr><th>维度</th><th>ASR-first（含 Whisper）</th><th>Text-first（本项目）</th></tr></thead>
+<tbody>
+<tr><td>要解的未知量</td><td class="t8">内容 + 时间（两个都未知）</td><td class="t7">只有时间</td></tr>
+<tr><td>错误性质</td><td class="t8">语义级，只能重跑</td><td class="t7">数值级，可局部微调</td></tr>
+<tr><td>专有名词</td><td class="t8">听错就一路错到底</td><td class="t7">原文里就是对的</td></tr>
+<tr><td>术语一致性</td><td class="t8">受识别结果波动影响</td><td class="t7">术语表直接约束</td></tr>
+<tr><td>失败模式</td><td class="t8">整段崩坏</td><td class="t7">单句偏 200ms，标记后手调</td></tr>
+<tr><td>可复现性</td><td class="t8">换模型/换版本结果就变</td><td class="t7">确定性算法，同输入同输出</td></tr>
+<tr><td>CPU 耗时（24min）</td><td class="t8">十几分钟起</td><td class="t7">VAD + 对齐约 2–4 分钟</td></tr>
+</tbody>
+</table></div>
+
+<div class="callout c-green">
+<h4>架构结论</h4>
+<p><b>音频只承担一件事：告诉你"这句话从第几秒说到第几秒"。</b>它不参与"说了什么"的判断。</p>
+<p>于是整条链变成：<code>原文 → 分句 → 对齐到音频 → 翻译 → 排版 → 输出</code>。翻译和对齐是两条独立的、可分别测试的支路，任何一条坏了不会污染另一条。</p>
+</div>
+
+<h3 class="sub3">1.3 四种输入形态，四种处置</h3>
+<p>真实素材不是只有一种。工具必须先判断"手上有什么"，再决定走哪条路——这是整个系统的第一个分叉点。</p>
+
+<div class="tbl"><table>
+<thead><tr><th>档</th><th>手上有什么</th><th>缺什么</th><th>走哪条路</th><th>典型场景</th><th>质量</th></tr></thead>
+<tbody>
+<tr><td><b>L0</b></td><td>带轴的原文（日字 .ass/.srt）</td><td>译文</td><td>直通：继承轴 → 只翻译 → 重新断行</td><td>BD 自带日文字幕、已扒的软字幕</td><td class="t7">最高</td></tr>
+<tr><td><b>L1</b></td><td>无轴原文（台本 / 游戏文本 / 小说）</td><td>轴</td><td>强制对齐：VAD 切段 → 文本-音频 CTC 对齐</td><td>Galgame 文本、DRAMA CD 台本、舞台剧脚本</td><td class="t7">高</td></tr>
+<tr><td><b>L2</b></td><td>只有音频</td><td>文本 + 轴</td><td>VAD 切句 → 按モーラ数比例分配 → 能量包络 snap</td><td>生肉、广播、直播录像</td><td class="t4">可用</td></tr>
+<tr><td><b>L3</b></td><td>有轴但对不上</td><td>正确的时间偏移</td><td>全局重同步（alass / ffsubsync）</td><td>TV 版字幕配 BD 片源、剪辑过的版本</td><td class="t7">高</td></tr>
+</tbody>
+</table></div>
+
+<p class="muted">关键设计：<b>L2 是兜底档，不是主路径</b>。它的产出被明确标注为"草稿"，UI 上默认高亮待审。系统不允许 L2 的结果被误认为成品——这是防止质量悄悄下滑的机制。</p>
+
+<h2 class="sec" id="s2"><span class="no">02</span>项目清单</h2>
+<div class="sec-note">18 个模块，三档优先级。<span class="badge b-p0">P0</span> 缺了就出不了成品，<span class="badge b-p1">P1</span> 决定好不好用，<span class="badge b-p2">P2</span> 是效率优化。</div>
+
+<div class="tbl"><table>
+<thead><tr><th>模块</th><th>内容</th><th>优先级</th><th>工作量</th></tr></thead>
+<tbody>
+<tr><td><b>① 工程骨架</b></td><td>Python 3.11 + uv、Typer CLI、<code>pyproject.toml</code>、日志、配置分层</td><td><span class="badge b-p0">P0</span></td><td>1 天</td></tr>
+<tr><td><b>② 输入解析器</b></td><td>ASS / SRT / VTT / 纯文本台本 / Galgame 文本（含 <code>@</code> 标记）统一成 <code>Line</code></td><td><span class="badge b-p0">P0</span></td><td>2 天</td></tr>
+<tr><td><b>③ 音频前端</b></td><td>ffmpeg 抽轨、重采样 16k 单声道、响度归一、VAD（Silero ONNX）切段</td><td><span class="badge b-p0">P0</span></td><td>1.5 天</td></tr>
+<tr><td><b>④ 分句器</b></td><td>日语按 <code>。</code><code>、</code><code>！</code><code>？</code> 与语气词切；中文按标点 + 最大字数切；保留说话人</td><td><span class="badge b-p0">P0</span></td><td>1.5 天</td></tr>
+<tr><td><b>⑤ L0 直通</b></td><td>继承原轴 → 翻译 → 按译文长度重新断行（不动时间）</td><td><span class="badge b-p0">P0</span></td><td>1 天</td></tr>
+<tr><td><b>⑥ 翻译引擎</b></td><td>GalTransl 接入（术语表 / GPT 字典 / 前后文 / 断句），本地 Sakura GGUF 后端</td><td><span class="badge b-p0">P0</span></td><td>3 天</td></tr>
+<tr><td><b>⑦ 翻译缓存</b></td><td>SQLite，key = 原文 + 前后文 + 术语版本 + 模型 ID 的哈希；重跑不重复推理</td><td><span class="badge b-p0">P0</span></td><td>1 天</td></tr>
+<tr><td><b>⑧ 输出渲染</b></td><td>ASS 头（字体/描边/阴影/边距）、双语双行、CPS 与行长约束、SRT 兼容</td><td><span class="badge b-p0">P0</span></td><td>2 天</td></tr>
+<tr><td><b>⑨ L1 强制对齐</b></td><td>pyopenjtalk 音素化 → CTC 对齐（MMS_FA 或 MFA）→ 每句 [start,end] + 置信度</td><td><span class="badge b-p0">P0</span></td><td>4 天</td></tr>
+<tr><td><b>⑩ L2 比例分配</b></td><td>VAD 段内按モーラ数加权分配 → RMS 包络局部极小值 snap</td><td><span class="badge b-p1">P1</span></td><td>2 天</td></tr>
+<tr><td><b>⑪ L3 重同步</b></td><td>封装 alass / ffsubsync，自动估全局偏移与帧率差</td><td><span class="badge b-p1">P1</span></td><td>1 天</td></tr>
+<tr><td><b>⑫ 置信度与标记</b></td><td>低置信 / 超长 / 未翻译 / 术语冲突 / 重叠，五类 flag 写进产物</td><td><span class="badge b-p1">P1</span></td><td>1 天</td></tr>
+<tr><td><b>⑬ 校对界面</b></td><td>本地 Web UI：波形 + 时间轴 + 双语表格，拖边界、改译文、一键存</td><td><span class="badge b-p1">P1</span></td><td>4 天</td></tr>
+<tr><td><b>⑭ 术语表工具</b></td><td>CSV 导入导出、冲突检测、未命中提示、大小写与全半角归一</td><td><span class="badge b-p1">P1</span></td><td>1.5 天</td></tr>
+<tr><td><b>⑮ 批处理</b></td><td>整季 / 整部作品并发跑，队列 + 断点续跑 + 单集失败不影响全局</td><td><span class="badge b-p1">P1</span></td><td>2 天</td></tr>
+<tr><td><b>⑯ 报告</b></td><td>每集 <code>report.json</code> + 汇总页：置信度分布、待审行数、耗时</td><td><span class="badge b-p2">P2</span></td><td>1 天</td></tr>
+<tr><td><b>⑰ 打包分发</b></td><td>PyInstaller 单文件 / Docker 镜像，模型权重分离下载</td><td><span class="badge b-p2">P2</span></td><td>2 天</td></tr>
+<tr><td><b>⑱ 说话人分离</b></td><td>可选：声纹聚类辅助标注说话人（不影响主链）</td><td><span class="badge b-p2">P2</span></td><td>3 天</td></tr>
+</tbody>
+</table></div>
+
+<p class="muted">P0 合计约 16.5 天，P1 约 11.5 天，P2 约 6 天。按每周 4 个有效工作日排，6 周可交付 P0+P1。</p>
+
+<h2 class="sec" id="s3"><span class="no">03</span>技术方案与选型</h2>
+
+<h3 class="sub3">3.1 总流水线</h3>
+<div class="flow">                ┌──────────────┐
+   输入 ───────▶│ 探测：手上有什么 │
+                └──────┬───────┘
+        ┌──────────────┼───────────────┬──────────────┐
+        ▼              ▼               ▼              ▼
+   [带轴原文]      [无轴原文]       [只有音频]      [轴漂移]
+        │              │               │              │
+        │         VAD 切语音段          │         alass/ffsubsync
+        │              │               │              │
+        │         强制对齐 CTC         │              │
+        │              │          モーラ比例分配       │
+        ▼              ▼               ▼              ▼
+   ┌─────────────────────────────────────────────────────┐
+   │          统一 Line 模型（id / speaker / src / 时间）  │
+   └────────────────────────┬────────────────────────────┘
+                            ▼
+              分句 → 术语表注入 → 本地 LLM 翻译 → 缓存
+                            ▼
+              断行 / CPS 约束 / 双语排版 / ASS 渲染
+                            ▼
+              out/*.zh.ass  out/*.bi.ass  out/*.srt  report.json</div>
+
+<h3 class="sub3">3.2 打轴：三档引擎，各管一段</h3>
+<div class="tbl"><table>
+<thead><tr><th>档</th><th>算法</th><th>依赖</th><th>精度</th><th>许可</th><th>备注</th></tr></thead>
+<tbody>
+<tr><td><b>L1-a</b></td><td>CTC 强制对齐（已知文本在音频上跑 Viterbi）</td><td><code>torchaudio</code> MMS_FA（wav2vec2，1100+ 语言）</td><td>中位 40–80ms</td><td>MIT</td><td class="t7">首选，GPU 上很快</td></tr>
+<tr><td><b>L1-b</b></td><td>HMM-GMM 强制对齐</td><td>Montreal Forced Aligner + <code>japanese_mfa</code> 模型</td><td>中位 50–100ms</td><td>MIT</td><td>CPU 稳、慢，作为对照</td></tr>
+<tr><td><b>L1-c</b></td><td>能量/音素级 DTW</td><td><code>aeneas</code>（espeak-ng 音素化）</td><td>中位 100–200ms</td><td>AGPL-3.0</td><td class="t4">兜底，日语支持一般</td></tr>
+<tr><td><b>L2</b></td><td>VAD 段内按モーラ数比例 + RMS snap</td><td><code>pyopenjtalk</code> + <code>numpy</code></td><td>中位 150–300ms</td><td>BSD-ish</td><td class="t4">草稿级，需人审</td></tr>
+<tr><td><b>L3</b></td><td>语音段长度分布匹配</td><td><code>alass</code>（Rust）</td><td>全局偏移精确</td><td>GPL-3.0</td><td>只动时间，最安全</td></tr>
+<tr><td><b>L3</b></td><td>VAD + FFT 互相关</td><td><code>ffsubsync</code></td><td>能同时估偏移与帧率差</td><td>MIT</td><td class="t7">首选重同步</td></tr>
+</tbody>
+</table></div>
+
+<div class="callout c-blue">
+<h4>为什么 L1 要加 VAD 硬约束</h4>
+<p>纯 CTC 对齐有一个典型故障：某一句的结尾被拉到很远的地方，导致后面整段错位（"雪崩"）。原因是模型在长静音上给出了弥散的发射概率。</p>
+<p>解法是把 VAD 结果当成<b>不可跨越的边界</b>：每句话只能落在它所属的那个语音段内部。这一步把"全局崩坏"降级为"单句偏移"，是整个打轴模块最重要的工程细节。</p>
+</div>
+
+<h4 class="sub4">L2 的比例分配，具体怎么算</h4>
+<p>日语是モーラ等时性语言，一个モーラ的时长相对稳定。所以段内按モーラ数加权，天然比按字符数准得多——这是它能在"只有音频"时还勉强可用的原因。</p>
+<pre><code>import pyopenjtalk
+
+def mora_count(text: str) -&gt; int:
+    # 去掉标点与空白，只数假名/モーラ
+    phones = pyopenjtalk.g2p(text, kana=True)
+    return sum(1 for c in phones if c not in "、。！？!? 　")
+
+def allocate(lines, seg_start, seg_end):
+    total = sum(mora_count(l.src) for l in lines) or 1
+    span, t = seg_end - seg_start, seg_start
+    for l in lines:
+        d = span * mora_count(l.src) / total
+        l.start, l.end = t, t + d
+        t += d</code></pre>
+
+<p>然后做边界吸附：真实的换句点通常落在能量低谷，而不是数学计算出来的位置。</p>
+<pre><code>def snap(t, rms, sr=100, win=0.15):
+    lo, hi = int((t - win) * sr), int((t + win) * sr)
+    lo, hi = max(lo, 0), min(hi, len(rms) - 1)
+    return min(range(lo, hi), key=lambda k: rms[k]) / sr</code></pre>
+
+<p class="muted">两个函数加起来不到 20 行，但它们决定了 L2 档是"能用"还是"不能用"。这类算法不需要模型，需要的是对语言节奏的理解。</p>
+
+<h3 class="sub3">3.3 翻译：模型不是关键，术语表才是</h3>
+<p>先摆一个反直觉的事实：在 Galgame / 动画字幕这个领域，<b>把 14B 换成 7B 的质量损失，远小于"没有术语表"带来的损失</b>。角色名前后不一致、同一招式三种译法，读者会立刻出戏；而模型小一点只是文风稍平。</p>
+
+<div class="tbl"><table>
+<thead><tr><th>方案</th><th>显存</th><th>日语→中文</th><th>速度</th><th>许可</th><th>定位</th></tr></thead>
+<tbody>
+<tr><td><b>Sakura 14B GGUF (iq4_xs)</b></td><td>~9 GB</td><td class="t7">同尺寸最优，专为日译中微调</td><td>20–40 tok/s</td><td>见模型卡</td><td>主力</td></tr>
+<tr><td><b>Sakura 7B GGUF</b></td><td>~5 GB</td><td>良好</td><td>更快</td><td>见模型卡</td><td>低配机 / 批处理</td></tr>
+<tr><td><b>Opus-MT / Argos（CPU）</b></td><td>0</td><td class="t4">一般，短句尚可</td><td>很快</td><td>MIT / CC-BY</td><td>无独显兜底</td></tr>
+<tr><td><b>TM + 术语表 + 规则</b></td><td>0</td><td class="t7">完全可控</td><td>极快</td><td>自有</td><td>UI 文本 / 重复台词</td></tr>
+</tbody>
+</table></div>
+
+<h4 class="sub4">四层兜底，保证"没有模型也能出活"</h4>
+<ol>
+<li><b>TM 命中</b>：完全相同的原文（Galgame 里 UI 文本、系统提示、口头禅重复率极高）直接复用旧译，零推理。</li>
+<li><b>术语表替换</b>：专有名词先占位成 <code>{T1}</code> 之类的 token 再送模型，译完还原。彻底杜绝"模型自己发挥"。</li>
+<li><b>本地模型</b>：剩下的句子走 Sakura。</li>
+<li><b>原文回填</b>：模型超时、输出异常（长度比例 &lt;0.2 或 &gt;3.0、含未翻译假名）时保留原文并打 <code>untranslated</code> 标记，绝不静默输出垃圾。</li>
+</ol>
+
+<h3 class="sub3">3.4 许可证：一条容易被忽略的分发边界</h3>
+<div class="tbl"><table>
+<thead><tr><th>组件</th><th>许可</th><th>能否直接 import</th><th>处理方式</th></tr></thead>
+<tbody>
+<tr><td>GalTransl</td><td class="t8">GPL-3.0</td><td class="t8">会把你的程序也变成 GPL</td><td>subprocess 调用其 CLI，进程隔离</td></tr>
+<tr><td>alass</td><td class="t8">GPL-3.0</td><td class="t8">同上</td><td>调用二进制，不链接</td></tr>
+<tr><td>aeneas</td><td class="t8">AGPL-3.0</td><td class="t8">最严格，网络服务也触发</td><td>仅作可选后端，默认不启用</td></tr>
+<tr><td>MFA</td><td class="t7">MIT</td><td class="t7">可以</td><td>直接依赖</td></tr>
+<tr><td>ffsubsync</td><td class="t7">MIT</td><td class="t7">可以</td><td>直接依赖</td></tr>
+<tr><td>Silero VAD</td><td class="t7">MIT</td><td class="t7">可以</td><td>ONNX 推理</td></tr>
+</tbody>
+</table></div>
+<p>如果你的工具只是自己用，许可证无所谓。但如果打算<b>发到 GitHub 给别人用、或者做成收费产品</b>，就必须现在决定：主程序只用 MIT 系组件，GPL 组件一律走"外部可执行文件"这条路。这个决定在 Day 0 做，成本是零；做到第 5 周再改，成本是重写。</p>
+
+<h2 class="sec" id="s4"><span class="no">04</span>数据模型与产物契约</h2>
+
+<h3 class="sub3">4.1 唯一的中间表示</h3>
+<p>整个系统只有一种核心数据结构。<b>所有解析器都产出它，所有渲染器都消费它</b>，任何模块都不允许绕过它直接读写字幕文件。</p>
+<pre><code>@dataclass
+class Line:
+    id: str              # 稳定 ID：ep03-0042，重跑不变，人工修改靠它对位
+    speaker: str | None  # 说话人，可为空
+    src: str             # 原文（日语）
+    dst: str             # 译文（中文），未翻译时等于 src
+    start: float         # 秒
+    end: float           # 秒
+    mora: int            # モーラ数，L2 分配用
+    conf: float          # 对齐置信度 0–1
+    flags: list[str]     # overlong / untranslated / term_conflict / overlap / low_conf</code></pre>
+
+<div class="callout c-gold">
+<h4><code>id</code> 为什么必须稳定</h4>
+<p>人工校对会产生修改（改了译文、拖了边界）。如果重跑一次 ID 就变，所有人工修改都会丢。</p>
+<p>规则：<code>id = 集号-行号</code>，行号在解析阶段确定，之后<b>永不重排</b>。人工修改存在独立的 <code>edits.jsonl</code> 里，按 id 覆盖流水线输出。这样"重跑"和"人工修改"可以共存，而不是互相覆盖。</p>
+</div>
+
+<h3 class="sub3">4.2 目录即契约</h3>
+<pre><code>work/&lt;project&gt;/
+  source/            原始输入，只读，永不修改
+  audio/16k.wav      统一采样率单声道
+  vad/segments.json  语音段列表
+  script/lines.jsonl 核心中间表示
+  align/words.json   字/音素级时间戳
+  tm/cache.sqlite    翻译缓存
+  edits.jsonl        人工修改（append-only）
+  out/
+    ep01.zh.ass      纯中文字幕
+    ep01.bi.ass      中日双语
+    ep01.srt         兼容格式
+  report.json        每集统计</code></pre>
+
+<p>这个结构的设计意图是：<b>任何一步都可以单独重跑，且不污染上下游</b>。改翻译只删 <code>out/</code>；改对齐只删 <code>align/</code> 和 <code>out/</code>；<code>source/</code> 永远不动，所以任何灾难都能回到原点。</p>
+
+<h3 class="sub3">4.3 幂等：重跑必须给出同一个结果</h3>
+<pre><code>cache_key = sha256(
+    src + " " +
+    prev_src + " " + next_src + " " +   # 前后文，保证语境一致
+    glossary_version + " " +                # 术语表改了就失效
+    model_id + " " + temperature
+)</code></pre>
+<p>把前后文和术语版本纳入 key，是一个容易被省略但很重要的细节：只按原文做缓存，会导致"改了术语表但旧译还在"的诡异 bug，而且极难排查。</p>
+
+<h2 class="sec" id="s5"><span class="no">05</span>里程碑</h2>
+<div class="sec-note">每个阶段结束都必须有一个"能看的产物"，不允许出现"写了三周还跑不出东西"的阶段。</div>
+
+<div class="tbl"><table>
+<thead><tr><th>阶段</th><th>周</th><th>交付</th><th>可验证的结果</th></tr></thead>
+<tbody>
+<tr><td><b>M1 骨架跑通</b></td><td>第 1 周</td><td>CLI + 三种解析器 + Line 模型 + L0 直通 + SRT 输出</td><td>丢一个带轴日字进去，输出一份中文 SRT（时间轴完全没动）</td></tr>
+<tr><td><b>M2 打轴引擎</b></td><td>第 2–3 周</td><td>音频前端 + VAD + L1 对齐 + L2 分配 + L3 重同步</td><td>台本 + 音轨 → 一份带轴的字幕，中位误差可测</td></tr>
+<tr><td><b>M3 翻译引擎</b></td><td>第 3–4 周</td><td>GalTransl 接入 + 本地 Sakura + 缓存 + 术语表</td><td>同一批素材，术语 100% 一致，重跑耗时降到 1/5</td></tr>
+<tr><td><b>M4 排版与校对</b></td><td>第 5 周</td><td>ASS 渲染 + 断行/CPS + 双语 + 本地校对 UI</td><td>产出可直接播放的 ASS；人工改一句不超过 5 秒</td></tr>
+<tr><td><b>M5 硬化</b></td><td>第 6 周</td><td>批处理 + 报告 + 断点续跑 + 打包</td><td>整季 12 集无人值守跑完，失败集自动跳过并记录</td></tr>
+</tbody>
+</table></div>
+
+<h2 class="sec" id="s6"><span class="no">06</span>验收标准</h2>
+<div class="sec-note">"感觉还行"不是标准。下面每一条都能用脚本测出来。</div>
+
+<div class="tbl"><table>
+<thead><tr><th>指标</th><th>目标</th><th>怎么测</th></tr></thead>
+<tbody>
+<tr><td>L1 对齐中位误差</td><td class="t7">≤ 80 ms</td><td>抽 50 句手工标真值，算 |预测 − 真值| 的中位数</td></tr>
+<tr><td>L1 严重错位率</td><td class="t7">≤ 2%</td><td>误差 &gt; 500ms 的句子占比</td></tr>
+<tr><td>L2 免手改率</td><td class="t4">≥ 70%</td><td>盲测：10 段各 20 句，统计"不需要拖动"的比例</td></tr>
+<tr><td>L3 重同步成功率</td><td class="t7">≥ 90%</td><td>人为给字幕加 ±3s / ±5s 偏移，看能否复原</td></tr>
+<tr><td>术语命中率</td><td class="t7">100%</td><td>术语表内每个词，在译文中必须出现且唯一</td></tr>
+<tr><td>单集耗时（GPU）</td><td class="t7">≤ 90 s</td><td>24 分钟片源，RTX 3060 级别</td></tr>
+<tr><td>单集耗时（CPU）</td><td class="t4">≤ 8 min</td><td>同上，仅 VAD + L1-b，不跑翻译</td></tr>
+<tr><td>幂等性</td><td class="t7">hash 一致</td><td>同一输入连跑两次，<code>out/</code> 下文件逐字节相同</td></tr>
+<tr><td>离线可用</td><td class="t7">断网跑通</td><td>拔网线，全流程无异常，无超时重试</td></tr>
+<tr><td>行长合规</td><td class="t7">100%</td><td>中文 ≤16 字/行、≤2 行、CPS ≤9</td></tr>
+</tbody>
+</table></div>
+
+<h2 class="sec" id="s7"><span class="no">07</span>风险与对策</h2>
+
+<div class="tbl"><table>
+<thead><tr><th>风险</th><th>触发条件</th><th>影响</th><th>对策</th></tr></thead>
+<tbody>
+<tr><td><b>显存不足</b></td><td>8GB 卡跑 14B</td><td class="t8">直接 OOM</td><td>量化档位表（iq4_xs / q4_k_m / q5_k_m）+ 启动时探测显存自动选档 + CPU 兜底</td></tr>
+<tr><td><b>对齐雪崩</b></td><td>长静音、纯 BGM 段</td><td class="t8">整段错位</td><td>VAD 硬约束分段；置信度低于阈值自动降级到 L2 并标 <code>low_conf</code></td></tr>
+<tr><td><b>重叠语音</b></td><td>多人抢话、合唱</td><td class="t4">该句轴不准</td><td>检测段内能量双峰 → 标记 <code>overlap</code>，交给人工，不强行猜</td></tr>
+<tr><td><b>模型幻觉</b></td><td>本地 LLM 也会编</td><td class="t4">译文与原意无关</td><td>长度比检测（0.2–3.0）+ 残留假名检测 + 回填原文 + 打标</td></tr>
+<tr><td><b>GPL 传染</b></td><td>直接 import GalTransl</td><td class="t8">被迫开源</td><td>subprocess 隔离；主程序只依赖 MIT 组件</td></tr>
+<tr><td><b>断行难看</b></td><td>中文比日语短</td><td class="t4">阅读节奏乱</td><td>按译文长度重排而非按原轴切；保留最小显示时长 1.2s；CPS 上限硬卡</td></tr>
+<tr><td><b>编码问题</b></td><td>Windows + 日文文件名</td><td class="t8">乱码 / 解析失败</td><td>全流程 UTF-8，写入不带 BOM，统一 LF；文件名走 NFC 归一</td></tr>
+<tr><td><b>素材版权</b></td><td>分发成品字幕</td><td class="t8">法律风险</td><td>工具本身不带素材；文档明确"仅供个人学习"，不内置任何片源</td></tr>
+</tbody>
+</table></div>
+
+<h2 class="sec" id="s8"><span class="no">08</span>Day 0 启动清单</h2>
+<div class="sec-note">第一天的目标不是写代码，是把"不确定性"清零。</div>
+
+<h3 class="sub3">环境（半天）</h3>
+<ul>
+<li>Python 3.11 + <code>uv</code>（不要用 3.13，torch 生态还没跟上）</li>
+<li>ffmpeg 静态包，加进 PATH，<code>ffmpeg -version</code> 能跑</li>
+<li>llama.cpp 或 Ollama，先跑通一个 7B 的 GGUF，确认推理链路</li>
+<li><code>pip install torch torchaudio pyopenjtalk numpy soundfile</code>，跑通一次 MMS_FA 对齐</li>
+</ul>
+
+<h3 class="sub3">读代码（一天，只读不写）</h3>
+<div class="tbl"><table>
+<thead><tr><th>项目</th><th>读什么</th><th>为什么</th></tr></thead>
+<tbody>
+<tr><td><b>GalTransl</b> ★2353</td><td>术语表实现、GPT 字典、缓存文件格式、断句逻辑</td><td>这四块是翻译质量的全部，自己从零设计会走一样的弯路</td></tr>
+<tr><td><b>ffsubsync</b> ★7.9k</td><td>VAD 抽取 + FFT 互相关的具体参数</td><td>重同步的工业级实现，直接抄参数比自己调快十倍</td></tr>
+<tr><td><b>MFA</b> ★1.9k</td><td>日语模型的音素集与词典格式</td><td>决定 L1 的输入怎么准备</td></tr>
+<tr><td><b>HDEG</b>（报告 03 提到）</td><td>台本锚定 ASR 纠错的思路</td><td>它的核心洞察和本项目一致：用已知文本约束对齐</td></tr>
+</tbody>
+</table></div>
+
+<h3 class="sub3">素材（半天，必须真的准备）</h3>
+<ul>
+<li><b>L0 组</b>：一段带日文字幕的 5 分钟片段（验证直通）</li>
+<li><b>L1 组</b>：一段有台本、无字幕的 5 分钟音频（验证强制对齐）</li>
+<li><b>L2 组</b>：一段只有音频的 3 分钟片段（验证比例分配）</li>
+<li><b>L3 组</b>：把 L0 的字幕人为偏移 +4.7s（验证重同步）</li>
+<li><b>金标集</b>：20 个术语（人名/地名/招式）+ 50 句手工标轴的真值</li>
+</ul>
+<p class="muted">没有金标集就没有验收标准，没有验收标准就会在"感觉差不多了"里无限打磨。这半天的投入回报率最高。</p>
+
+<h3 class="sub3">两个必须先写下来的决定（一小时）</h3>
+<div class="grid2">
+<div class="card"><h3>ADR-001：文本优先，不做 ASR</h3><p class="muted" style="margin:0">记录第 1 节的推理。将来任何人（包括三个月后的你）想"顺手加个 Whisper 兜底"时，先读这一页。约束一旦松动，架构就会退回 ASR-first。</p></div>
+<div class="card"><h3>ADR-002：GPL 组件进程隔离</h3><p class="muted" style="margin:0">记录 3.4 的结论。决定"这个工具是自用还是要发出去"，并据此定依赖策略。这个决定越晚做越贵。</p></div>
+</div>
+
+<div class="callout c-blue">
+<h4>最后一句</h4>
+<p>这个项目的技术难点不在模型，在<b>对"什么该由机器决定、什么该由人决定"的划分</b>。把时间轴交给算法、把内容交给原文、把判断留给校对界面——分工清楚，六周就能出东西；分工不清楚，六个月还在调参。</p>
+</div>
+
+<footer>项目规划书 · 05 &nbsp;|&nbsp; 翻译与打轴自动化工具 &nbsp;|&nbsp; 约束：零云 API · 零 Whisper &nbsp;|&nbsp; 与 01–04 同一系列</footer>
+</div>
+</body>
+</html>

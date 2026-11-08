@@ -1,0 +1,659 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>周报 v2：27 期样本、图文配比与封面工程</title>
+<style>
+  :root {
+    --ink: #111;
+    --ink-2: #555;
+    --ink-3: #888;
+    --line: #e3e3e3;
+    --line-2: #cfcfcf;
+    --bg: #fff;
+    --bg-2: #fafafa;
+    --radius: 6px;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    padding: 0 20px 96px;
+    background: var(--bg);
+    color: var(--ink);
+    font: 15px/1.75 -apple-system, BlinkMacSystemFont, "Segoe UI", "Hiragino Sans",
+      "Noto Sans CJK SC", "Microsoft YaHei", sans-serif;
+  }
+  .wrap { max-width: 1080px; margin: 0 auto; }
+  header.top { padding: 56px 0 28px; border-bottom: 1px solid var(--line); }
+  h1 { font-size: 26px; line-height: 1.4; margin: 0 0 10px; letter-spacing: -0.01em; }
+  .sub { color: var(--ink-2); margin: 0; }
+  .meta { margin-top: 14px; color: var(--ink-3); font-size: 13px; }
+  h2 {
+    font-size: 19px; margin: 48px 0 14px; padding-bottom: 8px;
+    border-bottom: 1px solid var(--line); letter-spacing: -0.01em;
+  }
+  h3 { font-size: 15px; margin: 26px 0 8px; }
+  h4 { font-size: 14px; margin: 20px 0 6px; color: var(--ink-2); }
+  p { margin: 0 0 12px; }
+  ul, ol { margin: 0 0 14px; padding-left: 22px; }
+  li { margin: 4px 0; }
+  code {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: 0.9em; background: var(--bg-2);
+    border: 1px solid var(--line); border-radius: 4px; padding: 1px 5px;
+  }
+  a { color: var(--ink); text-decoration-color: var(--line-2); }
+  a:hover { text-decoration-color: var(--ink); }
+  .note {
+    background: var(--bg-2); border: 1px solid var(--line);
+    border-radius: var(--radius); padding: 14px 18px; margin: 18px 0;
+  }
+  .note strong { font-weight: 600; }
+  .warn { border-left: 3px solid var(--ink); }
+  .scroll { overflow-x: auto; margin: 16px 0; border: 1px solid var(--line); border-radius: var(--radius); }
+  table { border-collapse: collapse; width: 100%; font-size: 13.5px; }
+  th, td { padding: 7px 10px; text-align: left; border-bottom: 1px solid var(--line); white-space: nowrap; vertical-align: top; }
+  td.wrap, th.wrap { white-space: normal; min-width: 200px; }
+  thead th {
+    position: sticky; top: 0; background: var(--bg);
+    font-weight: 600; font-size: 12.5px; color: var(--ink-2);
+    border-bottom: 1px solid var(--line-2); z-index: 1;
+  }
+  tbody tr:last-child td { border-bottom: 0; }
+  td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+  td.name { font-weight: 600; }
+  .tag {
+    display: inline-block; font-size: 11px; line-height: 1.6; padding: 0 6px;
+    border: 1px solid var(--line-2); border-radius: 4px; color: var(--ink-2);
+    white-space: nowrap;
+  }
+  .tag.ok { border-color: var(--ink); color: var(--ink); }
+  .tag.bad { border-color: var(--ink-3); color: var(--ink-3); text-decoration: line-through; }
+  .kpi {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1px; background: var(--line); border: 1px solid var(--line);
+    border-radius: var(--radius); overflow: hidden; margin: 26px 0 8px;
+  }
+  .kpi > div { background: var(--bg); padding: 16px 18px; }
+  .kpi b { display: block; font-size: 24px; font-weight: 600; line-height: 1.3; font-variant-numeric: tabular-nums; }
+  .kpi span { display: block; color: var(--ink-3); font-size: 12.5px; margin-top: 2px; }
+  .dim { color: var(--ink-3); }
+  pre {
+    margin: 14px 0; padding: 14px 16px; background: var(--bg-2);
+    border: 1px solid var(--line); border-radius: var(--radius);
+    overflow-x: auto; font-size: 12.5px; line-height: 1.7;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  }
+  pre code { background: none; border: 0; padding: 0; }
+  .wire {
+    border: 1px solid var(--line-2); border-radius: var(--radius);
+    padding: 0; margin: 16px 0; display: grid; grid-template-columns: 1fr 1fr;
+    overflow: hidden; min-height: 260px;
+  }
+  .wire > div { padding: 18px 20px; }
+  .wire .l { background: var(--bg-2); border-right: 1px solid var(--line-2); }
+  .wire h5 { margin: 0 0 10px; font-size: 12px; letter-spacing: 0.08em; color: var(--ink-3); font-weight: 600; }
+  .wire p { font-size: 13px; margin: 0 0 8px; }
+  footer {
+    margin-top: 56px; padding-top: 20px; border-top: 1px solid var(--line);
+    color: var(--ink-3); font-size: 12.5px;
+  }
+  @media (max-width: 720px) {
+    body { padding: 0 14px 64px; font-size: 14px; }
+    h1 { font-size: 21px; }
+    th, td { padding: 6px 8px; }
+    .wire { grid-template-columns: 1fr; }
+    .wire .l { border-right: 0; border-bottom: 1px solid var(--line-2); }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="top">
+  <h1>周报 v2：27 期样本、图文配比与封面工程</h1>
+  <p class="sub">
+    把同一作者的 27 期《Gal 周报》逐节点拆开，修正上一版「周报没有图」的判断，
+    把内容方案、工作量与工作流细化到「图怎么来、封面怎么排」这一层。
+  </p>
+  <p class="meta">
+    样本：Hikarinagi「Galgame周报」栏目 27 期，<code>id 30 → 323</code>，2025-06-22 → 2026-11-01。
+    数据经站点 API <code>/api/v3/articles/{id}</code> 的 <code>content_json</code> 逐节点解析（非正文纯文本）。<br>
+    基线：本站日报管线 <code>scripts/daily/</code>（4,668 行）、长图渲染 <code>scripts/daily-image/render.mjs</code>、
+    OG 生成 <code>scripts/make_og.mjs</code>，以及 <code>data/xreader/</code> 全量抓取（9,247 条）。<br>
+    写于 2026-11-04，取代 11-03 版（<code>weekly-report-plan-2026-11.html</code>）。
+  </p>
+</header>
+
+<div class="kpi">
+  <div><b>27 期</b><span>样本跨度 19 个月</span></div>
+  <div><b>1,182 张</b><span>原文配图总数，平均 43.8 张/期</span></div>
+  <div><b>0 条</b><span>图注。全部靠位置表达归属</span></div>
+  <div><b>1.72</b><span>图/条，七成条目正好两张</span></div>
+  <div><b>2.35:1</b><span>封面恒定比例（2048×871）</span></div>
+  <div><b>0.3%</b><span>X 抓取里带图的条目占比</span></div>
+</div>
+
+<h2>0. 这一版改了什么</h2>
+
+<p>上一版只读了正文纯文本，得出「原文无配图、无脚注、无来源链接」。抓了 27 期原始节点后，前两条要改，第三条成立：</p>
+
+<ol>
+  <li><strong>原文图很多，而且图是正文的一半工作量。</strong>近 15 期 374 条配 645 张图，1.72 张/条；一张图注都没有。周报的成本重心不在写字，在<strong>找图、选图、排图</strong>。</li>
+  <li><strong>有「总结性图片」，但它不是信息图。</strong>每月第一周那期会有一条「X 月新作本周发售」，配一张当月新作的拼版图，尺寸每次都不一样（1192×1548 到 2436×1838 都有），无文字、无标注、无图例。原站从不做图表。</li>
+  <li><strong>无来源链接，但每期都有封面。</strong>封面是独立字段（2048×871），不进正文；同时被站点用来自动生成 1200×630 的分享卡（<code>og.hikarinagi.org/og/article/{id}</code>），卡上有标题两行截断、<code>VOL.267</code>、作者、日期区间、logo。</li>
+</ol>
+
+<div class="note warn">
+  <strong>一句话结论：</strong>照抄正文结构只要 1 天，凑齐一期 43 张图要一整套新管线。
+  周报能不能跑起来，取决于「图片从哪来」这一件事，而不是取决于「文章怎么写」。
+</div>
+
+<h2>1. 样本与方法</h2>
+
+<p>站点是 Nuxt 单页应用，直接抓 HTML 拿不到正文（前端渲染，且对无头浏览器有挑战页）。
+但列表页与详情页都走 <code>/api/v3/articles</code>，返回的是编辑器节点树
+（<code>heading</code> / <code>paragraph</code> / <code>image_block</code>），带 <code>width</code>、<code>height</code>、<code>caption</code>。
+这比抓正文文本可靠得多，也是这次能拿到图片数据的唯一原因。</p>
+
+<p>取最近 27 期，逐期统计条数、图数、字数与图文位置。近 15 期（2026-06 之后，结构已稳定）数据如下：</p>
+
+<div class="scroll">
+<table>
+<thead>
+<tr><th>期号</th><th>发布</th><th class="num">条数</th><th class="num">图数</th><th class="num">字数</th><th class="num">字/条</th><th class="num">图/条</th><th class="wrap">三栏分布（新作 / 汉化 / 周边）</th></tr>
+</thead>
+<tbody>
+<tr><td class="name">267</td><td>11-01</td><td class="num">22</td><td class="num">39</td><td class="num">5,784</td><td class="num">263</td><td class="num">1.77</td><td class="wrap">9 / 1 / 12</td></tr>
+<tr><td class="name">266</td><td>10-25</td><td class="num">22</td><td class="num">41</td><td class="num">5,672</td><td class="num">258</td><td class="num">1.86</td><td class="wrap">10 / 4 / 8</td></tr>
+<tr><td class="name">265</td><td>10-18</td><td class="num">15</td><td class="num">27</td><td class="num">3,230</td><td class="num">215</td><td class="num">1.80</td><td class="wrap">8 / 2 / 5</td></tr>
+<tr><td class="name">264</td><td>10-11</td><td class="num">22</td><td class="num">38</td><td class="num">4,487</td><td class="num">204</td><td class="num">1.73</td><td class="wrap">11 / 3 / 8</td></tr>
+<tr><td class="name">263</td><td>10-04</td><td class="num">30</td><td class="num">54</td><td class="num">6,799</td><td class="num">227</td><td class="num">1.80</td><td class="wrap">8 / 3 / 19</td></tr>
+<tr><td class="name">262</td><td>09-27</td><td class="num">14</td><td class="num">25</td><td class="num">2,670</td><td class="num">191</td><td class="num">1.79</td><td class="wrap">6 / 4 / 4</td></tr>
+<tr><td class="name">260</td><td>09-13</td><td class="num">23</td><td class="num">46</td><td class="num">5,224</td><td class="num">227</td><td class="num">2.00</td><td class="wrap">10 / 3 / 10</td></tr>
+<tr><td class="name">259</td><td>09-06</td><td class="num">28</td><td class="num">50</td><td class="num">6,005</td><td class="num">214</td><td class="num">1.79</td><td class="wrap">9 / 3 / 16</td></tr>
+<tr><td class="name">258</td><td>08-30</td><td class="num">29</td><td class="num">33</td><td class="num">5,822</td><td class="num">201</td><td class="num">1.14</td><td class="wrap">14 / 4 / 11</td></tr>
+<tr><td class="name">257</td><td>08-23</td><td class="num">23</td><td class="num">38</td><td class="num">5,054</td><td class="num">220</td><td class="num">1.65</td><td class="wrap">11 / 1 / 11</td></tr>
+<tr><td class="name">256</td><td>08-16</td><td class="num">21</td><td class="num">37</td><td class="num">4,379</td><td class="num">209</td><td class="num">1.76</td><td class="wrap">14 / — / 7</td></tr>
+<tr><td class="name">255</td><td>08-09</td><td class="num">22</td><td class="num">42</td><td class="num">4,395</td><td class="num">200</td><td class="num">1.91</td><td class="wrap">10 / — / 12</td></tr>
+<tr><td class="name">254</td><td>08-02</td><td class="num">48</td><td class="num">69</td><td class="num">9,858</td><td class="num">205</td><td class="num">1.44</td><td class="wrap">16 / 5 / 27</td></tr>
+<tr><td class="name">252</td><td>07-19</td><td class="num">20</td><td class="num">37</td><td class="num">4,099</td><td class="num">205</td><td class="num">1.85</td><td class="wrap">8 / 4 / 8</td></tr>
+<tr><td class="name">249</td><td>06-28</td><td class="num">35</td><td class="num">69</td><td class="num">7,832</td><td class="num">224</td><td class="num">1.97</td><td class="wrap">13 / 4 / 18</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>中位 22 条、41 张图（均值 43 张、5,205 字）；极端值是 254 期（48 条、69 张，等于两周一并），
+最小是 262 期（14 条、25 张）。<strong>期与期的浮动有 3.4 倍</strong>，说明原站不追求固定篇幅，
+而是「本周有多少写多少」。这一点对我们的排期影响很大：自动化必须允许「短周」。</p>
+
+<h3>1.1 一个必须避开的结构陷阱</h3>
+
+<p>2025-06 到 2026-05 那批（<code>id 30 / 112 / 122 / 131 / 145 / 154 / 162 / 168</code>）把每条小标题也写成了 <code>h2</code>，
+和「新作资讯 / 汉化情报 / 周边信息」同级。结果栏目和条目在 DOM 里平铺，机器分不清哪个是栏、哪个是条。
+2026-06 之后统一成 <code>h2</code> 栏目 + <code>h3</code> 条目，才稳定下来。</p>
+
+<div class="note">
+  <strong>对我们的意义：</strong>我们自己的周报 schema 必须把「栏」和「条」分成两个字段，
+  而不是靠标题层级推断。日报已经吃过这个亏（<code>works</code> 是数组、一条一个作品），周报同理：
+  <code>sections[]</code> 里嵌 <code>items[]</code>，每项带 <code>action</code>、<code>works[]</code>、<code>images[]</code>、<code>sources[]</code>。
+</div>
+
+<h2>2. 结构：三条栏，二十五条</h2>
+
+<div class="scroll">
+<table>
+<thead>
+<tr><th>栏目</th><th class="num">条/期</th><th class="num">图/期</th><th class="num">字/条</th><th class="num">图/条</th><th class="wrap">缺席情况</th></tr>
+</thead>
+<tbody>
+<tr><td class="name">新作资讯</td><td class="num">10.5</td><td class="num">18.2</td><td class="num">176</td><td class="num">1.74</td><td class="wrap">从不缺席；每月首周多一条「X 月新作本周发售」</td></tr>
+<tr><td class="name">汉化情报</td><td class="num">2.7</td><td class="num">5.3</td><td class="num">203</td><td class="num">1.93</td><td class="wrap">15 期里有 2 期整栏不出现</td></tr>
+<tr><td class="name">周边信息</td><td class="num">11.7</td><td class="num">19.5</td><td class="num">183</td><td class="num">1.66</td><td class="wrap">从不缺席，但条数在 4–27 之间摆</td></tr>
+<tr><td class="name">合计</td><td class="num">24.9</td><td class="num">43.0</td><td class="num">181</td><td class="num">1.72</td><td class="wrap">全期约 5,000 字</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>三条栏的顺序在 27 期里一次都没变过，但栏目本身可以空——这是原站的一个好设计：
+<strong>没有汉化新闻的那周，直接不出现「汉化情报」标题</strong>，而不是留一个空栏写「本周无」。
+我们的渲染层应该照做（日报的「空则整节不渲染」已经是这个规矩）。</p>
+
+<h3>2.1 月度条目：唯一带「总结图」的地方</h3>
+
+<p>27 期里出现 10 次（基本一月一次），固定形态是：一张拼版图 + 一句概述 + 每部作品一行的清单。</p>
+
+<pre><code>H3 十月新作本周发售
+image_block  2048×1624（当月新作封面拼版，无文字、无图注）
+P  十月新作已于本周发售，一共有九部作品，其中 PC 平台有八部作品，主机平台有一部作品……
+P  《さくらぶトライアングル》（PC）あざらしそふと+1
+P  《FORTUNE×WORLD ～僕らがゲームを作る理由～》（PC）GLOVETY
+…（共 9 行）</code></pre>
+
+<p>十次里清单长度是 3–10 部，拼版图尺寸从 1192×1548（竖）到 2436×1838（近方）都有，
+<strong>完全没有标准化</strong>。这说明那张图是编辑现拼的，不是模板生成的。</p>
+
+<div class="note warn">
+  <strong>这是唯一值得「做得比原站好」的地方。</strong>原站的拼版图只解决了「一眼看到有哪些新作」，
+  不解决「哪部是哪部」。我们有 VNDB 的封面 + 中文名 + 厂牌，可以做成带编号和厂牌的对照图，
+  读者不需要再去搜。这也是我们唯一有结构性优势的图。
+</div>
+
+<h2>3. 一条的解剖</h2>
+
+<h3>3.1 图文位置：图在两头，字在中间</h3>
+
+<p>把每条拆成 <code>I</code>（图）和 <code>P</code>（段）的序列，27 期 652 条里最常见的四种形态：</p>
+
+<div class="scroll">
+<table>
+<thead><tr><th class="wrap">序列</th><th class="num">条数</th><th class="num">占比</th><th class="wrap">读法</th></tr></thead>
+<tbody>
+<tr><td class="name">I P I P</td><td class="num">245</td><td class="num">38%</td><td class="wrap">头图 → 事件段 → 尾图 → 背景段（图跟着哪段走并不固定）</td></tr>
+<tr><td class="name">I P P I P</td><td class="num">102</td><td class="num">16%</td><td class="wrap">头图 → 事件 → 背景 → 尾图 → 价格/日期</td></tr>
+<tr><td class="name">I P P</td><td class="num">77</td><td class="num">12%</td><td class="wrap">头图 + 两段，最省</td></tr>
+<tr><td class="name">I P I P P</td><td class="num">42</td><td class="num">6%</td><td class="wrap">信息量大时再加一段</td></tr>
+<tr><td class="name">I P P P</td><td class="num">36</td><td class="num">6%</td><td class="wrap">三段的纯文字条目（多见于汉化栏）</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>八成以上条目<strong>以图开头</strong>，且头图紧贴小标题、不与正文同段。这个位置关系很关键：
+它意味着「图 = 这条新闻的视觉锚点」，读者扫标题 + 头图就能决定读不读。</p>
+
+<p>每条的图数分布（近 15 期 374 条）：<strong>1 张 108 条、2 张 259 条、3 张 5 条、4 张 1 条</strong>。
+两张是绝对主流，且第二张几乎总在最后一个段落之后，起「收尾」作用。</p>
+
+<h3>3.2 文字：两段式，第一句几乎固定</h3>
+
+<ul>
+  <li>段落数：2 段 243 条（65%）、3 段 94 条（25%）、1 段 11 条。也就是说<strong>「事件 + 背景」就是标准形态</strong>。</li>
+  <li>89% 的条目第一段以「本周，」开头。这是一个廉价的、但极其有效的时态锚点，读者一眼知道这是本周发生的事。</li>
+  <li>96% 的条目含同一句套话「感兴趣的玩家可以前往相关网站了解详情」。这是纯排版冗余，<strong>我们不必抄</strong>，省下的字数正好用来写背景。</li>
+  <li>背景段的事实密度：47% 含剧本/原画，40% 含价格，72% 含具体日期，只有 17% 明说「原版是哪一年哪家出的」。</li>
+</ul>
+
+<div class="scroll">
+<table>
+<thead><tr><th class="wrap">事实类型</th><th class="num">覆盖率</th><th class="wrap">我们能不能自动拿到</th></tr></thead>
+<tbody>
+<tr><td class="name">具体日期（发售/截止/开始）</td><td class="num">72%</td><td class="wrap">能。原文/官网/X 正文正则，配合 VNDB <code>released</code></td></tr>
+<tr><td class="name">剧本 / 原画</td><td class="num">47%</td><td class="wrap">能。VNDB <code>staff.name</code> + <code>staff.role</code>（已验证字段可用）</td></tr>
+<tr><td class="name">价格</td><td class="num">40%</td><td class="wrap">半能。Steam <code>price_overview</code> 有；主机版/限定版要靠官网，抓不到就留空</td></tr>
+<tr><td class="name">原版年份 / 原厂牌</td><td class="num">17%</td><td class="wrap">能。VNDB <code>released</code> + <code>developers</code>，但要注意区分「原版」与「移植版」</td></tr>
+</tbody>
+</table>
+</div>
+
+<h3>3.3 标题句式：83% 带书名号，十二种动作</h3>
+
+<p>标题几乎都是「主体 + 动作 + 《作品》」或「《作品》 + 动作」。按动作归类（多标签，一条可能命中多个）：</p>
+
+<div class="scroll">
+<table>
+<thead><tr><th class="wrap">动作</th><th class="num">条数</th><th class="wrap">典型标题</th></tr></thead>
+<tbody>
+<tr><td class="name">周边 / 手办</td><td class="num">77</td><td class="wrap">MOONSTONE 推出《ストレイ・シープ》女主角抱枕套</td></tr>
+<tr><td class="name">活动 / 联动</td><td class="num">68</td><td class="wrap">キズナリンク将举办《H2O》主题快闪店活动</td></tr>
+<tr><td class="name">官网 / CG 更新</td><td class="num">35</td><td class="wrap">《Sentimental Graffiti Remake》背景图更新</td></tr>
+<tr><td class="name">OP / PV 公开</td><td class="num">29</td><td class="wrap">《Summer Pockets Sunnyside Stories》OP 公开</td></tr>
+<tr><td class="name">官中 / Steam</td><td class="num">28</td><td class="wrap">《樱花云＊绯红恋》将登陆 Steam 并支持官方中文</td></tr>
+<tr><td class="name">移植 / 主机版</td><td class="num">19</td><td class="wrap">ENTERGRAM 宣布制作《D.C.5 Future Link》主机版</td></tr>
+<tr><td class="name">发售 / 定档</td><td class="num">17</td><td class="wrap">《天獄のヴィネア》制作完成</td></tr>
+<tr><td class="name">体验版</td><td class="num">15</td><td class="wrap">《アンスリウム》体验版公开</td></tr>
+<tr><td class="name">制作完成</td><td class="num">14</td><td class="wrap">《遺作リメイク》制作完成</td></tr>
+<tr><td class="name">跳票 / 延期</td><td class="num">4</td><td class="wrap">《anemoi》宣布跳票</td></tr>
+<tr><td class="name">会社 / 人物动态</td><td class="num">1</td><td class="wrap">画师なまにくATK 宣布从 NITRO PLUS 离职</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>这张表直接就是我们的<strong>动作词表</strong>（事件聚合器的枚举值）。它比上一版从 X 语料反推的那套更准：
+上版我按日文关键词分了 9 类，漏了「官网/CG 更新」这一类——而它占 9%，是第三大类。</p>
+
+<h2>4. 图：三类素材，一套位置</h2>
+
+<h3>4.1 数量与形状</h3>
+
+<p>1,182 张图里有尺寸记录的 1,176 张：横向 809（69%）、竖向 206（18%）、近方 161（14%）。
+横图是游戏截图与主视觉，竖图是商品海报与抱枕/立牌这类长条物料，方图多是头像式的人物特写。
+<strong>三种形状混排在同一栏里</strong>，原站的处理是统一宽度 100%、高度自适应——不裁、不统一比例。</p>
+
+<p>这一点和我们的视觉规范冲突：我们是黑白灰、圆角 6px、无阴影。如果照抄「宽度 100% 自适应」，
+一栏里会出现十几张高度不一的图，页面节奏会散。更合适的是<strong>固定 3:2 容器 + <code>object-fit: cover</code></strong>，
+把竖图裁成横图（商品图裁掉上下通常无损信息，因为主体在中段）。</p>
+
+<h3>4.2 素材只有三类，没有图表</h3>
+
+<div class="scroll">
+<table>
+<thead><tr><th class="wrap">类型</th><th class="num">估计占比</th><th class="wrap">来源</th><th class="wrap">能不能自动拿</th></tr></thead>
+<tbody>
+<tr><td class="name">主视觉 / KV</td><td class="num">约 40%</td><td class="wrap">官网首图、官方 X 公告图、Steam <code>header_image</code></td><td class="wrap">能。Steam 最稳，官网次之</td></tr>
+<tr><td class="name">游戏截图 / CG</td><td class="num">约 35%</td><td class="wrap">官网截图页、Steam <code>screenshots</code>、VNDB <code>screenshots</code></td><td class="wrap">能。VNDB 单作 10 张起，带 <code>sexual</code> 标记可过滤</td></tr>
+<tr><td class="name">商品图 / 活动海报</td><td class="num">约 25%</td><td class="wrap">官方商店页、活动特设页</td><td class="wrap">难。多数在 X 上，抓不到（见 §5）</td></tr>
+</tbody>
+</table>
+</div>
+
+<p><strong>没有一张是信息图</strong>：没有时间线、没有销量柱状、没有价格对比表。27 期、1,182 张图，零图表。
+所以「设计总结性图片」这件事，在原站根本不存在——我们如果要，是从零加的一个新元素，不是复刻。</p>
+
+<h3>4.3 零图注，是刻意的</h3>
+
+<p>近 15 期 645 张图，<code>caption</code> 字段全部为 <code>null</code>，没有一条图注。图与文字的归属完全靠位置：图紧跟在某个 <code>h3</code> 之后，
+就属于那条。这个做法在「一条一图」时没问题，但一条两图时读者其实分不清哪张是哪张。</p>
+
+<div class="note warn">
+  <strong>我们的选择：默认不加图注，但给两类图开例外。</strong><br>
+  理由：43 条图注 = 43 个新的出错点，而且图注写错比不写更糟（读者会以为那是官方说法）。<br>
+  例外一：月度拼版图，必须写「本月 9 部新作，从左到右：…」，否则读者不知道在看什么。<br>
+  例外二：商品图，写一句「抱枕套 13,200 日元（含税）」——这类图不带文字就完全无法自解释。<br>
+  全期图注上限 5 条，每条 ≤ 20 字，进判卷。
+</div>
+
+<h3>4.4 封面：一个比例，两个用途</h3>
+
+<p>封面是独立字段，不进正文。27 期比例恒定 <strong>2.35:1</strong>（2560×1089 → 3525×1500 → 2048×871，
+像素在降，比例没动）。它有两个用途：列表页缩略图、分享卡底图。</p>
+
+<p>分享卡是站点自动生成的（<code>og.hikarinagi.org/og/article/{id}</code>，1200×630），
+把封面当底图，左侧压一层白色渐变，压上标题。卡片元素固定：</p>
+
+<div class="wire">
+  <div class="l">
+    <h5>1200 × 630 分享卡</h5>
+    <p><strong>底图</strong>：封面 KV，右侧保留人物，左侧压白渐变（约 55% 宽）</p>
+    <p><strong>标题</strong>：白色粗体，两行，超出截断加省略号，不换第三行</p>
+    <p><strong>右上</strong>：<code>VOL.267</code>，衬线小字</p>
+    <p><strong>左下</strong>：头像 + 作者 + 发布日期</p>
+    <p><strong>右下</strong>：日期区间 + 站名 logo</p>
+    <p><strong>水印</strong>：栏目标题压在底图左下，很淡</p>
+  </div>
+  <div>
+    <h5>我们的版本（建议）</h5>
+    <p><strong>尺寸</strong>：1200×630 一张，列表页裁中间 1200×480 用</p>
+    <p><strong>左 58%</strong>：白底，黑字标题两行（40px/1.35，不斜体）</p>
+    <p><strong>右 42%</strong>：KV 裁切，与左栏之间一条 1px 细线</p>
+    <p><strong>顶部</strong>：<code>Galgame 周报 · 第 267 期</code>，12px 加字距</p>
+    <p><strong>底部</strong>：<code>2026.10.24 — 10.31</code> + <code>22 条 / 43 图</code></p>
+    <p><strong>不做</strong>：斜置期号、水印大字、渐变遮罩。我们不用这些</p>
+  </div>
+</div>
+
+<p>关键判断：<strong>带字封面不必上 satori。</strong>我们的 <code>scripts/daily-image/render.mjs</code> 已经是
+「HTML 模板 + Playwright 截图 + sharp 压 WebP」，字体用的是全量 CJK（不是 <code>NotoSub-*</code> 子集），
+换一份 1200×630 的模板就能出封面。satori 要另外解决字体子集与断行，成本反而更高。</p>
+
+<h2>5. 素材从哪来（实测）</h2>
+
+<p>这是上一版最大的缺口——当时只写了「汉化栏没数据源」，没意识到图也没有。现在把四个来源都测了一遍：</p>
+
+<div class="scroll">
+<table>
+<thead><tr><th class="wrap">来源</th><th class="wrap">能给什么</th><th class="wrap">实测</th><th class="wrap">结论</th></tr></thead>
+<tbody>
+<tr>
+  <td class="name">X 抓取（现有管线）</td>
+  <td class="wrap">文字、时间、作者</td>
+  <td class="wrap">galgame 2,370 条里只有 <strong>7 条</strong>带 <code>media</code>（0.3%）；voice 6,877 条里 9 条（0.1%）</td>
+  <td class="wrap"><span class="tag bad">不能供图</span></td>
+</tr>
+<tr>
+  <td class="name">Steam <code>appdetails</code></td>
+  <td class="wrap"><code>header_image</code>、8 张截图、中文名、发售日、价格</td>
+  <td class="wrap">无 key；<code>l=schinese</code> 直接给官方中文名</td>
+  <td class="wrap"><span class="tag ok">主力</span></td>
+</tr>
+<tr>
+  <td class="name">VNDB <code>/vn</code></td>
+  <td class="wrap">封面、10 张截图（带 <code>sexual</code>/<code>violence</code>）、staff、发售日</td>
+  <td class="wrap">已验证 <code>screenshots.url</code> 可用；单次查询即可拿到全部</td>
+  <td class="wrap"><span class="tag ok">主力</span></td>
+</tr>
+<tr>
+  <td class="name">官网 <code>og:image</code></td>
+  <td class="wrap">KV、活动海报</td>
+  <td class="wrap">需按作品找官网 URL；成功率取决于是否有官网</td>
+  <td class="wrap"><span class="tag">兜底</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<div class="note warn">
+  <strong>三个后果：</strong><br>
+  ① <strong>X 抓取链路要查</strong>：<code>media</code> 字段几乎全空（9,247 条里 16 条有值），
+  要么 provider 没返回图，要么中间层丢了。本地 <code>data/items/</code> 是 CI 产物、现在为空，
+  得在 CI 里打一次点才能定位——但这是最高性价比的一件事：修好之后周边栏（11.7 条/期，最缺图的一栏）立刻有素材。<br>
+  ② <strong>Steam 是意外收获</strong>：它同时解决了「官方中文名」「发售日」「价格」「封面」「截图」四件事，而汉化栏要的正是这四个。汉化栏的数据缺口，一半可以靠 Steam 补上。<br>
+  ③ <strong>周边栏仍然最难</strong>：商品图在官方商店页和 X 上，Steam/VNDB 都没有。这一栏要么接受「用作品 KV 代替商品图」，要么把 X 图片修好。
+</div>
+
+<h2>6. 内容方案（修订）</h2>
+
+<p>上一版四个方案保留，新增一个折中方案 E。这次每个方案都标了<strong>图的工作量</strong>，因为图才是瓶颈。</p>
+
+<div class="scroll">
+<table>
+<thead>
+<tr><th class="wrap">方案</th><th class="num">条/期</th><th class="num">图/期</th><th class="num">字/期</th><th class="wrap">新增数据</th><th class="wrap">主要风险</th></tr>
+</thead>
+<tbody>
+<tr>
+  <td class="name">A 全仿三栏</td><td class="num">25</td><td class="num">43</td><td class="num">4,500</td>
+  <td class="wrap">事件 + 档案 + 价格 + 商品图</td>
+  <td class="wrap">周边栏 12 条里约一半拿不到商品图，只能拿 KV 顶；判卷长期红</td>
+</tr>
+<tr>
+  <td class="name">B 两栏（新作 + 汉化）</td><td class="num">15</td><td class="num">26</td><td class="num">2,700</td>
+  <td class="wrap">事件 + 档案 + Steam</td>
+  <td class="wrap">不像「周报」，更像「新作速递」</td>
+</tr>
+<tr>
+  <td class="name">C 只出结构化清单</td><td class="num">全量 190</td><td class="num">0</td><td class="num">1,500</td>
+  <td class="wrap">事件 + 档案</td>
+  <td class="wrap">可读性差，但可作为 A/B/E 的中间产物</td>
+</tr>
+<tr>
+  <td class="name">D 双版（+ 声优）</td><td class="num">12 + 8</td><td class="num">20 + 12</td><td class="num">2,200 + 1,400</td>
+  <td class="wrap">B 全套 + 声优侧</td>
+  <td class="wrap">两版口径不一，维护两份模板</td>
+</tr>
+<tr>
+  <td class="name">E 三深写 + 全量清单</td><td class="num">3 + 清单</td><td class="num">8</td><td class="num">900</td>
+  <td class="wrap">事件 + 档案</td>
+  <td class="wrap">篇幅短，但每周都能准时出，图压力最小</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<p><strong>推荐路线不变，但把 E 插在前面：</strong></p>
+
+<ol>
+  <li><strong>E 先上</strong>（3 条深写 + 一张本周一览 + 全量清单）。一期只要 8 张图，管线跑通就能上线，用来验证「选材准不准」。</li>
+  <li><strong>B 跟上</strong>（新作 + 汉化，15 条 / 26 图）。Steam 补齐汉化栏之后，B 是投入产出最好的形态。</li>
+  <li><strong>A 放最后</strong>，等 X 图片链路修好、周边栏有稳定素材源再上。</li>
+</ol>
+
+<div class="note">
+  <strong>为什么 E 值得先做：</strong>它把「图」从 43 张降到 8 张，却保留了周报最核心的两样东西——
+  「这周哪几件事最重要」的判断，和「一张能看懂的汇总图」。其余 190 条以清单形式给出，
+  读者能扫，我们能判卷，且清单不产生任何图片成本。
+</div>
+
+<h2>7. 工作量</h2>
+
+<p>按模块拆。人日按「熟悉本仓库的一个人」估，依据是现有日报模块的规模
+（<code>scripts/daily/</code> 4,668 行、<code>prompt.py</code> 435 行、<code>ja.py</code> 438 行），
+同等复杂度的新模块大约 1 人日 / 250 行。</p>
+
+<h3>7.1 一次性投入（方案 A 口径）</h3>
+
+<div class="scroll">
+<table>
+<thead><tr><th class="wrap">模块</th><th class="wrap">做什么</th><th class="num">代码量</th><th class="num">人日</th></tr></thead>
+<tbody>
+<tr><td class="name">事件聚合 <code>weekly/event.py</code></td><td class="wrap">作品 × 动作 归一，『』书名号抽取，动作词表（§3.3 那 11 类），同事件多源合并</td><td class="num">450–550</td><td class="num">3–4</td></tr>
+<tr><td class="name">档案补全 <code>weekly/facts.py</code></td><td class="wrap">VNDB / Steam 查询与 30 天缓存，回填 staff、发售日、中文名、价格</td><td class="num">300–400</td><td class="num">2–3</td></tr>
+<tr><td class="name">图片取材 <code>weekly/images.py</code></td><td class="wrap">按事件类型决定取图策略（KV / 截图 / 商品图），每图留 <code>source_url</code></td><td class="num">350–450</td><td class="num">2–3</td></tr>
+<tr><td class="name">图片处理 <code>weekly/imagepipe.py</code></td><td class="wrap">下载、pHash 去重、<code>sexual</code> 过滤、600/960/原宽 WebP、清单</td><td class="num">250–300</td><td class="num">1.5–2</td></tr>
+<tr><td class="name">封面 <code>weekly/cover.mjs</code></td><td class="wrap">1200×630 模板 + Playwright 截图 + WebP，复用 daily-image 的字体与截屏方式</td><td class="num">200–250</td><td class="num">1.5–2</td></tr>
+<tr><td class="name">一览图 <code>weekly/sheet.mjs</code></td><td class="wrap">sharp 拼版（4 列网格 + 编号），或走 Playwright 带字版</td><td class="num">120–180</td><td class="num">0.5–1</td></tr>
+<tr><td class="name">页面 <code>WeeklyLayout.astro</code></td><td class="wrap"><code>/weekly/</code> 列表 + <code>/weekly/{id}/</code> 详情，图用 3:2 容器裁切</td><td class="num">250–300</td><td class="num">2–3</td></tr>
+<tr><td class="name">出口</td><td class="wrap">RSS、JSON（与正本逐字节相同）</td><td class="num">150</td><td class="num">1</td></tr>
+<tr><td class="name">判卷 <code>check_weekly.py</code></td><td class="wrap">L1 结构 / L2 文风 / L3 事实 / L4 图片四道闸门</td><td class="num">350–450</td><td class="num">2</td></tr>
+<tr><td class="name">调度与状态</td><td class="wrap">期号解析、增量、断点续跑</td><td class="num">150</td><td class="num">1</td></tr>
+<tr><td class="name">合计</td><td class="wrap">—</td><td class="num">2,570–3,180</td><td class="num">16–22</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>方案 B 砍掉周边栏的取材与商品图处理，约 12–16 人日；方案 E 只要事件聚合 + 封面 + 一览图 + 页面，约 9–12 人日。</p>
+
+<h3>7.2 每期投入</h3>
+
+<div class="scroll">
+<table>
+<thead><tr><th class="wrap">步骤</th><th class="wrap">谁做</th><th class="num">方案 A</th><th class="num">方案 B</th><th class="num">方案 E</th></tr></thead>
+<tbody>
+<tr><td class="name">抓取 + 事件聚合</td><td>机器</td><td class="num">1 分</td><td class="num">1 分</td><td class="num">1 分</td></tr>
+<tr><td class="name">图片候选（含兜底）</td><td>机器</td><td class="num">3 分</td><td class="num">2 分</td><td class="num">1 分</td></tr>
+<tr><td class="name">挑图（只删不加）</td><td>人</td><td class="num">5 分</td><td class="num">3 分</td><td class="num">1 分</td></tr>
+<tr><td class="name">事实补全（缓存命中）</td><td>机器</td><td class="num">1 分</td><td class="num">1 分</td><td class="num">30 秒</td></tr>
+<tr><td class="name">出题 + LLM 写作</td><td>机器</td><td class="num">4 分</td><td class="num">3 分</td><td class="num">1 分</td></tr>
+<tr><td class="name">判卷 + 封面 + 一览图</td><td>机器</td><td class="num">1 分</td><td class="num">1 分</td><td class="num">1 分</td></tr>
+<tr><td class="name">通读 + 改稿</td><td>人</td><td class="num">15 分</td><td class="num">10 分</td><td class="num">6 分</td></tr>
+<tr><td class="name">合计</td><td>—</td><td class="num">约 30 分</td><td class="num">约 21 分</td><td class="num">约 12 分</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>注意「挑图」是唯一<strong>不能省的人工</strong>：机器能保证「不重复、不太糊、不是 R18」，
+但保证不了「这张不是剧透」「这张脸没崩」「这张和那条新闻不搭」。设计上要让它只做减法——
+候选多给 30%，人只勾掉不要的，不做检索。</p>
+
+<h3>7.3 三项容易被低估的成本</h3>
+
+<ol>
+  <li><strong>版权与署名。</strong>KV、截图、商品图的版权都在原权利方，不在我们。页脚要加一行「图片版权归原权利方，仅作报道引用」，且每张图要能追到 <code>source_url</code>。这不是工作量问题，是合规问题。</li>
+  <li><strong>R18 素材过滤。</strong>VNDB 的 <code>sexual</code> 标记能挡掉一部分，但商品图（抱枕套、挂画）在 VNDB 里没有标记。这一层必须有人工兜底，且要留「已复核」记录。</li>
+  <li><strong>封面字体。</strong>如果哪天要重做模板，记得用全量 CJK——<code>NotoSub-*</code> 是子集，会大面积空白。这个坑日报已经踩过一次。</li>
+</ol>
+
+<h2>8. 工作流（含图片支线）</h2>
+
+<h3>8.1 上一版四个方案，结论不变</h3>
+
+<div class="scroll">
+<table>
+<thead><tr><th class="wrap">方案</th><th class="wrap">做法</th><th class="wrap">适用</th><th class="wrap">判断</th></tr></thead>
+<tbody>
+<tr><td class="name">W1</td><td class="wrap"><code>daily --window week</code>，改 3 个文件</td><td class="wrap">声优周报</td><td class="wrap">可用。声优侧的单位就是「人」，和日报同构</td></tr>
+<tr><td class="name">W2</td><td class="wrap">新建 <code>scripts/weekly/</code>，复用 model/roster/adapters</td><td class="wrap">Galgame 周报</td><td class="wrap">正解，但要加上图片支线才完整</td></tr>
+<tr><td class="name">W3</td><td class="wrap">7 份日报 reduce 成一份</td><td class="wrap">声优周报</td><td class="wrap">一天上线，但只能出「新作动向」</td></tr>
+<tr><td class="name">W4</td><td class="wrap">脚本出候选，人勾选，LLM 只写勾中的</td><td class="wrap">Galgame 周报</td><td class="wrap">过渡方案，能校准规则</td></tr>
+</tbody>
+</table>
+</div>
+
+<h3>8.2 新增 W5：图片先行</h3>
+
+<p>原站的产出顺序是「先有事件，再配图」。但机器做的时候，<strong>反过来的成功率更高</strong>：
+先确定「这周有哪 8 张（或 43 张）能用的图」，再决定写哪几条。理由是图是硬约束——
+一条新闻写得再好，找不到图，在周报里就站不住（原站 100% 的条目都有图，没有例外）。</p>
+
+<pre><code>周日 23:15  trigger_fetch（现有）
+      23:40  事件聚合 → 候选 190 条
+      23:42  图片取材：对候选 Top 60 拉 Steam / VNDB，得可用图 55 张
+      23:45  人挑图：勾掉不要的 → 剩 43 张（5 分钟）
+      23:50  按「有图」过滤候选 → 出题面（只包含有图的条目）
+      23:55  LLM 写作
+      00:05  apply + 四道闸门
+      00:10  渲染封面 + 一览图
+      00:15  发布</code></pre>
+
+<p>这个顺序还有一个副作用：<strong>它天然限制了条目数</strong>。图不够的那周，条目自然少——
+正好复刻原站「有多少写多少」的节奏，不用另外设计规则。</p>
+
+<h3>8.3 图片子流水线：三档</h3>
+
+<div class="scroll">
+<table>
+<thead><tr><th class="wrap">档</th><th class="wrap">做什么</th><th class="wrap">技术</th><th class="wrap">成本</th></tr></thead>
+<tbody>
+<tr><td class="name">I1 直取</td><td class="wrap">原图下载、裁成 3:2、压 600/960/原宽 WebP、写清单</td><td class="wrap">Python + sharp（现有 <code>optimize_images.mjs</code> 已能做变体）</td><td class="wrap">低。是纯 IO</td></tr>
+<tr><td class="name">I2 拼版</td><td class="wrap">月度新作一览：4 列网格，纯拼图不带字</td><td class="wrap">sharp <code>composite</code></td><td class="wrap">低。半小时能写完</td></tr>
+<tr><td class="name">I3 带字</td><td class="wrap">封面 1200×630、带编号的一览图</td><td class="wrap">HTML 模板 + Playwright + sharp（复用 daily-image）</td><td class="wrap">中。模板要调版式</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>三档的选择标准很简单：<strong>图里要不要出现中文</strong>。不要中文就用 sharp，要中文就走 Playwright。
+不要为了「统一」把 I1 也塞进浏览器——43 张图走一遍浏览器要几十秒，纯浪费。</p>
+
+<h2>9. 判卷：加第四道闸门</h2>
+
+<p>上一版定了 L1 结构 / L2 文风 / L3 事实。图片既然是一半的工作量，就得有对应的闸门，
+否则「图糊了、重复了、来源丢了」这类问题会一路漏到线上。</p>
+
+<div class="scroll">
+<table>
+<thead><tr><th class="wrap">闸门</th><th class="wrap">查什么</th><th class="wrap">失败处理</th></tr></thead>
+<tbody>
+<tr><td class="name">L1 结构</td><td class="wrap">三栏顺序、条数区间（8–40）、每条 1–4 张图、标题含《》</td><td class="wrap">整份拒收</td></tr>
+<tr><td class="name">L2 文风</td><td class="wrap">禁用词表、副标题不写「XX 侧」、套话不出现、句长</td><td class="wrap">按条拒收</td></tr>
+<tr><td class="name">L3 事实</td><td class="wrap">日期、价格、版本数、staff 必须能在 <code>sources</code> 或作品档案里逐字找到</td><td class="wrap">按条拒收</td></tr>
+<tr><td class="name">L4 图片</td><td class="wrap">见下</td><td class="wrap">按图替换，换不到则整条降级</td></tr>
+</tbody>
+</table>
+</div>
+
+<h4>L4 的具体阈值</h4>
+
+<ul>
+  <li>每期图片总数 20–60 张（E 方案放宽到 6–12）</li>
+  <li>单张最短边 ≥ 600px；体积 ≤ 500KB（压完）</li>
+  <li>封面固定 1200×630，体积 ≤ 300KB</li>
+  <li>VNDB 来源的图 <code>sexual</code> 必须为 0；非 VNDB 来源必须有「已复核」标记</li>
+  <li>同一期内 pHash 距离 &lt; 6 视为重复，只留一张</li>
+  <li>每张图必须有 <code>source_url</code>，且域名在白名单里（<code>steamstatic.com</code> / <code>vndb.org</code> / 官方站）</li>
+  <li>图注总数 ≤ 5，每条 ≤ 20 字</li>
+</ul>
+
+<h2>10. 路线与待定</h2>
+
+<div class="scroll">
+<table>
+<thead><tr><th class="wrap">阶段</th><th class="wrap">做什么</th><th class="wrap">验收</th><th class="num">人日</th></tr></thead>
+<tbody>
+<tr><td class="name">P0 语料</td><td class="wrap">把 27 期存成本地 golden set（652 条 + 1,182 张图元数据），做 few-shot 与回归对照</td><td class="wrap">能对任意一期算出「我们的输出 vs 原站」的条数与动作分布差异</td><td class="num">1</td></tr>
+<tr><td class="name">P1 事件表</td><td class="wrap">聚合器 + 动作词表，先不上线</td><td class="wrap">一周候选 190±40，人工抽检准确率 ≥ 85%</td><td class="num">4</td></tr>
+<tr><td class="name">P2 图管线</td><td class="wrap">I1 + I3 封面 + L4 闸门</td><td class="wrap">任取一周能出 8 张可用图 + 一张合规封面</td><td class="num">5</td></tr>
+<tr><td class="name">P3 上线 E</td><td class="wrap">3 条深写 + 一览图 + 清单页</td><td class="wrap">连续 3 期按时发布，零人工救火</td><td class="num">3</td></tr>
+<tr><td class="name">P4 扩到 B</td><td class="wrap">加汉化栏，Steam 补数据</td><td class="wrap">汉化栏连续 4 期不缺</td><td class="num">4</td></tr>
+</tbody>
+</table>
+</div>
+
+<h3>待定（需要拍板）</h3>
+
+<ol>
+  <li><strong>周边栏做不做。</strong>它是原站最大的一栏（11.7 条/期），也是最缺图的一栏。做，就得先修 X 图片链路；不做，周报会明显比原站「薄」。</li>
+  <li><strong>一览图带不带字。</strong>带字（Playwright）读者更省事，但不带字（sharp）零风险、零字体依赖。我倾向带字，且只在月度那期带。</li>
+  <li><strong>封面要不要显示条数。</strong><code>22 条 / 43 图</code> 这种量化信息放在封面上，好处是诚实，坏处是短周会显得寒酸。</li>
+  <li><strong>声优周报与 Galgame 周报要不要同一天。</strong>两版口径不同，同日发会让读者对比；隔天发则失去「周报日」的仪式感。</li>
+</ol>
+
+<footer>
+  <p>样本抓取脚本未入库（一次性分析用）：<code>/api/v3/articles?page=1..5&amp;page_size=50</code> 取列表，
+  <code>/api/v3/articles/{id}</code> 取节点树；27 期 JSON 共约 850KB，可随时重抓。</p>
+  <p>本文所有数字均来自上述 27 期实测，未使用估算值；人日为按现有代码规模推算的区间，非实测工期。</p>
+</footer>
+
+</div>
+</body>
+</html>

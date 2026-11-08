@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Galgame 内容流水线的三块拼图 · 工具组合与可用性分析</title>
+<style>
+:root{
+  --bg:#f6f7f9; --card:#fff; --ink:#16181d; --ink2:#4a5160; --ink3:#7c8494;
+  --line:#e5e8ee; --line2:#f0f2f5; --accent:#2f5bff; --accent-soft:#eef2ff;
+  --gold:#a9770b; --gold-soft:#fdf6e3; --teal:#0d8f7a; --teal-soft:#e6f7f4;
+  --violet:#6b46c1; --violet-soft:#f3eefe; --rose:#b8385f; --rose-soft:#fdeef3;
+  --gray:#5b6472; --gray-soft:#eff1f4; --red:#c0392b; --red-soft:#fdecea;
+  --green:#1e7a4a; --green-soft:#e9f7ef;
+}
+*{box-sizing:border-box;}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+  font-size:15px;line-height:1.75;-webkit-font-smoothing:antialiased;}
+.wrap{max-width:1080px;margin:0 auto;padding:46px 28px 90px;}
+.eyebrow{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink3);font-weight:600;}
+h1{font-size:33px;line-height:1.3;margin:10px 0 12px;letter-spacing:-.02em;font-weight:750;}
+.sub{color:var(--ink2);font-size:15.5px;max-width:80ch;}
+.meta-row{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px;}
+.pill{background:var(--card);border:1px solid var(--line);border-radius:999px;padding:6px 14px;font-size:13px;color:var(--ink2);}
+.pill b{color:var(--ink);font-weight:650;}
+h2.sec{font-size:21px;margin:52px 0 6px;letter-spacing:-.01em;font-weight:700;
+  padding-top:8px;border-top:2px solid var(--ink);}
+h2.sec .no{color:var(--ink3);font-weight:600;margin-right:8px;font-variant-numeric:tabular-nums;}
+.sec-note{color:var(--ink3);font-size:13.5px;margin:8px 0 20px;}
+h3.sub3{font-size:16.5px;margin:30px 0 8px;font-weight:700;}
+h4.sub4{font-size:14px;margin:20px 0 6px;font-weight:700;color:var(--ink2);}
+p{margin:0 0 12px;}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px 24px;margin-bottom:16px;}
+.card h3{margin:0 0 10px;font-size:16.5px;font-weight:700;}
+.card h3 .tag{margin-left:8px;}
+.tag{display:inline-block;padding:2px 9px;border-radius:6px;font-size:11.5px;font-weight:600;white-space:nowrap;vertical-align:middle;}
+.t1{background:var(--accent-soft);color:var(--accent);}
+.t2{background:var(--teal-soft);color:var(--teal);}
+.t3{background:var(--violet-soft);color:var(--violet);}
+.t4{background:var(--gold-soft);color:var(--gold);}
+.t5{background:var(--rose-soft);color:var(--rose);}
+.t6{background:var(--gray-soft);color:var(--gray);}
+.t7{background:var(--green-soft);color:var(--green);}
+.t8{background:var(--red-soft);color:var(--red);}
+.tbl{border:1px solid var(--line);border-radius:12px;overflow:hidden;margin:14px 0 18px;background:#fff;}
+table{width:100%;border-collapse:collapse;font-size:13.5px;}
+th{text-align:left;padding:10px 12px;background:#fafbfc;color:var(--ink3);font-weight:600;
+  font-size:11.5px;letter-spacing:.04em;border-bottom:1px solid var(--line);white-space:nowrap;}
+td{padding:9px 12px;border-bottom:1px solid var(--line2);vertical-align:top;}
+tr:last-child td{border-bottom:none;}
+tr:hover td{background:#fcfcfd;}
+code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12.5px;background:#f2f4f7;
+  padding:1px 5px;border-radius:4px;color:#2b3242;}
+pre{background:#1d2129;color:#e6e9ef;border-radius:12px;padding:16px 18px;overflow-x:auto;
+  font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12.5px;line-height:1.65;margin:14px 0;}
+pre code{background:none;color:inherit;padding:0;font-size:inherit;}
+ul,ol{margin:0 0 12px;padding-left:22px;}
+li{margin-bottom:6px;color:var(--ink2);}
+li b{color:var(--ink);font-weight:650;}
+.callout{border-radius:14px;padding:18px 22px;margin:18px 0;}
+.callout h4{margin:0 0 8px;font-size:14.5px;font-weight:700;}
+.callout p{margin:0 0 8px;font-size:14px;}
+.callout p:last-child{margin:0;}
+.c-blue{background:var(--accent-soft);border:1px solid #d9e2ff;}
+.c-gold{background:var(--gold-soft);border:1px solid #f0e2b8;}
+.c-red{background:var(--red-soft);border:1px solid #f5cfc9;}
+.c-green{background:var(--green-soft);border:1px solid #c8e6d5;}
+.c-gray{background:var(--gray-soft);border:1px solid var(--line);}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+.mini{background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px 16px;}
+.mini .k{font-size:11.5px;color:var(--ink3);letter-spacing:.06em;text-transform:uppercase;font-weight:600;}
+.mini .v{font-size:15px;font-weight:700;margin-top:3px;}
+.mini .d{font-size:12.5px;color:var(--ink2);margin-top:4px;line-height:1.6;}
+.flow{background:#fff;border:1px solid var(--line);border-radius:12px;padding:18px 20px;margin:14px 0;
+  font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12.5px;line-height:1.8;
+  white-space:pre;overflow-x:auto;color:var(--ink2);}
+.stars{color:var(--gold);font-weight:650;}
+.muted{color:var(--ink3);font-size:13px;}
+footer{margin-top:56px;padding-top:20px;border-top:1px solid var(--line);font-size:12.5px;color:var(--ink3);}
+.kv{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 4px;}
+.kv span{background:#fafbfc;border:1px solid var(--line);border-radius:8px;padding:3px 10px;font-size:12px;color:var(--ink2);}
+.kv span b{color:var(--ink);}
+.toc{background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px 22px;margin:26px 0 8px;}
+.toc .h{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink3);font-weight:600;margin-bottom:10px;}
+.toc ol{margin:0;padding-left:20px;font-size:13.5px;columns:2;column-gap:28px;}
+.toc li{margin-bottom:5px;}
+.toc a{color:var(--ink2);text-decoration:none;}
+.toc a:hover{color:var(--accent);}
+@media (max-width:800px){
+  .wrap{padding:30px 16px 60px;}
+  h1{font-size:25px;}
+  .grid2,.grid3{grid-template-columns:1fr;}
+  .toc ol{columns:1;}
+  table{font-size:12.5px;}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="eyebrow">Toolchain Analysis · 01</div>
+<h1>Galgame 内容流水线的三块拼图<br>GalgameCriticism-skills × xueayi × TianSalt</h1>
+<p class="sub">把三个账号的仓库放在一起看，会发现它们恰好覆盖了同一条流水线的三段：<b>生产契约</b>（GalgameCriticism-skills）、<b>媒体与运维</b>（xueayi）、<b>格式与数据</b>（TianSalt）。这篇报告先讲清各自是什么，再评估可用性，最后给出在这个边界内把它们串起来能做什么——以及哪几种串法不要做。</p>
+<div class="meta-row">
+  <span class="pill">分析对象 <b>3 个账号 / 35 个原创仓库</b></span>
+  <span class="pill">数据 <b>GitHub 公开 API + 源码直读</b></span>
+  <span class="pill">时间 <b>2026-10-21</b></span>
+</div>
+
+<div class="toc">
+  <div class="h">目录</div>
+  <ol>
+    <li><a href="#s1">三个仓库各自是什么</a></li>
+    <li><a href="#s2">可用性评估</a></li>
+    <li><a href="#s3">边界内的组合用途</a></li>
+    <li><a href="#s4">结论：这条链缺的是哪一块</a></li>
+  </ol>
+</div>
+
+<h2 class="sec" id="s1"><span class="no">01</span>三个仓库各自是什么</h2>
+<div class="sec-note">先建立坐标系：一个是"流程契约"，一个是"桌面产品"，一个是"脚本碎片"。三者的可复用粒度完全不同。</div>
+
+<h3 class="sub3">1.1 GalgameCriticism-skills —— 把编辑流程写成 Agent 能执行的契约</h3>
+<p><span class="tag t1">Agent Skills</span> <span class="tag t6">Python / Node / C#</span> <span class="stars">★2</span> <span class="muted">最近推送 2026-10-21</span></p>
+<p>仓库本体只有 76 个文件，但结构极其克制：<code>skills/&lt;name&gt;/</code> 下每个技能自带 <code>SKILL.md</code>（给 agent 看，讲怎么执行）、<code>README.md</code>（给人看，讲这是什么）、<code>scripts/</code>、<code>references/</code>、<code>agents/</code>、<code>tests/</code>。仓库根只允许存在 <code>README.md</code>、<code>AGENTS.md</code>、<code>.gitignore</code>——这条规则写在 AGENTS.md 里，并且要求提交前自检目录一致性、扫描凭证与个人路径。</p>
+<p>它真正值钱的不是代码量，而是<b>把一份周报从 docx 到四个平台的全过程拆成了可验证的契约</b>：</p>
+
+<div class="tbl"><table>
+<thead><tr><th>Skill</th><th>输入</th><th>输出</th><th>关键依赖</th><th>人工介入点</th></tr></thead>
+<tbody>
+<tr><td><b>bilibili-weekly-article</b></td><td>期目录（去注音 docx + 图包 + 封面）</td><td>B 站图文草稿 / 已发布 Opus</td><td>Python requests、lark-cli（飞书）、扫码登录</td><td><b>第 3 步强制人工审核</b>，第 4 步手动点发布</td></tr>
+<tr><td><b>weekly-cross-platform-sync</b></td><td>来源平台 + 目标平台 + 期号</td><td>不可变 manifest + SHA-256 + 各端回执</td><td>无（纯编排）</td><td>账号/社区确认、预览核对</td></tr>
+<tr><td><b>xiaoheihe-weekly-sync</b></td><td>B 站文集或 cv 号</td><td>小黑盒帖子</td><td>dotnet + XiaoheiheMcpServer.Stdio、playwright</td><td>Cookie 过期需扫码（约 1–2 天一次）</td></tr>
+<tr><td><b>weibo-weekly-sync</b></td><td>manifest 或微博源</td><td>微博头条文章</td><td>Node + playwright + 独立 Chrome profile</td><td>登录态、发布确认弹窗</td></tr>
+<tr><td><b>zhihu-weekly-sync</b></td><td>manifest</td><td>知乎文章</td><td>agent-browser + 独立 profile</td><td>昵称核对、逐图上传等待</td></tr>
+</tbody>
+</table></div>
+
+<p>编排关系是一条单向前缀链，中间被人为切开一道口子：</p>
+<div class="flow">期目录（docx 去注音 + 图包 + 封面）
+   │
+   ▼  parse_materials.py → render_preview.py → fetch_staff.py（飞书署名）
+┌──────────────────────────────────────────────┐
+│ bilibili-weekly-article   产出草稿（不代发） │
+└──────────────────────────────────────────────┘
+   │  草稿箱回执 article_id
+   ▼  ✋ 人工审核版式/配图/署名 → 在 B 站编辑器手动点「发布」
+已发布的 B 站图文（cv 号 / 公开链接）
+   │
+   ▼  weekly-cross-platform-sync：按期号定位、采集一次不可变 manifest
+   ├──▶ xiaoheihe-weekly-sync ──▶ 小黑盒
+   ├──▶ zhihu-weekly-sync     ──▶ 知乎
+   └──▶ weibo-weekly-sync     ──▶ 微博</div>
+
+<p>这条链上有三份契约，是全仓库最有复用价值的部分：</p>
+<ul>
+<li><b>素材契约</b> <code>_preview/article.json</code>：<code>sections[].items[]</code> 里带 <code>n / heading / body[] / candidates[] / selected[]</code>，把"哪条新闻配哪两张图"变成可索引的数据；<code>title_status</code> 区分 <code>proposed</code>（机器拟的）与 <code>manual</code>（人定稿的）；<code>warnings[]</code> 未清零不得上线。</li>
+<li><b>manifest 契约</b>：一次采集产出 <code>manifest.json</code> + <code>preview.md</code> + 图片目录，字段含 <code>source / source_id / canonical_url / title / blocks / images / author / published_at</code>，并记 SHA-256。<b>所有目标平台从这一份派生，不允许二次抓取来源</b>。</li>
+<li><b>回执契约</b>：去重键是 <code>source + source_id + target_account + target_scope + content_type</code>；最终回复必须给公开链接，草稿/编辑器/本地路径不得填在"成功"位置，没回读通过只能标 <code>submitted / pending_review / unknown / failed</code>。</li>
+</ul>
+
+<h3 class="sub3">1.2 xueayi —— 桌面产品与运维脚本</h3>
+<p><span class="tag t2">20 个原创仓库</span> <span class="tag t6">Python / TypeScript / Verilog</span> <span class="muted">原创累计 ★87</span></p>
+<p>这一批是<b>带 GUI 的成品</b>和<b>能定时跑的运维脚本</b>，和上者的"契约"气质正好互补。</p>
+<div class="tbl"><table>
+<thead><tr><th>仓库</th><th>能力</th><th>形态</th><th>与本报告的关系</th></tr></thead>
+<tbody>
+<tr><td><b>XiaoXue-Video-Tools</b> <span class="stars">★38</span></td><td>FFmpeg 视频压制、字幕内嵌/内封、片段截取、封装转换、素材质量检测、图片格式互转、批量重命名</td><td>PyQt6 桌面应用，内置 FFmpeg</td><td>把图文周报变成视频周报的唯一现成工具</td></tr>
+<tr><td><b>TaskNya</b> <span class="stars">★13</span></td><td>文件 / 日志关键字 / GPU / 目录变动监控，推送到飞书、企微、邮件、通用 Webhook、QQ</td><td>Flask + WebSocket，Docker 一键部署，端口 9870</td><td>多平台发布任务的"通知总线"</td></tr>
+<tr><td><b>Daily-Web-Login</b></td><td>定时打开指定网址保活、yngal 签到寻宝、飞书交互卡片汇总</td><td>macOS 菜单栏 App（rumps + LaunchAgent）</td><td>Cookie 保活 + 定时 + 通知的范式样板</td></tr>
+<tr><td><b>Subtitle-text-splitting-script</b></td><td>按字数与语义断句，把长文案拆成字幕行</td><td>Python 脚本</td><td>周报文案 → 字幕的桥梁</td></tr>
+<tr><td><b>galgame-sedai</b></td><td>Bangumi 官方 API 按年拉 Galgame 热度榜，构建期生成数据</td><td>Vite 静态站</td><td>结构化的 Galgame 元数据来源</td></tr>
+<tr><td><b>Emby-Plugin-Quick-Deployment</b> <span class="stars">★26</span></td><td>一键装 Emby 美化/弹幕/外链插件</td><td>Shell</td><td>边缘相关（发布后的展示侧）</td></tr>
+</tbody>
+</table></div>
+
+<h3 class="sub3">1.3 TianSalt —— 格式转换与语言数据的小零件</h3>
+<p><span class="tag t3">13 个原创仓库</span> <span class="tag t6">Python / C++ / JS / MAXScript</span></p>
+<p>没有大项目，但每个都精准对应流水线上的一个"卡点"。</p>
+<div class="tbl"><table>
+<thead><tr><th>仓库</th><th>能力</th><th>为什么在这里有用</th></tr></thead>
+<tbody>
+<tr><td><b>lrc-converter</b></td><td>目录内所有 SRT / VTT 批量转 LRC</td><td>字幕格式统一；LRC 是歌词/时间轴最通用的载体</td></tr>
+<tr><td><b>accentjiten_anki</b></td><td>日语重音词典 → Anki 卡组</td><td>提供"词 → 读音/音调"的数据管道，可用于术语表</td></tr>
+<tr><td><b>Kemono-Downloader</b></td><td>油猴脚本一键下载作品页全部图片</td><td>补上 GC 流水线缺失的"素材采集"入口</td></tr>
+<tr><td><b>blog-scraper</b></td><td>并发抓取 + 代理轮换 + Redis 队列 + MongoDB + GitHub Actions 测试</td><td>反爬兜底的工程范式</td></tr>
+<tr><td><b>bstream</b></td><td>C++ header-only 按位读写文件</td><td>底层能力，与本流水线无直接关系（见反例）</td></tr>
+<tr><td><b>item-identifier-ms</b></td><td>3ds Max 物件标识脚本（MAXScript）</td><td>封面/插图制作的辅助，稀缺技能</td></tr>
+</tbody>
+</table></div>
+
+<h2 class="sec" id="s2"><span class="no">02</span>可用性评估</h2>
+<div class="sec-note">"能跑"和"能长期跑"是两件事。这一节按依赖成本、认证成本、失败模式三个维度逐层评估。</div>
+
+<h3 class="sub3">2.1 三种形态的可用性画像</h3>
+<div class="tbl"><table>
+<thead><tr><th></th><th>GalgameCriticism-skills</th><th>xueayi</th><th>TianSalt</th></tr></thead>
+<tbody>
+<tr><td><b>形态</b></td><td>Agent 技能包 + 流程契约</td><td>桌面 GUI 成品 + 运维脚本</td><td>单文件脚本 / 油猴脚本</td></tr>
+<tr><td><b>安装成本</b></td><td>高：Python + Node + dotnet + uv + npm + 浏览器 profile，每个 skill 一套前置</td><td>低：下载 zip 解压即用；TaskNya 有 Docker 镜像</td><td>极低：<code>python xxx.py &lt;dir&gt;</code></td></tr>
+<tr><td><b>认证成本</b></td><td>高：B 站扫码、飞书 lark-cli 授权、微博/知乎独立 profile、小黑盒 Cookie</td><td>低：仅 Daily-Web-Login 需 .env 凭证</td><td>无</td></tr>
+<tr><td><b>失败模式</b></td><td>平台前端变更即失效（选择器、编辑器结构、配额）</td><td>环境相关（字体、编码器、卷未挂载）</td><td>输入格式相关</td></tr>
+<tr><td><b>可复用粒度</b></td><td>契约与流程（可跨项目搬）</td><td>工具（直接调用）</td><td>函数（嵌进别的脚本）</td></tr>
+<tr><td><b>长期维护风险</b></td><td class="t8">高——依赖 4 个平台的前端</td><td class="t7">中——依赖 FFmpeg / 系统 API</td><td class="t7">低——纯格式转换</td></tr>
+</tbody>
+</table></div>
+
+<h3 class="sub3">2.2 GalgameCriticism-skills 的成熟度分级</h3>
+<div class="grid3">
+<div class="mini"><div class="k">生产可用</div><div class="v">bilibili-weekly-article</div><div class="d">264 期实证：42 图全上传、118 段落、article_id=382988，草稿箱版式与线上一致。有完整回执与重复发布防护。</div></div>
+<div class="mini"><div class="k">半自动</div><div class="v">xiaoheihe / zhihu / weibo</div><div class="d">265 期跑通知乎；小黑盒卡在 Cookie 1–2 天过期；微博适配 v5 编辑器，步骤最脆。</div></div>
+<div class="mini"><div class="k">契约层</div><div class="v">cross-platform-sync</div><div class="d">不写平台逻辑，只维护路由、manifest、去重键和验收。这是最值得抄的部分。</div></div>
+</div>
+
+<h3 class="sub3">2.3 踩坑清单（可用性最硬的证据）</h3>
+<p>这批文档里最有价值的内容不是"怎么用"，而是"哪里会炸"。整理如下——<b>如果你要复用这套东西，这张表能省掉几天调试</b>：</p>
+<div class="tbl"><table>
+<thead><tr><th>#</th><th>坑</th><th>表现</th><th>正确做法</th></tr></thead>
+<tbody>
+<tr><td>1</td><td>docx 选错版本</td><td>正文里混进 <code>【注音】</code> 括号</td><td>必须用标题带「去注音」的稿；脚本对回退原始稿告警，未清不得上线</td></tr>
+<tr><td>2</td><td>署名不在 docx 里</td><td>发布后缺"文案/审核"</td><td><code>fetch_staff.py</code> 从飞书「周报工作表」按期号拉取</td></tr>
+<tr><td>3</td><td>大图上传超时</td><td>aiohttp 库版必超时</td><td>统一走 <code>upload_bfs.py</code> requests 直传，120s 超时 + 重试</td></tr>
+<tr><td>4</td><td>B 站扫码失效</td><td>旧 <code>login.py</code> 拿不到 cookie</td><td>新版把 cookie 移到 Set-Cookie 头，用 <code>login_qr.py</code>，并用 nav 接口验证 isLogin 后才落盘</td></tr>
+<tr><td>5</td><td>草稿被覆盖</td><td>重跑冲掉人工改过的草稿</td><td>已有回执默认停止，<code>--replace</code> 才删旧建新</td></tr>
+<tr><td>6</td><td>小黑盒 Cookie 短命</td><td>编辑器能打开，发布最后一步失败</td><td>有效期实测 1–2 天；判断依据是<b>返回的用户名</b>，不是"编辑器可编辑"</td></tr>
+<tr><td>7</td><td>标题长度差异</td><td>各平台截断规则不同</td><td>B 站 ≤80 字；小黑盒 30 字（超了只截标题，原标题留正文首）；微博标题 32 字、导语 44 字</td></tr>
+<tr><td>8</td><td>微博图片插错位置</td><td>图片跑到文末、<code>WBIMGPH_</code> 残留</td><td>必须"真实鼠标选区 + <code>Shift+ArrowRight</code> + Backspace + 合成 paste"；只派发 paste 无效</td></tr>
+<tr><td>9</td><td>微博"假成功"</td><td>发布后跳 <code>#/history/&lt;id&gt;</code></td><td>那不是公开链接；要从 <code>m.weibo.cn</code> 时间线接口取 <code>page_info.page_url</code></td></tr>
+<tr><td>10</td><td>知乎图片重复</td><td>图片数翻倍</td><td>判定完成用托管 URL 的 <code>/v2-[0-9a-f]{32}</code>，不能用 <code>zhimg.com</code> 域名；重试会重复插入，<code>attempt&lt;=1</code> 是刻意的</td></tr>
+<tr><td>11</td><td>知乎 DOCX 导入</td><td>"确认选择文件"永不进入可点击态</td><td>被直答知识库配额拦截，不要在这条路上耗时间，走直排</td></tr>
+<tr><td>12</td><td>跨进程 CDP</td><td>脚本被 SIGTERM（退出码 137）且无输出</td><td>编排/校验/发布串在同一个 <code>async</code> 里，窗口只开一次</td></tr>
+<tr><td>13</td><td>端口冲突</td><td>两个平台互相干扰</td><td>微博 9333、知乎 9444，各自独立 profile</td></tr>
+<tr><td>14</td><td>误清登录态</td><td>删 profile / <code>Singleton*</code></td><td><b>绝对不要</b>——会直接清掉已登录 Cookie，必须让用户重新扫码</td></tr>
+</tbody>
+</table></div>
+
+<div class="callout c-gold">
+<h4>这 14 条说明一件事</h4>
+<p>这套 skill 的可用性不是"写得好"，而是"<b>失败模式被穷举过</b>"。每个坑都写了现象、判定依据和正确做法，而且明确区分"提交待审核"和"已公开发布"。这种文档质量在个人项目里极少见。</p>
+</div>
+
+<h3 class="sub3">2.4 xueayi 与 TianSalt 的可用性</h3>
+<div class="grid2">
+<div class="card">
+<h3>XiaoXue-Video-Tools <span class="tag t7">开箱可用</span></h3>
+<p>内置 FFmpeg/ffprobe，Windows x64 与 macOS arm64 双包，Release 附 SHA256。启动后台探测编码器能力，硬件编码器不可用自动置灰——这个设计避免了"选了 NVENC 结果报错"的常见体验崩点。</p>
+<p class="muted">限制：macOS 包未做 Developer ID 公证；AviSynth 兼容模式仅 Windows；兼容模式要求非中文路径。</p>
+</div>
+<div class="card">
+<h3>TaskNya <span class="tag t7">开箱可用</span></h3>
+<p>Docker 一行起，Web UI 管配置，支持 <code>60</code> / <code>5m</code> / <code>1h30m</code> 时间格式，目录监控带"二次确认"避免文件没写完就通知。多条件是"或"关系。</p>
+<p class="muted">限制：GPU 监控仅 NVIDIA；配置改完要点"应用当前配置"才生效。</p>
+</div>
+<div class="card">
+<h3>Daily-Web-Login <span class="tag t4">需改造</span></h3>
+<p>三个工程细节值得抄：<b>外置卷等待挂载</b>（plist 不直接跑 main.py，先跑本机磁盘上的包装脚本轮询 900 秒）、<b>日志分两处</b>（启动日志放本机磁盘，卷没挂也能写）、<b>flock 单实例</b>（launchd 与手动启动不会双开）。</p>
+<p class="muted">限制：macOS 专用菜单栏 App，不能直接跑在 Linux/CI；yngal 部分强绑定特定站点。</p>
+</div>
+<div class="card">
+<h3>TianSalt 的零件 <span class="tag t7">即取即用</span></h3>
+<p><code>lrc-converter</code> 一行命令处理整个目录；<code>accentjiten_anki</code> 是数据管道；<code>Kemono-Downloader</code> 用 <code>window.open</code> 绕开跨域图片限制——这个技巧很实用。</p>
+<p class="muted">限制：<code>blog-scraper</code> 自述是面试作业，MongoDB + Redis 依赖重，且明确写"仿人类行为效果未知"，不建议生产使用。</p>
+</div>
+</div>
+
+<h2 class="sec" id="s3"><span class="no">03</span>边界内的组合用途</h2>
+<div class="sec-note">边界定义为：<b>一份 Galgame 内容，从素材到多平台分发</b>。不涉及视频平台投稿（不在 skill 范围）、不涉及商业变现。</div>
+
+<h3 class="sub3">场景 A · 周报视频版：把一次生产变成两种形态</h3>
+<p>现有链路只产出图文。但周报的素材（docx 正文 + 图包）本身就是视频分镜的原料。</p>
+<div class="flow">期目录（去注音 docx + 图包）
+  │  parse_materials.py → 抽出 sections[].items[]（标题 / 正文 / 配图）
+  ▼
+Subtitle-text-splitting-script（xueayi）→ 按字数断句成字幕行
+  ▼
+lrc-converter（TianSalt）→ 若已有 SRT/VTT，统一转 LRC 做时间轴底稿
+  ▼
+XiaoXue-Video-Tools（xueayi）
+  · 图包序列 + 配音轨 → 压制（HEVC 高压缩，CRF 20）
+  · 字幕策略选「内嵌（烧录）」→ 与图文版严格一致的视觉
+  ▼
+TaskNya（xueayi）监控输出目录 → 飞书通知「成片已就绪」
+  ▼
+人工审片 → B 站视频投稿（不在 skill 范围）</div>
+<p><b>价值</b>：一份素材两种分发形态，边际成本只有压制时间。<b>风险</b>：docx 断句节奏和配音对不齐；烧录字幕要先做字体准备（macOS 用"字体兼容增强"，Windows 用 AviSynth 兼容模式），否则会出现字重/字形错误。</p>
+
+<h3 class="sub3">场景 B · 可观测性：把五个 skill 的回执汇成一张卡片</h3>
+<p>这是最容易被忽略、收益最直接的一环。当前链路的痛点不是"发不出去"，而是<b>发出去之后没人知道哪一端失败了</b>——尤其小黑盒 Cookie 每 1–2 天就过期一次。</p>
+<div class="grid2">
+<div class="card">
+<h3>用 TaskNya 做通知总线</h3>
+<ul>
+<li>监控 <code>_preview/publish_receipt.json</code>、<code>draft_receipt.json</code> 生成 → 触发"草稿就绪"</li>
+<li>监控 <code>data/delivery/*.jsonl</code> 里 <code>failed</code> 记录 → 触发"某端待补发"</li>
+<li>日志关键字检测：<code>CDP connection closed</code> / <code>newlogin</code> / <code>isLogin</code> → 判定登录态失效</li>
+<li>统一推飞书群，用 <code>${var}</code> 内联变量带期号与平台名</li>
+</ul>
+</div>
+<div class="card">
+<h3>用 Daily-Web-Login 的范式做保活</h3>
+<ul>
+<li>它的本质是"定时 + 打开页面 + 结果推飞书"，正好对应 Cookie 保活</li>
+<li>三个可移植设计：<b>等待依赖就绪</b>（卷挂载 → 等价于等 profile 解锁）、<b>日志分离</b>（启动日志与业务日志分开）、<b>单实例锁</b></li>
+<li>不能直接跑：它是 macOS 菜单栏 App，CI 上要重写成 headless 定时任务</li>
+</ul>
+</div>
+</div>
+<p class="muted">注意：Cookie 保活不能替代扫码。小黑盒的判定依据是接口返回的用户名，保活只能降低频率，不能绕过平台策略。</p>
+
+<h3 class="sub3">场景 C · 素材采集：补上流水线最前面那个空洞</h3>
+<p>GalgameCriticism 的 <code>parse_materials.py</code> <b>只认本地期目录</b>——素材从哪来，是这条链完全没有覆盖的一段。TianSalt 的两个采集工具正好填进来：</p>
+<ul>
+<li><b>Kemono-Downloader</b> → 一键抓作品页全部图片；用 <code>window.open</code> 弹窗绕过浏览器跨域下载限制，落盘后直接进图包目录</li>
+<li><b>XiaoXue-Video-Tools 的图片转换 + 批量重命名</b> → 把采集到的混杂格式（PNG/JPG/WEBP/GIF/TIFF）统一，并按 <code>candidates[]</code> 期望的顺序编号</li>
+<li><b>blog-scraper 的工程范式</b>（代理轮换 + Redis 队列 + 失败重试 + Actions 测试）→ 可作为 VisualNovel-Interview-RSS 那 11 个解析器的反爬兜底参考</li>
+</ul>
+<p><b>关键约束</b>：采集层必须产出<b>可复现的清单</b>（文件名 + 源 URL + SHA-256），否则 manifest 契约的"不可变素材"就失效了。</p>
+
+<h3 class="sub3">场景 D · 术语与注音一致性：消灭"去注音"这个人工环节</h3>
+<p>整条链路里有一个奇怪的细节值得注意：<b>docx 必须用「去注音」版本，因为原始稿的 <code>【注音】</code> 括号会漏进正文</b>。这说明团队内部有一个"给专有名词标读音"的工序，而它现在是纯手工的。</p>
+<p>TianSalt 的 <code>accentjiten_anki</code> 提供了一条现成的数据管道：日语重音词典 → 结构化条目 → Anki 卡组。把中间那层抽出来，就是一张「Galgame 作品名 / 声优名 / 厂商名 → 读音」的术语表。接在 <code>parse_materials.py</code> 之后做一道校验：</p>
+<div class="flow">parse_materials.py 产出 article.json
+  ▼  术语校验（新增）
+  · 抽取 heading / body 中的专有名词
+  · 查术语表 → 命中则校验读音标注一致性
+  · 未命中 → 进 warnings[]，人工补录后回写术语表
+  ▼  warnings 清零后才允许 render_preview.py</div>
+<p><b>诚实评估</b>：accentjiten 是<b>通用日语重音</b>词典，不是 Galgame 专有名词库。它解决不了"这个作品名该怎么读"，只能提供读音标注的格式与工具链。真正的价值是<b>把人工知识沉淀成可复用数据</b>，而不是自动注音。</p>
+
+<h3 class="sub3">场景 E · 数据底座：给"新作资讯"章节供结构化候选</h3>
+<p><code>galgame-sedai</code> 里有一段很实用的代码经验：它用 Bangumi 官方 API（<code>POST /v0/search/subjects</code>，<code>sort=heat</code>、<code>tag=Galgame</code>、按年过滤）在<b>构建期</b>生成年度榜单，而不是运行时抓网页。README 里还留了一条教训：</p>
+<div class="callout c-gray">
+<p>"原项目用 cheerio 抓 bgm.tv 网页，该方式现在会被 Cloudflare 拦截（403），因此改为走官方 API。请求必须携带可识别的 User-Agent。"</p>
+</div>
+<p>这条经验对场景 C 同样成立——VisualNovel-Interview-RSS 的 11 个解析器全是抓 HTML，长期一定会遇到同样的拦截。优先级应该是：<b>有官方 API 就走 API，没有才写解析器</b>。</p>
+
+<h3 class="sub3">组合矩阵</h3>
+<div class="tbl"><table>
+<thead><tr><th>工具</th><th>场景 A 视频</th><th>场景 B 可观测</th><th>场景 C 采集</th><th>场景 D 术语</th><th>场景 E 数据</th></tr></thead>
+<tbody>
+<tr><td>bilibili-weekly-article</td><td>提供素材契约</td><td>产出回执</td><td>—</td><td>接入点</td><td>—</td></tr>
+<tr><td>weekly-cross-platform-sync</td><td>—</td><td>回执格式来源</td><td>manifest 契约</td><td>—</td><td>—</td></tr>
+<tr><td>XiaoXue-Video-Tools</td><td class="t7">核心</td><td>—</td><td>图片转换/重命名</td><td>—</td><td>—</td></tr>
+<tr><td>TaskNya</td><td>成片通知</td><td class="t7">核心</td><td>—</td><td>—</td><td>—</td></tr>
+<tr><td>Daily-Web-Login</td><td>—</td><td>保活范式</td><td>—</td><td>—</td><td>—</td></tr>
+<tr><td>Subtitle-text-splitting</td><td class="t7">核心</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+<tr><td>lrc-converter</td><td>格式统一</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+<tr><td>accentjiten_anki</td><td>—</td><td>—</td><td>—</td><td class="t7">核心</td><td>—</td></tr>
+<tr><td>Kemono-Downloader</td><td>—</td><td>—</td><td class="t7">核心</td><td>—</td><td>—</td></tr>
+<tr><td>galgame-sedai</td><td>—</td><td>—</td><td>反爬经验</td><td>—</td><td class="t7">核心</td></tr>
+</tbody>
+</table></div>
+
+<h3 class="sub3">三种不建议的组合</h3>
+<div class="callout c-red">
+<h4>① 不要把发布 skill 塞进无人值守的 CI</h4>
+<p>五个 skill 里有四个依赖真实浏览器会话与扫码登录，<code>weekly-cross-platform-sync</code> 自己也写了"无人值守验收"要区分"代理临时改脚本跑通"和"固定脚本完整跑通"。把它当 cron 用，必然在 Cookie 过期那天静默失败。</p>
+</div>
+<div class="callout c-red">
+<h4>② 不要用 bstream 做图片/视频压缩</h4>
+<p>它是按位读写文件的 C++ 头文件，不是编解码器。看着"底层"就想拿来做压缩是典型的能力错配——真正该做压缩的是 XiaoXue-Video-Tools 里的 FFmpeg。</p>
+</div>
+<div class="callout c-red">
+<h4>③ 不要直接复用 blog-scraper</h4>
+<p>作者自己在 README 里标了"仿人类行为效果未知"，且强依赖 MongoDB + Redis。它适合当<b>范式参考</b>（代理池、队列、失败重试、Actions 测试），不适合当依赖。</p>
+</div>
+
+<h2 class="sec" id="s4"><span class="no">04</span>结论：这条链缺的是哪一块</h2>
+<div class="card">
+<p>把三个仓库摊开看，Galgame 内容流水线其实已经覆盖了 <b>70%</b>：生产契约、四平台分发、视频压制、通知监控、格式转换都有现成的。真正缺的是两块：</p>
+<ul>
+<li><b>采集层</b>——素材从哪来完全空白，靠人工下载。TianSalt 的 Kemono-Downloader 只能覆盖一部分。</li>
+<li><b>翻译/多语言层</b>——中文团队做日本内容，但整条链里<b>没有任何一处处理日文</b>。这是最反常的缺口。</li>
+</ul>
+<p>第二块缺口正好是 EpsilonGG 那批仓库的主题。第三篇报告会接着讲：把那边的采集与翻译能力接进来之后，这条链会变成什么样。</p>
+</div>
+
+<footer>本报告基于 2026-10-21 抓取的公开仓库源码与文档。<code>GalgameCriticism-skills</code> 的 SKILL.md / AGENTS.md / README.md 全文阅读；xueayi 与 TianSalt 的 README 与目录结构直接读取。<br>
+文中"踩坑清单"均来自仓库文档原文记载，未做推测；"场景"部分为基于现有接口的组合推演，落地前需实测。</footer>
+</div>
+</body>
+</html>

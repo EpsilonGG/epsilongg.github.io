@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EpsilonGG 融合方案 · 日文源到多平台流水线</title>
+<style>
+:root{
+  --bg:#f6f7f9; --card:#fff; --ink:#16181d; --ink2:#4a5160; --ink3:#7c8494;
+  --line:#e5e8ee; --line2:#f0f2f5; --accent:#2f5bff; --accent-soft:#eef2ff;
+  --gold:#a9770b; --gold-soft:#fdf6e3; --teal:#0d8f7a; --teal-soft:#e6f7f4;
+  --violet:#6b46c1; --violet-soft:#f3eefe; --rose:#b8385f; --rose-soft:#fdeef3;
+  --gray:#5b6472; --gray-soft:#eff1f4; --red:#c0392b; --red-soft:#fdecea;
+  --green:#1e7a4a; --green-soft:#e9f7ef;
+}
+*{box-sizing:border-box;}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+  font-size:15px;line-height:1.75;-webkit-font-smoothing:antialiased;}
+.wrap{max-width:1080px;margin:0 auto;padding:46px 28px 90px;}
+.eyebrow{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink3);font-weight:600;}
+h1{font-size:33px;line-height:1.3;margin:10px 0 12px;letter-spacing:-.02em;font-weight:750;}
+.sub{color:var(--ink2);font-size:15.5px;max-width:80ch;}
+.meta-row{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px;}
+.pill{background:var(--card);border:1px solid var(--line);border-radius:999px;padding:6px 14px;font-size:13px;color:var(--ink2);}
+.pill b{color:var(--ink);font-weight:650;}
+h2.sec{font-size:21px;margin:52px 0 6px;letter-spacing:-.01em;font-weight:700;
+  padding-top:8px;border-top:2px solid var(--ink);}
+h2.sec .no{color:var(--ink3);font-weight:600;margin-right:8px;font-variant-numeric:tabular-nums;}
+.sec-note{color:var(--ink3);font-size:13.5px;margin:8px 0 20px;}
+h3.sub3{font-size:16.5px;margin:30px 0 8px;font-weight:700;}
+h4.sub4{font-size:14px;margin:20px 0 6px;font-weight:700;color:var(--ink2);}
+p{margin:0 0 12px;}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px 24px;margin-bottom:16px;}
+.card h3{margin:0 0 10px;font-size:16.5px;font-weight:700;}
+.card h3 .tag{margin-left:8px;}
+.tag{display:inline-block;padding:2px 9px;border-radius:6px;font-size:11.5px;font-weight:600;white-space:nowrap;vertical-align:middle;}
+.t1{background:var(--accent-soft);color:var(--accent);}
+.t2{background:var(--teal-soft);color:var(--teal);}
+.t3{background:var(--violet-soft);color:var(--violet);}
+.t4{background:var(--gold-soft);color:var(--gold);}
+.t5{background:var(--rose-soft);color:var(--rose);}
+.t6{background:var(--gray-soft);color:var(--gray);}
+.t7{background:var(--green-soft);color:var(--green);}
+.t8{background:var(--red-soft);color:var(--red);}
+.tbl{border:1px solid var(--line);border-radius:12px;overflow:hidden;margin:14px 0 18px;background:#fff;}
+table{width:100%;border-collapse:collapse;font-size:13.5px;}
+th{text-align:left;padding:10px 12px;background:#fafbfc;color:var(--ink3);font-weight:600;
+  font-size:11.5px;letter-spacing:.04em;border-bottom:1px solid var(--line);white-space:nowrap;}
+td{padding:9px 12px;border-bottom:1px solid var(--line2);vertical-align:top;}
+tr:last-child td{border-bottom:none;}
+tr:hover td{background:#fcfcfd;}
+code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12.5px;background:#f2f4f7;
+  padding:1px 5px;border-radius:4px;color:#2b3242;}
+pre{background:#1d2129;color:#e6e9ef;border-radius:12px;padding:16px 18px;overflow-x:auto;
+  font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12.5px;line-height:1.65;margin:14px 0;}
+pre code{background:none;color:inherit;padding:0;font-size:inherit;}
+ul,ol{margin:0 0 12px;padding-left:22px;}
+li{margin-bottom:6px;color:var(--ink2);}
+li b{color:var(--ink);font-weight:650;}
+.callout{border-radius:14px;padding:18px 22px;margin:18px 0;}
+.callout h4{margin:0 0 8px;font-size:14.5px;font-weight:700;}
+.callout p{margin:0 0 8px;font-size:14px;}
+.callout p:last-child{margin:0;}
+.c-blue{background:var(--accent-soft);border:1px solid #d9e2ff;}
+.c-gold{background:var(--gold-soft);border:1px solid #f0e2b8;}
+.c-red{background:var(--red-soft);border:1px solid #f5cfc9;}
+.c-green{background:var(--green-soft);border:1px solid #c8e6d5;}
+.c-gray{background:var(--gray-soft);border:1px solid var(--line);}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+.mini{background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px 16px;}
+.mini .k{font-size:11.5px;color:var(--ink3);letter-spacing:.06em;text-transform:uppercase;font-weight:600;}
+.mini .v{font-size:15px;font-weight:700;margin-top:3px;}
+.mini .d{font-size:12.5px;color:var(--ink2);margin-top:4px;line-height:1.6;}
+.flow{background:#fff;border:1px solid var(--line);border-radius:12px;padding:18px 20px;margin:14px 0;
+  font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12.5px;line-height:1.8;
+  white-space:pre;overflow-x:auto;color:var(--ink2);}
+.stars{color:var(--gold);font-weight:650;}
+.muted{color:var(--ink3);font-size:13px;}
+footer{margin-top:56px;padding-top:20px;border-top:1px solid var(--line);font-size:12.5px;color:var(--ink3);}
+.kv{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 4px;}
+.kv span{background:#fafbfc;border:1px solid var(--line);border-radius:8px;padding:3px 10px;font-size:12px;color:var(--ink2);}
+.kv span b{color:var(--ink);}
+.toc{background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px 22px;margin:26px 0 8px;}
+.toc .h{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink3);font-weight:600;margin-bottom:10px;}
+.toc ol{margin:0;padding-left:20px;font-size:13.5px;columns:2;column-gap:28px;}
+.toc li{margin-bottom:5px;}
+.toc a{color:var(--ink2);text-decoration:none;}
+.toc a:hover{color:var(--accent);}
+@media (max-width:800px){
+  .wrap{padding:30px 16px 60px;}
+  h1{font-size:25px;}
+  .grid2,.grid3{grid-template-columns:1fr;}
+  .toc ol{columns:1;}
+  table{font-size:12.5px;}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="eyebrow">Integration Plan · 03</div>
+<h1>EpsilonGG 的融合方案<br>把三个断片接成一条"日文源 → 翻译 → 多平台"流水线</h1>
+<p class="sub">前两篇报告分别讲了「GalgameCriticism 的可用性契约」和「eryuemu-blog 的工程实现」。这一篇把它们收束到一个具体对象上：<b>EpsilonGG 的 4 个原创仓库和 13 个从未动过的 fork</b>。核心判断是——那 4 个项目其实是同一条流水线的三个断片，缺的两块（RSS 输出、翻译）恰好是账号本人的母题；而 13 个 fork 全部零提交、且多数已落后上游。</p>
+<div class="meta-row">
+  <span class="pill">原创 <b>4 个仓库</b></span>
+  <span class="pill">fork <b>13 个，全部 0 提交</b></span>
+  <span class="pill">参考 <b>报告 01 / 02</b></span>
+</div>
+
+<div class="toc">
+  <div class="h">目录</div>
+  <ol>
+    <li><a href="#s1">现状盘点与诊断</a></li>
+    <li><a href="#s2">关键发现：两个半成品</a></li>
+    <li><a href="#s3">目标架构</a></li>
+    <li><a href="#s4">P0：合并 RSS 出口</a></li>
+    <li><a href="#s5">P1：加翻译态</a></li>
+    <li><a href="#s6">P2：接发布端</a></li>
+    <li><a href="#s7">13 个 fork 怎么处置</a></li>
+    <li><a href="#s8">搬过来的 6 条可用性做法</a></li>
+    <li><a href="#s9">路线图与验收</a></li>
+    <li><a href="#s10">风险清单</a></li>
+  </ol>
+</div>
+
+<h2 class="sec" id="s1"><span class="no">01</span>现状盘点与诊断</h2>
+
+<h3 class="sub3">1.1 四个原创项目</h3>
+<div class="tbl"><table>
+<thead><tr><th>项目</th><th>定位</th><th>规模</th><th>关键实现</th><th>输出</th></tr></thead>
+<tbody>
+<tr><td><b>X-Reader</b></td><td>X / RSS / YouTube 三源聚合 + 去重 + 推送</td><td>170 文件<br>README 94 KB<br>架构文档 3 份共 126 KB</td><td><code>NormalizedItem</code> 12 字段统一模型；<code>items/</code> 与 <code>delivery/</code> 双账本；Nitter 多实例故障转移；YouTube 走公开 Atom 不需 API key</td><td>仓库内 JSONL + Telegram / QQ</td></tr>
+<tr><td><b>X-rss</b></td><td>X 账号 → 标准 RSS</td><td>109 文件</td><td>Provider 自动切换；<code>app / config / domain / exporters</code> 四层；GitHub Actions 定时；产出发布到 GitHub Pages</td><td class="t7"><b>rss.xml</b></td></tr>
+<tr><td><b>VisualNovel-Interview-RSS</b></td><td>日文媒体访谈 → RSS</td><td>36 文件<br>11 个解析器</td><td>每站点一个 parser（automaton / bugbug / denfami / dengekionline / famitsu / fourgamer / gamebiz / gamer / gamespark / gamewatch / nookgaming）；<code>history.json</code> 202 KB 指纹库做增量去重</td><td class="t7"><b>rss.xml</b></td></tr>
+<tr><td><b>whirlpool_blog_archive</b></td><td>博客存档 + 图片本地化</td><td>95 文件<br>articles.json 680 KB</td><td><code>crawler.py</code> 24 KB + <code>image_downloader.py</code> 14 KB；两个 workflow（下载 + 补图）</td><td>JSON 存档 + 本地图片目录</td></tr>
+</tbody>
+</table></div>
+
+<div class="callout c-blue">
+<h4>四个项目其实是一条流水线的四段</h4>
+<p><b>采集</b>（X-Reader 的三源 + VN-Interview 的 11 个日文站点 + whirlpool 的存档）→ <b>归一化</b>（X-Reader 的 <code>NormalizedItem</code>，唯一成熟的一层）→ <b>出口</b>（X-rss 的 RSS / X-Reader 的 Telegram、QQ）。缺的是<b>翻译</b>和<b>发布到内容平台</b>。</p>
+</div>
+
+<h3 class="sub3">1.2 十三个 fork 的真实状态</h3>
+<p>用 <code>/repos/{owner}/{repo}</code> 逐个取 <code>pushed_at</code> 与 <code>parent.pushed_at</code> 对比，结论很干脆：<b>13 个 fork 全部零自有提交</b>（fork 的 <code>pushed_at</code> 都早于或等于 fork 创建时间），其中 11 个的 <code>pushed_at</code> 与上游完全一致。</p>
+<div class="tbl"><table>
+<thead><tr><th>fork</th><th>上游</th><th class="stars">上游★</th><th>fork 创建</th><th>落后上游</th><th>性质</th></tr></thead>
+<tbody>
+<tr><td>GalTransl</td><td>GalTransl/GalTransl</td><td>2353</td><td>2026-09-20</td><td class="t8">约 1 个月</td><td>Galgame 自动翻译主引擎（GPT/Claude/Deepseek/Sakura 多后端）</td></tr>
+<tr><td>manim-tutorial-CN</td><td>cai-hust/manim-tutorial-CN</td><td>1240</td><td>2026-07-29</td><td class="t8">约 6 年</td><td>manim 中文教程（2020 年后停更）</td></tr>
+<tr><td>context-infrastructure</td><td>grapeot/context-infrastructure</td><td>808</td><td>2026-08-20</td><td class="t8">约 2 个月</td><td>AI 编码 Agent 的持久记忆与规则系统</td></tr>
+<tr><td>ManimCat</td><td>Wing900/ManimCat</td><td>476</td><td>2026-07-29</td><td class="t8">约 3 个月</td><td>自然语言生成数学动画</td></tr>
+<tr><td>myskill</td><td>SpaceZephyr/myskill</td><td>340</td><td>2026-06-28</td><td class="t8">约 7 个月</td><td>技能集合</td></tr>
+<tr><td>guide-nitter-self-hosting</td><td>sekai-soft/…</td><td>248</td><td>2026-07-07</td><td class="t8">约 10 个月</td><td>自建 Nitter 指南（X-Reader 的上游依赖）</td></tr>
+<tr><td>HDEG</td><td>hdeman3/HDEG</td><td>27</td><td>2026-09-15</td><td class="t7">同期</td><td>日文音声端到端字幕翻译</td></tr>
+<tr><td>juya-news-card</td><td>JupiterFeng/…</td><td>15</td><td>2026-06-10</td><td class="t8">约 8 个月</td><td>新闻卡片画面生成</td></tr>
+<tr><td>superlinear-advisor</td><td>wyuebei-cloud/…</td><td>12</td><td>2026-08-31</td><td class="t7">同期</td><td>带引用的问答助手</td></tr>
+<tr><td>OpenAI-API-transcriber</td><td>xmoiduts/…</td><td>3</td><td>2026-09-22</td><td class="t7">同期</td><td>长音频转写</td></tr>
+<tr><td>GalgameCriticism-skills</td><td>GalgameCriticism/…</td><td>2</td><td>2026-10-20</td><td class="t7">1 天</td><td>报告 01 的主角，发布契约</td></tr>
+<tr><td>autosub</td><td>CjangCjengh/autosub</td><td>1</td><td>2026-09-20</td><td class="t8">约 11 个月</td><td>自动字幕（已被 HDEG 覆盖）</td></tr>
+<tr><td>NarouDownloader</td><td>CjangCjengh/…</td><td>0</td><td>2026-09-20</td><td class="t7">同期</td><td>「成为小说家吧」下载器</td></tr>
+</tbody>
+</table></div>
+
+<div class="callout c-red">
+<h4>诊断：fork 动作是"收藏"，不是"开发"</h4>
+<p>13 个 fork、0 次提交、11 个与上游同 <code>pushed_at</code>——这不是在改代码，是在用 fork 当书签。问题在于 <b>fork 会持续落后</b>：GalTransl 已经落后一个月，context-infrastructure 落后两个月。真要用的那天，第一件事不是写代码，而是先 <code>git pull upstream</code> 解决冲突。</p>
+<p>更实际的代价是<b>信号污染</b>：13 个 fork 让"最近更新"看起来每天都在动，但没有任何一行是自己的。用 <code>pushed_at</code> 判断活跃度的人会被误导。</p>
+</div>
+
+<h2 class="sec" id="s2"><span class="no">02</span>关键发现：X-Reader 和 X-rss 是同一套架构的两个半成品</h2>
+
+<h3 class="sub3">2.1 分层几乎一一对应</h3>
+<div class="tbl"><table>
+<thead><tr><th>层</th><th>X-Reader</th><th>X-rss</th><th>差异</th></tr></thead>
+<tbody>
+<tr><td>编排</td><td><code>app/runner.py</code>（36 KB）</td><td><code>app/pipeline.py</code> + <code>runner.py</code> + <code>bootstrap.py</code></td><td>X-rss 把"装配"和"流程"拆得更细</td></tr>
+<tr><td>配置</td><td><code>config/{loader,schema}.py</code>（Pydantic）</td><td><code>config/{loader,models,validator,defaults}.py</code></td><td>X-rss 有独立 validator</td></tr>
+<tr><td>领域模型</td><td><code>domain/models/{item,account,media,tweet,rss_item,youtube_item}.py</code></td><td><code>domain/models/{tweet,author,media,attachment,account,feed}.py</code></td><td>X-Reader 有跨源 <code>NormalizedItem</code>；X-rss 只有 <code>tweet</code> + <code>feed</code></td></tr>
+<tr><td>抓取</td><td><code>providers/</code>（nitter / rss / youtube / factory）</td><td><code>providers/</code>（多实例切换）</td><td>X-Reader 源更多</td></tr>
+<tr><td>解析</td><td><code>parsers/</code>（nitter_rss / nitter_html / rss / youtube / timeutil）</td><td><code>parsers/</code></td><td>X-Reader 多了 HTML 形态与时间工具</td></tr>
+<tr><td><b>出口</b></td><td class="t8">无 exporter 目录；<b>RSS 输出标 ⛔ 未实现</b></td><td class="t7"><code>exporters/</code>，产出 rss.xml</td><td><b>这就是缺口</b></td></tr>
+<tr><td>账本</td><td class="t7"><code>data/items/</code> + <code>data/delivery/*.jsonl</code></td><td class="t8">无投递账本</td><td><b>这也是缺口</b></td></tr>
+</tbody>
+</table></div>
+
+<h3 class="sub3">2.2 一句话概括</h3>
+<div class="grid2">
+<div class="mini"><div class="k">X-Reader</div><div class="v">有账本，没 RSS 出口</div><div class="d">把"见过/发过"两件事分得极清楚（<code>items/</code> vs <code>delivery/</code>），支持失败补发、按输出独立记账。但 README 明确写着「生成 RSS 输出文件 ⛔ 未实现」。</div></div>
+<div class="mini"><div class="k">X-rss</div><div class="v">有 RSS 出口，没账本</div><div class="d">能稳定产出可订阅的 rss.xml 并发布到 Pages，但没有增量与投递状态，重复运行靠的是"重新生成整份 RSS"。</div></div>
+</div>
+
+<p>所以 <b>P0 不需要写新功能，只需要把两边各缺的一半接起来</b>。这是整个方案里性价比最高的一步。</p>
+
+<div class="callout c-gold">
+<h4>还有一条更关键的线索</h4>
+<p>X-Reader 的能力矩阵里两个 ⛔ 是：<b>「生成 RSS 输出文件」</b>和<b>「AI 摘要 / 翻译」</b>。而 EpsilonGG 整个账号的母题恰恰是"日文内容中文化"。也就是说，<b>这个项目缺的两块，一块已经由隔壁的 X-rss 实现了，另一块正是账号主人最擅长的事</b>。</p>
+</div>
+
+<h2 class="sec" id="s3"><span class="no">03</span>目标架构</h2>
+<div class="sec-note">在现有分层上加三个新层，不动已被冻结的契约。</div>
+
+<div class="flow">┌─────────────── 采集（已有） ───────────────┐
+│ providers/  X-Reader 三源 + VN-Interview 11 站 │
+└────────────────────┬─────────────────────────┘
+                     ▼
+┌─────────────── 归一化（已有，冻结） ─────────┐
+│ NormalizedItem  source_id + item_id 为身份    │
+└────────────────────┬─────────────────────────┘
+                     ▼
+┌─────────────── 存储与账本（已有） ───────────┐
+│ data/items/*.jsonl      「见过吗」            │
+│ data/delivery/*.jsonl   「发过吗」（按输出）  │
+└────────────────────┬─────────────────────────┘
+                     ▼
+┌── 新增 ① exporters/（P0，从 X-rss 迁入） ────┐
+│ rss.py → rss.xml   ＋ data/delivery/rss.jsonl │
+└────────────────────┬─────────────────────────┘
+                     ▼
+┌── 新增 ② translations/（P1） ────────────────┐
+│ 按 (source_id,item_id) 关联，不改主字段       │
+│ 引擎：GalTransl / HDEG   术语表：glossary     │
+└────────────────────┬─────────────────────────┘
+                     ▼
+┌── 新增 ③ publishers/（P2） ──────────────────┐
+│ 聚合 manifest（GC 契约）→ 交给发布 skill      │
+│ 回执 + 回读 + 去重键                          │
+└──────────────────────────────────────────────┘</div>
+
+<div class="callout c-blue">
+<h4>为什么是"加"而不是"改"</h4>
+<p>X-Reader 有一份 <code>docs/ARCHITECTURE_FREEZE_V3.md</code>（44 KB）——文件名里的 <b>FREEZE</b> 说明作者已经做过一次架构冻结。<code>NormalizedItem</code> 的 12 个字段和"推送格式不进模型"的原则就是冻结内容。新加的三层全部是<b>旁挂</b>：exporter 读 <code>items/</code>，translations 用外键关联，publishers 消费聚合结果。任何一层挂掉都不影响已有链路。</p>
+</div>
+
+<h2 class="sec" id="s4"><span class="no">04</span>P0：合并 RSS 出口（约 3 天）</h2>
+
+<h4 class="sub4">改动清单</h4>
+<div class="tbl"><table>
+<thead><tr><th>动作</th><th>文件</th><th>内容</th></tr></thead>
+<tbody>
+<tr><td>新增</td><td><code>X-Reader/exporters/__init__.py</code></td><td>空导出</td></tr>
+<tr><td>迁入</td><td><code>X-Reader/exporters/rss.py</code></td><td>从 <code>X-rss/exporters/</code> 复制，把入参从 <code>Tweet</code> 改成 <code>NormalizedItem</code>（字段映射见下）</td></tr>
+<tr><td>新增</td><td><code>X-Reader/data/delivery/rss.jsonl</code></td><td>第三本账，与 telegram / qq 平级</td></tr>
+<tr><td>扩展</td><td><code>config/schema.py</code></td><td>加 <code>rss: {enabled, output_path, title, link, max_items}</code></td></tr>
+<tr><td>扩展</td><td><code>config/config.yaml</code></td><td>加同名段，默认 <code>enabled: false</code></td></tr>
+<tr><td>挂载</td><td><code>app/runner.py</code></td><td>在 items 落盘之后、Telegram 投递之前调用 <code>deliver_rss()</code></td></tr>
+<tr><td>扩展</td><td><code>.github/workflows/*.yml</code></td><td>commit 时带上 <code>rss.xml</code>（或单独部署到 Pages）</td></tr>
+</tbody>
+</table></div>
+
+<h4 class="sub4">字段映射：NormalizedItem → RSS item</h4>
+<div class="tbl"><table>
+<thead><tr><th>NormalizedItem</th><th>RSS</th><th>说明</th></tr></thead>
+<tbody>
+<tr><td><code>title</code></td><td><code>&lt;title&gt;</code></td><td>可能为空，空则回退到正文前 40 字</td></tr>
+<tr><td><code>content</code></td><td><code>&lt;description&gt;</code></td><td>保留纯文本，不做 HTML 清洗</td></tr>
+<tr><td><code>canonical_url</code></td><td><code>&lt;link&gt;</code> + <code>&lt;guid&gt;</code></td><td><b>guid 用 <code>source_id:item_id</code></b>，不要用 URL（URL 可能变）</td></tr>
+<tr><td><code>published_at</code> / <code>published_at_raw</code></td><td><code>&lt;pubDate&gt;</code></td><td>精度为 <code>unknown</code> 时用 <code>fetched_at</code> 并加注，<b>遵守"时间不猜"</b></td></tr>
+<tr><td><code>publisher</code></td><td><code>&lt;author&gt;</code></td><td>仅展示</td></tr>
+<tr><td><code>media</code></td><td><code>&lt;enclosure&gt;</code></td><td>缩略图</td></tr>
+<tr><td><code>source_id</code></td><td><code>&lt;category&gt;</code></td><td>让阅读器能按来源分组</td></tr>
+</tbody>
+</table></div>
+
+<h4 class="sub4">验收标准</h4>
+<ul>
+<li>一次运行同时产出 <code>data/items/*.jsonl</code>、<code>rss.xml</code>、Telegram 推送三份结果</li>
+<li>重复运行 <b>0 条重发</b>（<code>delivery/rss.jsonl</code> 生效）</li>
+<li>删掉 <code>delivery/rss.jsonl</code> 可全量重发（与 Telegram 的既有行为一致）</li>
+<li>RSS 能被 FreshRSS / Inoreader 正常订阅，<code>guid</code> 稳定不变</li>
+<li>RSS 出口挂掉不影响 Telegram / QQ（沿用"单点失败不拖垮整体"）</li>
+</ul>
+
+<h2 class="sec" id="s5"><span class="no">05</span>P1：加翻译态（约 2 周）</h2>
+
+<h3 class="sub3">5.1 设计原则：不污染主模型</h3>
+<p>X-Reader 自己定了两条规矩：<b>「时间不猜」</b>和<b>「推送格式不进模型」</b>。翻译同属"派生信息"，所以不能往 <code>NormalizedItem</code> 里塞 <code>title_zh</code>、<code>content_zh</code>——那会让原文和译文在同一个结构里纠缠，也无法记录引擎版本。</p>
+
+<pre><code>data/
+├── items/                    ← 原文（不动）
+│   └── x.jsonl
+├── delivery/                 ← 投递账本（不动）
+│   ├── telegram.jsonl
+│   ├── qq.jsonl
+│   └── rss.jsonl             ← P0 新增
+└── translations/             ← P1 新增
+    └── zh/
+        └── x__12345.json     ← 文件名 = source_id + "__" + item_id</code></pre>
+
+<pre><code>{
+  "source_id": "x",
+  "item_id": "12345",
+  "target_lang": "zh",
+  "title": "……",
+  "content": "……",
+  "engine": "galtransl+deepseek",
+  "glossary_version": "2026-10-21",
+  "status": "ok",              // ok | partial | failed | skipped
+  "translated_at": "2026-10-21T22:00:00Z",
+  "terms_hit": ["柚木かなめ", "ゆずソフト"]
+}</code></pre>
+
+<p>这样做的三个好处：① 原文永远可回溯；② 换引擎可以整批重跑而不动原文；③ <code>terms_hit</code> 让术语表命中率变成<b>可统计的指标</b>。</p>
+
+<h3 class="sub3">5.2 术语表：这是 Galgame 翻译的真正门槛</h3>
+<p>报告 01 里提到 GalgameCriticism 的周报必须用「去注音」版 docx，因为原始稿的 <code>【注音】</code> 会漏进正文——这说明团队内部有一个手工标读音的工序。<b>翻译流水线会把这个痛点放大十倍</b>：作品名、声优名、厂商名、角色名，每一个都可能被译错。</p>
+<div class="tbl"><table>
+<thead><tr><th>来源</th><th>提供什么</th><th>怎么用</th></tr></thead>
+<tbody>
+<tr><td><b>GalTransl</b>（★2353）</td><td>成熟的 glossary 机制 + 多后端（GPT/Claude/Deepseek/Sakura）</td><td>直接复用它的术语表格式，不自己发明</td></tr>
+<tr><td><b>HDEG</b>（★27）</td><td>以官方台本为基准校正 ASR、术语统一、多模型翻译</td><td>处理 YouTube / 音声类内容（X-Reader 的第三类源）</td></tr>
+<tr><td><b>accentjiten_anki</b>（TianSalt）</td><td>日语重音词典 → 结构化条目</td><td>抽出"词 → 读音"层，给术语表补注音字段</td></tr>
+<tr><td><b>NarouDownloader</b></td><td>成为小说家吧的日文文本源</td><td>术语表的语料来源之一</td></tr>
+</tbody>
+</table></div>
+
+<div class="callout c-gold">
+<h4>一个诚实的限制</h4>
+<p><code>accentjiten</code> 是<b>通用日语重音词典</b>，不是 Galgame 专有名词库。它解决不了"ゆずソフト 该译成柚子社还是 Yuzu-Soft"，只能提供读音标注的格式与工具链。术语表本身仍然要人工建——但建一次就能复用，这是从"每次手工注音"到"资产化"的关键一步。</p>
+</div>
+
+<h3 class="sub3">5.3 验收标准</h3>
+<ul>
+<li>同一条 item 有原文 + 译文两份，<b>原文不被改写</b></li>
+<li>翻译失败时原文照常投递（<code>status: failed</code> 只影响译文出口）</li>
+<li>术语命中率可统计，未命中词进 <code>glossary_todo</code></li>
+<li>换引擎重跑不产生重复条目</li>
+</ul>
+
+<h2 class="sec" id="s6"><span class="no">06</span>P2：接发布端（约 1 周，先只做"生成 manifest"）</h2>
+<div class="sec-note">这一步不自己写发布逻辑，而是产出一份符合 GalgameCriticism 契约的素材包，交给现成的 skill 去发。</div>
+
+<h4 class="sub4">聚合 manifest</h4>
+<pre><code>{
+  "source": "x-reader",
+  "source_id": "weekly-265",
+  "canonical_url": "https://...",
+  "title": "本期 Galgame 情报速递",
+  "blocks": [ /* 由若干 NormalizedItem + 译文组成 */ ],
+  "images": [ { "local": "images/001.jpg", "origin": "https://...", "sha256": "..." } ],
+  "author": "……",
+  "published_at": "2026-10-21T00:00:00Z",
+  "manifest_sha256": "……"
+}</code></pre>
+<p>字段名与 <code>weekly-cross-platform-sync</code> 的 manifest 契约完全一致，所以可以直接喂给：</p>
+<ul>
+<li><code>bilibili-weekly-article</code>（转成 <code>article.json</code> 走图文排版）</li>
+<li><code>zhihu-weekly-sync</code> / <code>weibo-weekly-sync</code> / <code>xiaoheihe-weekly-sync</code>（跨平台搬运）</li>
+</ul>
+
+<h4 class="sub4">去重键对齐</h4>
+<p>用 GC 的规范：<code>source + source_id + target_account + target_scope + content_type</code>。X-Reader 已经有 <code>delivery/</code> 这套按输出记账的机制，只需把"输出"从 <code>telegram/qq/rss</code> 扩展成 <code>bilibili/zhihu/weibo/xiaoheihe</code>，<b>结构完全复用</b>。</p>
+
+<div class="callout c-red">
+<h4>不要在这一步做自动发布</h4>
+<p>报告 01 已经证明：四个平台适配器全部依赖真实浏览器会话 + 扫码，且各自的坑被穷举了 14 条。EpsilonGG 的强项是数据与翻译，不是浏览器自动化。正确做法是<b>产出 manifest 就停</b>，把发布交给已经有 264 期实证的那套 skill，人来做审核闸门。</p>
+</div>
+
+<h2 class="sec" id="s7"><span class="no">07</span>十三个 fork 怎么处置</h2>
+<div class="sec-note">原则：fork 只有两种合法状态——<b>正在改</b>，或<b>不存在</b>。中间状态（fork 了但没动、还落后上游）只会制造噪音。</div>
+
+<div class="tbl"><table>
+<thead><tr><th>处置</th><th>仓库</th><th>理由</th><th>具体动作</th></tr></thead>
+<tbody>
+<tr><td rowspan="5" class="t7"><b>保留并改造</b><br>（5 个）</td>
+<td><b>GalTransl</b> ★2353</td><td>P1 的翻译主引擎，成熟度最高</td><td>转 submodule，开 <code>feat/x-reader-glossary</code> 分支放自己的术语表适配</td></tr>
+<tr><td><b>HDEG</b> ★27</td><td>音声/视频字幕，正好配 X-Reader 的 YouTube 源</td><td>转 submodule，只改输出格式对接</td></tr>
+<tr><td><b>OpenAI-API-transcriber</b> ★3</td><td>长音频转写，HDEG 的前置</td><td>同上，同期未落后</td></tr>
+<tr><td><b>NarouDownloader</b> ★0</td><td>日文文本源，术语表语料</td><td>保留，按需调用</td></tr>
+<tr><td><b>guide-nitter-self-hosting</b> ★248</td><td>X-Reader 依赖公开 Nitter 镜像，这是自建兜底方案</td><td>不作为代码依赖，把要点摘进 X-Reader 的 <code>docs/</code></td></tr>
+<tr><td rowspan="2" class="t4"><b>提取参考后归档</b><br>（2 个）</td>
+<td><b>GalgameCriticism-skills</b> ★2</td><td>P2 的契约来源</td><td>不保留 fork，改为在 X-Reader <code>docs/</code> 里记录契约字段 + 链接上游</td></tr>
+<tr><td><b>context-infrastructure</b> ★808</td><td>Agent 记忆思路可借鉴，但与流水线无直接依赖</td><td>摘 2–3 条设计写进笔记，归档</td></tr>
+<tr><td rowspan="6" class="t6"><b>直接归档</b><br>（6 个）</td>
+<td><b>manim-tutorial-CN</b> ★1240</td><td>2020 年后停更，与主题无关</td><td>归档</td></tr>
+<tr><td><b>ManimCat</b> ★476</td><td>数学动画，与内容流水线无关</td><td>归档</td></tr>
+<tr><td><b>myskill</b> ★340</td><td>技能集合，定位模糊</td><td>归档</td></tr>
+<tr><td><b>juya-news-card</b> ★15</td><td>新闻卡片生成，未被使用</td><td>归档</td></tr>
+<tr><td><b>superlinear-advisor</b> ★12</td><td>问答助手，未被使用</td><td>归档</td></tr>
+<tr><td><b>autosub</b> ★1</td><td>功能已被 HDEG 覆盖，且落后 11 个月</td><td>归档</td></tr>
+</tbody>
+</table></div>
+
+<div class="callout c-blue">
+<h4>如果舍不得删，至少做一件事</h4>
+<p>把保留的 5 个<b>统一 sync 到上游最新</b>，并在 README 里加一行说明"这个 fork 用来做什么"。否则半年后回头看，13 个 fork 里没有一个能直接跑——既没改过，又落后一大截，等于零。</p>
+</div>
+
+<h2 class="sec" id="s8"><span class="no">08</span>搬过来的 6 条可用性做法</h2>
+<div class="sec-note">这部分是从 GalgameCriticism-skills 直接借的，也是"融合可用性工作"的实质内容。</div>
+
+<div class="card">
+<h3>① 契约先行，中间产物落盘</h3>
+<p>GC 的每一步都留一个可检查的中间文件：<code>article.json</code>、<code>manifest.json</code>、<code>*_receipt.json</code>。X-Reader 已经有 <code>items/</code> 和 <code>delivery/</code>，P0/P1 要延续这个习惯——<b>translations/ 和 manifest.json 都落盘，不进内存</b>。好处是任何一步失败都能从中间产物续跑。</p>
+</div>
+
+<div class="card">
+<h3>② 回执 + 回读，公开链接才算成功</h3>
+<p>GC 规定：草稿、编辑器、本地路径不能填在"成功"位置；没有回读通过只能标 <code>submitted / pending_review / unknown / failed</code>。X-Reader 的 <code>delivery</code> 状态只有 <code>sent / failed / skipped</code>，可以对齐成同一套语义，让两个系统的报告能拼在一起看。</p>
+</div>
+
+<div class="card">
+<h3>③ 去重键要写进文档</h3>
+<p>GC 用 <code>source + source_id + target_account + target_scope + content_type</code>。X-Reader 用 <code>source_id + item_id</code>。两者可以合并成一条链：<b>内容身份（前者）+ 分发身份（后者）</b>，写进 README，避免以后每次加平台都重新想一遍。</p>
+</div>
+
+<div class="card">
+<h3>④ 人工闸门要显式标注</h3>
+<p>GC 的 bilibili skill 把"人工审核"写成第 3 步，且注明"必做，不可跳过"。这是很好的示范——<b>把人的位置画进流程图，而不是假装全自动</b>。EpsilonGG 的流水线也该在 manifest 之后插一个"人工确认译文"的闸门。</p>
+</div>
+
+<div class="card">
+<h3>⑤ 仓库级规则文件</h3>
+<p>GC 有一份 <code>AGENTS.md</code>，规定目录同步、提交前脱敏扫描（用户名路径、令牌、Cookie、浏览器配置）、发布约定。X-Reader 的 README 已经很长（94 KB），但缺一份"给 agent 的短规则"。建议单独加 <code>AGENTS.md</code>，只写约束不写教程。</p>
+</div>
+
+<div class="card">
+<h3>⑥ 双文档：面向人的 README + 面向 agent 的 SKILL</h3>
+<p>GC 每个 skill 都有两份文档，分工明确：<code>README.md</code> 讲"这是什么"（含流程图），<code>SKILL.md</code> 讲"怎么执行"（含命令与边界）。X-Reader 把两者混在 94 KB 的 README 里，新人能看懂但 agent 抓不住重点。拆开后两边都更好用。</p>
+</div>
+
+<h2 class="sec" id="s9"><span class="no">09</span>路线图与验收</h2>
+
+<div class="tbl"><table>
+<thead><tr><th>周</th><th>任务</th><th>产出</th><th>验收</th></tr></thead>
+<tbody>
+<tr><td>W1</td><td>P0 合并 RSS 出口 + fork 分类归档</td><td><code>exporters/rss.py</code>、<code>delivery/rss.jsonl</code>、fork 从 13 降到 5</td><td>三出口幂等；重复运行 0 重发</td></tr>
+<tr><td>W2</td><td>P1 骨架：<code>translations/</code> 存储层 + 术语表格式</td><td>翻译态 schema、glossary 初版（先放 50 个高频词）</td><td>能读写译文，原文不变</td></tr>
+<tr><td>W3</td><td>P1 接引擎：GalTransl 后端 + HDEG（视频源）</td><td>可配置引擎、术语命中统计</td><td>术语命中率可输出；失败不影响原文</td></tr>
+<tr><td>W4</td><td>P2 聚合 manifest，交给发布 skill 试跑一期</td><td>manifest.json 生成器</td><td>不改字段就能被 GC 的 skill 消费</td></tr>
+</tbody>
+</table></div>
+
+<div class="grid3">
+<div class="mini"><div class="k">指标 1</div><div class="v">出口数 1 → 3</div><div class="d">items / rss / telegram 同时产出，且互不影响</div></div>
+<div class="mini"><div class="k">指标 2</div><div class="v">fork 13 → ≤5</div><div class="d">每个保留的 fork 都有 README 说明用途 + 已 sync</div></div>
+<div class="mini"><div class="k">指标 3</div><div class="v">术语命中率</div><div class="d">首期目标 ≥60%，未命中词自动进 todo</div></div>
+</div>
+
+<h2 class="sec" id="s10"><span class="no">10</span>风险清单</h2>
+<div class="tbl"><table>
+<thead><tr><th>风险</th><th>影响</th><th>应对</th></tr></thead>
+<tbody>
+<tr><td><b>Nitter 实例不稳定</b></td><td>X 源整体抓不到</td><td>X-Reader 已有多实例故障转移；把 <code>guide-nitter-self-hosting</code> 的要点整理成自建预案</td></tr>
+<tr><td><b>翻译版权与署名</b></td><td>日文访谈原文转载 + 翻译的合规边界</td><td>manifest 里强制保留 <code>author</code> 与 <code>canonical_url</code>；发布时保留来源署名（GC 的版式规范已要求）</td></tr>
+<tr><td><b>发布端脆弱</b></td><td>平台前端一改就失效</td><td>不在自己仓库实现发布；复用已有 14 条踩坑记录的 skill</td></tr>
+<tr><td><b>两套代码合并后架构漂移</b></td><td>X-rss 的 <code>Tweet</code> 模型与 X-Reader 的 <code>NormalizedItem</code> 混用</td><td>只迁 exporter 一层，<b>不迁 domain 模型</b>；入参统一成 <code>NormalizedItem</code></td></tr>
+<tr><td><b>术语表维护断档</b></td><td>翻译质量回退</td><td><code>glossary_version</code> 写进每条译文，可按版本回滚</td></tr>
+<tr><td><b>仓库里遗留 <code>__pycache__</code></b></td><td>X-Reader 有 100+ 个 .pyc 被提交，污染 diff</td><td>加 <code>.gitignore</code> 并 <code>git rm -r --cached</code>，顺手清掉</td></tr>
+</tbody>
+</table></div>
+
+<div class="callout c-green">
+<h4>一句话总结这个方案</h4>
+<p><b>不新造系统，只做三件事</b>：把 X-rss 的出口接进 X-Reader（P0）、给已冻结的数据模型旁挂一个翻译层（P1）、产出符合别人契约的 manifest 交给成熟发布端（P2）。同时把 13 个零提交的 fork 砍到 5 个，让"最近更新"重新变得可信。</p>
+</div>
+
+<footer>本报告基于 2026-10-21 抓取的 <code>EpsilonGG</code> 全部 17 个公开仓库：4 个原创（<code>X-Reader</code>、<code>X-rss</code>、<code>VisualNovel-Interview-RSS</code>、<code>whirlpool_blog_archive</code>）与 13 个 fork。<br>
+fork 状态通过 <code>/repos/{owner}/{repo}</code> 的 <code>pushed_at</code> 与 <code>parent.pushed_at</code> 逐一比对确认；X-Reader 的能力矩阵、<code>NormalizedItem</code> 字段、<code>items/</code> 与 <code>delivery/</code> 机制均引自其 README 原文。<br>
+方案中的文件路径与改动点基于仓库现有目录结构推导，实施前需在本地验证。</footer>
+</div>
+</body>
+</html>
