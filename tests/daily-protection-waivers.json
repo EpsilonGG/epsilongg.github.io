@@ -2,20 +2,7 @@
   "schema_version": 1,
   "note": "日报保护集的显式授权白名单。不是关掉闸门：未登记的保护路径仍逐字节比对、保护目录里出现新文件仍一律拦下。每条都要写清授权日与理由；改动一旦 commit，diff 归零、豁免自动失效，届时应把该条从这里删掉。batches 用于「一次用户裁决要改一批同构文件」的场景，仍然逐条列出完整文件路径，不接受目录或通配符。",
   "cleared_on": "2026-11-08",
-  "cleared_reason": "2026-11-06 那批授权（9 条单条豁免 + 1 批 22 期账号订正）已全部 commit，`git diff HEAD -- <保护集>` 为空，按设计豁免自动失效。空列表才是正常状态；下次真要改保护集，按原格式逐条登记，commit 后立刻删掉。",
-  "waivers": [
-    {
-      "path": "data/daily/261108/report.json",
-      "authorized_by": "用户",
-      "authorized_on": "2026-11-08",
-      "reason": "用户要求把 261108 声优版的副标题与前两个看点改成「胡桃ふゅ 设立新社团」「美しょゲ声優歌手コラボBAR 最终日」；改完立刻 commit，本条随即删除"
-    },
-    {
-      "path": "data/daily/261108/report.ja.json",
-      "authorized_by": "用户",
-      "authorized_on": "2026-11-08",
-      "reason": "同上，Ci-en 日文版跟着中文正本换头条与前两条看点（daily ja 重新判卷落盘）"
-    }
-  ],
+  "cleared_reason": "261108 两条授权（副标题 + 前两条看点、Ci-en 日文版同步）已 commit（0e6d643），`git diff HEAD -- data/daily` 为空，豁免按设计自动失效。空列表才是正常状态。",
+  "waivers": [],
   "batches": []
 }
