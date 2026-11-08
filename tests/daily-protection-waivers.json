@@ -1,35 +1,8 @@
 {
   "schema_version": 1,
   "note": "日报保护集的显式授权白名单。不是关掉闸门：未登记的保护路径仍逐字节比对、保护目录里出现新文件仍一律拦下。每条都要写清授权日与理由；改动一旦 commit，diff 归零、豁免自动失效，届时应把该条从这里删掉。batches 用于「一次用户裁决要改一批同构文件」的场景，仍然逐条列出完整文件路径，不接受目录或通配符。",
-  "cleared_on": "2026-11-08",
-  "cleared_reason": "261108 行首修复的 3 条单条豁免已 commit（9ed295a / 2f62a4d）；本批是 2026-11-09 的 ryonarab 隔离订正。",
+  "cleared_on": "2026-11-09",
+  "cleared_reason": "ryonarab 隔离那一批（18 期文件）已 commit（e229591），`git diff HEAD -- data/daily` 为空，豁免按设计自动失效。空列表才是正常状态。",
   "waivers": [],
-  "batches": [
-    {
-      "id": "ryonarab-quarantine-20261109",
-      "authorized_by": "用户",
-      "authorized_on": "2026-11-09",
-      "reason": "用户订正：@ryonarab 不是 秋山はるる 的号（BOOTH 上是个人リョナ同人サークル）。已发布各期里挂在「秋山はるる」行下的内容全部撤掉：整条是它的删行（261026/261103/261108）、半句是它的砍半句并去掉该来源（261027/261028/261031/261101/261105）、只挂在 via 的摘掉（261104/261106/261030）。commit 后立刻清空本条。",
-      "paths": [
-        "data/daily/261026/report.json",
-        "data/daily/261027/report.ja.json",
-        "data/daily/261027/report.json",
-        "data/daily/261028/report.ja.json",
-        "data/daily/261028/report.json",
-        "data/daily/261030/report.json",
-        "data/daily/261031/report.ja.json",
-        "data/daily/261031/report.json",
-        "data/daily/261101/report.ja.json",
-        "data/daily/261101/report.json",
-        "data/daily/261103/report.ja.json",
-        "data/daily/261103/report.json",
-        "data/daily/261104/report.json",
-        "data/daily/261105/report.ja.json",
-        "data/daily/261105/report.json",
-        "data/daily/261106/report.json",
-        "data/daily/261108/report.ja.json",
-        "data/daily/261108/report.json"
-      ]
-    }
-  ]
+  "batches": []
 }
