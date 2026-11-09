@@ -1,8 +1,21 @@
 {
   "schema_version": 1,
   "note": "日报保护集的显式授权白名单。不是关掉闸门：未登记的保护路径仍逐字节比对、保护目录里出现新文件仍一律拦下。每条都要写清授权日与理由；改动一旦 commit，diff 归零、豁免自动失效，届时应把该条从这里删掉。batches 用于「一次用户裁决要改一批同构文件」的场景，仍然逐条列出完整文件路径，不接受目录或通配符。",
-  "cleared_on": "2026-11-09",
-  "cleared_reason": "ryonarab 隔离那一批（18 期文件）已 commit（e229591），`git diff HEAD -- data/daily` 为空，豁免按设计自动失效。空列表才是正常状态。",
-  "waivers": [],
+  "cleared_on": "2026-11-10",
+  "cleared_reason": "ryonarab 隔离那一批（18 期文件）已 commit（e229591）；本次 261109 头条与看点重换的豁免见 waivers，commit 后立刻删掉。",
+  "waivers": [
+    {
+      "path": "data/daily/261109/report.json",
+      "authorized_by": "用户",
+      "authorized_on": "2026-11-10",
+      "reason": "261109 声优版的头条与四条看点连着两天是同一批选题（御子柴泉る／大山チロル／小倉結衣），用户要求换成一社引退作＋一周年作＋声优公布；改完立刻 commit，本条随即删除"
+    },
+    {
+      "path": "data/daily/261109/report.ja.json",
+      "authorized_by": "用户",
+      "authorized_on": "2026-11-10",
+      "reason": "同上，Ci-en 日文版的 hook／description／highlights 跟着中文正本一起换，highlight_indexes 仍为 0–3"
+    }
+  ],
   "batches": []
 }
