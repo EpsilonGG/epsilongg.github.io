@@ -1,0 +1,533 @@
+{
+  "schema_version": 1,
+  "issue": {
+    "id": "261109-g",
+    "published_at": "2026-11-10T00:34:09.384878+09:00",
+    "window": {
+      "start": "2026-11-09T00:00:00+09:00",
+      "end": "2026-11-10T00:00:00+09:00"
+    },
+    "status": "confirmed",
+    "confirmed_at": "2026-11-09T15:35:45+00:00"
+  },
+  "counts": {
+    "items": 147,
+    "accounts": 44,
+    "late": 21,
+    "skipped_duplicate": 3
+  },
+  "description": "『小金井荘と金色の揚羽蝶』进入最后半月，SMEE 新作体验版开放",
+  "highlights": [
+    {
+      "text": "sprite『小金井荘と金色の揚羽蝶』11 月 26 日发售，只剩半个月，钢琴音乐会门票二次受理也在进行。",
+      "sources": [
+        "x:2119688407911928121",
+        "x:2119693536732069944"
+      ]
+    },
+    {
+      "text": "SMEE『ワンナイトアフター』体验版在官网公开，FANZA GAMES 下载版开始预约，11 月 27 日发售。",
+      "sources": [
+        "x:2119754373228339594",
+        "x:2119756889210626140"
+      ]
+    },
+    {
+      "text": "CRYSTALiA『刹那にかける恋はなび』DIVINE CROSS 特别套组从 11 月 25 日延到 12 月 25 日。",
+      "sources": [
+        "x:2119711813529174166"
+      ]
+    },
+    {
+      "text": "エレクトリップ 公布 AMUSE CRAFT 旗下新品牌『スティールキャット』，主打逆 NTR 题材。",
+      "sources": [
+        "x:2119708067386511427"
+      ]
+    }
+  ],
+  "insights": [],
+  "interactions": [
+    {
+      "text": "bugbug_info 报道 TRYSET Break 用催眠 App 的新系列即将发售，TRYSET 转发了这条报道。",
+      "sources": [
+        "x:2119701306642407809",
+        "x:2119686928375177395"
+      ]
+    },
+    {
+      "text": "Moepedia 转述シルキーズプラス 11 月 17 日的直播预告，那期请到 Lycee Overture 总监当嘉宾。",
+      "sources": [
+        "x:2119777777398534213",
+        "x:2119633540971405340"
+      ]
+    }
+  ],
+  "works": [
+    "CHAOS-R『血刻継承クレイドペイン ―少女たちの終焉―』DL 版在 DLsite 发售中，主题歌「紅蓮の糸」全曲公开。",
+    "SMEE『ワンナイトアフター』体验版在官网公开，11 月 27 日发售，FANZA GAMES 下载版开始预约。",
+    "sprite『小金井荘と金色の揚羽蝶』11 月 26 日发售、只剩半个月；钢琴音乐会门票二次受理开始。",
+    "DESSERT Soft『どいなかガールズゆーとぴあ』11 月 26 日发售，公布看板娘逢川千夏（CV 花月さや）。",
+    "TRYSET『世紀末みのる定食 新春和装Collection』即将装盘完成，社长说今天要收尾。",
+    "CIRCUS『D.C.5 to 4 Luminous Memories』DMM 刮刮卡 11 月 16 日开卖，奖品线稿以「彼シャツ」为主题。",
+    "あざらしそふと『アマカノ2』主题歌「ずっとそばで…」11 月 25 日上 JOYSOUND。",
+    "アパタイト 12 月新作『憑いてる彼女はオカルト女子 ～俺しか見えてないのかよっ～』海报到店，带制作组直笔签名。",
+    "はむはむソフト『ハイアングル』发售中，盒装原本产量就少、库存已经很紧。",
+    "akaeroCore『アンホーリーメイデン』2026 年冬季上 Steam，正在办抽奖并收愿望单。",
+    "TinkerBell『夢見るアプリ』体验版公开。",
+    "POISON『悲鳴』公布篮球部顾问若松詩織，FANZA 同人版到 11 月 14 日 50% 折扣。",
+    "Miel『異世界孕ませハーレム』发售纪念 20% 折扣，公布让嚣张冒险者认输的 CG。",
+    "BaseSon スマスロ『戦国†恋姫 2』公开预告 PV，2027 年 2 月导入。",
+    "エレクトリップ 公布 AMUSE CRAFT 旗下新品牌『スティールキャット』，专做逆 NTR 题材。",
+    "CRYSTALiA『刹那にかける恋はなび』DIVINE CROSS 特别套组从 11 月 25 日延到 12 月 25 日。",
+    "Lycee Overture『Ver.シルキーズプラス1.0』2027 年 1 月 29 日发售，当天开始全国预约。",
+    "ニトロプラス 公布『シュタインズ・ゲート』牧瀬紅莉栖 白衣兔女郎版。",
+    "アリスソフト 以「アリスソフト出張所」名义办第二弹联展，Summer Collection 周边限量贩售。",
+    "オーバーフロー『School Days』在 FANZA キャッチ 推出桂言葉 抱枕板，板子与硅胶一套。",
+    "枕『素晴らしき日々』韩国快闪店改签名会规则，当天 11 点现场发号、每天前 100 名。",
+    "BEEP 11 月 15 日出展『百獣ゲームランド』，堀川かえで 到场签名。"
+  ],
+  "categories": [],
+  "accounts": [
+    "Moepedia_net",
+    "appetite_game",
+    "Miel37319007",
+    "TRYSET",
+    "silkysplus",
+    "chaos_R_public",
+    "AzarashiSoft",
+    "sengoku_kh",
+    "CyberworksKoho",
+    "circus_info",
+    "purple_NewWork",
+    "CRYSTALiA_AC",
+    "smee_official",
+    "Amuse_kenzen",
+    "POISON_NEW1992",
+    "dessertsoft_tw",
+    "u_me_soft",
+    "hamham_soft",
+    "FANDC_Staff",
+    "Amuse_sub",
+    "luneman_etc",
+    "sprite_fairys",
+    "alice_soft",
+    "nisidahajime",
+    "project_navel",
+    "jitaku_st",
+    "Muvluv_Official",
+    "keromakurastaff",
+    "BEEP_SHOP",
+    "LiLiM_NTR",
+    "Liaison__info",
+    "adahemas",
+    "SukeraSparo",
+    "Overflow_staff",
+    "nitroplus_staff",
+    "akaerocore",
+    "akaeroCore_en",
+    "akaeroCore_JP",
+    "akaeroCore_kr",
+    "youtan0309",
+    "aikouka23",
+    "getchucom",
+    "bugbug_info",
+    "AKOUtw"
+  ],
+  "people": [
+    {
+      "handle": "Moepedia_net",
+      "category": "",
+      "summary": "情报号：Summer Pockets 亚克力砖在秋叶原开卖，『夢見るアプリ』已装盘完成、继续收预约。",
+      "via": [],
+      "sources": [
+        "x:2119765194154848275",
+        "x:2119770227139551312"
+      ]
+    },
+    {
+      "handle": "appetite_game",
+      "category": "",
+      "summary": "12 月新作『憑いてる彼女はオカルト女子』海报到店，上面有制作组直笔签名。",
+      "via": [],
+      "sources": [
+        "x:2119726772879229089"
+      ]
+    },
+    {
+      "handle": "Miel37319007",
+      "category": "",
+      "summary": "『異世界孕ませハーレム』发售纪念 20% 折扣，公布让嚣张冒险者认输的 CG。",
+      "via": [],
+      "sources": [
+        "x:2119741347045511622"
+      ]
+    },
+    {
+      "handle": "TRYSET",
+      "category": "",
+      "summary": "『世紀末みのる定食 新春和装Collection』即将装盘完成，社长说今天要收尾。",
+      "via": [],
+      "sources": [
+        "x:2119676809713434659",
+        "x:2119707885722910819"
+      ]
+    },
+    {
+      "handle": "silkysplus",
+      "category": "",
+      "summary": "参战 Lycee Overture，2027 年 1 月 29 日发售、当天开始预约；11 月 11 日恢复直播。",
+      "via": [],
+      "sources": [
+        "x:2119632107358278019",
+        "x:2119635818646217194"
+      ]
+    },
+    {
+      "handle": "chaos_R_public",
+      "category": "",
+      "summary": "『血刻継承クレイドペイン』DL 版在 DLsite 发售中，连发三位女主介绍与主题歌全曲。",
+      "via": [],
+      "sources": [
+        "x:2119445025822261424",
+        "x:2119446557439533398"
+      ]
+    },
+    {
+      "handle": "AzarashiSoft",
+      "category": "",
+      "summary": "『アマカノ2』主题歌「ずっとそばで…」11 月 25 日上 JOYSOUND，初代主题歌也在配信中。",
+      "via": [],
+      "sources": [
+        "x:2119663775502786691"
+      ]
+    },
+    {
+      "handle": "sengoku_kh",
+      "category": "",
+      "summary": "スマスロ『戦国†恋姫 2』预告 PV 公开，2027 年 2 月导入。",
+      "via": [],
+      "sources": [
+        "x:2119626044827206033"
+      ]
+    },
+    {
+      "handle": "CyberworksKoho",
+      "category": "",
+      "summary": "TinkerBell『夢見るアプリ』体验版已公开，呼吁大家去试。",
+      "via": [],
+      "sources": [
+        "x:2119718040728383672"
+      ]
+    },
+    {
+      "handle": "circus_info",
+      "category": "",
+      "summary": "『D.C.5 to 4 Luminous Memories』刮刮卡 11/16 开卖，奖品线稿主题是「彼シャツ」。",
+      "via": [],
+      "sources": [
+        "x:2119716635896422589",
+        "x:2119773181221491041"
+      ]
+    },
+    {
+      "handle": "purple_NewWork",
+      "category": "",
+      "summary": "『アオイトリ』主题歌与片尾曲已在各平台配信，OP 影像公开中。",
+      "via": [],
+      "sources": [
+        "x:2119731725458878550"
+      ]
+    },
+    {
+      "handle": "CRYSTALiA_AC",
+      "category": "",
+      "summary": "『刹那にかける恋はなび』DIVINE CROSS 特别套组从 11 月 25 日延到 12 月 25 日。",
+      "via": [],
+      "sources": [
+        "x:2119711813529174166"
+      ]
+    },
+    {
+      "handle": "smee_official",
+      "category": "",
+      "summary": "『ワンナイトアフター』体验版公开、FANZA GAMES 下载版开始预约，11 月 27 日发售。",
+      "via": [],
+      "sources": [
+        "x:2119754373228339594",
+        "x:2119756889210626140"
+      ]
+    },
+    {
+      "handle": "Amuse_kenzen",
+      "category": "",
+      "summary": "新作『養花師の背徳愛』Ci-en 更新，由又かつお 谈标题里的「养花师」是什么意思。",
+      "via": [],
+      "sources": [
+        "x:2119709074145108321"
+      ]
+    },
+    {
+      "handle": "POISON_NEW1992",
+      "category": "",
+      "summary": "『悲鳴』介绍篮球部顾问若松詩織，FANZA 同人版到 11 月 14 日 50% 折扣。",
+      "via": [],
+      "sources": [
+        "x:2119777031063740480"
+      ]
+    },
+    {
+      "handle": "dessertsoft_tw",
+      "category": "",
+      "summary": "『どいなかガールズゆーとぴあ』11 月 26 日发售，公布看板娘逢川千夏；20 日有直播。",
+      "via": [],
+      "sources": [
+        "x:2119729437038252352",
+        "x:2119590113940586705"
+      ]
+    },
+    {
+      "handle": "u_me_soft",
+      "category": "",
+      "summary": "『キン肉マン マッスルタッグマッチ令和復活編』买断制上线，Android 版会晚。",
+      "via": [],
+      "sources": [
+        "x:2119632104468480051"
+      ]
+    },
+    {
+      "handle": "hamham_soft",
+      "category": "",
+      "summary": "『ハイアングル』发售中，盒装原本产量就少，库存已经很紧。",
+      "via": [],
+      "sources": [
+        "x:2119713622624788835"
+      ]
+    },
+    {
+      "handle": "FANDC_Staff",
+      "category": "",
+      "summary": "在亀戸 的酒馆办动画歌日本酒活动，说下雨天适合慢慢喝。",
+      "via": [],
+      "sources": [
+        "x:2119730474293829644"
+      ]
+    },
+    {
+      "handle": "Amuse_sub",
+      "category": "",
+      "summary": "公布 AMUSE CRAFT 旗下新品牌『スティールキャット』，专做逆 NTR 题材。",
+      "via": [],
+      "sources": [
+        "x:2119708067386511427"
+      ]
+    },
+    {
+      "handle": "luneman_etc",
+      "category": "",
+      "summary": "『悪の女幹部PNM』复刻新月祭第 6 弹开跑，限定扭蛋特别价复刻。",
+      "via": [],
+      "sources": [
+        "x:2119445570737623470"
+      ]
+    },
+    {
+      "handle": "sprite_fairys",
+      "category": "",
+      "summary": "『小金井荘と金色の揚羽蝶』11 月 26 日发售、只剩半个月；钢琴音乐会门票二次受理。",
+      "via": [],
+      "sources": [
+        "x:2119688407911928121",
+        "x:2119693536732069944"
+      ]
+    },
+    {
+      "handle": "alice_soft",
+      "category": "",
+      "summary": "以「アリスソフト出張所」名义办第二弹联展，Summer Collection 周边限量贩售。",
+      "via": [],
+      "sources": [
+        "x:2119610930887549095"
+      ]
+    },
+    {
+      "handle": "nisidahajime",
+      "category": "",
+      "summary": "五月摔伤后右膝一直不对劲，抽了 7 毫升积水才舒服。",
+      "via": [],
+      "sources": [
+        "x:2119606516139610179",
+        "x:2119606732855058535"
+      ]
+    },
+    {
+      "handle": "project_navel",
+      "category": "",
+      "summary": "『ねぶチューブ』第 364 回更新，聊寒冷、年末年初和ねぶパ2026 的感想。",
+      "via": [],
+      "sources": [
+        "x:2119678937613873630"
+      ]
+    },
+    {
+      "handle": "jitaku_st",
+      "category": "",
+      "summary": "在上野的动画歌日本酒酒吧「燗これ」营业，19 点到 22 点、视情况延到 24 点。",
+      "via": [],
+      "sources": [
+        "x:2119664164956426526"
+      ]
+    },
+    {
+      "handle": "Muvluv_Official",
+      "category": "",
+      "summary": "Switch 版『マブラヴ』双包装在 Amazon 补货，另科普 XM3 系统。",
+      "via": [],
+      "sources": [
+        "x:2119667556135182737",
+        "x:2119731734304657719"
+      ]
+    },
+    {
+      "handle": "keromakurastaff",
+      "category": "",
+      "summary": "『素晴らしき日々』韩国快闪店改签名会规则，当天 11 点现场发号、每天前 100 名。",
+      "via": [],
+      "sources": [
+        "x:2119647023200940183"
+      ]
+    },
+    {
+      "handle": "BEEP_SHOP",
+      "category": "",
+      "summary": "11 月 15 日出展『百獣ゲームランド』，堀川かえで 会来签名；另收了一台限定版 Xbox。",
+      "via": [],
+      "sources": [
+        "x:2119724780672975294",
+        "x:2119746839175930362"
+      ]
+    },
+    {
+      "handle": "LiLiM_NTR",
+      "category": "",
+      "summary": "Steam 上的『Spiral Dystopia』打五折。",
+      "via": [],
+      "sources": [
+        "x:2119581125613883502"
+      ]
+    },
+    {
+      "handle": "Liaison__info",
+      "category": "",
+      "summary": "推自家『天瀬島は色恋ざかり』，说可以体验和大小姐谈恋爱。",
+      "via": [],
+      "sources": [
+        "x:2119747069628031016"
+      ]
+    },
+    {
+      "handle": "adahemas",
+      "category": "",
+      "summary": "在找冬コミ 的摊贩帮手，报酬是庆功宴的烤肉。",
+      "via": [],
+      "sources": [
+        "x:2119770549287342553"
+      ]
+    },
+    {
+      "handle": "SukeraSparo",
+      "category": "",
+      "summary": "冬コミ 抽到第一天东 1 馆，准备出蓝反兔女郎插画本；新作变量太多快烧脑。",
+      "via": [],
+      "sources": [
+        "x:2119580612705350085",
+        "x:2119760134092275829"
+      ]
+    },
+    {
+      "handle": "Overflow_staff",
+      "category": "",
+      "summary": "『School Days』在 FANZA キャッチ 推出桂言葉 抱枕板，强调板子和硅胶都含。",
+      "via": [],
+      "sources": [
+        "x:2119716631957926254"
+      ]
+    },
+    {
+      "handle": "nitroplus_staff",
+      "category": "",
+      "summary": "给『シュタゲ』天王寺綯 庆生，另公布牧瀬紅莉栖 白衣兔女郎版。",
+      "via": [],
+      "sources": [
+        "x:2119444845702058078",
+        "x:2119630467573960842"
+      ]
+    },
+    {
+      "handle": "akaerocore",
+      "category": "",
+      "summary": "『アンホーリーメイデン』2026 年冬季上 Steam，正在办抽奖、开愿望单。",
+      "via": [
+        "akaeroCore_en",
+        "akaeroCore_JP",
+        "akaeroCore_kr"
+      ],
+      "sources": [
+        "x:2119717268661965133",
+        "x:2119740624781935055"
+      ]
+    },
+    {
+      "handle": "youtan0309",
+      "category": "",
+      "summary": "回顾 19 年前今天发售的 Aster，说主题歌「二つめの空」值得配着歌词听。",
+      "via": [],
+      "sources": [
+        "x:2119444838697578906",
+        "x:2119724173836607635"
+      ]
+    },
+    {
+      "handle": "aikouka23",
+      "category": "",
+      "summary": "只说了句「活俠傳 很不错」。",
+      "via": [],
+      "sources": [
+        "x:2119727158142939645"
+      ]
+    },
+    {
+      "handle": "getchucom",
+      "category": "",
+      "summary": "公布『神の手』原创店铺特典，是原创插画卡。",
+      "via": [],
+      "sources": [
+        "x:2119759667153064442"
+      ]
+    },
+    {
+      "handle": "bugbug_info",
+      "category": "",
+      "summary": "报道 TRYSET Break 用催眠 App 的新系列即将发售。",
+      "via": [],
+      "sources": [
+        "x:2119686928375177395"
+      ]
+    },
+    {
+      "handle": "AKOUtw",
+      "category": "",
+      "summary": "自家美少女小说游戏进入高潮章节，Unity 里终于响起配乐；11 月 23 日 Live2D 首播。",
+      "via": [],
+      "sources": [
+        "x:2119731733620818335",
+        "x:2119772778555720010"
+      ]
+    }
+  ],
+  "provenance": {
+    "generator": "daily",
+    "prompt_version": 1,
+    "cache_key": "answers:1",
+    "generated_at": "2026-11-09T15:35:41+00:00"
+  }
+}
