@@ -1,0 +1,514 @@
+{
+  "schema_version": 1,
+  "issue": {
+    "id": "261110-g",
+    "published_at": "2026-11-11T00:35:10.035863+09:00",
+    "window": {
+      "start": "2026-11-10T00:00:00+09:00",
+      "end": "2026-11-11T00:00:00+09:00"
+    },
+    "status": "confirmed",
+    "confirmed_at": "2026-11-10T15:36:41+00:00"
+  },
+  "counts": {
+    "items": 177,
+    "accounts": 39,
+    "late": 880,
+    "skipped_duplicate": 4
+  },
+  "description": "sprite『小金井荘と金色の揚羽蝶』装盘完成；SMEE『ワンナイトアフター』体验版与下载版预约同日开。",
+  "highlights": [
+    {
+      "text": "sprite『小金井荘と金色の揚羽蝶』装盘完成，11 月 26 日发售，纪念活动第 6 弹抽 伊瀬茉莉也 的签名色纸，第 7 弹定在 17 日。",
+      "sources": [
+        "x:2120109603656458740",
+        "x:2120109606282100749"
+      ]
+    },
+    {
+      "text": "SMEE『ワンナイトアフター』体验版在官网公开，FANZA GAMES 的下载版也同时开始预约，11 月 27 日发售。",
+      "sources": [
+        "x:2120116765913227449",
+        "x:2120119277109780727"
+      ]
+    },
+    {
+      "text": "アパタイト『憑いてる彼女はオカルト女子』装盘完成并放出体验版，DL 版 12 月 4 日、盒装 12 月 25 日，还公开了 たけちよ 的无剧透语音。",
+      "sources": [
+        "x:2120078580365643820",
+        "x:2120079130788262180"
+      ]
+    },
+    {
+      "text": "BEEP 的 PC98 风成人游戏『同居人』发售日定在 2027 年 1 月 31 日。",
+      "sources": [
+        "x:2120050773010862106"
+      ]
+    }
+  ],
+  "insights": [],
+  "interactions": [
+    {
+      "text": "HOOKSOFT 与 SMEE 互相带客：11 月 11 日秋叶原的联名咖啡厅由两家合办，27 日的電妄脱口秀又请 SMEE 的宅本うと 上场。",
+      "sources": [
+        "x:2120064293777318074",
+        "x:2120024196487270417"
+      ]
+    },
+    {
+      "text": "project_navel 与 project_citrus 一起给『SHUFFLE!』的芙蓉楓 庆生，project_citrus 说看了她 22 年也没腻。",
+      "sources": [
+        "x:2119983980384764108",
+        "x:2120008857758146585"
+      ]
+    }
+  ],
+  "works": [
+    "sprite『小金井荘と金色の揚羽蝶』11 月 26 日发售，装盘完成纪念活动第 6 弹抽 伊瀬茉莉也 的签名色纸。",
+    "sprite『everlasting flowers』Windows 版发售纪念活动第 4 弹，抽 宮寺智子 的签名色纸。",
+    "SMEE『ワンナイトアフター』体验版在官网公开，FANZA GAMES 下载版开始预约，11 月 27 日发售。",
+    "アパタイト『憑いてる彼女はオカルト女子～俺しか見えてないのかよっ～』装盘完成并放出体验版，DL 版 12 月 4 日、盒装 12 月 25 日，たけちよ 配 夜乃茉莉花。",
+    "CHAOS-R『血刻継承クレイドペイン ―少女たちの終焉―』DL 版发售中，主题曲「紅蓮の糸」全曲在 YouTube 公开。",
+    "BEEP 的 PC98 风『同居人』发售日定在 2027 年 1 月 31 日。",
+    "Guilty『Nightmare×BlackSmith～紅蓮のエクリプス～』12 月 25 日发售，原创特典页已更新。",
+    "ルネソフト『ようこそ！スケベエルフの森へ』的イヴリン・ケレブリアン 1/7 手办 11 月 12 日 10 点开始预约，分通常版与异色版。",
+    "アミューズクラフト『養花師の背徳愛～純真天使は抱かれて色めく～』Ci-en 文章更新，并放出续篇已在推进的消息。",
+    "AirVelocity『ハッピーウィークエンド』Switch 与 PS4 版追加 sample CG，Switch 下载版预约九折。",
+    "TRYSET Break 的新作临近发售，题材是催眠 app，BugBug 已出介绍。",
+    "KISS『ミッドナイトダンサー』公开各流通店的店铺特典服装。",
+    "シルキーズプラス『リルカは幾重に夜を彩る』发售中，桜川未央 的签名色纸抽选 11 月 11 日截止。",
+    "POISON『悲鳴』公布女主 村田美樹，并放出角色视频。",
+    "VALKYRIA『ガチンコ！ビッチクラブ　センセーション』介绍 星崎綾音。",
+    "Purple software『アオイトリ』插入歌「二人だけのカーテンコール」开始配信，剧情影片同步公开。",
+    "『アマツツミ』联动咖啡厅 11 月 13 日至 29 日开跑，菜单已公开。",
+    "『勇者パーティはぜんめつしました。』当天在 Steam 开卖，首发九折，另抽 Steam Deck。",
+    "Overflow『Schooldays』FANZA 线上抽奖的景品样品公开，还拿自家 150cm 衣架做了尺寸对比。",
+    "SAGA PLANETS 的 2025 Winter 复刻抽奖在ドワンゴジェイピーストア 开卖。",
+    "ま～まれぇど『スタディ§ステディコンプリートパック』纪念促销结束，恢复通常销售并试取消部分商品限购。",
+    "Nitroplus 官方商店 11 月 17 日中午换成新站，这个号停止更新，转到新账号。",
+    "AKOU『ツンツンヤンキーちゃん4〜in winter〜』预告开始，冬コミ 三天目在东 7 A46b 委托贩售。",
+    "アミューズ『カノジョの妹のあざと誘惑～純愛なんてゴミですよ先輩♡』OP 动画公开，主题歌由 みたかりん 演唱。"
+  ],
+  "categories": [],
+  "accounts": [
+    "Moepedia_net",
+    "appetite_game",
+    "TRYSET",
+    "silkysplus",
+    "chaos_R_public",
+    "zion_staff",
+    "HOOKSOFT",
+    "CyberworksKoho",
+    "VALKYRIA_info",
+    "purple_NewWork",
+    "CRYSTALiA_AC",
+    "Guilty_WillPlus",
+    "smee_official",
+    "Amuse_kenzen",
+    "POISON_NEW1992",
+    "hamham_soft",
+    "FANDC_Staff",
+    "web_marmalade",
+    "Amuse_sub",
+    "luneman_etc",
+    "SAGAPLANETS",
+    "sprite_fairys",
+    "Empress_STAFF",
+    "cabbage_soft",
+    "nisidahajime",
+    "project_navel",
+    "project_citrus",
+    "Muvluv_Official",
+    "BEEP_SHOP",
+    "Liaison__info",
+    "adahemas",
+    "SukeraSparo",
+    "Overflow_staff",
+    "nitroplus_staff",
+    "akaeroCore_en",
+    "youtan0309",
+    "getchucom",
+    "hiro_in",
+    "AKOUtw"
+  ],
+  "people": [
+    {
+      "handle": "Moepedia_net",
+      "category": "",
+      "summary": "汇总了 養花師の背徳愛 的 Ci-en 更新、TRYSET Break 新作、KISS 与 Guilty 的店铺特典。",
+      "via": [],
+      "sources": [
+        "x:2120125065798791342",
+        "x:2120137648178364851",
+        "x:2120140165356401151"
+      ]
+    },
+    {
+      "handle": "appetite_game",
+      "category": "",
+      "summary": "『憑いてる彼女はオカルト女子』装盘完成并放出体验版，DL 12/4、盒装 12/25。",
+      "via": [],
+      "sources": [
+        "x:2120078580365643820",
+        "x:2120089356241379665"
+      ]
+    },
+    {
+      "handle": "TRYSET",
+      "category": "",
+      "summary": "回应社长，说三支收录的调试交给自家员工，让作者不必操心。",
+      "via": [],
+      "sources": [
+        "x:2120015316864672020"
+      ]
+    },
+    {
+      "handle": "silkysplus",
+      "category": "",
+      "summary": "『リルカは幾重に夜を彩る』发售中；桜川未央 的签名色纸抽选 11 日截止。",
+      "via": [],
+      "sources": [
+        "x:2120036600847741041",
+        "x:2120037405206183986"
+      ]
+    },
+    {
+      "handle": "chaos_R_public",
+      "category": "",
+      "summary": "『血刻継承クレイドペイン』DL 版发售中，连发三位女主介绍与主题曲全曲。",
+      "via": [],
+      "sources": [
+        "x:2119983938013905371",
+        "x:2119984947910021331"
+      ]
+    },
+    {
+      "handle": "zion_staff",
+      "category": "",
+      "summary": "在 Ci-en 更新 11 月的立绘，主题是电マ女・セリオ 的金发浴衣等稀有款。",
+      "via": [],
+      "sources": [
+        "x:2119807262357430530"
+      ]
+    },
+    {
+      "handle": "HOOKSOFT",
+      "category": "",
+      "summary": "11 月 27 日的電妄脱口秀请到 SMEE 的宅本うと，当天秋叶原还有发售纪念活动。",
+      "via": [],
+      "sources": [
+        "x:2120024196487270417"
+      ]
+    },
+    {
+      "handle": "CyberworksKoho",
+      "category": "",
+      "summary": "介绍 TinkerBell 的『蠢牝』浏览器版，手机与 Mac 都能玩。",
+      "via": [],
+      "sources": [
+        "x:2120094222523212180"
+      ]
+    },
+    {
+      "handle": "VALKYRIA_info",
+      "category": "",
+      "summary": "介绍『ガチンコ！ビッチクラブ　センセーション』的星崎綾音。",
+      "via": [],
+      "sources": [
+        "x:2119988418016846208"
+      ]
+    },
+    {
+      "handle": "purple_NewWork",
+      "category": "",
+      "summary": "『アオイトリ』插入歌开始配信，『アマツツミ』联动咖啡厅 13 日起开跑。",
+      "via": [],
+      "sources": [
+        "x:2120094123998757329",
+        "x:2120096013818245494"
+      ]
+    },
+    {
+      "handle": "CRYSTALiA_AC",
+      "category": "",
+      "summary": "ジオクリエイト 画廊更新，放上『ディメンション凸ラバース!!』与『椿恋歌』样式的 Roadster。",
+      "via": [],
+      "sources": [
+        "x:2120025161617531193"
+      ]
+    },
+    {
+      "handle": "Guilty_WillPlus",
+      "category": "",
+      "summary": "『Nightmare×BlackSmith～紅蓮のエクリプス～』12 月 25 日发售，原创特典页已更新。",
+      "via": [],
+      "sources": [
+        "x:2119995050226827390"
+      ]
+    },
+    {
+      "handle": "smee_official",
+      "category": "",
+      "summary": "『ワンナイトアフター』体验版与 FANZA GAMES 下载版预约同时开，27 日发售。",
+      "via": [],
+      "sources": [
+        "x:2120116765913227449",
+        "x:2120119277109780727"
+      ]
+    },
+    {
+      "handle": "Amuse_kenzen",
+      "category": "",
+      "summary": "公开『養花師の背徳愛』里 近持ささら 的特别嬢衣装，枕套校正也已完成。",
+      "via": [],
+      "sources": [
+        "x:2120068693837431043",
+        "x:2120044031400972726"
+      ]
+    },
+    {
+      "handle": "POISON_NEW1992",
+      "category": "",
+      "summary": "『悲鳴』公布女主 村田美樹，说她的强硬反而成了犯人取乐的调料。",
+      "via": [],
+      "sources": [
+        "x:2120139413502243006"
+      ]
+    },
+    {
+      "handle": "hamham_soft",
+      "category": "",
+      "summary": "两种抽奖活动已截止，说应募很多，之后会抽选并联系中奖者。",
+      "via": [],
+      "sources": [
+        "x:2119807748380713357"
+      ]
+    },
+    {
+      "handle": "FANDC_Staff",
+      "category": "",
+      "summary": "11 月 10 日是『Natural～身も心も～』多上愛姫 的生日；晚上在上野开动漫歌酒场。",
+      "via": [],
+      "sources": [
+        "x:2119807223849255245",
+        "x:2120095017822044184"
+      ]
+    },
+    {
+      "handle": "web_marmalade",
+      "category": "",
+      "summary": "『スタディ§ステディ』纪念促销结束，恢复通常销售，并试取消部分商品的限购。",
+      "via": [],
+      "sources": [
+        "x:2120116039426150882"
+      ]
+    },
+    {
+      "handle": "Amuse_sub",
+      "category": "",
+      "summary": "『カノジョの妹のあざと誘惑』OP 动画公开，主题歌由 みたかりん 演唱。",
+      "via": [],
+      "sources": [
+        "x:2120070455226962017",
+        "x:2120070958668980714"
+      ]
+    },
+    {
+      "handle": "luneman_etc",
+      "category": "",
+      "summary": "イヴリン・ケレブリアン 手办 12 日 10 点开始预约；『あくなま』这周改到周二 21 点。",
+      "via": [],
+      "sources": [
+        "x:2119995145722675226",
+        "x:2120111906568675641"
+      ]
+    },
+    {
+      "handle": "SAGAPLANETS",
+      "category": "",
+      "summary": "2025 Winter 复刻抽奖在ドワンゴジェイピーストア 开卖，含『金色ラブリッチェ』周边。",
+      "via": [],
+      "sources": [
+        "x:2120100402976727453"
+      ]
+    },
+    {
+      "handle": "sprite_fairys",
+      "category": "",
+      "summary": "『小金井荘と金色の揚羽蝶』26 日发售，签名色纸活动第 6 弹抽 伊瀬茉莉也。",
+      "via": [],
+      "sources": [
+        "x:2120109603656458740",
+        "x:2120110126187118781"
+      ]
+    },
+    {
+      "handle": "Empress_STAFF",
+      "category": "",
+      "summary": "にほんママずかん B1 挂画的预约到 11 月 16 日 13 点截止。",
+      "via": [],
+      "sources": [
+        "x:2119992001152372940"
+      ]
+    },
+    {
+      "handle": "cabbage_soft",
+      "category": "",
+      "summary": "11 月 10 日是『あまいろショコラータ』天宮みくり 的生日，重发了生日影片。",
+      "via": [],
+      "sources": [
+        "x:2119807473129336951"
+      ]
+    },
+    {
+      "handle": "nisidahajime",
+      "category": "",
+      "summary": "报名了明年的台湾 FF，说中选就带新周边过去。",
+      "via": [],
+      "sources": [
+        "x:2120012543611867361"
+      ]
+    },
+    {
+      "handle": "project_navel",
+      "category": "",
+      "summary": "『SHUFFLE!』芙蓉楓 今天生日，西又葵 说已经画了她 22 年。",
+      "via": [],
+      "sources": [
+        "x:2119983980384764108",
+        "x:2119986058628841594"
+      ]
+    },
+    {
+      "handle": "project_citrus",
+      "category": "",
+      "summary": "跟着祝贺芙蓉楓 生日，说看了 22 年也没腻。",
+      "via": [],
+      "sources": [
+        "x:2120008857758146585",
+        "x:2120083096624328781"
+      ]
+    },
+    {
+      "handle": "Muvluv_Official",
+      "category": "",
+      "summary": "重发『マブラヴ』的 沙霧尚哉 介绍，提到他后来发动了「12・5 事件」。",
+      "via": [],
+      "sources": [
+        "x:2120094212746256491"
+      ]
+    },
+    {
+      "handle": "BEEP_SHOP",
+      "category": "",
+      "summary": "PC98 风『同居人』定 2027 年 1 月 31 日发售；21 至 22 日还要去羽生的角色峰会摆摊。",
+      "via": [],
+      "sources": [
+        "x:2120050773010862106",
+        "x:2120040972843381121"
+      ]
+    },
+    {
+      "handle": "Liaison__info",
+      "category": "",
+      "summary": "说内裤挂在脚上的场景自己特别喜欢，以后也会珍惜。",
+      "via": [],
+      "sources": [
+        "x:2120097424547205241"
+      ]
+    },
+    {
+      "handle": "adahemas",
+      "category": "",
+      "summary": "冬コミ 要出三本 ビカラ 同人志，说能完成就夸他。",
+      "via": [],
+      "sources": [
+        "x:2120103523061014669"
+      ]
+    },
+    {
+      "handle": "SukeraSparo",
+      "category": "",
+      "summary": "『Danchi Days』发售促销到 11 月 12 日。",
+      "via": [],
+      "sources": [
+        "x:2119998293795279250"
+      ]
+    },
+    {
+      "handle": "Overflow_staff",
+      "category": "",
+      "summary": "公开『Schooldays』线上抽奖的景品样品，还拿自家 150cm 衣架做了尺寸对比。",
+      "via": [],
+      "sources": [
+        "x:2120079019064578057"
+      ]
+    },
+    {
+      "handle": "nitroplus_staff",
+      "category": "",
+      "summary": "官方商店 11 月 17 日中午换成新站，这个号停止更新，转到 @nitroplus_store。",
+      "via": [],
+      "sources": [
+        "x:2119988667515052191",
+        "x:2119989472050003977"
+      ]
+    },
+    {
+      "handle": "akaerocore",
+      "category": "",
+      "summary": "『False Myth 2』在 Steam 上打九折。",
+      "via": [
+        "akaeroCore_en"
+      ],
+      "sources": [
+        "x:2119819498333311023"
+      ]
+    },
+    {
+      "handle": "youtan0309",
+      "category": "",
+      "summary": "报道『勇者パーティはぜんめつしました。』当天开卖、首发九折，还说期待『同居人』。",
+      "via": [],
+      "sources": [
+        "x:2120064213154717882",
+        "x:2120116762821996762"
+      ]
+    },
+    {
+      "handle": "getchucom",
+      "category": "",
+      "summary": "开了三件手办预约：マンハッタンカフェ 再版、有栖川ことの 与 ヴリトラ。",
+      "via": [],
+      "sources": [
+        "x:2120074258667937957",
+        "x:2120074453602406548",
+        "x:2120074538109247537"
+      ]
+    },
+    {
+      "handle": "hiro_in",
+      "category": "",
+      "summary": "宣传 DLsite 创业祭全场促销，列了『はるまで、くるる。』『月陽炎』等。",
+      "via": [],
+      "sources": [
+        "x:2120094866877374550"
+      ]
+    },
+    {
+      "handle": "AKOUtw",
+      "category": "",
+      "summary": "『ツンツンヤンキーちゃん4〜in winter〜』预告开始，冬コミ 三天目 东 7 A46b 委托贩售。",
+      "via": [],
+      "sources": [
+        "x:2119910019164692838"
+      ]
+    }
+  ],
+  "provenance": {
+    "generator": "daily",
+    "prompt_version": 1,
+    "cache_key": "answers:1",
+    "generated_at": "2026-11-10T15:36:36+00:00"
+  }
+}
