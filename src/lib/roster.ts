@@ -21,6 +21,10 @@ interface RosterAccount {
   name?: string;
   role?: string;
   category?: string;
+  /** 缺省 / "x" 是 X 账号；"bilibili" 等是别的抓取源 */
+  source?: string;
+  /** 非 X 账号的主页。没写就退回 `https://x.com/<handle>` */
+  profile_url?: string;
 }
 
 interface RosterCategory {
@@ -38,6 +42,8 @@ const FILES: RosterFile[] = [voiceRoster as RosterFile, galgameRoster as RosterF
 const displayName = new Map<string, string>();
 const order = new Map<string, number>();
 const category = new Map<string, string>();
+/** 非 X 数据源账号的主页（`bili_<uid>` → B 站空间）。X 账号不进这张表。 */
+const profileUrl = new Map<string, string>();
 
 const OTHER = 'other';
 
@@ -64,7 +70,16 @@ for (const file of FILES) {
     if (account.name) displayName.set(key, account.name);
     if (!order.has(key)) order.set(key, index++);
     category.set(key, account.category || OTHER);
+    if (account.profile_url) profileUrl.set(key, account.profile_url);
   }
+}
+
+/**
+ * 账号主页。名单里带 `profile_url` 的非 X 账号（B 站动态监控号）走它，
+ * 其余一律 X 主页——老数据里没有 source 字段，不能因为新增字段改变历史链接。
+ */
+export function profileUrlOf(handle: string): string {
+  return profileUrl.get(handle.toLowerCase()) ?? `https://x.com/${handle}`;
 }
 
 /** 名单里的显示名；不在名单（或该条没有 `name`）返回 null。 */

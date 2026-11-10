@@ -384,15 +384,17 @@ class InactiveAccountTest(unittest.TestCase):
         makers = [a for a in roster.accounts if a.category == "manufacturer"]
         self.assertTrue(makers, "制造商应该已经在名单里")
         self.assertTrue(all(a.active for a in makers), "厂商号一律 active=true")
-        # 这一栏里非品牌号的只有两类，都要有明确理由：
+        # 这一栏里非品牌号的只有三类，都要有明确理由：
         #   Moepedia        —— 作品情报站，不是厂商；
         #   akaeroCore 四号 —— 同一家发行商的四个语言号（繁中主号 + 英/日/韩分号）。
         #                     用 main/sub 让 build 按 name 合并成一行：主号当行首，
         #                     其余进 people[].via。它们是同一家公司，不是四家。
+        #   Amuse_sub       —— §19（2026-11-07 用户裁决）AMUSE CRAFT 的小号 / 宣传号，
+        #                     role=sub + `brand=AMUSE CRAFT`，周报归栏进母厂那一栏。
         self.assertEqual(
             {a.handle for a in makers if a.role != "brand"},
             {"Moepedia_net", "akaerocore", "akaeroCore_en",
-             "akaeroCore_JP", "akaeroCore_kr"},
+             "akaeroCore_JP", "akaeroCore_kr", "Amuse_sub"},
             "manufacturer 段里出现了非品牌号：确认它确实是情报来源，再改这条断言",
         )
         # 带降噪规则的号：Moepedia + 2026-10-29 启用的五个信息号 + 2026-11-01 的 hiro_in。

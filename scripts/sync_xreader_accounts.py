@@ -18,6 +18,11 @@ X-Reader 那边用两个 workflow 分别跑（`--accounts` 指到各自的文件
 分类（声优 / 音声社团 / 制造商 / 信息号）不参与判断——它决定的是条目落在页面
 哪个栏目，而栏目由日报页的筛选按钮分开看。
 
+2026-11-11 起名单里多了**非 X 数据源**：`source=bilibili` 的 B 站动态监控号
+（`bili_<uid>`）由 `scripts/bilibili_daily.py` 自己抓，handle 也不是 X 用户名，
+**不能进 accounts*.yaml**——否则 X-Reader 会拿一串数字去 Nitter 查一个不存在的账号。
+所以这里按 `source` 过滤：缺省或 `x` 才写进 YAML。
+
 用法：
 
     python scripts/sync_xreader_accounts.py \
@@ -54,9 +59,11 @@ HEADER = """\
 #
 # {note}
 #
-# Only entries with `active != false` are written, in roster order. The roster's
-# `category` field is *not* a filter here: it decides which column an entry shows
-# up in on the site, and the daily page's filter buttons separate the columns.
+# Only entries with `active != false` AND `source` absent / "x" are written, in
+# roster order. Non-X sources (e.g. `source=bilibili`, handle `bili_<uid>`) are
+# fetched by their own scraper and must never be looked up as X usernames.
+# The roster's `category` field is *not* a filter here: it decides which column an
+# entry shows up in on the site, and the daily page's filter buttons separate them.
 #
 # 名单里每个 handle 的 role（main / sub / announce / circle / brand / info）不写进
 # 这个文件——抓取侧不关心它是主号还是小号，抓全就行；role 只在站点侧决定展示顺序。
@@ -81,6 +88,11 @@ def load_handles(kind: str, path: Path | None = None) -> list[str]:
         # 只按 `active` 判断要不要抓：分类决定它在页面上落在哪个栏目，
         # 不决定抓不抓。
         if account.get("active", True) is False:
+            continue
+        # 非 X 数据源（B 站动态等）有自己的抓取器，handle 也不是 X 用户名。
+        # 名单里没写 source 的老账号一律按 X 处理，别让新增字段变成必填。
+        source = str(account.get("source") or "x").strip().lower()
+        if source != "x":
             continue
         handle = str(account.get("handle") or "").strip()
         if not handle:

@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "source_id": "bilibili",
+  "category": {
+    "id": "bili_gal",
+    "label": "B站Gal"
+  },
+  "note": "Galgame 日报的 B 站动态监控名单。所有监控账号统一打 `B站Gal` 分类标签（category=bili_gal / tags=[B站Gal]），由 scripts/bilibili_daily.py 每天抓取 `x/polymer/web-dynamic/v1/feed/space`，按 JST 自然日落 data/bilibili/galgame/<YYYY-MM-DD>.jsonl，并镜像成 X-Reader 形状的 .xreader/data-galgame/items/bilibili.jsonl，让 `daily build --kind galgame` 无需改代码就能读到。handle 是站点侧的合成标识（bili_<uid>），不是 X 账号；sync_xreader_accounts.py 会按 source=bilibili 跳过它。",
+  "accounts": [
+    {
+      "uid": "3632310624717268",
+      "name": "HOOKSOFT公式",
+      "handle": "bili_3632310624717268",
+      "tags": [
+        "B站Gal"
+      ],
+      "active": true,
+      "profile_url": "https://space.bilibili.com/3632310624717268/dynamic",
+      "note": "用户 2026-11-11 指定的测试监控账号。实测 2026-11-10 有 13 条动态，图文正文在 major.opus.summary.text。"
+    }
+  ]
+}

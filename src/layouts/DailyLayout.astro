@@ -12,6 +12,7 @@ import {
   categoryRankOf,
   displayNameOf,
   nameOf,
+  profileUrlOf,
 } from '../lib/roster';
 
 interface Props {
@@ -95,11 +96,15 @@ function withMentions(text: string): string {
   return escaped.replace(/@([A-Za-z0-9_]+)/g, (whole, handle: string) => {
     const canonical = canonicalHandle.get(handle.toLowerCase());
     if (!canonical) return whole;
-    return `<a class="daily-mention" href="https://x.com/${canonical}" target="_blank" rel="noopener noreferrer">@${canonical}</a>`;
+    return `<a class="daily-mention" href="${profileUrlOf(canonical)}" target="_blank" rel="noopener noreferrer">@${canonical}</a>`;
   });
 }
 
-const profileUrl = (handle: string) => `https://x.com/${handle}`;
+/**
+ * 名单里带 `profile_url` 的非 X 账号（`source=bilibili` 的 B 站动态监控号）
+ * 链到 B 站空间；其余仍是 X 主页。旧期号里没有这些字段，行为不变。
+ */
+const profileUrl = profileUrlOf;
 
 /**
  * 按栏目（声优版：声优 / 音声社团；Galgame 版：游戏制造商 / 信息号）分组，
