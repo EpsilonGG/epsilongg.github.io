@@ -18,6 +18,7 @@ from pathlib import Path
 
 from . import paths
 from .cache import FRESH, PROMPT_VERSION, PromptCache, input_hash
+from .issue import parse_issue_id
 
 RULES = """\
 硬规则（判卷会逐条检查，违反即整份作废）：
@@ -78,13 +79,25 @@ RULES_FLAT = """\
 7. 术语照下面「## 术语」那张表写，`avoid` 列出的写法一律不许出现。
    最容易犯的是**按字面拆词**：`マスターアップ` 是「装盘完成」（母盘做完、进量产准备发售），
    不是「大师升级」。拿不准就照表，表里没有的保留原词并加一句解释。
-8. 只输出 JSON，不要 Markdown 代码围栏，不要在 JSON 前后写解释。
+8. **上两期用过的头条与看点一律降级。** 题面里那张「上两期已用过的头条与看点」列的是
+   已经发过的选题，今天不许再当 `summary` 或 `highlights`。连载型事件（一个梗刷屏、
+   一场赛事、一条销量倒计时）会连着几天都是「当天最大的一件事」，这正是最容易重复的
+   地方。只有当天确实有新事实（新数字、新阶段、新决定）才值得再上一次，而且必须把
+   「新在哪」写出来——只换措辞不算新进展。这些话题仍可以写进 `works` 和 `people`。
+9. 只输出 JSON，不要 Markdown 代码围栏，不要在 JSON 前后写解释。
 """
 
 # 术语表是 `data/glossary.json`：`ja` 原词、`zh` 本站统一写法、`avoid` 明确不许出现的写法。
 # 以前只有日语版题面（`ja.py`）会带这张表，中文稿没有——「マスターアップ → 大师升级」
 # 就是这么漏出去的。中文题面也带上，代价是题面长两行，收益是不用每次事后返工。
 GLOSSARY = Path(__file__).resolve().parents[2] / "data" / "glossary.json"
+
+# 上两期的头条与看点要进题面。连载型事件（一个梗刷屏、一场赛事、一条销量倒计时）
+# 每天都是「当天最大的一件事」，题面里不说「昨天已经领过」，模型就会再领一次——
+# 261107 / 261108 / 261109 连着三天同一个头条、同一批看点，就是这么来的。
+# 只取**同一版**的前两期：声优版不该被 Galgame 版的头条影响，反之亦然。
+PREVIOUS_ISSUES = 2
+DAILY_DIR = Path(__file__).resolve().parents[2] / "data" / "daily"
 
 ANSWER_SKELETON_FLAT = """\
 {
@@ -172,6 +185,84 @@ def _grouped_lines(items: list[dict], handles: list[str]) -> str:
 def _write(prompt: Prompt, payload: dict, markdown: str) -> None:
     prompt.json_path.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     prompt.md_path.write_text(markdown, encoding="utf-8")
+
+
+def _previous_issues(
+    issue_id: str,
+    daily_dir: str | Path | None = None,
+    limit: int = PREVIOUS_ISSUES,
+) -> list[dict]:
+    """同一版、排在当前期之前的最近 `limit` 期：`{id, description, highlights}`。
+
+    读的是 `data/daily/<期号>/report.json`（已发布的定稿），所以**昨天手改过的
+    头条也算数**——那正是最该被降级的一条。目录不存在、期号不合法、JSON 坏了
+    都只是「没有上一期」，不让它挡住出题。
+    """
+    try:
+        day, kind, seq = parse_issue_id(issue_id)
+    except ValueError:
+        return []
+
+    root = Path(daily_dir) if daily_dir is not None else DAILY_DIR
+    if not root.is_dir():
+        return []
+
+    rows: list[tuple[tuple, dict]] = []
+    for path in root.glob("*/report.json"):
+        other = path.parent.name
+        try:
+            other_day, other_kind, other_seq = parse_issue_id(other)
+        except ValueError:
+            continue
+        if other_kind != kind or (other_day, other_seq) >= (day, seq):
+            continue
+        try:
+            report = json.loads(path.read_text(encoding="utf-8"))
+        except (OSError, ValueError):
+            continue
+        description = str(report.get("description") or "").strip()
+        highlights = [
+            str(claim.get("text") or "").strip()
+            for claim in report.get("highlights") or []
+            if isinstance(claim, dict)
+        ]
+        rows.append(
+            (
+                (other_day, other_seq),
+                {
+                    "id": other,
+                    "description": description,
+                    "highlights": [text for text in highlights if text],
+                },
+            )
+        )
+
+    rows.sort(key=lambda row: row[0], reverse=True)
+    return [block for _, block in rows[:limit]]
+
+
+def _previous_material(blocks: list[dict]) -> list[dict]:
+    """把上两期压成伪条目，好进 `input_hash`——换了上一期的头条，指纹就得变。"""
+    material: list[dict] = []
+    for block in blocks:
+        material.append({"key": f"prev:{block['id']}#description", "text": block["description"]})
+        for index, text in enumerate(block["highlights"]):
+            material.append({"key": f"prev:{block['id']}#highlight{index}", "text": text})
+    return material
+
+
+def _previous_section(blocks: list[dict]) -> str:
+    """题面里那张「上两期已用过的头条与看点」。没有上一期就整段不出现。"""
+    if not blocks:
+        return ""
+    lines = ["## 上两期已用过的头条与看点（今天一律降级）", ""]
+    for block in blocks:
+        lines.append(f"**{block['id']}** 头条：{block['description'] or '（无）'}")
+        lines.append("")
+        for text in block["highlights"]:
+            lines.append(f"- 看点：{text}")
+        lines.append("")
+    return "\n".join(lines)
 
 
 def build(
@@ -262,6 +353,7 @@ def build_flat(
     out_dir: str | Path = "out",
     *,
     force: bool = False,
+    daily_dir: str | Path | None = None,
 ) -> Prompt:
     """整期一份题（`category="all"`）。
 
@@ -284,7 +376,9 @@ def build_flat(
                 handles.append(handle)
         items.extend(category.get("items") or [])
 
-    digest = input_hash(items)
+    # 上两期的头条与看点也进指纹：上一期改了头条，这一期的题面就得重出。
+    previous = _previous_issues(issue_id, daily_dir)
+    digest = input_hash(items + _previous_material(previous))
     prompt = Prompt(
         category="all",
         label="整期",
@@ -308,6 +402,7 @@ def build_flat(
         "input_hash": digest,
         "handles": handles,
         "items": items,
+        "previous_issues": previous,
         "instructions": {
             "output": "纯 JSON，形状见 answer 模板",
             "rules": RULES_FLAT.splitlines()[2:],
@@ -319,10 +414,11 @@ def build_flat(
             "",
             f"本期共 **{len(items)} 条**、**{len(handles)} 个账号**。",
             "",
-            "## 要求",
-            "",
-            RULES_FLAT,
-            "## 术语（照这张表写，`avoid` 里的写法一律不许出现）",
+                "## 要求",
+                "",
+                RULES_FLAT,
+                *([_previous_section(previous)] if previous else []),
+                "## 术语（照这张表写，`avoid` 里的写法一律不许出现）",
             "",
             _glossary_lines() or "（术语表为空）",
             "",
@@ -355,6 +451,7 @@ def build_reduce(
     out_dir: str | Path = "out",
     *,
     force: bool = False,
+    daily_dir: str | Path | None = None,
 ) -> Prompt:
     """全局题（reduce）：材料是分类回答，产出 `description` 与 `highlights`。"""
     ws = paths.ensure(paths.workspace(out_dir, issue_id))
@@ -381,7 +478,8 @@ def build_reduce(
                     "text": claim.get("text") or "",
                 }
             )
-    digest = input_hash(material)
+    previous = _previous_issues(issue_id, daily_dir)
+    digest = input_hash(material + _previous_material(previous))
 
     prompt = Prompt(
         category="all",
@@ -405,6 +503,7 @@ def build_reduce(
         "input_hash": digest,
         "handles": [],
         "items": material,
+        "previous_issues": previous,
         "instructions": {"output": "纯 JSON，产出 description 与 highlights"},
     }
     markdown = "\n".join(
@@ -417,8 +516,11 @@ def build_reduce(
             "优先写具体的人或公司，不要写「声优侧 / 厂商侧」（读者看不到栏目边界），"
             "只有全行业同日的整体趋势才值得写整体，那时也直接说「厂商」「声优」。",
             "2. `highlights`：2–4 条，跨分类挑，每条带 `sources`。",
+            "3. 上两期用过的头条与看点一律降级：下面那张表里的选题不许再当 `description` "
+            "或 `highlights`，除非当天有新事实，并且要写清新在哪。",
             "",
             RULES,
+            *([_previous_section(previous)] if previous else []),
             "## 各分类回答",
             "",
             "```json",

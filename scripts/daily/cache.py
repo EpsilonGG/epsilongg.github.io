@@ -19,7 +19,7 @@ from dataclasses import asdict, dataclass, field
 from datetime import datetime, timezone
 from pathlib import Path
 
-PROMPT_VERSION = 3  # 3：中文题面补「叙述一律用简体中文」硬规则（261105 日文漂移事故）
+PROMPT_VERSION = 4  # 4：题面带上「上两期已用过的头条与看点」，并要求一律降级
 
 FRESH = "fresh"
 STALE = "stale"
