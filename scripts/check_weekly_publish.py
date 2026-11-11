@@ -101,8 +101,12 @@ def _check_report(path: Path, root: Path) -> str:
     if len(str(report["highlight"])) > 70:
         raise Failure(f"{rel}: highlight 超过 70 字（{len(str(report['highlight']))} 字）")
     win_label = str(issue.get("window_label") or "")
-    expect_label = (f"{str(win['start'])[2:4]}-{str(win['start'])[5:7]}{str(win['start'])[8:10]}"
-                    f" – {str(win['end'])[2:4]}-{str(win['end'])[5:7]}{str(win['end'])[8:10]}")
+
+    def _short(day: str) -> str:
+        y, m, d = str(day).split("-")
+        return f"{y[2:]}{m}{d}"
+
+    expect_label = f"{_short(win['start'])} – {_short(win['end'])}"
     if win_label != expect_label:
         raise Failure(f"{rel}: issue.window_label {win_label!r} 与窗口不符（应为 {expect_label!r}）")
 

@@ -51,6 +51,7 @@
 }
 
 .weekly-archive__desc {
+  grid-column: 2;
   color: var(--color-text-secondary);
   font-size: var(--text-sm);
 }
@@ -62,6 +63,82 @@
 
   .weekly-archive__desc {
     grid-column: 1;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   详情页版式（与笔记页同构）
+
+   宽屏（≥1024px）：目录进左侧吸顶栏，正文那一列仍然居中——
+   第四列是右侧留白，宽度等于「侧栏 + 间隔」，左右对称，正文不会被顶偏。
+   窄屏：整栏塌成单列，DOM 顺序（页头 → 目录 → 亮点 → 正文）正好就是
+   阅读顺序，不需要额外重排。
+   -------------------------------------------------------------------------- */
+/* `.container` 把页面锁在 --page-max（46rem），侧栏 + 正文放不下。
+   这里要放宽到视口，居中交给 justify-content；用两级选择器是为了盖过
+   global.css 里 `.container { max-width }` 的同权重声明。 */
+.page > .container.weekly-layout {
+  max-width: none;
+}
+
+.weekly-layout {
+  /* 侧栏 | 间隔 | 正文 | 对称留白 */
+  grid-template-columns:
+    var(--sidebar-w)
+    var(--sidebar-gap)
+    minmax(0, var(--measure))
+    calc(var(--sidebar-w) + var(--sidebar-gap));
+  justify-content: center;
+  /* 间隔由第 2、4 列占位，不要再加 column-gap */
+  column-gap: 0;
+}
+
+.weekly-layout > .weekly-header {
+  grid-column: 3;
+  grid-row: 1;
+  min-width: 0;
+}
+
+.weekly-side {
+  grid-column: 1;
+  /* 跨页头与正文两行：目录和页头同顶对齐，滚动时在整篇范围内吸顶 */
+  grid-row: 1 / span 2;
+  align-self: start;
+  min-width: 0;
+}
+
+.weekly-main {
+  grid-column: 3;
+  grid-row: 2;
+  min-width: 0;
+}
+
+@media (min-width: 1024px) {
+  .weekly-layout {
+    display: grid;
+  }
+
+  /* 吸顶只属于宽屏侧栏；窄屏塌成单列后若还 sticky，目录会一路浮在正文上。
+     宽度收窄到 --rail-w 并靠右贴齐：第 1 列比侧栏本身宽出 --rail-gutter，
+     那份留白留在外侧，目录到正文的距离才等于 --sidebar-gap。 */
+  .weekly-side {
+    position: sticky;
+    top: var(--space-6);
+    width: var(--rail-w);
+    margin-left: auto;
+  }
+
+  /* 侧栏里不需要「分隔线 + 下边距」，那是窄屏塌列时的分节手段 */
+  .weekly-side .weekly-toc {
+    margin: 0;
+    padding-bottom: 0;
+    border-bottom: 0;
+  }
+}
+
+@media (max-width: 1023px) {
+  .weekly-layout {
+    display: block;
   }
 }
 

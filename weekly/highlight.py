@@ -31,11 +31,11 @@ _LEAD_PUNCT = re.compile(r"^[\s，、。；：:,.!?！？\-—]+")
 
 
 def window_label(start: str, end: str) -> str:
-    """`2026-11-04` + `2026-11-10` → `26-1104 – 26-1110`（用户指定格式）。"""
+    """`2026-11-04` + `2026-11-10` → `261104 – 261110`（用户指定格式，YYMMDD）。"""
 
     def one(day: str) -> str:
         year, month, dd = str(day).split("-")
-        return f"{year[2:]}-{month}{dd}"
+        return f"{year[2:]}{month}{dd}"
 
     return f"{one(start)} – {one(end)}"
 
