@@ -2,7 +2,7 @@
 
 这个功能是 2026-11-11 接进 Galgame 日报的第二数据源。几个容易悄悄坏掉的点：
 
-* 正本配置 ↔ 站点名单必须同步（漏一边页面就显示裸 handle 或抓错源）；
+* B 站名单正本必须自洽，且**绝不写进 X 名单**（2026-11-11 用户裁决：两条名单/抓取管线分家）；
 * `source=bilibili` 的号绝不能进 X-Reader 的 `accounts.galgame.yaml`；
 * 归一化结果必须能被 `daily/adapters/xreader.py` 原样吃掉（字段边界只有那一处）；
 * 按 JST 自然日落盘、同 id 只存一次（重复跑不能把镜像越滚越大）；
@@ -73,28 +73,45 @@ def _record(item=None, account=None):
 
 class ConfigAndRosterTests(unittest.TestCase):
     def test_check_config_is_clean(self):
-        self.assertEqual(bili.check_config(bili.load_config(), ROSTER_PATH), [])
+        self.assertEqual(bili.check_config(bili.load_config()), [])
 
     def test_category_label_is_the_required_tag(self):
         cfg = bili.load_config()
         self.assertEqual(cfg["source_id"], "bilibili")
         self.assertEqual(cfg["category"]["id"], "bili_gal")
         self.assertEqual(cfg["category"]["label"], "B站Gal")
+        self.assertTrue(any(c["id"] == "bili_gal" and c["label"] == "B站Gal"
+                            for c in cfg["categories"]))
 
-    def test_every_monitored_account_has_the_tag_in_both_files(self):
+    def test_bili_roster_is_self_contained(self):
+        """B 站名单自己就是站点名单：栏目、显示名、主页、标签全在这一份里。"""
         cfg = bili.load_config()
-        roster = json.loads(ROSTER_PATH.read_text(encoding="utf-8"))
-        by_handle = {a["handle"]: a for a in roster["accounts"]}
         self.assertTrue(cfg["accounts"], "至少要有一个监控账号")
         for a in cfg["accounts"]:
+            self.assertEqual(a["handle"], "bili_" + a["uid"])
+            self.assertEqual(a["source"], "bilibili")
+            self.assertEqual(a["category"], "bili_gal")
             self.assertIn("B站Gal", a["tags"])
-            site = by_handle[a["handle"]]
-            self.assertIn("B站Gal", site["tags"])
-            self.assertEqual(site["category"], "bili_gal")
-            self.assertEqual(site["source"], "bilibili")
-            self.assertTrue(site["profile_url"].startswith("https://space.bilibili.com/"))
-        self.assertTrue(any(c["id"] == "bili_gal" and c["label"] == "B站Gal"
-                            for c in roster["categories"]))
+            self.assertTrue(a["name"], "缺显示名，页面会退回裸 handle")
+            self.assertTrue(a["profile_url"].startswith(
+                "https://space.bilibili.com/" + a["uid"] + "/"))
+
+    def test_x_roster_has_no_bilibili_entries(self):
+        """耦合检查：X 名单里不许出现任何 B 站账号 / 栏目 / source。"""
+        roster = json.loads(ROSTER_PATH.read_text(encoding="utf-8"))
+        handles = [str(a.get("handle") or "") for a in roster["accounts"]]
+        self.assertFalse([h for h in handles if h.startswith("bili_")])
+        self.assertFalse([c for c in roster["categories"]
+                          if str(c.get("id")) == "bili_gal"])
+        self.assertFalse([a for a in roster["accounts"]
+                          if str(a.get("source") or "x") != "x"])
+
+    def test_site_and_daily_layer_read_the_separate_bili_roster(self):
+        roster_ts = (ROOT / "src" / "lib" / "roster.ts").read_text(encoding="utf-8")
+        daily_roster = (ROOT / "scripts" / "daily" / "roster.py").read_text(encoding="utf-8")
+        self.assertIn("daily-bilibili-galgame.json", roster_ts)
+        self.assertIn("daily-bilibili-galgame.json", daily_roster)
+        self.assertIn("NON_X_ROSTER_PATHS", daily_roster)
 
     def test_load_config_rejects_untagged_or_duplicate_accounts(self):
         base = json.loads(CONFIG_PATH.read_text(encoding="utf-8"))

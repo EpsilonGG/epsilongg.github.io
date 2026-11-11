@@ -1,16 +1,25 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "source_id": "bilibili",
   "category": {
     "id": "bili_gal",
     "label": "B站Gal"
   },
-  "note": "Galgame 日报的 B 站动态监控名单。所有监控账号统一打 `B站Gal` 分类标签（category=bili_gal / tags=[B站Gal]），由 scripts/bilibili_daily.py 每天抓取 `x/polymer/web-dynamic/v1/feed/space`，按 JST 自然日落 data/bilibili/galgame/<YYYY-MM-DD>.jsonl，并镜像成 X-Reader 形状的 .xreader/data-galgame/items/bilibili.jsonl，让 `daily build --kind galgame` 无需改代码就能读到。handle 是站点侧的合成标识（bili_<uid>），不是 X 账号；sync_xreader_accounts.py 会按 source=bilibili 跳过它。",
+  "categories": [
+    {
+      "id": "bili_gal",
+      "label": "B站Gal"
+    }
+  ],
+  "note": "Galgame 日报的 **B 站动态监控名单正本**（2026-11-11 用户裁决：与 X 名单彻底分家）。本文件同时是站点查询层的「独立名单文件」：category/categories 给栏目，accounts 给显示名、profile_url 与 B站Gal 标签。所有监控账号统一打 `B站Gal` 分类标签（category=bili_gal / tags=[B站Gal]），由 scripts/bilibili_daily.py 每天抓取 `x/polymer/web-dynamic/v1/feed/space`，按 JST 自然日落 data/bilibili/galgame/<YYYY-MM-DD>.jsonl，并镜像成 X-Reader 形状的 .xreader/data-galgame/items/bilibili.jsonl，让 `daily build --kind galgame` 无需改代码就能读到。handle 是站点侧的合成标识（bili_<uid>），**不是 X 账号**；本文件绝不写进 src/config/daily-roster-galgame.json，sync_xreader_accounts.py 也不会把 B 站号当成 X 账号抓取。src/lib/roster.ts 与 scripts/daily/roster.py 各自单独把本文件并进查询表。",
   "accounts": [
     {
       "uid": "3632310624717268",
       "name": "HOOKSOFT公式",
       "handle": "bili_3632310624717268",
+      "source": "bilibili",
+      "category": "bili_gal",
+      "role": "main",
       "tags": [
         "B站Gal"
       ],

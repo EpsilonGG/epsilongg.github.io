@@ -44,6 +44,15 @@ DEFAULT_PATHS = {
 }
 DEFAULT_PATH = DEFAULT_PATHS[VOICE]
 
+# 2026-11-11 用户裁决：B 站等非 X 数据源的名单**独立成文件**，绝不和 X 名单混写。
+# 这里只把独立名单并进「查询表」（显示名 / 栏目 / 是否属于本版），碰不到抓取管线，
+# 也不用往 `daily-roster-galgame.json` 里塞一个 `bili_*` 账号。
+# 独立文件的 categories 只对 Galgame 版生效：声优版的 category_ids 不含 bili_gal，
+# 所以 `belongs_to_kind()` 仍会把 B 站条目判成「另一版」，不会串进声优版日报。
+NON_X_ROSTER_PATHS = (
+    CONFIG_DIR / "daily-bilibili-galgame.json",
+)
+
 
 @dataclass
 class Roster:
@@ -65,13 +74,14 @@ class Roster:
         secondary = [
             p for k, p in DEFAULT_PATHS.items() if k != kind and p != primary
         ]
+        extra = [p for p in NON_X_ROSTER_PATHS if p != primary and p not in secondary]
 
         categories: list[dict] = []
         accounts: list[Account] = []
         filters: dict[str, dict] = {}
         seen: set[str] = set()
 
-        for index, p in enumerate([primary, *secondary]):
+        for index, p in enumerate([primary, *secondary, *extra]):
             if not p.exists():
                 continue
             data = json.loads(p.read_text(encoding="utf-8"))
@@ -83,6 +93,16 @@ class Roster:
                     }
                     for c in data.get("categories") or []
                 ]
+            if p in extra and kind == GALGAME:
+                # 独立名单自带栏目（例：bili_gal / B站Gal）。只在 Galgame 版收进
+                # category_ids，否则声优版会误把 B 站动态当成自己的条目。
+                known = {c["id"] for c in categories}
+                for c in data.get("categories") or []:
+                    cid = str(c.get("id") or OTHER)
+                    if cid != OTHER and cid not in known:
+                        categories.append({"id": cid,
+                                           "label": str(c.get("label") or cid)})
+                        known.add(cid)
             for a in data.get("accounts") or []:
                 handle = str(a.get("handle") or "").strip()
                 if not handle or handle.lower() in seen:

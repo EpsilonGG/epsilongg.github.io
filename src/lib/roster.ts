@@ -1,11 +1,16 @@
 import galgameRoster from '../config/daily-roster-galgame.json';
 import voiceRoster from '../config/daily-roster.json';
+import bilibiliRoster from '../config/daily-bilibili-galgame.json';
 
 /**
  * 名单的查询层。
  *
  * 2026-10-29 起名单拆成两份（声优版 / Galgame 版），这里**合并成一张查询表**：
  * 名字、栏目、显示顺序都只有一处来源，页面按 handle 查就行。
+ *
+ * 2026-11-11 用户裁决：B 站监控号与 X 名单**不写进同一个文件**。第三份
+ * `daily-bilibili-galgame.json` 是 B 站正本，这里只做一次形状适配后并入查询表；
+ * X 的两份名单里不再出现 `bili_*` / `bili_gal`。合并只影响查询，不影响分组。
  *
  * 为什么要合并而不是按版各读一份：历史期号（`261025`–`261028`）是合并名单时代的
  * 产物，`people` 里同时有声优和制造商。如果渲染时只读声优版，那些旧页面上的人名
@@ -37,7 +42,21 @@ interface RosterFile {
   accounts?: RosterAccount[];
 }
 
-const FILES: RosterFile[] = [voiceRoster as RosterFile, galgameRoster as RosterFile];
+/** B 站名单是独立文件，形状与 X 名单略有不同（`category` / `categories` / `source_id`）。 */
+const bilibiliFile: RosterFile = {
+  categories: (bilibiliRoster.categories ?? [bilibiliRoster.category]) as RosterCategory[],
+  accounts: (bilibiliRoster.accounts as unknown as RosterAccount[]).map((account) => ({
+    ...account,
+    source: account.source ?? bilibiliRoster.source_id,
+  })),
+};
+
+// 顺序即栏目按钮顺序：声优版 → Galgame 版 → B站Gal（非 X 源排最后，other 永远垫底）。
+const FILES: RosterFile[] = [
+  voiceRoster as RosterFile,
+  galgameRoster as RosterFile,
+  bilibiliFile,
+];
 
 const displayName = new Map<string, string>();
 const order = new Map<string, number>();

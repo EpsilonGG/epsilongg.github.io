@@ -47,6 +47,14 @@ pic/
 # 我们只抄它的视觉语言，成品是 scripts/daily-image/render.mjs，不参与构建。
 juya-news-card-main/
 
+# 前期 B 站调研用的四份第三方 checkout（22 MB）。可复用的三件事已经用标准库
+# 重写进 scripts/bilibili_daily.py；2026-11-11 清理掉，留个忽略项防止误提交。
+weekcn/
+
+# 周报本地工作台产物（corpus / filter / 预览 HTML / 图片缓存，约 13 MB）。
+# 发布正本在 data/weekly/<vol_XXX>/，那个要提交；这个目录只是中间态。
+weekly/out/
+
 # 本机工具与模型权重（tools/audio-translate 约 7.8 GB），永远不进仓库
 tools/
 

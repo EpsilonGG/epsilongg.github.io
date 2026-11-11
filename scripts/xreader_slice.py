@@ -11,10 +11,10 @@ X-Reader 的库是 **append-only**：`data/items/x.jsonl` 从 2016 年一直写�
 按日切片把「整文件重写」变成「每天新增一个不可变的小文件」：
 
     一天  ≈ 550 KB（700 条上下）        → 一年 git 里约 55 MB（zlib 后）
-    滚存 14 天 ≈ 7.5 MB 工作区          → 克隆时不会觉得重
+    滚存 40 天 ≈ 21 MB 工作区          → 克隆时不会觉得重
 
-代价是只留最近 `--keep` 天。日报只需要「昨天」，重出一期最远也就回看两周，
-所以默认 14 天够用；要看更早的，`.xreader/` 那份全量库还在。
+代价是只留最近 `--keep` 天。日报只需要「昨天」，但周报/月报要覆盖最长 35 天的窗口，
+所以默认留 40 天；要看更早的，`.xreader/` 那份全量库还在。
 
 ## 为什么不进公开网址
 
@@ -24,7 +24,7 @@ X-Reader 的库是 **append-only**：`data/items/x.jsonl` 从 2016 年一直写�
 
 ## 用法
 
-    python scripts/xreader_slice.py                  # 两版都切，滚存 14 天
+    python scripts/xreader_slice.py                  # 两版都切，滚存 40 天
     python scripts/xreader_slice.py --kind galgame
     python scripts/xreader_slice.py --keep 30        # 留一个月
     python scripts/xreader_slice.py --date 2026-10-31 # 只补这一天
@@ -55,8 +55,12 @@ REPO_ROOT = Path(__file__).resolve().parents[1]
 # 切片的落脚点。目录名是 kind，文件名是 JST 自然日：`voice/2026-10-31.jsonl`。
 DEST = REPO_ROOT / "data" / "xreader"
 
-# 默认滚存天数。日报只用昨天，重出一期最多回看两周。
-KEEP_DAYS = 14
+# 默认滚存天数。
+# 日报只用昨天，重出一期最多回看两周；但周报窗口 7 天、月报窗口最长 35 天，
+# 统一内容层要能从版本化切片里取到完整的 35 天（外加边界余量），所以留 40 天。
+# 2026-11-04 经用户授权从 14 改到 40（见 docs/architecture/unified-content-audit.md §0.1）。
+# 注意：这只改变切片的保留范围，不改变日报读哪份库、也不改变日报输出。
+KEEP_DAYS = 40
 
 JST = timezone(timedelta(hours=9))
 

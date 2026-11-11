@@ -1,6 +1,6 @@
 {
   "schema_version": 5,
-  "note": "Galgame 版日报的名单（`daily build --kind galgame`，期号 `YYMMDD-g`）。厂商一个 handle 一条，同社多品牌写进 note；黑系（エロス系作品BLACK賞）这批没有建。信息号（category=info）2026-10-29 先启用五个：seiya_saiga / youtan0309 / aikouka23 三个个人向，加 getchucom（发售日历）与 bugbug_info（新作介绍）两个媒体号——媒体号走 `keep_if` 白名单，只收指定内容。2026-11-01 再补两个：hiro_in（ErogameScape 管理人）与 AKOUtw（アミューズクラフト 导演个人号）。Moepedia 是作品情报站，仍挂在 manufacturer 下（tags: 资料站 / 作品情报）。akaeroCore 的四个语言号 2026-11-01 起并入 manufacturer，按 name 合并成一行（主号 akaerocore，其余进 via）。 2026-11-10 补 stealcatAC（スティールキャット，アミューズクラフト系列新品牌，brand=AMUSE CRAFT）。 2026-11-11 起新增 `bili_gal`（B站Gal）栏目：B 站动态监控号，正本在 src/config/daily-bilibili-galgame.json，由 scripts/bilibili_daily.py 日抓；`source=bilibili` 的号不是 X 账号，sync_xreader_accounts.py 会跳过，页面主页链接按 `profile_url` 指向 B 站空间。",
+  "note": "Galgame 版日报的 **X 名单**（`daily build --kind galgame`，期号 `YYMMDD-g`）。厂商一个 handle 一条，同社多品牌写进 note；黑系（エロス系作品BLACK賞）这批没有建。信息号（category=info）2026-10-29 先启用五个：seiya_saiga / youtan0309 / aikouka23 三个个人向，加 getchucom（发售日历）与 bugbug_info（新作介绍）两个媒体号——媒体号走 `keep_if` 白名单，只收指定内容。2026-11-01 再补两个：hiro_in（ErogameScape 管理人）与 AKOUtw（アミューズクラフト 导演个人号）。Moepedia 是作品情报站，仍挂在 manufacturer 下（tags: 资料站 / 作品情报）。akaeroCore 的四个语言号 2026-11-01 起并入 manufacturer，按 name 合并成一行（主号 akaerocore，其余进 via）。 2026-11-10 补 stealcatAC（スティールキャット，アミューズクラフト系列新品牌，brand=AMUSE CRAFT）。 2026-11-11 用户裁决：B 站监控号与 X 名单**彻底分家**——B 站名单只在 src/config/daily-bilibili-galgame.json，抓取只在 scripts/bilibili_daily.py；本文件只放 X 账号，不出现 `bili_*` / `bili_gal` / `source=bilibili`。站点查询层（src/lib/roster.ts）与日报名单层（scripts/daily/roster.py）各自单独并入 B 站名单文件。",
   "categories": [
     {
       "id": "manufacturer",
@@ -9,10 +9,6 @@
     {
       "id": "info",
       "label": "信息号"
-    },
-    {
-      "id": "bili_gal",
-      "label": "B站Gal"
     },
     {
       "id": "other",
@@ -2436,19 +2432,6 @@
         "商业信息"
       ],
       "note": "用户 2026-11-07 裁决：不是幕后人物，是做周边商品的商铺；消息归「商业信息」。只登记显示名 / 不进抓取（其原推由官号转发进入日报），且**不列 info**：info 信源已被周报整条剔除，列进去会让这条商业消息一起消失。抓取库里没有它的显示名，故用「账号名（周边商铺）」如实标注，不臆造日文名。"
-    },
-    {
-      "handle": "bili_3632310624717268",
-      "name": "HOOKSOFT公式",
-      "source": "bilibili",
-      "profile_url": "https://space.bilibili.com/3632310624717268/dynamic",
-      "category": "bili_gal",
-      "role": "main",
-      "active": true,
-      "tags": [
-        "B站Gal"
-      ],
-      "note": "用户 2026-11-11 指定的 B 站测试监控账号（UID 3632310624717268）。handle 是站点侧合成标识，不是 X 账号；正本配置在 src/config/daily-bilibili-galgame.json，动态由 scripts/bilibili_daily.py 每日抓取，落 data/bilibili/galgame/<JST日>.jsonl 并镜像进 X-Reader items 目录。"
     }
   ]
 }

@@ -3,14 +3,18 @@
 
 背景
 ----
-`weekcn/` 里有四个 B 站相关项目，但**没有一个能直接跑**：
-`bilibili-cli` 是 Go 1.26 写的单文件 CLI（本机没有 Go，也没编好的二进制），
-两个 nonebot 插件绑死 QQ 机器人 / aiosqlite，`bilibili-notify` 要 pnpm 工作区。
-这里把其中可复用的三件事用 Python 标准库重写：
+前期调研过四个 B 站开源实现（Go CLI、两个 nonebot 插件、一个 pnpm 工作区），
+都不能直接跑：没有 Go 工具链 / 绑死 QQ 机器人与 aiosqlite / 要整个 pnpm workspace。
+参考实现已经清理掉，这里把它们可复用的三件事用 Python 标准库重写：
 
-* `x/polymer/web-dynamic/v1/feed/space` 的调用形状（抄 `nonebot-plugin-bilibili/api.py`）；
-* buvid3/buvid4 匿名引导与 `dm_img_*` 设备指纹（抄 `bilibili-cli/bili/client.go` / `wbi.go`）；
-* 「首轮只建基线 + 按 id 去重」的增量思路（抄 `nonebot-plugin-bilibili/jobs.py`）。
+* `x/polymer/web-dynamic/v1/feed/space` 的调用形状；
+* buvid3/buvid4 匿名引导与 `dm_img_*` 设备指纹；
+* 「首轮只建基线 + 按 id 去重」的增量思路。
+
+**名单与 X 抓取管线彻底分家**（2026-11-11 用户裁决）：监控账号的正本只有
+`src/config/daily-bilibili-galgame.json` 这一份，X 名单
+`src/config/daily-roster-galgame.json` 里不出现任何 `bili_*` / `bili_gal`；
+站点查询层与日报名单层各自单独读入这份 B 站名单。
 
 实测结论（2026-11-11，HOOKSOFT公式 UID 3632310624717268）
 --------------------------------------------------------
@@ -63,7 +67,6 @@ from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 CONFIG_PATH = REPO_ROOT / "src" / "config" / "daily-bilibili-galgame.json"
-ROSTER_PATH = REPO_ROOT / "src" / "config" / "daily-roster-galgame.json"
 DATA_ROOT = REPO_ROOT / "data" / "bilibili" / "galgame"
 XREADER_ITEMS = REPO_ROOT / ".xreader" / "data-galgame" / "items"
 OUT_ROOT = REPO_ROOT / "out"
@@ -82,7 +85,7 @@ SPI_URL = "https://api.bilibili.com/x/frontend/finger/spi"
 NAV_URL = "https://api.bilibili.com/x/web-interface/nav"
 FEED_URL = "https://api.bilibili.com/x/polymer/web-dynamic/v1/feed/space"
 
-# WBI 签名用的固定置换表（与 weekcn/bilibili-cli/bili/wbi.go 一致）。
+# WBI 签名用的固定置换表（B 站 Web 端公开算法，与前期参考实现一致）。
 MIXIN_KEY_ENC_TAB = (
     46, 47, 18, 2, 53, 8, 23, 32, 15, 50, 10, 31, 58, 3, 45, 35,
     27, 43, 5, 49, 33, 9, 42, 19, 29, 28, 14, 39, 12, 38, 41, 13,
@@ -135,31 +138,45 @@ def active_accounts(config: dict) -> list[dict]:
     return [a for a in config.get("accounts") or [] if a.get("active", True) is not False]
 
 
-def check_config(config: dict, roster_path: Path = ROSTER_PATH) -> list[str]:
-    """正本配置 ↔ 站点名单的一致性。新增监控号两边都要有，否则页面会显示裸 handle。"""
-    roster = json.loads(roster_path.read_text(encoding="utf-8"))
-    by_handle = {str(a.get("handle")): a for a in roster.get("accounts") or []}
+def check_config(config: dict) -> list[str]:
+    """B 站名单正本的**自洽**校验（2026-11-11 用户裁决）。
+
+    绝不读 X 名单：两条名单 / 抓取管线各自独立，新增 B 站监控号只改
+    `src/config/daily-bilibili-galgame.json` 一处。站点查询层与日报名单层
+    都从这份文件派生，所以这里把「它们要读的字段」逐一验齐。
+    """
     problems: list[str] = []
+    if (config.get("source_id") or SOURCE_ID) != SOURCE_ID:
+        problems.append("source_id 必须是 bilibili")
     cat = config.get("category") or {}
     cat_id, cat_label = str(cat.get("id") or ""), str(cat.get("label") or "")
     if cat_label != TAG:
-        problems.append(f"配置的 category.label 应为 {TAG}，实际 {cat_label!r}")
-    if not any(str(c.get("id")) == cat_id for c in roster.get("categories") or []):
-        problems.append(f"站点名单缺栏目 {cat_id}（{cat_label}）")
+        problems.append(f"category.label 应为 {TAG}，实际 {cat_label!r}")
+    if not cat_id:
+        problems.append("缺 category.id")
+    categories = config.get("categories") or []
+    if not any(str(c.get("id")) == cat_id and str(c.get("label")) == TAG
+               for c in categories):
+        problems.append(f"categories 缺 {cat_id} / {TAG}（站点查询层与日报名单层都读它）")
+    if not (config.get("accounts") or []):
+        problems.append("监控账号为空")
     for a in config.get("accounts") or []:
+        uid = str(a.get("uid") or "")
         handle = str(a.get("handle") or "")
-        entry = by_handle.get(handle)
-        if entry is None:
-            problems.append(f"{a.get('name')}：站点名单里没有 {handle}")
-            continue
-        if str(entry.get("category")) != cat_id:
+        name = str(a.get("name") or "")
+        if not name:
+            problems.append(f"{uid} 缺 name（页面会显示裸 handle）")
+        if handle != "bili_" + uid:
+            problems.append(f"{uid} 的 handle 应为 bili_<uid>，实际 {handle!r}")
+        if str(a.get("source")) != SOURCE_ID:
+            problems.append(f"{handle} 缺 source=bilibili")
+        if str(a.get("category")) != cat_id:
             problems.append(f"{handle} 的 category 应为 {cat_id}")
-        if TAG not in (entry.get("tags") or []):
+        if TAG not in (a.get("tags") or []):
             problems.append(f"{handle} 没打 {TAG} 标签")
-        if entry.get("source") != SOURCE_ID:
-            problems.append(f"{handle} 缺 source=bilibili（sync_xreader_accounts 会把它当 X 账号抓）")
-        if str(entry.get("name")) != str(a.get("name")):
-            problems.append(f"{handle} 显示名与正本不一致：{entry.get('name')!r} vs {a.get('name')!r}")
+        url = str(a.get("profile_url") or "")
+        if not url.startswith("https://space.bilibili.com/" + uid + "/"):
+            problems.append(f"{handle} 的 profile_url 不是该 UID 的 B 站空间：{url!r}")
     return problems
 
 
@@ -620,7 +637,7 @@ def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="Galgame 日报 · B 站动态日抓")
     sub = parser.add_subparsers(dest="command", required=True)
 
-    sub.add_parser("check", help="校验监控名单与站点名单一致")
+    sub.add_parser("check", help="校验 B 站名单正本自洽（不读 X 名单）")
 
     f = sub.add_parser("fetch", help="抓取动态并落盘")
     f.add_argument("--date", help="JST 自然日（默认今天）；只影响概况与日志，不影响抓全量")
@@ -657,7 +674,7 @@ def main(argv: list[str] | None = None) -> int:
             for p in problems:
                 print("✗ " + p, file=sys.stderr)
             return 2
-        print(f"✓ {TAG} 配置与站点名单一致：{len(config['accounts'])} 个监控账号")
+        print(f"✓ {TAG} 名单正本自洽：{len(config['accounts'])} 个监控账号（与 X 名单无关）")
         return 0
 
     if args.command == "sync":
