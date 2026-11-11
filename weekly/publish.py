@@ -20,12 +20,13 @@ import re
 from datetime import datetime, timezone
 from pathlib import Path
 
+from . import highlight as highlight_mod
 from .config import OUT, ROOT, read_json, write_json
 from .draft_export import _image_index, _insert_images, _stats, render_public_fragment
 
 PUBLISH_DIR = ROOT / "data" / "weekly"
 ISSUE_RE = re.compile(r"^vol_(\d{3,})$")
-GENERATOR = "weekly/publish/1"
+GENERATOR = "weekly/publish/2"
 
 # 工作台内部语言：出现在线上就是事故，publish 与 check-site 双重拦。
 INTERNAL_MARKERS = (
@@ -133,10 +134,14 @@ def build_report(rules: dict, manifest: dict, corpus: dict, decisions: dict,
     brands = stats["brands"]
     items = stats["items"]
 
-    lead = (
-        f"本期汇总 {win['start']} – {win['end']} 共 {len(issues)} 期 Galgame 日报，"
-        f"筛出 {brands} 个品牌 / {items} 条动态，按「" + " / ".join(order) + "」整理。"
-    )
+    # 页头那句「当前亮点」与归档页第三行是同一句：规则生成、可复现、≤70 字。
+    hl = highlight_mod.build(body_md, stats, order)
+    toc = highlight_mod.build_toc(body_md)
+    win_label = highlight_mod.window_label(win["start"], win["end"])
+    if len(hl) > highlight_mod.LIMIT:
+        raise RuntimeError(f"亮点归纳超过 {highlight_mod.LIMIT} 字：{hl}")
+    if not toc:
+        raise RuntimeError("对外正文没有可做目录的大标题")
     description = f"{win['start']} – {win['end']} · {items} 条 Galgame 动态"
     if len(description) > 70:
         description = description[:70]
@@ -154,18 +159,20 @@ def build_report(rules: dict, manifest: dict, corpus: dict, decisions: dict,
     }
 
     return {
-        "schema_version": 1,
+        "schema_version": 2,
         "generator": GENERATOR,
         "issue": {
             "id": issue_id,
             "title": f"Galgame 周报 · {issue_id}",
             "published_at": published_at,
             "window": {"start": str(win["start"]), "end": str(win["end"])},
+            "window_label": win_label,
             "status": "published",
             "previous": previous_issue_id(),
         },
         "description": description,
-        "lead": lead,
+        "highlight": hl,
+        "toc": toc,
         "columns": [
             {"label": c,
              "brands": stats["columns"].get(c, {}).get("brands", 0),

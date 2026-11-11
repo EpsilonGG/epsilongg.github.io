@@ -36,8 +36,7 @@ const { report, newer, older } = Astro.props as {
   older: WeeklyReport | null;
 };
 
-const { issue, stats } = report;
-const windowLabel = `${issue.window.start} – ${issue.window.end}`;
+const { issue, toc } = report;
 ---
 
 <BaseLayout title={issue.title} description={report.description} ogType="article">
@@ -46,16 +45,30 @@ const windowLabel = `${issue.window.start} – ${issue.window.end}`;
       <article>
         <header class="page-header weekly-header">
           <p class="weekly-header__id">周报 · {issue.id}</p>
-          <h1 class="page-title">{windowLabel}</h1>
+          <h1 class="page-title">{issue.window_label}</h1>
           <p class="weekly-meta">
             <span>发布 {formatWeeklyPublished(publishedDate(report))}</span>
-            <span>覆盖 {stats.source_issues} 期日报</span>
-            <span>{stats.brands} 个品牌 · {stats.items} 条</span>
             <a href={weeklyJsonPath(issue.id)}>JSON</a>
           </p>
         </header>
 
-        <p class="weekly-lead">{report.lead}</p>
+        {
+          toc.length > 0 ? (
+            <nav class="weekly-toc" aria-label="栏目目录">
+              <ol class="weekly-toc__list">
+                {toc.map((item) => (
+                  <li class="weekly-toc__item">
+                    <a class="weekly-toc__link" href={`#${item.id}`}>
+                      {item.label}
+                    </a>
+                  </li>
+                ))}
+              </ol>
+            </nav>
+          ) : null
+        }
+
+        <p class="weekly-highlight">{report.highlight}</p>
 
         <div class="weekly-body" set:html={report.content_html} />
 

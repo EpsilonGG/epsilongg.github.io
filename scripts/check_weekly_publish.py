@@ -95,9 +95,16 @@ def _check_report(path: Path, root: Path) -> str:
     if len(str(report.get("description") or "")) > 70:
         raise Failure(f"{rel}: description 超过 70 字")
 
-    for key in ("lead", "markdown", "content_html", "policy", "columns", "stats"):
+    for key in ("highlight", "markdown", "content_html", "policy", "columns", "stats", "toc"):
         if not report.get(key):
             raise Failure(f"{rel}: 缺字段 {key}")
+    if len(str(report["highlight"])) > 70:
+        raise Failure(f"{rel}: highlight 超过 70 字（{len(str(report['highlight']))} 字）")
+    win_label = str(issue.get("window_label") or "")
+    expect_label = (f"{str(win['start'])[2:4]}-{str(win['start'])[5:7]}{str(win['start'])[8:10]}"
+                    f" – {str(win['end'])[2:4]}-{str(win['end'])[5:7]}{str(win['end'])[8:10]}")
+    if win_label != expect_label:
+        raise Failure(f"{rel}: issue.window_label {win_label!r} 与窗口不符（应为 {expect_label!r}）")
 
     for label, text in (("markdown", report["markdown"]),
                         ("content_html", report["content_html"])):
@@ -119,8 +126,15 @@ def _check_report(path: Path, root: Path) -> str:
         m = re.search(r'src="([^"]*)"', tag)
         if m and not re.match(r"^https?://", m.group(1)):
             raise Failure(f"{rel}: <img> 用了非绝对地址 {m.group(1)!r}（线上会 404）")
-    if "<h2>" not in html:
+    if not re.search(r"<h2\b", html):
         raise Failure(f"{rel}: content_html 没有任何栏目（## 标题）")
+    # 目录只收大标题：toc 的每一项都必须在正文里有对应锚点，数量也要对齐。
+    anchors = re.findall(r'<h2 id="([^"]+)">', html)
+    toc_ids = [str(t.get("id") or "") for t in report["toc"]]
+    if anchors != toc_ids:
+        raise Failure(f"{rel}: toc 与正文栏目锚点不一致（toc={toc_ids} / html={anchors}）")
+    if any(not str(t.get("label") or "").strip() for t in report["toc"]):
+        raise Failure(f"{rel}: toc 有条目没有标题文字")
     if any("业界动向" == str(c.get("label")) for c in report["columns"]):
         raise Failure(f"{rel}: columns 仍列出未上线栏目「{DISABLED_COLUMN}」")
 

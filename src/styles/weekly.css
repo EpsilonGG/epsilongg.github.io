@@ -50,20 +50,9 @@
   font-variant-numeric: tabular-nums;
 }
 
-.weekly-archive__desc,
-.weekly-archive__stats {
-  grid-column: 2;
-}
-
 .weekly-archive__desc {
   color: var(--color-text-secondary);
   font-size: var(--text-sm);
-}
-
-.weekly-archive__stats {
-  color: var(--color-text-muted);
-  font-size: var(--text-xs);
-  font-variant-numeric: tabular-nums;
 }
 
 @media (max-width: 480px) {
@@ -71,8 +60,7 @@
     grid-template-columns: 1fr;
   }
 
-  .weekly-archive__desc,
-  .weekly-archive__stats {
+  .weekly-archive__desc {
     grid-column: 1;
   }
 }
@@ -100,13 +88,48 @@
   font-variant-numeric: tabular-nums;
 }
 
-/* 导语 */
-.weekly-lead {
+/* 栏目目录：只收大标题（新作 / 作品情报），样式对齐笔记页的侧栏目录
+   （左侧竖线 + 小字 + 悬停压深），但不做吸顶、不做滚动高亮——
+   周报只有两三栏，静态跳转就够。 */
+.weekly-toc {
+  max-width: var(--measure);
+  margin: 0 0 var(--space-5);
+  padding-bottom: var(--space-3);
+  border-bottom: var(--border-width) solid var(--color-border);
+}
+
+.weekly-toc__list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.weekly-toc__link {
+  display: block;
+  padding: 0 var(--space-2);
+  border-left: 2px solid transparent;
+  color: var(--color-text-muted);
+  font-size: var(--text-xs);
+  line-height: var(--toc-row-h);
+  text-decoration: none;
+  transition: color var(--duration-fast) var(--ease),
+    border-color var(--duration-fast) var(--ease);
+}
+
+.weekly-toc__link:hover,
+.weekly-toc__link:focus-visible {
+  border-left-color: var(--color-text);
+  color: var(--color-text);
+}
+
+/* 当前亮点：正文之前一句话，≤70 字。左边一道竖线把它和导语区分开 */
+.weekly-highlight {
   max-width: var(--measure);
   margin: 0 0 var(--space-6);
-  padding-bottom: var(--space-5);
-  border-bottom: var(--border-width) solid var(--color-border);
+  padding-left: var(--space-4);
+  border-left: 2px solid var(--color-border-strong);
   color: var(--color-text-secondary);
+  line-height: var(--leading-relaxed);
 }
 
 /* 正文：栏目(##) → 品牌(###) → 游戏(####) → 条目(-) */

@@ -167,11 +167,17 @@ def _inline(text: str) -> str:
     return _INLINE.sub(repl, text)
 
 
-def _body_lines(md: str) -> list[str]:
-    """Markdown 正文 → HTML 片段。工作台与线上正本共用这一份渲染器。"""
+def _body_lines(md: str, *, anchors: bool = False) -> list[str]:
+    """Markdown 正文 → HTML 片段。工作台与线上正本共用这一份渲染器。
+
+    `anchors=True` 只给线上正本用：给每个 `##` 栏目补一个 `section-N` 的 id，
+    站点页头那个「只收大标题」的目录才能跳转。工作台不需要（它有自己的筛选页），
+    所以默认关掉，产物保持原样。
+    """
     out: list[str] = []
     in_ul = False
     in_bq = False
+    sections = 0
 
     def close() -> None:
         nonlocal in_ul, in_bq
@@ -203,7 +209,9 @@ def _body_lines(md: str) -> list[str]:
             continue
         if s.startswith("## "):
             close()
-            out.append(f"<h2>{_inline(s[3:])}</h2>")
+            sections += 1
+            anchor = f' id="section-{sections}"' if anchors else ""
+            out.append(f"<h2{anchor}>{_inline(s[3:])}</h2>")
             continue
         if s.startswith("### "):
             close()
@@ -260,8 +268,10 @@ def render_public_fragment(md: str) -> str:
 
     页面标题、导语、元信息都由 Astro 页面按 `report.json` 渲染；这里只负责
     「栏目 → 品牌 → 游戏 → 条目」这一层，避免把工作台的内部说明带上线上。
+    `##` 栏目带 `section-N` 锚点，与 `report.json:toc` 一一对应。
     """
-    return '<div class="weekly-body">' + "".join(_body_lines(md)) + '</div>'
+    return ('<div class="weekly-body">'
+            + "".join(_body_lines(md, anchors=True)) + '</div>')
 
 
 # ---------- 入口 ----------

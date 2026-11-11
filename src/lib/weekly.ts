@@ -21,6 +21,12 @@ export interface WeeklyColumn {
   items: number;
 }
 
+/** 目录只收大标题（栏目），`id` 对应正文里 `<h2 id="section-N">` 的锚点。 */
+export interface WeeklyTocItem {
+  id: string;
+  label: string;
+}
+
 export interface WeeklyReport {
   schema_version: number;
   generator: string;
@@ -29,11 +35,15 @@ export interface WeeklyReport {
     title: string;
     published_at: string;
     window: { start: string; end: string };
+    /** `26-1104 – 26-1110`：归档页与详情页标题用的短标签 */
+    window_label: string;
     status: 'published';
     previous: string | null;
   };
   description: string;
-  lead: string;
+  /** 本期亮点，≤70 字；归档页第三行与详情页页头下方是同一句 */
+  highlight: string;
+  toc: WeeklyTocItem[];
   columns: WeeklyColumn[];
   stats: {
     source_issues: number;
