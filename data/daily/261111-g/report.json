@@ -1,0 +1,577 @@
+{
+  "schema_version": 1,
+  "issue": {
+    "id": "261111-g",
+    "published_at": "2026-11-12T00:43:40.329358+09:00",
+    "window": {
+      "start": "2026-11-11T00:00:00+09:00",
+      "end": "2026-11-12T00:00:00+09:00"
+    },
+    "status": "confirmed",
+    "confirmed_at": "2026-11-11T15:45:15+00:00"
+  },
+  "counts": {
+    "items": 167,
+    "accounts": 46,
+    "late": 224,
+    "skipped_duplicate": 1
+  },
+  "description": "『ギャルズフィクション』宣布动画化；sprite『小金井荘』进入两周倒计时，Triangle 13 日直播。",
+  "highlights": [
+    {
+      "text": "自宅すたじお『ギャルズフィクション THE ANIMATION』宣布动画化，预约与店铺特典、演示影像一并公开。",
+      "sources": [
+        "x:2120479270644732256"
+      ]
+    },
+    {
+      "text": "sprite『小金井荘と金色の揚羽蝶』11/26 发售进入两周倒计时：メロンブックス 11/13 起送明信片，中京マイコン 限定特典同步开订。",
+      "sources": [
+        "x:2120468712293798264",
+        "x:2120350824492593419"
+      ]
+    },
+    {
+      "text": "Triangle『魔法戦士ソルシエルナイツ』11/13 上ニコ生「さんかく魂」；同时订正 ルピナス 角色卡属官方通贩特典、不是初回同捆。",
+      "sources": [
+        "x:2120482797144170785",
+        "x:2120489927129645281"
+      ]
+    },
+    {
+      "text": "KUMANOMISoft『転性魔王さまは勇者に勝てない！２』下载版开订，11/12 前 10%OFF，豪华版附主题曲。",
+      "sources": [
+        "x:2120456516658446623"
+      ]
+    }
+  ],
+  "insights": [],
+  "interactions": [
+    {
+      "text": "HOOKSOFT・SMEE・ASa Project 三家在秋叶原同一间联名咖啡厅同场，MOONSTONE 的场次也在同期开。",
+      "sources": [
+        "x:2120336774761525256",
+        "x:2120479894463545713"
+      ]
+    },
+    {
+      "text": "ルネソフト 与 KLEPTO 的联合企划里，「白羽弓乃」抱枕在 ANIPHA 官网排到第一，官方号亲自转了这个成绩。",
+      "sources": [
+        "x:2120312584503246867"
+      ]
+    }
+  ],
+  "works": [
+    "自宅すたじお『ギャルズフィクション THE ANIMATION』宣布动画化，预约已开。",
+    "sprite『小金井荘と金色の揚羽蝶』11/26 发售，メロンブックス 11/13 起送明信片、中京マイコン 有限定特典。",
+    "sprite『everlasting flowers 初回限定特装版』11/26 发售，秋叶原店头预约中。",
+    "SMEE『ワンナイトアフター』11/27 发售，体验版公开、FANZA GAMES 下载版预约中。",
+    "Triangle『魔法戦士ソルシエルナイツ』11/13 上ニコ生；ルピナス 角色卡订正为官方通贩特典。",
+    "KUMANOMISoft『転性魔王さまは勇者に勝てない！２』下载版预约中，11/12 前 10%OFF。",
+    "でぼの巣製作所『神楽新風記～陽葵の章～』11/20 发售，官网公开作品看点。",
+    "DESSERT Soft『どいなかガールズゆーとぴあ』11/26 发售，角色介绍公开。",
+    "GIRL'S SOFTWARE『くりくりクリニック～恵体女医の躾け方～』1/27 发售，已装盘完成。",
+    "POISON『悲鳴』公开女主 小島純那，FANZA 同人版 11/14 前 50%OFF。",
+    "ensemble『天獄のヴィネア』抱枕开订，2027/1/5 截止，12/28 電気外祭り 先行贩售。",
+    "ENTERGRAM『君色パトラIF』Windows 版体验版公开，附迷你射击小游戏。",
+    "あむすクラフト『カノジョの妹のあざと誘惑～純愛なんてゴミですよ先輩♡』体验版公开。",
+    "あむすクラフト『養花師の背徳愛』感想问卷抽签名色纸到 11/30，插画也上了便利店网络打印。",
+    "Key『Summer Pockets SS』12/18 发售，staff 已进入装盘前的收尾。",
+    "FAVORITE『いろとりどりのセカイ』15 周年周边预约 11/13 截止、12/18 发售。",
+    "まどそふと PC 下载版促销到 11/12、主机版到 11/20，最高 70%OFF。",
+    "Muv-Luv Switch 版最大 35%OFF 促销明日截止。",
+    "ルネソフト『ようこそ！スケベエルフの森へ』イヴリン PVC 11/12 10 时起开订。",
+    "『悪の女幹部ペリジーニュームーン』实装新角色 マスク・ザ・プラチナム，并开「ナイト・オブ・ザ・フォーリングレッド 前編」。",
+    "Innocent Grey『Karanoshojo Complete Box』预约即将截止，限定版附 天ノ少女 后日谈小说。",
+    "TRYSET Break 的「催眠アプリ」新系列发售临近，BugBug 已出报道。",
+    "Overflow『SchoolDays』20 周年抽奖第 3 弹为兔女郎言葉等身挂画，到 11/16。",
+    "AirVelocity『ハッピーウィークエンド』Switch/PS4 版追加 sample CG，Switch 下载版预约 10%OFF。"
+  ],
+  "categories": [],
+  "accounts": [
+    "Moepedia_net",
+    "TRYSET",
+    "silkysplus",
+    "kiss_staff",
+    "debonosu",
+    "AzarashiSoft",
+    "HOOKSOFT",
+    "girls_software",
+    "Route2_tri",
+    "circus_info",
+    "purple_NewWork",
+    "ASaProject_2016",
+    "smee_official",
+    "entergram_info",
+    "Amuse_kenzen",
+    "key_official",
+    "POISON_NEW1992",
+    "dessertsoft_tw",
+    "lumpofsuger",
+    "u_me_soft",
+    "FANDC_Staff",
+    "will_ensemble",
+    "NanaWind",
+    "Amuse_sub",
+    "luneman_etc",
+    "favo_official",
+    "SAGAPLANETS",
+    "sprite_fairys",
+    "madostaff",
+    "KUMANOMISoft",
+    "jitaku_st",
+    "AQUAPLUS_JP",
+    "project_citrus",
+    "Orthrossoft",
+    "nsm_reborn",
+    "Muvluv_Official",
+    "BEEP_SHOP",
+    "twit_Gungnir",
+    "Nameless_offi",
+    "adahemas",
+    "SukeraSparo",
+    "Overflow_staff",
+    "nitroplus_staff",
+    "youtan0309",
+    "hiro_in",
+    "AKOUtw"
+  ],
+  "people": [
+    {
+      "handle": "Moepedia_net",
+      "category": "",
+      "summary": "报 Lycee Overture シルキーズプラス 1.0（2027/1/29）与『さそって☆トレイン2』。",
+      "via": [],
+      "sources": [
+        "x:2120503056747905279",
+        "x:2120514380593082698"
+      ]
+    },
+    {
+      "handle": "TRYSET",
+      "category": "",
+      "summary": "转发 BugBug 报道：Break 的「催眠アプリ」新系列发售临近。",
+      "via": [],
+      "sources": [
+        "x:2120334336981700660"
+      ]
+    },
+    {
+      "handle": "silkysplus",
+      "category": "",
+      "summary": "TwitCasting 恢复，午间配信改到明天以后；17 日 たまネコステーション 请来 Lycee 总监。",
+      "via": [],
+      "sources": [
+        "x:2120347367522414916",
+        "x:2120359782490190192"
+      ]
+    },
+    {
+      "handle": "kiss_staff",
+      "category": "",
+      "summary": "博客更新『夜伽クラス Vol.41』，公开两位女仆角色情报。",
+      "via": [],
+      "sources": [
+        "x:2120441604238635228"
+      ]
+    },
+    {
+      "handle": "debonosu",
+      "category": "",
+      "summary": "『神楽新風記～陽葵の章～』11/20 发售，官网公开作品看点。",
+      "via": [],
+      "sources": [
+        "x:2120507939077403083"
+      ]
+    },
+    {
+      "handle": "AzarashiSoft",
+      "category": "",
+      "summary": "Fantia 更新了一篇闲聊。",
+      "via": [],
+      "sources": [
+        "x:2120441400785617053"
+      ]
+    },
+    {
+      "handle": "HOOKSOFT",
+      "category": "",
+      "summary": "秋叶原联名咖啡厅开业，HOOKSOFT・SMEE・ASa Project 三家同场。",
+      "via": [],
+      "sources": [
+        "x:2120336774761525256",
+        "x:2120479894463545713"
+      ]
+    },
+    {
+      "handle": "girls_software",
+      "category": "",
+      "summary": "『くりくりクリニック～恵体女医の躾け方～』1/27 发售，已装盘完成。",
+      "via": [],
+      "sources": [
+        "x:2120230250416324989"
+      ]
+    },
+    {
+      "handle": "Route2_tri",
+      "category": "",
+      "summary": "『魔法戦士ソルシエルナイツ』11/13 上ニコ生；并订正 ルピナス 卡片属官方通贩特典。",
+      "via": [],
+      "sources": [
+        "x:2120482797144170785",
+        "x:2120489927129645281"
+      ]
+    },
+    {
+      "handle": "circus_info",
+      "category": "",
+      "summary": "只发了一条 D.C. 25 周年短片。",
+      "via": [],
+      "sources": [
+        "x:2120169615905144913"
+      ]
+    },
+    {
+      "handle": "purple_NewWork",
+      "category": "",
+      "summary": "『アマツツミ』主题歌开始配信，OP 影像同步公开。",
+      "via": [],
+      "sources": [
+        "x:2120456510199251033"
+      ]
+    },
+    {
+      "handle": "ASaProject_2016",
+      "category": "",
+      "summary": "『ハッピーウィークエンド』Switch/PS4 追加 sample CG，下载版预约 10%OFF。",
+      "via": [],
+      "sources": [
+        "x:2120480910055440428"
+      ]
+    },
+    {
+      "handle": "smee_official",
+      "category": "",
+      "summary": "『ワンナイトアフター』11/27 发售，体验版公开、FANZA GAMES 下载版预约中。",
+      "via": [],
+      "sources": [
+        "x:2120479150310068279",
+        "x:2120479155116458279"
+      ]
+    },
+    {
+      "handle": "entergram_info",
+      "category": "",
+      "summary": "『君色パトラIF』Windows 版体验版公开，附迷你射击小游戏。",
+      "via": [],
+      "sources": [
+        "x:2120471617155580136"
+      ]
+    },
+    {
+      "handle": "Amuse_kenzen",
+      "category": "",
+      "summary": "『養花師の背徳愛』插画上了便利店网络打印，用户号公开到 11/29。",
+      "via": [],
+      "sources": [
+        "x:2120432339906159056"
+      ]
+    },
+    {
+      "handle": "key_official",
+      "category": "",
+      "summary": "staff 日志说装盘前感冒倒下；『Summer Pockets SS』12/18 发售。",
+      "via": [],
+      "sources": [
+        "x:2120456782804140198",
+        "x:2120469514886553987"
+      ]
+    },
+    {
+      "handle": "POISON_NEW1992",
+      "category": "",
+      "summary": "『悲鳴』公开篮球部 小島純那；FANZA 同人版 11/14 前 50%OFF。",
+      "via": [],
+      "sources": [
+        "x:2120501810431709285"
+      ]
+    },
+    {
+      "handle": "dessertsoft_tw",
+      "category": "",
+      "summary": "转发角色介绍：『どいなかガールズゆーとぴあ』11/26 发售。",
+      "via": [],
+      "sources": [
+        "x:2120517892861272273"
+      ]
+    },
+    {
+      "handle": "lumpofsuger",
+      "category": "",
+      "summary": "FANBOX 第 4 季招募，11 月主题是『タユタマ零』的白き獣。",
+      "via": [],
+      "sources": [
+        "x:2120456516977283374"
+      ]
+    },
+    {
+      "handle": "u_me_soft",
+      "category": "",
+      "summary": "为 FGO 新活动画了 SSR 概念礼装，另给 Lawson 联动画了 バーヴァン・シー。",
+      "via": [],
+      "sources": [
+        "x:2120474588933149110",
+        "x:2120487635433230587"
+      ]
+    },
+    {
+      "handle": "FANDC_Staff",
+      "category": "",
+      "summary": "11/11 是『きゃんきゃんバニープルミエール２』篠原友恵、『同窓会』青木桃子、『だぶるまいんど』真下悠 三人的生日。",
+      "via": [],
+      "sources": [
+        "x:2120169612809839014"
+      ]
+    },
+    {
+      "handle": "will_ensemble",
+      "category": "",
+      "summary": "『天獄のヴィネア』抱枕开订，2027/1/5 截止，12/28 電気外祭り 先行贩售。",
+      "via": [],
+      "sources": [
+        "x:2120406167373697379"
+      ]
+    },
+    {
+      "handle": "NanaWind",
+      "category": "",
+      "summary": "更新本周四格，讲『花鐘カナデグラム』的 澄玲。",
+      "via": [],
+      "sources": [
+        "x:2120441400072270250"
+      ]
+    },
+    {
+      "handle": "Amuse_sub",
+      "category": "",
+      "summary": "『カノジョの妹のあざと誘惑』体验版公开；『養花師の背徳愛』问卷抽签名色纸到 11/30。",
+      "via": [],
+      "sources": [
+        "x:2120433094859620629",
+        "x:2120433598163489081"
+      ]
+    },
+    {
+      "handle": "luneman_etc",
+      "category": "",
+      "summary": "『悪の女幹部PNM』维护后实装 マスク・ザ・プラチナム、开新活动；另转 イヴリン PVC 开订。",
+      "via": [],
+      "sources": [
+        "x:2120414993724084248",
+        "x:2120474542372249988"
+      ]
+    },
+    {
+      "handle": "favo_official",
+      "category": "",
+      "summary": "『いろとりどりのセカイ』15 周年周边预约 11/13 截止、12/18 发售。",
+      "via": [],
+      "sources": [
+        "x:2120445026501292474"
+      ]
+    },
+    {
+      "handle": "SAGAPLANETS",
+      "category": "",
+      "summary": "只发了一句「一起吃 Pocky 吧」。",
+      "via": [],
+      "sources": [
+        "x:2120415279247495613"
+      ]
+    },
+    {
+      "handle": "sprite_fairys",
+      "category": "",
+      "summary": "『小金井荘』11/26 发售，中京マイコン 特典与 メロンブックス 明信片 campaign 11/13 起。",
+      "via": [],
+      "sources": [
+        "x:2120468712293798264",
+        "x:2120350824492593419"
+      ]
+    },
+    {
+      "handle": "madostaff",
+      "category": "",
+      "summary": "PC 下载版促销到 11/12、主机版到 11/20，最高 70%OFF。",
+      "via": [],
+      "sources": [
+        "x:2120481413472366693"
+      ]
+    },
+    {
+      "handle": "KUMANOMISoft",
+      "category": "",
+      "summary": "『転性魔王さまは勇者に勝てない！２』下载版开订，11/12 前 10%OFF。",
+      "via": [],
+      "sources": [
+        "x:2120456516658446623"
+      ]
+    },
+    {
+      "handle": "jitaku_st",
+      "category": "",
+      "summary": "『ギャルズフィクション THE ANIMATION』宣布动画化并开始预约。",
+      "via": [],
+      "sources": [
+        "x:2120479270644732256"
+      ]
+    },
+    {
+      "handle": "AQUAPLUS_JP",
+      "category": "",
+      "summary": "11/11 是『こみっくパーティー』御影すばる 的生日。",
+      "via": [],
+      "sources": [
+        "x:2120169621416538182"
+      ]
+    },
+    {
+      "handle": "project_citrus",
+      "category": "",
+      "summary": "只晒了家里的猫和天气转冷。",
+      "via": [],
+      "sources": [
+        "x:2120287329277661326"
+      ]
+    },
+    {
+      "handle": "Orthrossoft",
+      "category": "",
+      "summary": "每月 11 日的「ワンワンデー」，发了一批 ユイ 壁纸。",
+      "via": [],
+      "sources": [
+        "x:2120338472200454497"
+      ]
+    },
+    {
+      "handle": "nsm_reborn",
+      "category": "",
+      "summary": "『顔のない月』再诞众筹的回报品 10/30 起陆续发货。",
+      "via": [],
+      "sources": [
+        "x:2120483833674084625"
+      ]
+    },
+    {
+      "handle": "Muvluv_Official",
+      "category": "",
+      "summary": "Switch 版最大 35%OFF 促销明日截止。",
+      "via": [],
+      "sources": [
+        "x:2120456510400794770"
+      ]
+    },
+    {
+      "handle": "BEEP_SHOP",
+      "category": "",
+      "summary": "『100メガ地獄 Vol.14』上架，另补货 3DS『ルーヴル美術館』指南。",
+      "via": [],
+      "sources": [
+        "x:2120350817437790361",
+        "x:2120471613942735034"
+      ]
+    },
+    {
+      "handle": "twit_Gungnir",
+      "category": "",
+      "summary": "『Karanoshojo Complete Box』预约即将截止，限定版附 天ノ少女 后日谈小说。",
+      "via": [],
+      "sources": [
+        "x:2120491219604361511"
+      ]
+    },
+    {
+      "handle": "Nameless_offi",
+      "category": "",
+      "summary": "借 Pocky 日晒出 カスミ 的立绘。",
+      "via": [],
+      "sources": [
+        "x:2120169626189410626"
+      ]
+    },
+    {
+      "handle": "adahemas",
+      "category": "",
+      "summary": "自嘲干劲耗尽，还把印刷厂的交稿日误当截止日白紧张一场。",
+      "via": [],
+      "sources": [
+        "x:2120234251551732082",
+        "x:2120262228561801672"
+      ]
+    },
+    {
+      "handle": "SukeraSparo",
+      "category": "",
+      "summary": "转发 成瀬ちさと 11/14 起的东京个展。",
+      "via": [],
+      "sources": [
+        "x:2120473308592587171"
+      ]
+    },
+    {
+      "handle": "Overflow_staff",
+      "category": "",
+      "summary": "『SchoolDays』20 周年抽奖第 3 弹是兔女郎言葉等身挂画，到 11/16。",
+      "via": [],
+      "sources": [
+        "x:2120247616080638231",
+        "x:2120402426549412030"
+      ]
+    },
+    {
+      "handle": "nitroplus_staff",
+      "category": "",
+      "summary": "回顾 2015 年 11/11 发售的『鎧武外伝』；刀剣乱舞 展会周边事后通贩开到 12/1。",
+      "via": [],
+      "sources": [
+        "x:2120335874080612717",
+        "x:2120350822898827661"
+      ]
+    },
+    {
+      "handle": "youtan0309",
+      "category": "",
+      "summary": "回顾 32 年前 11/11 发售的『きゃんきゃんバニー リミテッド 5 1/2』，另荐『秋桜の空に』。",
+      "via": [],
+      "sources": [
+        "x:2120170867980148854",
+        "x:2120457048735600817"
+      ]
+    },
+    {
+      "handle": "hiro_in",
+      "category": "",
+      "summary": "报 FANZA 视频 KMP 25 周年 100 円促销，第 1 弹到周五早上。",
+      "via": [],
+      "sources": [
+        "x:2120501187925676294"
+      ]
+    },
+    {
+      "handle": "AKOUtw",
+      "category": "",
+      "summary": "把自己的参与作整理成串（甘夏ろけーしょん、ママトモ 等），关注数破 2000。",
+      "via": [],
+      "sources": [
+        "x:2120348629814968381",
+        "x:2120397312396767717"
+      ]
+    }
+  ],
+  "provenance": {
+    "generator": "daily",
+    "prompt_version": 1,
+    "cache_key": "answers:1",
+    "generated_at": "2026-11-11T15:45:08+00:00"
+  }
+}
