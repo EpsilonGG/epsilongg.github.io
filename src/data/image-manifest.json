@@ -1,6 +1,6 @@
 {
   "$comment": "由 scripts/optimize_images.mjs 生成，请勿手改。",
-  "generatedAt": "2026-11-07T11:11:55.794Z",
+  "generatedAt": "2026-11-11T01:55:10.383Z",
   "images": {
     "/images/blog/automaton-crymelight-mugenzakura-roundtable/01.jpg": {
       "w": 1080,
@@ -271,6 +271,28 @@
           "w": 1024,
           "src": "/images/blog/automaton-toyoch-interview/09-1024.webp",
           "bytes": 41060
+        }
+      ]
+    },
+    "/images/blog/bluearchive-publisher-change-interview/01.jpg": {
+      "w": 1800,
+      "h": 1200,
+      "bytes": 850123,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/bluearchive-publisher-change-interview/01-600.webp",
+          "bytes": 26604
+        },
+        {
+          "w": 960,
+          "src": "/images/blog/bluearchive-publisher-change-interview/01-960.webp",
+          "bytes": 48388
+        },
+        {
+          "w": 1800,
+          "src": "/images/blog/bluearchive-publisher-change-interview/01-1800.webp",
+          "bytes": 106698
         }
       ]
     },
