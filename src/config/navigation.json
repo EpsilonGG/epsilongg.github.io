@@ -23,5 +23,10 @@
     "label": "日报",
     "href": "/daily/",
     "description": "每日 X（推特）动态摘要"
+  },
+  {
+    "label": "周报",
+    "href": "/weekly/",
+    "description": "Galgame 日报的每周汇总"
   }
 ]

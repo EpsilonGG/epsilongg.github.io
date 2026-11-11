@@ -1,0 +1,81 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import {
+  getWeeklyReports,
+  weeklyPath,
+  weeklyJsonPath,
+  formatWeeklyPublished,
+  publishedDate,
+  type WeeklyReport,
+} from '../../lib/weekly';
+import '../../styles/weekly.css';
+
+/**
+ * 周报详情页。正文不在这里拼：`report.content_html` 是发布层（`python -m weekly
+ * publish`）生成好的片段，站点只负责套版式。这样「线上看到的字」与
+ * `data/weekly/<期号>/report.json` 逐字一致，`check_weekly_publish.py` 才能验。
+ *
+ * 上下期由已发布期号排序派生（`getWeeklyReports` 已按期号倒序），
+ * 不读正本里的 `issue.previous`——那个字段只是给外部消费者的提示。
+ */
+export function getStaticPaths() {
+  const reports = getWeeklyReports();
+  return reports.map((report, index) => ({
+    params: { id: report.issue.id },
+    props: {
+      report,
+      newer: reports[index - 1] ?? null,
+      older: reports[index + 1] ?? null,
+    },
+  }));
+}
+
+const { report, newer, older } = Astro.props as {
+  report: WeeklyReport;
+  newer: WeeklyReport | null;
+  older: WeeklyReport | null;
+};
+
+const { issue, stats } = report;
+const windowLabel = `${issue.window.start} – ${issue.window.end}`;
+---
+
+<BaseLayout title={issue.title} description={report.description} ogType="article">
+  <div class="page">
+    <div class="container">
+      <article>
+        <header class="page-header weekly-header">
+          <p class="weekly-header__id">周报 · {issue.id}</p>
+          <h1 class="page-title">{windowLabel}</h1>
+          <p class="weekly-meta">
+            <span>发布 {formatWeeklyPublished(publishedDate(report))}</span>
+            <span>覆盖 {stats.source_issues} 期日报</span>
+            <span>{stats.brands} 个品牌 · {stats.items} 条</span>
+            <a href={weeklyJsonPath(issue.id)}>JSON</a>
+          </p>
+        </header>
+
+        <p class="weekly-lead">{report.lead}</p>
+
+        <div class="weekly-body" set:html={report.content_html} />
+
+        <nav class="weekly-nav" aria-label="周报翻页">
+          {
+            older ? (
+              <a href={weeklyPath(older.issue.id)}>← {older.issue.id}</a>
+            ) : (
+              <span class="weekly-nav__spacer" />
+            )
+          }
+          {
+            newer ? (
+              <a href={weeklyPath(newer.issue.id)}>{newer.issue.id} →</a>
+            ) : (
+              <span class="weekly-nav__spacer" />
+            )
+          }
+        </nav>
+      </article>
+    </div>
+  </div>
+</BaseLayout>

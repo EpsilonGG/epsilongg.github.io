@@ -1,0 +1,69 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { site } from '../../config/site';
+import {
+  getWeeklyReports,
+  weeklyPath,
+  formatWeeklyPublished,
+  publishedDate,
+  type WeeklyReport,
+} from '../../lib/weekly';
+import '../../styles/weekly.css';
+
+/**
+ * 周报归档页。与 `/daily/` 平行的一级栏目。
+ *
+ * 期号是 `vol_XXX`，只说明「第几期」，与日期无关；读者关心的是**覆盖窗口**
+ * 和「收了多少条」，所以列表行以窗口为标题、期号退成左侧的等宽小字。
+ */
+const reports = getWeeklyReports();
+
+function windowLabel(report: WeeklyReport): string {
+  return `${report.issue.window.start} – ${report.issue.window.end}`;
+}
+---
+
+<BaseLayout
+  title="周报"
+  description="Galgame 周报存档：把每天的 Galgame 日报汇总成一期，按新作与作品情报整理"
+  feeds={[{ title: `${site.name} · 周报`, href: '/weekly/rss.xml' }]}
+>
+  <div class="page">
+    <div class="container">
+      <header class="page-header">
+        <h1 class="page-title">周报</h1>
+        <p class="page-intro">
+          把每天的 Galgame 日报汇总成一期：新作与作品情报两栏，按品牌、游戏归拢。
+          每周六更新，期号是 <code>vol_XXX</code>。
+        </p>
+      </header>
+
+      {
+        reports.length > 0 ? (
+          <div class="weekly-archive">
+            <ul class="weekly-archive__list">
+              {reports.map((report) => (
+                <li class="weekly-archive__item">
+                  <a class="weekly-archive__link" href={weeklyPath(report.issue.id)}>
+                    <span class="weekly-archive__id">{report.issue.id}</span>
+                    <span class="weekly-archive__title">{windowLabel(report)}</span>
+                    <span class="weekly-archive__desc">{report.description}</span>
+                    <span class="weekly-archive__stats">
+                      {formatWeeklyPublished(publishedDate(report))} · {report.stats.brands} 个品牌 ·{' '}
+                      {report.stats.items} 条
+                    </span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ) : (
+          <p class="empty-state">
+            还没有周报。每周六由 <code>python -m weekly publish</code> 出一期，正本落在{' '}
+            <code>data/weekly/&lt;期号&gt;/report.json</code>。
+          </p>
+        )
+      }
+    </div>
+  </div>
+</BaseLayout>

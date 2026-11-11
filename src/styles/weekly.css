@@ -1,0 +1,202 @@
+/* ==========================================================================
+   周报（/weekly/）：归档页与详情页
+   颜色、字号、间距、圆角全部取自 tokens.css，不新增硬编码。
+   详情页正文来自 `report.json` 的 `content_html`（由 weekly 发布层生成），
+   这里只负责版式，不改写内容。
+   ========================================================================== */
+
+/* 归档列表 */
+.weekly-archive {
+  margin-top: var(--space-6);
+}
+
+.weekly-archive__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: var(--border-width) solid var(--color-border);
+}
+
+.weekly-archive__item {
+  border-bottom: var(--border-width) solid var(--color-border);
+}
+
+.weekly-archive__link {
+  display: grid;
+  grid-template-columns: 5.5rem minmax(0, 1fr);
+  gap: var(--space-1) var(--space-4);
+  padding: var(--space-4) 0;
+  text-decoration: none;
+}
+
+.weekly-archive__link:hover .weekly-archive__title,
+.weekly-archive__link:focus-visible .weekly-archive__title {
+  text-decoration: underline;
+  text-decoration-color: var(--color-border-strong);
+  text-underline-offset: 0.2em;
+}
+
+.weekly-archive__id {
+  padding-top: 0.15em;
+  color: var(--color-text-muted);
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  font-variant-numeric: tabular-nums;
+}
+
+.weekly-archive__title {
+  color: var(--color-text);
+  font-size: var(--text-md);
+  font-variant-numeric: tabular-nums;
+}
+
+.weekly-archive__desc,
+.weekly-archive__stats {
+  grid-column: 2;
+}
+
+.weekly-archive__desc {
+  color: var(--color-text-secondary);
+  font-size: var(--text-sm);
+}
+
+.weekly-archive__stats {
+  color: var(--color-text-muted);
+  font-size: var(--text-xs);
+  font-variant-numeric: tabular-nums;
+}
+
+@media (max-width: 480px) {
+  .weekly-archive__link {
+    grid-template-columns: 1fr;
+  }
+
+  .weekly-archive__desc,
+  .weekly-archive__stats {
+    grid-column: 1;
+  }
+}
+
+/* 详情页页头 */
+.weekly-header {
+  margin-bottom: var(--space-5);
+}
+
+.weekly-header__id {
+  margin: 0 0 var(--space-1);
+  color: var(--color-text-muted);
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  letter-spacing: var(--tracking-wide);
+}
+
+.weekly-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1) var(--space-4);
+  margin-top: var(--space-2);
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+  font-variant-numeric: tabular-nums;
+}
+
+/* 导语 */
+.weekly-lead {
+  max-width: var(--measure);
+  margin: 0 0 var(--space-6);
+  padding-bottom: var(--space-5);
+  border-bottom: var(--border-width) solid var(--color-border);
+  color: var(--color-text-secondary);
+}
+
+/* 正文：栏目(##) → 品牌(###) → 游戏(####) → 条目(-) */
+.weekly-body {
+  max-width: var(--measure);
+  font-size: var(--text-md);
+  line-height: var(--leading-relaxed);
+}
+
+.weekly-body h2 {
+  margin: var(--space-7) 0 var(--space-4);
+  padding-bottom: var(--space-2);
+  border-bottom: var(--border-width) solid var(--color-border-strong);
+  font-size: var(--text-xl);
+  font-weight: 600;
+}
+
+.weekly-body h2:first-child {
+  margin-top: 0;
+}
+
+.weekly-body h3 {
+  margin: var(--space-6) 0 var(--space-2);
+  font-size: var(--text-lg);
+  font-weight: 600;
+}
+
+.weekly-body h4 {
+  margin: var(--space-4) 0 var(--space-1);
+  color: var(--color-text-secondary);
+  font-size: var(--text-base);
+  font-weight: 600;
+}
+
+.weekly-body p {
+  margin: 0;
+}
+
+.weekly-body ul {
+  margin: var(--space-2) 0 0;
+  padding-left: var(--space-5);
+}
+
+.weekly-body li {
+  margin-top: var(--space-1);
+}
+
+.weekly-body li + li {
+  margin-top: var(--space-2);
+}
+
+.weekly-body img {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin: var(--space-3) 0;
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius);
+}
+
+/* 碎图兜底后剩下的纯文字占位，保持行内、不加边框 */
+.weekly-body .weekly-img-fallback {
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+}
+
+/* 上下期 */
+.weekly-nav {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-4);
+  margin-top: var(--space-7);
+  padding-top: var(--space-4);
+  border-top: var(--border-width) solid var(--color-border);
+  font-size: var(--text-sm);
+}
+
+.weekly-nav a {
+  color: var(--color-text-secondary);
+  text-decoration: none;
+}
+
+.weekly-nav a:hover,
+.weekly-nav a:focus-visible {
+  color: var(--color-text);
+  text-decoration: underline;
+  text-decoration-color: var(--color-border-strong);
+  text-underline-offset: 0.2em;
+}
+
+.weekly-nav__spacer {
+  flex: 1;
+}

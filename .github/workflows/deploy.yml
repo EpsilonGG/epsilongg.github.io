@@ -70,6 +70,12 @@ jobs:
       - name: Check daily outlets
         run: npm run check:daily
 
+      # 周报的发布正本与三个出口（HTML / JSON / RSS）。与日报那条同理：
+      # 有一份 data/weekly/<期号>/report.json 就必须有详情页、JSON、Feed，
+      # 且站点代码不许反向引用本地工作台 weekly/out/。
+      - name: Check weekly outlets
+        run: npm run check:weekly
+
       # 放在构建之后：图片清单和 WebP 变体是构建时生成的，测试要对着产物验
       - name: Script tests
         run: npm test

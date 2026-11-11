@@ -17,6 +17,7 @@
     "links": "python scripts/check_links.py",
     "check:prose": "python scripts/check_prose.py",
     "check:daily": "python scripts/check_daily_site.py",
+    "check:weekly": "python scripts/check_weekly_publish.py",
     "golden:daily": "python scripts/daily_golden.py --check",
     "golden:daily:capture": "python scripts/daily_golden.py --capture",
     "golden:daily:switch": "python scripts/daily_golden.py --switch",
