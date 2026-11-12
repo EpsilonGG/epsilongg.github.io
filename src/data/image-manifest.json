@@ -1,6 +1,6 @@
 {
   "$comment": "由 scripts/optimize_images.mjs 生成，请勿手改。",
-  "generatedAt": "2026-11-11T01:55:10.383Z",
+  "generatedAt": "2026-11-12T17:28:21.181Z",
   "images": {
     "/images/blog/automaton-crymelight-mugenzakura-roundtable/01.jpg": {
       "w": 1080,
@@ -1542,6 +1542,54 @@
           "w": 670,
           "src": "/images/blog/gamespark-servant-of-the-lake-interview/05-670.webp",
           "bytes": 25344
+        }
+      ]
+    },
+    "/images/blog/gamespark-star-rail-aha-interview/01.png": {
+      "w": 670,
+      "h": 376,
+      "bytes": 357071,
+      "variants": [
+        {
+          "w": 670,
+          "src": "/images/blog/gamespark-star-rail-aha-interview/01-670.webp",
+          "bytes": 26952
+        }
+      ]
+    },
+    "/images/blog/gamespark-star-rail-aha-interview/02.png": {
+      "w": 670,
+      "h": 376,
+      "bytes": 242546,
+      "variants": [
+        {
+          "w": 670,
+          "src": "/images/blog/gamespark-star-rail-aha-interview/02-670.webp",
+          "bytes": 12944
+        }
+      ]
+    },
+    "/images/blog/gamespark-star-rail-aha-interview/03.png": {
+      "w": 670,
+      "h": 284,
+      "bytes": 208489,
+      "variants": [
+        {
+          "w": 670,
+          "src": "/images/blog/gamespark-star-rail-aha-interview/03-670.webp",
+          "bytes": 14388
+        }
+      ]
+    },
+    "/images/blog/gamespark-star-rail-aha-interview/04.png": {
+      "w": 670,
+      "h": 376,
+      "bytes": 329660,
+      "variants": [
+        {
+          "w": 670,
+          "src": "/images/blog/gamespark-star-rail-aha-interview/04-670.webp",
+          "bytes": 23646
         }
       ]
     },
