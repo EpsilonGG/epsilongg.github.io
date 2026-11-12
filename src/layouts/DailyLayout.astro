@@ -7,6 +7,11 @@ import ReadingProgress from '../components/ReadingProgress.astro';
 import { site } from '../config/site';
 import { formatIssueTime, type Daily, type DailyJa } from '../lib/daily';
 import {
+  BILIBILI_CATEGORY,
+  BILIBILI_LABEL,
+  loadBilibiliDynamics,
+} from '../lib/bilibili-daily';
+import {
   categoryLabelOf,
   categoryOf,
   categoryRankOf,
@@ -107,11 +112,28 @@ function withMentions(text: string): string {
 const profileUrl = profileUrlOf;
 
 /**
- * 按栏目（声优版：声优 / 音声社团；Galgame 版：游戏制造商 / 信息号）分组，
+ * B 站动态（2026-11-12 用户裁决）。
+ *
+ * B 站监控号抓到的**全部**动态都要在 Galgame 日报里呈现，但日报正本
+ * `report.json` 是受保护的 LLM 产物，不能往里塞原始条目——所以这里直接读
+ * `data/bilibili/galgame/<覆盖日 JST>.jsonl`，只在「详细」段渲染，不进
+ * .txt / .json / Ci-en 任何一个出口。
+ *
+ * 文件名就是 JST 自然日，而 `covered` 是期号覆盖那一天的 JST 零点，两者一一对应：
+ * 抓到哪天就归哪一期，不用再猜窗口。当天没抓到（老期号、断抓）就是空数组，
+ * 按钮也不会出现——和「空栏目不摆按钮」的旧约定一致。
+ *
+ * 声优版不渲染：B 站名单是 Galgame 版的补充源。
+ */
+const bilibiliRows = post.data.kind === 'galgame' ? loadBilibiliDynamics(post.data.covered) : [];
+
+/**
+ * 按栏目（声优版：声优 / 音声社团；Galgame 版：游戏制造商 / 信息号 / B站动态）分组，
  * 给「详细」栏的筛选按钮用。
  *
  * 顺序跟名单的 `categories` 走，不跟数据走：同一期里「声优在前、社团在后」
- * 应该是稳定约定，而不是「谁先被抓到谁排前面」。
+ * 应该是稳定约定，而不是「谁先被抓到谁排前面」。B 站名单排在两份 X 名单之后，
+ * 所以「B站动态」天然是 Galgame 版的第三个按钮。
  *
  * 只保留这一期确实有条目的栏目——空栏目的按钮点开是空的，等于骗人。
  */
@@ -121,8 +143,15 @@ const categoriesPresent = (() => {
     const id = categoryOf(person.handle);
     counts.set(id, (counts.get(id) ?? 0) + 1);
   }
+  if (bilibiliRows.length > 0) counts.set(BILIBILI_CATEGORY, bilibiliRows.length);
   return [...counts.entries()]
-    .map(([id, count]) => ({ id, label: categoryLabelOf(id), count, rank: categoryRankOf(id) }))
+    .map(([id, count]) => ({
+      id,
+      // 名单里的标签是「B站Gal」（给周报分类用），日报里读者看到的是「B站动态」
+      label: id === BILIBILI_CATEGORY ? BILIBILI_LABEL : categoryLabelOf(id),
+      count,
+      rank: categoryRankOf(id),
+    }))
     .sort((a, b) => a.rank - b.rank || b.count - a.count);
 })();
 
@@ -321,13 +350,16 @@ if (ja) {
           }
 
           {
-            roster.length > 0 ? (
+            roster.length > 0 || bilibiliRows.length > 0 ? (
               <section class="daily-block">
                 <h2>详细</h2>
                 {/*
-                  栏目筛选：默认只亮「声优」。点另一个栏目是**加**（两个都亮），
-                  再点自己一次是**减**——所以「只想看制造商」是「点制造商、再点声优」，
-                  不用先全清再选。交互和笔记页的标签按钮一致（aria-pressed 表达选中）。
+                  栏目筛选：默认只亮一栏（声优版「声优」、Galgame 版「游戏制造商」）。
+                  点另一个栏目是**加**（两个都亮），再点自己一次是**减**——所以
+                  「只想看制造商」是「点制造商、再点声优」，不用先全清再选。
+                  「B站动态」是第三个按钮，与游戏制造商 / 信息号平行；筛选脚本只看
+                  `[data-category]`，新栏目不需要改任何客户端逻辑。
+                  交互和笔记页的标签按钮一致（aria-pressed 表达选中）。
                 */}
                 {showCategoryFilter ? (
                   <div class="daily-filter" data-daily-filter role="group" aria-label="按栏目筛选">
@@ -372,6 +404,34 @@ if (ja) {
                           ))}
                         </span>
                       ) : null}
+                    </li>
+                  ))}
+                  {/*
+                    B 站原始动态：一条动态一行，`账号（链 B 站空间） ：正文 ＋ 原文`。
+                    正文不概括、不改标点，换行用 `white-space: pre-line` 原样保留；
+                    正文里的裸 URL 不自动加链（那要解析不可信文本），只给一个明确的
+                    「原文」出口。`data-category` 让上面那排按钮顺带管住这些行。
+                  */}
+                  {bilibiliRows.map((row) => (
+                    <li data-category={BILIBILI_CATEGORY} class="daily-roster__bili">
+                      <a
+                        class="daily-roster__name"
+                        href={profileUrl(row.handle)}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        {nameOf(row.handle)}
+                      </a>
+                      <span class="daily-roster__sep">：</span>
+                      <span class="daily-roster__bili-text">{row.text}</span>
+                      <a
+                        class="daily-roster__bili-link"
+                        href={row.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        原文 ↗
+                      </a>
                     </li>
                   ))}
                 </ul>

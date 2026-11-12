@@ -512,6 +512,31 @@ a.link-row:hover .link-row__label {
 }
 
 /*
+  B 站原始动态（「详细」的第三个栏目，2026-11-12）。
+  正文**不概括**：`pre-line` 把 JSONL 里的换行原样留下，颜色淡一号，让
+  「这是原文、不是 AI 摘要」在视觉上分得开。「原文」链接沿用 `via` 的
+  虚线下划线写法——不加色、不加阴影，本站只有黑白灰。
+*/
+.daily-roster__bili-text {
+  white-space: pre-line;
+  color: var(--color-text-secondary);
+}
+
+.daily-roster__bili-link {
+  margin-left: var(--space-1);
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  white-space: nowrap;
+  text-decoration: none;
+  border-bottom: 1px dotted var(--color-border-strong);
+}
+
+.daily-roster__bili-link:hover {
+  color: var(--color-text-secondary);
+  border-bottom-color: var(--color-text-secondary);
+}
+
+/*
   小号 / 社团号的出处。挂在句末，字号小一号、颜色变淡，显示 handle 而不是人名——
   它是「这句话是哪个号说的」的注脚，不该和正文抢注意力，也不该冒充一个人名。
 */
