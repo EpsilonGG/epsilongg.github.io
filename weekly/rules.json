@@ -1,6 +1,6 @@
 {
-  "schema_version": 9,
-  "generator": "weekly-v2/rules/9",
+  "schema_version": 10,
+  "generator": "weekly-v2/rules/10",
   "columns": [
     "作品情报",
     "品牌动向",
@@ -561,6 +561,7 @@
     "source_dir": "data/bilibili/galgame",
     "brand_prefix": "B站 · ",
     "no_game_label": "动态",
-    "note": "2026-11-12 用户裁决：周报新增第四展示栏「B站动态」。数据只读 `data/bilibili/galgame/<JST 日>.jsonl`（由 scripts/bilibili_daily.py fetch 落盘），按当期 Galgame 日报覆盖日逐日取；**不进 X 侧语料的四类筛选 / 去重 / 归栏**，所以作品情报、业界动向两栏与历史回测逐字不变。每条动态压成单行、剥掉裸 URL、归一书名号，句首挂一条 `[发布者](B站原文)` 链接。游戏级「新作」过滤调用 game_routing.new_work_labels() 的同一份 signals / negative / conditional_signals：命中的游戏整组进「新作」，其余留在「B站动态」。品牌中标题用 `B站 · <发布者>` 前缀，避免与 X 侧品牌同名而被校验当成「没挂官号链接」。"
+    "note": "2026-11-12 用户裁决：周报新增第四展示栏「B站动态」。数据只读 `data/bilibili/galgame/<JST 日>.jsonl`（由 scripts/bilibili_daily.py fetch 落盘），按当期 Galgame 日报覆盖日逐日取；**不进 X 侧语料的四类筛选 / 去重 / 归栏**，所以作品情报、业界动向两栏与历史回测逐字不变。每条动态压成单行、剥掉裸 URL 与话题标签、归一书名号，句首挂一条 `[发布者](B站原文)` 链接。**同个账号的归到一起**：归并单位是「账号 × 作品小标题」（品牌中标题本身就是账号），合并后超过 summary_limit（150）字的用 summarize() 概括——分额度取整句、骨架相同的句子并成一条、超长从尾部丢整句，纯规则不调模型；`sentence` 仍是整格全部句子，所以「新作」信号不会因概括漏判。游戏级「新作」过滤调用 game_routing.new_work_labels() 的同一份 signals / negative / conditional_signals：命中的游戏整组进「新作」，其余留在「B站动态」。品牌中标题用 `B站 · <发布者>` 前缀，避免与 X 侧品牌同名而被校验当成「没挂官号链接」。",
+    "summary_limit": 150
   }
 }

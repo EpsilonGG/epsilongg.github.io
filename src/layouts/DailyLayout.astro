@@ -9,7 +9,7 @@ import { formatIssueTime, type Daily, type DailyJa } from '../lib/daily';
 import {
   BILIBILI_CATEGORY,
   BILIBILI_LABEL,
-  loadBilibiliDynamics,
+  loadBilibiliGroups,
 } from '../lib/bilibili-daily';
 import {
   categoryLabelOf,
@@ -124,8 +124,20 @@ const profileUrl = profileUrlOf;
  * 按钮也不会出现——和「空栏目不摆按钮」的旧约定一致。
  *
  * 声优版不渲染：B 站名单是 Galgame 版的补充源。
+ *
+ * 2026-11-12 追加口径：同一个账号的归到一起，合并后超过 150 字就概括。
+ * 归并与概括都在取数层算好（`groupBilibiliRows`），页面只负责排版——
+ * 一条动态一个 `-` 的清单会被「一天发十几条的官号」挤爆，读起来也找不到重点。
  */
-const bilibiliRows = post.data.kind === 'galgame' ? loadBilibiliDynamics(post.data.covered) : [];
+const bilibiliGroups = post.data.kind === 'galgame' ? loadBilibiliGroups(post.data.covered) : [];
+
+/** 一行 B 站动态的注脚：`共 6 条 · 概括` / `共 6 条` / `概括` / 空。 */
+function bilibiliNote(group: { count: number; summarized: boolean }): string {
+  return [
+    group.count > 1 ? `共 ${group.count} 条` : '',
+    group.summarized ? '概括' : '',
+  ].filter(Boolean).join(' · ');
+}
 
 /**
  * 按栏目（声优版：声优 / 音声社团；Galgame 版：游戏制造商 / 信息号 / B站动态）分组，
@@ -143,7 +155,7 @@ const categoriesPresent = (() => {
     const id = categoryOf(person.handle);
     counts.set(id, (counts.get(id) ?? 0) + 1);
   }
-  if (bilibiliRows.length > 0) counts.set(BILIBILI_CATEGORY, bilibiliRows.length);
+  if (bilibiliGroups.length > 0) counts.set(BILIBILI_CATEGORY, bilibiliGroups.length);
   return [...counts.entries()]
     .map(([id, count]) => ({
       id,
@@ -350,7 +362,7 @@ if (ja) {
           }
 
           {
-            roster.length > 0 || bilibiliRows.length > 0 ? (
+            roster.length > 0 || bilibiliGroups.length > 0 ? (
               <section class="daily-block">
                 <h2>详细</h2>
                 {/*
@@ -407,31 +419,38 @@ if (ja) {
                     </li>
                   ))}
                   {/*
-                    B 站原始动态：一条动态一行，`账号（链 B 站空间） ：正文 ＋ 原文`。
-                    正文不概括、不改标点，换行用 `white-space: pre-line` 原样保留；
-                    正文里的裸 URL 不自动加链（那要解析不可信文本），只给一个明确的
-                    「原文」出口。`data-category` 让上面那排按钮顺带管住这些行。
+                    B 站动态：**一个账号一行**（同账号的归到一起），正文合计超过 150 字
+                    时用取数层算好的概括。`data-category` 让上面那排按钮顺带管住这些行。
+                    注脚写明「共 N 条 · 概括」，读者才知道这行不是原文全文；
+                    原文链接一条不少，多条时按 1、2、3 编号列出（不丢任何一条的出处）。
                   */}
-                  {bilibiliRows.map((row) => (
+                  {bilibiliGroups.map((group) => (
                     <li data-category={BILIBILI_CATEGORY} class="daily-roster__bili">
                       <a
                         class="daily-roster__name"
-                        href={profileUrl(row.handle)}
+                        href={profileUrl(group.handle)}
                         target="_blank"
                         rel="noopener noreferrer"
                       >
-                        {nameOf(row.handle)}
+                        {nameOf(group.handle)}
                       </a>
                       <span class="daily-roster__sep">：</span>
-                      <span class="daily-roster__bili-text">{row.text}</span>
-                      <a
-                        class="daily-roster__bili-link"
-                        href={row.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        原文 ↗
-                      </a>
+                      <span class="daily-roster__bili-text">{group.text}</span>
+                      {bilibiliNote(group) ? (
+                        <span class="daily-roster__bili-note">{bilibiliNote(group)}</span>
+                      ) : null}
+                      <span class="daily-roster__bili-links">
+                        {group.urls.map((url, index) => (
+                          <a
+                            class="daily-roster__bili-link"
+                            href={url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            {group.urls.length > 1 ? `原文${index + 1} ↗` : '原文 ↗'}
+                          </a>
+                        ))}
+                      </span>
                     </li>
                   ))}
                 </ul>

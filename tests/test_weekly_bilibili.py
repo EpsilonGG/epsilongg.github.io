@@ -8,7 +8,9 @@
 * B 站行参与 `game_routing.new_work_labels()` 的**同一份**游戏级「新作」过滤：
   命中的游戏整组上提第一栏，其余留第四栏；没有作品名的绝不掉进「未标注作品」
   默认排除池；
-* 每条正文只留一条 `[发布者](B站原文)` 链接，裸 URL 全部剥掉。
+* 每条正文只留一条 `[发布者](B站原文)` 链接，裸 URL 全部剥掉；
+* 同个账号的归到一起（归并单位「账号 × 作品小标题」），合并后超过 150 字就概括，
+  而条件信号仍按**逐条**判定，不因归并改变「新作」结论。
 """
 from __future__ import annotations
 
@@ -195,9 +197,12 @@ class GameLevelRoutingTests(unittest.TestCase):
             "『X』公布了一段角色介绍",
             "『Y』Switch 版促销最后一天",
         )
+        # 同一账号 × 同一作品的动态归并成一行，key 用组内第一条。
         by_key = {x["key"]: x for x in lines}
+        self.assertEqual(len(lines), 2)
         self.assertEqual(by_key["bilibili:0"]["column"], config.NEW)
-        self.assertEqual(by_key["bilibili:1"]["column"], config.NEW)  # 整组上提
+        self.assertEqual(by_key["bilibili:0"]["count"], 2)  # 整组上提
+        self.assertEqual(by_key["bilibili:0"]["keys"], ["bilibili:0", "bilibili:1"])
         self.assertEqual(by_key["bilibili:2"]["column"], config.BILI_VIEW)
         self.assertEqual(by_key["bilibili:0"]["glabel"], "『X』")
 
@@ -210,7 +215,18 @@ class GameLevelRoutingTests(unittest.TestCase):
         by_key = {x["key"]: x for x in lines}
         self.assertEqual(by_key["bilibili:0"]["column"], config.BILI_VIEW)
         self.assertEqual(by_key["bilibili:1"]["column"], config.NEW)
-        self.assertEqual(by_key["bilibili:2"]["column"], config.NEW)
+        self.assertEqual(by_key["bilibili:1"]["count"], 2)
+
+    def test_conditional_signal_is_judged_per_dynamic_not_per_cell(self):
+        """归并成一行之后，条件信号仍按**逐条**判定，不能被拼接改变结论。"""
+        lines = bili.build_lines(_corpus([
+            _row("bilibili:0", "『W』公开新CG"),
+            _row("bilibili:1", "『W』角色介绍公开"),
+        ]), RULES)
+        self.assertEqual(len(lines), 1)
+        self.assertEqual(lines[0]["column"], config.NEW)
+        self.assertEqual(lines[0]["sentences"],
+                         ["『W』公开新CG", "『W』角色介绍公开"])
 
     def test_no_game_rows_never_become_new_work_and_keep_a_safe_label(self):
         lines = bili.build_lines(_corpus([
@@ -319,6 +335,75 @@ class HighlightTests(unittest.TestCase):
         toc = highlight.build_toc(self._md())
         self.assertEqual([x["label"] for x in toc], ["新作", "B站动态"])
         self.assertEqual([x["id"] for x in toc], ["section-1", "section-2"])
+
+
+class GroupingAndSummaryTests(unittest.TestCase):
+    """2026-11-12 追加口径：同个账号的归到一起，合并后超过 150 字就概括。"""
+
+    def _lines(self, *texts: str, publisher: str = PUBLISHER) -> list[dict]:
+        return bili.build_lines(_corpus([
+            _row(f"bilibili:{i}", text, url=f"https://www.bilibili.com/opus/{i}")
+            for i, text in enumerate(texts)
+        ]), RULES)
+
+    def test_same_account_and_game_collapse_into_one_line(self):
+        lines = self._lines("『X』发售日期公布", "『X』体验版公开", "『X』店铺特典公开")
+        self.assertEqual(len(lines), 1)
+        row = lines[0]
+        self.assertEqual(row["count"], 3)
+        self.assertEqual(row["keys"], ["bilibili:0", "bilibili:1", "bilibili:2"])
+        self.assertTrue(row["text"].startswith("- [" + PUBLISHER + "]"))
+        self.assertIn("（共 3 条）：", row["text"])
+        self.assertEqual(row["text"].count("http"), 1)  # 只留首条原文链接
+
+    def test_same_account_different_games_stay_apart(self):
+        lines = self._lines("『X』发售日期公布", "『Y』体验版公开")
+        self.assertEqual([x["glabel"] for x in lines], ["『X』", "『Y』"])
+        self.assertTrue(all(x["count"] == 1 for x in lines))
+
+    def test_short_merge_is_kept_verbatim(self):
+        texts = ("『X』发售日期公布", "『X』体验版公开")
+        row = self._lines(*texts)[0]
+        self.assertFalse(row["summarized"])
+        joined = " ".join(texts)
+        self.assertEqual(row["text"].split("：", 1)[1], joined)
+        self.assertLessEqual(bili.char_count(joined), 150)
+
+    def test_long_merge_is_summarized_within_the_limit(self):
+        texts = tuple(f"『X』第{i}条情报，" + "内容很长" * 40 for i in range(3))
+        row = self._lines(*texts)[0]
+        self.assertTrue(row["summarized"])
+        body = row["text"].split("：", 1)[1]
+        self.assertLessEqual(bili.char_count(body), 150)
+        self.assertTrue(body.endswith("…"))
+
+    def test_same_template_promos_become_one_clause_with_the_titles(self):
+        texts = tuple(f"《作品{name}》官方中文版现正于官网商城促销热卖中！仅需{price}元即可入手！"
+                      for name, price in zip("甲乙丙丁戊己", (30, 25, 51, 25, 22, 28)))
+        row = self._lines(*texts)[0]
+        body = row["text"].split("：", 1)[1]
+        self.assertTrue(row["summarized"])
+        self.assertIn("官方中文版现正于官网商城促销热卖中！", body)
+        self.assertIn("（另：", body)
+        self.assertIn("《作品乙》", body)
+        self.assertEqual(body.count("促销热卖中"), 1)  # 六条同款只留一句
+        self.assertLessEqual(bili.char_count(body), 150)
+
+    def test_sentences_never_split_inside_a_title(self):
+        self.assertEqual(bili._sentences("《A！B》发售决定！下一句"),
+                         ["《A！B》发售决定！", "下一句"])
+        self.assertEqual(bili._sentences("【通知！】明天见"), ["【通知！】明天见"])
+
+    def test_clean_text_strips_hashtags_and_zero_width(self):
+        out = bili.clean_text("\u200b正文 #GALGAME# #STEAM#", set(), RULES["brackets"])
+        self.assertEqual(out, "正文")
+
+    def test_summary_limit_comes_from_rules(self):
+        self.assertEqual(RULES["bilibili"]["summary_limit"], bili.SUMMARY_LIMIT)
+        texts = ("『X』" + "很长的正文" * 10,)
+        tight = bili.summarize(texts, limit=30)
+        self.assertTrue(tight[1])
+        self.assertLessEqual(bili.char_count(tight[0]), 30)
 
 
 if __name__ == "__main__":

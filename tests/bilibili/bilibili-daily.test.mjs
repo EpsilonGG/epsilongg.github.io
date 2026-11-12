@@ -5,9 +5,15 @@ import test from 'node:test';
 import {
   BILIBILI_CATEGORY,
   BILIBILI_LABEL,
+  BILIBILI_SUMMARY_LIMIT,
+  charCount,
+  cleanBilibiliText,
   coveredDay,
+  groupBilibiliRows,
   loadBilibiliDynamics,
+  loadBilibiliGroups,
   parseBilibiliJsonl,
+  summarizeBilibili,
 } from '../../src/lib/bilibili-daily.ts';
 
 /**
@@ -125,4 +131,111 @@ test('正本里的动态身份是 bili_<uid> + opus 链接，不是 X 账号', (
 
 test('没有当天正本时返回空数组（老期号 / 断抓都正常，不摆空按钮）', () => {
   assert.deepEqual(loadBilibiliDynamics(new Date('2020-01-01T15:00:00Z')), []);
+});
+
+/**
+ * 2026-11-12 追加口径：同个账号的归到一起，合并后超过 150 字就概括。
+ * 下面钉住「归并 / 阈值 / 概括质量 / 链接不丢」四件事。
+ */
+
+test('清理：剥裸链接、话题标签、零宽字符，换行压成单行', () => {
+  assert.equal(
+    cleanBilibiliText('\u200b正文 https://store.hikarifield.co.jp/shop/x\n#GALGAME# #STEAM# 尾巴'),
+    '正文 尾巴',
+  );
+  assert.equal(cleanBilibiliText('第一行\n第二行'), '第一行 第二行');
+  assert.equal(cleanBilibiliText(''), '');
+});
+
+test('字数按非空白码点算：中文一字一个，空格与换行不占额度', () => {
+  assert.equal(charCount('一二三'), 3);
+  assert.equal(charCount('一 二\n三'), 3);
+  assert.equal(charCount('  '), 0);
+  assert.equal(BILIBILI_SUMMARY_LIMIT, 150);
+});
+
+test('合计不超过 150 字就原样拼接，一个字都不改', () => {
+  const { text, summarized } = summarizeBilibili(['【告知】发售日决定', '【补充】体验版公开']);
+  assert.equal(summarized, false);
+  assert.equal(text, '【告知】发售日决定 【补充】体验版公开');
+});
+
+test('超过 150 字就概括，结果不超过上限并以省略号收尾', () => {
+  const long = Array.from({ length: 3 }, (_, i) => `第${i}条情报，${'内容很长'.repeat(40)}`);
+  const { text, summarized } = summarizeBilibili(long);
+  assert.equal(summarized, true);
+  assert.ok(charCount(text) <= BILIBILI_SUMMARY_LIMIT, `实际 ${charCount(text)} 字`);
+  assert.ok(text.endsWith('…'));
+});
+
+test('同款模板的六条促销并成一句，其余作品名收进「另：」', () => {
+  const names = ['甲', '乙', '丙', '丁', '戊', '己'];
+  const parts = names.map(
+    (name, i) => `《作品${name}》官方中文版现正于官网商城促销热卖中！仅需${20 + i}元即可入手！`,
+  );
+  const { text, summarized } = summarizeBilibili(parts);
+  assert.equal(summarized, true);
+  assert.equal(text.split('促销热卖中').length - 1, 1); // 六条同款只留一句
+  assert.ok(text.includes('（另：'));
+  assert.ok(text.includes('《作品乙》'));
+  assert.ok(charCount(text) <= BILIBILI_SUMMARY_LIMIT);
+});
+
+test('断句不切书名号：《A！B》这种带感叹号的作品名保持完整', () => {
+  const filler = '补充说明'.repeat(10);
+  const parts = ['甲！乙', '丙！丁', '戊！己'].map(
+    (name) => `《${name}》官方中文版现正于官网商城促销热卖中！${filler}！`,
+  );
+  const { text, summarized } = summarizeBilibili(parts);
+  assert.equal(summarized, true);
+  assert.ok(text.includes('《甲！乙》'), '书名号被切断了');
+  assert.ok(text.includes('《丙！丁》'));
+  assert.equal((text.match(/《/g) ?? []).length, (text.match(/》/g) ?? []).length);
+});
+
+test('同账号归并成一组：顺序、条数、原文链接一条不丢', () => {
+  const rows = parseBilibiliJsonl(
+    [
+      row({ identity_key: 'bilibili:1', item_id: '1', published_at: '2026-11-10T01:00:00+00:00' }),
+      row({ identity_key: 'bilibili:2', item_id: '2', published_at: '2026-11-10T02:00:00+00:00' }),
+      row({
+        identity_key: 'bilibili:3',
+        item_id: '3',
+        published_at: '2026-11-10T03:00:00+00:00',
+        publisher: '别的号',
+        metadata: { account: 'bili_1', uid: '1', tag: 'B站Gal' },
+      }),
+    ].join('\n'),
+  );
+  const groups = groupBilibiliRows(rows);
+  assert.equal(groups.length, 2);
+  assert.equal(groups[0].count, 2);
+  assert.deepEqual(groups[0].keys, ['bilibili:1', 'bilibili:2']);
+  assert.deepEqual(groups[0].urls, [
+    'https://www.bilibili.com/opus/1001',
+    'https://www.bilibili.com/opus/1001',
+  ]);
+  assert.equal(groups[0].handle, 'bili_3632310624717268');
+  assert.equal(groups[1].handle, 'bili_1');
+  assert.equal(groups[1].count, 1);
+});
+
+test('真实正本：17 条动态归并成 11 个账号，链接与条目一条不少', () => {
+  const covered = new Date('2026-11-10T15:00:00Z'); // 2026-11-11 JST
+  const rows = loadBilibiliDynamics(covered);
+  const groups = loadBilibiliGroups(covered);
+  assert.equal(rows.length, 17);
+  assert.equal(groups.length, 11);
+  assert.equal(
+    groups.reduce((sum, group) => sum + group.urls.length, 0),
+    rows.length,
+  );
+  for (const group of groups) {
+    assert.ok(charCount(group.text) <= BILIBILI_SUMMARY_LIMIT, `${group.handle} 超长`);
+    assert.ok(group.text.length > 0);
+    assert.ok(!group.text.includes('http'), '正文里不该残留裸链接');
+    assert.ok(!group.text.includes('#'), '正文里不该残留话题标签');
+  }
+  assert.ok(groups.some((group) => group.summarized));
+  assert.ok(groups.every((group) => group.handle.startsWith('bili_')));
 });

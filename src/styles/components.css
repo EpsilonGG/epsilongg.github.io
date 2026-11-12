@@ -512,14 +512,29 @@ a.link-row:hover .link-row__label {
 }
 
 /*
-  B 站原始动态（「详细」的第三个栏目，2026-11-12）。
-  正文**不概括**：`pre-line` 把 JSONL 里的换行原样留下，颜色淡一号，让
-  「这是原文、不是 AI 摘要」在视觉上分得开。「原文」链接沿用 `via` 的
+  B 站动态（「详细」的第三个栏目，2026-11-12）。
+  同账号的多条动态归并成一行、超过 150 字由取数层概括，所以这里没有 `pre-line`：
+  换行在归并时就压平了，页面拿到的是已经算好的一句话。颜色淡一号，让「这是
+  转述的账号动态、不是 AI 摘要」在视觉上分得开。「原文」链接沿用 `via` 的
   虚线下划线写法——不加色、不加阴影，本站只有黑白灰。
 */
 .daily-roster__bili-text {
-  white-space: pre-line;
   color: var(--color-text-secondary);
+}
+
+/*
+  同账号归并后的注脚（`共 6 条 · 概括`）。字号小一号、颜色更淡：
+  它说明「这行不是原文全文」，但读者读的是正文，不是这句话。
+*/
+.daily-roster__bili-note {
+  margin-left: var(--space-1);
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  white-space: nowrap;
+}
+
+.daily-roster__bili-links {
+  margin-left: var(--space-1);
 }
 
 .daily-roster__bili-link {

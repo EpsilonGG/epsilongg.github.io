@@ -57,8 +57,9 @@ def cmd_build(args) -> int:
           f"转发提升 {s['promoted_records']} 条")
     bl = data.get("bilibili_lines") or []
     print(f"  B站动态正本 {data_set['stats'].get('bilibili_rows', 0)} 条 → "
-          f"新作 {sum(1 for x in bl if x['column'] == NEW)} 条 / "
-          f"B站动态 {sum(1 for x in bl if x['column'] == BILI_VIEW)} 条"
+          f"按账号归并 {len(bl)} 行（概括 {sum(1 for x in bl if x.get('summarized'))} 行）→ "
+          f"新作 {sum(1 for x in bl if x['column'] == NEW)} 行 / "
+          f"B站动态 {sum(1 for x in bl if x['column'] == BILI_VIEW)} 行"
           "（游戏级规则与 X 侧同源）")
     ip = preview["stats"]
     print(f"  图片栏目（试验·独立 HTML）：带图推文 {ip['image_tweets']} "
@@ -143,6 +144,7 @@ def cmd_check(_args) -> int:
     data = read_json(OUT / "filter-data.json")
     manifest = read_json(OUT / "manifest.json")
     decisions = read_json(OUT / "decisions.json")
+    rules = load_rules()
 
     # 空栏整节省略（2026-11-10 裁决）：某一栏一条都不剩就不写 `## ` 标题。
     # 所以这里先算出「这一期实际会有哪几栏」，再按它校验标题，而不是硬要求三栏。
@@ -220,8 +222,15 @@ def cmd_check(_args) -> int:
     bili_urls = {str(v.get("url") or "") for v in bili_refs.values() if v.get("url")}
     if BILI_VIEW:
         expect_rows = int((corpus_data.get("stats") or {}).get("bilibili_rows", 0))
-        if len(bili_rows) != expect_rows:
-            problems.append(f"B站动态展示行 {len(bili_rows)} ≠ 正本 {expect_rows} 条")
+        # 展示行是「账号 × 作品」归并后的格子，所以守恒要按 count 求和，
+        # 而不是按行数——正本一条都不能少，只是被并到了更少的行里。
+        covered_rows = sum(int(row.get("count") or 1) for row in bili_rows)
+        if covered_rows != expect_rows:
+            problems.append(f"B站动态归并后覆盖 {covered_rows} 条 ≠ 正本 {expect_rows} 条")
+        cells = [(str(r.get("brand") or ""), str(r.get("glabel") or "")) for r in bili_rows]
+        if len(set(cells)) != len(cells):
+            problems.append("B站行没有按「账号 × 作品」归并：出现重复的格子")
+        limit = int((rules.get("bilibili") or {}).get("summary_limit") or 150)
         for row in bili_rows:
             column = str(row.get("column") or "")
             text = str(row.get("text") or "")
@@ -239,6 +248,16 @@ def cmd_check(_args) -> int:
                 break
             if not str(row.get("brand") or "").startswith("B站 · "):
                 problems.append(f"B站品牌中标题没加防冲突前缀：{row.get('brand')}")
+                break
+            # 归并后的正文（「共 N 条」之后的那一段）不得超过概括上限；
+            # 多条合一的格子必须在正文前标「共 N 条」，读者才知道这不是原文一条。
+            head, _, body = text.partition("：")
+            if int(row.get("count") or 1) > 1 and "（共 " not in head:
+                problems.append(f"B站行合并了多条却没标「共 N 条」：{row.get('key')}")
+                break
+            if len(re.sub(r"\s+", "", body)) > limit:
+                length = len(re.sub(r"\s+", "", body))
+                problems.append(f"B站行正文 {length} 字超过 {limit}：{row.get('key')}")
                 break
             stripped = re.sub(r"\]\(https?://[^)\s]+\)", "](URL)", text)
             if "http://" in stripped or "https://" in stripped:
