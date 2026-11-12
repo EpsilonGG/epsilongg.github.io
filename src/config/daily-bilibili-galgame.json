@@ -11,7 +11,7 @@
       "label": "B站Gal"
     }
   ],
-  "note": "Galgame 日报的 **B 站动态监控名单正本**（2026-11-11 用户裁决：与 X 名单彻底分家）。本文件同时是站点查询层的「独立名单文件」：category/categories 给栏目，accounts 给显示名、profile_url 与 B站Gal 标签。所有监控账号统一打 `B站Gal` 分类标签（category=bili_gal / tags=[B站Gal]），由 scripts/bilibili_daily.py 每天抓取 `x/polymer/web-dynamic/v1/feed/space`，按 JST 自然日落 data/bilibili/galgame/<YYYY-MM-DD>.jsonl，并镜像成 X-Reader 形状的 .xreader/data-galgame/items/bilibili.jsonl，让 `daily build --kind galgame` 无需改代码就能读到。handle 是站点侧的合成标识（bili_<uid>），**不是 X 账号**；本文件绝不写进 src/config/daily-roster-galgame.json，sync_xreader_accounts.py 也不会把 B 站号当成 X 账号抓取。src/lib/roster.ts 与 scripts/daily/roster.py 各自单独把本文件并进查询表。",
+  "note": "Galgame 日报的 **B 站动态监控名单正本**（2026-11-11 用户裁决：与 X 名单彻底分家）。本文件同时是站点查询层的「独立名单文件」：category/categories 给栏目，accounts 给显示名、profile_url 与 B站Gal 标签。所有监控账号统一打 `B站Gal` 分类标签（category=bili_gal / tags=[B站Gal]），由 scripts/bilibili_daily.py 每天抓取 `x/polymer/web-dynamic/v1/feed/space`，按 JST 自然日落 data/bilibili/galgame/<YYYY-MM-DD>.jsonl，并镜像成 X-Reader 形状的 .xreader/data-galgame/items/bilibili.jsonl，让 `daily build --kind galgame` 无需改代码就能读到。handle 是站点侧的合成标识（bili_<uid>），**不是 X 账号**；本文件绝不写进 src/config/daily-roster-galgame.json，sync_xreader_accounts.py 也不会把 B 站号当成 X 账号抓取。src/lib/roster.ts 与 scripts/daily/roster.py 各自单独把本文件并进查询表。 2026-11-12 用户批量新增监控号：纯数字按 UID 直接录入并用 /x/web-interface/card 回查昵称；其余昵称经 B 站用户搜索（wbi/search/type, search_type=bili_user）解析成 UID，以 UID 为准，name 记录用户给的昵称（只给 UID 未给昵称的账号则记 /x/web-interface/card 回查到的昵称，2026-11-12 又用 feed/space 的 module_author.name 复核）；B 站当前昵称不同时另记 bilibili_uname。『TamaMako七花舞_ななかまい』经用户 2026-11-12 确认确为两个独立账号，按 UID 分别录入。『株式会社C-End』在 B 站用户搜索里查不到同名账号（同名候选 157270804 是 0 粉丝空号，未采用），搜索引擎索引到的两条 2026-03 yakumo 动态（opus 1180398459152236626 / 1180767727509307415）仅作侧面佐证；2026-11-12 用户直接补 UID 3546838852438089 后按 UID 录入，并用 feed/space 的 module_author.name 回查确认昵称一致。至此用户给出的账号全部录入。",
   "accounts": [
     {
       "uid": "3632310624717268",
@@ -26,6 +26,875 @@
       "active": true,
       "profile_url": "https://space.bilibili.com/3632310624717268/dynamic",
       "note": "用户 2026-11-11 指定的测试监控账号。实测 2026-11-10 有 13 条动态，图文正文在 major.opus.summary.text。"
+    },
+    {
+      "uid": "3691002382518448",
+      "name": "CLEARRAVE",
+      "handle": "bili_3691002382518448",
+      "source": "bilibili",
+      "category": "bili_gal",
+      "role": "main",
+      "tags": [
+        "B站Gal"
+      ],
+      "active": true,
+      "profile_url": "https://space.bilibili.com/3691002382518448/dynamic",
+      "note": "用户 2026-11-12 直接给 UID；昵称由 B 站 /x/web-interface/card 回查为「CLEARRAVE」。UID 为准。"
+    },
+    {
+      "uid": "207286344",
+      "name": "z8yi176swlx05b",
+      "handle": "bili_207286344",
+      "source": "bilibili",
+      "category": "bili_gal",
+      "role": "main",
+      "tags": [
+        "B站Gal"
+      ],
+      "active": true,
+      "profile_url": "https://space.bilibili.com/207286344/dynamic",
+      "note": "用户 2026-11-12 直接给 UID；昵称由 B 站 /x/web-interface/card 回查为「z8yi176swlx05b」。UID 为准。"
+    },
+    {
+      "uid": "1167135969",
+      "name": "星羽幸Official",
+      "handle": "bili_1167135969",
+      "source": "bilibili",
+      "category": "bili_gal",
+      "role": "main",
+      "tags": [
+        "B站Gal"
+      ],
+      "active": true,
+      "profile_url": "https://space.bilibili.com/1167135969/dynamic",
+      "note": "用户 2026-11-12 直接给 UID；昵称由 B 站 /x/web-interface/card 回查为「星羽幸Official」。UID 为准。"
+    },
+    {
+      "uid": "1797241376",
+      "name": "bili_13283940707",
+      "handle": "bili_1797241376",
+      "source": "bilibili",
+      "category": "bili_gal",
+      "role": "main",
+      "tags": [
+        "B站Gal"
+      ],
+      "active": true,
+      "profile_url": "https://space.bilibili.com/1797241376/dynamic",
+      "note": "用户 2026-11-12 直接给 UID；昵称由 B 站 /x/web-interface/card 回查为「bili_13283940707」。UID 为准。"
+    },
+    {
+      "uid": "1748455574",
+      "name": "鲲Galgame",
+      "handle": "bili_1748455574",
+      "source": "bilibili",
+      "category": "bili_gal",
+      "role": "main",
+      "tags": [
+        "B站Gal"
+      ],
+      "active": true,
+      "profile_url": "https://space.bilibili.com/1748455574/dynamic",
+      "note": "用户 2026-11-12 给昵称，B 站用户搜索按同名 + 粉丝/认证信息解析出 UID；UID 为准。 B 站当前昵称「鲲GalGame」与给定昵称不同，已另记 bilibili_uname。",
+      "bilibili_uname": "鲲GalGame"
+    },
+    {
+      "uid": "3537113226152650",
+      "name": "AllianceArts",
+      "handle": "bili_3537113226152650",
+      "source": "bilibili",
+      "category": "bili_gal",
+      "role": "main",
+      "tags": [
+        "B站Gal"
+      ],
+      "active": true,
+      "profile_url": "https://space.bilibili.com/3537113226152650/dynamic",
+      "note": "用户 2026-11-12 给昵称，B 站用户搜索按同名 + 粉丝/认证信息解析出 UID；UID 为准。"
+    },
+    {
+      "uid": "3546777970018899",
+      "name": "CircleLineGames",
+      "handle": "bili_3546777970018899",
+      "source": "bilibili",
+      "category": "bili_gal",
+      "role": "main",
+      "tags": [
+        "B站Gal"
+      ],
+      "active": true,
+      "profile_url": "https://space.bilibili.com/3546777970018899/dynamic",
+      "note": "用户 2026-11-12 给昵称，B 站用户搜索按同名 + 粉丝/认证信息解析出 UID；UID 为准。"
+    },
+    {
+      "uid": "298686071",
+      "name": "GamirrorGames",
+      "handle": "bili_298686071",
+      "source": "bilibili",
+      "category": "bili_gal",
+      "role": "main",
+      "tags": [
+        "B站Gal"
+      ],
+      "active": true,
+      "profile_url": "https://space.bilibili.com/298686071/dynamic",
+      "note": "用户 2026-11-12 给昵称，B 站用户搜索按同名 + 粉丝/认证信息解析出 UID；UID 为准。"
+    },
+    {
+      "uid": "313735429",
+      "name": "承影逐光",
+      "handle": "bili_313735429",
+      "source": "bilibili",
+      "category": "bili_gal",
+      "role": "main",
+      "tags": [
+        "B站Gal"
+      ],
+      "active": true,
+      "profile_url": "https://space.bilibili.com/313735429/dynamic",
+      "note": "用户 2026-11-12 给昵称，B 站用户搜索按同名 + 粉丝/认证信息解析出 UID；UID 为准。"
+    },
+    {
+      "uid": "3546854253923281",
+      "name": "铃夏学园",
+      "handle": "bili_3546854253923281",
+      "source": "bilibili",
+      "category": "bili_gal",
+      "role": "main",
+      "tags": [
+        "B站Gal"
+      ],
+      "active": true,
+      "profile_url": "https://space.bilibili.com/3546854253923281/dynamic",
+      "note": "用户 2026-11-12 给昵称，B 站用户搜索按同名 + 粉丝/认证信息解析出 UID；UID 为准。"
+    },
+    {
+      "uid": "3493270061582958",
+      "name": "HentaiAid",
+      "handle": "bili_3493270061582958",
+      "source": "bilibili",
+      "category": "bili_gal",
+      "role": "main",
+      "tags": [
+        "B站Gal"
+      ],
+      "active": true,
+      "profile_url": "https://space.bilibili.com/3493270061582958/dynamic",
+      "note": "用户 2026-11-12 给昵称，B 站用户搜索按同名 + 粉丝/认证信息解析出 UID；UID 为准。"
+    },
+    {
+      "uid": "3546910440818742",
+      "name": "兔木企画",
+      "handle": "bili_3546910440818742",
+      "source": "bilibili",
+      "category": "bili_gal",
+      "role": "main",
+      "tags": [
+        "B站Gal"
+      ],
+      "active": true,
+      "profile_url": "https://space.bilibili.com/3546910440818742/dynamic",
+      "note": "用户 2026-11-12 给昵称，B 站用户搜索按同名 + 粉丝/认证信息解析出 UID；UID 为准。"
+    },
+    {
+      "uid": "3706923618666922",
+      "name": "sprite公式",
+      "handle": "bili_3706923618666922",
+      "source": "bilibili",
+      "category": "bili_gal",
+      "role": "main",
+      "tags": [
+        "B站Gal"
+      ],
+      "active": true,
+      "profile_url": "https://space.bilibili.com/3706923618666922/dynamic",
+      "note": "用户 2026-11-12 给昵称，B 站用户搜索按同名 + 粉丝/认证信息解析出 UID；UID 为准。"
+    },
+    {
+      "uid": "3690972420508265",
+      "name": "OmegaStar公式",
+      "handle": "bili_3690972420508265",
+      "source": "bilibili",
+      "category": "bili_gal",
+      "role": "main",
+      "tags": [
+        "B站Gal"
+      ],
+      "active": true,
+      "profile_url": "https://space.bilibili.com/3690972420508265/dynamic",
+      "note": "用户 2026-11-12 给昵称，B 站用户搜索按同名 + 粉丝/认证信息解析出 UID；UID 为准。"
+    },
+    {
+      "uid": "11208388",
+      "name": "tomoka音羽",
+      "handle": "bili_11208388",
+      "source": "bilibili",
+      "category": "bili_gal",
+      "role": "main",
+      "tags": [
+        "B站Gal"
+      ],
+      "active": true,
+      "profile_url": "https://space.bilibili.com/11208388/dynamic",
+      "note": "用户 2026-11-12 给昵称，B 站用户搜索按同名 + 粉丝/认证信息解析出 UID；UID 为准。"
+    },
+    {
+      "uid": "3632307210553863",
+      "name": "MOONSTONE公式",
+      "handle": "bili_3632307210553863",
+      "source": "bilibili",
+      "category": "bili_gal",
+      "role": "main",
+      "tags": [
+        "B站Gal"
+      ],
+      "active": true,
+      "profile_url": "https://space.bilibili.com/3632307210553863/dynamic",
+      "note": "用户 2026-11-12 给昵称，B 站用户搜索按同名 + 粉丝/认证信息解析出 UID；UID 为准。"
+    },
+    {
+      "uid": "3546874040551694",
+      "name": "肉包文化",
+      "handle": "bili_3546874040551694",
+      "source": "bilibili",
+      "category": "bili_gal",
+      "role": "main",
+      "tags": [
+        "B站Gal"
+      ],
+      "active": true,
+      "profile_url": "https://space.bilibili.com/3546874040551694/dynamic",
+      "note": "用户 2026-11-12 给昵称，B 站用户搜索按同名 + 粉丝/认证信息解析出 UID；UID 为准。"
+    },
+    {
+      "uid": "3546949489789171",
+      "name": "漩涡社-Whirlpool",
+      "handle": "bili_3546949489789171",
+      "source": "bilibili",
+      "category": "bili_gal",
+      "role": "main",
+      "tags": [
+        "B站Gal"
+      ],
+      "active": true,
+      "profile_url": "https://space.bilibili.com/3546949489789171/dynamic",
+      "note": "用户 2026-11-12 给昵称，B 站用户搜索按同名 + 粉丝/认证信息解析出 UID；UID 为准。"
+    },
+    {
+      "uid": "3546948824992722",
+      "name": "ALICESOFT公式",
+      "handle": "bili_3546948824992722",
+      "source": "bilibili",
+      "category": "bili_gal",
+      "role": "main",
+      "tags": [
+        "B站Gal"
+      ],
+      "active": true,
+      "profile_url": "https://space.bilibili.com/3546948824992722/dynamic",
+      "note": "用户 2026-11-12 给昵称，B 站用户搜索按同名 + 粉丝/认证信息解析出 UID；UID 为准。"
+    },
+    {
+      "uid": "3546908003928752",
+      "name": "FAVORITEofficial",
+      "handle": "bili_3546908003928752",
+      "source": "bilibili",
+      "category": "bili_gal",
+      "role": "main",
+      "tags": [
+        "B站Gal"
+      ],
+      "active": true,
+      "profile_url": "https://space.bilibili.com/3546908003928752/dynamic",
+      "note": "用户 2026-11-12 给昵称，B 站用户搜索按同名 + 粉丝/认证信息解析出 UID；UID 为准。"
+    },
+    {
+      "uid": "3546856072154027",
+      "name": "CRYSTALiA官方",
+      "handle": "bili_3546856072154027",
+      "source": "bilibili",
+      "category": "bili_gal",
+      "role": "main",
+      "tags": [
+        "B站Gal"
+      ],
+      "active": true,
+      "profile_url": "https://space.bilibili.com/3546856072154027/dynamic",
+      "note": "用户 2026-11-12 给昵称，B 站用户搜索按同名 + 粉丝/认证信息解析出 UID；UID 为准。"
+    },
+    {
+      "uid": "3546900143802616",
+      "name": "Muv-Luv官方",
+      "handle": "bili_3546900143802616",
+      "source": "bilibili",
+      "category": "bili_gal",
+      "role": "main",
+      "tags": [
+        "B站Gal"
+      ],
+      "active": true,
+      "profile_url": "https://space.bilibili.com/3546900143802616/dynamic",
+      "note": "用户 2026-11-12 给昵称，B 站用户搜索按同名 + 粉丝/认证信息解析出 UID；UID 为准。"
+    },
+    {
+      "uid": "3546838852438089",
+      "name": "株式会社C-End",
+      "handle": "bili_3546838852438089",
+      "source": "bilibili",
+      "category": "bili_gal",
+      "role": "main",
+      "tags": [
+        "B站Gal"
+      ],
+      "active": true,
+      "profile_url": "https://space.bilibili.com/3546838852438089/dynamic",
+      "note": "用户 2026-11-12 直接补 UID 3546838852438089；昵称「株式会社C-End」按用户给定记录，UID 为准。此前多组关键词在 B 站用户搜索里查不到同名账号、card/acc-info 又被风控拒绝，故按用户提供的 UID 直接录入；随后用 feed/space 的 module_author.name 实测回查为「株式会社C-End」，与给定昵称一致（该空间目前只有 1 条转正会员系统动态，所以用户搜索索引不到）。搜索引擎索引到的两条 2026-03 yakumo 动态（opus 1180398459152236626 / 1180767727509307415）仅作侧面佐证，不作为身份依据。"
+    },
+    {
+      "uid": "3690981385833115",
+      "name": "松竹游戏",
+      "handle": "bili_3690981385833115",
+      "source": "bilibili",
+      "category": "bili_gal",
+      "role": "main",
+      "tags": [
+        "B站Gal"
+      ],
+      "active": true,
+      "profile_url": "https://space.bilibili.com/3690981385833115/dynamic",
+      "note": "用户 2026-11-12 给昵称，B 站用户搜索按同名 + 粉丝/认证信息解析出 UID；UID 为准。"
+    },
+    {
+      "uid": "3546711607741131",
+      "name": "雪鱼饼_official",
+      "handle": "bili_3546711607741131",
+      "source": "bilibili",
+      "category": "bili_gal",
+      "role": "main",
+      "tags": [
+        "B站Gal"
+      ],
+      "active": true,
+      "profile_url": "https://space.bilibili.com/3546711607741131/dynamic",
+      "note": "用户 2026-11-12 给昵称，B 站用户搜索按同名 + 粉丝/认证信息解析出 UID；UID 为准。"
+    },
+    {
+      "uid": "383969286",
+      "name": "喵德斯Nyads",
+      "handle": "bili_383969286",
+      "source": "bilibili",
+      "category": "bili_gal",
+      "role": "main",
+      "tags": [
+        "B站Gal"
+      ],
+      "active": true,
+      "profile_url": "https://space.bilibili.com/383969286/dynamic",
+      "note": "用户 2026-11-12 给昵称，B 站用户搜索按同名 + 粉丝/认证信息解析出 UID；UID 为准。"
+    },
+    {
+      "uid": "3546848969099898",
+      "name": "樱梦织",
+      "handle": "bili_3546848969099898",
+      "source": "bilibili",
+      "category": "bili_gal",
+      "role": "main",
+      "tags": [
+        "B站Gal"
+      ],
+      "active": true,
+      "profile_url": "https://space.bilibili.com/3546848969099898/dynamic",
+      "note": "用户 2026-11-12 给昵称，B 站用户搜索按同名 + 粉丝/认证信息解析出 UID；UID 为准。"
+    },
+    {
+      "uid": "3546845336832319",
+      "name": "kawaiinium幻萌元素",
+      "handle": "bili_3546845336832319",
+      "source": "bilibili",
+      "category": "bili_gal",
+      "role": "main",
+      "tags": [
+        "B站Gal"
+      ],
+      "active": true,
+      "profile_url": "https://space.bilibili.com/3546845336832319/dynamic",
+      "note": "用户 2026-11-12 给昵称，B 站用户搜索按同名 + 粉丝/认证信息解析出 UID；UID 为准。"
+    },
+    {
+      "uid": "3546862887897818",
+      "name": "Sushimekabu",
+      "handle": "bili_3546862887897818",
+      "source": "bilibili",
+      "category": "bili_gal",
+      "role": "main",
+      "tags": [
+        "B站Gal"
+      ],
+      "active": true,
+      "profile_url": "https://space.bilibili.com/3546862887897818/dynamic",
+      "note": "用户 2026-11-12 给昵称，B 站用户搜索按同名 + 粉丝/认证信息解析出 UID；UID 为准。"
+    },
+    {
+      "uid": "415482785",
+      "name": "Whisp公式",
+      "handle": "bili_415482785",
+      "source": "bilibili",
+      "category": "bili_gal",
+      "role": "main",
+      "tags": [
+        "B站Gal"
+      ],
+      "active": true,
+      "profile_url": "https://space.bilibili.com/415482785/dynamic",
+      "note": "用户 2026-11-12 给昵称，B 站用户搜索按同名 + 粉丝/认证信息解析出 UID；UID 为准。"
+    },
+    {
+      "uid": "3546387174132577",
+      "name": "Sunflower_Ocean",
+      "handle": "bili_3546387174132577",
+      "source": "bilibili",
+      "category": "bili_gal",
+      "role": "main",
+      "tags": [
+        "B站Gal"
+      ],
+      "active": true,
+      "profile_url": "https://space.bilibili.com/3546387174132577/dynamic",
+      "note": "用户 2026-11-12 给昵称，B 站用户搜索按同名 + 粉丝/认证信息解析出 UID；UID 为准。"
+    },
+    {
+      "uid": "3546816528255265",
+      "name": "VISUAL_ARTS",
+      "handle": "bili_3546816528255265",
+      "source": "bilibili",
+      "category": "bili_gal",
+      "role": "main",
+      "tags": [
+        "B站Gal"
+      ],
+      "active": true,
+      "profile_url": "https://space.bilibili.com/3546816528255265/dynamic",
+      "note": "用户 2026-11-12 给昵称，B 站用户搜索按同名 + 粉丝/认证信息解析出 UID；UID 为准。"
+    },
+    {
+      "uid": "3546793507817967",
+      "name": "CabbageSoft",
+      "handle": "bili_3546793507817967",
+      "source": "bilibili",
+      "category": "bili_gal",
+      "role": "main",
+      "tags": [
+        "B站Gal"
+      ],
+      "active": true,
+      "profile_url": "https://space.bilibili.com/3546793507817967/dynamic",
+      "note": "用户 2026-11-12 给昵称，B 站用户搜索按同名 + 粉丝/认证信息解析出 UID；UID 为准。"
+    },
+    {
+      "uid": "138256",
+      "name": "33祖传上色",
+      "handle": "bili_138256",
+      "source": "bilibili",
+      "category": "bili_gal",
+      "role": "main",
+      "tags": [
+        "B站Gal"
+      ],
+      "active": true,
+      "profile_url": "https://space.bilibili.com/138256/dynamic",
+      "note": "用户 2026-11-12 给昵称，B 站用户搜索按同名 + 粉丝/认证信息解析出 UID；UID 为准。"
+    },
+    {
+      "uid": "3546560407275783",
+      "name": "TamaMako",
+      "handle": "bili_3546560407275783",
+      "source": "bilibili",
+      "category": "bili_gal",
+      "role": "main",
+      "tags": [
+        "B站Gal"
+      ],
+      "active": true,
+      "profile_url": "https://space.bilibili.com/3546560407275783/dynamic",
+      "note": "用户 2026-11-12 给的串「TamaMako七花舞_ななかまい」，同日经用户确认确为两个账号（3546560407275783 / 3546715699284340）；B 站同名账号各自独立存在，按 UID 分别录入。"
+    },
+    {
+      "uid": "3546715699284340",
+      "name": "七花舞_ななかまい",
+      "handle": "bili_3546715699284340",
+      "source": "bilibili",
+      "category": "bili_gal",
+      "role": "main",
+      "tags": [
+        "B站Gal"
+      ],
+      "active": true,
+      "profile_url": "https://space.bilibili.com/3546715699284340/dynamic",
+      "note": "用户 2026-11-12 给的串「TamaMako七花舞_ななかまい」，同日经用户确认确为两个账号（3546560407275783 / 3546715699284340）；B 站同名账号各自独立存在，按 UID 分别录入。"
+    },
+    {
+      "uid": "3546727040682166",
+      "name": "柚子社official",
+      "handle": "bili_3546727040682166",
+      "source": "bilibili",
+      "category": "bili_gal",
+      "role": "main",
+      "tags": [
+        "B站Gal"
+      ],
+      "active": true,
+      "profile_url": "https://space.bilibili.com/3546727040682166/dynamic",
+      "note": "用户 2026-11-12 给昵称，B 站用户搜索按同名 + 粉丝/认证信息解析出 UID；UID 为准。"
+    },
+    {
+      "uid": "3546635212687771",
+      "name": "Lucle_Totometori",
+      "handle": "bili_3546635212687771",
+      "source": "bilibili",
+      "category": "bili_gal",
+      "role": "main",
+      "tags": [
+        "B站Gal"
+      ],
+      "active": true,
+      "profile_url": "https://space.bilibili.com/3546635212687771/dynamic",
+      "note": "用户 2026-11-12 给昵称，B 站用户搜索按同名 + 粉丝/认证信息解析出 UID；UID 为准。"
+    },
+    {
+      "uid": "3537110793455821",
+      "name": "QC株式会社",
+      "handle": "bili_3537110793455821",
+      "source": "bilibili",
+      "category": "bili_gal",
+      "role": "main",
+      "tags": [
+        "B站Gal"
+      ],
+      "active": true,
+      "profile_url": "https://space.bilibili.com/3537110793455821/dynamic",
+      "note": "用户 2026-11-12 给昵称，B 站用户搜索按同名 + 粉丝/认证信息解析出 UID；UID 为准。"
+    },
+    {
+      "uid": "41883712",
+      "name": "HIKARI-FIELD",
+      "handle": "bili_41883712",
+      "source": "bilibili",
+      "category": "bili_gal",
+      "role": "main",
+      "tags": [
+        "B站Gal"
+      ],
+      "active": true,
+      "profile_url": "https://space.bilibili.com/41883712/dynamic",
+      "note": "用户 2026-11-12 给昵称，B 站用户搜索按同名 + 粉丝/认证信息解析出 UID；UID 为准。"
+    },
+    {
+      "uid": "385064973",
+      "name": "株式会社Frontwing",
+      "handle": "bili_385064973",
+      "source": "bilibili",
+      "category": "bili_gal",
+      "role": "main",
+      "tags": [
+        "B站Gal"
+      ],
+      "active": true,
+      "profile_url": "https://space.bilibili.com/385064973/dynamic",
+      "note": "用户 2026-11-12 给昵称，B 站用户搜索按同名 + 粉丝/认证信息解析出 UID；UID 为准。"
+    },
+    {
+      "uid": "3493105997187935",
+      "name": "Shiravune白舟_官方",
+      "handle": "bili_3493105997187935",
+      "source": "bilibili",
+      "category": "bili_gal",
+      "role": "main",
+      "tags": [
+        "B站Gal"
+      ],
+      "active": true,
+      "profile_url": "https://space.bilibili.com/3493105997187935/dynamic",
+      "note": "用户 2026-11-12 给昵称，B 站用户搜索按同名 + 粉丝/认证信息解析出 UID；UID 为准。"
+    },
+    {
+      "uid": "3493262406977667",
+      "name": "SekaiProject",
+      "handle": "bili_3493262406977667",
+      "source": "bilibili",
+      "category": "bili_gal",
+      "role": "main",
+      "tags": [
+        "B站Gal"
+      ],
+      "active": true,
+      "profile_url": "https://space.bilibili.com/3493262406977667/dynamic",
+      "note": "用户 2026-11-12 给昵称，B 站用户搜索按同名 + 粉丝/认证信息解析出 UID；UID 为准。"
+    },
+    {
+      "uid": "1436152920",
+      "name": "JASTUSA_官方",
+      "handle": "bili_1436152920",
+      "source": "bilibili",
+      "category": "bili_gal",
+      "role": "main",
+      "tags": [
+        "B站Gal"
+      ],
+      "active": true,
+      "profile_url": "https://space.bilibili.com/1436152920/dynamic",
+      "note": "用户 2026-11-12 给昵称，B 站用户搜索按同名 + 粉丝/认证信息解析出 UID；UID 为准。"
+    },
+    {
+      "uid": "1791453",
+      "name": "消音ショウオン",
+      "handle": "bili_1791453",
+      "source": "bilibili",
+      "category": "bili_gal",
+      "role": "main",
+      "tags": [
+        "B站Gal"
+      ],
+      "active": true,
+      "profile_url": "https://space.bilibili.com/1791453/dynamic",
+      "note": "用户 2026-11-12 给昵称，B 站用户搜索按同名 + 粉丝/认证信息解析出 UID；UID 为准。"
+    },
+    {
+      "uid": "2544232",
+      "name": "出水悠莉-YuriIzumi",
+      "handle": "bili_2544232",
+      "source": "bilibili",
+      "category": "bili_gal",
+      "role": "main",
+      "tags": [
+        "B站Gal"
+      ],
+      "active": true,
+      "profile_url": "https://space.bilibili.com/2544232/dynamic",
+      "note": "用户 2026-11-12 给昵称，B 站用户搜索按同名 + 粉丝/认证信息解析出 UID；UID 为准。"
+    },
+    {
+      "uid": "628758780",
+      "name": "ImoeGames",
+      "handle": "bili_628758780",
+      "source": "bilibili",
+      "category": "bili_gal",
+      "role": "main",
+      "tags": [
+        "B站Gal"
+      ],
+      "active": true,
+      "profile_url": "https://space.bilibili.com/628758780/dynamic",
+      "note": "用户 2026-11-12 给昵称，B 站用户搜索按同名 + 粉丝/认证信息解析出 UID；UID 为准。"
+    },
+    {
+      "uid": "2072586344",
+      "name": "Galgame批评",
+      "handle": "bili_2072586344",
+      "source": "bilibili",
+      "category": "bili_gal",
+      "role": "main",
+      "tags": [
+        "B站Gal"
+      ],
+      "active": true,
+      "profile_url": "https://space.bilibili.com/2072586344/dynamic",
+      "note": "用户 2026-11-12 给昵称，B 站用户搜索按同名 + 粉丝/认证信息解析出 UID；UID 为准。"
+    },
+    {
+      "uid": "1296113267",
+      "name": "しらたまOfficial",
+      "handle": "bili_1296113267",
+      "source": "bilibili",
+      "category": "bili_gal",
+      "role": "main",
+      "tags": [
+        "B站Gal"
+      ],
+      "active": true,
+      "profile_url": "https://space.bilibili.com/1296113267/dynamic",
+      "note": "用户 2026-11-12 给昵称，B 站用户搜索按同名 + 粉丝/认证信息解析出 UID；UID 为准。"
+    },
+    {
+      "uid": "2318826",
+      "name": "苍蓝の風",
+      "handle": "bili_2318826",
+      "source": "bilibili",
+      "category": "bili_gal",
+      "role": "main",
+      "tags": [
+        "B站Gal"
+      ],
+      "active": true,
+      "profile_url": "https://space.bilibili.com/2318826/dynamic",
+      "note": "用户 2026-11-12 给昵称，B 站用户搜索按同名 + 粉丝/认证信息解析出 UID；UID 为准。"
+    },
+    {
+      "uid": "386168631",
+      "name": "株式会社Laplacian",
+      "handle": "bili_386168631",
+      "source": "bilibili",
+      "category": "bili_gal",
+      "role": "main",
+      "tags": [
+        "B站Gal"
+      ],
+      "active": true,
+      "profile_url": "https://space.bilibili.com/386168631/dynamic",
+      "note": "用户 2026-11-12 给昵称，B 站用户搜索按同名 + 粉丝/认证信息解析出 UID；UID 为准。"
+    },
+    {
+      "uid": "477655087",
+      "name": "Key公式",
+      "handle": "bili_477655087",
+      "source": "bilibili",
+      "category": "bili_gal",
+      "role": "main",
+      "tags": [
+        "B站Gal"
+      ],
+      "active": true,
+      "profile_url": "https://space.bilibili.com/477655087/dynamic",
+      "note": "用户 2026-11-12 给昵称，B 站用户搜索按同名 + 粉丝/认证信息解析出 UID；UID 为准。"
+    },
+    {
+      "uid": "39471072",
+      "name": "StuartRiki_鍵視",
+      "handle": "bili_39471072",
+      "source": "bilibili",
+      "category": "bili_gal",
+      "role": "main",
+      "tags": [
+        "B站Gal"
+      ],
+      "active": true,
+      "profile_url": "https://space.bilibili.com/39471072/dynamic",
+      "note": "用户 2026-11-12 给昵称，B 站用户搜索按同名 + 粉丝/认证信息解析出 UID；UID 为准。"
+    },
+    {
+      "uid": "439895126",
+      "name": "SyawaseWorks",
+      "handle": "bili_439895126",
+      "source": "bilibili",
+      "category": "bili_gal",
+      "role": "main",
+      "tags": [
+        "B站Gal"
+      ],
+      "active": true,
+      "profile_url": "https://space.bilibili.com/439895126/dynamic",
+      "note": "用户 2026-11-12 给昵称，B 站用户搜索按同名 + 粉丝/认证信息解析出 UID；UID 为准。"
+    },
+    {
+      "uid": "574096087",
+      "name": "katahito",
+      "handle": "bili_574096087",
+      "source": "bilibili",
+      "category": "bili_gal",
+      "role": "main",
+      "tags": [
+        "B站Gal"
+      ],
+      "active": true,
+      "profile_url": "https://space.bilibili.com/574096087/dynamic",
+      "note": "用户 2026-11-12 给昵称，B 站用户搜索按同名 + 粉丝/认证信息解析出 UID；UID 为准。"
+    },
+    {
+      "uid": "16302815",
+      "name": "被炒的炒饭",
+      "handle": "bili_16302815",
+      "source": "bilibili",
+      "category": "bili_gal",
+      "role": "main",
+      "tags": [
+        "B站Gal"
+      ],
+      "active": true,
+      "profile_url": "https://space.bilibili.com/16302815/dynamic",
+      "note": "用户 2026-11-12 给昵称，B 站用户搜索按同名 + 粉丝/认证信息解析出 UID；UID 为准。"
+    },
+    {
+      "uid": "9683",
+      "name": "windchaos",
+      "handle": "bili_9683",
+      "source": "bilibili",
+      "category": "bili_gal",
+      "role": "main",
+      "tags": [
+        "B站Gal"
+      ],
+      "active": true,
+      "profile_url": "https://space.bilibili.com/9683/dynamic",
+      "note": "用户 2026-11-12 给昵称，B 站用户搜索按同名 + 粉丝/认证信息解析出 UID；UID 为准。"
+    },
+    {
+      "uid": "504125158",
+      "name": "mirai_works",
+      "handle": "bili_504125158",
+      "source": "bilibili",
+      "category": "bili_gal",
+      "role": "main",
+      "tags": [
+        "B站Gal"
+      ],
+      "active": true,
+      "profile_url": "https://space.bilibili.com/504125158/dynamic",
+      "note": "用户 2026-11-12 给昵称，B 站用户搜索按同名 + 粉丝/认证信息解析出 UID；UID 为准。"
+    },
+    {
+      "uid": "5774653",
+      "name": "绿茶汉化组",
+      "handle": "bili_5774653",
+      "source": "bilibili",
+      "category": "bili_gal",
+      "role": "main",
+      "tags": [
+        "B站Gal"
+      ],
+      "active": true,
+      "profile_url": "https://space.bilibili.com/5774653/dynamic",
+      "note": "用户 2026-11-12 给昵称，B 站用户搜索按同名 + 粉丝/认证信息解析出 UID；UID 为准。"
+    },
+    {
+      "uid": "4522173",
+      "name": "番組長伊藤誠",
+      "handle": "bili_4522173",
+      "source": "bilibili",
+      "category": "bili_gal",
+      "role": "main",
+      "tags": [
+        "B站Gal"
+      ],
+      "active": true,
+      "profile_url": "https://space.bilibili.com/4522173/dynamic",
+      "note": "用户 2026-11-12 给昵称，B 站用户搜索按同名 + 粉丝/认证信息解析出 UID；UID 为准。"
+    },
+    {
+      "uid": "373471",
+      "name": "DLsite",
+      "handle": "bili_373471",
+      "source": "bilibili",
+      "category": "bili_gal",
+      "role": "main",
+      "tags": [
+        "B站Gal"
+      ],
+      "active": true,
+      "profile_url": "https://space.bilibili.com/373471/dynamic",
+      "note": "用户 2026-11-12 给昵称，B 站用户搜索按同名 + 粉丝/认证信息解析出 UID；UID 为准。"
+    },
+    {
+      "uid": "2805329",
+      "name": "KIDFansClub",
+      "handle": "bili_2805329",
+      "source": "bilibili",
+      "category": "bili_gal",
+      "role": "main",
+      "tags": [
+        "B站Gal"
+      ],
+      "active": true,
+      "profile_url": "https://space.bilibili.com/2805329/dynamic",
+      "note": "用户 2026-11-12 给昵称，B 站用户搜索按同名 + 粉丝/认证信息解析出 UID；UID 为准。"
     }
   ]
 }

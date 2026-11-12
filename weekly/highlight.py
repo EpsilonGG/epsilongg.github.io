@@ -13,10 +13,17 @@
 
 为什么用品牌而不是作品名：`『SummerPocketsSunnysideStories』` 一个名字就
 吃掉一半预算，而 `SMEE`、`Key` 读起来一样清楚。
+
+2026-11-12 补：第四栏「B站动态」是第二数据源，命中新作规则的组也会进第一栏。
+B 站条目长得像 `- [发布者](URL)：正文`，主语会和品牌名重复；而且一个促销组
+动辄二十来条，按条目数排序会直接把 X 侧头条挤出亮点句。所以挑主语时跳过
+`rules.json:bilibili.brand_prefix` 开头的品牌组，正文条目数仍照实计入。
 """
 from __future__ import annotations
 
 import re
+
+from .config import load_rules
 
 LIMIT = 70
 
@@ -106,6 +113,11 @@ def _fallback(stats: dict, order: list[str]) -> str:
             f"按「{' / '.join(order)}」整理。")
 
 
+def bili_brand_prefix() -> str:
+    """亮点主语要跳过的第二数据源品牌前缀（配置在 rules.json，不硬编码两份）。"""
+    return str((load_rules().get("bilibili") or {}).get("brand_prefix") or "")
+
+
 def build(md: str, stats: dict, order: list[str]) -> str:
     """从对外正文算出本期亮点句，长度保证 ≤70 字。"""
     if not order:
@@ -116,8 +128,12 @@ def build(md: str, stats: dict, order: list[str]) -> str:
         return _fallback(stats, order)
 
     picks: list[tuple[str, str]] = []
+    skip_prefix = bili_brand_prefix()
     for game in _ranked(column["games"]):
         if not game["bullets"]:
+            continue
+        # B 站转述组只留在正文里，不拿来当亮点主语（见模块 docstring）。
+        if skip_prefix and game["brand"].startswith(skip_prefix):
             continue
         clause = _clause(game["bullets"][0])
         if not clause:

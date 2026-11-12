@@ -705,10 +705,25 @@ def build_sections(records: list[dict], corpus: dict, identity: Identity,
             for g in dict.fromkeys(i["group_key"] for i in items)
         ]
         sections.append(section)
-    column_order = {name: i for i, name in enumerate(COLUMNS)}
-    sections.sort(key=lambda s: (column_order[s["column"]], s["rank"], s["label"]))
+    sections.sort(key=section_sort_key)
     apply_display_columns(sections, rules)
     return sections
+
+
+def section_sort_key(section: dict) -> tuple:
+    """品牌大单元的默认顺序（2026-11-12 用户裁决）。
+
+    旧写法先按归栏三值分组（作品情报 → 品牌动向 → 业界动向），同一栏内再按
+    rank 排。结果「新作」栏（只有作品情报派生的大单元）是纯梯队序，而「作品情报」
+    栏里由品牌动向合并进来的大单元被整段压到末尾——梯队 1 的 Key / ぱれっと
+    会排在一堆梯队 3 品牌之后，两栏看起来用了两套排序。
+
+    现在两栏共用同一份 rank：归栏三值不再参与比较，作品情报与品牌动向派生的
+    大单元按 (梯队 → 梯队内顺序 → 条目数降序 → 名称) 混排，业界动向单独垫底。
+    新作栏全由作品情报派生，相对顺序不变；改的只是作品情报栏的品牌顺序。
+    `decisions.section_order` 直接取这份顺序，出稿 / 筛选页 JS 都不用另算。
+    """
+    return (section["column"] == INDUSTRY, section["rank"], section["label"])
 
 
 def apply_display_columns(sections: list[dict], rules: dict) -> set[str]:

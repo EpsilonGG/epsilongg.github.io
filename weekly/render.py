@@ -1,8 +1,10 @@
-"""展示层：三栏（新作 / 作品情报 / 业界动向）+ `tier_order` 默认顺序 + 与筛选页逐字节一致的 Markdown。
+"""展示层：四栏（新作 / 作品情报 / 业界动向 / B站动态）+ `tier_order` 默认顺序 + 与筛选页逐字节一致的 Markdown。
 
 2026-11-10 正式版裁决：品牌动向并入作品情报、新作整组上提为第一栏、
 看点 / 互动栏目删除。归栏三值仍是证据（`sections[].column`），展示用
 `item["display_column"]`——两端读同一份，不各算一遍。
+2026-11-12 裁决：B 站动态作为第二数据源单独成行走第四栏（不经 X 侧归栏），
+命中游戏级「新作」规则的那几组仍上提到第一栏。
 
 正文不写出处键；名单外账号条目按裁决保留一条指向原推 URL 的
 Markdown 链接（URL 取自源索引），其余来源账号、候选分句与完整源索引只在素材库与筛选页。
@@ -32,7 +34,7 @@ def build_lead(result: dict) -> str:
         f"（{len(c['indexed_issues'])} 期带 M1 分句索引，{len(c['prose_only_issues'])} 期仅正本散文）；"
         f"源索引 {len(c['source_refs'])} 键 / 候选分句 {len(c['candidates'])} 条。"
         f"四类筛选后入稿 {s['verdicts']['admit']} 条，排除前折成 {s['sections']} 个品牌中标题 / "
-        f"{s['game_groups']} 个游戏小标题 / {s['items']} 条小条目，按三栏展示。"
+        f"{s['game_groups']} 个游戏小标题 / {s['items']} 条小条目，按展示栏目分流。"
     )
 
 
@@ -180,6 +182,18 @@ def collect(data: dict, decisions: dict) -> dict:
             if section.get("brand_url") and not brand_urls[column].get(section["label"]):
                 brand_urls[column][section["label"]] = section["brand_url"]
 
+    # 第四栏「B站动态」：行已经由 weekly/bilibili.py 算好（含游戏级新作分流），
+    # 这里只按 column 注册，Python 与筛选页内联 JS 都不再各自判断。B 站品牌
+    # 中标题故意不带官号链接——它没有 X 官号，check 的链接白名单也不认。
+    for row in data.get("bilibili_lines") or []:
+        column = str(row.get("column") or "")
+        key = str(row.get("key") or "")
+        if key in di or column not in columns:
+            continue
+        target = register(column, str(row["brand"]), str(row["gkey"]), str(row["glabel"]))
+        target.append({"text": str(row["text"]), "official": False, "key": key})
+        counts[column]["items"] += 1
+
     for column in columns:
         counts[column]["sections"] = len(brand_order[column])
     return {"format": fmt, "columns": columns, "brand_order": brand_order,
@@ -200,7 +214,7 @@ def brand_heading(brand: str, url: str = "") -> str:
 def render_markdown(data: dict, decisions: dict) -> str:
     """四层结构：`## 栏目` → `### 品牌` → `#### 游戏` → `- 小条目`。
 
-    三栏＝新作 / 作品情报（原品牌动向并入）/ 业界动向；全部走四层，没有铺平栏。
+    展示栏由 `DISPLAY_COLUMNS` 给（现为四栏）；全部走四层，没有铺平栏。
     空栏不输出：没有条目的栏目连 `## ` 标题都不写（2026-11-10 用户裁决）。
     必须与 `editor.py` 内联 JS 的 buildMarkdown 逐字节一致（check 会复核）。
     """
@@ -238,6 +252,8 @@ def render_markdown(data: dict, decisions: dict) -> str:
 
 
 def build_editor_data(result: dict, title: str, lead: str) -> dict:
+    from . import bilibili
+
     corpus = result["corpus"]
     highlights, interactions = build_feeds(result)
     snapshot = result["rules_snapshot"]
@@ -248,8 +264,11 @@ def build_editor_data(result: dict, title: str, lead: str) -> dict:
         "title": title,
         "lead": lead,
         "stage": "正式版 · 本地工作台输出；对外正本见 /weekly/。",
-        "note": "栏目(大) → 品牌(中) → 游戏(小) → 短横线后的小条目。栏目＝新作 / 作品情报 / 业界动向：品牌动向并入作品情报，品牌级条目落在该品牌下的「品牌动向」小标题里；带新作标签的游戏整组提到第一栏；**某一栏没有条目就整节不输出**（业界动向常为空）。品牌中标题挂官号主页链接（`###` 后面的品牌名做成指向 `x.com/<handle>` 的链接），该品牌在这一栏没有官号条目时退回纯文本。官号条目只写正文、不写账号名或品牌名（品牌名已是中标题）。非官号保留「主语：」；名单外账号主语用 @handle 并挂原推链接；品牌号转发的条目署被转发账号的真实名称并挂原推链接（账号名已写进正文时，原地给那个名字挂链）。书名号：作品『』、角色「」、乐曲与书籍《》。生日词与「未标注作品」条目默认不入稿、可在筛选页点「恢复」；看点 / 互动栏目已删除。",
+        "note": "栏目(大) → 品牌(中) → 游戏(小) → 短横线后的小条目。栏目＝新作 / 作品情报 / 业界动向 / B站动态：品牌动向并入作品情报，品牌级条目落在该品牌下的「品牌动向」小标题里；带新作标签的游戏整组提到第一栏；**某一栏没有条目就整节不输出**（业界动向常为空）。品牌中标题挂官号主页链接（`###` 后面的品牌名做成指向 `x.com/<handle>` 的链接），该品牌在这一栏没有官号条目时退回纯文本。官号条目只写正文、不写账号名或品牌名（品牌名已是中标题）。非官号保留「主语：」；名单外账号主语用 @handle 并挂原推链接；品牌号转发的条目署被转发账号的真实名称并挂原推链接（账号名已写进正文时，原地给那个名字挂链）。书名号：作品『』、角色「」、乐曲与书籍《》。生日词与「未标注作品」条目默认不入稿、可在筛选页点「恢复」；看点 / 互动栏目已删除。B 站动态是第二数据源，只读 `data/bilibili/galgame/<日>.jsonl`，不进 X 侧归栏；按同一份游戏级规则命中「新作」的组上提到第一栏，其余留在第四栏。",
         "columns": list(DISPLAY_COLUMNS),
+        # B 站动态：第二数据源的展示行，游戏级「新作」过滤已算好并写进 column。
+        # 筛选页内联 JS 只读不算，parity 才不会两边各判一遍。
+        "bilibili_lines": bilibili.build_lines(corpus, snapshot),
         # 筛选页左侧按「归栏三值」分盒（那是证据），右侧出稿按 display_columns。
         "section_columns": list(COLUMNS),
         "format": display_format(snapshot),
@@ -281,6 +300,8 @@ def _source_line(src: dict) -> str:
 
 
 def render_material(result: dict, data: dict) -> str:
+    from . import bilibili
+
     corpus, stats = result["corpus"], result["stats"]
     lines = [
         "# 周报选材库 · " + data["title"],
@@ -386,6 +407,7 @@ def render_material(result: dict, data: dict) -> str:
     if not result["evidence"]["annotation"]:
         lines.append("- （无）")
     lines.append("")
+    lines += bilibili.material_lines(corpus)
     return "\n".join(lines)
 
 

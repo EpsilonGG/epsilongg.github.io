@@ -78,6 +78,50 @@ def _compile(cfg: dict) -> tuple[list[tuple[str, re.Pattern]], re.Pattern]:
     return pos, re.compile(str(cfg.get("negative") or "(?!)"), re.I)
 
 
+def _row_hits(sentence: str, pos: list[tuple[str, re.Pattern]],
+              neg: re.Pattern) -> list[str]:
+    """单条命中的信号；同一句命中 negative 就整句不计。"""
+    if neg.search(sentence):
+        return []
+    return [name for name, rex in pos if rex.search(sentence)]
+
+
+def _has_other_news(rows: list[dict], cfg: dict) -> bool:
+    """「在当期有其它任何消息时」——条件信号的闸门。
+
+    只要这个游戏组里还存在一条**不是仅命中条件信号**的条目就算：没有命中任何
+    信号的普通消息也算「其它消息」，只有清一色 CG 的单条 / 多条不算。
+    """
+    pos, neg = _compile(cfg)
+    conditional = set(cfg.get("conditional_signals") or [])
+    if not conditional:
+        return True
+    for row in rows:
+        hits = _row_hits(str(row.get("sentence") or ""), pos, neg)
+        if not hits or not all(h in conditional for h in hits):
+            return True
+    return False
+
+
+def game_signals(rows: list[dict], cfg: dict) -> list[str]:
+    """一个游戏组当期命中的信号（新作标签的**唯一**口径）。
+
+    出稿分流（`new_work_labels`）与分流预览共用这一份结果，避免两边各算一遍。
+    `conditional_signals` 里的信号（现为「公开新CG」）只有当期还有其它消息
+    时才计入；其余信号照旧按句命中即算。
+    """
+    pos, neg = _compile(cfg)
+    conditional = set(cfg.get("conditional_signals") or [])
+    cond_ok = _has_other_news(rows, cfg)
+    found: list[str] = []
+    for row in rows:
+        for name in _row_hits(str(row.get("sentence") or ""), pos, neg):
+            if name in conditional and not cond_ok:
+                continue
+            found.append(name)
+    return sorted(set(found))
+
+
 def _line(item: dict, fmt: dict) -> str:
     """与 render.line() 同口径：新作是作品情报的子集，沿用作品情报的前缀规则。"""
     prefix = str(item.get("prefix_md") or item.get("subject_prefix") or "")
@@ -100,7 +144,6 @@ def new_work_labels(sections: list[dict], cfg: dict) -> set[str]:
     标签来源按 `rules.json:game_routing.label_source`：
     `auto_suggestion`（默认，关键词信号）/ `manual`（只认人工清单）。
     """
-    pos, neg = _compile(cfg)
     apply_to = cfg.get("apply_to") or [WORK]
     by_game: dict[str, list[dict]] = defaultdict(list)
     for sec in sections:
@@ -119,14 +162,7 @@ def new_work_labels(sections: list[dict], cfg: dict) -> set[str]:
         if source == "manual":
             suggested = False
         else:
-            suggested = False
-            for r in rows:
-                sentence = str(r.get("sentence") or "")
-                if neg.search(sentence):
-                    continue
-                if any(rex.search(sentence) for _, rex in pos):
-                    suggested = True
-                    break
+            suggested = bool(game_signals(rows, cfg))
         if game in manual or suggested:
             labels.add(game)
     return labels
@@ -164,12 +200,16 @@ def build_preview(rules: dict) -> dict:
     labels = new_work_labels(data["sections"], cfg)
 
     games: list[dict] = []
+    conditional = set(cfg.get("conditional_signals") or [])
     for game, rows in sorted(by_game.items(), key=lambda x: (-len(x[1]), x[0])):
         evidence: list[dict] = []
         signals: list[str] = []
+        # 条件信号的闸门与出稿分流共用（game_signals 口径），预览不能自己另算。
+        cond_ok = _has_other_news(rows, cfg)
         for r in rows:
-            hit = [name for name, rex in pos if rex.search(r["sentence"])]
-            if hit and not neg.search(r["sentence"]):
+            hit = _row_hits(r["sentence"], pos, neg)
+            hit = [h for h in hit if h not in conditional or cond_ok]
+            if hit:
                 evidence.append({"sentence": r["sentence"], "signals": hit,
                                  "day": r["day"]})
                 signals.extend(hit)
@@ -267,6 +307,8 @@ def build_preview(rules: dict) -> dict:
             "new_column": cfg["new_column"], "mode": cfg.get("mode"),
             "label_source": source, "apply_to": cfg.get("apply_to"),
             "case_study": case, "note": cfg["note"],
+            "conditional_signals": sorted(conditional),
+            "conditional_signals_note": cfg.get("conditional_signals_note") or "",
             "mode_note": cfg.get("mode_note"),
             "label_source_note": cfg.get("label_source_note"),
             "isolation_note": cfg.get("isolation_note"),
@@ -440,6 +482,11 @@ def render_html(payload: dict, path: Path) -> str:
         '<div class="note">每行的「信号」是游戏组内<b>所有条目</b>汇总出来的，'
         '同一句命中 <code>negative</code>（抱枕 / 周年 / 转别家新作 …）就不计。'
         '这一层故意做得很保守、很透明，方便你决定要不要换成 VNDB 发售日或纯人工清单。</div>'
+        + ('<div class="note"><b>带当期闸门的条件信号</b>：'
+           + '、'.join(esc(x) for x in cfg.get("conditional_signals") or [])
+           + ' —— 只有该游戏在当期还有其它任何消息时才计入；单独一条 CG 不算新作投放依据。'
+           + esc(cfg.get("conditional_signals_note") or "") + '</div>'
+           if cfg.get("conditional_signals") else '') +
         '<table><thead><tr><th>游戏</th><th class="num">条目</th><th>信号</th>'
         '<th>命中句（最多 3 条）</th><th>标签</th></tr></thead><tbody>'
         + "".join(

@@ -1,12 +1,13 @@
-"""筛选页生成器：按钮文案 / 顺序 / 行为沿用旧稿，正文按正式版三栏输出。
+"""筛选页生成器：按钮文案 / 顺序 / 行为沿用旧稿，正文按正式版展示栏目输出。
 
 规格（沿用已归档的 `archive/weekly_studio` 时代 `editor.html`）：
 * 工具栏：输出新版周报(primary) / 导出 decisions.json / 恢复默认；输出区：复制正文
 * 大单元：↑ ↓ 删除；小单元：源 ↑ ↓ 删除；看点 / 互动：已停用，只留查证
 * 拖动排序（把手）、localStorage 保存决策、showSaveFilePicker 覆盖同一 md 文件
 * 决策 schema 与旧稿同名同字段，额外保留归栏三值 column 信息
-差异只在：`buildMarkdown` 输出 `## 新作 / ## 作品情报 / ## 业界动向`，
-且展示栏目由 Python 预先算好（`item["display_column"]`），JS 只读不算。
+差异只在：`buildMarkdown` 输出 `## 新作 / ## 作品情报 / ## 业界动向 / ## B站动态`，
+且展示栏目由 Python 预先算好（`item["display_column"]` 与 `bilibili_lines[].column`），
+JS 只读不算。B 站动态是第二数据源的只读旁路，不进 X 侧归栏三值。
 """
 from __future__ import annotations
 
@@ -434,6 +435,15 @@ _JS = r"""
         if(sec.brand_url && !brandUrl[column][sec.label]) brandUrl[column][sec.label]=sec.brand_url;
       });
     });
+    // 第四栏「B站动态」：column / brand / group / text 全由 Python 算好，
+    // 与 render.collect() 同一份数据、同一段注册顺序，parity 才逐字节相同。
+    (DATA.bilibili_lines||[]).forEach(function(ln){
+      if(di[ln.key]) return;
+      if(cols.indexOf(ln.column)<0) return;
+      register(ln.column, ln.brand, ln.gkey, ln.glabel)
+        .push({text:ln.text, official:false});
+      counts[ln.column].items++;
+    });
     cols.forEach(function(c){
       var body=[];
       order[c].forEach(function(brand){
@@ -623,7 +633,8 @@ def render_html(data: dict, path: Path) -> str:
     switch_text = " / ".join(data.get("switch_columns") or [])
     badges = "".join(
         f'<span class="badge">{label}</span>' for label in (
-            "四类筛选 + 三栏展示", "品牌动向并入作品情报", "新作整组提到第一栏", "官号条目前置",
+            "四类筛选 + 四栏展示", "品牌动向并入作品情报", "新作整组提到第一栏",
+            "B站动态：第二数据源只读旁路", "官号条目前置",
             "未标注作品默认不入初稿", "名单外原推链接", "生日词默认不入初稿",
             "只读旁路", "日报正本只读", "状态只存本机浏览器",
             f"{len(data['issues'])} 期 Galgame 全集",
@@ -641,8 +652,9 @@ def render_html(data: dict, path: Path) -> str:
         '<button id="ws-reset" type="button">恢复默认</button>'
         '<span class="ws-status" id="ws-status"></span></div>'
         '<div class="ws-note">出稿层级：栏目（大标题）→ 品牌（中标题）→ 游戏（小标题）→ '
-        '短横线后的小条目。正式版三栏＝新作 / 作品情报 / 业界动向：品牌动向并入作品情报，'
+        '短横线后的小条目。正式版四栏＝新作 / 作品情报 / 业界动向 / B站动态：品牌动向并入作品情报，'
         '品牌级条目落在该品牌下的「品牌动向」小标题里；带新作标签的游戏整组提到第一栏。'
+        'B 站动态只读 `data/bilibili/galgame/<日>.jsonl`，按同一份游戏级规则命中新作的组上提，其余留在第四栏。'
         '官号（manufacturer 自发布）条目只写正文、不写账号名或品牌名（品牌名已是中标题）；'
         '非官号保留「前缀：」，名单外账号用 <code>@handle</code> 并挂原推链接（URL 取自源索引，不拼造）。'
         '品牌大单元、小条目都能「删除」做筛选（可撤销）；「未标注作品」与生日词条目'
@@ -650,7 +662,7 @@ def render_html(data: dict, path: Path) -> str:
         '点小条目的「源」展开候选分句与情报源索引（默认折叠，重复推文全部保留在索引里）。'
         '点「输出新版周报」得到筛选后的新稿，同时下载 <code>draft-selected.md</code>；'
         '导出 <code>decisions.json</code> 后可交给命令行落成文件。'
-        f'初稿正文不带出处键；除名单外原推链接外不带链接。展示固定三栏：{column_note}。</div>'
+        f'初稿正文不带出处键；除名单外原推链接与 B 站原文链接外不带链接。展示栏目：{column_note}。</div>'
         f'{columns_html}'
         '<h3 class="ws-h3">看点（已停用 · 不进稿，只留查证）</h3><div id="ws-highlights"></div>'
         '<details class="ws-details" id="ws-repeats"></details>'

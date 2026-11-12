@@ -19,17 +19,21 @@ import subprocess
 import sys
 from pathlib import Path
 
-from .config import (COLUMNS, DISPLAY_COLUMNS, EVIDENCE, MOVEMENT, NEW, OUT,
-                     PACKAGE, WORK, read_json, write_json, write_text, load_rules)
+from .config import (BILI_VIEW, COLUMNS, DISPLAY_COLUMNS, EVIDENCE, MOVEMENT,
+                     NEW, OUT, PACKAGE, WORK, read_json, write_json, write_text,
+                     load_rules)
 from . import (corpus, pipeline, render, editor, image_preview,
                media_backfill, taxonomy_preview, game_routing, draft_export,
-               brackets, publish as weekly_publish)
+               brackets, bilibili, publish as weekly_publish)
 
 
 def cmd_build(args) -> int:
     rules = load_rules()
     data_set = corpus.build(since=args.since, until=args.until,
                             last_days=args.last_days)
+    # B 站动态是第二数据源：只读当期覆盖日的正本，挂到语料字典上，
+    # 但绝不写进 X 侧 source_refs / candidates / daily_rows。
+    data_set = bilibili.attach(data_set, rules)
     write_json(OUT / "corpus.json", data_set)
     result = pipeline.run(data_set, rules)
     data = render.render_all(result, OUT)
@@ -51,6 +55,11 @@ def cmd_build(args) -> int:
           f"豁免 {s.get('birthday_exempt', 0)}；无主体观后感 {s.get('no_subject_records', 0)} 条")
     print(f"  内容组 {s['content_groups']}（重复 {s['duplicate_groups']}）；"
           f"转发提升 {s['promoted_records']} 条")
+    bl = data.get("bilibili_lines") or []
+    print(f"  B站动态正本 {data_set['stats'].get('bilibili_rows', 0)} 条 → "
+          f"新作 {sum(1 for x in bl if x['column'] == NEW)} 条 / "
+          f"B站动态 {sum(1 for x in bl if x['column'] == BILI_VIEW)} 条"
+          "（游戏级规则与 X 侧同源）")
     ip = preview["stats"]
     print(f"  图片栏目（试验·独立 HTML）：带图推文 {ip['image_tweets']} "
           f"（抓取 {ip['crawl_image_tweets']} + sidecar {ip.get('backfill_tweets', 0)}）/ "
@@ -152,6 +161,14 @@ def cmd_check(_args) -> int:
             if column not in live_columns:
                 column = section["column"]
             live_columns[column] += 1
+    # 第四栏（以及可能上提到第一栏）的 B 站行不在 data["sections"] 里，
+    # 单独计一次，不然 expect_columns 会漏掉「B站动态」这节。
+    for row in data.get("bilibili_lines") or []:
+        if row["key"] in deleted_items:
+            continue
+        column = str(row.get("column") or "")
+        if column in live_columns:
+            live_columns[column] += 1
     expect_columns = [c for c in DISPLAY_COLUMNS if live_columns[c]]
 
     positions = [draft.find("## " + c) for c in expect_columns]
@@ -174,6 +191,10 @@ def cmd_check(_args) -> int:
     # 且目标 URL 必须逐字来自 source_refs.url；裸 URL 一律拦下。
     allowed_urls = {str(v.get("url") or "") for v in corpus_data["source_refs"].values()
                     if v.get("url")}
+    # B 站原文链接是第二数据源，键与 X 侧源索引分开放（source_refs 一个键都不加）。
+    allowed_urls |= {str(v.get("url") or "")
+                     for v in (corpus_data.get("bilibili_refs") or {}).values()
+                     if v.get("url")}
     # 品牌中标题的官号主页链接（`https://x.com/<handle>`）不是推文、不在源索引里，
     # 但 handle 必须来自名单，所以按「名单 handle 拼出的主页 URL」单独放行。
     profile_urls = {str(s.get("brand_url") or "") for s in data["sections"]
@@ -190,6 +211,46 @@ def cmd_check(_args) -> int:
     leaked_keys = [k for k in corpus_data["source_refs"] if k in draft]
     if leaked_keys:
         problems.append(f"draft.md 漏出了出处键：{leaked_keys[:3]}")
+
+    # 2026-11-12 裁决：第四栏「B站动态」＝第二数据源的只读旁路。
+    # 守恒（正本 → 展示行）、隔离（键不进 X 侧源索引、正文不漏出处键）、
+    # 链接（只许指向 B 站正本里登记过的 canonical_url）、版式（每品行首带链接）。
+    bili_rows = list(data.get("bilibili_lines") or [])
+    bili_refs = corpus_data.get("bilibili_refs") or {}
+    bili_urls = {str(v.get("url") or "") for v in bili_refs.values() if v.get("url")}
+    if BILI_VIEW:
+        expect_rows = int((corpus_data.get("stats") or {}).get("bilibili_rows", 0))
+        if len(bili_rows) != expect_rows:
+            problems.append(f"B站动态展示行 {len(bili_rows)} ≠ 正本 {expect_rows} 条")
+        for row in bili_rows:
+            column = str(row.get("column") or "")
+            text = str(row.get("text") or "")
+            if column not in (NEW, BILI_VIEW):
+                problems.append(f"B站行落到非法栏目：{column}")
+                break
+            if not text.startswith("- [") or "](" not in text:
+                problems.append(f"B站行缺少发布者原文链接：{row.get('key')}")
+                break
+            if str(row.get("url") or "") not in bili_urls or row.get("key") not in bili_refs:
+                problems.append(f"B站行链接/键不在正本里：{row.get('key')}")
+                break
+            if str(row.get("glabel") or "") == "未标注作品":
+                problems.append("B站行用了默认排除的小标题「未标注作品」")
+                break
+            if not str(row.get("brand") or "").startswith("B站 · "):
+                problems.append(f"B站品牌中标题没加防冲突前缀：{row.get('brand')}")
+                break
+            stripped = re.sub(r"\]\(https?://[^)\s]+\)", "](URL)", text)
+            if "http://" in stripped or "https://" in stripped:
+                problems.append(f"B站行残留裸链接：{row.get('key')}")
+                break
+        bad_bili = [u for u in re.findall(r"\]\((https?://[^)\s]+)\)", draft)
+                    if "bilibili.com" in u and u not in bili_urls]
+        if bad_bili:
+            problems.append(f"draft.md 出现未在 B 站正本登记的链接：{bad_bili[:3]}")
+        leaked_bili = [k for k in bili_refs if k in draft]
+        if leaked_bili:
+            problems.append(f"draft.md 漏出了 B 站出处键：{leaked_bili[:3]}")
 
     # 守恒：去重丢掉的记录 + 存活记录 = 原始记录；三种结论之和 = 存活记录。
     dedupe_ev = read_json(EVIDENCE / "dedupe.json")["dropped_records"]
@@ -741,7 +802,7 @@ def cmd_check_site(_args) -> int:
 
 
 def main(argv: list[str] | None = None) -> int:
-    parser = argparse.ArgumentParser(prog="weekly", description="Galgame 周报正式版：四类筛选 / 三栏展示 / 带图 HTML")
+    parser = argparse.ArgumentParser(prog="weekly", description="Galgame 周报正式版：四类筛选 / 四栏展示（含 B站动态）/ 带图 HTML")
     sub = parser.add_subparsers(dest="command", required=True)
     b = sub.add_parser("build", help="从 Galgame 日报重建并出稿（不联网）")
     b.add_argument("--since", help="窗口起始日 YYYY-MM-DD（含）")

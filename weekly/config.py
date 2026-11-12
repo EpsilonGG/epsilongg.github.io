@@ -18,6 +18,9 @@ EVIDENCE = OUT / "evidence"
 
 DAILY = ROOT / "data" / "daily"
 CLAUSES = ROOT / "out" / "clauses"
+# B 站动态正本（2026-11-12 用户裁决：周报第二数据源）。文件名是 JST 覆盖日，
+# 与 Galgame 日报期号一一对应；由 scripts/bilibili_daily.py fetch 落盘，周报只读。
+BILIBILI = ROOT / "data" / "bilibili" / "galgame"
 ROSTER = ROOT / "src" / "config" / "daily-roster-galgame.json"
 # 名单外账号的显示名表：只给链接标签用，不参与分类，也不进日报名单。
 DISPLAY_NAMES = PACKAGE / "display-names.json"
@@ -36,13 +39,15 @@ if len(COLUMNS) != 3:
     raise RuntimeError("rules.json:columns 必须正好三组")
 WORK, MOVEMENT, INDUSTRY = COLUMNS
 
-# 展示栏目（2026-11-10 正式版裁决）：新作第一栏 + 作品情报（原品牌动向并入）+ 业界动向。
-# 归栏仍按三值算（那是「为什么放这里」的证据），展示时品牌动向并入作品情报，
-# 带新作标签的游戏整组上提到第一栏。改展示顺序只动 rules.json:display_columns。
+# 展示栏目：前三栏＝新作 / 作品情报（原品牌动向并入）/ 业界动向（2026-11-10 裁决），
+# 第四栏＝B站动态（2026-11-12 裁决，只收 B 站正本，不进 X 侧归栏）。
+# 归栏仍按三值算（那是「为什么放这里」的证据），带新作标签的游戏整组上提到第一栏。
+# 改展示顺序只动 rules.json:display_columns；三栏写法（旧回测）仍然合法。
 DISPLAY_COLUMNS: tuple[str, ...] = tuple(read_json(RULES)["display_columns"])
-if len(DISPLAY_COLUMNS) != 3:
-    raise RuntimeError("rules.json:display_columns 必须正好三栏")
-NEW, WORK_VIEW, INDUSTRY_VIEW = DISPLAY_COLUMNS
+if len(DISPLAY_COLUMNS) not in (3, 4):
+    raise RuntimeError("rules.json:display_columns 必须是三栏或四栏")
+NEW, WORK_VIEW, INDUSTRY_VIEW = DISPLAY_COLUMNS[:3]
+BILI_VIEW = DISPLAY_COLUMNS[3] if len(DISPLAY_COLUMNS) > 3 else ""
 if WORK_VIEW != WORK or INDUSTRY_VIEW != INDUSTRY:
     raise RuntimeError("display_columns 的第二、三栏必须沿用归栏名")
 
