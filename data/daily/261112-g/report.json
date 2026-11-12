@@ -1,0 +1,629 @@
+{
+  "schema_version": 1,
+  "issue": {
+    "id": "261112-g",
+    "published_at": "2026-11-13T00:42:22.523039+09:00",
+    "window": {
+      "start": "2026-11-12T00:00:00+09:00",
+      "end": "2026-11-13T00:00:00+09:00"
+    },
+    "status": "confirmed",
+    "confirmed_at": "2026-11-12T15:43:50+00:00"
+  },
+  "counts": {
+    "items": 193,
+    "accounts": 52,
+    "late": 56,
+    "skipped_duplicate": 0
+  },
+  "description": "『恋愛、はじめまして』宣布移植主机，sprite 新作进入发售前两周，アパタイト 与 SMEE 各推装盘与体验版。",
+  "highlights": [
+    {
+      "text": "AirVelocity 第三弹把 ASa Project『恋愛、はじめまして』移植到 Switch/PS5/PS4，定 2027 年 3 月 25 日发售，Switch 版还追加新录剧情。",
+      "sources": [
+        "x:2120759152188493898",
+        "x:2120749309469827574"
+      ]
+    },
+    {
+      "text": "sprite『小金井荘と金色の揚羽蝶』进入发售前两周，11/13 起 メロンブックス 每单送明信片，2027/1/31 还有一场钢琴音乐会。",
+      "sources": [
+        "x:2120698892522316179",
+        "x:2120803713589871020"
+      ]
+    },
+    {
+      "text": "アパタイト 第319弾『同僚の秘密がヤバい～あまりに深すぎた性癖沼～』装盘完成并放出体验版，DL 版 12/11、PK 版 12/25 发售。",
+      "sources": [
+        "x:2120793716936093824",
+        "x:2120794202686853193"
+      ]
+    },
+    {
+      "text": "SMEE『ワンナイトアフター』体验版公开中、DL 版开始预约，11/27 发售并定办发售纪念活动。",
+      "sources": [
+        "x:2120841543351140527",
+        "x:2120844053633802529"
+      ]
+    }
+  ],
+  "insights": [],
+  "interactions": [
+    {
+      "text": "HOOKSOFT 与 SMEE、ASa Project 的联名咖啡厅正在池袋办，SMEE 同时在 Fantia 公布『ワンナイトアフター』的发售纪念活动。",
+      "sources": [
+        "x:2120691114957324594",
+        "x:2120792663385571564"
+      ]
+    },
+    {
+      "text": "POISON 把过去的通贩周边委托给 ラッセル，为 12/28 的 電気外祭り2026冬 备货；CRYSTALiA 也在同一场出展。",
+      "sources": [
+        "x:2120886008879440254",
+        "x:2120787475253907743"
+      ]
+    }
+  ],
+  "works": [
+    "AirVelocity（HOOKSOFT／ASa Project）『恋愛、はじめまして』CS 版定 2027/3/25 登陆 Switch/PS5/PS4，Switch 版追加新录剧情。",
+    "sprite『小金井荘と金色の揚羽蝶』进入发售前两周（11/26），11/13 起 メロンブックス 每单送明信片。",
+    "sprite 宣布 2027/1/31 办「sprite Piano Concert 2027」，安月名莉子、Ceui、riya 演唱。",
+    "アパタイト 第319弾『同僚の秘密がヤバい～あまりに深すぎた性癖沼～』装盘完成＋体验版公开，DL 12/11、PK 12/25。",
+    "SMEE『ワンナイトアフター』体验版公开中，DL 版预约开始，11/27 发售并定办发售纪念活动。",
+    "エンターグラム『君色パトラIF』开放体验版与 DLsite 商店页，BOOTH 限定版受注到 11/29。",
+    "エンターグラム『あじゅ～るメモリア』开始预约，本阿弥あずさ 主演兼监修，官方通贩限定版分两种。",
+    "でぼのす『神楽新風記～陽葵の章～』定 11/20 发售，各店铺有偿特典预约受理中。",
+    "DiGination『タマユラミライ』Switch 版 11/26 发售，11/12 起 10%OFF 预约特卖并放出体验版。",
+    "アミューズ『養花師の背徳愛～純真天使は抱かれて色めく～』开官网，指宿香奈実 由 葉月ひかり 献声。",
+    "Triangle『魔法戦士ソルシエルナイツ ～魔に魅入られし姫君たち～』发售在即，情报号 BugBug 已出特集。",
+    "KISS『夜伽クラス Vol.41 純愛ピュアラブメイド＆寝取らせスワッピングラブメイド』开始配信。",
+    "fgremake『夜勤病棟オンライン-New Operation-』事前登录中，公开 File.6 如月ひより（CV 来海）。",
+    "POISON『悲鳴』公布女主 三上律——篮球部的假小子，家里兄弟多、对异性没距离感。",
+    "akaeroCore『セヴンデイズ』开抽奖（游戏序号＋DLsite 2000 点），2026 年 Q4 发售。",
+    "akaeroCore『アンホーリーメイデン』放出 PV，主打无限分支与「下品エロ」。",
+    "ONEONE1《没落贵族的大小姐》正式发售，首发两周八折。",
+    "《天使☆嚣嚣 RE-BOOT！》小云雀来海 1/7 手办放出宣传 CM，原型取 こもわた遙華 的姿势。",
+    "《HEAVEN BURNS RED》樱庭星罗 迎来首个专属剧情活动，《绯染情报局》11/12 期同步总结。",
+    "《虚妄爱丽丝 -岐梦重缘-》公布红衣爱丽丝 普莉玛，CV 悠木碧。",
+    "《小白兔电商》五周年，官方发文回顾这五年。",
+    "《姆明：疯狂夏日》在 Switch/Switch 2/Steam 发售，官方放出预告片。",
+    "《音序核心》放出玩法展示——太空背景的节奏弹幕射击 Roguelike，武器按节拍自动开火。",
+    "HIKARI FIELD 官网商城把《魔女的花园》《DRACU-RIOT!》等中文版打到 28–63 元。"
+  ],
+  "categories": [],
+  "accounts": [
+    "Moepedia_net",
+    "appetite_game",
+    "TRYSET",
+    "silkysplus",
+    "kiss_staff",
+    "debonosu",
+    "AzarashiSoft",
+    "HOOKSOFT",
+    "VALKYRIA_info",
+    "purple_NewWork",
+    "CRYSTALiA_AC",
+    "smee_official",
+    "entergram_info",
+    "Amuse_kenzen",
+    "POISON_NEW1992",
+    "dessertsoft_tw",
+    "u_me_soft",
+    "FANDC_Staff",
+    "Amuse_sub",
+    "luneman_etc",
+    "fgremake",
+    "sprite_fairys",
+    "madostaff",
+    "nisidahajime",
+    "DiGination_info",
+    "yuzusoft",
+    "jitaku_st",
+    "project_citrus",
+    "holic_works",
+    "Muvluv_Official",
+    "BEEP_SHOP",
+    "twit_Gungnir",
+    "adahemas",
+    "SukeraSparo",
+    "Overflow_staff",
+    "nitroplus_staff",
+    "akaerocore",
+    "akaeroCore_JP",
+    "akaeroCore_kr",
+    "youtan0309",
+    "aikouka23",
+    "getchucom",
+    "AKOUtw",
+    "bili_298686071",
+    "bili_3546900143802616",
+    "bili_3690981385833115",
+    "bili_3546816528255265",
+    "bili_3546727040682166",
+    "bili_41883712",
+    "bili_3493105997187935",
+    "bili_39471072",
+    "bili_16302815"
+  ],
+  "people": [
+    {
+      "handle": "Moepedia_net",
+      "category": "",
+      "summary": "报道 Triangle『魔法戦士ソルシエルナイツ』发售在即，另汇总 KISS、SMEE 与 アパタイト 的动向。",
+      "via": [],
+      "sources": [
+        "x:2120869218619129928",
+        "x:2120878026728894539"
+      ]
+    },
+    {
+      "handle": "appetite_game",
+      "category": "",
+      "summary": "第319弾『同僚の秘密がヤバい～あまりに深すぎた性癖沼～』装盘完成＋体验版，DL 12/11、PK 12/25。",
+      "via": [],
+      "sources": [
+        "x:2120793716936093824",
+        "x:2120794202686853193"
+      ]
+    },
+    {
+      "handle": "TRYSET",
+      "category": "",
+      "summary": "说旗下两部作品原画都是 世紀末みのる，是开会时才知道的巧合。",
+      "via": [],
+      "sources": [
+        "x:2120829617087053915"
+      ]
+    },
+    {
+      "handle": "silkysplus",
+      "category": "",
+      "summary": "『サラたまREBOOT』第1回 的 歩サラ 签名周边已寄出，另宣布「たまキャス」复播。",
+      "via": [],
+      "sources": [
+        "x:2120710192820330584",
+        "x:2120721473820405850"
+      ]
+    },
+    {
+      "handle": "kiss_staff",
+      "category": "",
+      "summary": "『夜伽クラス Vol.41』开始配信，博客同步更新促销情报；駿河屋 秋叶原 摆了等身立牌。",
+      "via": [],
+      "sources": [
+        "x:2120791878195183977",
+        "x:2120816210875134260"
+      ]
+    },
+    {
+      "handle": "debonosu",
+      "category": "",
+      "summary": "『神楽新風記～陽葵の章～』定 11/20 发售，各店铺有偿特典预约受理中；广播第123回公开。",
+      "via": [],
+      "sources": [
+        "x:2120832416772432154",
+        "x:2120832232923574708"
+      ]
+    },
+    {
+      "handle": "AzarashiSoft",
+      "category": "",
+      "summary": "Fantia「ひまわり郵便」第108通更新，聊语尾。",
+      "via": [],
+      "sources": [
+        "x:2120803867931951123"
+      ]
+    },
+    {
+      "handle": "HOOKSOFT",
+      "category": "",
+      "summary": "宣布 AirVelocity 第三弹把『恋愛、はじめまして』移植 Switch/PS5/PS4，联名咖啡厅也在办。",
+      "via": [],
+      "sources": [
+        "x:2120759152188493898",
+        "x:2120714739626164422"
+      ]
+    },
+    {
+      "handle": "VALKYRIA_info",
+      "category": "",
+      "summary": "介绍『魔想の果のスノウホワイト』的 レイチェル 与「魔想転身」。",
+      "via": [],
+      "sources": [
+        "x:2120713202291929388"
+      ]
+    },
+    {
+      "handle": "purple_NewWork",
+      "category": "",
+      "summary": "『アマツツミ』插入歌「コトダマ紬ぐ未来」开始配信，附剧情 MV。",
+      "via": [],
+      "sources": [
+        "x:2120818888472666304"
+      ]
+    },
+    {
+      "handle": "CRYSTALiA_AC",
+      "category": "",
+      "summary": "公布 電気外祭り2026冬（12/28）第五弹出展企业，自己与 HOOKSOFT、SMEE 都在委托名单。",
+      "via": [],
+      "sources": [
+        "x:2120787475253907743"
+      ]
+    },
+    {
+      "handle": "smee_official",
+      "category": "",
+      "summary": "『ワンナイトアフター』体验版公开中、DL 版预约开始，11/27 发售。",
+      "via": [],
+      "sources": [
+        "x:2120841543351140527",
+        "x:2120844053633802529"
+      ]
+    },
+    {
+      "handle": "entergram_info",
+      "category": "",
+      "summary": "『君色パトラIF』体验版与 DLsite 页公开、BOOTH 限定版受注到 11/29；『あじゅ～るメモリア』预约中。",
+      "via": [],
+      "sources": [
+        "x:2120702278046994938",
+        "x:2120812525113757733"
+      ]
+    },
+    {
+      "handle": "Amuse_kenzen",
+      "category": "",
+      "summary": "推『養花師の背徳愛～純真天使は抱かれて色めく～』，介绍 指宿香奈実 由 葉月ひかり 献声。",
+      "via": [],
+      "sources": [
+        "x:2120793469857706021"
+      ]
+    },
+    {
+      "handle": "POISON_NEW1992",
+      "category": "",
+      "summary": "公布『悲鳴』女主 三上律（篮球部假小子），另把旧通贩周边委托给 ラッセル 备货电气外祭。",
+      "via": [],
+      "sources": [
+        "x:2120864192538296712",
+        "x:2120886008879440254"
+      ]
+    },
+    {
+      "handle": "dessertsoft_tw",
+      "category": "",
+      "summary": "为 11/26『どいなかガールズゆーとぴあ』做角色介绍。",
+      "via": [],
+      "sources": [
+        "x:2120799450092417061"
+      ]
+    },
+    {
+      "handle": "u_me_soft",
+      "category": "",
+      "summary": "介绍 31 年资历的 DDT 广报 佐瀬順一 并招人；另发『シンデレラガールズ』15 周年内容。",
+      "via": [],
+      "sources": [
+        "x:2120675418076500392",
+        "x:2120818903794188734"
+      ]
+    },
+    {
+      "handle": "FANDC_Staff",
+      "category": "",
+      "summary": "解释自家是能安静喝酒的居酒屋，也可看海报、拼模型、打游戏。",
+      "via": [],
+      "sources": [
+        "x:2120800116126937199"
+      ]
+    },
+    {
+      "handle": "Amuse_sub",
+      "category": "",
+      "summary": "用图解解释「逆NTR」是什么，并放『養花師の背徳愛』官网。",
+      "via": [],
+      "sources": [
+        "x:2120715203805376559",
+        "x:2120795986180149393"
+      ]
+    },
+    {
+      "handle": "luneman_etc",
+      "category": "",
+      "summary": "『スケベエルフの森へ』黑暗精灵 イヴリン 1/5 手办开始预约。",
+      "via": [],
+      "sources": [
+        "x:2120715204145418747"
+      ]
+    },
+    {
+      "handle": "fgremake",
+      "category": "",
+      "summary": "『夜勤病棟オンライン-New Operation-』事前登录中，公开 File.6 如月ひより（CV 来海）。",
+      "via": [],
+      "sources": [
+        "x:2120803791528198203"
+      ]
+    },
+    {
+      "handle": "sprite_fairys",
+      "category": "",
+      "summary": "『小金井荘と金色の揚羽蝶』倒数两周，11/13 起 メロンブックス 送明信片；2027/1/31 钢琴音乐会。",
+      "via": [],
+      "sources": [
+        "x:2120698892522316179",
+        "x:2120803713589871020"
+      ]
+    },
+    {
+      "handle": "madostaff",
+      "category": "",
+      "summary": "まどそふと 作品 PC 版最大 70%OFF 的特卖到当天 23:59。",
+      "via": [],
+      "sources": [
+        "x:2120838013211357690"
+      ]
+    },
+    {
+      "handle": "nisidahajime",
+      "category": "",
+      "summary": "只注意到 X 的私信通知功能突然恢复了。",
+      "via": [],
+      "sources": [
+        "x:2120791850663784460"
+      ]
+    },
+    {
+      "handle": "DiGination_info",
+      "category": "",
+      "summary": "『タマユラミライ』Switch 版 11/26 发售，11/12 起 10%OFF 预约特卖＋体验版。",
+      "via": [],
+      "sources": [
+        "x:2120871740515450994"
+      ]
+    },
+    {
+      "handle": "yuzusoft",
+      "category": "",
+      "summary": "『ねんどろいど 在原七海』再贩，楽天 店有通路限定特典。",
+      "via": [],
+      "sources": [
+        "x:2120717242346172598"
+      ]
+    },
+    {
+      "handle": "jitaku_st",
+      "category": "",
+      "summary": "只发了「今天是好皮肤日」并晒手。",
+      "via": [],
+      "sources": [
+        "x:2120654342042910779"
+      ]
+    },
+    {
+      "handle": "project_citrus",
+      "category": "",
+      "summary": "晒白鳄猫 あられ 的日常影片。",
+      "via": [],
+      "sources": [
+        "x:2120673002564280352"
+      ]
+    },
+    {
+      "handle": "holic_works",
+      "category": "",
+      "summary": "『水都は薄明』主角 穂純 生日，官方发文祝贺。",
+      "via": [],
+      "sources": [
+        "x:2120817647877238948"
+      ]
+    },
+    {
+      "handle": "Muvluv_Official",
+      "category": "",
+      "summary": "WEB 小说『マブラヴ：ディメンションズ』最新话「黄昏世界 黄昏の出撃」当晚公开。",
+      "via": [],
+      "sources": [
+        "x:2120819013605597610"
+      ]
+    },
+    {
+      "handle": "BEEP_SHOP",
+      "category": "",
+      "summary": "记录 PS5 六周年（初代 PS 已 32 年）；另推书籍《バイオハザードの誕生》与 X1 备份工具。",
+      "via": [],
+      "sources": [
+        "x:2120839590508650507",
+        "x:2120803808716398956"
+      ]
+    },
+    {
+      "handle": "twit_Gungnir",
+      "category": "",
+      "summary": "『Karanoshojo Complete Box Édition Limitée -Noir-』包装试作二号到货。",
+      "via": [],
+      "sources": [
+        "x:2120780119862313401"
+      ]
+    },
+    {
+      "handle": "adahemas",
+      "category": "",
+      "summary": "只说「リリー的故事真的很好」。",
+      "via": [],
+      "sources": [
+        "x:2120850522521636991"
+      ]
+    },
+    {
+      "handle": "SukeraSparo",
+      "category": "",
+      "summary": "百合游戏『Lock & Key』上线免费 18+ patch；百合短篇集『存在証明 EGOIST』预约分已寄出。",
+      "via": [],
+      "sources": [
+        "x:2120577985912746235",
+        "x:2120843963083235454"
+      ]
+    },
+    {
+      "handle": "Overflow_staff",
+      "category": "",
+      "summary": "翻出十多年前的签名板，聊起初次买的轻小说是『CrossDays』。",
+      "via": [],
+      "sources": [
+        "x:2120719944627437766",
+        "x:2120757101253550444"
+      ]
+    },
+    {
+      "handle": "nitroplus_staff",
+      "category": "",
+      "summary": "『刀剣乱舞ONLINE』的 こんのすけ 11/14 到丰田市博物馆办免费摄影会。",
+      "via": [],
+      "sources": [
+        "x:2120690594825851374"
+      ]
+    },
+    {
+      "handle": "akaerocore",
+      "category": "",
+      "summary": "『セヴンデイズ』开抽奖送游戏序号＋DLsite 2000 点，『アンホーリーメイデン』PV 也公开。",
+      "via": [
+        "akaeroCore_JP",
+        "akaeroCore_kr"
+      ],
+      "sources": [
+        "x:2120767383958908929",
+        "x:2120811343456399670"
+      ]
+    },
+    {
+      "handle": "youtan0309",
+      "category": "",
+      "summary": "按「几年前的今天」回顾旧作发售，聊 Fifth Aile 与 2006 年的美少女游戏圈。",
+      "via": [],
+      "sources": [
+        "x:2120532015522963637",
+        "x:2120849102774665417"
+      ]
+    },
+    {
+      "handle": "aikouka23",
+      "category": "",
+      "summary": "免费 SRPG「アーチケートラ」在 フリーゲーム夢現 公开，全 50 章。",
+      "via": [],
+      "sources": [
+        "x:2120780254939857277"
+      ]
+    },
+    {
+      "handle": "getchucom",
+      "category": "",
+      "summary": "上架 式波・アスカ 与「肉感少女 催●電車 千代田さゆ」手办预约，并连发店铺特典情报。",
+      "via": [],
+      "sources": [
+        "x:2120796847468147022",
+        "x:2120853736230912307"
+      ]
+    },
+    {
+      "handle": "AKOUtw",
+      "category": "",
+      "summary": "说要在『養花師の背徳愛』里出演，另报『はるまで、くるる。』500 日元只到当天。",
+      "via": [],
+      "sources": [
+        "x:2120836810628891120",
+        "x:2120865050168844389"
+      ]
+    },
+    {
+      "handle": "bili_298686071",
+      "category": "",
+      "summary": "放出《音序核心》玩法展示，主打节拍自动开火的弹幕 Roguelike。",
+      "via": [],
+      "sources": [
+        "bilibili:1269731085953007620"
+      ]
+    },
+    {
+      "handle": "bili_3546900143802616",
+      "category": "",
+      "summary": "发《Muv-Luv》BETA 研究设定：1968 年起为捕获 BETA 付出巨大牺牲。",
+      "via": [],
+      "sources": [
+        "bilibili:1269760697615515656"
+      ]
+    },
+    {
+      "handle": "bili_3690981385833115",
+      "category": "",
+      "summary": "《姆明：疯狂夏日》发售预告，Switch/Switch 2/Steam 已上市。",
+      "via": [],
+      "sources": [
+        "bilibili:1269687522114404370"
+      ]
+    },
+    {
+      "handle": "bili_3546816528255265",
+      "category": "",
+      "summary": "公布《虚妄爱丽丝 -岐梦重缘-》红衣爱丽丝 普莉玛，CV 悠木碧。",
+      "via": [],
+      "sources": [
+        "bilibili:1269802193408491526"
+      ]
+    },
+    {
+      "handle": "bili_3546727040682166",
+      "category": "",
+      "summary": "为《天使☆嚣嚣 RE-BOOT！》小云雀来海 1/7 手办放出宣传 CM。",
+      "via": [],
+      "sources": [
+        "bilibili:1269722242618490886"
+      ]
+    },
+    {
+      "handle": "bili_41883712",
+      "category": "",
+      "summary": "官网商城把六部中文版打到 28–63 元，含《魔女的花园》《DRACU-RIOT!》等。",
+      "via": [],
+      "sources": [
+        "bilibili:1269621540652056580"
+      ]
+    },
+    {
+      "handle": "bili_3493105997187935",
+      "category": "",
+      "summary": "《没落贵族的大小姐》正式发售、首发两周八折，并预告 Shiravune 次日公布新作。",
+      "via": [],
+      "sources": [
+        "bilibili:1269622092582617096",
+        "bilibili:1269750572219629569"
+      ]
+    },
+    {
+      "handle": "bili_39471072",
+      "category": "",
+      "summary": "整理 Key 社本周动态与《HEAVEN BURNS RED》樱庭星罗首个专属剧情活动。",
+      "via": [],
+      "sources": [
+        "bilibili:1269800080321282104"
+      ]
+    },
+    {
+      "handle": "bili_16302815",
+      "category": "",
+      "summary": "《小白兔电商》五周年，官方发文回顾五年。",
+      "via": [],
+      "sources": [
+        "bilibili:1269645641833775112"
+      ]
+    }
+  ],
+  "provenance": {
+    "generator": "daily",
+    "prompt_version": 1,
+    "cache_key": "answers:1",
+    "generated_at": "2026-11-12T15:43:45+00:00"
+  }
+}
