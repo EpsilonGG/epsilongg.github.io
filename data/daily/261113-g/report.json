@@ -1,0 +1,911 @@
+{
+  "schema_version": 1,
+  "issue": {
+    "id": "261113-g",
+    "published_at": "2026-11-14T00:40:51.612935+09:00",
+    "window": {
+      "start": "2026-11-13T00:00:00+09:00",
+      "end": "2026-11-14T00:00:00+09:00"
+    },
+    "status": "confirmed",
+    "confirmed_at": "2026-11-13T15:42:40+00:00"
+  },
+  "counts": {
+    "items": 282,
+    "accounts": 81,
+    "late": 1103,
+    "skipped_duplicate": 4
+  },
+  "description": "SMEE『ワンナイトアフター』装盘开体验版，ニトロプラス『楽園追放』新作上映，BEEP 复刻『ザナドゥ』。",
+  "highlights": [
+    {
+      "text": "SMEE『ワンナイトアフター』装盘完成，体验版已公开、DL 版在 FANZA GAMES 预约中；11/27 发售当天在通运会馆办 逢真井もこ 签名会。",
+      "sources": [
+        "x:2121206440937357761",
+        "x:2121125691479765242"
+      ]
+    },
+    {
+      "text": "ニトロプラス『楽園追放 心のレゾナンス』今日 11/13 上映，虚淵玄 执笔剧本，官方小说由 羊山十一郎 同日推出。",
+      "sources": [
+        "x:2121075830847570063",
+        "x:2121076082644582764"
+      ]
+    },
+    {
+      "text": "BEEP 把日本ファルコム『ザナドゥ』移植到 X68000，『ザナドゥ68K』11/26 发售 9680 日元，ソーサリアン 与 ダイナソア 随后跟上。",
+      "sources": [
+        "x:2121075588815585352"
+      ]
+    },
+    {
+      "text": "くまのみそふと『転性魔王さまは勇者に勝てない！２』装盘完成，11/20 DL 版发售，官网已放出可玩到 H 场景的体验版。",
+      "sources": [
+        "x:2121166182157869468",
+        "x:2121182534210117847"
+      ]
+    }
+  ],
+  "insights": [],
+  "interactions": [
+    {
+      "text": "AMUSE 集团两个号分工宣传同一部『養花師の背徳愛』：エレクトリップ 公布 柚木つばめ 唱的 OP，EROTICA 那边列特典。",
+      "sources": [
+        "x:2121158630003126633",
+        "x:2121156109570302055"
+      ]
+    },
+    {
+      "text": "CIRCUS 转推 CLOWN『アンスリウム』的体验版直播，替 歩サラ 的 柊木蛍 站台。",
+      "sources": [
+        "x:2121146543659258022"
+      ]
+    }
+  ],
+  "works": [
+    "SMEE『ワンナイトアフター』已装盘，11/27 发售，体验版公开、DL 版在 FANZA GAMES 预约中。",
+    "SMEE『ワンナイトアフター』11/27 发售当天在通运会馆办发售纪念活动，逢真井もこ 签名会加物贩。",
+    "ニトロプラス『楽園追放 心のレゾナンス』11/13 上映，虚淵玄 编剧，官方小说由 羊山十一郎 执笔同日发售。",
+    "BEEP『ザナドゥ68K』X68000 移植开放预约，11/26 发售、9680 日元，ソーサリアン 与 ダイナソア 接着排队。",
+    "くまのみそふと『転性魔王さまは勇者に勝てない！２』装盘完成，11/20 DL 版发售，体验版已上线。",
+    "アパタイト『同僚の秘密がヤバい～あまりに深すぎた性癖沼～』装盘并放体验版，DL 12/11、PK 12/25。",
+    "アパタイト『スク水vs競泳水着』DL 版本日开卖，包装版 11/27。",
+    "Triangle『魔法戦士ソルシエルナイツ』发售纪念，五位女主签名色纸抽选到 11/26。",
+    "Guilty『Nightmare×BlackSmith～紅蓮のエクリプス～』12/25 发售，追加事件 CG。",
+    "Guilty『紫幻華は淫祀の夜に嗤う』12/25 发售，公开剩余女主试听与事件 CG。",
+    "sprite『小金井荘と金色の揚羽蝶』メロンブックス 明信片活动 11/13 开始，送完为止。",
+    "あざらしそふと『アマカノ３～Perfect Edition～』今天起在 ソフマップ 秋叶原馆展开，11/27 开放预约。",
+    "Key『Summer Pockets Sunnyside Stories』分级由全年龄改为一般向 E15，12/18 发售。",
+    "エスクード『廃村少女［弐］外伝』挂画完全受注到 12/1，FANZA 评论活动与问卷同步进行。",
+    "CHAOS-R『血刻継承クレイドペイン ―少女たちの終焉―』DL 版发售中，主题曲「紅蓮の糸」全曲公开。",
+    "LiLiM『初恋BLUE』定 2027/1/29，公开 4 张事件 CG 与 ソフマップ 特典。",
+    "√ZOMBILiCA『贄の町』官方设定集定 12/25 发售、7150 日元。",
+    "オーバーフロー『Summer Days』12/18 发售，ソフマップ 有偿特典为 B2 挂画与亚克力卡。",
+    "ゆずソフト『ライムライト・レモネードジャム』二見原莉々子 抱枕套第四弹完全受注到 11/30。",
+    "TinkerBell『夢見るアプリ』公开角色语音与立绘，11/27 发售。",
+    "スタジオ奪ルージュ『人妻魔法戦士サクラ』包装版 11/27 发售。",
+    "でぼの巣製作所『神楽新風記～陽葵の章～』11/20 发售，签名色纸抽选到 11/29。",
+    "EvilHeal『Dominate ～わからされた僕は快楽に鳴く～』定 2027/1/29 发售。"
+  ],
+  "categories": [],
+  "accounts": [
+    "Moepedia_net",
+    "appetite_game",
+    "Miel37319007",
+    "TRYSET",
+    "silkysplus",
+    "chaos_R_public",
+    "debonosu",
+    "AzarashiSoft",
+    "HOOKSOFT",
+    "CyberworksKoho",
+    "Route2_tri",
+    "crowd_anim",
+    "escude1998",
+    "circus_info",
+    "purple_NewWork",
+    "CRYSTALiA_AC",
+    "Guilty_WillPlus",
+    "smee_official",
+    "entergram_info",
+    "Amuse_kenzen",
+    "key_official",
+    "POISON_NEW1992",
+    "dessertsoft_tw",
+    "Projecti18",
+    "lumpofsuger",
+    "u_me_soft",
+    "hamham_soft",
+    "FANDC_Staff",
+    "Amuse_sub",
+    "luneman_etc",
+    "favo_official",
+    "SAGAPLANETS",
+    "metalogiq",
+    "sprite_fairys",
+    "madostaff",
+    "bootUP_twit",
+    "alice_soft",
+    "Empress_STAFF",
+    "catwalk_nero",
+    "archive_staff_",
+    "DiGination_info",
+    "evil_heal",
+    "willplus_staff",
+    "KUMANOMISoft",
+    "info_9_nine_",
+    "yuzusoft",
+    "Studio_Ubai",
+    "jitaku_st",
+    "AQUAPLUS_JP",
+    "project_citrus",
+    "Cuteuphoria",
+    "fortuneglovety",
+    "holic_works",
+    "Muvluv_Official",
+    "monoceros_plus",
+    "unisonshift",
+    "BEEP_SHOP",
+    "LiLiM_NTR",
+    "Liaison__info",
+    "adahemas",
+    "SukeraSparo",
+    "zombilica_com",
+    "Overflow_staff",
+    "SYRUP_KOUHOU",
+    "nitroplus_staff",
+    "seiya_saiga",
+    "youtan0309",
+    "getchucom",
+    "hiro_in",
+    "AKOUtw",
+    "bili_3691002382518448",
+    "bili_298686071",
+    "bili_3546874040551694",
+    "bili_3546900143802616",
+    "bili_3690981385833115",
+    "bili_415482785",
+    "bili_3546715699284340",
+    "bili_41883712",
+    "bili_3493105997187935",
+    "bili_39471072",
+    "bili_16302815"
+  ],
+  "people": [
+    {
+      "handle": "Moepedia_net",
+      "category": "",
+      "summary": "汇总 ILLGAMES『甘夏ろけーしょん』11/20 免费配信角色数据；另报对魔忍 ASMR 新作「ファンタスマ」开卖。",
+      "via": [],
+      "sources": [
+        "x:2121210215626330440"
+      ]
+    },
+    {
+      "handle": "appetite_game",
+      "category": "",
+      "summary": "第 319 弹『同僚の秘密がヤバい』装盘并放体验版；『スク水vs競泳水着』DL 版本日开卖。",
+      "via": [],
+      "sources": [
+        "x:2121056996342497753"
+      ]
+    },
+    {
+      "handle": "Miel37319007",
+      "category": "",
+      "summary": "Norn/Miel 11 月品牌活动，异世界、精灵、魔王题材最高九折。",
+      "via": [],
+      "sources": [
+        "x:2121183975582634411"
+      ]
+    },
+    {
+      "handle": "TRYSET",
+      "category": "",
+      "summary": "Ci-en 更新：BugBug.news 报道了『催眠痴漢Episode１』。",
+      "via": [],
+      "sources": [
+        "x:2121045416863211765"
+      ]
+    },
+    {
+      "handle": "silkysplus",
+      "category": "",
+      "summary": "11/17 19 时「たまキャス」第 111 回，主打 Lycee Overture 参战。",
+      "via": [],
+      "sources": [
+        "x:2121083981307473952"
+      ]
+    },
+    {
+      "handle": "chaos_R_public",
+      "category": "",
+      "summary": "『血刻継承クレイドペイン ―少女たちの終焉―』DL 版发售中，主题曲「紅蓮の糸」全曲公开，并连发三位女主介绍。",
+      "via": [],
+      "sources": [
+        "x:2121069889037447597"
+      ]
+    },
+    {
+      "handle": "debonosu",
+      "category": "",
+      "summary": "『神楽新風記～陽葵の章～』11/20 发售，陽葵役 かりんとうか 签名色纸抽选到 11/29。",
+      "via": [],
+      "sources": [
+        "x:2121178244292702457"
+      ]
+    },
+    {
+      "handle": "AzarashiSoft",
+      "category": "",
+      "summary": "『アマカノ３～Perfect Edition～』今天起在 ソフマップ 秋叶原馆展开。",
+      "via": [],
+      "sources": [
+        "x:2121181283435135373"
+      ]
+    },
+    {
+      "handle": "HOOKSOFT",
+      "category": "",
+      "summary": "转 ASa Project『恋愛、はじめまして』Switch/PS5 移植决定（3/25）；咖啡厅办『王様恋愛』联动。",
+      "via": [],
+      "sources": [
+        "x:2121064810335051931"
+      ]
+    },
+    {
+      "handle": "CyberworksKoho",
+      "category": "",
+      "summary": "『夢見るアプリ』公开角色语音与立绘，11/27 发售；『ユメウツツ補習授業』店铺特典彩图全公开。",
+      "via": [],
+      "sources": [
+        "x:2121158178423676992"
+      ]
+    },
+    {
+      "handle": "Route2_tri",
+      "category": "",
+      "summary": "『魔法戦士ソルシエルナイツ』发售纪念，五位女主签名色纸抽选到 11/26；エメロード 那张图文字写错已订正。",
+      "via": [],
+      "sources": [
+        "x:2121177139890577644"
+      ]
+    },
+    {
+      "handle": "crowd_anim",
+      "category": "",
+      "summary": "『きつ×みこ』公开 更紗・陽葵 的试听语音。",
+      "via": [],
+      "sources": [
+        "x:2121060764643647834"
+      ]
+    },
+    {
+      "handle": "escude1998",
+      "category": "",
+      "summary": "『廃村少女［弐］外伝』挂画受注到 12/1，FANZA 评论活动与问卷同步；另开五作任选 5000 日元。",
+      "via": [],
+      "sources": [
+        "x:2121196374360519026"
+      ]
+    },
+    {
+      "handle": "circus_info",
+      "category": "",
+      "summary": "提醒 CLOWN『アンスリウム』11/27 发售，今晚 21 时 歩サラ 的体验版直播，附 AliceNet 特典。",
+      "via": [],
+      "sources": [
+        "x:2121146543659258022"
+      ]
+    },
+    {
+      "handle": "purple_NewWork",
+      "category": "",
+      "summary": "『パープルソフトウェアメモリアルコレクション』因好评重新上架；『クロノクロック』主题曲开始配信。",
+      "via": [],
+      "sources": [
+        "x:2121166195944804836"
+      ]
+    },
+    {
+      "handle": "CRYSTALiA_AC",
+      "category": "",
+      "summary": "『ディメンション凸ラバース!!』第二弹周边 11/16 12 时开卖，含第一弹没出现的角色。",
+      "via": [],
+      "sources": [
+        "x:2121203686395478201"
+      ]
+    },
+    {
+      "handle": "Guilty_WillPlus",
+      "category": "",
+      "summary": "『Nightmare×BlackSmith』12/25 发售并追加事件 CG；『紫幻華』公开剩余女主试听与签名色纸活动。",
+      "via": [],
+      "sources": [
+        "x:2121139441100300432"
+      ]
+    },
+    {
+      "handle": "smee_official",
+      "category": "",
+      "summary": "『ワンナイトアフター』已装盘、体验版公开、DL 版预约中；11/27 发售当天在通运会馆办 逢真井もこ 签名会。",
+      "via": [],
+      "sources": [
+        "x:2121206440937357761"
+      ]
+    },
+    {
+      "handle": "entergram_info",
+      "category": "",
+      "summary": "公布动画师 木村貴宏 回顾展，展出原画与制作资料。",
+      "via": [],
+      "sources": [
+        "x:2121151087352648071"
+      ]
+    },
+    {
+      "handle": "Amuse_kenzen",
+      "category": "",
+      "summary": "『養花師の背徳愛』特典齐备：DL 版送壁纸、立绘补丁、迷你原声，PK 初回附会员卡与小册子。",
+      "via": [],
+      "sources": [
+        "x:2121156109570302055"
+      ]
+    },
+    {
+      "handle": "key_official",
+      "category": "",
+      "summary": "『Summer Pockets Sunnyside Stories』分级由全年龄改为一般向 E15。",
+      "via": [],
+      "sources": [
+        "x:2121193844993855495"
+      ]
+    },
+    {
+      "handle": "POISON_NEW1992",
+      "category": "",
+      "summary": "『悲鳴』介绍篮球部双胞胎姐姐 小沢舞花；『完堕ちXギャル母娘』五折到 11/14。",
+      "via": [],
+      "sources": [
+        "x:2121226588432072992"
+      ]
+    },
+    {
+      "handle": "dessertsoft_tw",
+      "category": "",
+      "summary": "『どいなかガールズゆーとぴあ』声优体验版实况在ニコニコ公开（花月さや／赤月ゆむ），并放出第二张装盘插图。",
+      "via": [],
+      "sources": [
+        "x:2121166192899502539"
+      ]
+    },
+    {
+      "handle": "Projecti18",
+      "category": "",
+      "summary": "ILLGAMES 原声带在官方商店限定开卖；『甘夏ろけーしょん』11/20 免费配信角色数据。",
+      "via": [],
+      "sources": [
+        "x:2121060066002624730"
+      ]
+    },
+    {
+      "handle": "lumpofsuger",
+      "category": "",
+      "summary": "FANBOX 更新白き獣 新绘与限定通贩（到 11/30）。",
+      "via": [],
+      "sources": [
+        "x:2121189559329591796"
+      ]
+    },
+    {
+      "handle": "u_me_soft",
+      "category": "",
+      "summary": "『ヘブバン』新 SSR 卡池开跑；另转 FGO 短篇动画第 8 话与自家格斗赛事消息。",
+      "via": [],
+      "sources": [
+        "x:2121061765568159966"
+      ]
+    },
+    {
+      "handle": "hamham_soft",
+      "category": "",
+      "summary": "『ハイアングル』发售三周，仍在推 FANZA／DLsite／Amazon 三个渠道。",
+      "via": [],
+      "sources": [
+        "x:2121179033526567014"
+      ]
+    },
+    {
+      "handle": "FANDC_Staff",
+      "category": "",
+      "summary": "自家居酒屋「オタゲン」与上野动画歌酒吧照常营业，顺带宣传店内氛围。",
+      "via": [],
+      "sources": [
+        "x:2121159989750571353"
+      ]
+    },
+    {
+      "handle": "Amuse_sub",
+      "category": "",
+      "summary": "『養花師の背徳愛』OP 由 柚木つばめ 演唱；『カノジョの妹のあざと誘惑』葉月文乃 由 蒼乃むすび 出演。",
+      "via": [],
+      "sources": [
+        "x:2121158630003126633"
+      ]
+    },
+    {
+      "handle": "luneman_etc",
+      "category": "",
+      "summary": "『スケベエルフ』イヴリン 手办在 DMM 日榜上榜，还预告有隐藏特典。",
+      "via": [],
+      "sources": [
+        "x:2121138411138695452"
+      ]
+    },
+    {
+      "handle": "favo_official",
+      "category": "",
+      "summary": "C109 与 ωstar 合同出展（12/29–31），『いろとりどりのセカイ』与『美少女万華鏡』同庆 15 周年。",
+      "via": [],
+      "sources": [
+        "x:2121166428158251315"
+      ]
+    },
+    {
+      "handle": "SAGAPLANETS",
+      "category": "",
+      "summary": "台北快闪店 11/21–12/1 商品与购入特典公开，活动后另开线上贩售；官方 BOOTH 也补货。",
+      "via": [],
+      "sources": [
+        "x:2121203637330587806"
+      ]
+    },
+    {
+      "handle": "metalogiq",
+      "category": "",
+      "summary": "『魔法少女消耗戦線』抽奖第 6 弹为带数字签名的高精细复制原画，到 11/20 23:59。",
+      "via": [],
+      "sources": [
+        "x:2120894395977511213"
+      ]
+    },
+    {
+      "handle": "sprite_fairys",
+      "category": "",
+      "summary": "『小金井荘と金色の揚羽蝶』メロンブックス 明信片活动今天开始；2027 钢琴音乐会周边票也更新。",
+      "via": [],
+      "sources": [
+        "x:2121078578309960118"
+      ]
+    },
+    {
+      "handle": "madostaff",
+      "category": "",
+      "summary": "『ハミダシクリエイティブ』千玉学园制服预约到 11/22。",
+      "via": [],
+      "sources": [
+        "x:2121075603390525950"
+      ]
+    },
+    {
+      "handle": "bootUP_twit",
+      "category": "",
+      "summary": "ビーインクリ 付费计划更新「会計事務所で里奈とイケナイセックス」。",
+      "via": [],
+      "sources": [
+        "x:2121152051346600337"
+      ]
+    },
+    {
+      "handle": "alice_soft",
+      "category": "",
+      "summary": "员工日记第 702 回由 MIN-NARAKEN、織音 执笔；另推『超昂大戦』六周年前夜祭联动。",
+      "via": [],
+      "sources": [
+        "x:2121151579508404659"
+      ]
+    },
+    {
+      "handle": "Empress_STAFF",
+      "category": "",
+      "summary": "にほんママずかん B1 挂画特别版预约到 11/16 13 时。",
+      "via": [],
+      "sources": [
+        "x:2121152718849155389"
+      ]
+    },
+    {
+      "handle": "catwalk_nero",
+      "category": "",
+      "summary": "catwalkNERO 冬季最大半价活动开跑，旧作最高五折。",
+      "via": [],
+      "sources": [
+        "x:2121173763891102068"
+      ]
+    },
+    {
+      "handle": "archive_staff_",
+      "category": "",
+      "summary": "借着 X 支持 20 张图，把『アントリ』全部角色立绘一次排开；CW 新角色超过 20 人。",
+      "via": [],
+      "sources": [
+        "x:2121203941497249950"
+      ]
+    },
+    {
+      "handle": "DiGination_info",
+      "category": "",
+      "summary": "『タマユラミライ』Switch 版 11/26 发售，预约期九折并配信体验版。",
+      "via": [],
+      "sources": [
+        "x:2121090686124539972"
+      ]
+    },
+    {
+      "handle": "evil_heal",
+      "category": "",
+      "summary": "『Dominate ～わからされた僕は快楽に鳴く～』定 2027/1/29，靠阶段式立绘变化表现主角觉醒。",
+      "via": [],
+      "sources": [
+        "x:2121167282890318024"
+      ]
+    },
+    {
+      "handle": "willplus_staff",
+      "category": "",
+      "summary": "下载服务器 11/17–19 各夜 20 时起做紧急维护，每次约 15 分钟不可访问。",
+      "via": [],
+      "sources": [
+        "x:2121131078333465031"
+      ]
+    },
+    {
+      "handle": "KUMANOMISoft",
+      "category": "",
+      "summary": "『転性魔王さまは勇者に勝てない！２』装盘完成，11/20 DL 版发售，体验版已上官网。",
+      "via": [],
+      "sources": [
+        "x:2121166182157869468"
+      ]
+    },
+    {
+      "handle": "info_9_nine_",
+      "category": "",
+      "summary": "「as:9-nine-ARTEISIA Café」事后通贩到 11/16 23:59。",
+      "via": [],
+      "sources": [
+        "x:2121166222238814235"
+      ]
+    },
+    {
+      "handle": "yuzusoft",
+      "category": "",
+      "summary": "『ライムライト・レモネードジャム』二見原莉々子 抱枕套第四弹完全受注到 11/30。",
+      "via": [],
+      "sources": [
+        "x:2121181287184490591"
+      ]
+    },
+    {
+      "handle": "Studio_Ubai",
+      "category": "",
+      "summary": "『人妻魔法戦士サクラ』包装版 11/27 发售，各店铺已开始预约。",
+      "via": [],
+      "sources": [
+        "x:2121170402714235117"
+      ]
+    },
+    {
+      "handle": "jitaku_st",
+      "category": "",
+      "summary": "通宵后赶 14 点半的会议，会开完才松口气，当天没有新情报。",
+      "via": [],
+      "sources": [
+        "x:2121214165171986836"
+      ]
+    },
+    {
+      "handle": "AQUAPLUS_JP",
+      "category": "",
+      "summary": "11/13 是『Routes』リサ＝ヴィクセン 的生日。",
+      "via": [],
+      "sources": [
+        "x:2120894395205759013"
+      ]
+    },
+    {
+      "handle": "project_citrus",
+      "category": "",
+      "summary": "只发了自家猫的照片与天气闲聊。",
+      "via": [],
+      "sources": [
+        "x:2121004978500489379"
+      ]
+    },
+    {
+      "handle": "Cuteuphoria",
+      "category": "",
+      "summary": "DLsite 创业祭期间『ドラ・コンカフェ』五折，陽向葵ゅか 的 ASMR 语音剧同样五折。",
+      "via": [],
+      "sources": [
+        "x:2121196382794985637"
+      ]
+    },
+    {
+      "handle": "fortuneglovety",
+      "category": "",
+      "summary": "新作发售两周致谢，预告 FORTUNE×PARTY 本月内会有消息。",
+      "via": [],
+      "sources": [
+        "x:2121110123217350707"
+      ]
+    },
+    {
+      "handle": "holic_works",
+      "category": "",
+      "summary": "12/24 发售的原创 BL 广播剧『夜明け前にあいましょう』配布壁纸。",
+      "via": [],
+      "sources": [
+        "x:2121166180333625459"
+      ]
+    },
+    {
+      "handle": "Muvluv_Official",
+      "category": "",
+      "summary": "WEB 小说『マブラヴ：ディメンションズ』更新 3-12「黄昏世界 黄昏の出撃」，并介绍 テオドール。",
+      "via": [],
+      "sources": [
+        "x:2120895649311010933"
+      ]
+    },
+    {
+      "handle": "monoceros_plus",
+      "category": "",
+      "summary": "Vanilla Android 公开 CG 修正补丁 ver1.01，针对肤色过深的问题，可自行选用。",
+      "via": [],
+      "sources": [
+        "x:2121180575885316604"
+      ]
+    },
+    {
+      "handle": "unisonshift",
+      "category": "",
+      "summary": "预告 柚月 将有一点动静，让人等后续。",
+      "via": [],
+      "sources": [
+        "x:2121165923574767952"
+      ]
+    },
+    {
+      "handle": "BEEP_SHOP",
+      "category": "",
+      "summary": "『ザナドゥ68K』X68000 移植开放预约、11/26 发售 9680 日元；另带 MSX2 新作限量卖。",
+      "via": [],
+      "sources": [
+        "x:2121075588815585352"
+      ]
+    },
+    {
+      "handle": "LiLiM_NTR",
+      "category": "",
+      "summary": "『初恋BLUE』1/29 发售，公开 4 张事件 CG，ソフマップ 特典为 B2 挂画与主题曲 CD。",
+      "via": [],
+      "sources": [
+        "x:2121166180060668142"
+      ]
+    },
+    {
+      "handle": "Liaison__info",
+      "category": "",
+      "summary": "『天瀬島は色恋ざかり』下载版在各平台以优惠价发售中。",
+      "via": [],
+      "sources": [
+        "x:2121189917753806914"
+      ]
+    },
+    {
+      "handle": "adahemas",
+      "category": "",
+      "summary": "只留了两句短评，没有作品情报。",
+      "via": [],
+      "sources": [
+        "x:2121069953600327937"
+      ]
+    },
+    {
+      "handle": "SukeraSparo",
+      "category": "",
+      "summary": "为 あやふぶみ 首场 Live 绘制主视觉。",
+      "via": [],
+      "sources": [
+        "x:2121212522611306895"
+      ]
+    },
+    {
+      "handle": "zombilica_com",
+      "category": "",
+      "summary": "『贄の町』官方设定集定 12/25 发售、7150 日元，ステラワース 已开预约并放出封面目录样张。",
+      "via": [],
+      "sources": [
+        "x:2121075586525499779"
+      ]
+    },
+    {
+      "handle": "Overflow_staff",
+      "category": "",
+      "summary": "『Summer Days』12/18 发售、ソフマップ 有偿特典；School Days 抽奖景品样品公开。",
+      "via": [],
+      "sources": [
+        "x:2121075592720416840"
+      ]
+    },
+    {
+      "handle": "SYRUP_KOUHOU",
+      "category": "",
+      "summary": "开发室更新，又是神秘快递、又是蓝发人物登场。",
+      "via": [],
+      "sources": [
+        "x:2121166192035418588"
+      ]
+    },
+    {
+      "handle": "nitroplus_staff",
+      "category": "",
+      "summary": "『楽園追放 心のレゾナンス』今日上映，虚淵玄 编剧、官方小说同步发售；ねんどろいど ガブリエル 开订。",
+      "via": [],
+      "sources": [
+        "x:2121075830847570063"
+      ]
+    },
+    {
+      "handle": "seiya_saiga",
+      "category": "",
+      "summary": "更新『スク水vs競泳水着』攻略，标注无选项。",
+      "via": [],
+      "sources": [
+        "x:2120912236499894348"
+      ]
+    },
+    {
+      "handle": "youtan0309",
+      "category": "",
+      "summary": "回顾 11 年前 T●●念ZERO 与 28 年前『せ・ん・せ・い』的发售日；另发『極魔法少女』签名色纸活动。",
+      "via": [],
+      "sources": [
+        "x:2120894397105709325"
+      ]
+    },
+    {
+      "handle": "getchucom",
+      "category": "",
+      "summary": "一口气开多项预约：Waffle『エデンズリッター セシリィ外伝』、King Bee『1LDK＋J系』第 10 话等。",
+      "via": [],
+      "sources": [
+        "x:2121151087377883597"
+      ]
+    },
+    {
+      "handle": "hiro_in",
+      "category": "",
+      "summary": "升级 pgbouncer 后连不上 PostgreSQL，最后靠重启机器恢复。",
+      "via": [],
+      "sources": [
+        "x:2121016767250420022"
+      ]
+    },
+    {
+      "handle": "AKOUtw",
+      "category": "",
+      "summary": "转 iMel 的『タマユラミライ』Switch 版消息，并为自家『カノ妹』签名色纸活动拉票。",
+      "via": [],
+      "sources": [
+        "x:2121120353372316054"
+      ]
+    },
+    {
+      "handle": "bili_3691002382518448",
+      "category": "",
+      "summary": "CLEARRAVE 的『Resequence: The Orchard』距发售一周，今日公开角色 白环莉。",
+      "via": [],
+      "sources": [
+        "bilibili:1270147324132196450"
+      ]
+    },
+    {
+      "handle": "bili_298686071",
+      "category": "",
+      "summary": "GamirrorGames 公布 WePlay 展位攻略与参展名单；骰子计算游戏《算鼠英雄》新 Demo 上线。",
+      "via": [],
+      "sources": [
+        "bilibili:1270085416444231736"
+      ]
+    },
+    {
+      "handle": "bili_3546874040551694",
+      "category": "",
+      "summary": "肉包文化公告 BLACK SOULS 快闪店补货：11/14–15 小红帽、莉耶芙 少量上架。",
+      "via": [],
+      "sources": [
+        "bilibili:1270158512471670784"
+      ]
+    },
+    {
+      "handle": "bili_3546900143802616",
+      "category": "",
+      "summary": "Muv-Luv 官方介绍 爱丽丝蒂娜·伯恩哈德 与「黑之宣告」中队。",
+      "via": [],
+      "sources": [
+        "bilibili:1270131782786744358"
+      ]
+    },
+    {
+      "handle": "bili_3690981385833115",
+      "category": "",
+      "summary": "松竹游戏宣传《皮咕冒险》的外星语言解谜玩法，并放出《分喵必争》中文片。",
+      "via": [],
+      "sources": [
+        "bilibili:1269977174657466405"
+      ]
+    },
+    {
+      "handle": "bili_415482785",
+      "category": "",
+      "summary": "Whisp 旗下 Raro 新作《正在研究紧紧的拥抱！》葛水光莉 篇放出试听（RJ01753783）。",
+      "via": [],
+      "sources": [
+        "bilibili:1270128099848093719"
+      ]
+    },
+    {
+      "handle": "bili_3546715699284340",
+      "category": "",
+      "summary": "七花舞 的访谈《美少女画师的游戏梦》发布。",
+      "via": [],
+      "sources": [
+        "bilibili:1269897215307939849"
+      ]
+    },
+    {
+      "handle": "bili_41883712",
+      "category": "",
+      "summary": "HIKARI FIELD 商城多款中文化作品促销：《青空下的约定 Refine》45 元、《星光咖啡馆》49 元等。",
+      "via": [],
+      "sources": [
+        "bilibili:1269992625842159624"
+      ]
+    },
+    {
+      "handle": "bili_3493105997187935",
+      "category": "",
+      "summary": "白舟 宣布《降魔战记》中文版 Steam 商店页上线，并附试玩演示。",
+      "via": [],
+      "sources": [
+        "bilibili:1269993641567322117"
+      ]
+    },
+    {
+      "handle": "bili_39471072",
+      "category": "",
+      "summary": "报道 Key 相关：智代 粘土人开订、『Summer Pockets』外传分级上调、HBR 主美回应 麻枝准 病情。",
+      "via": [],
+      "sources": [
+        "bilibili:1270149218206482451"
+      ]
+    },
+    {
+      "handle": "bili_16302815",
+      "category": "",
+      "summary": "《胶囊恋人》更新第五个番外，顺带夸 柳柳 配音卖力。",
+      "via": [],
+      "sources": [
+        "bilibili:1270039073764933635"
+      ]
+    }
+  ],
+  "provenance": {
+    "generator": "daily",
+    "prompt_version": 1,
+    "cache_key": "answers:1",
+    "generated_at": "2026-11-13T15:42:36+00:00"
+  }
+}
