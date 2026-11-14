@@ -1,6 +1,6 @@
 {
   "$comment": "由 scripts/optimize_images.mjs 生成，请勿手改。",
-  "generatedAt": "2026-11-12T17:28:21.181Z",
+  "generatedAt": "2026-11-14T17:02:00.905Z",
   "images": {
     "/images/blog/automaton-crymelight-mugenzakura-roundtable/01.jpg": {
       "w": 1080,
@@ -1482,6 +1482,66 @@
           "w": 670,
           "src": "/images/blog/gamespark-nicolith-interview/22-670.webp",
           "bytes": 19684
+        }
+      ]
+    },
+    "/images/blog/gamespark-piper-of-dawn-interview/01.jpg": {
+      "w": 670,
+      "h": 378,
+      "bytes": 208786,
+      "variants": [
+        {
+          "w": 670,
+          "src": "/images/blog/gamespark-piper-of-dawn-interview/01-670.webp",
+          "bytes": 91174
+        }
+      ]
+    },
+    "/images/blog/gamespark-piper-of-dawn-interview/02.jpg": {
+      "w": 670,
+      "h": 376,
+      "bytes": 94328,
+      "variants": [
+        {
+          "w": 670,
+          "src": "/images/blog/gamespark-piper-of-dawn-interview/02-670.webp",
+          "bytes": 30010
+        }
+      ]
+    },
+    "/images/blog/gamespark-piper-of-dawn-interview/03.jpg": {
+      "w": 670,
+      "h": 376,
+      "bytes": 178473,
+      "variants": [
+        {
+          "w": 670,
+          "src": "/images/blog/gamespark-piper-of-dawn-interview/03-670.webp",
+          "bytes": 75716
+        }
+      ]
+    },
+    "/images/blog/gamespark-piper-of-dawn-interview/04.jpg": {
+      "w": 670,
+      "h": 374,
+      "bytes": 157851,
+      "variants": [
+        {
+          "w": 670,
+          "src": "/images/blog/gamespark-piper-of-dawn-interview/04-670.webp",
+          "bytes": 65830
+        }
+      ]
+    },
+    "/images/blog/gamespark-piper-of-dawn-interview/05.jpg": {
+      "w": 670,
+      "h": 374,
+      "bytes": 173738,
+      "variants": [
+        {
+          "w": 670,
+          "src": "/images/blog/gamespark-piper-of-dawn-interview/05-670.webp",
+          "bytes": 70566
         }
       ]
     },
