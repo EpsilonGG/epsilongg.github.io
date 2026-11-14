@@ -36,6 +36,10 @@ _TITLE = re.compile(r"『[^』]{0,60}』|「[^」]{0,60}」")
 
 _LEAD_PUNCT = re.compile(r"^[\s，、。；：:,.!?！？\-—]+")
 
+# 句末标点：分句拼进亮点句时由 `；` / `。` 统一收尾，原文自带的要剥掉，
+# 否则会出现 `。；`、`。。` 这种叠标点（2026-11-14）。不剥 `…`——那是 _trim 的截断标记。
+_TAIL_PUNCT = re.compile(r"[\s，、；：。．]+$")
+
 
 def window_label(start: str, end: str) -> str:
     """`2026-11-04` + `2026-11-10` → `261104 – 261110`（用户指定格式，YYMMDD）。"""
@@ -80,6 +84,11 @@ def _clause(bullet: str) -> str:
     """`『ワンナイトアフター』定档 11/27，官网放出体验版` → `定档 11/27，官网放出体验版`"""
     text = _LEAD_PUNCT.sub("", _TITLE.sub("", bullet))
     return re.sub(r"\s+", " ", text).strip()
+
+
+def _strip_tail(text: str) -> str:
+    """去掉分句末尾的句读，交给拼句时统一收尾。"""
+    return _TAIL_PUNCT.sub("", text).strip()
 
 
 def _trim(text: str, limit: int) -> str:
@@ -145,13 +154,13 @@ def build(md: str, stats: dict, order: list[str]) -> str:
     if picks:
         head = f"{column['label']} {column['items']} 条"
         for clause_budget in (24, 18, 12):
-            parts = [(f"{brand} {_trim(clause, clause_budget)}").strip()
+            parts = [(f"{brand} {_strip_tail(_trim(clause, clause_budget))}").strip()
                      for brand, clause in picks[:2]]
             text = head + "：" + "；".join(parts) + "。"
             if len(text) <= LIMIT:
                 return text
         brand, clause = picks[0]
-        text = head + "：" + _trim(clause, 40) + "。"
+        text = head + "：" + _strip_tail(_trim(clause, 40)) + "。"
         if len(text) <= LIMIT:
             return text
 

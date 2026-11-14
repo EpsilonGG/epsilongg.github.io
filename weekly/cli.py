@@ -395,9 +395,11 @@ def cmd_check(_args) -> int:
                   if line.startswith("#### ") and any(g in line for g in excluded_groups)]
         if leaked:
             problems.append(f"初稿仍出现默认排除的小标题：{leaked[:2]}")
-    # 「未标注作品」仍在筛选页 / 数据里，只是默认不入初稿。
-    if not unlabeled:
-        problems.append("筛选页里找不到「未标注作品」条目（应保留可恢复）")
+    # 「未标注作品」若存在，必须全部默认不入初稿（仍在筛选页、可点恢复）。
+    # 断言就是上面那条 `unlabeled - defaults`；**0 条是合法状态**，不报错。
+    # 2026-11-14 用户裁决：业界动向整栏不上线后，该分组唯一的来源就是业界消息，
+    # 整周没有业界消息时筛选页里自然一条都没有 —— 原来的「找不到就报错」是
+    # 把「这一周没这类内容」误判成「机制失效」，会把每一期都拦下。
 
     # 2026-11-10 三组新增默认排除：未标注品牌 / 生日豁免 / 无主体观后感。
     for brand in (excl_cfg.get("brands") or []):
