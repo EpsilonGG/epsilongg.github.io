@@ -1,0 +1,534 @@
+{
+  "schema_version": 1,
+  "issue": {
+    "id": "261115-g",
+    "published_at": "2026-11-16T00:42:41.240959+09:00",
+    "window": {
+      "start": "2026-11-15T00:00:00+09:00",
+      "end": "2026-11-16T00:00:00+09:00"
+    },
+    "status": "confirmed",
+    "confirmed_at": "2026-11-15T15:44:02+00:00"
+  },
+  "counts": {
+    "items": 161,
+    "accounts": 43,
+    "late": 112,
+    "skipped_duplicate": 1
+  },
+  "description": "SMEE『ワンナイトアフター』已装盘完成、体验版公开并开放下载版预约，11/27 发售当天还有通运会馆活动。",
+  "highlights": [
+    {
+      "text": "SMEE『ワンナイトアフター』已装盘完成、体验版公开并开放 DL 版预约，11/27 发售当天在通运会馆办纪念活动。",
+      "sources": [
+        "x:2121931216861688316",
+        "x:2121928700237131784",
+        "x:2121944554400293117"
+      ]
+    },
+    {
+      "text": "BEEP 在百兽游戏乐园会场先行发售 MSX2 新作「恐怖の無人島」，并把『ザナドゥ68K』的预约一起摆出来。",
+      "sources": [
+        "x:2121785125931483509",
+        "x:2121800364789731350"
+      ]
+    },
+    {
+      "text": "ニトロプラス『楽園追放』2014 年的今天上映，续作『心のレゾナンス』正在全国上映。",
+      "sources": [
+        "x:2121785457985884209",
+        "x:2121785460594729231"
+      ]
+    },
+    {
+      "text": "KISS『カスタムロマンスシティ3D3』开放 β 体验版第三版，并公布制品版的新消息。",
+      "sources": [
+        "x:2121816492488728778",
+        "x:2121926200990015931"
+      ]
+    }
+  ],
+  "insights": [],
+  "interactions": [
+    {
+      "text": "ωstar 与 FAVORITE 两边同时宣布在 C109 联合参展，两位画师也首次合作。",
+      "sources": [
+        "bilibili:1270862388919271427",
+        "bilibili:1270862839908663321"
+      ]
+    }
+  ],
+  "works": [
+    "SMEE『ワンナイトアフター』定在 11/27 发售，已装盘完成、体验版公开、DL 版也在 FANZA 开放预约。",
+    "AirVelocity『ハッピーウィークエンド』Switch／PS4 版追加新样本 CG，Switch 下载版预约打九折。",
+    "BEEP 在百兽游戏乐园会场先行发售 MSX2 新作「恐怖の無人島」。",
+    "BEEP『ザナドゥ68K』X68000 移植版仍在接受预约。",
+    "ニトロプラス『楽園追放 心のレゾナンス』正在全国影院上映。",
+    "KISS『カスタムロマンスシティ3D3』开放 β 体验版第三版并当天更新。",
+    "エスクード『廃村少女［弐］外伝 ～千艶万匣～』B2 挂画受注到 12/1，另开问卷与 FANZA 评论抽签名色纸。",
+    "くまのみそふと『♂転性魔王さまは勇者に勝てない！２♀』DL 版进入五天倒数。",
+    "あざらしそふと『アマカノ３～Perfect Edition～』官网公开，追加女主角新剧情。",
+    "Shiravune《Monkeys!¡》距发售还有两天，公开大小姐角色介绍并提醒加入愿望单。",
+    "CLEARRAVE『Resequence: The Orchard』距发售还有五天。",
+    "akaeroCore《褻瀆聖女》定在 2026 年冬季登陆 Steam，并办抽游戏序号的活动。",
+    "アミューズ『養花師の背徳愛～純真天使は抱かれて色めく～』公开第二支角色介绍影片。",
+    "HARD『３Ｄアニメハイブリッド⑩●万引きした妹に鬼畜お仕置き!!前編』下载版发售中。",
+    "HARD 与 FAKKU 的 PC98 补完计划第一弹『DEAD OF THE BRAIN』已在 Steam 发售。",
+    "イノグレ『Karanoshojo Complete Box Édition Limitée -Noir-』公开黑胶封套草图，预约到 11/16。",
+    "ぱーぷる『ハピメア FD』片尾曲『後ろ髪の証跡』开始配信。",
+    "POISON『悲鳴』连续公开篮球部双子姐姐与经理两名女主角的介绍。",
+    "の～すとらいく『女装百合嵐』包装版应援活动到 11/15 二十四点截止。",
+    "ωstar 与 FAVORITE 宣布在 C109 联合参展，两部作品同迎十五周年。",
+    "HIKARI FIELD 官网商城本轮促销今晚结束，《近月少女的礼仪2》等中文版五十二元起。"
+  ],
+  "categories": [],
+  "accounts": [
+    "Moepedia_net",
+    "appetite_game",
+    "silkysplus",
+    "kiss_staff",
+    "HOOKSOFT",
+    "escude1998",
+    "purple_NewWork",
+    "smee_official",
+    "Amuse_kenzen",
+    "POISON_NEW1992",
+    "dessertsoft_tw",
+    "lumpofsuger",
+    "u_me_soft",
+    "hamham_soft",
+    "FANDC_Staff",
+    "Amuse_sub",
+    "SAGAPLANETS",
+    "sprite_fairys",
+    "nisidahajime",
+    "KUMANOMISoft",
+    "info_9_nine_",
+    "jitaku_st",
+    "Muvluv_Official",
+    "BEEP_SHOP",
+    "twit_Gungnir",
+    "Overflow_staff",
+    "nitroplus_staff",
+    "akaerocore",
+    "akaeroCore_kr",
+    "youtan0309",
+    "aikouka23",
+    "bugbug_info",
+    "AKOUtw",
+    "bili_3691002382518448",
+    "bili_3690972420508265",
+    "bili_3546948824992722",
+    "bili_3546908003928752",
+    "bili_3546900143802616",
+    "bili_41883712",
+    "bili_3493105997187935",
+    "bili_2072586344",
+    "bili_39471072",
+    "bili_16302815"
+  ],
+  "people": [
+    {
+      "handle": "Moepedia_net",
+      "category": "",
+      "summary": "情报号今天集中转了三家：SMEE 发售日活动、くまのみそふと倒数、POISON 新作女主角介绍。",
+      "via": [],
+      "sources": [
+        "x:2121944554400293117",
+        "x:2121947070865240310"
+      ]
+    },
+    {
+      "handle": "appetite_game",
+      "category": "",
+      "summary": "转发了 11/27 发售作的原画特典截止提醒，塑料卡与生写真的数量将在 11/16 定下。",
+      "via": [],
+      "sources": [
+        "x:2121978490870509766"
+      ]
+    },
+    {
+      "handle": "silkysplus",
+      "category": "",
+      "summary": "预告 11/17 的直播专讲 Lycee Overture 参战，并在征集听众提问，邮件截止到当天正午。",
+      "via": [],
+      "sources": [
+        "x:2121894577984704976"
+      ]
+    },
+    {
+      "handle": "kiss_staff",
+      "category": "",
+      "summary": "开放 β 体验版第三版并当天更新，同时公布制品版的新消息。",
+      "via": [],
+      "sources": [
+        "x:2121816492488728778",
+        "x:2121926200990015931"
+      ]
+    },
+    {
+      "handle": "HOOKSOFT",
+      "category": "",
+      "summary": "秋叶原联名咖啡今天同时接待两家品牌的客人，另为『ハッピーウィークエンド』追加样本 CG。",
+      "via": [],
+      "sources": [
+        "x:2121907987627532709",
+        "x:2121927944901734408"
+      ]
+    },
+    {
+      "handle": "escude1998",
+      "category": "",
+      "summary": "『廃村少女［弐］外伝』的 B2 挂画受注到 12/1，另开问卷与 FANZA 评论抽签名色纸。",
+      "via": [],
+      "sources": [
+        "x:2121906050454466803",
+        "x:2121906063725502962"
+      ]
+    },
+    {
+      "handle": "purple_NewWork",
+      "category": "",
+      "summary": "『ハピメア FD』片尾曲『後ろ髪の証跡』开始在各平台配信。",
+      "via": [],
+      "sources": [
+        "x:2121906056552943860"
+      ]
+    },
+    {
+      "handle": "smee_official",
+      "category": "",
+      "summary": "『ワンナイトアフター』已装盘完成，体验版在官网公开，DL 版也在 FANZA 开放预约。",
+      "via": [],
+      "sources": [
+        "x:2121931216861688316",
+        "x:2121928700237131784"
+      ]
+    },
+    {
+      "handle": "Amuse_kenzen",
+      "category": "",
+      "summary": "公开『養花師の背徳愛』第二支介绍影片，由两位女主角的声优亲自讲解。",
+      "via": [],
+      "sources": [
+        "x:2121881136359944639"
+      ]
+    },
+    {
+      "handle": "POISON_NEW1992",
+      "category": "",
+      "summary": "『悲鳴』连续介绍篮球部的双子姐姐与经理，两人各自藏着秘密。",
+      "via": [],
+      "sources": [
+        "x:2121959346536067344"
+      ]
+    },
+    {
+      "handle": "dessertsoft_tw",
+      "category": "",
+      "summary": "提醒 11/27 发售作的原画特典数量将在 11/16 定下，之后售完即止、不再加印。",
+      "via": [],
+      "sources": [
+        "x:2121899021719744813"
+      ]
+    },
+    {
+      "handle": "lumpofsuger",
+      "category": "",
+      "summary": "FANBOX 打印服务开跑，2L 尺寸带萌木原ふみたけ的复制签名。",
+      "via": [],
+      "sources": [
+        "x:2121800363858931962"
+      ]
+    },
+    {
+      "handle": "u_me_soft",
+      "category": "",
+      "summary": "『ゲーム開発部だいぼうけん！』第 43 话在网页免费公开，又和同行聊起奇幻 RPG 的源流。",
+      "via": [],
+      "sources": [
+        "x:2121620415290425847",
+        "x:2121844362351169800"
+      ]
+    },
+    {
+      "handle": "hamham_soft",
+      "category": "",
+      "summary": "『ハイアングル』原画师画了发售贺图，官方转发致谢。",
+      "via": [],
+      "sources": [
+        "x:2121894611107123416"
+      ]
+    },
+    {
+      "handle": "FANDC_Staff",
+      "category": "",
+      "summary": "创业四十周年的尊辺友纪念本全部售罄，另把『DEAD OF THE BRAIN』推上 Steam 发售。",
+      "via": [],
+      "sources": [
+        "x:2121903361062842809",
+        "x:2121916023989555592"
+      ]
+    },
+    {
+      "handle": "Amuse_sub",
+      "category": "",
+      "summary": "放出『養花師の背徳愛』里香奈実的剪辑片段，主打她与司的关系。",
+      "via": [],
+      "sources": [
+        "x:2121883904672145605"
+      ]
+    },
+    {
+      "handle": "SAGAPLANETS",
+      "category": "",
+      "summary": "『金色ラブリッチェ』的原创周边开卖，有全彩 T 恤与亚克力钟。",
+      "via": [],
+      "sources": [
+        "x:2121800370485911835"
+      ]
+    },
+    {
+      "handle": "sprite_fairys",
+      "category": "",
+      "summary": "",
+      "via": [],
+      "sources": [
+        "x:2121878503520174506"
+      ]
+    },
+    {
+      "handle": "nisidahajime",
+      "category": "",
+      "summary": "『女装百合嵐』包装版应援活动到今晚二十四点，另晒出历代女装角色图。",
+      "via": [],
+      "sources": [
+        "x:2121836620102197663",
+        "x:2121761888979832877"
+      ]
+    },
+    {
+      "handle": "KUMANOMISoft",
+      "category": "",
+      "summary": "『転まお２』DL 版倒数五天，公开由リリィ单独介绍作品的短片。",
+      "via": [],
+      "sources": [
+        "x:2121906057110847832"
+      ]
+    },
+    {
+      "handle": "info_9_nine_",
+      "category": "",
+      "summary": "『as:9-nine- ARTEISIA』如月結那 11/15 生日，官方开了庆祝标签。",
+      "via": [],
+      "sources": [
+        "x:2121800995831484487"
+      ]
+    },
+    {
+      "handle": "jitaku_st",
+      "category": "",
+      "summary": "只发了张早餐鲷鱼烧的照片，惊讶它居然立着。",
+      "via": [],
+      "sources": [
+        "x:2121737064249229760"
+      ]
+    },
+    {
+      "handle": "Muvluv_Official",
+      "category": "",
+      "summary": "科普 1968 年起的 BETA 捕获调查，说结论只有它们是碳基生命体。",
+      "via": [],
+      "sources": [
+        "x:2121906074240635068"
+      ]
+    },
+    {
+      "handle": "BEEP_SHOP",
+      "category": "",
+      "summary": "在百兽游戏乐园会场先行发售 MSX2 新作「恐怖の無人島」，并继续接受『ザナドゥ68K』预约。",
+      "via": [],
+      "sources": [
+        "x:2121785125931483509",
+        "x:2121800364789731350"
+      ]
+    },
+    {
+      "handle": "twit_Gungnir",
+      "category": "",
+      "summary": "公开『Karanoshojo Complete Box』黑胶封套草图，预约到 11/16 截止。",
+      "via": [],
+      "sources": [
+        "x:2121895902105514232"
+      ]
+    },
+    {
+      "handle": "Overflow_staff",
+      "category": "",
+      "summary": "公开『SchoolDays』抽奖 A 赏抱枕套样品，晚上还和桂さん一起直播第 326 回。",
+      "via": [],
+      "sources": [
+        "x:2121800370129108998",
+        "x:2121897175995326627"
+      ]
+    },
+    {
+      "handle": "nitroplus_staff",
+      "category": "",
+      "summary": "『楽園追放』2014 年的今天上映，续作『心のレゾナンス』正在全国上映，并列出各配信平台。",
+      "via": [],
+      "sources": [
+        "x:2121785457985884209",
+        "x:2121785460594729231"
+      ]
+    },
+    {
+      "handle": "akaerocore",
+      "category": "",
+      "summary": "公布高自由度 RPG《褻瀆聖女》定在 2026 年冬季登陆 Steam，并办抽游戏序号的活动。",
+      "via": [
+        "akaeroCore_kr"
+      ],
+      "sources": [
+        "x:2121872279189721521",
+        "x:2121872299347620249"
+      ]
+    },
+    {
+      "handle": "youtan0309",
+      "category": "",
+      "summary": "回顾三部旧作的上架日：Rance III 满三十五年、兄嫁二十四年、猫忍 SPIN! 两年。",
+      "via": [],
+      "sources": [
+        "x:2121619161428435329",
+        "x:2121621676894945687"
+      ]
+    },
+    {
+      "handle": "aikouka23",
+      "category": "",
+      "summary": "讲起店里从二手 CD 起家、后来卖游戏越卖越多的往事，还贴了 1989 年的招牌照。",
+      "via": [],
+      "sources": [
+        "x:2121826657355092284"
+      ]
+    },
+    {
+      "handle": "bugbug_info",
+      "category": "",
+      "summary": "挑了十月号问卷里的读者留言，说有人为封面角色买下杂志。",
+      "via": [],
+      "sources": [
+        "x:2121619664614641670"
+      ]
+    },
+    {
+      "handle": "AKOUtw",
+      "category": "",
+      "summary": "宣布七瀬はゆ 的预告片今晚九点首播，同时公开 FBGM 的周边与四款联名鸡尾酒。",
+      "via": [],
+      "sources": [
+        "x:2121910257140346994",
+        "x:2121927725258777067"
+      ]
+    },
+    {
+      "handle": "bili_3691002382518448",
+      "category": "",
+      "summary": "『Resequence: The Orchard』距发售还有五天，今天公开心理咨询室的来访者。",
+      "via": [],
+      "sources": [
+        "bilibili:1270904883320455269"
+      ]
+    },
+    {
+      "handle": "bili_3690972420508265",
+      "category": "",
+      "summary": "宣布与 FAVORITE 在 C109 联合参展，两部作品同迎十五周年。",
+      "via": [],
+      "sources": [
+        "bilibili:1270862388919271427"
+      ]
+    },
+    {
+      "handle": "bili_3546948824992722",
+      "category": "",
+      "summary": "科普《兰斯Quest》里的男性角色也能装备运动短裤，说这不是设计失误。",
+      "via": [],
+      "sources": [
+        "bilibili:1270861980929884167"
+      ]
+    },
+    {
+      "handle": "bili_3546908003928752",
+      "category": "",
+      "summary": "与 ωstar 一同宣布 C109 联合参展，两位画师首次合作。",
+      "via": [],
+      "sources": [
+        "bilibili:1270862839908663321"
+      ]
+    },
+    {
+      "handle": "bili_3546900143802616",
+      "category": "",
+      "summary": "介绍 A-01 部队长伊隅美知留，说她外表冷酷其实很照顾部下。",
+      "via": [],
+      "sources": [
+        "bilibili:1270873953104035847"
+      ]
+    },
+    {
+      "handle": "bili_41883712",
+      "category": "",
+      "summary": "官网商城本轮促销今晚结束，《近月少女的礼仪2》《游魂2》等中文版打折。",
+      "via": [],
+      "sources": [
+        "bilibili:1270873953141784595",
+        "bilibili:1270595639261003776"
+      ]
+    },
+    {
+      "handle": "bili_3493105997187935",
+      "category": "",
+      "summary": "《Monkeys!¡》距发售还有两天，公开大小姐角色介绍并提醒加入愿望单。",
+      "via": [],
+      "sources": [
+        "bilibili:1270897661347627015"
+      ]
+    },
+    {
+      "handle": "bili_2072586344",
+      "category": "",
+      "summary": "周报第 269 期提到《樱之诗》民间汉化发布、《恋爱，我就借走咯》官中发售。",
+      "via": [],
+      "sources": [
+        "bilibili:1270885671923351560"
+      ]
+    },
+    {
+      "handle": "bili_39471072",
+      "category": "",
+      "summary": "红烧天堂英文服开服两周年，官方送三千石英与动态壁纸，另预告感恩节头像任务。",
+      "via": [],
+      "sources": [
+        "bilibili:1270874711180443649",
+        "bilibili:1270766293308407849"
+      ]
+    },
+    {
+      "handle": "bili_16302815",
+      "category": "",
+      "summary": "只上传了 11/14 晚的直播回放。",
+      "via": [],
+      "sources": [
+        "bilibili:1270759962538147895"
+      ]
+    }
+  ],
+  "provenance": {
+    "generator": "daily",
+    "prompt_version": 1,
+    "cache_key": "answers:1",
+    "generated_at": "2026-11-15T15:43:56+00:00"
+  }
+}
