@@ -1,6 +1,6 @@
 {
   "$comment": "由 scripts/optimize_images.mjs 生成，请勿手改。",
-  "generatedAt": "2026-11-14T17:02:00.905Z",
+  "generatedAt": "2026-11-15T18:03:45.179Z",
   "images": {
     "/images/blog/automaton-crymelight-mugenzakura-roundtable/01.jpg": {
       "w": 1080,
@@ -1218,6 +1218,690 @@
           "w": 670,
           "src": "/images/blog/gamespark-kojima-ai-interview/06-670.webp",
           "bytes": 15788
+        }
+      ]
+    },
+    "/images/blog/gamespark-lovemoon-interview/01.png": {
+      "w": 670,
+      "h": 378,
+      "bytes": 330707,
+      "variants": [
+        {
+          "w": 670,
+          "src": "/images/blog/gamespark-lovemoon-interview/01-670.webp",
+          "bytes": 22262
+        }
+      ]
+    },
+    "/images/blog/gamespark-lovemoon-interview/02.png": {
+      "w": 283,
+      "h": 220,
+      "bytes": 116432,
+      "variants": [
+        {
+          "w": 283,
+          "src": "/images/blog/gamespark-lovemoon-interview/02-283.webp",
+          "bytes": 8378
+        }
+      ]
+    },
+    "/images/blog/gamespark-lovemoon-interview/03.png": {
+      "w": 670,
+      "h": 376,
+      "bytes": 218381,
+      "variants": [
+        {
+          "w": 670,
+          "src": "/images/blog/gamespark-lovemoon-interview/03-670.webp",
+          "bytes": 14104
+        }
+      ]
+    },
+    "/images/blog/gamespark-lovemoon-interview/04.png": {
+      "w": 670,
+      "h": 954,
+      "bytes": 889779,
+      "variants": [
+        {
+          "w": 670,
+          "src": "/images/blog/gamespark-lovemoon-interview/04-670.webp",
+          "bytes": 122548
+        }
+      ]
+    },
+    "/images/blog/gamespark-lovemoon-interview/05.jpg": {
+      "w": 670,
+      "h": 502,
+      "bytes": 66339,
+      "variants": [
+        {
+          "w": 670,
+          "src": "/images/blog/gamespark-lovemoon-interview/05-670.webp",
+          "bytes": 20876
+        }
+      ]
+    },
+    "/images/blog/gamespark-lovemoon-interview/06.jpg": {
+      "w": 670,
+      "h": 525,
+      "bytes": 84399,
+      "variants": [
+        {
+          "w": 670,
+          "src": "/images/blog/gamespark-lovemoon-interview/06-670.webp",
+          "bytes": 34306
+        }
+      ]
+    },
+    "/images/blog/gamespark-lovemoon-interview/07.png": {
+      "w": 440,
+      "h": 330,
+      "bytes": 265252,
+      "variants": [
+        {
+          "w": 440,
+          "src": "/images/blog/gamespark-lovemoon-interview/07-440.webp",
+          "bytes": 29926
+        }
+      ]
+    },
+    "/images/blog/gamespark-lovemoon-interview/08.jpg": {
+      "w": 670,
+      "h": 453,
+      "bytes": 32072,
+      "variants": [
+        {
+          "w": 670,
+          "src": "/images/blog/gamespark-lovemoon-interview/08-670.webp",
+          "bytes": 12202
+        }
+      ]
+    },
+    "/images/blog/gamespark-lovemoon-interview/09.png": {
+      "w": 512,
+      "h": 447,
+      "bytes": 2596,
+      "variants": [
+        {
+          "w": 512,
+          "src": "/images/blog/gamespark-lovemoon-interview/09-512.webp",
+          "bytes": 8384
+        }
+      ]
+    },
+    "/images/blog/gamespark-lovemoon-interview/10.jpg": {
+      "w": 620,
+      "h": 430,
+      "bytes": 66697,
+      "variants": [
+        {
+          "w": 620,
+          "src": "/images/blog/gamespark-lovemoon-interview/10-620.webp",
+          "bytes": 37856
+        }
+      ]
+    },
+    "/images/blog/gamespark-lovemoon-interview/11.jpg": {
+      "w": 670,
+      "h": 376,
+      "bytes": 73115,
+      "variants": [
+        {
+          "w": 670,
+          "src": "/images/blog/gamespark-lovemoon-interview/11-670.webp",
+          "bytes": 32324
+        }
+      ]
+    },
+    "/images/blog/gamespark-lovemoon-interview/12.jpg": {
+      "w": 670,
+      "h": 670,
+      "bytes": 120992,
+      "variants": [
+        {
+          "w": 670,
+          "src": "/images/blog/gamespark-lovemoon-interview/12-670.webp",
+          "bytes": 53874
+        }
+      ]
+    },
+    "/images/blog/gamespark-lovemoon-interview/13.png": {
+      "w": 670,
+      "h": 376,
+      "bytes": 274729,
+      "variants": [
+        {
+          "w": 670,
+          "src": "/images/blog/gamespark-lovemoon-interview/13-670.webp",
+          "bytes": 18538
+        }
+      ]
+    },
+    "/images/blog/gamespark-lovemoon-interview/14.png": {
+      "w": 670,
+      "h": 502,
+      "bytes": 474015,
+      "variants": [
+        {
+          "w": 670,
+          "src": "/images/blog/gamespark-lovemoon-interview/14-670.webp",
+          "bytes": 33450
+        }
+      ]
+    },
+    "/images/blog/gamespark-lovemoon-interview/15.jpg": {
+      "w": 670,
+      "h": 381,
+      "bytes": 106275,
+      "variants": [
+        {
+          "w": 670,
+          "src": "/images/blog/gamespark-lovemoon-interview/15-670.webp",
+          "bytes": 53850
+        }
+      ]
+    },
+    "/images/blog/gamespark-lovemoon-interview/16.png": {
+      "w": 670,
+      "h": 376,
+      "bytes": 142667,
+      "variants": [
+        {
+          "w": 670,
+          "src": "/images/blog/gamespark-lovemoon-interview/16-670.webp",
+          "bytes": 7464
+        }
+      ]
+    },
+    "/images/blog/gamespark-lovemoon-interview/17.png": {
+      "w": 670,
+      "h": 378,
+      "bytes": 290627,
+      "variants": [
+        {
+          "w": 670,
+          "src": "/images/blog/gamespark-lovemoon-interview/17-670.webp",
+          "bytes": 49856
+        }
+      ]
+    },
+    "/images/blog/gamespark-lovemoon-interview/18.png": {
+      "w": 670,
+      "h": 376,
+      "bytes": 199195,
+      "variants": [
+        {
+          "w": 670,
+          "src": "/images/blog/gamespark-lovemoon-interview/18-670.webp",
+          "bytes": 11590
+        }
+      ]
+    },
+    "/images/blog/gamespark-lovemoon-interview/19.jpg": {
+      "w": 670,
+      "h": 446,
+      "bytes": 74765,
+      "variants": [
+        {
+          "w": 670,
+          "src": "/images/blog/gamespark-lovemoon-interview/19-670.webp",
+          "bytes": 26748
+        }
+      ]
+    },
+    "/images/blog/gamespark-lovemoon-interview/20.png": {
+      "w": 670,
+      "h": 376,
+      "bytes": 197214,
+      "variants": [
+        {
+          "w": 670,
+          "src": "/images/blog/gamespark-lovemoon-interview/20-670.webp",
+          "bytes": 14812
+        }
+      ]
+    },
+    "/images/blog/gamespark-lovemoon-interview/21.png": {
+      "w": 670,
+      "h": 376,
+      "bytes": 405248,
+      "variants": [
+        {
+          "w": 670,
+          "src": "/images/blog/gamespark-lovemoon-interview/21-670.webp",
+          "bytes": 40044
+        }
+      ]
+    },
+    "/images/blog/gamespark-lovemoon-interview/22.png": {
+      "w": 670,
+      "h": 376,
+      "bytes": 214786,
+      "variants": [
+        {
+          "w": 670,
+          "src": "/images/blog/gamespark-lovemoon-interview/22-670.webp",
+          "bytes": 8588
+        }
+      ]
+    },
+    "/images/blog/gamespark-lovemoon-interview/23.jpg": {
+      "w": 670,
+      "h": 376,
+      "bytes": 38969,
+      "variants": [
+        {
+          "w": 670,
+          "src": "/images/blog/gamespark-lovemoon-interview/23-670.webp",
+          "bytes": 15856
+        }
+      ]
+    },
+    "/images/blog/gamespark-lovemoon-interview/24.png": {
+      "w": 670,
+      "h": 376,
+      "bytes": 136437,
+      "variants": [
+        {
+          "w": 670,
+          "src": "/images/blog/gamespark-lovemoon-interview/24-670.webp",
+          "bytes": 13884
+        }
+      ]
+    },
+    "/images/blog/gamespark-lovemoon-interview/25.jpg": {
+      "w": 670,
+      "h": 376,
+      "bytes": 67499,
+      "variants": [
+        {
+          "w": 670,
+          "src": "/images/blog/gamespark-lovemoon-interview/25-670.webp",
+          "bytes": 27064
+        }
+      ]
+    },
+    "/images/blog/gamespark-lovemoon-interview/26.jpg": {
+      "w": 670,
+      "h": 376,
+      "bytes": 46274,
+      "variants": [
+        {
+          "w": 670,
+          "src": "/images/blog/gamespark-lovemoon-interview/26-670.webp",
+          "bytes": 15058
+        }
+      ]
+    },
+    "/images/blog/gamespark-lovemoon-interview/27.png": {
+      "w": 670,
+      "h": 376,
+      "bytes": 514306,
+      "variants": [
+        {
+          "w": 670,
+          "src": "/images/blog/gamespark-lovemoon-interview/27-670.webp",
+          "bytes": 50488
+        }
+      ]
+    },
+    "/images/blog/gamespark-lovemoon-interview/28.png": {
+      "w": 670,
+      "h": 376,
+      "bytes": 111934,
+      "variants": [
+        {
+          "w": 670,
+          "src": "/images/blog/gamespark-lovemoon-interview/28-670.webp",
+          "bytes": 11944
+        }
+      ]
+    },
+    "/images/blog/gamespark-lovemoon-interview/29.png": {
+      "w": 670,
+      "h": 376,
+      "bytes": 427214,
+      "variants": [
+        {
+          "w": 670,
+          "src": "/images/blog/gamespark-lovemoon-interview/29-670.webp",
+          "bytes": 38346
+        }
+      ]
+    },
+    "/images/blog/gamespark-lovemoon-interview/30.jpg": {
+      "w": 670,
+      "h": 376,
+      "bytes": 86697,
+      "variants": [
+        {
+          "w": 670,
+          "src": "/images/blog/gamespark-lovemoon-interview/30-670.webp",
+          "bytes": 40582
+        }
+      ]
+    },
+    "/images/blog/gamespark-lovemoon-interview/31.jpg": {
+      "w": 670,
+      "h": 376,
+      "bytes": 71400,
+      "variants": [
+        {
+          "w": 670,
+          "src": "/images/blog/gamespark-lovemoon-interview/31-670.webp",
+          "bytes": 31096
+        }
+      ]
+    },
+    "/images/blog/gamespark-lovemoon-interview/32.png": {
+      "w": 670,
+      "h": 378,
+      "bytes": 503011,
+      "variants": [
+        {
+          "w": 670,
+          "src": "/images/blog/gamespark-lovemoon-interview/32-670.webp",
+          "bytes": 46408
+        }
+      ]
+    },
+    "/images/blog/gamespark-lovemoon-interview/33.png": {
+      "w": 670,
+      "h": 376,
+      "bytes": 368728,
+      "variants": [
+        {
+          "w": 670,
+          "src": "/images/blog/gamespark-lovemoon-interview/33-670.webp",
+          "bytes": 27606
+        }
+      ]
+    },
+    "/images/blog/gamespark-lovemoon-interview/34.jpg": {
+      "w": 670,
+      "h": 376,
+      "bytes": 104610,
+      "variants": [
+        {
+          "w": 670,
+          "src": "/images/blog/gamespark-lovemoon-interview/34-670.webp",
+          "bytes": 52308
+        }
+      ]
+    },
+    "/images/blog/gamespark-lovemoon-interview/35.png": {
+      "w": 670,
+      "h": 376,
+      "bytes": 212289,
+      "variants": [
+        {
+          "w": 670,
+          "src": "/images/blog/gamespark-lovemoon-interview/35-670.webp",
+          "bytes": 15698
+        }
+      ]
+    },
+    "/images/blog/gamespark-lovemoon-interview/36.png": {
+      "w": 597,
+      "h": 413,
+      "bytes": 170717,
+      "variants": [
+        {
+          "w": 597,
+          "src": "/images/blog/gamespark-lovemoon-interview/36-597.webp",
+          "bytes": 27774
+        }
+      ]
+    },
+    "/images/blog/gamespark-lovemoon-interview/37.jpg": {
+      "w": 670,
+      "h": 376,
+      "bytes": 36948,
+      "variants": [
+        {
+          "w": 670,
+          "src": "/images/blog/gamespark-lovemoon-interview/37-670.webp",
+          "bytes": 14356
+        }
+      ]
+    },
+    "/images/blog/gamespark-lovemoon-interview/38.jpg": {
+      "w": 670,
+      "h": 376,
+      "bytes": 16371,
+      "variants": [
+        {
+          "w": 670,
+          "src": "/images/blog/gamespark-lovemoon-interview/38-670.webp",
+          "bytes": 5488
+        }
+      ]
+    },
+    "/images/blog/gamespark-lovemoon-interview/39.png": {
+      "w": 670,
+      "h": 376,
+      "bytes": 423678,
+      "variants": [
+        {
+          "w": 670,
+          "src": "/images/blog/gamespark-lovemoon-interview/39-670.webp",
+          "bytes": 52752
+        }
+      ]
+    },
+    "/images/blog/gamespark-lovemoon-interview/40.png": {
+      "w": 670,
+      "h": 376,
+      "bytes": 283753,
+      "variants": [
+        {
+          "w": 670,
+          "src": "/images/blog/gamespark-lovemoon-interview/40-670.webp",
+          "bytes": 13892
+        }
+      ]
+    },
+    "/images/blog/gamespark-lovemoon-interview/41.png": {
+      "w": 670,
+      "h": 376,
+      "bytes": 279972,
+      "variants": [
+        {
+          "w": 670,
+          "src": "/images/blog/gamespark-lovemoon-interview/41-670.webp",
+          "bytes": 18124
+        }
+      ]
+    },
+    "/images/blog/gamespark-lovemoon-interview/42.png": {
+      "w": 670,
+      "h": 376,
+      "bytes": 92696,
+      "variants": [
+        {
+          "w": 670,
+          "src": "/images/blog/gamespark-lovemoon-interview/42-670.webp",
+          "bytes": 9074
+        }
+      ]
+    },
+    "/images/blog/gamespark-lovemoon-interview/43.png": {
+      "w": 670,
+      "h": 376,
+      "bytes": 144730,
+      "variants": [
+        {
+          "w": 670,
+          "src": "/images/blog/gamespark-lovemoon-interview/43-670.webp",
+          "bytes": 10134
+        }
+      ]
+    },
+    "/images/blog/gamespark-lovemoon-interview/44.png": {
+      "w": 670,
+      "h": 376,
+      "bytes": 75383,
+      "variants": [
+        {
+          "w": 670,
+          "src": "/images/blog/gamespark-lovemoon-interview/44-670.webp",
+          "bytes": 6704
+        }
+      ]
+    },
+    "/images/blog/gamespark-lovemoon-interview/45.png": {
+      "w": 670,
+      "h": 376,
+      "bytes": 87706,
+      "variants": [
+        {
+          "w": 670,
+          "src": "/images/blog/gamespark-lovemoon-interview/45-670.webp",
+          "bytes": 7790
+        }
+      ]
+    },
+    "/images/blog/gamespark-lovemoon-interview/46.png": {
+      "w": 670,
+      "h": 376,
+      "bytes": 94086,
+      "variants": [
+        {
+          "w": 670,
+          "src": "/images/blog/gamespark-lovemoon-interview/46-670.webp",
+          "bytes": 11302
+        }
+      ]
+    },
+    "/images/blog/gamespark-lovemoon-interview/47.png": {
+      "w": 670,
+      "h": 376,
+      "bytes": 121014,
+      "variants": [
+        {
+          "w": 670,
+          "src": "/images/blog/gamespark-lovemoon-interview/47-670.webp",
+          "bytes": 28520
+        }
+      ]
+    },
+    "/images/blog/gamespark-lovemoon-interview/48.png": {
+      "w": 670,
+      "h": 376,
+      "bytes": 110382,
+      "variants": [
+        {
+          "w": 670,
+          "src": "/images/blog/gamespark-lovemoon-interview/48-670.webp",
+          "bytes": 21142
+        }
+      ]
+    },
+    "/images/blog/gamespark-lovemoon-interview/49.png": {
+      "w": 670,
+      "h": 376,
+      "bytes": 356688,
+      "variants": [
+        {
+          "w": 670,
+          "src": "/images/blog/gamespark-lovemoon-interview/49-670.webp",
+          "bytes": 33852
+        }
+      ]
+    },
+    "/images/blog/gamespark-lovemoon-interview/50.png": {
+      "w": 670,
+      "h": 375,
+      "bytes": 290855,
+      "variants": [
+        {
+          "w": 670,
+          "src": "/images/blog/gamespark-lovemoon-interview/50-670.webp",
+          "bytes": 15438
+        }
+      ]
+    },
+    "/images/blog/gamespark-lovemoon-interview/51.png": {
+      "w": 670,
+      "h": 376,
+      "bytes": 321307,
+      "variants": [
+        {
+          "w": 670,
+          "src": "/images/blog/gamespark-lovemoon-interview/51-670.webp",
+          "bytes": 27324
+        }
+      ]
+    },
+    "/images/blog/gamespark-lovemoon-interview/52.png": {
+      "w": 670,
+      "h": 378,
+      "bytes": 287935,
+      "variants": [
+        {
+          "w": 670,
+          "src": "/images/blog/gamespark-lovemoon-interview/52-670.webp",
+          "bytes": 16272
+        }
+      ]
+    },
+    "/images/blog/gamespark-lovemoon-interview/53.png": {
+      "w": 670,
+      "h": 376,
+      "bytes": 132387,
+      "variants": [
+        {
+          "w": 670,
+          "src": "/images/blog/gamespark-lovemoon-interview/53-670.webp",
+          "bytes": 10226
+        }
+      ]
+    },
+    "/images/blog/gamespark-lovemoon-interview/54.png": {
+      "w": 670,
+      "h": 416,
+      "bytes": 413637,
+      "variants": [
+        {
+          "w": 670,
+          "src": "/images/blog/gamespark-lovemoon-interview/54-670.webp",
+          "bytes": 35860
+        }
+      ]
+    },
+    "/images/blog/gamespark-lovemoon-interview/55.png": {
+      "w": 670,
+      "h": 375,
+      "bytes": 263274,
+      "variants": [
+        {
+          "w": 670,
+          "src": "/images/blog/gamespark-lovemoon-interview/55-670.webp",
+          "bytes": 23892
+        }
+      ]
+    },
+    "/images/blog/gamespark-lovemoon-interview/56.png": {
+      "w": 670,
+      "h": 377,
+      "bytes": 286359,
+      "variants": [
+        {
+          "w": 670,
+          "src": "/images/blog/gamespark-lovemoon-interview/56-670.webp",
+          "bytes": 49850
+        }
+      ]
+    },
+    "/images/blog/gamespark-lovemoon-interview/57.png": {
+      "w": 670,
+      "h": 376,
+      "bytes": 308667,
+      "variants": [
+        {
+          "w": 670,
+          "src": "/images/blog/gamespark-lovemoon-interview/57-670.webp",
+          "bytes": 33370
         }
       ]
     },
