@@ -34,9 +34,9 @@ Life Science ｜ Vibe Coding ｜ Galgame ｜ Doujin ASMR
 ## 最近更新
 
 <!-- RECENT:START -->
-- [「11 月 5 日」其实是游戏的好发售日——同日发售的美少女 Roguelike《无尽幻樱阁》《恸哭幽光》，开发者谈「为什么敢贴着 GTA6 上」](https://epsilongg.github.io/blog/automaton-crymelight-mugenzakura-roundtable/)
-- [以新作《anemoi》为轴织出的 Key 音乐轨迹——“KSL Live World 2026 – Sing with the Wind -”现场报道](https://epsilongg.github.io/blog/ksl-live-world-2026-report/)
-- [为了"用更好的日文玩游戏"直接找开发者谈判的玩家，后来成了自由游戏翻译者——"边玩边译"这份工作严苛的幕后【访谈】](https://epsilongg.github.io/blog/automaton-toyoch-interview/)
+- [「不只是女主角，连剧情里注定躲不过死亡的 NPC 都有人求一个救赎」美少女 × 克苏鲁模拟经营《黎明门前的吹笛人》开发者访谈【访谈】](https://epsilongg.github.io/blog/gamespark-piper-of-dawn-interview/)
+- [首位可操作星神为什么是「阿哈」？《崩坏：星穹铁道》主策划安承男谈 4.7、老角色强化与《绝区零》联动【访谈】](https://epsilongg.github.io/blog/gamespark-star-rail-aha-interview/)
+- [《蔚蓝档案》日本版更换发行商，到底会变什么？紧急采访统括制作人キム・ヨンハ与 Nexon 事业本部长チェ・ユンソク——本地化与二次创作指引都守住老师熟悉的样子](https://epsilongg.github.io/blog/bluearchive-publisher-change-interview/)
 <!-- RECENT:END -->
 
 ---
