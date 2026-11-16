@@ -1,0 +1,679 @@
+{
+  "schema_version": 1,
+  "issue": {
+    "id": "261116-g",
+    "published_at": "2026-11-17T00:48:33.084931+09:00",
+    "window": {
+      "start": "2026-11-16T00:00:00+09:00",
+      "end": "2026-11-17T00:00:00+09:00"
+    },
+    "status": "confirmed",
+    "confirmed_at": "2026-11-16T15:54:31+00:00"
+  },
+  "counts": {
+    "items": 208,
+    "accounts": 54,
+    "late": 282,
+    "skipped_duplicate": 7
+  },
+  "description": "sprite 两部新作进入发售十日倒计时，公开角色页与 OP 视频；Nitroplus 定下刀剑乱舞动画开播日",
+  "highlights": [
+    {
+      "text": "Nitroplus 公布『わんぱく！刀剣乱舞』电视动画 2027 年 1 月 6 日在 TOKYO MX 开播，并解禁预告视觉图。",
+      "sources": [
+        "x:2122162755335573871",
+        "x:2122289697770832142"
+      ]
+    },
+    {
+      "text": "《金辉恋曲四重奏》十周年角色玩偶企划启动，投票前三名角色将在明年被制成玩偶。",
+      "sources": [
+        "bilibili:1271308477089710085"
+      ]
+    },
+    {
+      "text": "sprite 两部 11 月 26 日发售的新作进入十天倒计时，并首次公开角色一览页与 OP 视频。",
+      "sources": [
+        "x:2122281328305746422",
+        "x:2122281609131065581",
+        "x:2122288725183082891",
+        "x:2122299851631378740"
+      ]
+    },
+    {
+      "text": "Moonstone Cherry 的『ホめられて伸びるＳＲ少女たち２』定在 12 月 25 日发售，转发抽奖第四弹同日启动。",
+      "sources": [
+        "x:2122140533984477411",
+        "x:2122259751354741096"
+      ]
+    }
+  ],
+  "insights": [],
+  "interactions": [
+    {
+      "text": "CyberworksKoho 转发 bugbug_info 关于『ムジナ・臭』原画挂毯样品到货的通知。",
+      "sources": [
+        "x:2122232706683834874"
+      ]
+    },
+    {
+      "text": "Moepedia_net 转述 POISON_NEW1992 的『悲鳴』角色丹岡真子介绍。",
+      "sources": [
+        "x:2122302412350501249"
+      ]
+    }
+  ],
+  "works": [
+    "『どいなかガールズゆーとぴあ』11 月 27 日发售，公开第二波装盘完成贺图与画廊 CG。",
+    "『ワンナイトアフター』装盘完成，下载版在 FANZA GAMES 开放预约，11 月 27 日发售。",
+    "D.C.5 to 4 Luminous Memories 的 DMM 抽奖券 11 月 16 日 18 点开售，持续至 12 月 14 日。",
+    "『放課後シンデレラ 長南陽佳は幼馴染。』电子书 11 月 27 日由ぷちぱら文庫推出。",
+    "『小金井荘と金色の揚羽蝶』11 月 26 日发售进入十天倒计时，公开角色一览页与 OP 视频。",
+    "『everlasting flowers』Windows 版 11 月 26 日发售，官网公开自动模式通关时长。",
+    "『ホめられて伸びるＳＲ少女たち２』预定 12 月 25 日发售，转发抽奖第四弹启动。",
+    "『悲鳴』公开篮球部经理丹岡真子与好胜的チャオ・メイファン角色介绍视频。",
+    "『養花師の背徳愛』介绍场景快速回看、演出切换与后台记录功能。",
+    "新品牌『スティールキャット』公布，主打逆 NTR 题材。",
+    "『わんぱく！刀剣乱舞』电视动画定档 2027 年 1 月 6 日，预告视觉图同步解禁。",
+    "『雪語り』迎来发售 25 周年，信息号回顾其氛围与角色关系。",
+    "『千恋＊万花』累计销量已突破 100 万本。",
+    "『ムジナ・臭』原画浮舩かおる绘制的两款 B2 挂毯样品到货。",
+    "『ARIA BLUE I.夏音』在主题曲演唱者 CYNHN 的专场设展示区。",
+    "『2026Triangleヒロイン抱き枕』11 月 16 日开启预订，暂定 11 月 24 日截止。",
+    "《真爱的百合被染成红色》两款毛绒玩偶已发货，另两款仍在监修。",
+    "《近月少女的礼仪2》国际中文版 Steam 促销价 53 元。",
+    "《天选庶民的真命之选》国际中文版 Steam 促销价 41 元。",
+    "《繁花落舞恋如樱 -Re:BIRTH-》国际中文版 Steam 促销价 45 元。",
+    "《少女理论以及周边 -École de Paris-》国际中文版 Steam 促销价 44 元。",
+    "《突然＊恋人》全高清合集版 Steam 促销价 46 元。",
+    "春风社《Monkeys!¡》发售前一天公开角色介绍，主打女校潜入恋爱喜剧。",
+    "《弹企鹅》免费更新上线，新增战斗舞台与自动瞄准功能。"
+  ],
+  "categories": [],
+  "accounts": [
+    "Moepedia_net",
+    "silkysplus",
+    "kiss_staff",
+    "HOOKSOFT",
+    "CyberworksKoho",
+    "Route2_tri",
+    "crowd_anim",
+    "VALKYRIA_info",
+    "circus_info",
+    "purple_NewWork",
+    "CRYSTALiA_AC",
+    "smee_official",
+    "entergram_info",
+    "Amuse_kenzen",
+    "POISON_NEW1992",
+    "dessertsoft_tw",
+    "u_me_soft",
+    "FANDC_Staff",
+    "Amuse_sub",
+    "luneman_etc",
+    "fgremake",
+    "sprite_fairys",
+    "moonstoneTwitt",
+    "nisidahajime",
+    "DiGination_info",
+    "project_navel",
+    "info_9_nine_",
+    "jitaku_st",
+    "AQUAPLUS_JP",
+    "project_citrus",
+    "Muvluv_Official",
+    "BEEP_SHOP",
+    "twit_Gungnir",
+    "adahemas",
+    "SukeraSparo",
+    "Overflow_staff",
+    "nitroplus_staff",
+    "akaeroCore_en",
+    "youtan0309",
+    "aikouka23",
+    "getchucom",
+    "bugbug_info",
+    "AKOUtw",
+    "bili_3691002382518448",
+    "bili_298686071",
+    "bili_3546854253923281",
+    "bili_3546874040551694",
+    "bili_3546948824992722",
+    "bili_3546900143802616",
+    "bili_41883712",
+    "bili_3493105997187935",
+    "bili_2072586344",
+    "bili_1296113267",
+    "bili_39471072"
+  ],
+  "people": [
+    {
+      "handle": "Moepedia_net",
+      "category": "",
+      "summary": "汇总 DESSERT Soft 新作 11/27 发售、POISON『悲鳴』角色介绍与 BugBug 评测。",
+      "via": [],
+      "sources": [
+        "x:2122288571499298956",
+        "x:2122302412350501249",
+        "x:2122313989099020534"
+      ]
+    },
+    {
+      "handle": "silkysplus",
+      "category": "",
+      "summary": "「たまキャス」节目照常更新，向听众问好。",
+      "via": [],
+      "sources": [
+        "x:2122171102835384650"
+      ]
+    },
+    {
+      "handle": "kiss_staff",
+      "category": "",
+      "summary": "感谢玩家对体验版第三版的反馈，正核对报告并为装盘完成做最终检查。",
+      "via": [],
+      "sources": [
+        "x:2122299439000006990"
+      ]
+    },
+    {
+      "handle": "HOOKSOFT",
+      "category": "",
+      "summary": "宣布『放課後シンデレラ』长南阳佳电子书 11/27 发售，并参与 PS4 版促销。",
+      "via": [],
+      "sources": [
+        "x:2122173231469871224",
+        "x:2121982052283117614"
+      ]
+    },
+    {
+      "handle": "CyberworksKoho",
+      "category": "",
+      "summary": "转发 BugBug 通知：『ムジナ・臭』原画浮舩かおる绘制的两款 B2 挂毯样品到货。",
+      "via": [],
+      "sources": [
+        "x:2122102847776936273",
+        "x:2122232706683834874"
+      ]
+    },
+    {
+      "handle": "Route2_tri",
+      "category": "",
+      "summary": "为 11/20 直播征集桃園こよみ的应援留言，并开启 2026 女主角抱枕预订。",
+      "via": [],
+      "sources": [
+        "x:2122247537365270614",
+        "x:2122326352028381496"
+      ]
+    },
+    {
+      "handle": "crowd_anim",
+      "category": "",
+      "summary": "公开『きつ×みこ』骏河屋店铺特典彩色版图样。",
+      "via": [],
+      "sources": [
+        "x:2122181345581641793"
+      ]
+    },
+    {
+      "handle": "VALKYRIA_info",
+      "category": "",
+      "summary": "转发わるこ的示例帖，庆祝可以一次张贴多张图片。",
+      "via": [],
+      "sources": [
+        "x:2122304084237865308"
+      ]
+    },
+    {
+      "handle": "circus_info",
+      "category": "",
+      "summary": "D.C.5 to 4 抽奖券开售并公布 W 奖，另推荐『D.C.4』。",
+      "via": [],
+      "sources": [
+        "x:2122253357842890983",
+        "x:2122253591474028944",
+        "x:2122268539050655855"
+      ]
+    },
+    {
+      "handle": "purple_NewWork",
+      "category": "",
+      "summary": "公布上海 WePlay 追加商品，含柚子社寄售的吉他包，展会 11/21–22 举办。",
+      "via": [],
+      "sources": [
+        "x:2122242735713472939"
+      ]
+    },
+    {
+      "handle": "CRYSTALiA_AC",
+      "category": "",
+      "summary": "转发『ディメンション凸ラバース!!』第二弹原创周边开卖的消息。",
+      "via": [],
+      "sources": [
+        "x:2122192464215933094"
+      ]
+    },
+    {
+      "handle": "smee_official",
+      "category": "",
+      "summary": "『ワンナイトアフター』已装盘完成，下载版开放预约，11/27 发售并附优惠券。",
+      "via": [],
+      "sources": [
+        "x:2122293604328546561"
+      ]
+    },
+    {
+      "handle": "entergram_info",
+      "category": "",
+      "summary": "『ARIA BLUE I.夏音』在主题曲演唱者 CYNHN 的专场设展示区。",
+      "via": [],
+      "sources": [
+        "x:2122253376851460491"
+      ]
+    },
+    {
+      "handle": "Amuse_kenzen",
+      "category": "",
+      "summary": "介绍『養花師の背徳愛』的场景回看、演出切换与记录功能。",
+      "via": [],
+      "sources": [
+        "x:2122243524657664016"
+      ]
+    },
+    {
+      "handle": "POISON_NEW1992",
+      "category": "",
+      "summary": "『悲鳴』公布丹岡真子与チャオ・メイファン两段角色介绍视频。",
+      "via": [],
+      "sources": [
+        "x:2122302412350501249",
+        "x:2122313743308599577"
+      ]
+    },
+    {
+      "handle": "dessertsoft_tw",
+      "category": "",
+      "summary": "更新『どいなかガールズゆーとぴあ』画廊与装盘完成贺图，并报道 solfa 二十周年排练。",
+      "via": [],
+      "sources": [
+        "x:2122253345817596073",
+        "x:2122253414822563930",
+        "x:2122263766188294625"
+      ]
+    },
+    {
+      "handle": "u_me_soft",
+      "category": "",
+      "summary": "关注职业摔角选手今林久弥的经历，并预告 11/20 后乐园大厅赛事卡。",
+      "via": [],
+      "sources": [
+        "x:2122166886523941128",
+        "x:2122254593329700892"
+      ]
+    },
+    {
+      "handle": "FANDC_Staff",
+      "category": "",
+      "summary": "分享工作日常与秋叶原周边店铺活动，并在上野动画歌曲酒吧谈世嘉土星时代。",
+      "via": [],
+      "sources": [
+        "x:2122136327282204827",
+        "x:2122266348613148784"
+      ]
+    },
+    {
+      "handle": "Amuse_sub",
+      "category": "",
+      "summary": "宣布新品牌『スティールキャット』，主打逆 NTR 题材。",
+      "via": [],
+      "sources": [
+        "x:2122165258634609092"
+      ]
+    },
+    {
+      "handle": "luneman_etc",
+      "category": "",
+      "summary": "复刻限定扭蛋活动第十七期进行中。",
+      "via": [],
+      "sources": [
+        "x:2121982419678999010"
+      ]
+    },
+    {
+      "handle": "fgremake",
+      "category": "",
+      "summary": "『ハーレムオブトーキョー』与『夜勤病棟オンライン-New Operation-』联动 11/16 开始。",
+      "via": [],
+      "sources": [
+        "x:2122223147856666635"
+      ]
+    },
+    {
+      "handle": "sprite_fairys",
+      "category": "",
+      "summary": "两部 11/26 新作进入十天倒计时，公开角色一览页、OP 视频与自动模式时长。",
+      "via": [],
+      "sources": [
+        "x:2122281328305746422",
+        "x:2122288725183082891",
+        "x:2122299851631378740",
+        "x:2122288478587367618"
+      ]
+    },
+    {
+      "handle": "moonstoneTwitt",
+      "category": "",
+      "summary": "『ホめられて伸びるＳＲ少女たち２』定档 12/25，转发抽奖第四弹当天启动。",
+      "via": [],
+      "sources": [
+        "x:2122140533984477411",
+        "x:2122259751354741096"
+      ]
+    },
+    {
+      "handle": "nisidahajime",
+      "category": "",
+      "summary": "『女装百合嵐』应援横幅活动结束，壁纸将稍后寄送。",
+      "via": [],
+      "sources": [
+        "x:2122182341791748148"
+      ]
+    },
+    {
+      "handle": "DiGination_info",
+      "category": "",
+      "summary": "转发 FBGM 首场活动周边清单，含 FLIP＊FLOP 联名 T 恤。",
+      "via": [],
+      "sources": [
+        "x:2122162751976153560"
+      ]
+    },
+    {
+      "handle": "project_navel",
+      "category": "",
+      "summary": "Navel 广播第 365 期上线，并请粉丝为同人图标注账号方便转载。",
+      "via": [],
+      "sources": [
+        "x:2122234704539873461",
+        "x:2122178854756528438"
+      ]
+    },
+    {
+      "handle": "info_9_nine_",
+      "category": "",
+      "summary": "提醒『as:9-nine-ARTEISIA Café』后日通贩 11/16 23:59 截止。",
+      "via": [],
+      "sources": [
+        "x:2122270204797583699"
+      ]
+    },
+    {
+      "handle": "jitaku_st",
+      "category": "",
+      "summary": "考虑以 2007—08 年为舞台写点东西，并因忘带备用手机暂停更新两天。",
+      "via": [],
+      "sources": [
+        "x:2122096908944777288",
+        "x:2122097468582293857"
+      ]
+    },
+    {
+      "handle": "AQUAPLUS_JP",
+      "category": "",
+      "summary": "纪念『WHITE ALBUM2』杉浦小春 11 月 16 日生日。",
+      "via": [],
+      "sources": [
+        "x:2121981557875560566"
+      ]
+    },
+    {
+      "handle": "project_citrus",
+      "category": "",
+      "summary": "分享爱猫日常与天气吐槽，并留意 Suica 新形象 11/18 公布。",
+      "via": [],
+      "sources": [
+        "x:2122106996954628565",
+        "x:2122171945798316190"
+      ]
+    },
+    {
+      "handle": "Muvluv_Official",
+      "category": "",
+      "summary": "介绍战术机 MiG-23 チボラシュカ的起源与东德服役经历。",
+      "via": [],
+      "sources": [
+        "x:2122268450290835899"
+      ]
+    },
+    {
+      "handle": "BEEP_SHOP",
+      "category": "",
+      "summary": "展示 Game Boy 开发卡带与新到货的樱井政博专栏书籍，修理班仍在处理 68K 主机。",
+      "via": [],
+      "sources": [
+        "x:2122157027913064651",
+        "x:2122162755964961198",
+        "x:2122236454432563389"
+      ]
+    },
+    {
+      "handle": "twit_Gungnir",
+      "category": "",
+      "summary": "公开黑胶封套双面新绘草图，『Karanoshojo Complete Box -Noir-』预约 11/16 截止。",
+      "via": [],
+      "sources": [
+        "x:2122263337836892629"
+      ]
+    },
+    {
+      "handle": "adahemas",
+      "category": "",
+      "summary": "称赞ビカラ与ファラ的服装，并讨论一次回合讨伐挑战。",
+      "via": [],
+      "sources": [
+        "x:2122080714032373906",
+        "x:2122264739254567157",
+        "x:2122322490785739251"
+      ]
+    },
+    {
+      "handle": "SukeraSparo",
+      "category": "",
+      "summary": "表参道个展「花と少女とガラスの世界」第三天追加两幅展示板。",
+      "via": [],
+      "sources": [
+        "x:2122148057345413145"
+      ]
+    },
+    {
+      "handle": "Overflow_staff",
+      "category": "",
+      "summary": "第 326 期桂同学降临直播后决定制作连帽衫，并分享观看『スクールデイズ』的感想。",
+      "via": [],
+      "sources": [
+        "x:2121981974210629821",
+        "x:2122005019721597160",
+        "x:2122241283288871344"
+      ]
+    },
+    {
+      "handle": "nitroplus_staff",
+      "category": "",
+      "summary": "公布『わんぱく！刀剣乱舞』2027 年 1 月 6 日开播，每天公开一名登场角色。",
+      "via": [],
+      "sources": [
+        "x:2122162755335573871",
+        "x:2122289697770832142"
+      ]
+    },
+    {
+      "handle": "akaerocore",
+      "category": "",
+      "summary": "为『Unholy Maiden』举办抽奖，50 人可得 Steam 激活码、挂画与 DLsite 积分。",
+      "via": [
+        "akaeroCore_en"
+      ],
+      "sources": [
+        "x:2122196873507385816"
+      ]
+    },
+    {
+      "handle": "youtan0309",
+      "category": "",
+      "summary": "纪念『雪語り』发售 25 周年，并回顾 2016 年销量榜与千恋＊万花破百万。",
+      "via": [],
+      "sources": [
+        "x:2121981562816450976",
+        "x:2122240989532401669",
+        "x:2122244096123392401"
+      ]
+    },
+    {
+      "handle": "aikouka23",
+      "category": "",
+      "summary": "展示店内中古货架现状并征集询价，另转发一则关于名誉毁损认定的讨论。",
+      "via": [],
+      "sources": [
+        "x:2122260876002804122",
+        "x:2122265992864899516"
+      ]
+    },
+    {
+      "handle": "getchucom",
+      "category": "",
+      "summary": "公布两款漫画的原创店铺特典插画卡，分别由まんす与黒岩瑪瑙绘制。",
+      "via": [],
+      "sources": [
+        "x:2122276817310748979",
+        "x:2122280586601775382"
+      ]
+    },
+    {
+      "handle": "bugbug_info",
+      "category": "",
+      "summary": "本志复活评测 MOONSTONE Cherry『ホめられて伸びるSR少女たち』。",
+      "via": [],
+      "sources": [
+        "x:2121982052006600945"
+      ]
+    },
+    {
+      "handle": "AKOUtw",
+      "category": "",
+      "summary": "公告转入 stシルバー，并关注『養花師の背徳愛』等新作。",
+      "via": [],
+      "sources": [
+        "x:2122235280333865399",
+        "x:2122006478802612533"
+      ]
+    },
+    {
+      "handle": "bili_3691002382518448",
+      "category": "",
+      "summary": "提醒恐怖冒险游戏『Resequence: The Orchard』距离发售还有四天。",
+      "via": [],
+      "sources": [
+        "bilibili:1271267163791949847"
+      ]
+    },
+    {
+      "handle": "bili_298686071",
+      "category": "",
+      "summary": "转发《了不起的修仙模拟器2》开发日志延期至 1/11，并介绍《弹企鹅》免费更新。",
+      "via": [],
+      "sources": [
+        "bilibili:1271200261131468817",
+        "bilibili:1271234912904544264"
+      ]
+    },
+    {
+      "handle": "bili_3546854253923281",
+      "category": "",
+      "summary": "启动《金辉恋曲四重奏》十周年角色玩偶投票，前三名将在明年玩偶化。",
+      "via": [],
+      "sources": [
+        "bilibili:1271308477089710085"
+      ]
+    },
+    {
+      "handle": "bili_3546874040551694",
+      "category": "",
+      "summary": "通知《真爱的百合被染成红色》两款玩偶已发货，另两款仍在监修。",
+      "via": [],
+      "sources": [
+        "bilibili:1271280465343414273"
+      ]
+    },
+    {
+      "handle": "bili_3546948824992722",
+      "category": "",
+      "summary": "科普《多娜多娜》可隐藏不适宜画面的 NSFW 模式。",
+      "via": [],
+      "sources": [
+        "bilibili:1271147664947281960"
+      ]
+    },
+    {
+      "handle": "bili_3546900143802616",
+      "category": "",
+      "summary": "介绍 Muv-Luv 战术机 MiG-27 Alligator 的近战定位与改进。",
+      "via": [],
+      "sources": [
+        "bilibili:1271245038311964672"
+      ]
+    },
+    {
+      "handle": "bili_41883712",
+      "category": "",
+      "summary": "《近月少女的礼仪2》等多款中文版在 Steam 促销，并上架恋彼女抱枕。",
+      "via": [],
+      "sources": [
+        "bilibili:1271105881357942787",
+        "bilibili:1271198652669362193",
+        "bilibili:1271242203587411985"
+      ]
+    },
+    {
+      "handle": "bili_3493105997187935",
+      "category": "",
+      "summary": "春风社《Monkeys!¡》发售前一天公开角色介绍，主打女校潜入恋爱喜剧。",
+      "via": [],
+      "sources": [
+        "bilibili:1271269004236816385"
+      ]
+    },
+    {
+      "handle": "bili_2072586344",
+      "category": "",
+      "summary": "美少女游戏周报第 269 期带来《樱之诗》十周年民汉与《恋爱，我就借走咯》官中消息。",
+      "via": [],
+      "sources": [
+        "bilibili:1271243799224385536"
+      ]
+    },
+    {
+      "handle": "bili_1296113267",
+      "category": "",
+      "summary": "开放 C109 しらたまこ 2027 年日历事前通贩，11 月 22 日截止。",
+      "via": [],
+      "sources": [
+        "bilibili:1271107957992456198"
+      ]
+    },
+    {
+      "handle": "bili_39471072",
+      "category": "",
+      "summary": "介绍 She is Legend 新曲随樱庭星罗新剧情活动上线及演唱者感言。",
+      "via": [],
+      "sources": [
+        "bilibili:1271245688965955606"
+      ]
+    }
+  ],
+  "provenance": {
+    "generator": "daily",
+    "prompt_version": 1,
+    "cache_key": "answers:1",
+    "generated_at": "2026-11-16T15:54:16+00:00"
+  }
+}
