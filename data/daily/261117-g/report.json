@@ -1,0 +1,643 @@
+{
+  "schema_version": 1,
+  "issue": {
+    "id": "261117-g",
+    "published_at": "2026-11-18T01:00:08.890098+09:00",
+    "window": {
+      "start": "2026-11-17T00:00:00+09:00",
+      "end": "2026-11-18T00:00:00+09:00"
+    },
+    "status": "confirmed",
+    "confirmed_at": "2026-11-17T16:02:22+00:00"
+  },
+  "counts": {
+    "items": 201,
+    "accounts": 52,
+    "late": 156,
+    "skipped_duplicate": 5
+  },
+  "description": "Nitroplus官网全面改版并更换网址，Key为开发初期新作招募试玩员",
+  "highlights": [
+    {
+      "text": "Nitroplus官方通贩站点全面改版并于11月17日中午上线，网址变更；「ニトロお顔コレクション」同日起限期再贩预约至12月11日。",
+      "sources": [
+        "x:2122525382062842166",
+        "x:2122525382503174292",
+        "x:2122525633687269843"
+      ]
+    },
+    {
+      "text": "Key为开发初期的新作招募一日试玩员，场地在东京都内，B站消息补充试玩会定在12月19日与20日、完成后有酬劳。",
+      "sources": [
+        "x:2122585531489866209",
+        "x:2122692483276538177",
+        "bilibili:1271578312740700166"
+      ]
+    },
+    {
+      "text": "本阿弥あずさ主演兼监修的『あじゅ～るメモリア』开放官方通贩限定版预约，新绘插画周边与等身立体鼠标垫同场亮相。",
+      "sources": [
+        "x:2122630826387206485",
+        "x:2122630830723850480",
+        "x:2122632085672468674"
+      ]
+    },
+    {
+      "text": "elf的《ドラゴンナイト》迎来发售37周年，信息号称它是美少女游戏里首部卖到10万本的作品。",
+      "sources": [
+        "x:2122672017006817581"
+      ]
+    }
+  ],
+  "insights": [],
+  "interactions": [
+    {
+      "text": "getchucom为SMEE的『ワンナイトアフター』更新SD亚克力立牌特典样本，并继续开放预约。",
+      "sources": [
+        "x:2122654865453384188"
+      ]
+    }
+  ],
+  "works": [
+    "Triangle『魔法戦士ソルシエルナイツ』11月27日发售，初回特典追加迷你ADV与语音内容。",
+    "SMEE『ワンナイトアフター』装盘完成，FANZA GAMES开放下载版预约，11月27日发售。",
+    "『あじゅ～るメモリア』官方通贩限定版开放预约，附本阿弥あずさ新绘插画周边与等身立体鼠标垫，2027年2月25日发售。",
+    "『養花師の背徳愛』体验版公开，收录教育篇入口与作品特色桥段，临近发售。",
+    "『どいなかガールズゆーとぴあ』装盘完成，11月27日发售，特典信息重新公开。",
+    "『小金井荘と金色の揚羽蝶』11月26日发售倒计时9天，伊瀬茉莉也与鈴代紗弓公开配音感想。",
+    "『ハピメア』主题曲『夢の無限回廊』与『愛奴の小径』开始配信，OP视频公开。",
+    "『カノジョの妹のあざと誘惑～純愛なんてゴミですよ先輩♡』OP视频公开，『Stigma Noir』由みたかりん演唱。",
+    "『フォルト！SA』限定版附赠的Tony绘制抱枕套复刻版定在12月25日再贩。",
+    "PINKYCREAM『NEWBREEDER』的クロエ与ユキ抱枕套定在12月25日再贩。",
+    "『神聖昂燐エストランジェ』命苫つづみ抱枕套定在12月25日再贩。",
+    "『天瀬島は色恋ざかり』下载版在各配信平台以优惠价格上线。",
+    "Lovelet处女作『西園家のかくしゴト - The Secret Revealed by the Lens -』发售中，部分店铺仍有特典。",
+    "『贄の町』官方粉丝书在Animate开放预约，样本包含世界观解说与日天角色介绍。",
+    "『けれど輝く夜空のような』公开谷河なすの形象，该角色原是2002年作品的未登场角色。",
+    "『うたわれるもの ロストフラグ』联动咖啡厅11月21日至明年1月31日在新宿举办。",
+    "『カスタムロマンスシティ3D3』开放初回限定版与豪华版预约，getchucom特典为花霞比基尼附录卡。",
+    "【女装百合嵐/Trap Yuri Tempest】实体版应援活动进行中，参与者可获真寻与礼央奈壁纸。",
+    "春风社《Monkeys!¡》正式发售，Steam首发两周八折。",
+    "《虚妄爱丽丝 -岐梦重缘-》公开特蒂娅角色（CV福圆美里），11月27日Steam发售。",
+    "《Estella-回星乐章-》确定2027年1月29日开启抢先体验，收录40首以上曲目。",
+    "《沉星之序》首次多平台折扣开启，中文配音录制完成待更新上线。",
+    "《Resequence: The Orchard》发售还剩3天。",
+    "《Re:LieF ～献给亲爱的你～》官方中文版在Steam促销，售价24元。"
+  ],
+  "categories": [],
+  "accounts": [
+    "Moepedia_net",
+    "silkysplus",
+    "chaos_R_public",
+    "HOOKSOFT",
+    "Route2_tri",
+    "purple_NewWork",
+    "smee_official",
+    "entergram_info",
+    "Amuse_kenzen",
+    "key_official",
+    "dessertsoft_tw",
+    "u_me_soft",
+    "hamham_soft",
+    "FANDC_Staff",
+    "NanaWind",
+    "Amuse_sub",
+    "sprite_fairys",
+    "madostaff",
+    "Empress_STAFF",
+    "moonstoneTwitt",
+    "nisidahajime",
+    "project_navel",
+    "jitaku_st",
+    "AQUAPLUS_JP",
+    "project_citrus",
+    "Muvluv_Official",
+    "BEEP_SHOP",
+    "Liaison__info",
+    "info_lovelet",
+    "adahemas",
+    "SukeraSparo",
+    "zombilica_com",
+    "Overflow_staff",
+    "nitroplus_staff",
+    "akaeroCore_en",
+    "youtan0309",
+    "aikouka23",
+    "getchucom",
+    "AKOUtw",
+    "bili_3632310624717268",
+    "bili_3691002382518448",
+    "bili_3537113226152650",
+    "bili_298686071",
+    "bili_3546948824992722",
+    "bili_3546900143802616",
+    "bili_3690981385833115",
+    "bili_3546816528255265",
+    "bili_138256",
+    "bili_41883712",
+    "bili_3493105997187935",
+    "bili_2072586344",
+    "bili_39471072"
+  ],
+  "people": [
+    {
+      "handle": "Moepedia_net",
+      "category": "",
+      "summary": "转发温泉旅ADV发售、Triangle新作特典样本、『夢見るアプリ』即将发售、Key招募试玩员与抱枕套预约信息。",
+      "via": [],
+      "sources": [
+        "x:2122679447174438984"
+      ]
+    },
+    {
+      "handle": "silkysplus",
+      "category": "",
+      "summary": "预告第111期直播并邀请Lycee Overture导演马原，中途故障后换场重开。",
+      "via": [],
+      "sources": [
+        "x:2122623282877009942",
+        "x:2122643075499725271",
+        "x:2122644306293047658"
+      ]
+    },
+    {
+      "handle": "chaos_R_public",
+      "category": "",
+      "summary": "Tony绘制的『フォルト！SA』抱枕套复刻版，以及另外两款角色抱枕套都定在12月25日再贩。",
+      "via": [],
+      "sources": [
+        "x:2122547208105144450"
+      ]
+    },
+    {
+      "handle": "HOOKSOFT",
+      "category": "",
+      "summary": "为ASaProject新作『王様恋愛』发售举办联动活动，11月13日至29日在店铺举行。",
+      "via": [],
+      "sources": [
+        "x:2122526390969061785"
+      ]
+    },
+    {
+      "handle": "Route2_tri",
+      "category": "",
+      "summary": "Triangle新作『魔法戦士ソルシエルナイツ』初回特典追加迷你ADV与语音内容，11月27日发售。",
+      "via": [],
+      "sources": [
+        "x:2122628624289530196"
+      ]
+    },
+    {
+      "handle": "purple_NewWork",
+      "category": "",
+      "summary": "『ハピメア』OP『夢の無限回廊』与ED『愛奴の小径』开始配信，OP视频公开。",
+      "via": [],
+      "sources": [
+        "x:2122630828870324289"
+      ]
+    },
+    {
+      "handle": "smee_official",
+      "category": "",
+      "summary": "『ワンナイトアフター』装盘完成，FANZA GAMES开放下载版预约并派发优惠券，11月27日发售。",
+      "via": [],
+      "sources": [
+        "x:2122655992223572174"
+      ]
+    },
+    {
+      "handle": "entergram_info",
+      "category": "",
+      "summary": "『あじゅ～るメモリア』官方通贩限定版开放预约，新绘插画周边与等身立体鼠标垫等特典公开。",
+      "via": [],
+      "sources": [
+        "x:2122630826387206485",
+        "x:2122630830723850480",
+        "x:2122632085672468674"
+      ]
+    },
+    {
+      "handle": "Amuse_kenzen",
+      "category": "",
+      "summary": "感慨11月将尽，『養花師の背徳愛』体验版公开，含教育篇入口，发售在即。",
+      "via": [],
+      "sources": [
+        "x:2122502519117221988",
+        "x:2122606163728445493"
+      ]
+    },
+    {
+      "handle": "key_official",
+      "category": "",
+      "summary": "为开发初期新作招募一日试玩员，场地在东京都内，将根据试玩反馈打磨作品。",
+      "via": [],
+      "sources": [
+        "x:2122585531489866209"
+      ]
+    },
+    {
+      "handle": "dessertsoft_tw",
+      "category": "",
+      "summary": "转发铃汤角色排练照，『どいなかガールズゆーとぴあ』装盘完成，11月27日发售并更新特典。",
+      "via": [],
+      "sources": [
+        "x:2122356007317995829"
+      ]
+    },
+    {
+      "handle": "u_me_soft",
+      "category": "",
+      "summary": "分享摔角幕后访谈与运动话题，悼念11月17日去世的前火腿队投手江夏丰。",
+      "via": [],
+      "sources": [
+        "x:2122467541608202528",
+        "x:2122668593041350700"
+      ]
+    },
+    {
+      "handle": "hamham_soft",
+      "category": "",
+      "summary": "为11月9日截止的两项赠品活动完成抽奖，已通过私信与邮件通知中奖者。",
+      "via": [],
+      "sources": [
+        "x:2122663551563370621"
+      ]
+    },
+    {
+      "handle": "FANDC_Staff",
+      "category": "",
+      "summary": "庆祝可一次发布20张图片，展示由美子角色并预告12月24日「レトロゲーム放浪記」第16回。",
+      "via": [],
+      "sources": [
+        "x:2122555178717212976",
+        "x:2122557727914483770",
+        "x:2122632801992479152"
+      ]
+    },
+    {
+      "handle": "NanaWind",
+      "category": "",
+      "summary": "公开四格漫画『アリアズカーニバル！』新篇「秋の味覚」，讲朝宫椎名与恋川志穗。",
+      "via": [],
+      "sources": [
+        "x:2122615979741954293"
+      ]
+    },
+    {
+      "handle": "Amuse_sub",
+      "category": "",
+      "summary": "『カノジョの妹のあざと誘惑』OP视频公开，主题曲『Stigma Noir』由みたかりん演唱。",
+      "via": [],
+      "sources": [
+        "x:2122527646819192858"
+      ]
+    },
+    {
+      "handle": "sprite_fairys",
+      "category": "",
+      "summary": "补上角色身高体重，『小金井荘と金色の揚羽蝶』进入9天倒计时，公开两位声优配音感想与签名抽奖。",
+      "via": [],
+      "sources": [
+        "x:2122630982935126195",
+        "x:2122646381600846285",
+        "x:2122647185544401082",
+        "x:2122661371783340430"
+      ]
+    },
+    {
+      "handle": "madostaff",
+      "category": "",
+      "summary": "旗下CS版作品下载版促销最高七折，活动持续至11月20日。",
+      "via": [],
+      "sources": [
+        "x:2122679216005333015"
+      ]
+    },
+    {
+      "handle": "Empress_STAFF",
+      "category": "",
+      "summary": "提醒「にほんママずかん」抱枕套预约11月24日13时截止，公开两位妈妈的新造型。",
+      "via": [],
+      "sources": [
+        "x:2122540578009407929"
+      ]
+    },
+    {
+      "handle": "moonstoneTwitt",
+      "category": "",
+      "summary": "收到『ストレイ・シープと死人の恋』第二卷转发活动的奖品并致谢。",
+      "via": [],
+      "sources": [
+        "x:2122478180883984734"
+      ]
+    },
+    {
+      "handle": "nisidahajime",
+      "category": "",
+      "summary": "向【女装百合嵐】实体版应援活动参与者发送真寻与礼央奈的壁纸。",
+      "via": [],
+      "sources": [
+        "x:2122662245977252209"
+      ]
+    },
+    {
+      "handle": "project_navel",
+      "category": "",
+      "summary": "2002年未登场角色谷河なすの时隔24年公开，将出现在『けれど輝く夜空のような』。",
+      "via": [],
+      "sources": [
+        "x:2122552107563938192"
+      ]
+    },
+    {
+      "handle": "jitaku_st",
+      "category": "",
+      "summary": "透露ひまりちゃん在Fan Disc里变化很大，并展示以恵那为主题的大尺寸鼠标垫。",
+      "via": [],
+      "sources": [
+        "x:2122678943287476643",
+        "x:2122680159308542018"
+      ]
+    },
+    {
+      "handle": "AQUAPLUS_JP",
+      "category": "",
+      "summary": "『うたわれるもの ロストフラグ』联动咖啡厅11月21日至明年1月31日在新宿举办，推出角色餐点与周边。",
+      "via": [],
+      "sources": [
+        "x:2122645940322365549"
+      ]
+    },
+    {
+      "handle": "project_citrus",
+      "category": "",
+      "summary": "分享雨夜与四只猫咪的日常，等待猫咪进食的可爱模样。",
+      "via": [],
+      "sources": [
+        "x:2122482955344028009"
+      ]
+    },
+    {
+      "handle": "Muvluv_Official",
+      "category": "",
+      "summary": "再次介绍『マブラヴ』角色伊隅みちる，A-01部队长、大尉，外冷内热很照顾部下。",
+      "via": [],
+      "sources": [
+        "x:2122630851481702739"
+      ]
+    },
+    {
+      "handle": "BEEP_SHOP",
+      "category": "",
+      "summary": "展示IAAPA 2026上的Metal Slug XX试玩机台，并分享复古主机与维修班日常。",
+      "via": [],
+      "sources": [
+        "x:2122503052011634936",
+        "x:2122593159549260049"
+      ]
+    },
+    {
+      "handle": "Liaison__info",
+      "category": "",
+      "summary": "『天瀬島は色恋ざかり』下载版在各平台以优惠价格上线。",
+      "via": [],
+      "sources": [
+        "x:2122646563617169577"
+      ]
+    },
+    {
+      "handle": "info_lovelet",
+      "category": "",
+      "summary": "处女作『西園家のかくしゴト』发售中，部分店铺仍赠特典，DMM开展评测活动。",
+      "via": [],
+      "sources": [
+        "x:2122645941761216896"
+      ]
+    },
+    {
+      "handle": "adahemas",
+      "category": "",
+      "summary": "招募冬季漫展摊位帮手，并感叹描线之后一天只能画两页。",
+      "via": [],
+      "sources": [
+        "x:2122410755341615559"
+      ]
+    },
+    {
+      "handle": "SukeraSparo",
+      "category": "",
+      "summary": "当天只发布了一条耳机表情动态。",
+      "via": [],
+      "sources": [
+        "x:2122635206314320243"
+      ]
+    },
+    {
+      "handle": "zombilica_com",
+      "category": "",
+      "summary": "『贄の町』官方粉丝书在Animate开放预约，公开世界观解说与日天角色介绍样本。",
+      "via": [],
+      "sources": [
+        "x:2122615526337970529"
+      ]
+    },
+    {
+      "handle": "Overflow_staff",
+      "category": "",
+      "summary": "聊《SchoolDays》里的桂言叶，称其病娇形象下也很可爱。",
+      "via": [],
+      "sources": [
+        "x:2122365313966895200"
+      ]
+    },
+    {
+      "handle": "nitroplus_staff",
+      "category": "",
+      "summary": "官方通贩全面改版并更换网址，周边「ニトロお顔コレクション」再贩预约至12月11日。",
+      "via": [],
+      "sources": [
+        "x:2122525382062842166",
+        "x:2122525382503174292",
+        "x:2122525633687269843"
+      ]
+    },
+    {
+      "handle": "akaerocore",
+      "category": "",
+      "summary": "为新作举办抽奖，50名中奖者可得Steam兑换码与2000 DLsite点数。",
+      "via": [
+        "akaeroCore_en"
+      ],
+      "sources": [
+        "x:2122596752360652961"
+      ]
+    },
+    {
+      "handle": "youtan0309",
+      "category": "",
+      "summary": "回顾2016年销量榜与37年前发售的《ドラゴンナイト》，称其为美少女游戏首部十万本作品。",
+      "via": [],
+      "sources": [
+        "x:2122648442359128216",
+        "x:2122672017006817581"
+      ]
+    },
+    {
+      "handle": "aikouka23",
+      "category": "",
+      "summary": "怀念已关闭的Vita大牟田店，并转发希望sprite复活セレン品牌的言论。",
+      "via": [],
+      "sources": [
+        "x:2122465343260225893"
+      ]
+    },
+    {
+      "handle": "getchucom",
+      "category": "",
+      "summary": "发布多条手办预约信息，并为SMEE《ワンナイトアフター》更新SD亚克力立牌特典样本。",
+      "via": [],
+      "sources": [
+        "x:2122654865453384188",
+        "x:2122667288587591811"
+      ]
+    },
+    {
+      "handle": "AKOUtw",
+      "category": "",
+      "summary": "感叹11月将尽，聊《スト6》新手议题与EVO新加坡行程，通关ソフィア路线。",
+      "via": [],
+      "sources": [
+        "x:2122454479396364595",
+        "x:2122617023679303899",
+        "x:2122639212189200393",
+        "x:2122645568250159546"
+      ]
+    },
+    {
+      "handle": "bili_3632310624717268",
+      "category": "",
+      "summary": "发布SMEE《向阳＊甜恋 Sugar*Style》OP影片，并回顾该作2019年1月25日发售。",
+      "via": [],
+      "sources": [
+        "bilibili:1271592937087565924"
+      ]
+    },
+    {
+      "handle": "bili_3691002382518448",
+      "category": "",
+      "summary": "《Resequence: The Orchard》发售还剩3天，并介绍角色爱什琳。",
+      "via": [],
+      "sources": [
+        "bilibili:1271609919402934276"
+      ]
+    },
+    {
+      "handle": "bili_3537113226152650",
+      "category": "",
+      "summary": "东方Project二次创作游戏特卖12月10日起在Steam举行，报名截至11月22日。",
+      "via": [],
+      "sources": [
+        "bilibili:1271592370133008390"
+      ]
+    },
+    {
+      "handle": "bili_298686071",
+      "category": "",
+      "summary": "《沉星之序》首次多平台折扣开启，中文配音录制完成待更新上线。",
+      "via": [],
+      "sources": [
+        "bilibili:1271521477434277894"
+      ]
+    },
+    {
+      "handle": "bili_3546948824992722",
+      "category": "",
+      "summary": "科普《兰斯》世界观中大蛇劈开大陆、引发地震与巫女献祭的设定。",
+      "via": [],
+      "sources": [
+        "bilibili:1271519939819208707"
+      ]
+    },
+    {
+      "handle": "bili_3546900143802616",
+      "category": "",
+      "summary": "介绍Muv-Luv战术机F-5G Tornado的开发背景与可变跳跃单元。",
+      "via": [],
+      "sources": [
+        "bilibili:1271616123458027553"
+      ]
+    },
+    {
+      "handle": "bili_3690981385833115",
+      "category": "",
+      "summary": "《Estella-回星乐章-》确定2027年1月29日抢先体验，并将参展2026 WePlay文化展。",
+      "via": [],
+      "sources": [
+        "bilibili:1271507905342865412"
+      ]
+    },
+    {
+      "handle": "bili_3546816528255265",
+      "category": "",
+      "summary": "《虚妄爱丽丝 -岐梦重缘-》公开帽子爱丽丝特蒂娅（CV福圆美里），11月27日Steam发售。",
+      "via": [],
+      "sources": [
+        "bilibili:1271647977062006788"
+      ]
+    },
+    {
+      "handle": "bili_138256",
+      "category": "",
+      "summary": "完成彩票站场景建模，效果获认可，晚上继续调整光效，完成后将作为免费素材发布。",
+      "via": [],
+      "sources": [
+        "bilibili:1271354321602084900"
+      ]
+    },
+    {
+      "handle": "bili_41883712",
+      "category": "",
+      "summary": "HIKARI FIELD多款中文版游戏在Steam促销，并推出五作套装与《爱上火车》周边。",
+      "via": [],
+      "sources": [
+        "bilibili:1271337809596121089",
+        "bilibili:1271476966521831440",
+        "bilibili:1271622308200448033"
+      ]
+    },
+    {
+      "handle": "bili_3493105997187935",
+      "category": "",
+      "summary": "春风社《Monkeys!¡》正式发售并开启两周八折，预告Shiravune次日公布新作。",
+      "via": [],
+      "sources": [
+        "bilibili:1271478050993733654"
+      ]
+    },
+    {
+      "handle": "bili_2072586344",
+      "category": "",
+      "summary": "【Gal留言板#129】征集玩家与美少女游戏有关的感想、吐槽与趣事。",
+      "via": [],
+      "sources": [
+        "bilibili:1271513218178613251"
+      ]
+    },
+    {
+      "handle": "bili_39471072",
+      "category": "",
+      "summary": "转发《炽焰天穹》收藏集预约信息，并报道Key为新作招募付费试玩员。",
+      "via": [],
+      "sources": [
+        "bilibili:1271525866846814217",
+        "bilibili:1271578312740700166"
+      ]
+    }
+  ],
+  "provenance": {
+    "generator": "daily",
+    "prompt_version": 1,
+    "cache_key": "answers:1",
+    "generated_at": "2026-11-17T16:02:16+00:00"
+  }
+}
