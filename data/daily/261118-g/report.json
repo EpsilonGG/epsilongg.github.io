@@ -1,0 +1,741 @@
+{
+  "schema_version": 1,
+  "issue": {
+    "id": "261118-g",
+    "published_at": "2026-11-19T00:49:35.385893+09:00",
+    "window": {
+      "start": "2026-11-18T00:00:00+09:00",
+      "end": "2026-11-19T00:00:00+09:00"
+    },
+    "status": "confirmed",
+    "confirmed_at": "2026-11-18T15:51:44+00:00"
+  },
+  "counts": {
+    "items": 233,
+    "accounts": 58,
+    "late": 52,
+    "skipped_duplicate": 5
+  },
+  "description": "AliceSoft六周年祭开放每日最多百连免费与SSR保底，SMEE『ワンナイトアフター』装盘完成开启预约",
+  "highlights": [
+    {
+      "text": "AliceSoft六周年活动「包む夢、抗う鼓動」11月18日开启，奖励为魔女チィコ；周年抽卡每日10连、最多免费100连，第50与100连SSR确定",
+      "sources": [
+        "x:2122950987162001569",
+        "x:2122950608038826325"
+      ]
+    },
+    {
+      "text": "SMEE『ワンナイトアフター』装盘完成，FANZA GAMES开放下载版预约，11月27日发售",
+      "sources": [
+        "x:2123018380068155703"
+      ]
+    },
+    {
+      "text": "sprite『小金井荘と金色の揚羽蝶』公开永瀬アンナ与上田麗奈的配音感想，角色页追加立绘差分，距11月26日发售还有8天",
+      "sources": [
+        "x:2122890675960369585",
+        "x:2122993340966731948",
+        "x:2123008582933168461",
+        "x:2122994440638026018"
+      ]
+    },
+    {
+      "text": "上海WePlay 2026参展阵容集中公布：DLsite确认11月21至22日参展C06，《Resequence: The Orchard》与《VTuber’s Game : Ctrl+Alt+Del》等将现场试玩",
+      "sources": [
+        "bilibili:1272019019349622784",
+        "bilibili:1271967380907491328",
+        "bilibili:1271995040545112084"
+      ]
+    }
+  ],
+  "insights": [],
+  "interactions": [
+    {
+      "text": "bili_16302815转发了bili_138256发布的彩票店免费商用背景素材，尺寸3840×2581",
+      "sources": [
+        "bilibili:1271975476963835907",
+        "bilibili:1271973754656784401"
+      ]
+    },
+    {
+      "text": "bili_39471072翻译并转述了Key成员高梨泰辅关于团队合作与炸鸡插画的博客",
+      "sources": [
+        "bilibili:1271964726613508119",
+        "x:2122966143199584453"
+      ]
+    }
+  ],
+  "works": [
+    "AliceSoft『超昂大戦 エスカレーションヒロインズ』六周年活动「包む夢、抗う鼓動」11月18日开启，奖励为魔女チィコ",
+    "AliceSoft『アニバーサリーガチャ』每日10连、最多免费100连，第50与100连SSR确定",
+    "SMEE『ワンナイトアフター』装盘完成，FANZA GAMES开放下载版预约，11月27日发售",
+    "sprite『小金井荘と金色の揚羽蝶』进入发售8天倒计时，11月26日发售",
+    "sprite『小金井荘と金色の揚羽蝶』角色页追加立绘差分显示",
+    "KISS『カスタムロマンスシティ3D3』更新开放β体验版3，定档11月27日发售",
+    "appetite_game『憑いてる彼女はオカルト女子～俺しか見えてないのかよっ～』公开PV与体验版，DL版12月4日发售",
+    "appetite_game『同僚の秘密がヤバい～あまりに深すぎた性癖沼～』公开PV与体验版，DL版12月11日发售",
+    "debonosu『神楽新風記～陽葵の章～』11月20日发售，各店有偿特典预约中",
+    "Muv-Luv『マブラヴ ガールズガーデン Mellow Days』11月19日发售，购买附赠限定记忆序列号",
+    "KUMANOMISoft『転性魔王さまは勇者に勝てない！２』DL版发售倒计时2天，公开リリィ与エマ短片",
+    "KUMANOMISoft『転性魔王さまは勇者に勝てない！２』限时5%折扣，豪华下载版附OP",
+    "Studio Ubai『人妻魔法戦士サクラ』盒装版11月27日发售",
+    "HOOKSOFT『ラブピカルポッピー』PS4下载版首次七折促销至11月30日",
+    "『COCORO』黑五八折促销，12月2日凌晨3点结束",
+    "『KANADE』黑五七五折促销，12月2日凌晨3点结束",
+    "DESSERT Soft『どいなかガールズゆーとぴあ』出演声优体验版实况录像公开",
+    "purple_NewWork『しあわせ家族部』OP『友恋』与ED『True your heart』开始配信",
+    "VALKYRIA_info『食べドル☆小町ちゃん』公开角色細貝小町",
+    "LiLiM DARKNESS『初恋ＢＬＵＥ』主题歌『淡い想いと幻想のFirst Love』公开短版，2027年1月29日发售",
+    "『Resequence: The Orchard』体验版追加简体中文、繁体中文与英语，距正式发售还有2天",
+    "紫社《HAPYMAHER》本篇与FD中文版Steam商店页面上架并开放愿望单",
+    "《绿意新生》宣布12月7日正式上线"
+  ],
+  "categories": [],
+  "accounts": [
+    "Moepedia_net",
+    "appetite_game",
+    "TRYSET",
+    "silkysplus",
+    "kiss_staff",
+    "atelier__sakura",
+    "debonosu",
+    "AzarashiSoft",
+    "HOOKSOFT",
+    "crowd_anim",
+    "cocoro_fw",
+    "VALKYRIA_info",
+    "purple_NewWork",
+    "smee_official",
+    "entergram_info",
+    "Amuse_kenzen",
+    "key_official",
+    "POISON_NEW1992",
+    "dessertsoft_tw",
+    "lumpofsuger",
+    "u_me_soft",
+    "hamham_soft",
+    "FANDC_Staff",
+    "Amuse_sub",
+    "luneman_etc",
+    "SAGAPLANETS",
+    "sprite_fairys",
+    "alice_soft",
+    "KUMANOMISoft",
+    "Studio_Ubai",
+    "jitaku_st",
+    "AQUAPLUS_JP",
+    "project_citrus",
+    "Orthrossoft",
+    "Muvluv_Official",
+    "BEEP_SHOP",
+    "LiLiM_NTR",
+    "nanaca_box",
+    "adahemas",
+    "SukeraSparo",
+    "Overflow_staff",
+    "akaerocore",
+    "youtan0309",
+    "aikouka23",
+    "getchucom",
+    "AKOUtw",
+    "bili_3691002382518448",
+    "bili_3546777970018899",
+    "bili_298686071",
+    "bili_3546874040551694",
+    "bili_3546900143802616",
+    "bili_138256",
+    "bili_41883712",
+    "bili_3493105997187935",
+    "bili_2072586344",
+    "bili_39471072",
+    "bili_16302815",
+    "bili_373471"
+  ],
+  "people": [
+    {
+      "handle": "Moepedia_net",
+      "category": "",
+      "summary": "汇总『同僚の秘密がヤバい』体验版、DESSERT Soft声优实况、BugBug新作即将发售与PNM扭蛋46",
+      "via": [],
+      "sources": [
+        "x:2123023665721991375",
+        "x:2123033479781011838",
+        "x:2123042288121282695",
+        "x:2123051095836541299"
+      ]
+    },
+    {
+      "handle": "appetite_game",
+      "category": "",
+      "summary": "『憑いてる彼女はオカルト女子』与『同僚の秘密がヤバい』公开PV与体验版，DL版分别12月4日、11日发售",
+      "via": [],
+      "sources": [
+        "x:2122884628377985366",
+        "x:2122885174287601980"
+      ]
+    },
+    {
+      "handle": "TRYSET",
+      "category": "",
+      "summary": "转发社长帖：『世紀末みのる定食 新春和装Collection』接近装盘完成，换装后氛围不同",
+      "via": [],
+      "sources": [
+        "x:2122907791761478143"
+      ]
+    },
+    {
+      "handle": "silkysplus",
+      "category": "",
+      "summary": "预告19日「サラたま」REBOOT临时配信、アフロP登场，公开Lycee Overture 1.0早购特典与闪卡企划",
+      "via": [],
+      "sources": [
+        "x:2123053644119789888",
+        "x:2122936328019144705"
+      ]
+    },
+    {
+      "handle": "kiss_staff",
+      "category": "",
+      "summary": "『カスタムロマンスシティ3D3』11月27日发售并更新开放β体验版3，另更新『カラオケ&ラジオSP2』博客",
+      "via": [],
+      "sources": [
+        "x:2123040716918333470",
+        "x:2122993216618406052",
+        "x:2122983859482747121"
+      ]
+    },
+    {
+      "handle": "atelier__sakura",
+      "category": "",
+      "summary": "转发品牌特辑介绍アトリエさくら的魅力与成人向作品",
+      "via": [],
+      "sources": [
+        "x:2122915438753673290"
+      ]
+    },
+    {
+      "handle": "debonosu",
+      "category": "",
+      "summary": "『神楽新風記～陽葵の章～』11月20日发售、各店有偿特典预约中；「こすずの小部屋」第123期公开",
+      "via": [],
+      "sources": [
+        "x:2123019231335944610",
+        "x:2123019011810292195"
+      ]
+    },
+    {
+      "handle": "AzarashiSoft",
+      "category": "",
+      "summary": "『アマカノ』角色歌Vol.03与『アマカノ2』系列原声集预约将截止，另办抱枕套预约并预告25日直播",
+      "via": [],
+      "sources": [
+        "x:2122970565380321298",
+        "x:2122974340870181374",
+        "x:2122970569020788937"
+      ]
+    },
+    {
+      "handle": "HOOKSOFT",
+      "category": "",
+      "summary": "『ラブピカルポッピー』PS4版首次七折促销，售价5236日元，11月30日截止",
+      "via": [],
+      "sources": [
+        "x:2123040274448552431"
+      ]
+    },
+    {
+      "handle": "crowd_anim",
+      "category": "",
+      "summary": "『きつ×みこ』12月25日发售，公开赤月ゆむ与花月さや签名海报及原画新绘并在门店展示",
+      "via": [],
+      "sources": [
+        "x:2122964099369926727",
+        "x:2122964502568481052"
+      ]
+    },
+    {
+      "handle": "cocoro_fw",
+      "category": "",
+      "summary": "Frontwing黑五开跑：『COCORO』八折、『KANADE』七五折，12月2日凌晨3点结束",
+      "via": [],
+      "sources": [
+        "x:2122893252613607730"
+      ]
+    },
+    {
+      "handle": "VALKYRIA_info",
+      "category": "",
+      "summary": "公开『食べドル☆小町ちゃん』角色細貝小町，自称爱有氧运动的吃货偶像",
+      "via": [],
+      "sources": [
+        "x:2122887536464859464"
+      ]
+    },
+    {
+      "handle": "purple_NewWork",
+      "category": "",
+      "summary": "『しあわせ家族部』OP『友恋』与ED『True your heart』开始配信，OP影像公开",
+      "via": [],
+      "sources": [
+        "x:2122993222133690456"
+      ]
+    },
+    {
+      "handle": "smee_official",
+      "category": "",
+      "summary": "『ワンナイトアフター』装盘完成，FANZA GAMES开放DL预约，11月27日发售；Melon特典预约中",
+      "via": [],
+      "sources": [
+        "x:2123018380068155703",
+        "x:2122979132321710302"
+      ]
+    },
+    {
+      "handle": "entergram_info",
+      "category": "",
+      "summary": "本阿弥あずさ主演・监修的『あじゅ〜るメモリア』官方通贩限定版开售等身鼠标垫套装，12月6日截止",
+      "via": [],
+      "sources": [
+        "x:2122958614805823990",
+        "x:2122978118168351045"
+      ]
+    },
+    {
+      "handle": "Amuse_kenzen",
+      "category": "",
+      "summary": "『養花師の背徳愛』可在浏览器直接游玩，下载版好评发售中",
+      "via": [],
+      "sources": [
+        "x:2122968551627583809"
+      ]
+    },
+    {
+      "handle": "key_official",
+      "category": "",
+      "summary": "音乐担当髙梨分享炸鸡被看成贵宾犬的趣事，感慨团队合作才能做出好游戏",
+      "via": [],
+      "sources": [
+        "x:2122966143199584453"
+      ]
+    },
+    {
+      "handle": "POISON_NEW1992",
+      "category": "",
+      "summary": "官方粉丝站更新：最新作『完堕ちX金髪家族』情报与复刻SS『完堕ちXギャル母娘』第4话",
+      "via": [],
+      "sources": [
+        "x:2123038520290013510"
+      ]
+    },
+    {
+      "handle": "dessertsoft_tw",
+      "category": "",
+      "summary": "『どいなかガールズゆーとぴあ』声优体验版实况公开并展示秋叶原签名海报；《ワナクリ２》11月25日发售",
+      "via": [],
+      "sources": [
+        "x:2122887518953554087",
+        "x:2122978133406306314",
+        "x:2123008327189966972"
+      ]
+    },
+    {
+      "handle": "lumpofsuger",
+      "category": "",
+      "summary": "FANBOX第四季招募支援者，11月新绘为『タユタマ零』白き獣，高级支持者可得高清版",
+      "via": [],
+      "sources": [
+        "x:2122993218367189427"
+      ]
+    },
+    {
+      "handle": "u_me_soft",
+      "category": "",
+      "summary": "参与FGO活动NPC久坂玄瑞设计与立绘，转发《孤独摇滚！》新电影与猪木孙辈入团消息",
+      "via": [],
+      "sources": [
+        "x:2122981580486648089",
+        "x:2123023428777328789",
+        "x:2122812272141885878"
+      ]
+    },
+    {
+      "handle": "hamham_soft",
+      "category": "",
+      "summary": "临时新账号自我介绍，称会绘制可爱学生角色并求转发关注",
+      "via": [],
+      "sources": [
+        "x:2122712779316711706"
+      ]
+    },
+    {
+      "handle": "FANDC_Staff",
+      "category": "",
+      "summary": "Dead of the Brain发布1.1更新加入生活质量改进；上野动画歌曲酒吧「燗これ」深夜营业",
+      "via": [],
+      "sources": [
+        "x:2122759304302440452",
+        "x:2122992890981023991"
+      ]
+    },
+    {
+      "handle": "Amuse_sub",
+      "category": "",
+      "summary": "『養花師の背徳愛』Ci-en更新由又かつお的剧透文章，介绍男性角色",
+      "via": [],
+      "sources": [
+        "x:2122971320119857167"
+      ]
+    },
+    {
+      "handle": "luneman_etc",
+      "category": "",
+      "summary": "『悪の女幹部PNM』定期维护完成，开启扭蛋46，新角色マスク・ザ・アルジェンタム与黑五ハルミ限定扭蛋",
+      "via": [],
+      "sources": [
+        "x:2122948092429320595",
+        "x:2122950449087004797",
+        "x:2122951767667200331",
+        "x:2122952956949438533"
+      ]
+    },
+    {
+      "handle": "SAGAPLANETS",
+      "category": "",
+      "summary": "美少女游戏周边特辑上架多款新商品；台北蜜瓜书店快闪店11月21日至12月1日公开商品与购买特典",
+      "via": [],
+      "sources": [
+        "x:2122887522363568331",
+        "x:2122902619102597195"
+      ]
+    },
+    {
+      "handle": "sprite_fairys",
+      "category": "",
+      "summary": "『小金井荘と金色の揚羽蝶』倒计时8天并公开永瀬アンナ、上田麗奈配音感想，角色页支持立绘差分",
+      "via": [],
+      "sources": [
+        "x:2122890675960369585",
+        "x:2122993340966731948",
+        "x:2123008582933168461",
+        "x:2122994440638026018"
+      ]
+    },
+    {
+      "handle": "alice_soft",
+      "category": "",
+      "summary": "『超昂大戦』六周年活动开启，魔女チィコ可作奖励；周年抽卡每日10连最多免费100连，50与100连SSR保底",
+      "via": [],
+      "sources": [
+        "x:2122950987162001569",
+        "x:2122950608038826325"
+      ]
+    },
+    {
+      "handle": "KUMANOMISoft",
+      "category": "",
+      "summary": "『転性魔王さまは勇者に勝てない！２』DL版倒计时2天，公开リリィ与エマ短片并办5%折扣",
+      "via": [],
+      "sources": [
+        "x:2122994473667891565",
+        "x:2122887525878624487"
+      ]
+    },
+    {
+      "handle": "Studio_Ubai",
+      "category": "",
+      "summary": "『人妻魔法戦士サクラ』盒装版11月27日发售，重新公开女主角介绍语音",
+      "via": [],
+      "sources": [
+        "x:2122990603218952287"
+      ]
+    },
+    {
+      "handle": "jitaku_st",
+      "category": "",
+      "summary": "ギャルズフィクションFD新角色ひまり公开，动画预约中；粉丝盘简称与预约时间待公布，感谢店铺力推",
+      "via": [],
+      "sources": [
+        "x:2122830559718371466",
+        "x:2123012993802014845",
+        "x:2123066736895553708",
+        "x:2123066262070948142"
+      ]
+    },
+    {
+      "handle": "AQUAPLUS_JP",
+      "category": "",
+      "summary": "『うたわれるもの 白への道標』更新Nintendo Switch 2与PS5版1.08.353437补丁",
+      "via": [],
+      "sources": [
+        "x:2122964727580205236"
+      ]
+    },
+    {
+      "handle": "project_citrus",
+      "category": "",
+      "summary": "早安帖分享西又家猫金さん与银さん突然打闹的视频",
+      "via": [],
+      "sources": [
+        "x:2122828702614774222"
+      ]
+    },
+    {
+      "handle": "Orthrossoft",
+      "category": "",
+      "summary": "将参加上海WePlay Expo，带来mignon签名色纸等限定周边，ぺらお社长现场签名",
+      "via": [],
+      "sources": [
+        "x:2123007862917996843"
+      ]
+    },
+    {
+      "handle": "Muvluv_Official",
+      "category": "",
+      "summary": "『マブラヴ ガールズガーデン Mellow Days』11月19日发售并附赠限定记忆序列号，另介绍26座Hive设定",
+      "via": [],
+      "sources": [
+        "x:2122932818682790376",
+        "x:2122993241532637254"
+      ]
+    },
+    {
+      "handle": "BEEP_SHOP",
+      "category": "",
+      "summary": "上架MSX开放世界游戏《恐怖の無人島／サンダーボルト》，展示Commodore PET 2001与中古DS宝可公园限定机",
+      "via": [],
+      "sources": [
+        "x:2122887531205210358",
+        "x:2122909850548219936",
+        "x:2123008335867764755"
+      ]
+    },
+    {
+      "handle": "LiLiM_NTR",
+      "category": "",
+      "summary": "solfa二十周年直播倒计时4天，介绍LiLiM DARKNESS『初恋ＢＬＵＥ』主题歌短版",
+      "via": [],
+      "sources": [
+        "x:2122736051433476231"
+      ]
+    },
+    {
+      "handle": "nanaca_box",
+      "category": "",
+      "summary": "感谢粉丝购入BOOTH通贩挂画与徽章，并转发收到商品的好评",
+      "via": [],
+      "sources": [
+        "x:2123046751003394359",
+        "x:2123047209919005019"
+      ]
+    },
+    {
+      "handle": "adahemas",
+      "category": "",
+      "summary": "抱怨头痛，并纠结要不要买菜刀",
+      "via": [],
+      "sources": [
+        "x:2122736706327888247",
+        "x:2122869578871325126"
+      ]
+    },
+    {
+      "handle": "SukeraSparo",
+      "category": "",
+      "summary": "转发患者mono对『クリア・クロニクル』的批评文章；感谢FURYU初音未来抽卡角色被拍得可爱",
+      "via": [],
+      "sources": [
+        "x:2122897837931581486",
+        "x:2122944710134333444"
+      ]
+    },
+    {
+      "handle": "Overflow_staff",
+      "category": "",
+      "summary": "介绍《Schooldays》FANZA活动样品「描き下ろし桂言葉おっぱいボード」；感谢活动日留言",
+      "via": [],
+      "sources": [
+        "x:2122978134614061374",
+        "x:2123047152616169939"
+      ]
+    },
+    {
+      "handle": "akaerocore",
+      "category": "",
+      "summary": "将与DLsite一同参展12月4至6日台北G8游戏展，送出10张门票并提供多款游戏试玩",
+      "via": [],
+      "sources": [
+        "x:2122997644905869800"
+      ]
+    },
+    {
+      "handle": "youtan0309",
+      "category": "",
+      "summary": "回顾ALICESOFT《DARCROWS》发售27周年与《でふこん☆わん》21周年；转发卡牌与三国志活动抽奖",
+      "via": [],
+      "sources": [
+        "x:2122706325285261736",
+        "x:2122707583144202644",
+        "x:2122999625242361948"
+      ]
+    },
+    {
+      "handle": "aikouka23",
+      "category": "",
+      "summary": "分享《活侠传》两个「问题儿童」角色与杨过政治联姻梗；打听冈山Media店黄油楼层缩小传闻",
+      "via": [],
+      "sources": [
+        "x:2122860707008160144",
+        "x:2122974217474043978",
+        "x:2123041771286646845"
+      ]
+    },
+    {
+      "handle": "getchucom",
+      "category": "",
+      "summary": "开放多款手办预约：CLANNAD坂上智代、ガールズバンドクライ河原木桃香、RIDDLE JOKER在原七海再贩等",
+      "via": [],
+      "sources": [
+        "x:2122982300850016293",
+        "x:2122982447042404652",
+        "x:2122982927109943701"
+      ]
+    },
+    {
+      "handle": "AKOUtw",
+      "category": "",
+      "summary": "转发超昂大战六周年祝福；公开Ayumi歌手22周年联名BAR限定周边；吐槽FANZA关键词导致账号锁定",
+      "via": [],
+      "sources": [
+        "x:2122991143487144203",
+        "x:2122922227154972999",
+        "x:2123024374236434657"
+      ]
+    },
+    {
+      "handle": "bili_3691002382518448",
+      "category": "",
+      "summary": "《Resequence: The Orchard》体验版新增简繁中与英语，发售倒计时2天并确认参展WePlay 2026",
+      "via": [],
+      "sources": [
+        "bilibili:1271964017979555857",
+        "bilibili:1271995040545112084",
+        "bilibili:1272006177369096201"
+      ]
+    },
+    {
+      "handle": "bili_3546777970018899",
+      "category": "",
+      "summary": "宣布参展WePlay 2026 B09，提供《魔法少女的魔女审判》等试玩，首次公开《VTuber’s Game》试玩",
+      "via": [],
+      "sources": [
+        "bilibili:1271967380907491328"
+      ]
+    },
+    {
+      "handle": "bili_298686071",
+      "category": "",
+      "summary": "借旅行者一号抵达一光日宣传《音序核心》；宣布《绿意新生》12月7日上线",
+      "via": [],
+      "sources": [
+        "bilibili:1271991331829317634",
+        "bilibili:1271997136438820869"
+      ]
+    },
+    {
+      "handle": "bili_3546874040551694",
+      "category": "",
+      "summary": "BLACK SOULS周边快闪店补货公告：11月20日补马克杯T恤，22日补亚克力周边与徽章",
+      "via": [],
+      "sources": [
+        "bilibili:1271971746732310547"
+      ]
+    },
+    {
+      "handle": "bili_3546900143802616",
+      "category": "",
+      "summary": "Muv-Luv少女庭园Mellow Days 11月19日发售并附特典码，另介绍26座Hive设定",
+      "via": [],
+      "sources": [
+        "bilibili:1271925361136893972",
+        "bilibili:1271987208657567763"
+      ]
+    },
+    {
+      "handle": "bili_138256",
+      "category": "",
+      "summary": "发布彩票店免费商用背景素材（3840×2581），并预告五种光照效果的素材更新",
+      "via": [],
+      "sources": [
+        "bilibili:1271973754656784401",
+        "bilibili:1271734220046204937"
+      ]
+    },
+    {
+      "handle": "bili_41883712",
+      "category": "",
+      "summary": "HIKARI FIELD多款中文版促销：近月2售53元、天选庶民41元、少女理论44元",
+      "via": [],
+      "sources": [
+        "bilibili:1271848051692011540",
+        "bilibili:1271894437319933971",
+        "bilibili:1272033594309607424"
+      ]
+    },
+    {
+      "handle": "bili_3493105997187935",
+      "category": "",
+      "summary": "紫社《HAPYMAHER》本篇+FD中文版Steam页面上线并开放愿望单；白舟黑五特卖至12月2日",
+      "via": [],
+      "sources": [
+        "bilibili:1271850055319420947",
+        "bilibili:1271894437353488403"
+      ]
+    },
+    {
+      "handle": "bili_2072586344",
+      "category": "",
+      "summary": "白舟黑五特卖至12月2日，评论抽3人送《Liminal Border Part I》并列出多款史低",
+      "via": [],
+      "sources": [
+        "bilibili:1272021110944170009"
+      ]
+    },
+    {
+      "handle": "bili_39471072",
+      "category": "",
+      "summary": "翻译Key高梨泰辅团队合作博客；介绍CLANNAD联名服饰与HBR川崎街区限时升级",
+      "via": [],
+      "sources": [
+        "bilibili:1271964726613508119",
+        "bilibili:1271817130084401187",
+        "bilibili:1272033594282344473"
+      ]
+    },
+    {
+      "handle": "bili_16302815",
+      "category": "",
+      "summary": "预告视频更新，并转发CNGAL彩票店免费商用背景素材",
+      "via": [],
+      "sources": [
+        "bilibili:1271880141544357911",
+        "bilibili:1271975476963835907"
+      ]
+    },
+    {
+      "handle": "bili_373471",
+      "category": "",
+      "summary": "DLsite确认参展WePlay 2026 C06，《多娜多娜》《爱上火车》带来展示、Coser与周边",
+      "via": [],
+      "sources": [
+        "bilibili:1272019019349622784"
+      ]
+    }
+  ],
+  "provenance": {
+    "generator": "daily",
+    "prompt_version": 1,
+    "cache_key": "answers:1",
+    "generated_at": "2026-11-18T15:51:40+00:00"
+  }
+}
