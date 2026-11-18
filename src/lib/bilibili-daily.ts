@@ -6,15 +6,25 @@ import path from 'node:path';
  *
  * 2026-11-12 用户裁决：B 站账号抓到的**全部**动态都要在 Galgame 日报里呈现，
  * 且与「游戏制造商」「信息号」平行，单开一个「B站动态」栏目按钮。
- * B 站条目不进 `data/daily/<期号>/report.json`（那是受保护的 LLM 正本），
+ * 原始条目不进 `data/daily/<期号>/report.json`（那是受保护的 LLM 正本），
  * 也不进 Ci-en / .txt / .json 出口——这里直接从 B 站正本 JSONL 读，
- * 只在日报详情页的「详细」段渲染原始条目。
+ * 只在日报详情页的「详细」段渲染。LLM 会把其中一部分写成 `people[]` 的
+ * 一句话概括（`handle=bili_<uid>` + `sources=[bilibili:<id>]`），那是正本
+ * 自身的内容，跟这条原始条目旁路不是一回事。
  *
  * 2026-11-12 追加口径（同日用户裁决）：**同一个账号的归到一起**，合并后的
- * 正文超过 150 字就概括。所以取数层分三段：
+ * 正文超过 100 字就概括。所以取数层分三段：
  *   ① `parseBilibiliJsonl()` 逐条解析（宽容、去重、按时间升序）；
  *   ② `groupBilibiliRows()` 按账号（`bili_<uid>`）归并；
- *   ③ `summarizeBilibili()` 决定这一组是原样拼接还是压成 ≤150 字的概括。
+ *   ③ `summarizeBilibili()` 决定这一组是原样拼接还是压成 ≤100 字的概括。
+ *
+ * 2026-11-15 再加一段（用户裁决）：`people[]` 的概括行与第 ② 步的原文行会撞成
+ * 「同一账号两行」，所以 ④ `mergeBilibiliDisplay()` 在展示前按账号去重——
+ * 有概括的只留概括行、原文链接挂到行尾，没概括的才留正本行。全部动态的
+ * 出处仍一条不少，只是不再把同一条消息说两遍。
+ *
+ * 2026-11-18 更新（用户裁决）：单个账号的条目**一律限 100 字以内**——
+ * 上限从 150 收到 100；同账号多条仍归并成一条概括，每条原文链接照旧编号挂末尾。
  *
  * 为什么另起一个模块而不是改 `lib/daily.ts`：后者在日报保护集里
  * （`tests/test_daily_protection.py`），改它要登记授权豁免。取数层是纯函数 +
@@ -28,11 +38,11 @@ export const BILIBILI_CATEGORY = 'bili_gal';
 export const BILIBILI_LABEL = 'B站动态';
 
 /**
- * 单账号正文合并后超过这个字数就概括（用户口径：150 字）。
+ * 单账号正文合并后超过这个字数就概括（用户口径：100 字，2026-11-18 从 150 收紧）。
  * 「字数」按**非空白码点**算：中文一字一个，空格/换行不占额度，
  * 这样同一段话在 `.jsonl` 里有没有换行都不会让阈值忽高忽低。
  */
-export const BILIBILI_SUMMARY_LIMIT = 150;
+export const BILIBILI_SUMMARY_LIMIT = 100;
 
 /** 概括时每个账号至少要拿到的额度：账号再多也别把一句话切成半截。 */
 const MIN_CLAUSE_QUOTA = 40;
@@ -80,7 +90,7 @@ export interface BilibiliRow {
 export interface BilibiliGroup {
   handle: string;
   publisher: string;
-  /** 展示用正文：≤150 字原样拼接，>150 字是概括。 */
+  /** 展示用正文：≤100 字原样拼接，>100 字是概括。 */
   text: string;
   /** 这一行是不是概括出来的（页面上要标「概括」）。 */
   summarized: boolean;
@@ -354,6 +364,82 @@ export function groupBilibiliRows(
   return groups;
 }
 
+/** `people[]` 里的一行；版式层传进来的对象字段更多也不影响这里。 */
+export interface BilibiliSummaryPerson {
+  handle: string;
+  summary: string;
+}
+
+export interface BilibiliMerge {
+  /** 每个 B 站账号的原文链接（含已被 LLM 概括的账号，概括行末尾要挂）。 */
+  linksByHandle: Map<string, string[]>;
+  /** 没有 LLM 概括、仍需单独展示正本正文的账号。 */
+  remainingGroups: BilibiliGroup[];
+  /** 「B站动态」栏最终行数 = 去重后的账号数（一个账号恰好一行）。 */
+  accountCount: number;
+}
+
+/**
+ * 「详细」栏 B 站动态的最终行集合（2026-11-15 用户口径）。
+ *
+ * 背景：B 站动态既会被 LLM 写进 `people[]` 的一句话概括，又会由
+ * `groupBilibiliRows()` 从正本归并出一行原文 / 规则概括。两处都渲染时，
+ * 同一个账号在「B站动态」按钮下会出现**两行**——先一句概括，后面又跟一大段
+ * 原文，读起来像把同一条消息说了两遍。
+ *
+ * 口径：**有概括就不再放原文，一个账号只留一行**；原文链接仍挂到概括行末尾，
+ * 一条都不丢。没有概括的账号照旧展示归并后的正文（≤100 字原样拼接，或规则概括），
+ * 仍是一行一个账号。
+ *
+ * 匹配按 handle 小写：`people[]` 与正本里的 `bili_<uid>` 本该逐字一致，
+ * 但大小写漂移不该让去重失效。`isBilibili` 由版式层传 `categoryOf()` 的结果，
+ * 默认按名单铁律 `bili_<uid>` 兜底，这样纯函数不依赖名单模块也能单测。
+ */
+export function mergeBilibiliDisplay(
+  people: BilibiliSummaryPerson[],
+  groups: BilibiliGroup[],
+  isBilibili: (handle: string) => boolean = (handle) => /^bili_\d+$/.test(handle),
+): BilibiliMerge {
+  const linksByHandle = new Map<string, string[]>();
+  for (const group of groups ?? []) {
+    linksByHandle.set(group.handle.toLowerCase(), group.urls ?? []);
+  }
+
+  const summarized = new Set<string>();
+  for (const person of people ?? []) {
+    const key = person.handle.toLowerCase();
+    if (String(person.summary ?? '').trim() && linksByHandle.has(key)) {
+      summarized.add(key);
+    }
+  }
+
+  const remainingGroups = (groups ?? []).filter(
+    (group) => !summarized.has(group.handle.toLowerCase()),
+  );
+
+  // `people[]` 里可能还有一个没抓到正本的 B 站号（老期号 / 断抓），它也占一行。
+  const accounts = new Set<string>(linksByHandle.keys());
+  for (const person of people ?? []) {
+    if (isBilibili(person.handle)) accounts.add(person.handle.toLowerCase());
+  }
+
+  return { linksByHandle, remainingGroups, accountCount: accounts.size };
+}
+
+/** 原文链接组：概括行与正本行共用一套排版，免得两处各写一份慢慢漂。 */
+export function bilibiliLinksHtml(urls: string[]): string {
+  const escapes: Record<string, string> = {
+    '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;',
+  };
+  const escape = (value: string) =>
+    String(value).replace(/[&<>"']/g, (char) => escapes[char] ?? char);
+  return (urls ?? []).map((url, index) => {
+    const label = (urls?.length ?? 0) > 1 ? `原文${index + 1} ↗` : '原文 ↗';
+    return `<a class="daily-roster__bili-link" href="${escape(url)}" `
+      + `target="_blank" rel="noopener noreferrer">${label}</a>`;
+  }).join('');
+}
+
 /**
  * 期号覆盖的那一天（JST 零点的 UTC 瞬时）→ B 站正本文件名 `YYYY-MM-DD`。
  * `covered` 取自 `lib/daily.ts:parseDailyId`，本身就是 JST 零点，加回 9 小时
@@ -373,7 +459,7 @@ export function loadBilibiliDynamics(covered: Date): BilibiliRow[] {
   return parseBilibiliJsonl(fs.readFileSync(file, 'utf-8'));
 }
 
-/** 某一期覆盖日的 B 站动态，已按账号归并、超过 150 字的已概括。 */
+/** 某一期覆盖日的 B 站动态，已按账号归并、超过 100 字的已概括。 */
 export function loadBilibiliGroups(
   covered: Date,
   limit: number = BILIBILI_SUMMARY_LIMIT,

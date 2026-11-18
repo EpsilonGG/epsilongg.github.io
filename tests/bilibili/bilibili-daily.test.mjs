@@ -6,12 +6,14 @@ import {
   BILIBILI_CATEGORY,
   BILIBILI_LABEL,
   BILIBILI_SUMMARY_LIMIT,
+  bilibiliLinksHtml,
   charCount,
   cleanBilibiliText,
   coveredDay,
   groupBilibiliRows,
   loadBilibiliDynamics,
   loadBilibiliGroups,
+  mergeBilibiliDisplay,
   parseBilibiliJsonl,
   summarizeBilibili,
 } from '../../src/lib/bilibili-daily.ts';
@@ -134,8 +136,8 @@ test('没有当天正本时返回空数组（老期号 / 断抓都正常，不�
 });
 
 /**
- * 2026-11-12 追加口径：同个账号的归到一起，合并后超过 150 字就概括。
- * 下面钉住「归并 / 阈值 / 概括质量 / 链接不丢」四件事。
+ * 2026-11-12 追加口径（2026-11-18 上限收到 100）：同个账号的归到一起，
+ * 合并后超过 100 字就概括。下面钉住「归并 / 阈值 / 概括质量 / 链接不丢」四件事。
  */
 
 test('清理：剥裸链接、话题标签、零宽字符，换行压成单行', () => {
@@ -151,16 +153,16 @@ test('字数按非空白码点算：中文一字一个，空格与换行不占�
   assert.equal(charCount('一二三'), 3);
   assert.equal(charCount('一 二\n三'), 3);
   assert.equal(charCount('  '), 0);
-  assert.equal(BILIBILI_SUMMARY_LIMIT, 150);
+  assert.equal(BILIBILI_SUMMARY_LIMIT, 100);
 });
 
-test('合计不超过 150 字就原样拼接，一个字都不改', () => {
+test('合计不超过 100 字就原样拼接，一个字都不改', () => {
   const { text, summarized } = summarizeBilibili(['【告知】发售日决定', '【补充】体验版公开']);
   assert.equal(summarized, false);
   assert.equal(text, '【告知】发售日决定 【补充】体验版公开');
 });
 
-test('超过 150 字就概括，结果不超过上限并以省略号收尾', () => {
+test('超过 100 字就概括，结果不超过上限并以省略号收尾', () => {
   const long = Array.from({ length: 3 }, (_, i) => `第${i}条情报，${'内容很长'.repeat(40)}`);
   const { text, summarized } = summarizeBilibili(long);
   assert.equal(summarized, true);
@@ -238,4 +240,146 @@ test('真实正本：17 条动态归并成 11 个账号，链接与条目一条�
   }
   assert.ok(groups.some((group) => group.summarized));
   assert.ok(groups.every((group) => group.handle.startsWith('bili_')));
+});
+
+/**
+ * 2026-11-15 追加口径：有概括就不再在后面放原文，一个账号只留一行；
+ * 原文链接仍挂到概括行末尾。下面钉住「去重 / 链接不丢 / 没概括的照旧」。
+ */
+
+const group = (handle, urls, overrides = {}) => ({
+  handle,
+  publisher: '某官方号',
+  text: '这是一段很长的原文正文，用来冒充没有被概括掉的那一行。'.repeat(4),
+  summarized: true,
+  count: urls.length,
+  urls,
+  keys: urls.map((_, i) => `bilibili:${i + 1}`),
+  publishedAt: '2026-11-14T00:00:00+00:00',
+  ...overrides,
+});
+
+test('有 LLM 概括的账号不再另摆原文行，原文链接仍全部保留', () => {
+  const urls = [
+    'https://www.bilibili.com/opus/1',
+    'https://www.bilibili.com/opus/2',
+    'https://www.bilibili.com/opus/3',
+  ];
+  const merged = mergeBilibiliDisplay(
+    [{ handle: 'bili_1', summary: '一句话概括。' }],
+    [group('bili_1', urls)],
+  );
+  assert.equal(merged.remainingGroups.length, 0, '概括过的账号不该再摆原文行');
+  assert.equal(merged.accountCount, 1, '一个账号只该有一行');
+  assert.deepEqual(merged.linksByHandle.get('bili_1'), urls, '原文链接一条都不能丢');
+});
+
+test('没有概括的账号照旧单独一行，注脚与链接都在', () => {
+  const g = group('bili_2', ['https://www.bilibili.com/opus/9'], { summarized: false });
+  const merged = mergeBilibiliDisplay([], [g]);
+  assert.deepEqual(merged.remainingGroups, [g]);
+  assert.equal(merged.accountCount, 1);
+});
+
+test('混合：三个账号 → 三行，概括行与原文行互不重复', () => {
+  const groups = [
+    group('bili_1', ['https://www.bilibili.com/opus/1', 'https://www.bilibili.com/opus/2']),
+    group('bili_2', ['https://www.bilibili.com/opus/3']),
+    group('bili_3', ['https://www.bilibili.com/opus/4']),
+  ];
+  const people = [
+    { handle: 'bili_1', summary: '甲的一句话概括。' },
+    { handle: 'bili_3', summary: '丙的一句话概括。' },
+  ];
+  const merged = mergeBilibiliDisplay(people, groups);
+  assert.deepEqual(merged.remainingGroups.map((g) => g.handle), ['bili_2']);
+  assert.equal(merged.accountCount, 3);
+  // 去重后的行集合：两行概括 + 一行原文，每个账号恰好一次。
+  const rendered = [
+    ...people.map((p) => p.handle),
+    ...merged.remainingGroups.map((g) => g.handle),
+  ];
+  assert.equal(rendered.length, merged.accountCount);
+  assert.equal(new Set(rendered).size, rendered.length);
+  for (const g of groups) {
+    assert.deepEqual(merged.linksByHandle.get(g.handle), g.urls);
+  }
+});
+
+test('空概括不算概括：summary 只有空白时仍要展示正本', () => {
+  const g = group('bili_1', ['https://www.bilibili.com/opus/1']);
+  const merged = mergeBilibiliDisplay([{ handle: 'bili_1', summary: '   ' }], [g]);
+  assert.deepEqual(merged.remainingGroups, [g]);
+  assert.equal(merged.accountCount, 1);
+});
+
+test('handle 大小写漂移不影响去重；people 里没抓到正本的号也占一行', () => {
+  const merged = mergeBilibiliDisplay(
+    [
+      { handle: 'BILI_1', summary: '概括。' },
+      { handle: 'bili_999', summary: '断抓那天的一句话。' },
+    ],
+    [group('bili_1', ['https://www.bilibili.com/opus/1'])],
+  );
+  assert.equal(merged.remainingGroups.length, 0);
+  assert.equal(merged.accountCount, 2);
+});
+
+test('原文链接排版：单条「原文 ↗」，多条编号，URL 里的引号要转义', () => {
+  const one = bilibiliLinksHtml(['https://www.bilibili.com/opus/1']);
+  assert.match(one, /class="daily-roster__bili-link"/);
+  assert.match(one, />原文 ↗<\/a>$/);
+  assert.doesNotMatch(one, /原文1/);
+
+  const many = bilibiliLinksHtml([
+    'https://www.bilibili.com/opus/1',
+    'https://www.bilibili.com/opus/2',
+  ]);
+  assert.match(many, /原文1 ↗/);
+  assert.match(many, /原文2 ↗/);
+  assert.equal((many.match(/<a /g) ?? []).length, 2);
+
+  const escaped = bilibiliLinksHtml(['https://example.test/?a="x"&b=<y>']);
+  assert.ok(escaped.includes('&quot;x&quot;'), '引号没转义');
+  assert.ok(escaped.includes('&lt;y&gt;'), '尖括号没转义');
+  assert.ok(!escaped.includes('href="https://example.test/?a="x"'), 'href 被提前闭合了');
+  assert.equal(bilibiliLinksHtml([]), '');
+});
+
+test('真期号 261114-g：12 个 B 站账号合并后仍是 12 行，链接总和不变', () => {
+  const report = JSON.parse(
+    readFileSync('data/daily/261114-g/report.json', 'utf-8'),
+  );
+  const covered = new Date('2026-11-13T15:00:00Z'); // 2026-11-14 00:00 JST
+  const groups = loadBilibiliGroups(covered);
+  const people = (report.people ?? []).filter(
+    (p) => p.handle.startsWith('bili_') && String(p.summary || '').trim(),
+  );
+  const merged = mergeBilibiliDisplay(people, groups);
+
+  const rendered = [
+    ...people.map((p) => p.handle),
+    ...merged.remainingGroups.map((g) => g.handle),
+  ];
+  assert.equal(rendered.length, merged.accountCount);
+  assert.equal(new Set(rendered).size, rendered.length, '同一个账号出现了两行');
+  assert.ok(merged.accountCount >= people.length, '去重不该把概括行弄丢');
+  assert.equal(
+    [...merged.linksByHandle.values()].reduce((sum, urls) => sum + urls.length, 0),
+    groups.reduce((sum, g) => sum + g.urls.length, 0),
+    '原文链接总数必须守恒',
+  );
+  for (const p of people) {
+    assert.deepEqual(merged.linksByHandle.get(p.handle.toLowerCase()),
+      groups.find((g) => g.handle.toLowerCase() === p.handle.toLowerCase())?.urls);
+  }
+});
+
+test('版式层真的按去重结果渲染，没有绕过 merge 直接列 bilibiliGroups', () => {
+  const layout = readFileSync('src/layouts/DailyLayout.astro', 'utf-8');
+  assert.match(layout, /mergeBilibiliDisplay\(/);
+  assert.match(layout, /biliMerge\.remainingGroups\.map\(/);
+  assert.match(layout, /bilibiliLinksHtml\(biliLinksOf\(person\.handle\)\)/);
+  assert.doesNotMatch(layout, /\{bilibiliGroups\.map\(/, '又变回「概括 + 原文」两行了');
+  assert.match(layout, /biliMerge\.accountCount/);
 });

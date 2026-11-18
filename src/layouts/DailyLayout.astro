@@ -9,7 +9,9 @@ import { formatIssueTime, type Daily, type DailyJa } from '../lib/daily';
 import {
   BILIBILI_CATEGORY,
   BILIBILI_LABEL,
+  bilibiliLinksHtml,
   loadBilibiliGroups,
+  mergeBilibiliDisplay,
 } from '../lib/bilibili-daily';
 import {
   categoryLabelOf,
@@ -125,18 +127,33 @@ const profileUrl = profileUrlOf;
  *
  * 声优版不渲染：B 站名单是 Galgame 版的补充源。
  *
- * 2026-11-12 追加口径：同一个账号的归到一起，合并后超过 150 字就概括。
- * 归并与概括都在取数层算好（`groupBilibiliRows`），页面只负责排版——
+ * 2026-11-12 追加口径（2026-11-18 上限收到 100）：同一个账号的归到一起，
+ * 合并后超过 100 字就概括。归并与概括都在取数层算好（`groupBilibiliRows`），页面只负责排版——
  * 一条动态一个 `-` 的清单会被「一天发十几条的官号」挤爆，读起来也找不到重点。
+ *
+ * 2026-11-15 追加口径：B 站动态同时被 LLM 写进 `people[]` 的一句话概括时，
+ * **不再在后面另摆一行原文**，一个账号只留一行；原文链接改挂在概括行末尾。
+ * 去重也在取数层算好（`mergeBilibiliDisplay`），页面只按结果渲染。
  */
 const bilibiliGroups = post.data.kind === 'galgame' ? loadBilibiliGroups(post.data.covered) : [];
+const biliMerge = mergeBilibiliDisplay(
+  roster,
+  bilibiliGroups,
+  (handle) => categoryOf(handle) === BILIBILI_CATEGORY,
+);
 
-/** 一行 B 站动态的注脚：`共 6 条 · 概括` / `共 6 条` / `概括` / 空。 */
+/** 一行 B 站动态的注脚：`共 6 条 · 概括` / `共 6 条` / `概括` / 空。
+ *  只给「没有 LLM 概括、直接展示正本」的行用；概括行本身就是转述，不必再标。 */
 function bilibiliNote(group: { count: number; summarized: boolean }): string {
   return [
     group.count > 1 ? `共 ${group.count} 条` : '',
     group.summarized ? '概括' : '',
   ].filter(Boolean).join(' · ');
+}
+
+/** 某个账号要挂到概括行末尾的原文链接（没有正本或不是 B 站号就是空）。 */
+function biliLinksOf(handle: string): string[] {
+  return biliMerge.linksByHandle.get(handle.toLowerCase()) ?? [];
 }
 
 /**
@@ -155,7 +172,9 @@ const categoriesPresent = (() => {
     const id = categoryOf(person.handle);
     counts.set(id, (counts.get(id) ?? 0) + 1);
   }
-  if (bilibiliGroups.length > 0) counts.set(BILIBILI_CATEGORY, bilibiliGroups.length);
+  // 「B站动态」的条目数按**去重后的账号**算：概括行与正本行合并后一个账号一行，
+  // 不能再拿 bilibiliGroups.length 去覆盖 people[] 里已经算好的那一批。
+  if (biliMerge.accountCount > 0) counts.set(BILIBILI_CATEGORY, biliMerge.accountCount);
   return [...counts.entries()]
     .map(([id, count]) => ({
       id,
@@ -416,15 +435,24 @@ if (ja) {
                           ))}
                         </span>
                       ) : null}
+                      {/* B 站账号已有 LLM 概括：原文行不再另摆，链接挪到这行末尾。 */}
+                      {biliLinksOf(person.handle).length > 0 ? (
+                        <span
+                          class="daily-roster__bili-links"
+                          set:html={bilibiliLinksHtml(biliLinksOf(person.handle))}
+                        />
+                      ) : null}
                     </li>
                   ))}
                   {/*
-                    B 站动态：**一个账号一行**（同账号的归到一起），正文合计超过 150 字
-                    时用取数层算好的概括。`data-category` 让上面那排按钮顺带管住这些行。
-                    注脚写明「共 N 条 · 概括」，读者才知道这行不是原文全文；
+                    B 站动态：**一个账号一行**（同账号的归到一起）。已被 LLM 概括的
+                    账号上面 `people[]` 那行已经说过一遍，这里不再重复摆原文；
+                    只剩没有概括的账号，展示取数层算好的原文 / 规则概括。
+                    `data-category` 让上面那排按钮顺带管住这些行。注脚写明
+                    「共 N 条 · 概括」，读者才知道这行不是原文全文；
                     原文链接一条不少，多条时按 1、2、3 编号列出（不丢任何一条的出处）。
                   */}
-                  {bilibiliGroups.map((group) => (
+                  {biliMerge.remainingGroups.map((group) => (
                     <li data-category={BILIBILI_CATEGORY} class="daily-roster__bili">
                       <a
                         class="daily-roster__name"
@@ -439,18 +467,10 @@ if (ja) {
                       {bilibiliNote(group) ? (
                         <span class="daily-roster__bili-note">{bilibiliNote(group)}</span>
                       ) : null}
-                      <span class="daily-roster__bili-links">
-                        {group.urls.map((url, index) => (
-                          <a
-                            class="daily-roster__bili-link"
-                            href={url}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                          >
-                            {group.urls.length > 1 ? `原文${index + 1} ↗` : '原文 ↗'}
-                          </a>
-                        ))}
-                      </span>
+                      <span
+                        class="daily-roster__bili-links"
+                        set:html={bilibiliLinksHtml(group.urls)}
+                      />
                     </li>
                   ))}
                 </ul>
