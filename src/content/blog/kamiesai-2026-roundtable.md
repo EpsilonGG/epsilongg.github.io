@@ -155,7 +155,7 @@ tags:
 
 **夜ノみつき**：谢谢（笑）。
 
-![](/images/blog/kamiesai-2026-roundtable/05.jpg)
+![夜ノみつき 『紫魂』](/images/blog/kamiesai-2026-roundtable/05.jpg "夜ノみつき 『紫魂』")
 
 **司会**：那么接下来请深崎暮人老师谈谈。您初中三年级的时候在做些什么呢？
 
@@ -189,7 +189,7 @@ tags:
 
 **深崎暮人**：可能是吧。现在回想起来，那应该也是我人生中的一个契机，或者说一个转折点。
 
-![](/images/blog/kamiesai-2026-roundtable/06.jpg)
+![深崎暮人 『Cradle-SAKURA-』](/images/blog/kamiesai-2026-roundtable/06.jpg "深崎暮人 『Cradle-SAKURA-』")
 
 **司会**：谢谢。那么接下来请カントク老师回答。
 
@@ -227,7 +227,7 @@ tags:
 
 **カントク**：初中生还没真正懂事嘛。大概就是那样（笑）。
 
-![](/images/blog/kamiesai-2026-roundtable/07.jpg)
+![カントク 『星降る雫』](/images/blog/kamiesai-2026-roundtable/07.jpg "カントク 『星降る雫』")
 
 **司会**：谢谢。那么，接下来是てぃんくる老师……话说，您真的有过初中三年级的时期吗？（全场爆笑）
 
@@ -261,7 +261,7 @@ tags:
 
 **てぃんくる**：是啊。（全场爆笑）
 
-![](/images/blog/kamiesai-2026-roundtable/08.jpg)
+![てぃんくる 『金烏玉兎の渾天儀』](/images/blog/kamiesai-2026-roundtable/08.jpg "てぃんくる 『金烏玉兎の渾天儀』")
 
 **司会**：谢谢。那么接下来请珈琲貴族老师回答。您初中三年级的时候在做些什么呢？
 
@@ -307,7 +307,7 @@ tags:
 
 **珈琲貴族**：比如喊着「魔丸！」，然后把乒乓球朝对方扔过去，用这种违规招式来打羽毛球，结果被老师骂。（全场爆笑）我当时就是一个净做些违反体育精神的事情的选手。虽然已经初三了，但感觉整个人还停留在初二的状态（笑）。
 
-![](/images/blog/kamiesai-2026-roundtable/09.jpg)
+![珈琲貴族 『神代桜 -時-』](/images/blog/kamiesai-2026-roundtable/09.jpg "珈琲貴族 『神代桜 -時-』")
 
 **司会**：谢谢您分享这么有趣的经历。深崎暮人老师，最后还有什么想补充的吗？
 
@@ -353,7 +353,7 @@ tags:
 
 **カントク**：那就正合适了。可以从功放开始，把相关设备从头到尾都好好研究一遍。
 
-![](/images/blog/kamiesai-2026-roundtable/10.jpg)
+![夜ノみつき 『緑灯』](/images/blog/kamiesai-2026-roundtable/10.jpg "夜ノみつき 『緑灯』")
 
 **深崎暮人**：不过，这个爱好真的很花钱，所以一定要小心。（全场爆笑）
 
