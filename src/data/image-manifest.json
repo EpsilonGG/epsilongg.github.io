@@ -1,6 +1,6 @@
 {
   "$comment": "由 scripts/optimize_images.mjs 生成，请勿手改。",
-  "generatedAt": "2026-11-15T18:03:45.179Z",
+  "generatedAt": "2026-11-18T10:50:00.334Z",
   "images": {
     "/images/blog/automaton-crymelight-mugenzakura-roundtable/01.jpg": {
       "w": 1080,
@@ -2454,6 +2454,342 @@
           "w": 670,
           "src": "/images/blog/gamespark-uchikoshi-crashkeys-interview/07-670.webp",
           "bytes": 28784
+        }
+      ]
+    },
+    "/images/blog/kamiesai-2026-roundtable/01.jpg": {
+      "w": 1600,
+      "h": 1600,
+      "bytes": 412495,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/kamiesai-2026-roundtable/01-600.webp",
+          "bytes": 73474
+        },
+        {
+          "w": 960,
+          "src": "/images/blog/kamiesai-2026-roundtable/01-960.webp",
+          "bytes": 151514
+        },
+        {
+          "w": 1600,
+          "src": "/images/blog/kamiesai-2026-roundtable/01-1600.webp",
+          "bytes": 295446
+        }
+      ]
+    },
+    "/images/blog/kamiesai-2026-roundtable/02.jpg": {
+      "w": 1600,
+      "h": 1200,
+      "bytes": 265094,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/kamiesai-2026-roundtable/02-600.webp",
+          "bytes": 45154
+        },
+        {
+          "w": 960,
+          "src": "/images/blog/kamiesai-2026-roundtable/02-960.webp",
+          "bytes": 91340
+        },
+        {
+          "w": 1600,
+          "src": "/images/blog/kamiesai-2026-roundtable/02-1600.webp",
+          "bytes": 182242
+        }
+      ]
+    },
+    "/images/blog/kamiesai-2026-roundtable/03.jpg": {
+      "w": 1410,
+      "h": 1058,
+      "bytes": 206436,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/kamiesai-2026-roundtable/03-600.webp",
+          "bytes": 45154
+        },
+        {
+          "w": 960,
+          "src": "/images/blog/kamiesai-2026-roundtable/03-960.webp",
+          "bytes": 92408
+        },
+        {
+          "w": 1410,
+          "src": "/images/blog/kamiesai-2026-roundtable/03-1410.webp",
+          "bytes": 153854
+        }
+      ]
+    },
+    "/images/blog/kamiesai-2026-roundtable/04.jpg": {
+      "w": 1600,
+      "h": 1200,
+      "bytes": 404259,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/kamiesai-2026-roundtable/04-600.webp",
+          "bytes": 70318
+        },
+        {
+          "w": 960,
+          "src": "/images/blog/kamiesai-2026-roundtable/04-960.webp",
+          "bytes": 153164
+        },
+        {
+          "w": 1600,
+          "src": "/images/blog/kamiesai-2026-roundtable/04-1600.webp",
+          "bytes": 328828
+        }
+      ]
+    },
+    "/images/blog/kamiesai-2026-roundtable/05.jpg": {
+      "w": 1200,
+      "h": 848,
+      "bytes": 182281,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/kamiesai-2026-roundtable/05-600.webp",
+          "bytes": 52818
+        },
+        {
+          "w": 1200,
+          "src": "/images/blog/kamiesai-2026-roundtable/05-1200.webp",
+          "bytes": 132152
+        }
+      ]
+    },
+    "/images/blog/kamiesai-2026-roundtable/06.jpg": {
+      "w": 1600,
+      "h": 1140,
+      "bytes": 149008,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/kamiesai-2026-roundtable/06-600.webp",
+          "bytes": 24038
+        },
+        {
+          "w": 960,
+          "src": "/images/blog/kamiesai-2026-roundtable/06-960.webp",
+          "bytes": 45336
+        },
+        {
+          "w": 1600,
+          "src": "/images/blog/kamiesai-2026-roundtable/06-1600.webp",
+          "bytes": 90890
+        }
+      ]
+    },
+    "/images/blog/kamiesai-2026-roundtable/07.jpg": {
+      "w": 1200,
+      "h": 675,
+      "bytes": 159765,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/kamiesai-2026-roundtable/07-600.webp",
+          "bytes": 47130
+        },
+        {
+          "w": 1200,
+          "src": "/images/blog/kamiesai-2026-roundtable/07-1200.webp",
+          "bytes": 127302
+        }
+      ]
+    },
+    "/images/blog/kamiesai-2026-roundtable/08.jpg": {
+      "w": 1000,
+      "h": 1000,
+      "bytes": 280845,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/kamiesai-2026-roundtable/08-600.webp",
+          "bytes": 133234
+        },
+        {
+          "w": 1000,
+          "src": "/images/blog/kamiesai-2026-roundtable/08-1000.webp",
+          "bytes": 263290
+        }
+      ]
+    },
+    "/images/blog/kamiesai-2026-roundtable/09.jpg": {
+      "w": 1200,
+      "h": 675,
+      "bytes": 135366,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/kamiesai-2026-roundtable/09-600.webp",
+          "bytes": 33016
+        },
+        {
+          "w": 1200,
+          "src": "/images/blog/kamiesai-2026-roundtable/09-1200.webp",
+          "bytes": 108048
+        }
+      ]
+    },
+    "/images/blog/kamiesai-2026-roundtable/10.jpg": {
+      "w": 1200,
+      "h": 675,
+      "bytes": 232259,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/kamiesai-2026-roundtable/10-600.webp",
+          "bytes": 65266
+        },
+        {
+          "w": 1200,
+          "src": "/images/blog/kamiesai-2026-roundtable/10-1200.webp",
+          "bytes": 204514
+        }
+      ]
+    },
+    "/images/blog/kamiesai-2026-roundtable/11.jpg": {
+      "w": 600,
+      "h": 600,
+      "bytes": 61809,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/kamiesai-2026-roundtable/11-600.webp",
+          "bytes": 45144
+        }
+      ]
+    },
+    "/images/blog/kamiesai-2026-roundtable/12.jpg": {
+      "w": 680,
+      "h": 680,
+      "bytes": 77874,
+      "variants": [
+        {
+          "w": 680,
+          "src": "/images/blog/kamiesai-2026-roundtable/12-680.webp",
+          "bytes": 61962
+        }
+      ]
+    },
+    "/images/blog/kamiesai-2026-roundtable/13.jpg": {
+      "w": 1600,
+      "h": 1132,
+      "bytes": 424240,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/kamiesai-2026-roundtable/13-600.webp",
+          "bytes": 80492
+        },
+        {
+          "w": 960,
+          "src": "/images/blog/kamiesai-2026-roundtable/13-960.webp",
+          "bytes": 171268
+        },
+        {
+          "w": 1600,
+          "src": "/images/blog/kamiesai-2026-roundtable/13-1600.webp",
+          "bytes": 357446
+        }
+      ]
+    },
+    "/images/blog/kamiesai-2026-roundtable/14.jpg": {
+      "w": 1000,
+      "h": 616,
+      "bytes": 112166,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/kamiesai-2026-roundtable/14-600.webp",
+          "bytes": 41630
+        },
+        {
+          "w": 1000,
+          "src": "/images/blog/kamiesai-2026-roundtable/14-1000.webp",
+          "bytes": 82714
+        }
+      ]
+    },
+    "/images/blog/kamiesai-2026-roundtable/15.jpg": {
+      "w": 1200,
+      "h": 900,
+      "bytes": 169590,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/kamiesai-2026-roundtable/15-600.webp",
+          "bytes": 44644
+        },
+        {
+          "w": 1200,
+          "src": "/images/blog/kamiesai-2026-roundtable/15-1200.webp",
+          "bytes": 131654
+        }
+      ]
+    },
+    "/images/blog/kamiesai-2026-roundtable/16.jpg": {
+      "w": 1304,
+      "h": 939,
+      "bytes": 232470,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/kamiesai-2026-roundtable/16-600.webp",
+          "bytes": 48584
+        },
+        {
+          "w": 960,
+          "src": "/images/blog/kamiesai-2026-roundtable/16-960.webp",
+          "bytes": 116526
+        },
+        {
+          "w": 1304,
+          "src": "/images/blog/kamiesai-2026-roundtable/16-1304.webp",
+          "bytes": 202232
+        }
+      ]
+    },
+    "/images/blog/kamiesai-2026-roundtable/17.jpg": {
+      "w": 1274,
+      "h": 1812,
+      "bytes": 126068,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/kamiesai-2026-roundtable/17-600.webp",
+          "bytes": 28864
+        },
+        {
+          "w": 1274,
+          "src": "/images/blog/kamiesai-2026-roundtable/17-1274.webp",
+          "bytes": 71580
+        }
+      ]
+    },
+    "/images/blog/kamiesai-2026-roundtable/18.jpg": {
+      "w": 1600,
+      "h": 1200,
+      "bytes": 447966,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/kamiesai-2026-roundtable/18-600.webp",
+          "bytes": 88932
+        },
+        {
+          "w": 960,
+          "src": "/images/blog/kamiesai-2026-roundtable/18-960.webp",
+          "bytes": 185178
+        },
+        {
+          "w": 1600,
+          "src": "/images/blog/kamiesai-2026-roundtable/18-1600.webp",
+          "bytes": 371470
         }
       ]
     },

@@ -142,12 +142,13 @@ npm test         # Python 回归
 | [快速启动](README/quickstart.md) | 20 分钟把它变成你自己的主页：三步 + 上线检查清单 + 给 AI 的速查 |
 | [项目说明](README/project.md) | 目录结构、路由、配置项、写文章、部署与排查 |
 | [博客写作指南](README/blog-guide.md) | frontmatter、图片图注、注释（脚注）的写法与约定 |
+| [翻译与推送工作流](README/publish-workflow.md) | 从抓原文到站点上线、再到 B 站专栏的默认顺序；含 B 站 opus 取文取图与一次推三类文件的检查点 |
 | [Fork 指南](README/fork.md) | 从 fork 到上线（完整版）：子路径部署的改动清单、只要文字的做法、常见问题 |
 | [广告位](README/ads.md) | 右侧栏广告位：默认关闭，怎么开、放得下什么尺寸、合规要求 |
 | [日报运营与维护指南](docs/daily-report-guide.md) | 日报每天怎么出、期号规则、六出口、抓取侧、schema 与排查 |
 | [日报长图方法](docs/daily-image-method.md) | 把一期日报渲染成一张晨报长图 |
 | [译文口径](README/translation-style.md) | 译名与用词规范；词表本体在 `data/glossary.json` |
-| [工作区现状](README/reports/workspace-status-2026-11-08.md) | 架构、抓取自动化细节、遗留产物与待办（2026-11-08 实测） |
+| [报告索引](README/reports/INDEX.md) | 5 份按站点板块整理的摘要；现行状态与待办读 [01 站点总览](README/reports/01-site-overview.md) |
 | [主页 README 指南](https://epsilongg.github.io/docs/github-profile-readme-guide.html) | GitHub Profile README 怎么搭、怎么长期维护（浏览器直接打开） |
 | [项目现状](https://epsilongg.github.io/docs/project-status.html) | 各部分完成度、已知不足与可优化点（浏览器直接打开） |
 
