@@ -17,6 +17,7 @@
 """
 from __future__ import annotations
 
+import re
 from dataclasses import dataclass, field
 
 # `daily_lang` 与 `daily` 包同在 scripts/ 下；包能被 import 就说明 scripts/ 在 sys.path。
@@ -43,6 +44,45 @@ class ValidationError(ValueError):
     def __str__(self) -> str:
         head = f"回答不合格（{len(self.problems)} 处）："
         return "\n".join([head] + [f"  - {p}" for p in self.problems])
+
+
+# B 站句柄是 `bili_<uid>`。名单里本来有显示名，但出题材料只带句柄，
+# 模型会照抄进叙述——261118-g 的两条互动因此把「被炒的炒饭 / 33祖传上色」
+# 写成了 `bili_16302815` / `bili_138256`。题面已加显示名表，这里再兜一道机械闸门。
+_BILI_UID_RE = re.compile(r"(?<![A-Za-z0-9_])bili_\d{4,}(?![A-Za-z0-9_])")
+
+
+def _uid_in_prose(answer: dict) -> list[tuple[str, str]]:
+    """叙述字段里漏出的 `bili_<uid>`。handle 字段不算——那是它的正经写法。"""
+    hits: list[tuple[str, str]] = []
+    if isinstance(answer.get("summary"), str):
+        hits.extend(
+            (f"$.summary", m.group(0))
+            for m in _BILI_UID_RE.finditer(answer["summary"])
+        )
+    works = answer.get("works") or []
+    for i, line in enumerate(works if isinstance(works, list) else []):
+        if isinstance(line, str):
+            hits.extend(
+                (f"$.works[{i}]", m.group(0))
+                for m in _BILI_UID_RE.finditer(line)
+            )
+    for field_name in ("highlights", "interactions"):
+        for i, claim in enumerate(answer.get(field_name) or []):
+            text = claim.get("text") if isinstance(claim, dict) else None
+            if isinstance(text, str):
+                hits.extend(
+                    (f"$.{field_name}[{i}]", m.group(0))
+                    for m in _BILI_UID_RE.finditer(text)
+                )
+    for i, person in enumerate(answer.get("people") or []):
+        text = person.get("summary") if isinstance(person, dict) else None
+        if isinstance(text, str):
+            hits.extend(
+                (f"$.people[{i}].summary", m.group(0))
+                for m in _BILI_UID_RE.finditer(text)
+            )
+    return hits
 
 
 def _claims(answer: dict) -> list[tuple[str, dict]]:
@@ -84,6 +124,12 @@ def validate_answer(
     if len(drift) > 8:
         problems.append(
             Problem("$", f"另有 {len(drift) - 8} 句日文漂移（本期合计 {len(drift)} 句）")
+        )
+
+    # 显示名闸门：句柄只许出现在 people[].handle，叙述里必须写名单里的显示名。
+    for path, token in _uid_in_prose(answer)[:8]:
+        problems.append(
+            Problem(path, f"叙述里不要写 {token}，用账号显示名（句柄只放在 people[].handle）")
         )
 
     cid = str(answer.get("category") or category or "")

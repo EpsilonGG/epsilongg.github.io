@@ -19,7 +19,7 @@ from dataclasses import asdict, dataclass, field
 from datetime import datetime, timezone
 from pathlib import Path
 
-PROMPT_VERSION = 4  # 4：题面带上「上两期已用过的头条与看点」，并要求一律降级
+PROMPT_VERSION = 5  # 5：题面带账号显示名对照表，叙述禁止写 bili_<uid> 句柄
 
 FRESH = "fresh"
 STALE = "stale"

@@ -346,13 +346,18 @@ def _cmd_prompt(args: argparse.Namespace) -> int:
         return 0
 
     if args.flat:
-        prompt = prompt_mod.build_flat(args.issue, generate, args.out, force=args.force)
+        roster = Roster.load(args.roster, kind=kind_of(args.issue))
+        prompt = prompt_mod.build_flat(
+            args.issue, generate, args.out, force=args.force, roster=roster
+        )
         flag = "跳过（输入未变）" if prompt.cached else "已写出"
         print(f"{flag} {prompt.md_path}  （{prompt.items} 条）")
         print(f"下一步：把回答存成 {path_mod.answers(path_mod.workspace(args.out, args.issue)) / 'all.json'}，再 `daily apply`。")
         return 0
 
-    prompts = prompt_mod.build(args.issue, generate, args.out, force=args.force)
+    prompts = prompt_mod.build(
+        args.issue, generate, args.out, force=args.force, roster=Roster.load(args.roster, kind=kind_of(args.issue))
+    )
     for prompt in prompts:
         flag = "跳过（输入未变）" if prompt.cached else "已写出"
         print(f"{flag} {prompt.md_path}  （{prompt.items} 条）")
@@ -665,6 +670,7 @@ def main(argv: list[str] | None = None) -> int:
         "--flat", action="store_true", help="出整期题：一份题装下本期全部条目，产出 category=all 的回答"
     )
     prompt_cmd.add_argument("--force", action="store_true", help="忽略缓存，强制重写题面")
+    prompt_cmd.add_argument("--roster", default=None, help="名单文件，默认按期号类型自动选")
     prompt_cmd.set_defaults(func=_cmd_prompt)
 
     apply_cmd = sub.add_parser("apply", help="M3.2–M3.4 判卷并合并进 report.json")

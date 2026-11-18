@@ -406,6 +406,10 @@ python scripts/daily_digest.py apply --issue <期号> --answer out/<期号>/answ
 - `works`：**一段话**，不带来源链接（人名在 `people` 里已经链到主号）。
 - `interactions`：名单内谁和谁有互动，每项一条；**没有就留空数组**。
 - `people[].summary`：每人一句话，**不写 @handle**（行首已经显示名字了）；**当日没活动的留空**。
+- **叙述里写账号显示名，不写句柄。** 题面有「账号显示名」对照表（名单里的 `name`），
+  右列就是写法；`bili_138256` 这类句柄只能出现在 `people[].handle`。`apply` 会拦住
+  漏进 `summary` / `highlights` / `interactions` / `works` / `people[].summary` 的
+  `bili_<uid>`（2026-11-19：261118-g 两条互动因此被重出）。
 - 不要改 `accounts` / `people[].handle` / `people[].via`——脚本推导的。标题与发布时间由期号推导，不在数据里。
 
 **一人一行，不管他今天用了几个号。** 名单里同 `name` 的主号、小号、社团号在
@@ -469,7 +473,7 @@ python scripts/daily_digest.py audit --issue <期号> --published     # 查 data
 
 题面规则变了要同步 `scripts/daily/cache.py::PROMPT_VERSION` +1，否则旧缓存会继续用
 没有语言规则的题面。已发布正本的一次性订正脚本是
-`scripts/daily_repair_language.py`（对照表 `README/reports/daily-language-repair-2026-11-06.json`），
+`scripts/daily_repair_language.py`（对照表 `README/reports/_archive-2026-11/daily-language-repair-2026-11-06.json`），
 它只改文案字符串，`sources`／`handle`／数组顺序一个字节都不动。
 
 ### 步骤 2.6 — 分类出稿（可选，暂未启用）
@@ -597,11 +601,11 @@ commit（2026-10-26 就把一篇 496 行的新访谈卷进了「docs: 抓取侧�
 | `schemas/report.schema.json` | 正本的唯一裁判（Python 与 Zod 都按它） |
 | `schemas/generation.schema.json` | 模型回答的形状（含整期题的 `works`） |
 | `tests/golden/current.json` | 金文件基准指针（`{"id": "261025"}`），换基准用 `npm run golden:daily:switch` |
-| `README/reports/daily-m5-m6-options.html` | M5（图片）/ M6（视频稿）的选型比较、代价与顺序。开工前先读 |
+| `README/reports/_archive-2026-11/daily-m5-m6-options.html` | M5（图片）/ M6（视频稿）的选型比较、代价与顺序。开工前先读 |
 | `scripts/push_site.py` | 提交并推送，绕开本机 `git push` 被 SIGTERM 的问题（GCM 取 token → 临时 askpass → 推完即删）。**日报要带 `--path data/daily/ --path data/xreader/`**，否则 `git add -A` 会卷进无关改动 |
 | `scripts/sync_xreader_accounts.py` | 站点名单 → `X-Reader/accounts.yaml` + `accounts.galgame.yaml`（两版分开写，只收 `active != false`）。`--check` 只比对 |
 | `scripts/daily.sh` | 一键流程包装：组装 → 提示用 WorkBuddy 填摘要 → 打印 git 命令（第二个参数之外还可给 `voice` / `galgame`） |
-| `scripts/build_roster_overview.py` | 两版名单合并成一张只读总表 `README/reports/daily-roster-2026-10.html`（四个大类 + 未入册候选） |
+| `scripts/build_roster_overview.py` | 两版名单合并成一张只读总表 `README/reports/_archive-2026-11/daily-roster-2026-10.html`（四个大类 + 未入册候选） |
 | `scripts/rss_to_items.py` | 把 X-rss-main 的**真实** RSS feeds（`output/feeds_processed/*.xml`）转成 NormalizedItem JSONL（账号/原文链接/内容均为真实；该 RSS 源不含媒体与互动数） |
 | `scripts/sample_items/x.jsonl` | 预览/测试数据。现由 `rss_to_items.py` 从 X-rss-main 真实 feeds 生成（**真实推文**，非编造） |
 | `src/content.config.ts` | `dailyReports` 集合：`glob({ base: './data/daily', pattern: '*/report.json' })` + Zod（**没有** `title` / `pubDate`，两者由期号推导） |

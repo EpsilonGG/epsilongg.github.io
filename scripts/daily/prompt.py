@@ -19,6 +19,7 @@ from pathlib import Path
 from . import paths
 from .cache import FRESH, PROMPT_VERSION, PromptCache, input_hash
 from .issue import parse_issue_id
+from .roster import Roster
 
 RULES = """\
 硬规则（判卷会逐条检查，违反即整份作废）：
@@ -32,6 +33,8 @@ RULES = """\
 4. 长度：`summary` ≤ 60 字；`highlights` 2–4 条；`description` ≤ 70 字。
    超限直接判失败，不自动截断——截断会把一句话截成语义不通的半句。
 5. 只输出 JSON，不要 Markdown 代码围栏，不要在 JSON 前后写解释。
+6. 叙述里的账号一律写「账号显示名」表的右列，不许写 `bili_123456` 这类句柄；
+   句柄只出现在 `people[].handle` 字段里。表里没有的账号照材料里的写法写。
 """
 
 ANSWER_SKELETON = """\
@@ -85,6 +88,8 @@ RULES_FLAT = """\
    地方。只有当天确实有新事实（新数字、新阶段、新决定）才值得再上一次，而且必须把
    「新在哪」写出来——只换措辞不算新进展。这些话题仍可以写进 `works` 和 `people`。
 9. 只输出 JSON，不要 Markdown 代码围栏，不要在 JSON 前后写解释。
+10. 叙述里的账号一律写「账号显示名」表的右列，不许写 `bili_123456` 这类句柄；
+    句柄只出现在 `people[].handle` 字段里。表里没有的账号照材料里的写法写。
 """
 
 # 术语表是 `data/glossary.json`：`ja` 原词、`zh` 本站统一写法、`avoid` 明确不许出现的写法。
@@ -161,6 +166,25 @@ def _item_lines(items: list[dict]) -> str:
         for line in body.splitlines():
             lines.append(f"    {line}")
         lines.append("")
+    return "\n".join(lines)
+
+
+def _display_name_lines(handles: list[str], roster: Roster | None) -> str:
+    """账号显示名对照表。
+
+    B 站句柄是 `bili_<uid>`——模型照材料抄进叙述里，读者看到的就是一串数字
+    （261118-g 的两条互动）。名单里本来就有 `name`，只是以前没进题面。
+    只列本期出现的账号，避免把整份名单塞进题面。
+    """
+    if roster is None:
+        return ""
+    lines: list[str] = []
+    for handle in handles:
+        account = roster.account(handle)
+        name = str(account.name).strip() if account else ""
+        if not name or name == handle:
+            continue
+        lines.append(f"- `{handle}` → {name}")
     return "\n".join(lines)
 
 
@@ -271,6 +295,7 @@ def build(
     out_dir: str | Path = "out",
     *,
     force: bool = False,
+    roster: Roster | None = None,
 ) -> list[Prompt]:
     """按分类各出一份题。输入没变就跳过（返回 `cached=True`）。"""
     ws = paths.ensure(paths.workspace(out_dir, issue_id))
@@ -307,6 +332,11 @@ def build(
             "prompt_version": PROMPT_VERSION,
             "input_hash": digest,
             "handles": handles,
+            "account_names": {
+                h: roster.account(h).name
+                for h in handles
+                if roster is not None and roster.account(h) and roster.account(h).name
+            },
             "items": items,
             "instructions": {
                 "output": "纯 JSON，形状见 answer 模板",
@@ -325,6 +355,10 @@ def build(
                 "## 本题的 handles（`people[].handle` 只能从这里取）",
                 "",
                 "、".join(f"`{h}`" for h in handles) or "（空）",
+                "",
+                "## 账号显示名（叙述里用右列，不要写左列的句柄）",
+                "",
+                _display_name_lines(handles, roster) or "（本期没有需要转换的句柄）",
                 "",
                 "## 材料",
                 "",
@@ -354,6 +388,7 @@ def build_flat(
     *,
     force: bool = False,
     daily_dir: str | Path | None = None,
+    roster: Roster | None = None,
 ) -> Prompt:
     """整期一份题（`category="all"`）。
 
@@ -401,6 +436,11 @@ def build_flat(
         "prompt_version": PROMPT_VERSION,
         "input_hash": digest,
         "handles": handles,
+        "account_names": {
+            h: roster.account(h).name
+            for h in handles
+            if roster is not None and roster.account(h) and roster.account(h).name
+        },
         "items": items,
         "previous_issues": previous,
         "instructions": {
@@ -425,6 +465,10 @@ def build_flat(
             "## 本题的 handles（`people[].handle` 只能从这里取）",
             "",
             "、".join(f"`{h}`" for h in handles) or "（空）",
+            "",
+            "## 账号显示名（叙述里用右列，不要写左列的句柄）",
+            "",
+            _display_name_lines(handles, roster) or "（本期没有需要转换的句柄）",
             "",
             "## 材料（按账号分组，方括号里是来源 key）",
             "",

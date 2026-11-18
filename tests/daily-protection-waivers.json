@@ -4,5 +4,19 @@
   "cleared_on": "2026-11-11",
   "cleared_reason": "B 站名单解耦对 scripts/daily/roster.py 的改动已 commit，`git diff HEAD -- <保护集>` 为空，豁免按设计自动失效。空列表才是正常状态。",
   "waivers": [],
-  "batches": []
+  "batches": [
+    {
+      "id": "bili-uid-display-name-2026-11-19",
+      "authorized_by": "用户（2026-11-19 指出 261118-g 互动栏把 B 站昵称写成 UID，要求查因、改正并重出一版）",
+      "authorized_on": "2026-11-19",
+      "reason": "出题材料只带 bili_<uid> 句柄、名单显示名从未进题面；修题面与判卷闸门并重发 261118-g。commit 后本登记应删除。",
+      "paths": [
+        "scripts/daily/cache.py",
+        "scripts/daily/cli.py",
+        "scripts/daily/prompt.py",
+        "scripts/daily/validate.py",
+        "data/daily/261118-g/report.json"
+      ]
+    }
+  ]
 }
