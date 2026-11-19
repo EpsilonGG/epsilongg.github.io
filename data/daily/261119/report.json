@@ -1,0 +1,1152 @@
+{
+  "schema_version": 1,
+  "issue": {
+    "id": "261119",
+    "published_at": "2026-11-20T00:36:32.278401+09:00",
+    "window": {
+      "start": "2026-11-19T00:00:00+09:00",
+      "end": "2026-11-20T00:00:00+09:00"
+    },
+    "status": "confirmed",
+    "confirmed_at": "2026-11-19T15:39:54+00:00"
+  },
+  "counts": {
+    "items": 473,
+    "accounts": 103,
+    "late": 75,
+    "skipped_duplicate": 0
+  },
+  "description": "伊ヶ崎綾香疑遭影子封禁，担心账号被冻结；歩サラ新作首日破 400 下载、冲上第二位",
+  "highlights": [
+    {
+      "text": "伊ヶ崎綾香称账号疑似被影子封禁，连说明这件事的帖子都被打上敏感标记，她推测与二次元插画有关，担心账号被冻结，暂时退到小号发帖。",
+      "sources": [
+        "x:2123105295878811721",
+        "x:2123112930766176331",
+        "x:2123111814770930073"
+      ]
+    },
+    {
+      "text": "歩サラ 主导的 potte 新作首日突破 400 下载，DLsite 排名从第 7 一路升到第 2，她连发几条感谢。",
+      "sources": [
+        "x:2123424087439761714",
+        "x:2123401242974224458"
+      ]
+    },
+    {
+      "text": "豊川ゆき 迎来活动一年多的节点，收藏数突破 1300，深夜开纪念直播并写了长文感谢听众。",
+      "sources": [
+        "x:2123417862069268484"
+      ]
+    },
+    {
+      "text": "柚木つばめ 参与配音的『Witch the Showdown』在 Steam 开启抢先体验，她介绍自己演的是有点痞气的 ネオン。",
+      "sources": [
+        "x:2123358154440548508",
+        "x:2123277048957501455"
+      ]
+    }
+  ],
+  "insights": [],
+  "interactions": [
+    {
+      "text": "柚木つばめ 约了 涼花みなせ、御子柴泉、雲八はち、歩サラ 开贴纸交换会，一起吃饭翻贴纸本；みなせ 忘了带本子，はち 把亚克力贴纸送给了她。",
+      "sources": [
+        "x:2123391780288934327",
+        "x:2123403674252972153",
+        "x:2123415373357985836",
+        "x:2123393987495207312"
+      ]
+    },
+    {
+      "text": "乙倉ゆい 与 眠音りま 合作配信「浮気チェックシート」，两人事后互相夸对方可爱。",
+      "sources": [
+        "x:2123253214229447115",
+        "x:2123423985492996450"
+      ]
+    },
+    {
+      "text": "柚木つばめ 把「让 綾音まこ 请吃饭」列为明年目标，綾音まこ 直接回「当然，抱你」，她截图留念。",
+      "sources": [
+        "x:2123284818582778056"
+      ]
+    },
+    {
+      "text": "歩サラ 与 胡桃ふゅ 的广播更新到第 75 回，胡桃ふゅ 同期收到周边第一批发货通知，两人互相转发造势。",
+      "sources": [
+        "x:2123295159102345342",
+        "x:2123337013852348431"
+      ]
+    }
+  ],
+  "works": [
+    "『甘Sイジワル先輩/後輩とエロ同人みたいなマゾバレあまあまイジワルえっち♡』（potte 第 13 作）19 日零点开卖，首日突破 400 下载、DLsite 排名升到第 2，歩サラ与北見六花 双主演。",
+    "『Witch the Showdown』在 Steam 开启抢先体验，柚木つばめ 为角色 ネオン 配音。",
+    "『私の香りーいつまででも君を待ってるー』（ただいま腐敗中）开卖，大山チロル 配音的百合音声作品。",
+    "『イク家畜～男性拘束搾精工場～』最新作公开，大山チロル 配音。",
+    "『〜インモラル性教会〜』预告开始，定 12 月 24 日发售，餅梨あむ、みもりあいの、涼花みなせ 三人合演母女。",
+    "『就活セクニケ-sexual applicant-』手机版 11 月 25 日发售，綾音まこ 参与配音。",
+    "『鬼畜生配信で、あなたも今日からお人形♪』宣布制作续篇，柚木朱莉 计划 2027 年推出第二作。",
+    "『おちんぽ淫臭村』（桃尻乳業 处女作）预告中，胡桃ふゅ 负责企划与剧情、不参与配音，第二轮暗号活动已开跑。",
+    "『やきもち彼女に襲われる密着とろとろ♡エステえっち』定 11 月 28 日发行，未想可みいろ 兼任剧本与配音。",
+    "『転性魔王さまは勇者に勝てない！２』下载版 11 月 20 日发售，小波すず 为 テルル 配音，官方放出倒计时短片。",
+    "『NTR実況煽り 職場の悪友から人づてNTR報告 最愛の彼女があなたを庇って上司のセクハラに堕ちる』开卖，藤村莉央 出演本周新作。",
+    "『DLC 悠遠の旅人』与配套音声作品同日开卖，涼貴涼 均参与。",
+    "『StrawberryCodeー捕食者の甘い囁きー』开卖，藍沢夏癒 为 熊鷹純花 配音。",
+    "ぺぺろんちーの 的精灵狩猎题材新作开卖，涼貴涼 饰演 ヴァレリア。",
+    "すてねこLAB. 系列完结篇开卖，涼貴涼 继续出演市长一角和另一名未公开角色。",
+    "『マブラヴ ガールズガーデン Mellow Days』开卖，登上 Steam、DMM GAMES 与 DLsite。",
+    "『超昂大戦 エスカレーションヒロインズ』公开第 4 部片头动画，6 周年活动同步进行。",
+    "『お姉ちゃん、奥手だもんね…♡』定 11 月 21 日 0 点解禁，まほろば 的新作。",
+    "『私立パコハメ学園』预告开始，cielo20245 的新作。",
+    "由比かのん 的新作定 11 月 21 日公开，11 月 21 日至 28 日限时五折。",
+    "『高身長デカ乳過保護メイド「わたしの身体で我慢してください」』销量突破 5000 本，巨乳大好き屋 另有一部作品破 500 本。",
+    "ルルイエエリジウム 的『粗チンでも溺愛して包茎悪化赤ちゃんプレイをしてくる年上彼女』销量突破 500 本。"
+  ],
+  "categories": [],
+  "accounts": [
+    "yukanyan2525",
+    "re_re_tsubame",
+    "suzuka_minase",
+    "akinokaedevo",
+    "narumiaisaka",
+    "asuparama40",
+    "mirai_chiroru",
+    "chiroru_o_",
+    "mochiri_0909",
+    "shiho_moai",
+    "__amachi",
+    "322yui3",
+    "ayakaigasaki",
+    "ayakaigasaki69",
+    "momokar181",
+    "mame_ruse",
+    "suikauriko",
+    "momoka_vtuber",
+    "koyama9haru",
+    "fujimura_rio",
+    "bee_ryo",
+    "aizawa_nachu",
+    "CV_kumoyahachi",
+    "oOYuKiKoOo",
+    "jiaomidsu3187",
+    "kuroseimu_000",
+    "Unicolony_uni",
+    "y_asm",
+    "yuzukiakari",
+    "akaritta_news",
+    "namimimiobot",
+    "mitakarin",
+    "hoshinora1212",
+    "mei_misonoo",
+    "nemurinerima",
+    "lilim404",
+    "koyoring55",
+    "nekomi_hime",
+    "mzn773",
+    "ikuraeru",
+    "yukirinrin1191",
+    "my_mimichinchin",
+    "mymy_mimichi",
+    "Setsune_Soyogi",
+    "jtjitkub5r_uuka",
+    "shimotsukiyuu",
+    "ayanemako",
+    "yuna_na7se",
+    "mashiro_mayuki_",
+    "ayumi_sarah",
+    "potte1919",
+    "mskmiro316",
+    "refle_ookami",
+    "M_chipo_O",
+    "maihal_yuu",
+    "ran_ran_ranze25",
+    "kanojo_nyui",
+    "ogurayui1017",
+    "runhanami",
+    "shindo_azusa",
+    "kanzinowatashi",
+    "ricca_kitami",
+    "ao_subsubsub",
+    "suzusanchi_",
+    "kaname_shiori",
+    "matsuoka_yuuri",
+    "kurumihuyu963",
+    "Kyonyu0821",
+    "studio_ref",
+    "bocchilab2",
+    "G_Sound0721",
+    "uninimu",
+    "schildkrote00",
+    "jitsuona",
+    "072labo",
+    "aohachannel",
+    "TodoTodoproduce",
+    "VicornF",
+    "kazutamadoujin",
+    "romaapoinfo",
+    "MidoriHorokusa",
+    "nyu_nyu_fantasy",
+    "_mayotama_",
+    "Girls_Cloister",
+    "omoomo8818",
+    "otoyome_18",
+    "tareme4569",
+    "ohshimap_new",
+    "cielo20245",
+    "Nyamaretto",
+    "kousoku1118",
+    "milkhuuka",
+    "mizuno_cho",
+    "niinashinjou",
+    "Elysium_ASMR",
+    "skp175",
+    "mahorobaasmr",
+    "make_nai_man",
+    "quiquiqui",
+    "MarKuS_D_S",
+    "kneepillow1",
+    "ogami_nt",
+    "momojiri_nyugyo"
+  ],
+  "people": [
+    {
+      "handle": "yukanyan2525",
+      "category": "",
+      "summary": "在银座线一带弄丢了毛绒角色挂件，公开求助，说最近常丢重要东西；新作里为配信者角色配音。",
+      "via": [],
+      "sources": [
+        "x:2123358539796336641",
+        "x:2123370737679601993"
+      ]
+    },
+    {
+      "handle": "re_re_tsubame",
+      "category": "",
+      "summary": "贴纸交换会上和四位同行聚餐；为『Witch the Showdown』的 ネオン 配音，还说想改掉被请吃饭的习惯。",
+      "via": [],
+      "sources": [
+        "x:2123391780288934327",
+        "x:2123358154440548508"
+      ]
+    },
+    {
+      "handle": "suzuka_minase",
+      "category": "",
+      "summary": "参加贴纸交换会却忘了带贴纸本，笑说下次一定带；收到雲八はち 送的亚克力贴纸。",
+      "via": [],
+      "sources": [
+        "x:2123395973741416941",
+        "x:2123403674252972153"
+      ]
+    },
+    {
+      "handle": "akinokaedevo",
+      "category": "",
+      "summary": "转发面向虚拟主播的 3D 追踪软件 11 月 25 日发售，也转发了末日探索游戏的即将上线。",
+      "via": [],
+      "sources": [
+        "x:2123262698251272450",
+        "x:2123318929905135728"
+      ]
+    },
+    {
+      "handle": "narumiaisaka",
+      "category": "",
+      "summary": "宣布 Skeb 上的委托已全部交稿，感谢委托方，请对方记得查收。",
+      "via": [],
+      "sources": [
+        "x:2123280837202620927"
+      ]
+    },
+    {
+      "handle": "asuparama40",
+      "category": "",
+      "summary": "粉丝不断引用旧帖夸她的声音、互相安利作品，她逐条回覆；1 月宅录还剩几单名额。",
+      "via": [],
+      "sources": [
+        "x:2123267024386494520",
+        "x:2123430636514066777"
+      ]
+    },
+    {
+      "handle": "mirai_chiroru",
+      "category": "",
+      "summary": "小号里宣传虚拟空间活动：女仆咖啡第二回、HoneyRibbon 预开放、22 至 23 日的线下体验复业。",
+      "via": [
+        "chiroru_o_"
+      ],
+      "sources": [
+        "x:2123249919272341627",
+        "x:2123340506847658277",
+        "x:2123340523410768014"
+      ]
+    },
+    {
+      "handle": "mochiri_0909",
+      "category": "",
+      "summary": "新作忘记设开卖时间，原定 22 日结果今天上架；12 月 24 日新作预告放出，与两位同行合演。",
+      "via": [],
+      "sources": [
+        "x:2123229960181825859",
+        "x:2123340146053689822"
+      ]
+    },
+    {
+      "handle": "shiho_moai",
+      "category": "",
+      "summary": "手上还剩 30 个 AI 助手的邀请名额，公开招人用掉；顺带哀叹忘了发早安帖。",
+      "via": [],
+      "sources": [
+        "x:2123378100071542943"
+      ]
+    },
+    {
+      "handle": "__amachi",
+      "category": "",
+      "summary": "公开新作 CG，白床诊察台题材，十种新图；当晚开会员限定直播并致谢。",
+      "via": [],
+      "sources": [
+        "x:2123249922845618299",
+        "x:2123385546689171662"
+      ]
+    },
+    {
+      "handle": "322yui3",
+      "category": "",
+      "summary": "与眠音りま 合作配信玩得开心；提醒大家名字怎么写都行，别把「乙倉ゆい」打错。",
+      "via": [],
+      "sources": [
+        "x:2123423985492996450",
+        "x:2123310931199603052"
+      ]
+    },
+    {
+      "handle": "ayakaigasaki",
+      "category": "",
+      "summary": "小号里说，连「被封禁」这条说明都被打上敏感标记，考虑暂时少发帖，怕账号被冻结。",
+      "via": [
+        "ayakaigasaki69"
+      ],
+      "sources": [
+        "x:2123111814770930073"
+      ]
+    },
+    {
+      "handle": "momokar181",
+      "category": "",
+      "summary": "去见十五年没碰面的朋友，一起吃饭，说期待得不行。",
+      "via": [],
+      "sources": [
+        "x:2123209034807566655"
+      ]
+    },
+    {
+      "handle": "mame_ruse",
+      "category": "",
+      "summary": "投稿参加交通卡吉祥物征名，希望新角色是个有点失礼的怪孩子。",
+      "via": [],
+      "sources": [
+        "x:2123208692896330220"
+      ]
+    },
+    {
+      "handle": "suikauriko",
+      "category": "",
+      "summary": "出演的两部音声一在汇总折扣中、一定 23 日发售，提醒大家先去收藏。",
+      "via": [],
+      "sources": [
+        "x:2123262353596915807"
+      ]
+    },
+    {
+      "handle": "yuzuki_momoka",
+      "category": "",
+      "summary": "新冠后遗症拖了很久，已恢复活动但喉咙仍不适，声音工作先缓一缓。",
+      "via": [
+        "momoka_vtuber"
+      ],
+      "sources": [
+        "x:2123348809132712234",
+        "x:2123349404472201572"
+      ]
+    },
+    {
+      "handle": "koyama9haru",
+      "category": "",
+      "summary": "深夜开会员限定直播，结束后说好东西什么时候吃都好吃。",
+      "via": [],
+      "sources": [
+        "x:2123413535560696058",
+        "x:2123425841116000630"
+      ]
+    },
+    {
+      "handle": "fujimura_rio",
+      "category": "",
+      "summary": "本周新作开卖，另一部定 21 日发售；有编剧说暂停自营社团，为她提供两本台本。",
+      "via": [],
+      "sources": [
+        "x:2123069471615316078",
+        "x:2123261918932861227",
+        "x:2123345580865052744"
+      ]
+    },
+    {
+      "handle": "bee_ryo",
+      "category": "",
+      "summary": "DLC『悠遠の旅人』与音声同日开卖；多部新作与预告同日上线，Ci-en 也更新了支持文档。",
+      "via": [],
+      "sources": [
+        "x:2123070124345450653",
+        "x:2123239332282769877",
+        "x:2123072745798058382"
+      ]
+    },
+    {
+      "handle": "aizawa_nachu",
+      "category": "",
+      "summary": "为『StrawberryCode』的 熊鷹純花 配音，作品今天开卖；另有一场收录结束。",
+      "via": [],
+      "sources": [
+        "x:2123417432501207303",
+        "x:2123424782280720831"
+      ]
+    },
+    {
+      "handle": "CV_kumoyahachi",
+      "category": "",
+      "summary": "参加贴纸交换会，把亚克力贴纸送给了没带本子的同行，直言圆了心愿。",
+      "via": [],
+      "sources": [
+        "x:2123415373357985836",
+        "x:2123411501533052977"
+      ]
+    },
+    {
+      "handle": "oOYuKiKoOo",
+      "category": "",
+      "summary": "",
+      "via": [],
+      "sources": [
+        "x:2123190161915998430"
+      ]
+    },
+    {
+      "handle": "jiaomidsu3187",
+      "category": "",
+      "summary": "",
+      "via": [
+        "kuroseimu_000"
+      ],
+      "sources": [
+        "x:2123072978267377930"
+      ]
+    },
+    {
+      "handle": "Unicolony_uni",
+      "category": "",
+      "summary": "在 cluster 上架会燃烧的油桶椅，坐上去偶尔会滑倒；占卜直播加了印章功能。",
+      "via": [],
+      "sources": [
+        "x:2123325674425651280",
+        "x:2123247458994344273"
+      ]
+    },
+    {
+      "handle": "y_asm",
+      "category": "",
+      "summary": "Ci-en 更新 11 月语音，主题是睡前恋人的温柔夜话。",
+      "via": [],
+      "sources": [
+        "x:2123385831142699259"
+      ]
+    },
+    {
+      "handle": "yuzukiakari",
+      "category": "",
+      "summary": "告知账号：当年那部偏锋作品收到大量续篇呼声，第二作定在 2027 年之后。",
+      "via": [
+        "akaritta_news"
+      ],
+      "sources": [
+        "x:2123370345659019720"
+      ]
+    },
+    {
+      "handle": "namimimiobot",
+      "category": "",
+      "summary": "晒狗日常：一只七岁了，另一只小时候走路的样子被翻出来。",
+      "via": [],
+      "sources": [
+        "x:2123069885228163312",
+        "x:2123194517092516338"
+      ]
+    },
+    {
+      "handle": "mitakarin",
+      "category": "",
+      "summary": "猫咖合作通贩 22 日 22 点开卖，含一张签名展示板；YouTube 也更新了。",
+      "via": [],
+      "sources": [
+        "x:2123255116992229653",
+        "x:2123387518716633352"
+      ]
+    },
+    {
+      "handle": "hoshinora1212",
+      "category": "",
+      "summary": "感冒未愈，Ci-en 继续停更，承诺月底前把欠下的录音补上。",
+      "via": [],
+      "sources": [
+        "x:2123313310129148064"
+      ]
+    },
+    {
+      "handle": "mei_misonoo",
+      "category": "",
+      "summary": "主持《AliceSoft 放送局》第 59 回，超昂大戦 六周年特辑；晚上接着播时之笛。",
+      "via": [],
+      "sources": [
+        "x:2123344720797851821",
+        "x:2123336272051913036"
+      ]
+    },
+    {
+      "handle": "nemurinerima",
+      "category": "",
+      "summary": "与乙倉ゆい 合作配信结束，夸对方女友姿态可爱；下一部台本正在复核。",
+      "via": [],
+      "sources": [
+        "x:2123253214229447115",
+        "x:2123331762353000761"
+      ]
+    },
+    {
+      "handle": "lilim404",
+      "category": "",
+      "summary": "",
+      "via": [],
+      "sources": [
+        "x:2123070070087983541"
+      ]
+    },
+    {
+      "handle": "koyoring54",
+      "category": "",
+      "summary": "出演作品预告公开，讲嫂子生产期间义兄对妹妹下手的故事，两种视角都有。",
+      "via": [
+        "koyoring55"
+      ],
+      "sources": [
+        "x:2123368527688270069"
+      ]
+    },
+    {
+      "handle": "nekomi_hime",
+      "category": "",
+      "summary": "转发巨乳大好き屋 的作品破 5000 本，预告下月还有银发女仆长篇；抱怨天冷。",
+      "via": [],
+      "sources": [
+        "x:2123209394909524237"
+      ]
+    },
+    {
+      "handle": "mzn773",
+      "category": "",
+      "summary": "庆祝超昂大戦 六周年，她配 エスカ・サファイア；2016 年旧作被翻出来热议。",
+      "via": [],
+      "sources": [
+        "x:2123427663461425344",
+        "x:2123424438431707329"
+      ]
+    },
+    {
+      "handle": "ikuraeru",
+      "category": "",
+      "summary": "作品简体中文版上线，感谢翻译方；粉丝数突破 4000。",
+      "via": [],
+      "sources": [
+        "x:2123322996886761578",
+        "x:2123400497780723793"
+      ]
+    },
+    {
+      "handle": "yukirinrin1191",
+      "category": "",
+      "summary": "活动一年多收藏数破 1300，深夜开纪念直播，写了长文感谢听众。",
+      "via": [],
+      "sources": [
+        "x:2123417862069268484"
+      ]
+    },
+    {
+      "handle": "my_mimichinchin",
+      "category": "",
+      "summary": "新作预告放出，请喜欢这一路数的人先收藏。",
+      "via": [
+        "mymy_mimichi"
+      ],
+      "sources": [
+        "x:2123252564229861706"
+      ]
+    },
+    {
+      "handle": "Setsune_Soyogi",
+      "category": "",
+      "summary": "深夜开限时 R18 直播，双平台同步。",
+      "via": [],
+      "sources": [
+        "x:2123077979706397002"
+      ]
+    },
+    {
+      "handle": "jtjitkub5r_uuka",
+      "category": "",
+      "summary": "有听众靠她的开发向音声成功，她连发几条庆祝；新作 20 日开卖。",
+      "via": [],
+      "sources": [
+        "x:2123176826017354181",
+        "x:2123363906987184602"
+      ]
+    },
+    {
+      "handle": "shimotsukiyuu",
+      "category": "",
+      "summary": "因预报大雪做四天限时折扣接单，同时直播北海道暴雪与流感警报。",
+      "via": [],
+      "sources": [
+        "x:2123240643460018505",
+        "x:2123364158519582884"
+      ]
+    },
+    {
+      "handle": "ayanemako",
+      "category": "",
+      "summary": "『就活セクニケ』手机版定 25 日发售，她与另一位声优合演；顺势宣传圣诞角色曲。",
+      "via": [],
+      "sources": [
+        "x:2123254242526061026",
+        "x:2123375342337532406"
+      ]
+    },
+    {
+      "handle": "yuna_na7se",
+      "category": "",
+      "summary": "",
+      "via": [],
+      "sources": [
+        "x:2123289301488472162"
+      ]
+    },
+    {
+      "handle": "mashiro_mayuki_",
+      "category": "",
+      "summary": "",
+      "via": [],
+      "sources": [
+        "x:2123311182161609116"
+      ]
+    },
+    {
+      "handle": "ayumi_sarah",
+      "category": "",
+      "summary": "社团号：第 13 作开卖，从 100 下载一路播报到 400、排名第 2，附早期五大特典说明。",
+      "via": [
+        "potte1919"
+      ],
+      "sources": [
+        "x:2123401242974224458",
+        "x:2123424087439761714"
+      ]
+    },
+    {
+      "handle": "mskmiro316",
+      "category": "",
+      "summary": "新作定 11 月 28 日发行，她兼任剧本与主演，预告页已公开。",
+      "via": [],
+      "sources": [
+        "x:2123330988612915474"
+      ]
+    },
+    {
+      "handle": "refle_ookami",
+      "category": "",
+      "summary": "Ci-en 更新，放出带试听的短篇。",
+      "via": [],
+      "sources": [
+        "x:2123370738539454785"
+      ]
+    },
+    {
+      "handle": "M_chipo_O",
+      "category": "",
+      "summary": "",
+      "via": [],
+      "sources": [
+        "x:2123407017499132260"
+      ]
+    },
+    {
+      "handle": "maihal_yuu",
+      "category": "",
+      "summary": "说明档期：12 月 31 日的案子算常规交期，1 月的会稍早一些。",
+      "via": [],
+      "sources": [
+        "x:2123409784682762592"
+      ]
+    },
+    {
+      "handle": "ran_ran_ranze25",
+      "category": "",
+      "summary": "转发高达主题眼镜 26 日开卖，四种机型，喊着最想要哈曼款。",
+      "via": [],
+      "sources": [
+        "x:2123355229592928585"
+      ]
+    },
+    {
+      "handle": "kanojo_nyui",
+      "category": "",
+      "summary": "",
+      "via": [],
+      "sources": [
+        "x:2123396232760762540"
+      ]
+    },
+    {
+      "handle": "ogurayui1017",
+      "category": "",
+      "summary": "说去参加了一场洽谈，想早点公布，光想就笑。",
+      "via": [],
+      "sources": [
+        "x:2123188502326292760"
+      ]
+    },
+    {
+      "handle": "runhanami",
+      "category": "",
+      "summary": "更新委托受理状况：12 月还能再接一件，新年后的档期也开着。",
+      "via": [],
+      "sources": [
+        "x:2123351197058760915"
+      ]
+    },
+    {
+      "handle": "shindo_azusa",
+      "category": "",
+      "summary": "本月加开一次直播，月底另有会员限定语音。",
+      "via": [],
+      "sources": [
+        "x:2123083966643368277"
+      ]
+    },
+    {
+      "handle": "kanzinowatashi",
+      "category": "",
+      "summary": "新作视频一周后开卖，只在 DLsite；说队员里也有中国和美国的听众。",
+      "via": [],
+      "sources": [
+        "x:2123393699937927448",
+        "x:2123427423928848831"
+      ]
+    },
+    {
+      "handle": "ricca_kitami",
+      "category": "",
+      "summary": "",
+      "via": [],
+      "sources": [
+        "x:2123082052547559583"
+      ]
+    },
+    {
+      "handle": "ao_subsubsub",
+      "category": "",
+      "summary": "主持《AliceSoft 放送局》第 59 回，超昂大戦 六周年与第 4 部新片都在这一期。",
+      "via": [],
+      "sources": [
+        "x:2123372212283727874"
+      ]
+    },
+    {
+      "handle": "suzusanchi_",
+      "category": "",
+      "summary": "『転性魔王さまは勇者に勝てない！２』下载版明天发售，她配 テルル，官方放出倒计时短片。",
+      "via": [],
+      "sources": [
+        "x:2123359377050521979",
+        "x:2123401623611539900"
+      ]
+    },
+    {
+      "handle": "kaname_shiori",
+      "category": "",
+      "summary": "为频道角色庆生并开直播，另有一支翻唱今晚首播。",
+      "via": [],
+      "sources": [
+        "x:2123077079042552093",
+        "x:2123077154359714287"
+      ]
+    },
+    {
+      "handle": "matsuoka_yuuri",
+      "category": "",
+      "summary": "转发合作品牌参加展会消息，羡慕现场签名。",
+      "via": [],
+      "sources": [
+        "x:2123400855290560544"
+      ]
+    },
+    {
+      "handle": "kurumihuyu963",
+      "category": "",
+      "summary": "周边第一批发货，桌面垫只剩不到十张；广播也更新到第 75 回。",
+      "via": [],
+      "sources": [
+        "x:2123337013852348431",
+        "x:2123271647859994866"
+      ]
+    },
+    {
+      "handle": "Kyonyu0821",
+      "category": "",
+      "summary": "新作销量突破 500 本，另有作品稳居 DLsite 周榜前列，整晚在播报排名。",
+      "via": [],
+      "sources": [
+        "x:2123280147554214359",
+        "x:2123389606104342948"
+      ]
+    },
+    {
+      "handle": "studio_ref",
+      "category": "",
+      "summary": "新作明天发售，提前招呼大家列入收听清单。",
+      "via": [],
+      "sources": [
+        "x:2123395119319744774"
+      ]
+    },
+    {
+      "handle": "bocchilab2",
+      "category": "",
+      "summary": "由比かのん 的新作定 21 日公开，21 至 28 日限时五折。",
+      "via": [],
+      "sources": [
+        "x:2123311813693436253"
+      ]
+    },
+    {
+      "handle": "G_Sound0721",
+      "category": "",
+      "summary": "作品更新上线，另一部五折活动 20 日零点结束。",
+      "via": [],
+      "sources": [
+        "x:2123265048466604138",
+        "x:2123336774080749592"
+      ]
+    },
+    {
+      "handle": "uninimu",
+      "category": "",
+      "summary": "首部乳首责め音声开卖，全篇即兴录制。",
+      "via": [],
+      "sources": [
+        "x:2123070800454689227"
+      ]
+    },
+    {
+      "handle": "schildkrote00",
+      "category": "",
+      "summary": "新作定 25 日发售，同时开始在语音平台配信作品。",
+      "via": [],
+      "sources": [
+        "x:2123287526031217082",
+        "x:2123385718718472244"
+      ]
+    },
+    {
+      "handle": "jitsuona",
+      "category": "",
+      "summary": "由比かのん 的实演作品销量突破 100 本。",
+      "via": [],
+      "sources": [
+        "x:2123374507939500490"
+      ]
+    },
+    {
+      "handle": "072labo",
+      "category": "",
+      "summary": "",
+      "via": [],
+      "sources": [
+        "x:2123356105976008900"
+      ]
+    },
+    {
+      "handle": "aohachannel",
+      "category": "",
+      "summary": "预告 20 日公布第 11 部第 4 章。",
+      "via": [],
+      "sources": [
+        "x:2123370704888623269"
+      ]
+    },
+    {
+      "handle": "TodoTodoproduce",
+      "category": "",
+      "summary": "一天画完十页原稿并完成新作登记，晚上还要赶跨年企划。",
+      "via": [],
+      "sources": [
+        "x:2123265771845640200"
+      ]
+    },
+    {
+      "handle": "VicornF",
+      "category": "",
+      "summary": "过生日，开玩笑说礼物请买音声；为自制同人游戏招募两位女主角的配音。",
+      "via": [],
+      "sources": [
+        "x:2123106243808272500",
+        "x:2123150341487403118"
+      ]
+    },
+    {
+      "handle": "kazutamadoujin",
+      "category": "",
+      "summary": "公开新作女主角设定：一位自称「美雨みう」的配信者，由陽向葵ゅか 配音。",
+      "via": [],
+      "sources": [
+        "x:2123370737679601993"
+      ]
+    },
+    {
+      "handle": "romaapoinfo",
+      "category": "",
+      "summary": "公开新作女主角，一位人前人后两副面孔的偶像，由涼貴涼 配音。",
+      "via": [],
+      "sources": [
+        "x:2123381020028453109"
+      ]
+    },
+    {
+      "handle": "MidoriHorokusa",
+      "category": "",
+      "summary": "新作发售日定在 11 月 21 日 0 点，倒计时两天。",
+      "via": [],
+      "sources": [
+        "x:2123068717370089488"
+      ]
+    },
+    {
+      "handle": "nyu_nyu_fantasy",
+      "category": "",
+      "summary": "换了新头像，说之后还要更新各项资料。",
+      "via": [],
+      "sources": [
+        "x:2123356203229286635"
+      ]
+    },
+    {
+      "handle": "_mayotama_",
+      "category": "",
+      "summary": "为自制游戏做一小时限时问卷，问大家要不要做全年龄版。",
+      "via": [],
+      "sources": [
+        "x:2123249798879105087"
+      ]
+    },
+    {
+      "handle": "Girls_Cloister",
+      "category": "",
+      "summary": "放出新作第二篇说明，主打精选的亲密段落与十段音轨。",
+      "via": [],
+      "sources": [
+        "x:2123068720063078564"
+      ]
+    },
+    {
+      "handle": "omoomo8818",
+      "category": "",
+      "summary": "",
+      "via": [],
+      "sources": [
+        "x:2123358118671270155"
+      ]
+    },
+    {
+      "handle": "otoyome_18",
+      "category": "",
+      "summary": "12 月 1 日新作开抽奖活动，配音是柚木つばめ，抽五人送兑换码。",
+      "via": [],
+      "sources": [
+        "x:2123114498567598292"
+      ]
+    },
+    {
+      "handle": "tareme4569",
+      "category": "",
+      "summary": "新作漫画因平台维护延期到 21 日；早期特典的迷你原声今天截止。",
+      "via": [],
+      "sources": [
+        "x:2123360543058899352",
+        "x:2123414739401531765"
+      ]
+    },
+    {
+      "handle": "ohshimap_new",
+      "category": "",
+      "summary": "",
+      "via": [],
+      "sources": [
+        "x:2123119562027942371"
+      ]
+    },
+    {
+      "handle": "cielo20245",
+      "category": "",
+      "summary": "新作『私立パコハメ学園』预告开始。",
+      "via": [],
+      "sources": [
+        "x:2123362752119054460"
+      ]
+    },
+    {
+      "handle": "Nyamaretto",
+      "category": "",
+      "summary": "公开只在社交平台放出的未收录试听。",
+      "via": [],
+      "sources": [
+        "x:2123208971477815703"
+      ]
+    },
+    {
+      "handle": "kousoku1118",
+      "category": "",
+      "summary": "Ci-en 更新新作预告。",
+      "via": [],
+      "sources": [
+        "x:2123349761256530223"
+      ]
+    },
+    {
+      "handle": "milkhuuka",
+      "category": "",
+      "summary": "公开『イク家畜』最新作，大山チロル 配音。",
+      "via": [],
+      "sources": [
+        "x:2123069971282510141",
+        "x:2123088844358586564"
+      ]
+    },
+    {
+      "handle": "mizuno_cho",
+      "category": "",
+      "summary": "",
+      "via": [],
+      "sources": [
+        "x:2123338215306506509"
+      ]
+    },
+    {
+      "handle": "niinashinjou",
+      "category": "",
+      "summary": "聊电子宠物与剧集，说每周三是给宠物换代的日子。",
+      "via": [],
+      "sources": [
+        "x:2123198665364033871",
+        "x:2123374594870649293"
+      ]
+    },
+    {
+      "handle": "Elysium_ASMR",
+      "category": "",
+      "summary": "新作销量突破 500 本，顺手申请了新作预告。",
+      "via": [],
+      "sources": [
+        "x:2123400944771797196"
+      ]
+    },
+    {
+      "handle": "skp175",
+      "category": "",
+      "summary": "",
+      "via": [],
+      "sources": [
+        "x:2123395868044747008"
+      ]
+    },
+    {
+      "handle": "mahorobaasmr",
+      "category": "",
+      "summary": "发现预告页放错音频已修正，新作 21 日 0 点解禁。",
+      "via": [],
+      "sources": [
+        "x:2123255003960037834",
+        "x:2123385809755902103"
+      ]
+    },
+    {
+      "handle": "make_nai_man",
+      "category": "",
+      "summary": "",
+      "via": [],
+      "sources": [
+        "x:2123371628608606220"
+      ]
+    },
+    {
+      "handle": "quiquiqui",
+      "category": "",
+      "summary": "公开自家录音室照片，说刚写完台本。",
+      "via": [],
+      "sources": [
+        "x:2123371322667610488"
+      ]
+    },
+    {
+      "handle": "MarKuS_D_S",
+      "category": "",
+      "summary": "养的寄居蟹脱皮失败死了一只，另有一只爬到天花板。",
+      "via": [],
+      "sources": [
+        "x:2123360231908667599",
+        "x:2123360477862670374"
+      ]
+    },
+    {
+      "handle": "kneepillow1",
+      "category": "",
+      "summary": "系列作品逼近 1000 下载，评分仍是全五星。",
+      "via": [],
+      "sources": [
+        "x:2123291294248337917"
+      ]
+    },
+    {
+      "handle": "ogami_nt",
+      "category": "",
+      "summary": "参加了同行家里的聚会。",
+      "via": [],
+      "sources": [
+        "x:2123415230768369769"
+      ]
+    },
+    {
+      "handle": "momojiri_nyugyo",
+      "category": "",
+      "summary": "处女作第二轮暗号活动开跑；解答角色配音疑问，说企划与剧情由另一位负责。",
+      "via": [],
+      "sources": [
+        "x:2123249911189913916",
+        "x:2123355604185940314"
+      ]
+    }
+  ],
+  "provenance": {
+    "generator": "daily",
+    "prompt_version": 1,
+    "cache_key": "answers:1",
+    "generated_at": "2026-11-19T15:39:01+00:00"
+  }
+}
