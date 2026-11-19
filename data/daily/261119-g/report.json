@@ -1,0 +1,637 @@
+{
+  "schema_version": 1,
+  "issue": {
+    "id": "261119-g",
+    "published_at": "2026-11-20T00:40:42.979190+09:00",
+    "window": {
+      "start": "2026-11-19T00:00:00+09:00",
+      "end": "2026-11-20T00:00:00+09:00"
+    },
+    "status": "confirmed",
+    "confirmed_at": "2026-11-19T15:42:24+00:00"
+  },
+  "counts": {
+    "items": 215,
+    "accounts": 51,
+    "late": 61,
+    "skipped_duplicate": 4
+  },
+  "description": "PHP 高危漏洞引发全行业紧急停服，HARD 创业 40 周年请回 36 年前的原画家",
+  "highlights": [
+    {
+      "text": "PHP 曝出最严重级别漏洞，赛马娘、碧蓝幻想、红烧天堂等相继紧急停服；ruf 的下载服务器与 ILLGAMES 官网也宣布维护，补丁预计 19 日 23 点发布。",
+      "sources": [
+        "x:2123367023149482316",
+        "x:2123343719248400391",
+        "x:2123340556021686583",
+        "x:2123340539953311823"
+      ]
+    },
+    {
+      "text": "F&C 旗下 HARD 迎来创业 40 周年：初期招牌原画家 尊辺友 时隔 36 年回归，纪念本三天售罄，旧作在 FANZA 同人展卖到 5 日元。",
+      "sources": [
+        "x:2123377339300237552",
+        "x:2123381565824909586",
+        "x:2123382167464280570"
+      ]
+    },
+    {
+      "text": "エンターグラム 的『コヨリニウム』公布 AZKi 与 雪花ラミィ 嘉宾出演，两人饰演学生会长的委托人，官网同时公开四段式玩法。",
+      "sources": [
+        "x:2123340505350103289",
+        "x:2123340522454446271"
+      ]
+    },
+    {
+      "text": "HOOKSOFT 更新『恋愛、はじめまして』Switch 版页面，定 2027 年 3 月 25 日发售，并会在 26 日『ハッピーウィークエンド』发售当天开放预约。",
+      "sources": [
+        "x:2123330125026804011",
+        "x:2123411791128691080"
+      ]
+    }
+  ],
+  "insights": [],
+  "interactions": [
+    {
+      "text": "HOOKSOFT 的节目本期介绍 SMEE 将于 11 月 27 日发售的『ワンナイトアフター』，并请到导演 宅本うと 出场。",
+      "sources": [
+        "x:2123399268753133717"
+      ]
+    },
+    {
+      "text": "DESSERT Soft 预告 11 月 27 日的电妄谈话会，同场品牌还有 Waffle 与 SMEE。",
+      "sources": [
+        "x:2123369005608313145"
+      ]
+    }
+  ],
+  "works": [
+    "『神楽新風記～陽葵の章～』（でぼの巣製作所）公开演示影片，定 11 月 20 日发售，附有偿特典的盒装版正在预约。",
+    "『人妻魔法戦士サクラ～忍び寄る再生魔王の触手～』（スタジオ奪）盒装版定 11 月 27 日发售，Melonbooks 店铺特典彩图公开。",
+    "『恋愛、はじめまして』Switch 版定 2027 年 3 月 25 日发售，26 日随『ハッピーウィークエンド』发售同步开放预约。",
+    "『小金井荘と金色の揚羽蝶』（sprite）距 11 月 26 日发售还有一周，COSPA 周边开放预约，并公开藤寺美徳、伊藤美来的配音感想。",
+    "『everlasting flowers』Windows 版下周发售，官方称预约量超出预期。",
+    "『ハピメア』与 FD＆RE 的翻译版确定登陆 Steam，文本仅含英语、简体中文与繁体中文。",
+    "『マブラヴ ガールズガーデン Mellow Days』开卖，首发九折并附限定回忆序列号。",
+    "『戦女神VERITA』廉价版盒装已到货，发售在即。",
+    "『夜勤病棟オンライン-New Operation-』公开第七位角色 甘宮心，事前登录进行中。",
+    "『ワンナイトアフター』（SMEE）装盘完成，FANZA GAMES 下载版开放预约，11 月 27 日发售。",
+    "『School Days』与 FANZA 抓娃娃联动到 12 月 4 日，另有原画师直笔签名色纸抽奖。",
+    "『コヨリニウム』（エンターグラム）确定 AZKi、雪花ラミィ 嘉宾出演，并公开四段式游戏系统。",
+    "『養花師の背徳愛』（AMUSE CRAFT EROTICA）公开女主角抱枕套与编剧访谈文章。",
+    "『WANNABE→CREATORS 2』（DESSERT Soft）距发售 6 天，举办转发抽奖活动。",
+    "『Resequence: The Orchard』（CLEARRAVE）距发售还有 1 天，公开负责咨询的角色。",
+    "『满盘怪招』Steam 试玩版上线，计划 2027 年第一季度正式推出。",
+    "『虚妄爱丽丝 -岐梦重缘-』定 11 月 27 日发售，主角爱丽丝由水濑祈配音。",
+    "『樱之诗』高清重制版定 12 月 17 日发售，距上线 4 周并新增点数商店支持。",
+    "『锻造师姐姐开店奋斗记』定 1 月 19 日发售，Steam 愿望单已开放。",
+    "『デブトピア』（わるきゅ～れ）迎来发售纪念日，官方重推年上恋人题材。"
+  ],
+  "categories": [],
+  "accounts": [
+    "Moepedia_net",
+    "TRYSET",
+    "silkysplus",
+    "kiss_staff",
+    "debonosu",
+    "AzarashiSoft",
+    "HOOKSOFT",
+    "crowd_anim",
+    "VALKYRIA_info",
+    "purple_NewWork",
+    "smee_official",
+    "entergram_info",
+    "Amuse_kenzen",
+    "dessertsoft_tw",
+    "Projecti18",
+    "u_me_soft",
+    "hamham_soft",
+    "FANDC_Staff",
+    "eushully_info",
+    "web_marmalade",
+    "Amuse_sub",
+    "luneman_etc",
+    "fgremake",
+    "sprite_fairys",
+    "alice_soft",
+    "willplus_staff",
+    "KUMANOMISoft",
+    "Studio_Ubai",
+    "jitaku_st",
+    "AQUAPLUS_JP",
+    "project_citrus",
+    "Orthrossoft",
+    "Muvluv_Official",
+    "BEEP_SHOP",
+    "info_lovelet",
+    "adahemas",
+    "SukeraSparo",
+    "Overflow_staff",
+    "Kinetic_novels",
+    "akaerocore",
+    "youtan0309",
+    "getchucom",
+    "AKOUtw",
+    "bili_3691002382518448",
+    "bili_298686071",
+    "bili_3546854253923281",
+    "bili_3546900143802616",
+    "bili_3546816528255265",
+    "bili_41883712",
+    "bili_3493105997187935",
+    "bili_39471072"
+  ],
+  "people": [
+    {
+      "handle": "Moepedia_net",
+      "category": "",
+      "summary": "汇总情报：『巨乳ファンタジーバースト』活动前半开跑、旧作复刻祭进行中，20 日直播改为纯线上。",
+      "via": [],
+      "sources": [
+        "x:2123403417179840555",
+        "x:2123419775309393963"
+      ]
+    },
+    {
+      "handle": "TRYSET",
+      "category": "",
+      "summary": "转发了自家社长在商场跑错厕所、脑补到被逮捕的段子。",
+      "via": [],
+      "sources": [
+        "x:2123325928948539611"
+      ]
+    },
+    {
+      "handle": "silkysplus",
+      "category": "",
+      "summary": "预告今晚 8 点临时直播要公布好消息，白天先开了场直播热身。",
+      "via": [],
+      "sources": [
+        "x:2123228889145364935",
+        "x:2123258509227864173"
+      ]
+    },
+    {
+      "handle": "kiss_staff",
+      "category": "",
+      "summary": "卡拉 OK 与广播派对第二弹开始配信，博客同步更新活动与折扣信息；今日维护延长到 19:30。",
+      "via": [],
+      "sources": [
+        "x:2123364831134892206",
+        "x:2123355012210528692"
+      ]
+    },
+    {
+      "handle": "debonosu",
+      "category": "",
+      "summary": "『神楽新風記～陽葵の章～』公开演示影片，20 日发售，今晚的广播节目也会介绍本作。",
+      "via": [],
+      "sources": [
+        "x:2123371641464033610",
+        "x:2123368367377842610"
+      ]
+    },
+    {
+      "handle": "AzarashiSoft",
+      "category": "",
+      "summary": "会员博客更新第 109 封，谈主机移植的打算。",
+      "via": [],
+      "sources": [
+        "x:2123341412653830327"
+      ]
+    },
+    {
+      "handle": "HOOKSOFT",
+      "category": "",
+      "summary": "『恋愛、はじめまして』Switch 版定 2027 年 3 月 25 日，26 日起预约，限定版信息已追加。",
+      "via": [],
+      "sources": [
+        "x:2123330125026804011",
+        "x:2123411791128691080"
+      ]
+    },
+    {
+      "handle": "crowd_anim",
+      "category": "",
+      "summary": "公开『きつ×みこ』Melonbooks 店铺特典的彩色版本。",
+      "via": [],
+      "sources": [
+        "x:2123223436030054455"
+      ]
+    },
+    {
+      "handle": "VALKYRIA_info",
+      "category": "",
+      "summary": "纪念『デブトピア』发售日，重推丰满女主角的恋人生活题材。",
+      "via": [],
+      "sources": [
+        "x:2123256879791133106"
+      ]
+    },
+    {
+      "handle": "purple_NewWork",
+      "category": "",
+      "summary": "『ハピメア』与 FD＆RE 的翻译版确定登陆 Steam，文本只有英、简中与繁中，语音仍为日语。",
+      "via": [],
+      "sources": [
+        "x:2123355608938405888"
+      ]
+    },
+    {
+      "handle": "smee_official",
+      "category": "",
+      "summary": "强调『ワンナイトアフター』已装盘完成，FANZA GAMES 下载版预约中并发放优惠券。",
+      "via": [],
+      "sources": [
+        "x:2123380768248328498"
+      ]
+    },
+    {
+      "handle": "entergram_info",
+      "category": "",
+      "summary": "『コヨリニウム』公布 AZKi、雪花ラミィ 嘉宾出演，并解禁小说、咨询、探索、解决四段式玩法。",
+      "via": [],
+      "sources": [
+        "x:2123340505350103289",
+        "x:2123340522454446271"
+      ]
+    },
+    {
+      "handle": "Amuse_kenzen",
+      "category": "",
+      "summary": "Ci-en 公开『養花師の背徳愛』的作品介绍文章，建议通关后再读。",
+      "via": [],
+      "sources": [
+        "x:2123331191118152126"
+      ]
+    },
+    {
+      "handle": "dessertsoft_tw",
+      "category": "",
+      "summary": "『WANNABE→CREATORS 2』距发售 6 天，办转发抽奖；20 日参加 キャララ 直播。",
+      "via": [],
+      "sources": [
+        "x:2123354092227723630",
+        "x:2123401690770743767"
+      ]
+    },
+    {
+      "handle": "Projecti18",
+      "category": "",
+      "summary": "因 PHP 漏洞对策，23 点起维护，22:45 起官网浏览与下载都会中断。",
+      "via": [],
+      "sources": [
+        "x:2123340539953311823"
+      ]
+    },
+    {
+      "handle": "u_me_soft",
+      "category": "",
+      "summary": "为修补 PHP 漏洞对红烧天堂做紧急停服，22:30 起结束时间未定；同日还在宣传自家赞助的摔角赛事。",
+      "via": [],
+      "sources": [
+        "x:2123343719248400391",
+        "x:2123223615575658664"
+      ]
+    },
+    {
+      "handle": "hamham_soft",
+      "category": "",
+      "summary": "账号再次被冻结，只能重新开号，请人帮忙扩散。",
+      "via": [],
+      "sources": [
+        "x:2123367489010811016",
+        "x:2123380612753199168"
+      ]
+    },
+    {
+      "handle": "FANDC_Staff",
+      "category": "",
+      "summary": "旗下 HARD 迎创业 40 周年：原画家 尊辺友 36 年后回归，纪念本三天售罄，旧作卖到 5 日元。",
+      "via": [],
+      "sources": [
+        "x:2123381565824909586",
+        "x:2123382167464280570"
+      ]
+    },
+    {
+      "handle": "eushully_info",
+      "category": "",
+      "summary": "『戦女神VERITA』廉价版盒装已到货，请玩家再等一等。",
+      "via": [],
+      "sources": [
+        "x:2123313119254679619"
+      ]
+    },
+    {
+      "handle": "web_marmalade",
+      "category": "",
+      "summary": "表单故障修复后，正按转发的邮件顺序回复，担心有遗漏。",
+      "via": [],
+      "sources": [
+        "x:2123342393126895888"
+      ]
+    },
+    {
+      "handle": "Amuse_sub",
+      "category": "",
+      "summary": "公开『養花師の背徳愛』女主角抱枕套，由原画师新绘；另介绍新作里逆 NTR 的卖点。",
+      "via": [],
+      "sources": [
+        "x:2123333708002525622",
+        "x:2123329932927328712"
+      ]
+    },
+    {
+      "handle": "luneman_etc",
+      "category": "",
+      "summary": "预告 25 日第 34 回直播，将介绍 OVA『お隣の贄』与女干部角色情报。",
+      "via": [],
+      "sources": [
+        "x:2123206708260720658"
+      ]
+    },
+    {
+      "handle": "fgremake",
+      "category": "",
+      "summary": "『夜勤病棟オンライン』公开第七位角色 甘宮心，历代女主角跨系列登场。",
+      "via": [],
+      "sources": [
+        "x:2123340516125511984"
+      ]
+    },
+    {
+      "handle": "sprite_fairys",
+      "category": "",
+      "summary": "『小金井荘と金色の揚羽蝶』距发售一周，周边开放预约；『everlasting flowers』Windows 版下周发。",
+      "via": [],
+      "sources": [
+        "x:2123250342771183893",
+        "x:2123347295131312624",
+        "x:2123332436579012729"
+      ]
+    },
+    {
+      "handle": "alice_soft",
+      "category": "",
+      "summary": "第 59 回放送局上线，超昂大戦 六周年特辑请到 みる 与 天雪监督。",
+      "via": [],
+      "sources": [
+        "x:2123341877986681314"
+      ]
+    },
+    {
+      "handle": "willplus_staff",
+      "category": "",
+      "summary": "因紧急维护，下载服务器 19 日 22 点到次日 12 点无法访问。",
+      "via": [],
+      "sources": [
+        "x:2123340556021686583"
+      ]
+    },
+    {
+      "handle": "KUMANOMISoft",
+      "category": "",
+      "summary": "『転性魔王さまは勇者に勝てない！』漫画读一章并收藏可领免费券，活动到明天。",
+      "via": [],
+      "sources": [
+        "x:2123340634744348914"
+      ]
+    },
+    {
+      "handle": "Studio_Ubai",
+      "category": "",
+      "summary": "『人妻魔法戦士サクラ』盒装版 27 日发售，女主角配音者亲自发文吆喝。",
+      "via": [],
+      "sources": [
+        "x:2123407907605921845",
+        "x:2123310807190536515"
+      ]
+    },
+    {
+      "handle": "jitaku_st",
+      "category": "",
+      "summary": "聊起咏唱梗，自称能背好几段。",
+      "via": [],
+      "sources": [
+        "x:2123425686526546215"
+      ]
+    },
+    {
+      "handle": "AQUAPLUS_JP",
+      "category": "",
+      "summary": "任天堂 eShop 十一月促销开跑，旗下作品最多七折，到 25 日。",
+      "via": [],
+      "sources": [
+        "x:2123250419053072707",
+        "x:2123250432944595163"
+      ]
+    },
+    {
+      "handle": "project_citrus",
+      "category": "",
+      "summary": "晒自家猫，说工作时会来脚边讨摸。",
+      "via": [],
+      "sources": [
+        "x:2123212932834304067"
+      ]
+    },
+    {
+      "handle": "Orthrossoft",
+      "category": "",
+      "summary": "本周末参展 WePlay，现场有签名复制原画与限定周边，社长会到展位签名。",
+      "via": [],
+      "sources": [
+        "x:2123245808011346283"
+      ]
+    },
+    {
+      "handle": "Muvluv_Official",
+      "category": "",
+      "summary": "『マブラヴ ガールズガーデン Mellow Days』开卖，首发九折并附限定回忆序列号。",
+      "via": [],
+      "sources": [
+        "x:2123265008574644568",
+        "x:2123265010050961516"
+      ]
+    },
+    {
+      "handle": "BEEP_SHOP",
+      "category": "",
+      "summary": "收购一批街机宣传单并晒图；修理班在拆一台内置 Dreamcast 的电视。",
+      "via": [],
+      "sources": [
+        "x:2123245915020693504",
+        "x:2123290101723832809"
+      ]
+    },
+    {
+      "handle": "info_lovelet",
+      "category": "",
+      "summary": "处女作『西園家のかくしゴト』好评发售中，部分店铺仍带特典，作者也现身推荐。",
+      "via": [],
+      "sources": [
+        "x:2123375114955931863"
+      ]
+    },
+    {
+      "handle": "adahemas",
+      "category": "",
+      "summary": "病后出门散步就累垮，感叹想练体力却没有体力。",
+      "via": [],
+      "sources": [
+        "x:2123271313615994897"
+      ]
+    },
+    {
+      "handle": "SukeraSparo",
+      "category": "",
+      "summary": "百合视觉小说在 GOG 打折最多 66%；会刊新刊将在京都大学十一月祭颁布。",
+      "via": [],
+      "sources": [
+        "x:2123125527582269783",
+        "x:2123389056247804063"
+      ]
+    },
+    {
+      "handle": "Overflow_staff",
+      "category": "",
+      "summary": "『School Days』与 FANZA 抓娃娃联动到 12 月 4 日，另有原画师直笔签名色纸抽奖。",
+      "via": [],
+      "sources": [
+        "x:2123334392018043127"
+      ]
+    },
+    {
+      "handle": "Kinetic_novels",
+      "category": "",
+      "summary": "『ホーリーアンデッド』第 27 话 20 日上线，讲与恶魔的直接对决。",
+      "via": [],
+      "sources": [
+        "x:2123251164611219945"
+      ]
+    },
+    {
+      "handle": "akaerocore",
+      "category": "",
+      "summary": "参加上海 WePlay，与 DLsite 联合展出两作试玩；『褻瀆聖女』的 Steam 问题仍在沟通。",
+      "via": [],
+      "sources": [
+        "x:2123360083333792021",
+        "x:2123360710671634537"
+      ]
+    },
+    {
+      "handle": "youtan0309",
+      "category": "",
+      "summary": "纪念『Demons Roots』发售五周年；回忆 2016 年 elf 官网关闭，说那是当年最难过的事。",
+      "via": [],
+      "sources": [
+        "x:2123071228735099055",
+        "x:2123385626078908837"
+      ]
+    },
+    {
+      "handle": "getchucom",
+      "category": "",
+      "summary": "多款手办开放预约，含『ヨスガノソラ』春日野穹与『アズールレーン』恰巴耶夫；另有店铺特典情报。",
+      "via": [],
+      "sources": [
+        "x:2123326231907274928",
+        "x:2123380053421748526"
+      ]
+    },
+    {
+      "handle": "AKOUtw",
+      "category": "",
+      "summary": "说本人身份已确认，暂时撤下玩偶视频、放缓宣传节奏；也提到疑似因包裹上传被封。",
+      "via": [],
+      "sources": [
+        "x:2123170649241944492",
+        "x:2123181806359118241"
+      ]
+    },
+    {
+      "handle": "bili_3691002382518448",
+      "category": "",
+      "summary": "『Resequence: The Orchard』距发售 1 天，公开咨询角色；另转发 Palette 收藏集开卖。",
+      "via": [],
+      "sources": [
+        "bilibili:1272373757815554082",
+        "bilibili:1272393467451932688"
+      ]
+    },
+    {
+      "handle": "bili_298686071",
+      "category": "",
+      "summary": "『满盘怪招』Steam 试玩版上线，计划 2027 年一季度正式推出。",
+      "via": [],
+      "sources": [
+        "bilibili:1272311927491526674"
+      ]
+    },
+    {
+      "handle": "bili_3546854253923281",
+      "category": "",
+      "summary": "21 至 22 日请嘉宾到上海店当一日店长，店里主营美少女游戏周边。",
+      "via": [],
+      "sources": [
+        "bilibili:1272394511115354117"
+      ]
+    },
+    {
+      "handle": "bili_3546900143802616",
+      "category": "",
+      "summary": "『Muv-Luv 少女庭园 Mellow Days』开卖，首发优惠与序列号特典同步公开。",
+      "via": [],
+      "sources": [
+        "bilibili:1272265522545688614",
+        "bilibili:1272265522541494279"
+      ]
+    },
+    {
+      "handle": "bili_3546816528255265",
+      "category": "",
+      "summary": "『虚妄爱丽丝 -岐梦重缘-』定 11 月 27 日发售，爱丽丝由水濑祈配音。",
+      "via": [],
+      "sources": [
+        "bilibili:1272394893362200585"
+      ]
+    },
+    {
+      "handle": "bili_41883712",
+      "category": "",
+      "summary": "多款官方中文版在 Steam 特卖，最低 23 元起；另上架《想要传达给你的爱恋》抱枕通贩。",
+      "via": [],
+      "sources": [
+        "bilibili:1272404679434698755",
+        "bilibili:1272369374845468709"
+      ]
+    },
+    {
+      "handle": "bili_3493105997187935",
+      "category": "",
+      "summary": "『樱之诗』高清版定 12 月 17 日、倒计时 4 周并支持点数商店；『锻造师姐姐开店奋斗记』定 1 月 19 日。",
+      "via": [],
+      "sources": [
+        "bilibili:1272342831903539204",
+        "bilibili:1272220358781435913"
+      ]
+    },
+    {
+      "handle": "bili_39471072",
+      "category": "",
+      "summary": "提醒红烧天堂日服、繁中服、韩服因 PHP 漏洞无限期停服，北京时间 21:30 起。",
+      "via": [],
+      "sources": [
+        "bilibili:1272351372476416021"
+      ]
+    }
+  ],
+  "provenance": {
+    "generator": "daily",
+    "prompt_version": 1,
+    "cache_key": "answers:1",
+    "generated_at": "2026-11-19T15:42:18+00:00"
+  }
+}
