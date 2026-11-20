@@ -397,11 +397,17 @@ class InactiveAccountTest(unittest.TestCase):
              "akaeroCore_JP", "akaeroCore_kr", "Amuse_sub"},
             "manufacturer 段里出现了非品牌号：确认它确实是情报来源，再改这条断言",
         )
-        # 带降噪规则的号：Moepedia + 2026-10-29 启用的五个信息号 + 2026-11-01 的 hiro_in。
+        # 带降噪规则的号：Moepedia + 2026-10-29 启用的五个信息号 + 2026-11-01 的 hiro_in，
+        # 再加 2026-11-19 从名单 1-1「其他」表整表同步进来的 16 个（全部带 filter）。
+        # 逐条写死是为了让下一批新增必须有意裁决，而不是无声混进来。
         self.assertEqual(
             set(roster.filters),
             {"moepedia_net", "seiya_saiga", "youtan0309", "aikouka23",
-             "getchucom", "bugbug_info", "hiro_in"},
+             "getchucom", "bugbug_info", "hiro_in",
+             "alice_net_pc", "trader_r18", "masanlive", "dlsite", "moeaward",
+             "cnexton", "famitsu", "dengekionline", "4gamernews",
+             "automatonjapan", "akibablog", "douzinr18", "erogearealive",
+             "nooksite", "bishoujonews", "cloud668"},
         )
         self.assertTrue(all("游戏" in a.tags or "资料站" in a.tags for a in makers))
         self.assertTrue(any("Moe Award" in a.tags for a in makers), "拿过萌奖的应该有标签")
@@ -431,18 +437,28 @@ class InactiveAccountTest(unittest.TestCase):
 
         媒体号（getchucom 发售日历 / bugbug_info 新作介绍）用 `keep_if` 白名单，
         只收指定内容；其余媒体号明确不加。
+
+        2026-11-19 用户裁决：名单 1-1「其他 · 信息号・泛游戏媒体」整表同步进日报，
+        新增 16 个信息号（含 5 泛游戏媒体、4 游戏媒体、1 翻译者）；famitsu 按 1-1
+        原注「不建议」登记为 active=false，只留档不进抓取。下断言仍逐条写死，
+        防止后续无声增删。
         """
         roster = Roster.load(kind="galgame")
         info = [a.handle for a in roster.accounts if a.category == "info"]
         self.assertEqual(
             sorted(info),
-            ["AKOUtw", "aikouka23", "bugbug_info", "getchucom",
-             "hiro_in", "seiya_saiga", "youtan0309"],
+            ["4GamerNews", "AKOUtw", "AUTOMATONJapan", "BishoujoNEWS",
+             "CNexton", "DLsite", "Nooksite", "aikouka23", "akibablog",
+             "alice_net_pc", "bugbug_info", "cloud668", "dengekionline",
+             "douzinr18", "erogeAreAlive", "famitsu", "getchucom", "hiro_in",
+             "masanlive", "moeaward", "seiya_saiga", "trader_R18", "youtan0309"],
         )
+        self.assertFalse(roster.is_active("famitsu"), " famitsu 不建议，只留档不抓取")
         for handle in ("Famishin", "nakazawatakumi", "digitarou"):
             self.assertFalse(roster.is_known(handle), f"{handle} 是厂商侧个人号，暂时不入册")
         # 媒体号必须是白名单，不是黑名单——黑名单列不全「不要什么」。
-        for handle in ("getchucom", "bugbug_info"):
+        for handle in ("getchucom", "bugbug_info", "4gamernews", "automatonjapan",
+                       "dengekionline", "akibablog"):
             self.assertIn("keep_if", roster.filters[handle], f"{handle} 应该走 keep_if")
         for handle in ("seiya_saiga", "youtan0309", "aikouka23"):
             self.assertNotIn("keep_if", roster.filters[handle], "个人号不收窄到白名单")

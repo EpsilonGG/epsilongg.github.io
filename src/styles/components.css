@@ -2207,7 +2207,8 @@ a.link-row:hover .link-row__label {
 
 .back-to-top {
   position: fixed;
-  bottom: var(--space-4);
+  /* 让位给右下角固定的联系 / RSS 按钮坞（两个 2.75rem 方块 + 间距） */
+  bottom: calc(var(--space-4) + 2.75rem + var(--space-2));
   right: var(--space-4);
   z-index: 25;
   display: inline-flex;

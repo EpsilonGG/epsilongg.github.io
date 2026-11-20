@@ -9,6 +9,7 @@ const copyrightYears =
 <footer class="site-footer">
   <div class="container site-footer__inner">
     <p>© {copyrightYears} {site.name} · Some Rights Reserved</p>
+    <!-- 笔记与 RSS 的入口已移到右下角固定按钮坞（ContactDock），这里不再重复列出。 -->
     <div class="site-footer__links">
       {
         site.github ? (
@@ -17,8 +18,6 @@ const copyrightYears =
           </a>
         ) : null
       }
-      <a href="/blog/">笔记</a>
-      <a href="/rss.xml">RSS</a>
     </div>
   </div>
   <div class="container">

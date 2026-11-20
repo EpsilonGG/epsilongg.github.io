@@ -1,6 +1,6 @@
 {
   "schema_version": 5,
-  "note": "Galgame 版日报的 **X 名单**（`daily build --kind galgame`，期号 `YYMMDD-g`）。厂商一个 handle 一条，同社多品牌写进 note；黑系（エロス系作品BLACK賞）这批没有建。信息号（category=info）2026-10-29 先启用五个：seiya_saiga / youtan0309 / aikouka23 三个个人向，加 getchucom（发售日历）与 bugbug_info（新作介绍）两个媒体号——媒体号走 `keep_if` 白名单，只收指定内容。2026-11-01 再补两个：hiro_in（ErogameScape 管理人）与 AKOUtw（アミューズクラフト 导演个人号）。Moepedia 是作品情报站，仍挂在 manufacturer 下（tags: 资料站 / 作品情报）。akaeroCore 的四个语言号 2026-11-01 起并入 manufacturer，按 name 合并成一行（主号 akaerocore，其余进 via）。 2026-11-10 补 stealcatAC（スティールキャット，アミューズクラフト系列新品牌，brand=AMUSE CRAFT）。 2026-11-11 用户裁决：B 站监控号与 X 名单**彻底分家**——B 站名单只在 src/config/daily-bilibili-galgame.json，抓取只在 scripts/bilibili_daily.py；本文件只放 X 账号，不出现 `bili_*` / `bili_gal` / `source=bilibili`。站点查询层（src/lib/roster.ts）与日报名单层（scripts/daily/roster.py）各自单独并入 B 站名单文件。",
+  "note": "Galgame 版日报的 **X 名单**（`daily build --kind galgame`，期号 `YYMMDD-g`）。厂商一个 handle 一条，同社多品牌写进 note；黑系（エロス系作品BLACK賞）这批没有建。信息号（category=info）2026-10-29 先启用五个：seiya_saiga / youtan0309 / aikouka23 三个个人向，加 getchucom（发售日历）与 bugbug_info（新作介绍）两个媒体号——媒体号走 `keep_if` 白名单，只收指定内容。2026-11-01 再补两个：hiro_in（ErogameScape 管理人）与 AKOUtw（アミューズクラフト 导演个人号）。Moepedia 是作品情报站，仍挂在 manufacturer 下（tags: 资料站 / 作品情报）。akaeroCore 的四个语言号 2026-11-01 起并入 manufacturer，按 name 合并成一行（主号 akaerocore，其余进 via）。 2026-11-10 补 stealcatAC（スティールキャット，アミューズクラフト系列新品牌，brand=AMUSE CRAFT）。 2026-11-11 用户裁决：B 站监控号与 X 名单**彻底分家**——B 站名单只在 src/config/daily-bilibili-galgame.json，抓取只在 scripts/bilibili_daily.py；本文件只放 X 账号，不出现 `bili_*` / `bili_gal` / `source=bilibili`。站点查询层（src/lib/roster.ts）与日报名单层（scripts/daily/roster.py）各自单独并入 B 站名单文件。 2026-11-19 晚：按用户要求把名单 1-1「其他 · 信息号・泛游戏媒体」表整表同步进本名单，新增 16 个账号（6 信息号／5 泛游戏媒体／4 游戏媒体／1 翻译者），其中 famitsu 按 1-1 原注「不建议」登记为 active=false；原表已有的 8 个账号未改动；翻译者 flankoi 已于同日移到 1-1 第一表，不进日报名单。",
   "categories": [
     {
       "id": "manufacturer",
@@ -2419,6 +2419,435 @@
         "个人向"
       ],
       "note": "アミューズクラフト ディレクター個人号 · 开发中作品的近况与杂谈，非官方公告，产品问题走官网 · 2026-11-01 启用"
+    },
+    {
+      "handle": "alice_net_pc",
+      "name": "アリスNET",
+      "category": "info",
+      "role": "info",
+      "active": true,
+      "tags": [
+        "游戏情报",
+        "店铺",
+        "特典"
+      ],
+      "note": "店铺官方号：购入特典／预约协助／新作介绍 · 用户点名补入 2026-11-19，同日由名单 1-1「其他」表同步进日报名单",
+      "filter": {
+        "drop_kinds": [
+          "repost"
+        ],
+        "keep_if": [
+          "新作",
+          "特典",
+          "予約",
+          "発売",
+          "紹介"
+        ],
+        "prefer_if": [
+          "新作",
+          "特典",
+          "予約"
+        ],
+        "max_items": 5
+      }
+    },
+    {
+      "handle": "trader_R18",
+      "name": "トレーダーＲ１８ Trader R18",
+      "category": "info",
+      "role": "info",
+      "active": true,
+      "tags": [
+        "游戏情报",
+        "店铺",
+        "中古"
+      ],
+      "note": "秋叶原中古 PC 游戏通贩店官方号，新作／中古／特典情报 · 2026-11-19 用户点名补入并从 1-1「其他」表同步",
+      "filter": {
+        "drop_kinds": [
+          "repost"
+        ],
+        "keep_if": [
+          "新作",
+          "中古",
+          "特典",
+          "発売",
+          "入荷"
+        ],
+        "prefer_if": [
+          "新作",
+          "中古",
+          "発売"
+        ],
+        "max_items": 5
+      }
+    },
+    {
+      "handle": "masanlive",
+      "name": "まさん masanlive",
+      "category": "info",
+      "role": "info",
+      "active": true,
+      "tags": [
+        "游戏情报",
+        "个人向",
+        "直播"
+      ],
+      "note": "札幌视觉小说 YouTuber（5.2K 关注，3.6 万推）；VN 直播／新作介绍 · 2026-11-18 用户点名补入，11-19 从 1-1「其他」表同步",
+      "filter": {
+        "prefer_if": [
+          "新作",
+          "発売",
+          "配信",
+          "レビュー",
+          "ゲーム"
+        ],
+        "max_items": 5
+      }
+    },
+    {
+      "handle": "DLsite",
+      "name": "DLsite公式",
+      "category": "info",
+      "role": "info",
+      "active": true,
+      "tags": [
+        "游戏情报",
+        "平台",
+        "同人"
+      ],
+      "note": "同人／音声／漫画贩售平台官方：每日新作上架、期间特价、排行榜；量大但同人比例高、galgame 占比低（10万+ 关注）· 2026-11-19 从 1-1「其他」表同步，走 filter 收窄",
+      "filter": {
+        "drop_kinds": [
+          "repost"
+        ],
+        "drop_if": [
+          "セール",
+          "割引",
+          "ポイント",
+          "クーポン",
+          "キャンペーン"
+        ],
+        "keep_if": [
+          "新作",
+          "ランキング",
+          "作品"
+        ],
+        "max_items": 3
+      }
+    },
+    {
+      "handle": "moeaward",
+      "name": "萌えゲーアワード／萌えゲー.net",
+      "category": "info",
+      "role": "info",
+      "active": true,
+      "tags": [
+        "游戏情报",
+        "评奖",
+        "新作介绍"
+      ],
+      "note": "评奖＋新作情报，低频硬信息 · 2026-10-28 登记，2026-11-19 从 1-1「其他」表同步",
+      "filter": {
+        "drop_kinds": [
+          "repost"
+        ],
+        "keep_if": [
+          "受賞",
+          "新作",
+          "発表",
+          "ノミネート",
+          "アワード"
+        ],
+        "max_items": 5
+      }
+    },
+    {
+      "handle": "CNexton",
+      "name": "NEXTON PASSPORT",
+      "category": "info",
+      "role": "info",
+      "active": true,
+      "tags": [
+        "游戏情报",
+        "会员号",
+        "新作介绍"
+      ],
+      "note": "会员制情报号：cast comment／voice／新作告知 · 2026-11-19 用户点名补入并从 1-1「其他」表同步",
+      "filter": {
+        "drop_kinds": [
+          "repost"
+        ],
+        "prefer_if": [
+          "新作",
+          "キャスト",
+          "voice",
+          "コメント",
+          "発売"
+        ],
+        "max_items": 5
+      }
+    },
+    {
+      "handle": "famitsu",
+      "name": "ファミ通.com",
+      "category": "info",
+      "role": "info",
+      "active": false,
+      "tags": [
+        "媒体",
+        "泛游戏媒体"
+      ],
+      "note": "泛游戏媒体：galgame 占比极低，名单 1-1 原注「不建议」· 2026-11-19 同步登记但默认停用，如需启用改 active=true 并观察 keep_if 命中率",
+      "filter": {
+        "drop_kinds": [
+          "repost"
+        ],
+        "keep_if": [
+          "美少女ゲーム",
+          "エロゲ",
+          "ギャルゲ",
+          "ノベルゲーム",
+          "ADV"
+        ],
+        "max_items": 3
+      }
+    },
+    {
+      "handle": "dengekionline",
+      "name": "電撃オンライン",
+      "category": "info",
+      "role": "info",
+      "active": true,
+      "tags": [
+        "媒体",
+        "泛游戏媒体"
+      ],
+      "note": "泛游戏媒体：量适中，覆盖还行 · 4.5/d · 2026-11-19 从 1-1「其他」表同步，靠 keep_if 收窄到 galgame",
+      "filter": {
+        "drop_kinds": [
+          "repost"
+        ],
+        "keep_if": [
+          "美少女ゲーム",
+          "エロゲ",
+          "ギャルゲ",
+          "ノベルゲーム",
+          "ADV",
+          "Steam"
+        ],
+        "max_items": 5
+      }
+    },
+    {
+      "handle": "4GamerNews",
+      "name": "4Gamer",
+      "category": "info",
+      "role": "info",
+      "active": true,
+      "tags": [
+        "媒体",
+        "泛游戏媒体"
+      ],
+      "note": "泛游戏媒体：量大、galgame 占比低，靠关键词过滤 · 73.7/d · 2026-11-19 从 1-1「其他」表同步",
+      "filter": {
+        "drop_kinds": [
+          "repost"
+        ],
+        "keep_if": [
+          "美少女ゲーム",
+          "エロゲ",
+          "ギャルゲ",
+          "ノベルゲーム",
+          "ADV",
+          "Steam"
+        ],
+        "max_items": 3
+      }
+    },
+    {
+      "handle": "AUTOMATONJapan",
+      "name": "AUTOMATON",
+      "category": "info",
+      "role": "info",
+      "active": true,
+      "tags": [
+        "媒体",
+        "泛游戏媒体",
+        "同人"
+      ],
+      "note": "泛游戏媒体：galgame／同人报道占比最高，首选；需 max_items: 3 · 45.8/d · 2026-11-19 从 1-1「其他」表同步",
+      "filter": {
+        "drop_kinds": [
+          "repost"
+        ],
+        "keep_if": [
+          "美少女ゲーム",
+          "エロゲ",
+          "ギャルゲ",
+          "ノベルゲーム",
+          "同人",
+          "AVG"
+        ],
+        "max_items": 3
+      }
+    },
+    {
+      "handle": "akibablog",
+      "name": "アキバBlog",
+      "category": "info",
+      "role": "info",
+      "active": true,
+      "tags": [
+        "媒体",
+        "泛游戏媒体",
+        "秋叶原"
+      ],
+      "note": "泛游戏媒体：秋叶原物贩／活动为主，galgame 只是其中一块 · 40.4/d · 2026-11-19 从 1-1「其他」表同步",
+      "filter": {
+        "drop_kinds": [
+          "repost"
+        ],
+        "keep_if": [
+          "美少女ゲーム",
+          "エロゲ",
+          "ギャルゲ",
+          "ノベルゲーム",
+          "ゲーム"
+        ],
+        "max_items": 3
+      }
+    },
+    {
+      "handle": "douzinr18",
+      "name": "douzinr18",
+      "category": "info",
+      "role": "info",
+      "active": true,
+      "tags": [
+        "媒体",
+        "同人",
+        "R18"
+      ],
+      "note": "FANZA 同人／R18 作品情报与促销 · 2026-11-19 用户点名补入并从 1-1「其他」表同步",
+      "filter": {
+        "drop_kinds": [
+          "repost"
+        ],
+        "prefer_if": [
+          "新作",
+          "作品",
+          "FANZA",
+          "発売"
+        ],
+        "max_items": 5
+      }
+    },
+    {
+      "handle": "erogeAreAlive",
+      "name": "ErogeAreAlive",
+      "category": "info",
+      "role": "info",
+      "active": true,
+      "tags": [
+        "媒体",
+        "英语媒体",
+        "新作介绍"
+      ],
+      "note": "英语 galgame 媒体：新作／Steam 情报 · 2026-11-19 用户点名补入并从 1-1「其他」表同步",
+      "filter": {
+        "drop_kinds": [
+          "repost"
+        ],
+        "keep_if": [
+          "visual novel",
+          "steam",
+          "release",
+          "new",
+          "announce",
+          "game"
+        ],
+        "max_items": 5
+      }
+    },
+    {
+      "handle": "Nooksite",
+      "name": "Nooksite",
+      "category": "info",
+      "role": "info",
+      "active": true,
+      "tags": [
+        "媒体",
+        "英语媒体",
+        "业界新闻"
+      ],
+      "note": "英语游戏媒体：评测／速报／业界新闻 · 2026-11-19 用户点名补入并从 1-1「其他」表同步",
+      "filter": {
+        "drop_kinds": [
+          "repost"
+        ],
+        "keep_if": [
+          "review",
+          "news",
+          "steam",
+          "release",
+          "industry",
+          "game"
+        ],
+        "max_items": 5
+      }
+    },
+    {
+      "handle": "BishoujoNEWS",
+      "name": "BishoujoNEWS",
+      "category": "info",
+      "role": "info",
+      "active": true,
+      "tags": [
+        "媒体",
+        "德语媒体",
+        "展会"
+      ],
+      "note": "德语美少女游戏媒体：展会／新作／活动 · 2026-11-19 用户点名补入并从 1-1「其他」表同步",
+      "filter": {
+        "drop_kinds": [
+          "repost"
+        ],
+        "keep_if": [
+          "Neu",
+          "Release",
+          "Steam",
+          "Messe",
+          "Event",
+          "Bishoujo",
+          "Visual Novel"
+        ],
+        "max_items": 5
+      }
+    },
+    {
+      "handle": "cloud668",
+      "name": "Leslie Tang",
+      "category": "info",
+      "role": "info",
+      "active": true,
+      "tags": [
+        "翻译者",
+        "个人向",
+        "音乐"
+      ],
+      "note": "歌曲翻译／字幕、影像编辑 · Key · 名单 1-1 原在导演表，2026-11-19 更正为翻译者并移到「其他」表，同日同步进日报名单",
+      "filter": {
+        "prefer_if": [
+          "翻訳",
+          "歌詞",
+          "字幕",
+          "localization",
+          "translation",
+          "MV"
+        ],
+        "max_items": 5
+      }
     }
   ]
 }

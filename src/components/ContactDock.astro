@@ -1,0 +1,465 @@
+---
+/**
+ * 站点右下角「联系 / RSS」固定按钮坞 + 联系面板。
+ *
+ * - 按钮坞常驻视口右下角；鼠标悬停或键盘聚焦时显示「联系」「RSS」文字提示。
+ * - 点信封按钮，底部上滑一块约 2/3 视口高的面板：左半是联系方式与个人简介 +
+ *   大型 mailto 按钮，右半是问卷式表单（称呼 / 邮箱选填，内容必填）。
+ * - 表单提交时按发送当天的本地日期生成匿名称呼；mailto 无法指定发件人，
+ *   留空邮箱时邮件只发往本站邮箱（自己测试即「自己发给自己」），见面板内说明。
+ * - 面板遵循 note-popover 的交互：Esc 关闭、点遮罩关闭、关闭后焦点回到触发按钮。
+ */
+import { profile } from '../config/profile';
+
+const contactEmail = profile.email;
+const directMailto = `mailto:${contactEmail}?subject=${encodeURIComponent(`联系 ${profile.name}`)}`;
+---
+
+<div class="contact-dock" data-contact-dock>
+  <button
+    class="contact-dock__btn"
+    type="button"
+    data-contact-open
+    aria-label="联系"
+    aria-expanded="false"
+    aria-controls="contact-sheet"
+    title="联系"
+    data-tip="联系"
+  >
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+      <rect x="2.8" y="5" width="18.4" height="14" rx="2"></rect>
+      <path d="M3.2 6.2 12 13l8.8-6.8"></path>
+    </svg>
+  </button>
+  <a
+    class="contact-dock__btn"
+    href="/rss.xml"
+    aria-label="RSS 订阅"
+    title="RSS"
+    data-tip="RSS"
+  >
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true" focusable="false">
+      <circle cx="5.2" cy="18.8" r="1.6" fill="currentColor" stroke="none"></circle>
+      <path d="M3.6 11.6a8.8 8.8 0 0 1 8.8 8.8"></path>
+      <path d="M3.6 5.2a15.2 15.2 0 0 1 15.2 15.2"></path>
+    </svg>
+  </a>
+</div>
+
+<div class="contact-backdrop" data-contact-backdrop hidden></div>
+
+<div
+  class="contact-sheet"
+  id="contact-sheet"
+  data-contact-sheet
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="contact-sheet-title"
+  hidden
+>
+  <button class="contact-sheet__close" type="button" data-contact-close aria-label="关闭联系面板">×</button>
+
+  <div class="contact-sheet__grid">
+    <section class="contact-sheet__about">
+      <p class="contact-sheet__eyebrow">CONTACT · 联系方式</p>
+      <div class="contact-sheet__identity">
+        {profile.avatar && <img class="contact-sheet__avatar" src={profile.avatar} alt="" />}
+        <div>
+          <h2 id="contact-sheet-title">{profile.name}</h2>
+          <p class="contact-sheet__tagline">{profile.tagline}</p>
+        </div>
+      </div>
+      <ul class="contact-sheet__intro">
+        {profile.intro.map((line) => <li>{line}</li>)}
+      </ul>
+      <a class="contact-sheet__mailto" href={directMailto}>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+          <rect x="2.8" y="5" width="18.4" height="14" rx="2"></rect>
+          <path d="M3.2 6.2 12 13l8.8-6.8"></path>
+        </svg>
+        <span>直接写邮件<small>{contactEmail}</small></span>
+      </a>
+      <p class="contact-sheet__hint">也可以直接点上面的邮箱地址，用你自己的邮件客户端发送。</p>
+    </section>
+
+    <section class="contact-sheet__form-wrap">
+      <form data-contact-form data-contact-email={contactEmail}>
+        <label>
+          称呼 <small>选填</small>
+          <input type="text" name="visitor" autocomplete="name" placeholder={`留空则为【当天日期_匿名】`} />
+        </label>
+        <label>
+          邮箱 <small>选填</small>
+          <input type="email" name="replyto" autocomplete="email" placeholder="方便回信时填写" />
+        </label>
+        <label>
+          留言内容 <small>必填</small>
+          <textarea name="message" required rows="6" placeholder="想说的话写在这里"></textarea>
+        </label>
+        <button class="contact-sheet__submit" type="submit">点击联系</button>
+      </form>
+      <p class="contact-sheet__note">
+        提交后会打开你的邮件客户端，收件人固定为本站邮箱。邮箱留空时不会写入回信地址；
+        受 <code>mailto</code> 限制无法指定发件人，自己测试时即「自己发给自己」。
+      </p>
+    </section>
+  </div>
+</div>
+
+<script>
+  const openButton = document.querySelector<HTMLButtonElement>('[data-contact-open]');
+  const closeButton = document.querySelector<HTMLButtonElement>('[data-contact-close]');
+  const backdrop = document.querySelector<HTMLElement>('[data-contact-backdrop]');
+  const sheet = document.querySelector<HTMLElement>('[data-contact-sheet]');
+  const form = document.querySelector<HTMLFormElement>('[data-contact-form]');
+
+  if (openButton && closeButton && backdrop && sheet && form) {
+    let previousOverflow = '';
+
+    const focusables = () =>
+      Array.from(
+        sheet.querySelectorAll<HTMLElement>(
+          'a[href], button:not([disabled]), input:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
+        )
+      );
+
+    function open(): void {
+      if (!sheet || !backdrop || !openButton) return;
+      previousOverflow = document.documentElement.style.overflow;
+      sheet.hidden = false;
+      backdrop.hidden = false;
+      document.documentElement.style.overflow = 'hidden';
+      openButton.setAttribute('aria-expanded', 'true');
+      const first = form?.querySelector<HTMLInputElement>('input[name="visitor"]');
+      first?.focus({ preventScroll: true });
+    }
+
+    function close(): void {
+      if (!sheet || !backdrop || !openButton) return;
+      sheet.hidden = true;
+      backdrop.hidden = true;
+      document.documentElement.style.overflow = previousOverflow;
+      openButton.setAttribute('aria-expanded', 'false');
+      openButton.focus({ preventScroll: true });
+    }
+
+    openButton.addEventListener('click', () => {
+      if (sheet?.hidden) open();
+      else close();
+    });
+    closeButton.addEventListener('click', close);
+    backdrop.addEventListener('click', close);
+
+    document.addEventListener('keydown', (event) => {
+      if (!sheet || sheet.hidden) return;
+      if (event.key === 'Escape') {
+        event.preventDefault();
+        close();
+        return;
+      }
+      if (event.key === 'Tab') {
+        const items = focusables();
+        if (!items.length) return;
+        const first = items[0];
+        const last = items[items.length - 1];
+        if (event.shiftKey && document.activeElement === first) {
+          event.preventDefault();
+          last.focus();
+        } else if (!event.shiftKey && document.activeElement === last) {
+          event.preventDefault();
+          first.focus();
+        }
+      }
+    });
+
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+      const data = new FormData(form);
+      const message = String(data.get('message') ?? '').trim();
+      if (!message) {
+        form.querySelector<HTMLTextAreaElement>('textarea[name="message"]')?.focus();
+        return;
+      }
+
+      const now = new Date();
+      const pad = (value: number) => String(value).padStart(2, '0');
+      const date = `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())}`;
+      const visitor = String(data.get('visitor') ?? '').trim() || `【${date}_匿名】`;
+      const replyto = String(data.get('replyto') ?? '').trim();
+
+      const body = [
+        `称呼：${visitor}`,
+        `回信邮箱：${replyto || '（未填写）'}`,
+        '',
+        message,
+      ].join('\n');
+      const href =
+        `mailto:${form.dataset.contactEmail ?? ''}` +
+        `?subject=${encodeURIComponent(`联系 · ${visitor}`)}` +
+        `&body=${encodeURIComponent(body)}`;
+      window.location.href = href;
+    });
+  }
+</script>
+
+<style>
+  .contact-dock {
+    position: fixed;
+    right: var(--space-4);
+    bottom: var(--space-4);
+    z-index: 30;
+    display: flex;
+    gap: var(--space-2);
+  }
+
+  .contact-dock__btn {
+    position: relative;
+    width: 2.75rem;
+    height: 2.75rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-text-secondary);
+    background-color: var(--color-bg);
+    border: var(--border-width) solid var(--color-border-strong);
+    border-radius: var(--radius);
+    text-decoration: none;
+    cursor: pointer;
+    transition: color var(--duration-fast) var(--ease), border-color var(--duration-fast) var(--ease);
+  }
+  .contact-dock__btn:hover,
+  .contact-dock__btn:focus-visible {
+    color: var(--color-text);
+    border-color: var(--color-text-secondary);
+  }
+  .contact-dock__btn svg {
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+  .contact-dock__btn::after {
+    content: attr(data-tip);
+    position: absolute;
+    right: 0;
+    bottom: calc(100% + 0.5rem);
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    background: var(--color-text);
+    color: var(--color-bg);
+    font-size: var(--text-xs);
+    line-height: 1.4;
+    white-space: nowrap;
+    opacity: 0;
+    transform: translateY(0.25rem);
+    pointer-events: none;
+    transition: opacity var(--duration-fast) var(--ease), transform var(--duration-fast) var(--ease);
+  }
+  .contact-dock__btn:hover::after,
+  .contact-dock__btn:focus-visible::after {
+    opacity: 1;
+    transform: none;
+  }
+
+  .contact-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 59;
+    background: rgb(0 0 0 / 42%);
+  }
+  .contact-backdrop[hidden],
+  .contact-sheet[hidden] {
+    display: none;
+  }
+
+  .contact-sheet {
+    position: fixed;
+    inset-inline: 0;
+    bottom: 0;
+    z-index: 60;
+    height: min(64vh, 640px);
+    overflow-y: auto;
+    padding: var(--space-5) var(--page-padding) calc(var(--space-5) + env(safe-area-inset-bottom, 0px));
+    background: var(--color-bg);
+    border-top: var(--border-width) solid var(--color-border-strong);
+    border-radius: 12px 12px 0 0;
+    box-shadow: 0 -12px 40px rgb(0 0 0 / 12%);
+    animation: contact-sheet-in var(--duration) var(--ease);
+  }
+  @keyframes contact-sheet-in {
+    from { opacity: 0; transform: translateY(1.5rem); }
+    to { opacity: 1; transform: none; }
+  }
+
+  .contact-sheet__close {
+    position: absolute;
+    top: var(--space-3);
+    right: var(--space-4);
+    width: 2rem;
+    height: 2rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 0;
+    border-radius: 4px;
+    background: none;
+    font-size: 1.5rem;
+    line-height: 1;
+    color: var(--color-text-muted);
+    cursor: pointer;
+  }
+  .contact-sheet__close:hover {
+    color: var(--color-text);
+  }
+
+  .contact-sheet__grid {
+    max-width: var(--page-max);
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+    gap: var(--space-6);
+  }
+
+  .contact-sheet__eyebrow {
+    margin: 0 0 var(--space-3);
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: var(--tracking-wide);
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+  }
+  .contact-sheet__identity {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+  }
+  .contact-sheet__avatar {
+    width: 4rem;
+    height: 4rem;
+    border-radius: var(--radius-round);
+    object-fit: cover;
+    border: var(--border-width) solid var(--color-border);
+  }
+  .contact-sheet h2 {
+    margin: 0;
+    font-size: var(--text-lg);
+  }
+  .contact-sheet__tagline {
+    margin: 0.15rem 0 0;
+    font-size: var(--text-sm);
+    color: var(--color-text-secondary);
+  }
+  .contact-sheet__intro {
+    margin: var(--space-3) 0 0;
+    padding-left: 1.1rem;
+    font-size: var(--text-sm);
+    color: var(--color-text-secondary);
+  }
+  .contact-sheet__intro li {
+    margin: 0.2rem 0;
+  }
+  .contact-sheet__mailto {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-top: var(--space-4);
+    padding: 0.85rem 1.15rem;
+    border: var(--border-width) solid var(--color-text);
+    border-radius: var(--radius);
+    color: var(--color-text);
+    font-size: var(--text-md);
+    font-weight: 600;
+    text-decoration: none;
+  }
+  .contact-sheet__mailto:hover {
+    background: var(--color-tile-bg);
+    color: var(--color-tile-text);
+  }
+  .contact-sheet__mailto svg {
+    width: 1.35rem;
+    height: 1.35rem;
+    flex: none;
+  }
+  .contact-sheet__mailto small {
+    display: block;
+    font-size: var(--text-xs);
+    font-weight: 400;
+    color: var(--color-text-muted);
+  }
+  .contact-sheet__hint,
+  .contact-sheet__note {
+    margin-top: var(--space-3);
+    font-size: var(--text-xs);
+    line-height: var(--leading-normal);
+    color: var(--color-text-muted);
+  }
+  .contact-sheet__note code {
+    font-family: var(--font-mono);
+  }
+
+  .contact-sheet__form-wrap label {
+    display: block;
+    margin: 0 0 var(--space-3);
+    font-size: var(--text-sm);
+    color: var(--color-text-secondary);
+  }
+  .contact-sheet__form-wrap label small {
+    color: var(--color-text-muted);
+    font-weight: 400;
+  }
+  .contact-sheet input,
+  .contact-sheet textarea {
+    display: block;
+    width: 100%;
+    margin-top: 0.35rem;
+    padding: 0.6rem 0.75rem;
+    font: inherit;
+    font-size: var(--text-base);
+    color: var(--color-text);
+    background: var(--color-bg-subtle);
+    border: var(--border-width) solid var(--color-border-strong);
+    border-radius: var(--radius);
+  }
+  .contact-sheet textarea {
+    min-height: 7rem;
+    resize: vertical;
+  }
+  .contact-sheet input:focus,
+  .contact-sheet textarea:focus {
+    outline: 2px solid var(--color-text-secondary);
+    outline-offset: 1px;
+  }
+  .contact-sheet__submit {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.7rem 1.6rem;
+    border: var(--border-width) solid var(--color-text);
+    border-radius: var(--radius-round);
+    background: var(--color-tile-bg);
+    color: var(--color-tile-text);
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  .contact-sheet__submit:hover {
+    opacity: 0.88;
+  }
+
+  @media (max-width: 760px) {
+    .contact-sheet {
+      height: 86vh;
+    }
+    .contact-sheet__grid {
+      grid-template-columns: 1fr;
+      gap: var(--space-4);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .contact-sheet {
+      animation: none;
+    }
+    .contact-dock__btn,
+    .contact-dock__btn::after {
+      transition: none;
+    }
+  }
+</style>

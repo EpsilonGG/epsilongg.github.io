@@ -3,6 +3,7 @@ import { site, absoluteUrl } from '../config/site';
 import { profile } from '../config/profile';
 import SiteHeader from '../components/SiteHeader.astro';
 import SiteFooter from '../components/SiteFooter.astro';
+import ContactDock from '../components/ContactDock.astro';
 
 import '../styles/fonts.css';
 import '../styles/tokens.css';
@@ -119,5 +120,6 @@ const ogImageUrl = image ? absoluteUrl(image) : '';
       <slot />
     </main>
     <SiteFooter />
+    <ContactDock />
   </body>
 </html>

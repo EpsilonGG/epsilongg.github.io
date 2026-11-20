@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<title>名单 1-1 → 日报 / 周报强化方案</title>
+<style>
+:root{--ink:#111;--ink2:#555;--ink3:#888;--bg:#fff;--bg2:#f6f6f6;--line:#e2e2e2;--line2:#bbb;--radius:6px;--accent:#2b6cb0;--warn:#b7791f;--good:#2f855a}
+@media(prefers-color-scheme:dark){:root{--ink:#eee;--ink2:#bbb;--ink3:#888;--bg:#161616;--bg2:#202020;--line:#333;--line2:#555;--accent:#7eb6ea;--warn:#e2b65c;--good:#7fd1a0}}
+body{margin:0;padding:0 20px 80px;background:var(--bg);color:var(--ink);font:15px/1.75 -apple-system,BlinkMacSystemFont,"Segoe UI","Hiragino Sans","Noto Sans CJK SC","Microsoft YaHei",sans-serif}
+.wrap{max-width:1040px;margin:0 auto}header.top{padding:46px 0 22px;border-bottom:1px solid var(--line)}
+h1{font-size:25px;margin:0 0 8px;line-height:1.4}.sub{color:var(--ink2);margin:0}.meta{margin-top:12px;color:var(--ink3);font-size:12px}
+h2{font-size:19px;margin:44px 0 12px;padding-bottom:7px;border-bottom:1px solid var(--line)}
+h3{font-size:16px;margin:26px 0 8px}h4{font-size:14px;margin:18px 0 6px;color:var(--ink2)}
+p{margin:9px 0}ul,ol{margin:9px 0;padding-left:24px}li{margin:4px 0}
+.note{background:var(--bg2);border:1px solid var(--line);border-radius:var(--radius);padding:12px 18px;margin:18px 0}
+.tldr{border-left:3px solid var(--accent)}
+.warn{border-left:3px solid var(--warn)}
+.good{border-left:3px solid var(--good)}
+code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.9em;background:var(--bg2);border:1px solid var(--line);border-radius:4px;padding:1px 5px}
+pre{background:var(--bg2);border:1px solid var(--line);border-radius:var(--radius);padding:12px 16px;overflow-x:auto;font-size:12.5px;line-height:1.6}
+table{width:100%;border-collapse:collapse;font-size:13.5px;margin:12px 0}
+th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{background:var(--bg2);font-weight:600;white-space:nowrap}tr:last-child td{border-bottom:0}
+.scroll{overflow-x:auto;border:1px solid var(--line);border-radius:var(--radius);margin:12px 0}
+.tagA,.tagB,.tagC,.tagD{display:inline-block;font-size:11px;border:1px solid currentColor;border-radius:3px;padding:0 5px;white-space:nowrap}
+.tagA{color:var(--good)}.tagB{color:var(--accent)}.tagC{color:var(--ink3)}.tagD{color:var(--warn)}
+.big{font-size:20px;font-weight:600;color:var(--accent)}
+small{color:var(--ink3)}
+footer{margin-top:52px;padding-top:18px;border-top:1px solid var(--line);color:var(--ink3);font-size:12px}
+</style></head><body><div class="wrap">
+
+<header class="top">
+<h1>名单 1-1 → 日报 / 周报强化方案</h1>
+<p class="sub">以 2026-11-19 的名单 1-1（417 行 / 405 个 X 账号）为人力与信源底座，回答三件事：日报的「互动」怎么做厚、周报的「业界动向」怎么上线、还有哪些方向值得做。</p>
+<div class="meta">2026-11-19 · 现状数字均来自当日实时抓取与仓库内配置 · 本文是方案，不含已实施的代码改动（本轮已做的两项同步见 §0）</div>
+</header>
+
+<div class="note tldr">
+<p><b>一句话结论</b>：名单 1-1 是现成的「人物—账号—行为」三层索引，但日报只用到了它的品牌层和信息号层——<b>203 个创作者账号里 202 个不在日报名单里</b>，所以互动栏只能写「A 转发 B 的公告」。周报的业界栏不是没数据，是三道开关没开、且信源未经分级。</p>
+<p><span class="big">日报互动</span>　补创作者进抓取 + 预计算互提候选 + 把「互动」从转述改成四种可判定类型。<br/>
+<span class="big">周报业界</span>　先改 <code>weekly/rules.json</code> 三处开关，按 A/B/C/D 四级信源放号，连看 2–3 期再决定是否长期开栏。</p>
+</div>
+
+<h2 id="s0">0 · 本轮已经做的两项同步（数据底座）</h2>
+<ol>
+<li><b>flankoi 移到第一表</b>：<code>@Tokiko_Flankoi</code>（笔名 flankoi）从「其他」表移到「导演・制作人・剧本」表，担当写「翻译 (translation)」，关联品牌为「—」。第一表 106 → 107 行，其他表 25 → 24 行，总行数不变（417）。</li>
+<li><b>「其他」表整表同步进 Galgame 日报名单</b>：新增 16 个账号（6 信息号 / 5 泛游戏媒体 / 4 游戏媒体 / 1 翻译者），日报名单 186 → 202 个账号，抓取 YAML 186 → 201 个（<code>famitsu</code> 按名单 1-1 原注「不建议」登记为 <code>active=false</code>，只留档不抓）。原表已有的 8 个账号未改动。</li>
+</ol>
+<p>同步后，名单 1-1 的 405 个账号与日报名单的 202 个账号<b>完全包含</b>：品牌 177/178 已在册、其他表 24/24 已在册，差的 202 个全在导演・剧本表（99 个账号）与画师・声优・音乐表（109 个账号）里——<span class="tagA">这才是强化版真正的增量</span>。</p>
+
+<h2 id="s1">1 · 现状：三份数据各自停在哪个位置</h2>
+<div class="scroll"><table>
+<thead><tr><th>层</th><th>现在有什么</th><th>缺口</th></tr></thead>
+<tbody>
+<tr><td>名单 1-1</td><td>417 行 / 405 个独立 X 号；四表：导演・剧本 107、画师・声优 音乐 107、品牌 179、其他 24。每行含活跃档位、行为标记（广告/业界/日常/抽奖/转推）、近 30 天条数、最后发言、命中证据、近十条推文。</td><td>是静态 HTML，不参与任何自动出稿；行为标记靠关键词，未做二次人工定性。</td></tr>
+<tr><td>Galgame 日报</td><td>名单 202 号（制造商 179 / 信息号 23），X-Reader 抓 201 号；近期一期 200–500 条、52–118 个账号。schema 有 <code>interactions</code> 字段，题面要求「名单内两人以上的互动」。</td><td>实际每期只有 1–2 条互动，且几乎都是「A 转发 B 的公告」（见 §2.1）；创作者号不在题面里。</td></tr>
+<tr><td>周报 vol_001</td><td>窗口 7 天、48 品牌 64 条；底层有三栏（新作 / 作品情报 / 业界动向），规则 schema v10。</td><td>发布层 <code>publish.disabled_display_columns=["业界动向"]</code>；<code>default_excluded.columns=[]</code> 让无作品名的业界条目被默认排除；prefilter 的 <code>keep_if</code> 没有 <code>記事/レビュー/速報/ニュース/スクープ</code>。</td></tr>
+<tr><td>抓取缓存</td><td><code>out/_tmp/rescrape_2026_11_19/cache/</code> 共 461 个账号 JSON、9,007 条；含 337 条有向互提边、698 次提及。</td><td>其中 669 次（96%）是转推，非转推互提只有 29 次——<b>这是互动做不厚的真正数据量级</b>。</td></tr>
+</tbody></table></div>
+
+<h2 id="s2">2 · 方向一：把日报的「互动」做厚</h2>
+
+<h3>2.1 先诊断：现在那 1–2 条算不算互动</h3>
+<p>翻最近的 Galgame 版正本，互动栏长这样：</p>
+<ul>
+<li>「CyberworksKoho 转发 bugbug_info 关于某作原画挂毯样品到货的通知」</li>
+<li>「Moepedia_net 转述 POISON_NEW1992 的某作角色介绍」</li>
+<li>「getchucom 为 SMEE 某作更新 SD 亚克力立牌特典样本，并继续开放预约」</li>
+</ul>
+<p>这三条的共同点是：<b>一个人转述另一个人（或一个号）的公告</b>。前者是放大器链条，后者根本不是互动，只是把一条作品情报换了个说法。题面里「两人以上」的判据被满足得很轻松——两个账号名出现在同一句里就算——于是模型每次都选最安全的写法。</p>
+<p>三个成因，按可修程度排序：</p>
+<ol>
+<li><b>材料里没有创作者</b>。日报只抓 201 个号，其中 179 是品牌官号、22 是信息号；导演、剧本、画师共 203 个账号里 202 个不在抓取范围。真正会互相回应的人（编剧接画师的话、导演感谢声优）根本没有推文进题面。</li>
+<li><b>转推被压成放大器</b>。<code>dedupe.py</code> 用 <code>identity_key</code> 把转发归并到原作者行，「谁转了谁」只留在 <code>amplifiers</code> 里，不在正文材料里，模型看不见。</li>
+<li><b>互提材料太稀</b>。461 个号、9,007 条推文里只有 698 次名单内提及，96% 是转推；非转推的 29 次里，很多还是「转发时顺带 @ 了原作者」。也就是说，<b>即使明天就把 202 个创作者加进抓取，今天的缓存也生不出丰富的互动</b>。</li>
+</ol>
+
+<div class="note warn"><b>所以第一步不是写规则，是改抓取与题面。</b>只改 prompt 的「互动」定义，模型仍然只能从同样的转推里挑句子，结果不会变。</div>
+
+<h3>2.2 三步走方案</h3>
+<h4>第一步 · 有控制地把创作者请进抓取</h4>
+<p>不要一次加 202 个。按名单 1-1 的档位和互提边打分，先挑 <b>20–30 个</b>：</p>
+<ul>
+<li>优先第一、二表 <b>① / ② 档</b>（7 天内有发言的：导演・剧本 67 行、画师 73 行），他们当天有材料的概率最高；</li>
+<li>优先在互提边里出现过的号（缓存里已有 337 条有向边，如 <code>pulltop_latte → will_ensemble</code> 18 次、<code>ammolite_game → appetite_game</code> 17 次、<code>poison_ex1992 → poison_new1992</code> 17 次）；</li>
+<li>每个号按惯例配 <code>filter</code>（<code>drop_kinds:["repost"]</code>、<code>max_items:3–5</code>），防止个人号日常灌进题面；</li>
+<li>分类建议新增 <code>category: creator</code>（周报 <code>class_priority</code> 已经有 <code>creator</code> 这一级，语义对得上），并在 <code>categories[]</code> 里登记标签；若不想动栏目，可暂用 <code>category: info</code> + <code>tags:["创作者"]</code>，但这两种做法都要同步改测试里钉死的 handle 集合。</li>
+</ul>
+<p>代价要如实算：一期题面已经是 200–500 条。新增 30 个号、每号 3–5 条，约增加 90–150 条材料，token 量涨 20–40%。<b>先按 20 个试两期</b>，看互动栏是否真的变厚，再决定扩到多少。</p>
+
+<h4>第二步 · 预计算「互动候选」，别让模型在几百条里找</h4>
+<p>出题脚本时，把互提关系先算好，作为题面里独立的一节（例：<code>## 互动候选</code>），每条给 item key、发言方、被提及方、原文。模型只需要从候选里选，而不是从全部材料里发现：</p>
+<pre>候选规则（从缓存 / X-Reader 条目算，均可复现）
+1. A 引用 B 且附自己的话      → 强候选（引用推文，正文非空）
+2. A 回复 B                   → 强候选（RSS 的 "R to @" / reply_to 字段）
+3. A 原创里 @B 且非公告模板    → 中候选（排除 "発売/予約/セール" -only）
+4. A 与 B 同日提同一作品       → 弱候选（归入 highlights，不占互动名额）
+纯 RT、单向转述公告             → 直接排除，不算互动</pre>
+<p>现有解析层已经留下 <code>is_quote</code> / <code>is_reply</code> 标记，但缓存的 <code>content</code> 只留标题、引用正文被丢掉。要落地这一步，需在抓取适配层把 <b>引用正文与回复对象</b>保留下来（或直接在 X-Reader 侧读 <code>quote</code> / <code>reply_to</code> 字段）。这一步动的是 <code>scripts/daily/</code>，属于保护集，必须先登记豁免。</p>
+
+<h4>第三步 · 把「互动」从一种写法拆成四种</h4>
+<p>在 prompt 里给判据和例子（简中、≤60 字、<code>sources</code> 至少两个来自不同账号的 item key）：</p>
+<div class="scroll"><table>
+<thead><tr><th>类型</th><th>判据</th><th>例句</th></tr></thead>
+<tbody>
+<tr><td>回应 / 致谢</td><td>引用或回复，且内容有具体事</td><td>「编剧 A 引用画师 B 的新立绘，说角色表情改了三版」</td></tr>
+<tr><td>同场 / 共演</td><td>两条材料指向同一场活动、同一天</td><td>「导演 A 与声优 B 同日晒出试玩会后台合照」</td></tr>
+<tr><td>同一作品两端</td><td>名单 1-1 里同一作品的不同岗位</td><td>「某作编剧 A 与原画 B 先后谈同一段剧情的取舍」</td></tr>
+<tr><td>跨媒体呼应</td><td>X 官宣 + B 站中文社区反应</td><td>「官号公布新作后，B 站号当天转发了 PV 评论」（B 站名单独立文件，只做材料不写进 X 名单）</td></tr>
+</tbody></table></div>
+<p>同时在 <code>validate.py</code> 里加一条硬校验：<code>interactions[]</code> 的 <code>sources</code> 必须指向 <b>两个以上不同账号</b> 的 item key，否则判失败。这样「一句话里塞两个账号名」的取巧写法会自动被拦下。</p>
+
+<div class="note warn"><b>保护集提醒</b>：<code>scripts/daily/</code>、<code>data/daily/</code>、<code>schemas/report.schema.json</code> 都在日报保护集里。改 prompt 模板、校验脚本或 schema 之前，必须在 <code>tests/daily-protection-waivers.json</code> 登记路径、日期与理由；改完 prompt 还要把 <code>PROMPT_VERSION</code> +1（当前 5），否则缓存继续用旧题面。提交后 diff 归零，清空豁免登记。</div>
+
+<h2 id="s3">3 · 方向二：让周报的「业界动向」能上线</h2>
+
+<h3>3.1 不是没数据，是三道开关没开</h3>
+<p>三处都在 <code>weekly/rules.json</code>（<b>不在</b>日报保护集，可单独改、可回退）：</p>
+<ol>
+<li><code>publish.disabled_display_columns</code> 删掉 <code>"业界动向"</code> —— 发布层不再整栏剥除；底层三栏和 91 处断言都不用动。</li>
+<li><code>default_excluded.columns</code> 改成 <code>["作品情报","品牌动向"]</code> —— 无作品名的业界条目不再被「未标注作品」默认删掉；只排除另两栏。</li>
+<li><code>prefilter.keep_if</code> 补 <code>記事 / レビュー / 速報 / ニュース / スクープ / 発表会</code> —— 现有词表有「業界/业界/采访/考察」但漏了媒体稿件的常用词，<code>bugbug_info</code> 的评价类信号进不了自动入稿桶。</li>
+</ol>
+<p>04 号周报的筛选结论仍然有效：<b>创作者身份 ≠ 业界信源</b>。之前 187 个 Galgame 号里 23 个带「经常聊业界信息」标签，逐条看完真信源只有 <code>bugbug_info</code>（記事/レビュー/ランキング/速報）与 <code>aikouka23</code>（流通/廃盤/版本考据）；18 个被标成「业界号」的创作者全是个人号，一个都不能用。</p>
+
+<h3>3.2 用名单 1-1 给信源分级</h3>
+<p>本轮同步进日报名单的 16 个账号，加上原有 7 个信息号，正好可以直接照名单 1-1 的备注分成四级：</p>
+<div class="scroll"><table>
+<thead><tr><th>级</th><th>账号（来源）</th><th>在业界栏的角色</th></tr></thead>
+<tbody>
+<tr><td><span class="tagA">A 核心</span></td><td><code>bugbug_info</code>、<code>aikouka23</code>；新增 <code>Nooksite</code>（英语业界新闻）、<code>BishoujoNEWS</code>（展会/活动）、<code>moeaward</code>（评奖）、<code>DLsite</code>（平台/榜单）</td><td>自动入稿主力；每期 0–2 条即可，允许空栏。</td></tr>
+<tr><td><span class="tagB">B 条件</span></td><td><code>AUTOMATONJapan</code>（galgame 报道占比最高）、<code>dengekionline</code>、<code>4GamerNews</code>、<code>akibablog</code>、<code>erogeAreAlive</code>、<code>CNexton</code></td><td>必须过 <code>keep_if</code> 白名单；泛媒体一天几十条，超限就靠 <code>max_items:3</code> 收住。</td></tr>
+<tr><td><span class="tagC">C 不进业界栏</span></td><td>203 个创作者号（名单一/二表）、<code>getchucom</code>（发售日历）、<code>seiya_saiga</code>（攻略+打折）、<code>youtan0309</code>（怀旧回顾）、<code>cloud668</code>/<code>flankoi</code>（翻译个人号）</td><td>回作品情报 / 互动栏；不要因为「业界关联度」列好看就升格。</td></tr>
+<tr><td><span class="tagD">D 留档不抓</span></td><td><code>famitsu</code>（太泛，galgame 占比极低）</td><td><code>active=false</code>，需要时人工打开并观察 keep_if 命中率。</td></tr>
+</tbody></table></div>
+<p>落地时用 <code>account_class_overrides</code> 把 A 级账号钉在 <code>info</code> 类，B 级钉在 <code>other</code> 类走白名单；跑 <code>weekly build --last-days 7</code> → <code>check</code>，先看工作台里的归栏对不对，再决定 publish。</p>
+
+<h3>3.3 栏目内部建议分层</h3>
+<p>业界动向整栏上线后，建议按五个子题写，而不是混成一段流水账：<b>公司与人事</b>（解散、移転、人事）、<b>渠道与流通</b>（廃盤、流通、回収）、<b>平台与展会</b>（Steam、DLsite、WePlay、Messe）、<b>奖项与排行</b>（萌奖、销量榜）、<b>本地化与翻译</b>（汉化、译入语、母语审校）。这五类正好对应 <code>prefilter.keep_if</code> 现有的词，不需要另建分类体系。</p>
+
+<div class="note good"><b>上线节奏</b>：先只改三处 <code>rules.json</code>，连看 2–3 期质量；业界栏偶尔空栏是正常现象，不要为了填满而放宽 <code>keep_if</code>。若长期太薄，再按 A/B 级扩源，且每加一号都要在名单 1-1 里写明理由。</div>
+
+<h2 id="s4">4 · 方向三：其他值得做的方向</h2>
+<div class="scroll"><table>
+<thead><tr><th>方向</th><th>怎么做</th><th>成本 / 前提</th></tr></thead>
+<tbody>
+<tr><td>作品动态补出处</td><td><code>works[]</code> 目前 432 条全无 <code>sources</code>，页面不能点回原推。从 <code>out/clauses/**</code> 按作品名反补 item key，先在周报侧试。</td><td>脚本活；schema 已允许。要注意「一条一个作品」的约束别在补出处时被破坏。</td></tr>
+<tr><td>显示名回填</td><td><code>weekly/display-names.json</code> 的 <code>names</code> 是空的，35 个 handle 走兜底（含刚同步的 <code>alice_net_pc</code>）。可直接用名单 1-1 的「名字」列批量回填。</td><td>低；但改名属于身份裁决，回填后要让人工过一遍，别把笔名当本名写死。</td></tr>
+<tr><td>首图自托管</td><td>周报 vol_001 的首图仍是外链，<code>pbs.twimg.com</code> 部分网络不可达；依赖已有 <code>onerror</code> 兜底。</td><td>中；属于长期项，不影响文字稿。</td></tr>
+<tr><td>月报 M7 预热</td><td>名单 1-1 的档位、近 30 天条数、行为标记本身就是月度「人物活跃榜」的数据源：谁从 ① 掉到 ④、谁整月没发言。</td><td><code>scripts/monthly/</code> 是空桩，<code>FORMALLY_ENABLED</code> 要翻 True，需单独授权。</td></tr>
+<tr><td>跨平台互动</td><td>B 站动态已实现「一个账号一行 + 原文链接 + LLM 概括」。同一人的 X 发言与 B 站动态并列，可当 §2.2 第四类互动的材料。</td><td>B 站名单是独立文件，绝不写进 <code>daily-roster-galgame.json</code>；叙述写显示名不写 <code>bili_&lt;uid&gt;</code>。</td></tr>
+<tr><td>画师表 /all 的延伸</td><td>画师表链接已统一加 <code>/all</code> 以便看转发；创作者号若进日报，也可用同一方式人工核对互动候选。</td><td>低；仅影响链接，不影响抓取。</td></tr>
+<tr><td>名单治理文档化</td><td>把「删人 = 整表删」「图注只在原图有时写」「新行先写 11 列再跑重算脚本」这类口头规则收进一份 roster-workflow，像 <code>publish-workflow.md</code> 一样维护。</td><td>低；纯文档，但能防止下一轮人工补人时踩旧坑。</td></tr>
+<tr><td><b>联系方式（显式入口）</b></td><td>名片页 <code>/me/</code> 现在只有平台链接，没有「联系」这个动作。做一个两段式联系区：标题 <code>CONTACT</code>／「联系方式」+ <code>mailto:</code> 邮箱超链接（无 JS 也能用），下面接问卷式表单——称呼（选填）、邮箱地址（选填）、留言内容（必填），按钮「点击联系」。纯前端把三项拼成 <code>mailto:地址?subject=…&amp;body=…</code>，不接后端、不落库。字段按你的日模板中文化，见下方字段表。</td><td>低；一个 <code>&lt;form&gt;</code> + 一段拼 URL 的 JS，无后端无存储。前提是定一个真实邮箱，同时写进 <code>src/config/links.ts</code> 与 <code>mailto</code>；<code>mailto</code> 依赖本机邮件客户端，必须保留「复制邮箱」兜底。</td></tr>
+</tbody></table></div>
+
+<h3 id="s4-1">4.1 联系方式表单字段（把日模板翻成中文）</h3>
+<div class="scroll"><table>
+<thead><tr><th>原模板</th><th>中文标签</th><th>必填</th><th>在 mailto 里的位置</th></tr></thead>
+<tbody>
+<tr><td>（区块标题）</td><td>CONTACT · 联系方式</td><td>—</td><td>不进正文，只做视觉锚点；可保留英文大字 + 中文小标题</td></tr>
+<tr><td>お問い合わせ</td><td>有问题、纠错或合作，欢迎来信</td><td>—</td><td>说明句，放在标题与邮箱之间</td></tr>
+<tr><td>mailto:邮箱地址超链接</td><td><code>mailto:你的邮箱@...</code>（直接显示邮箱地址，可点）</td><td>必须存在</td><td>表单之外的独立链接——表单失效时这是唯一联系通道</td></tr>
+<tr><td>お名前</td><td>称呼</td><td>任意（选填）</td><td><code>body</code> 第一行：<code>称呼：{值}</code>，空则整行不写</td></tr>
+<tr><td>メールアドレス</td><td>邮箱地址</td><td>任意（选填）</td><td><code>body</code> 第二行：<code>回信邮箱：{值}</code>，空则整行不写</td></tr>
+<tr><td>メッセージ内容</td><td>留言内容</td><td><b>必須</b></td><td><code>body</code> 正文，用 <code>required</code> 做前端拦截</td></tr>
+<tr><td>click to contact</td><td>点击联系 / 发送消息</td><td>—</td><td><code>type="submit"</code>，点击后打开邮件客户端并预填好上面的内容</td></tr>
+</tbody></table></div>
+<div class="note good"><b>实现要点</b>：把邮箱写进 <code>src/config/links.ts</code> 的「联系」分组，再由 <code>/me/</code> 读取，避免在页面组件里硬编码；表单只做 <code>encodeURIComponent</code> 拼串，不需要接口。中文界面建议把英文 <code>CONTACT</code> 留作大字装饰、「联系方式」作可读小标题，既保留模板的视觉节奏又不给读者制造语言门槛。<b>验收</b>：① 禁用 JS 后邮箱链接仍可点；② 留空必填项不能提交；③ 手机端（无邮件客户端）能复制邮箱地址；④ 提交后 <code>body</code> 里选填项为空时没有多余空行。</div>
+
+<h2 id="s5">5 · 实施顺序与风险</h2>
+<div class="scroll"><table>
+<thead><tr><th>#</th><th>动作</th><th>文件</th><th>闸门</th></tr></thead>
+<tbody>
+<tr><td>1</td><td>改三处开关，只在工作台看，不 publish</td><td><code>weekly/rules.json</code></td><td>不在保护集；可回退三行</td></tr>
+<tr><td>2</td><td>按 A/B 级核对归栏，必要时加 <code>account_class_overrides</code></td><td><code>weekly/rules.json</code></td><td><code>weekly check</code></td></tr>
+<tr><td>3</td><td>先加 20 个创作者号进日报抓取，分类与 filter 一次写清</td><td><code>src/config/daily-roster-galgame.json</code> → 重跑 <code>sync_xreader_accounts.py</code></td><td>更新测试里钉死的 handle 集合；<code>--check</code> 必须通过</td></tr>
+<tr><td>4</td><td>抓取层保留引用正文 / 回复对象，预计算互动候选</td><td><code>scripts/daily/adapters/</code>、<code>prompt.py</code></td><td><b>保护集</b>：先登记 waiver；<code>PROMPT_VERSION</code> +1</td></tr>
+<tr><td>5</td><td>改互动判据与校验</td><td><code>scripts/daily/prompt.py</code>、<code>validate.py</code></td><td>同上；提交后清空 waiver</td></tr>
+<tr><td>6</td><td>连看 2–3 期，决定业界栏是否 publish、创作者是否扩到 40–60</td><td>—</td><td>空栏正常；不为了填满而放宽白名单</td></tr>
+<tr><td>7</td><td>（独立小项）在名片页加显式联系方式：邮箱写进 <code>links.ts</code>，表单拼 <code>mailto</code></td><td><code>src/config/links.ts</code>、<code>src/pages/me.astro</code></td><td>不依赖 §1–6；先定真实邮箱，验收四项见 §4.1</td></tr>
+</tbody></table></div>
+<p><b>三个不要</b>：不要把 203 个创作者一口气全加进抓取（题面会爆、互动不会变厚）；不要把「业界关联度」高的创作者当业界信源（已证伪）；不要在保护集里改了不登记豁免——提交后 diff 归零，豁免按设计自动失效，记得清空。</p>
+
+<footer>
+依据：名单 1-1（2026-11-19 实时重抓，417 行 / 405 号）；<code>out/_tmp/rescrape_2026_11_19/cache/</code>（461 号 / 9,007 条）；<code>src/config/daily-roster-galgame.json</code>（202 号）；<code>weekly/rules.json</code> schema v10；<code>README/reports/03-daily.md</code>、<code>04-weekly.md</code> 与 11-16 业界信源筛选结论。本文为提案，数字以两份名单正本与当期正本为准。
+</footer>
+
+</div></body></html>
