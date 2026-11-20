@@ -5,8 +5,9 @@
  * - 两个图标落在真正的页脚（版权文字那一行）右侧，尺寸跟随页脚小字，无边框。
  * - 点信封按钮，底部上滑一块约 2/3 视口高的面板：左半是联系方式与个人简介 +
  *   大型 mailto 按钮，右半是问卷式表单（称呼 / 邮箱选填，内容必填）。
- * - 表单提交时按发送当天的本地日期生成匿名称呼，拼 mailto；按钮显示 5 秒
- *   「收到👌」后复原，期间屏蔽重复点击（面板内不再放 mailto 限制说明）。
+ * - 表单提交时按发送当天的本地日期生成匿名称呼（称呼留空时），随后用 mailto
+ *   发往本站邮箱：主题＝称呼，正文＝留言内容，末尾附填写邮箱的 mailto 链接。
+ *   按钮显示 5 秒「收到👌」后复原，期间屏蔽重复点击（面板内不再放 mailto 限制说明）。
  * - 面板遵循 note-popover 的交互：Esc 关闭、点遮罩关闭、关闭后焦点回到触发按钮。
  */
 import { profile } from '../config/profile';
@@ -193,21 +194,14 @@ const directMailto = `mailto:${contactEmail}?subject=${encodeURIComponent(`联�
         justSent = false;
       }, 5000);
 
-      const now = new Date();
-      const pad = (value: number) => String(value).padStart(2, '0');
-      const date = `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())}`;
       const visitor = String(data.get('visitor') ?? '').trim() || `【${date}_匿名】`;
       const replyto = String(data.get('replyto') ?? '').trim();
 
-      const body = [
-        `称呼：${visitor}`,
-        `回信邮箱：${replyto || '（未填写）'}`,
-        '',
-        message,
-      ].join('\n');
+      /* 主题只放称呼；正文只放留言，末尾在填写了邮箱时附一个 mailto 链接。 */
+      const body = replyto ? `${message}\n\nmailto:${replyto}` : message;
       const href =
         `mailto:${form.dataset.contactEmail ?? ''}` +
-        `?subject=${encodeURIComponent(`联系 · ${visitor}`)}` +
+        `?subject=${encodeURIComponent(visitor)}` +
         `&body=${encodeURIComponent(body)}`;
       window.location.href = href;
     });
