@@ -391,10 +391,12 @@ class InactiveAccountTest(unittest.TestCase):
         #                     其余进 people[].via。它们是同一家公司，不是四家。
         #   Amuse_sub       —— §19（2026-11-07 用户裁决）AMUSE CRAFT 的小号 / 宣传号，
         #                     role=sub + `brand=AMUSE CRAFT`，周报归栏进母厂那一栏。
+        #   jita_gf         —— 2026-11-20 新增，ギャルズフィクション@ギャルフィク，
+        #                     自宅すたじお 的 FD 官网号，role=sub + `brand=自宅すたじお`。
         self.assertEqual(
             {a.handle for a in makers if a.role != "brand"},
             {"Moepedia_net", "akaerocore", "akaeroCore_en",
-             "akaeroCore_JP", "akaeroCore_kr", "Amuse_sub"},
+             "akaeroCore_JP", "akaeroCore_kr", "Amuse_sub", "jita_gf"},
             "manufacturer 段里出现了非品牌号：确认它确实是情报来源，再改这条断言",
         )
         # 带降噪规则的号：Moepedia + 2026-10-29 启用的五个信息号 + 2026-11-01 的 hiro_in，
