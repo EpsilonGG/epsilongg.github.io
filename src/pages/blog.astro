@@ -141,12 +141,7 @@ const allTags = [...new Set(posts.flatMap((post) => post.data.tags))].sort((a, b
     </div>
   </div>
 
-  <button class="back-to-top" type="button" data-back-to-top aria-label="返回顶部">
-    <span aria-hidden="true">↑</span>
-  </button>
-
   <script>
     import '../scripts/archive-filter.ts';
-    import '../scripts/back-to-top.ts';
   </script>
 </BaseLayout>

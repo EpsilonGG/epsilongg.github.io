@@ -1,8 +1,8 @@
 ---
 /**
- * 站点右下角「联系 / RSS」固定按钮坞 + 联系面板。
+ * 页脚右侧「联系 / RSS」小图标 + 联系面板。
  *
- * - 按钮坞常驻视口右下角；鼠标悬停或键盘聚焦时显示「联系」「RSS」文字提示。
+ * - 两个图标落在真正的页脚（版权文字那一行）右侧，尺寸跟随页脚小字，无边框。
  * - 点信封按钮，底部上滑一块约 2/3 视口高的面板：左半是联系方式与个人简介 +
  *   大型 mailto 按钮，右半是问卷式表单（称呼 / 邮箱选填，内容必填）。
  * - 表单提交时按发送当天的本地日期生成匿名称呼；mailto 无法指定发件人，
@@ -15,16 +15,15 @@ const contactEmail = profile.email;
 const directMailto = `mailto:${contactEmail}?subject=${encodeURIComponent(`联系 ${profile.name}`)}`;
 ---
 
-<div class="contact-dock" data-contact-dock>
+<div class="contact-links">
   <button
-    class="contact-dock__btn"
+    class="contact-link"
     type="button"
     data-contact-open
     aria-label="联系"
     aria-expanded="false"
     aria-controls="contact-sheet"
     title="联系"
-    data-tip="联系"
   >
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
       <rect x="2.8" y="5" width="18.4" height="14" rx="2"></rect>
@@ -32,11 +31,10 @@ const directMailto = `mailto:${contactEmail}?subject=${encodeURIComponent(`联�
     </svg>
   </button>
   <a
-    class="contact-dock__btn"
+    class="contact-link"
     href="/rss.xml"
     aria-label="RSS 订阅"
     title="RSS"
-    data-tip="RSS"
   >
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true" focusable="false">
       <circle cx="5.2" cy="18.8" r="1.6" fill="currentColor" stroke="none"></circle>
@@ -203,60 +201,31 @@ const directMailto = `mailto:${contactEmail}?subject=${encodeURIComponent(`联�
 </script>
 
 <style>
-  .contact-dock {
-    position: fixed;
-    right: var(--space-4);
-    bottom: var(--space-4);
-    z-index: 30;
-    display: flex;
-    gap: var(--space-2);
+  .contact-links {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
   }
 
-  .contact-dock__btn {
-    position: relative;
-    width: 2.75rem;
-    height: 2.75rem;
+  .contact-link {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    color: var(--color-text-secondary);
-    background-color: var(--color-bg);
-    border: var(--border-width) solid var(--color-border-strong);
-    border-radius: var(--radius);
+    padding: 0;
+    color: var(--color-text-muted);
+    background: none;
+    border: 0;
     text-decoration: none;
     cursor: pointer;
-    transition: color var(--duration-fast) var(--ease), border-color var(--duration-fast) var(--ease);
+    transition: color var(--duration-fast) var(--ease);
   }
-  .contact-dock__btn:hover,
-  .contact-dock__btn:focus-visible {
+  .contact-link:hover,
+  .contact-link:focus-visible {
     color: var(--color-text);
-    border-color: var(--color-text-secondary);
   }
-  .contact-dock__btn svg {
-    width: 1.25rem;
-    height: 1.25rem;
-  }
-  .contact-dock__btn::after {
-    content: attr(data-tip);
-    position: absolute;
-    right: 0;
-    bottom: calc(100% + 0.5rem);
-    padding: 0.2rem 0.5rem;
-    border-radius: 4px;
-    background: var(--color-text);
-    color: var(--color-bg);
-    font-size: var(--text-xs);
-    line-height: 1.4;
-    white-space: nowrap;
-    opacity: 0;
-    transform: translateY(0.25rem);
-    pointer-events: none;
-    transition: opacity var(--duration-fast) var(--ease), transform var(--duration-fast) var(--ease);
-  }
-  .contact-dock__btn:hover::after,
-  .contact-dock__btn:focus-visible::after {
-    opacity: 1;
-    transform: none;
+  .contact-link svg {
+    width: 0.95rem;
+    height: 0.95rem;
   }
 
   .contact-backdrop {
@@ -457,8 +426,7 @@ const directMailto = `mailto:${contactEmail}?subject=${encodeURIComponent(`联�
     .contact-sheet {
       animation: none;
     }
-    .contact-dock__btn,
-    .contact-dock__btn::after {
+    .contact-link {
       transition: none;
     }
   }

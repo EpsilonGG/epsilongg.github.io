@@ -197,6 +197,7 @@
 .site-footer__links {
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
   gap: var(--space-1) var(--space-4);
 }
 
@@ -2202,13 +2203,13 @@ a.link-row:hover .link-row__label {
 }
 
 /* --------------------------------------------------------------------------
-   返回顶部按钮（仅笔记页）
+   返回顶部按钮（全站，挂在页脚之后；原来只有笔记页有）
    -------------------------------------------------------------------------- */
 
 .back-to-top {
   position: fixed;
-  /* 让位给右下角固定的联系 / RSS 按钮坞（两个 2.75rem 方块 + 间距） */
-  bottom: calc(var(--space-4) + 2.75rem + var(--space-2));
+  /* 联系 / RSS 已经回到页脚，右下角不再需要给按钮坞让位 */
+  bottom: var(--space-4);
   right: var(--space-4);
   z-index: 25;
   display: inline-flex;

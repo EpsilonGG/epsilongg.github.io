@@ -1,5 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import ArticleSidebar from '../../components/ArticleSidebar.astro';
+import ReadingProgress from '../../components/ReadingProgress.astro';
 import {
   getWeeklyReports,
   weeklyPath,
@@ -18,9 +20,8 @@ import '../../styles/weekly.css';
  * 上下期由已发布期号排序派生（`getWeeklyReports` 已按期号倒序），
  * 不读正本里的 `issue.previous`——那个字段只是给外部消费者的提示。
  *
- * 版式与笔记页同构：宽屏（≥1024px）目录进左侧吸顶栏，正文居中；
- * 窄屏整栏塌成单列，目录回到正文上方一条竖排列表（DOM 顺序就是
- * 页头 → 目录 → 亮点 → 正文，塌列后正好是这个顺序）。
+ * 版式与笔记详情页同构：左侧栏复用 ArticleSidebar（截断标题 + 栏目目录 +
+ * 首页 / 置顶 / 较新 / 较旧），正文居中；窄屏整栏塌成单列。
  */
 export function getStaticPaths() {
   const reports = getWeeklyReports();
@@ -44,57 +45,63 @@ const { issue, toc } = report;
 ---
 
 <BaseLayout title={issue.title} description={report.description} ogType="article">
-  <div class="page">
-    <div class="container weekly-layout">
-      <header class="page-header weekly-header">
-        <p class="weekly-header__id">周报 · {issue.window_label}</p>
-        <h1 class="page-title">{issue.id}</h1>
-        <p class="weekly-meta">
-          <span>发布 {formatWeeklyPublished(publishedDate(report))}</span>
-          <a href={weeklyJsonPath(issue.id)}>JSON</a>
-        </p>
-      </header>
+  <ReadingProgress />
 
-      {
-        toc.length > 0 ? (
-          <aside class="weekly-side">
-            <nav class="weekly-toc" aria-label="栏目目录">
-              <ol class="weekly-toc__list">
-                {toc.map((item) => (
-                  <li class="weekly-toc__item">
-                    <a class="weekly-toc__link" href={`#${item.id}`}>
-                      {item.label}
-                    </a>
-                  </li>
-                ))}
-              </ol>
-            </nav>
-          </aside>
-        ) : null
-      }
+  <article class="page article-page">
+    <div class="container article-page__inner">
+      <ArticleSidebar
+        title={issue.title}
+        headings={toc.map((item) => ({ depth: 2, slug: item.id, text: item.label }))}
+        newer={newer ? { href: weeklyPath(newer.issue.id), title: newer.issue.title } : null}
+        older={older ? { href: weeklyPath(older.issue.id), title: older.issue.title } : null}
+      />
 
-      <article class="weekly-main">
+      <div class="article-page__main">
+        <a class="back-link" href="/weekly/">
+          <span aria-hidden="true">←</span> 返回周报
+        </a>
+
+        <header class="article-header">
+          <p class="weekly-header__id">周报 · {issue.window_label}</p>
+          <h1 class="article-title">{issue.id}</h1>
+          <div class="article-meta">
+            <span>
+              发布
+              <time datetime={publishedDate(report).toISOString()}>
+                {formatWeeklyPublished(publishedDate(report))}
+              </time>
+            </span>
+            <span>
+              <a href={weeklyJsonPath(issue.id)}>JSON</a>
+            </span>
+          </div>
+        </header>
+
         <p class="weekly-highlight">{report.highlight}</p>
 
         <div class="weekly-body" set:html={report.content_html} />
 
-        <nav class="weekly-nav" aria-label="周报翻页">
-          {
-            older ? (
-              <a href={weeklyPath(older.issue.id)}>← {older.issue.id}</a>
-            ) : (
-              <span class="weekly-nav__spacer" />
-            )
-          }
-          {
-            newer ? (
-              <a href={weeklyPath(newer.issue.id)}>{newer.issue.id} →</a>
-            ) : (
-              <span class="weekly-nav__spacer" />
-            )
-          }
-        </nav>
-      </article>
+        {
+          newer || older ? (
+            <nav class="article-nav" aria-label="周报导航">
+              {older ? (
+                <a class="article-nav__item" href={weeklyPath(older.issue.id)}>
+                  <span class="article-nav__label">较旧一期</span>
+                  <span class="article-nav__title">{older.issue.title}</span>
+                </a>
+              ) : (
+                <span></span>
+              )}
+              {newer ? (
+                <a class="article-nav__item article-nav__item--next" href={weeklyPath(newer.issue.id)}>
+                  <span class="article-nav__label">较新一期</span>
+                  <span class="article-nav__title">{newer.issue.title}</span>
+                </a>
+              ) : null}
+            </nav>
+          ) : null
+        }
+      </div>
     </div>
-  </div>
+  </article>
 </BaseLayout>

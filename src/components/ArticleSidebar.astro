@@ -1,29 +1,35 @@
 ---
 /**
- * 文章页左侧栏。
+ * 文章页左侧栏，也用在日报 / 周报总览与周报详情页。
  *
- * 放四样东西：截断后的标题、一二级标题组成的目录、首页/置顶/较新/较旧四个按钮。
+ * 放四样东西：截断后的标题、一二级标题（或总览的日期跳转）组成的目录、
+ * 首页/置顶按钮、以及可选的新旧文章按钮。
  * 窄屏（< 1024px）时整栏折成正文上方的一条工具条，按钮变成纯图标，
  * 目录收进「目录」图标里按需展开——移动端标题就在正文正上方，不必重复显示。
  */
-import { postPath, type Post } from '../lib/posts';
-
 interface Heading {
   depth: number;
   slug: string;
   text: string;
 }
 
+/** 链接只关心地址与标题，不绑定 Post / Daily / Weekly 的具体类型。 */
+interface SidebarLink {
+  href: string;
+  title: string;
+}
+
 interface Props {
   title: string;
   headings: Heading[];
-  /** 较新的一篇（发布日期更晚），可为空 */
-  newer?: Post | null;
-  /** 较旧的一篇，可为空 */
-  older?: Post | null;
+  tocLabel?: string;
+  /** 较新的一篇；不传 = 不渲染，传 null = 渲染禁用态（已经是最新） */
+  newer?: SidebarLink | null;
+  /** 较旧的一篇；同上 */
+  older?: SidebarLink | null;
 }
 
-const { title, headings, newer = null, older = null } = Astro.props;
+const { title, headings, tocLabel = '目录', newer, older } = Astro.props;
 
 /** 标题超过这个字数就截断，末尾用省略号收尾 */
 const TITLE_LIMIT = 20;
@@ -57,7 +63,7 @@ const hasToc = tocItems.length > 0;
           <svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true">
             <path d="M6 4h7M6 8h7M6 12h7M3 4h.01M3 8h.01M3 12h.01" />
           </svg>
-          <span class="article-sidebar__label">目录</span>
+          <span class="article-sidebar__label">{tocLabel}</span>
         </button>
       ) : null
     }
@@ -65,7 +71,7 @@ const hasToc = tocItems.length > 0;
 
   {
     hasToc ? (
-      <nav class="article-sidebar__toc" id="article-toc" aria-label="文章目录" data-toc>
+      <nav class="article-sidebar__toc" id="article-toc" aria-label={tocLabel === '目录' ? '文章目录' : tocLabel} data-toc>
         <ol class="article-toc">
           {tocItems.map((item) => (
             <li class={`article-toc__item article-toc__item--d${item.depth}`}>
@@ -95,57 +101,61 @@ const hasToc = tocItems.length > 0;
     </button>
 
     {
-      newer ? (
-        <a
-          class="article-sidebar__btn"
-          href={postPath(newer)}
-          title={`较新一篇：${newer.data.title}`}
-        >
-          <svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M10 3.5 5.5 8 10 12.5" />
-          </svg>
-          <span class="article-sidebar__label">较新</span>
-        </a>
-      ) : (
-        <span
-          class="article-sidebar__btn article-sidebar__btn--disabled"
-          role="link"
-          aria-disabled="true"
-          title="已经是最新一篇"
-        >
-          <svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M10 3.5 5.5 8 10 12.5" />
-          </svg>
-          <span class="article-sidebar__label">较新</span>
-        </span>
-      )
+      newer !== undefined ? (
+        newer ? (
+          <a
+            class="article-sidebar__btn"
+            href={newer.href}
+            title={`较新一篇：${newer.title}`}
+          >
+            <svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M10 3.5 5.5 8 10 12.5" />
+            </svg>
+            <span class="article-sidebar__label">较新</span>
+          </a>
+        ) : (
+          <span
+            class="article-sidebar__btn article-sidebar__btn--disabled"
+            role="link"
+            aria-disabled="true"
+            title="已经是最新一篇"
+          >
+            <svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M10 3.5 5.5 8 10 12.5" />
+            </svg>
+            <span class="article-sidebar__label">较新</span>
+          </span>
+        )
+      ) : null
     }
 
     {
-      older ? (
-        <a
-          class="article-sidebar__btn"
-          href={postPath(older)}
-          title={`较旧一篇：${older.data.title}`}
-        >
-          <svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M6 3.5 10.5 8 6 12.5" />
-          </svg>
-          <span class="article-sidebar__label">较旧</span>
-        </a>
-      ) : (
-        <span
-          class="article-sidebar__btn article-sidebar__btn--disabled"
-          role="link"
-          aria-disabled="true"
-          title="已经是最旧一篇"
-        >
-          <svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M6 3.5 10.5 8 6 12.5" />
-          </svg>
-          <span class="article-sidebar__label">较旧</span>
-        </span>
-      )
+      older !== undefined ? (
+        older ? (
+          <a
+            class="article-sidebar__btn"
+            href={older.href}
+            title={`较旧一篇：${older.title}`}
+          >
+            <svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M6 3.5 10.5 8 6 12.5" />
+            </svg>
+            <span class="article-sidebar__label">较旧</span>
+          </a>
+        ) : (
+          <span
+            class="article-sidebar__btn article-sidebar__btn--disabled"
+            role="link"
+            aria-disabled="true"
+            title="已经是最旧一篇"
+          >
+            <svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M6 3.5 10.5 8 6 12.5" />
+            </svg>
+            <span class="article-sidebar__label">较旧</span>
+          </span>
+        )
+      ) : null
     }
   </div>
 </aside>

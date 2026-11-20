@@ -129,6 +129,10 @@ function initArchiveFilter(): void {
   const pageInfoEl = root.querySelector<HTMLElement>('[data-page-info]');
 
   const emptyDefault = emptyEl?.textContent ?? '';
+  /** 日报 / 周报用「期」，笔记用「篇」。 */
+  const countUnit = countEl?.dataset.countUnit ?? '篇';
+  /** 日报 / 周报不在 Pagefind 索引里（索引只收笔记正文），只做本地子串匹配。 */
+  const localOnly = root.hasAttribute('data-local-search');
 
   const items: ArchiveItem[] = Array.from(
     document.querySelectorAll<HTMLElement>('[data-search-item]'),
@@ -265,7 +269,7 @@ function initArchiveFilter(): void {
     }
 
     // 6. 计数显示筛选结果总数（而非当前页数量）
-    if (countEl) countEl.textContent = `共 ${matched.length} 篇`;
+    if (countEl) countEl.textContent = `共 ${matched.length} ${countUnit}`;
     if (emptyEl) {
       emptyEl.hidden = matched.length !== 0;
       emptyEl.textContent =
@@ -291,7 +295,7 @@ function initArchiveFilter(): void {
     const rawTerm = (input?.value ?? '').trim();
     const seq = ++searchSeq;
 
-    if (rawTerm === '') {
+    if (rawTerm === '' || localOnly) {
       matchSet = null;
       matchTerm = '';
       excerpts = new Map();

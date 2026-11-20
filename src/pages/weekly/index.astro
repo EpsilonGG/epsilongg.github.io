@@ -1,11 +1,13 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import ArticleSidebar from '../../components/ArticleSidebar.astro';
 import { site } from '../../config/site';
 import { getWeeklyReports, weeklyPath } from '../../lib/weekly';
 import '../../styles/weekly.css';
 
 /**
- * 周报归档页。与 `/daily/` 平行的一级栏目。
+ * 周报归档页。与 `/daily/` 平行的一级栏目，与笔记总览同构：
+ * 左侧栏放标题与期号跳转，正文区放搜索框和列表。
  *
  * 一行三期信息：期号 / 窗口短标签 / 本期亮点。发布日期与条数不再上列表——
  * 期号说明「第几期」，短标签说明「覆盖哪七天」，亮点说明「这期讲了什么」，
@@ -19,38 +21,112 @@ const reports = getWeeklyReports();
   description="Galgame 周报存档：把每天的 Galgame 日报汇总成一期，按新作与作品情报整理"
   feeds={[{ title: `${site.name} · 周报`, href: '/weekly/rss.xml' }]}
 >
-  <div class="page">
-    <div class="container">
-      <header class="page-header">
-        <h1 class="page-title">周报</h1>
-        <p class="page-intro">
-          把每天的 Galgame 日报汇总成一期：新作与作品情报两栏，按品牌、游戏归拢。
-          每周六更新，期号是 <code>vol_XXX</code>。
-        </p>
-      </header>
+  <article class="page article-page">
+    <div class="container article-page__inner">
+      <ArticleSidebar
+        title="周报"
+        tocLabel="期号跳转"
+        headings={reports.map((report) => ({
+          depth: 2,
+          slug: report.issue.id,
+          text: `${report.issue.id} · ${report.issue.window_label}`,
+        }))}
+      />
 
-      {
-        reports.length > 0 ? (
-          <div class="weekly-archive">
-            <ul class="weekly-archive__list">
-              {reports.map((report) => (
-                <li class="weekly-archive__item">
-                  <a class="weekly-archive__link" href={weeklyPath(report.issue.id)}>
-                    <span class="weekly-archive__id">{report.issue.id}</span>
-                    <span class="weekly-archive__title">{report.issue.window_label}</span>
-                    <span class="weekly-archive__desc">{report.highlight}</span>
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-        ) : (
-          <p class="empty-state">
-            还没有周报。每周六由 <code>python -m weekly publish</code> 出一期，正本落在{' '}
-            <code>data/weekly/&lt;期号&gt;/report.json</code>。
+      <div class="article-page__main">
+        <header class="page-header">
+          <h1 class="page-title">周报</h1>
+          <p class="page-intro">
+            把每天的 Galgame 日报汇总成一期：新作与作品情报两栏，按品牌、游戏归拢。
+            每周六更新，期号是 <code>vol_XXX</code>。
           </p>
-        )
-      }
+        </header>
+
+        {
+          reports.length > 0 ? (
+            <>
+              <div class="archive-filter" data-archive-filter data-local-search>
+                <form class="archive-search" role="search" data-search-form>
+                  <label class="visually-hidden" for="weekly-search-input">搜索周报</label>
+                  <input
+                    class="archive-search__input"
+                    id="weekly-search-input"
+                    data-search-input
+                    type="search"
+                    name="q"
+                    autocomplete="off"
+                    placeholder="搜索期号、覆盖区间、亮点"
+                    aria-describedby="weekly-result-count"
+                  />
+                  <button class="archive-search__button" type="submit">搜索</button>
+                  <button
+                    class="archive-search__button archive-search__button--ghost"
+                    type="button"
+                    data-search-clear
+                  >
+                    清空
+                  </button>
+                </form>
+
+                <div class="archive-filter__status">
+                  <p
+                    class="archive-filter__count"
+                    id="weekly-result-count"
+                    data-result-count
+                    data-count-unit="期"
+                    aria-live="polite"
+                  >
+                    共 {reports.length} 期
+                  </p>
+                  <button class="archive-filter__clear" type="button" data-clear-all hidden>
+                    清除全部筛选
+                  </button>
+                </div>
+
+                <p class="empty-state archive-filter__empty" data-search-empty hidden>
+                  没有匹配的周报。试试更换关键词或清除筛选条件。
+                </p>
+
+                <nav class="archive-pagination" data-archive-pagination hidden aria-label="分页导航">
+                  <button class="archive-pagination__btn" type="button" data-page-prev aria-label="上一页">上一页</button>
+                  <div class="archive-pagination__numbers" data-page-numbers aria-label="页码"></div>
+                  <span class="archive-pagination__info" data-page-info aria-live="polite"></span>
+                  <button class="archive-pagination__btn" type="button" data-page-next aria-label="下一页">下一页</button>
+                </nav>
+              </div>
+
+              <div class="weekly-archive">
+                <ul class="weekly-archive__list">
+                  {reports.map((report) => (
+                    <li
+                      class="weekly-archive__item archive-group"
+                      id={report.issue.id}
+                      data-search-item
+                      data-title={`${report.issue.id} ${report.issue.window_label}`}
+                      data-description={report.highlight}
+                    >
+                      <a class="weekly-archive__link" href={weeklyPath(report.issue.id)}>
+                        <span class="weekly-archive__id">{report.issue.id}</span>
+                        <span class="weekly-archive__title">{report.issue.window_label}</span>
+                        <span class="weekly-archive__desc">{report.highlight}</span>
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </>
+          ) : (
+            <p class="empty-state">
+              还没有周报。每周六由 <code>python -m weekly publish</code> 出一期，正本落在{' '}
+              <code>data/weekly/&lt;期号&gt;/report.json</code>。
+            </p>
+          )
+        }
+      </div>
     </div>
-  </div>
+  </article>
+
+  <script>
+    import '../../scripts/archive-filter.ts';
+  </script>
 </BaseLayout>

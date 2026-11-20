@@ -43,7 +43,12 @@ const ogImage = (ogManifest as Record<string, string>)[post.id];
 
   <article class="page article-page">
     <div class="container article-page__inner">
-      <ArticleSidebar title={title} headings={headings} newer={newer} older={older} />
+      <ArticleSidebar
+        title={title}
+        headings={headings}
+        newer={newer ? { href: postPath(newer), title: newer.data.title } : null}
+        older={older ? { href: postPath(older), title: older.data.title } : null}
+      />
 
       <div class="article-page__main">
         <a class="back-link" href="/blog/">
