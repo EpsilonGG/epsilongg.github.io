@@ -1,6 +1,6 @@
 {
   "schema_version": 5,
-  "note": "Galgame 版日报的 **X 名单**（`daily build --kind galgame`，期号 `YYMMDD-g`）。厂商一个 handle 一条，同社多品牌写进 note；黑系（エロス系作品BLACK賞）这批没有建。信息号（category=info）2026-10-29 先启用五个：seiya_saiga / youtan0309 / aikouka23 三个个人向，加 getchucom（发售日历）与 bugbug_info（新作介绍）两个媒体号——媒体号走 `keep_if` 白名单，只收指定内容。2026-11-01 再补两个：hiro_in（ErogameScape 管理人）与 AKOUtw（アミューズクラフト 导演个人号）。Moepedia 是作品情报站，仍挂在 manufacturer 下（tags: 资料站 / 作品情报）。akaeroCore 的四个语言号 2026-11-01 起并入 manufacturer，按 name 合并成一行（主号 akaerocore，其余进 via）。 2026-11-10 补 stealcatAC（スティールキャット，アミューズクラフト系列新品牌，brand=AMUSE CRAFT）。 2026-11-11 用户裁决：B 站监控号与 X 名单**彻底分家**——B 站名单只在 src/config/daily-bilibili-galgame.json，抓取只在 scripts/bilibili_daily.py；本文件只放 X 账号，不出现 `bili_*` / `bili_gal` / `source=bilibili`。站点查询层（src/lib/roster.ts）与日报名单层（scripts/daily/roster.py）各自单独并入 B 站名单文件。 2026-11-19 晚：按用户要求把名单 1-1「其他 · 信息号・泛游戏媒体」表整表同步进本名单，新增 16 个账号（6 信息号／5 泛游戏媒体／4 游戏媒体／1 翻译者），其中 famitsu 按 1-1 原注「不建议」登记为 active=false；原表已有的 8 个账号未改动；翻译者 flankoi 已于同日移到 1-1 第一表，不进日报名单。",
+  "note": "Galgame 版日报的 **X 名单**（`daily build --kind galgame`，期号 `YYMMDD-g`）。2026-11-20 补 jita_gf（ギャルズフィクション@ギャルフィク，自宅すたじお 的 FD 官网号，登记在 jitaku_st 之后，role=sub · brand=自宅すたじお）。厂商一个 handle 一条，同社多品牌写进 note；黑系（エロス系作品BLACK賞）这批没有建。信息号（category=info）2026-10-29 先启用五个：seiya_saiga / youtan0309 / aikouka23 三个个人向，加 getchucom（发售日历）与 bugbug_info（新作介绍）两个媒体号——媒体号走 `keep_if` 白名单，只收指定内容。2026-11-01 再补两个：hiro_in（ErogameScape 管理人）与 AKOUtw（アミューズクラフト 导演个人号）。Moepedia 是作品情报站，仍挂在 manufacturer 下（tags: 资料站 / 作品情报）。akaeroCore 的四个语言号 2026-11-01 起并入 manufacturer，按 name 合并成一行（主号 akaerocore，其余进 via）。 2026-11-10 补 stealcatAC（スティールキャット，アミューズクラフト系列新品牌，brand=AMUSE CRAFT）。 2026-11-11 用户裁决：B 站监控号与 X 名单**彻底分家**——B 站名单只在 src/config/daily-bilibili-galgame.json，抓取只在 scripts/bilibili_daily.py；本文件只放 X 账号，不出现 `bili_*` / `bili_gal` / `source=bilibili`。站点查询层（src/lib/roster.ts）与日报名单层（scripts/daily/roster.py）各自单独并入 B 站名单文件。 2026-11-19 晚：按用户要求把名单 1-1「其他 · 信息号・泛游戏媒体」表整表同步进本名单，新增 16 个账号（6 信息号／5 泛游戏媒体／4 游戏媒体／1 翻译者），其中 famitsu 按 1-1 原注「不建议」登记为 active=false；原表已有的 8 个账号未改动；翻译者 flankoi 已于同日移到 1-1 第一表，不进日报名单。",
   "categories": [
     {
       "id": "manufacturer",
@@ -1354,6 +1354,19 @@
         "Moe Award"
       ],
       "note": "五年 3 部 · 受賞：2025 エロス系作品PINK賞 / 2023 エロス系作品PINK賞 / 2018 金賞・エロス系作品賞PINK"
+    },
+    {
+      "handle": "jita_gf",
+      "name": "ギャルズフィクション@ギャルフィク",
+      "brand": "自宅すたじお",
+      "category": "manufacturer",
+      "role": "sub",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏"
+      ],
+      "note": "2026-11-20 用户要求补入抓取名单：ギャルズフィクション官方号，主发本作／FD「ギャルフェス」信息与宣传。`brand` 只供周报归栏，日报分组仍按 name；与主号 jitaku_st 分开一行。"
     },
     {
       "handle": "AQUAPLUS_JP",
