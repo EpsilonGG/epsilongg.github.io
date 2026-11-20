@@ -70,6 +70,21 @@ function shortDay(report: Daily): string {
                   </button>
                 </form>
 
+                <div class="archive-tags" role="group" aria-label="按版本筛选">
+                  <span class="archive-tags__label">版本</span>
+                  {['声优', 'Galgame'].map((label) => (
+                    <button
+                      class="archive-tag"
+                      type="button"
+                      data-tag-filter
+                      data-tag={label}
+                      aria-pressed="false"
+                    >
+                      {label}
+                    </button>
+                  ))}
+                </div>
+
                 <div class="archive-filter__status">
                   <p
                     class="archive-filter__count"
@@ -111,6 +126,7 @@ function shortDay(report: Daily): string {
                           data-search-item
                           data-title={`${formatIssueDay(report.data.covered)} ${KIND_LABEL[report.data.kind]}`}
                           data-description={report.data.description ?? ''}
+                          data-tags={JSON.stringify([KIND_LABEL[report.data.kind]])}
                         >
                           <a class="daily-archive__link" href={dailyPath(report)}>
                             <time

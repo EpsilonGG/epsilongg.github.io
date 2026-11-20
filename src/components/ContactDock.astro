@@ -5,8 +5,8 @@
  * - 两个图标落在真正的页脚（版权文字那一行）右侧，尺寸跟随页脚小字，无边框。
  * - 点信封按钮，底部上滑一块约 2/3 视口高的面板：左半是联系方式与个人简介 +
  *   大型 mailto 按钮，右半是问卷式表单（称呼 / 邮箱选填，内容必填）。
- * - 表单提交时按发送当天的本地日期生成匿名称呼；mailto 无法指定发件人，
- *   留空邮箱时邮件只发往本站邮箱（自己测试即「自己发给自己」），见面板内说明。
+ * - 表单提交时按发送当天的本地日期生成匿名称呼，拼 mailto；按钮显示 5 秒
+ *   「收到👌」后复原，期间屏蔽重复点击（面板内不再放 mailto 限制说明）。
  * - 面板遵循 note-popover 的交互：Esc 关闭、点遮罩关闭、关闭后焦点回到触发按钮。
  */
 import { profile } from '../config/profile';
@@ -77,29 +77,30 @@ const directMailto = `mailto:${contactEmail}?subject=${encodeURIComponent(`联�
         </svg>
         <span>直接写邮件<small>{contactEmail}</small></span>
       </a>
-      <p class="contact-sheet__hint">也可以直接点上面的邮箱地址，用你自己的邮件客户端发送。</p>
     </section>
 
     <section class="contact-sheet__form-wrap">
       <form data-contact-form data-contact-email={contactEmail}>
         <label>
-          称呼 <small>选填</small>
-          <input type="text" name="visitor" autocomplete="name" placeholder={`留空则为【当天日期_匿名】`} />
+          称呼
+          <input type="text" name="visitor" autocomplete="name" placeholder="选填" />
         </label>
         <label>
-          邮箱 <small>选填</small>
-          <input type="email" name="replyto" autocomplete="email" placeholder="方便回信时填写" />
+          邮箱
+          <input type="email" name="replyto" autocomplete="email" placeholder="选填" />
         </label>
         <label>
           留言内容 <small>必填</small>
           <textarea name="message" required rows="6" placeholder="想说的话写在这里"></textarea>
         </label>
-        <button class="contact-sheet__submit" type="submit">点击联系</button>
+        <button class="contact-sheet__submit" type="submit">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+            <rect x="2.8" y="5" width="18.4" height="14" rx="2"></rect>
+            <path d="M3.2 6.2 12 13l8.8-6.8"></path>
+          </svg>
+          <span data-submit-label>发送</span>
+        </button>
       </form>
-      <p class="contact-sheet__note">
-        提交后会打开你的邮件客户端，收件人固定为本站邮箱。邮箱留空时不会写入回信地址；
-        受 <code>mailto</code> 限制无法指定发件人，自己测试时即「自己发给自己」。
-      </p>
     </section>
   </div>
 </div>
@@ -110,6 +111,10 @@ const directMailto = `mailto:${contactEmail}?subject=${encodeURIComponent(`联�
   const backdrop = document.querySelector<HTMLElement>('[data-contact-backdrop]');
   const sheet = document.querySelector<HTMLElement>('[data-contact-sheet]');
   const form = document.querySelector<HTMLFormElement>('[data-contact-form]');
+  const submitLabel = form?.querySelector<HTMLElement>('[data-submit-label]');
+  /** 发送后 5 秒内的二次点击不再重复拉起邮件客户端。 */
+  let justSent = false;
+  let feedbackTimer = 0;
 
   if (openButton && closeButton && backdrop && sheet && form) {
     let previousOverflow = '';
@@ -172,12 +177,21 @@ const directMailto = `mailto:${contactEmail}?subject=${encodeURIComponent(`联�
 
     form.addEventListener('submit', (event) => {
       event.preventDefault();
+      if (justSent) return;
       const data = new FormData(form);
       const message = String(data.get('message') ?? '').trim();
       if (!message) {
         form.querySelector<HTMLTextAreaElement>('textarea[name="message"]')?.focus();
         return;
       }
+
+      justSent = true;
+      if (submitLabel) submitLabel.textContent = '收到👌';
+      window.clearTimeout(feedbackTimer);
+      feedbackTimer = window.setTimeout(() => {
+        if (submitLabel) submitLabel.textContent = '发送';
+        justSent = false;
+      }, 5000);
 
       const now = new Date();
       const pad = (value: number) => String(value).padStart(2, '0');
@@ -353,17 +367,6 @@ const directMailto = `mailto:${contactEmail}?subject=${encodeURIComponent(`联�
     font-weight: 400;
     color: var(--color-text-muted);
   }
-  .contact-sheet__hint,
-  .contact-sheet__note {
-    margin-top: var(--space-3);
-    font-size: var(--text-xs);
-    line-height: var(--leading-normal);
-    color: var(--color-text-muted);
-  }
-  .contact-sheet__note code {
-    font-family: var(--font-mono);
-  }
-
   .contact-sheet__form-wrap label {
     display: block;
     margin: 0 0 var(--space-3);
@@ -396,21 +399,30 @@ const directMailto = `mailto:${contactEmail}?subject=${encodeURIComponent(`联�
     outline: 2px solid var(--color-text-secondary);
     outline-offset: 1px;
   }
+  /* 与「直接写邮件」同款：描边、var(--radius) 圆角、小信封图标；
+     padding 沿用原来的 .7rem 1.6rem，占位不变（文字短了，补上图标）。 */
   .contact-sheet__submit {
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    gap: 0.5rem;
     padding: 0.7rem 1.6rem;
     border: var(--border-width) solid var(--color-text);
-    border-radius: var(--radius-round);
-    background: var(--color-tile-bg);
-    color: var(--color-tile-text);
+    border-radius: var(--radius);
+    background: transparent;
+    color: var(--color-text);
     font: inherit;
     font-weight: 600;
     cursor: pointer;
   }
+  .contact-sheet__submit svg {
+    width: 1.1rem;
+    height: 1.1rem;
+    flex: none;
+  }
   .contact-sheet__submit:hover {
-    opacity: 0.88;
+    background: var(--color-tile-bg);
+    color: var(--color-tile-text);
   }
 
   @media (max-width: 760px) {
