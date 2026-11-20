@@ -1192,13 +1192,21 @@ a.link-row:hover .link-row__label {
   }
 
   /*
-    纸面（--paper-w）居中，正文列只有 --measure 宽；侧栏原本右缘刚好贴着纸面，
-    ::before 玻璃衬底还会外扩 --space-3，于是有一段陷进纯色纸面。
-    向左挪开「玻璃外扩 + 0.5rem 呼吸」，整栏连衬底都在照片侧。
+    纸面（--paper-w）居中，文章网格总宽比纸面宽；侧栏右缘原本在纸面内侧
+    约 32px，::before 玻璃又外扩 --space-3，所以整块玻璃压进纸面约 44px。
+    位移按布局 token 精确算回来，再多让 --space-2，玻璃与纸面之间留一小缝。
+    margin-right 在 over-constrained 的网格列里会被浏览器忽略，改用位移。
   */
   :root[data-bg="on"] .article-sidebar {
-    /* margin-right 在 over-constrained 的网格列里会被浏览器忽略，改用位移 */
-    transform: translateX(calc(-1 * (var(--space-3) + 0.5rem)));
+    transform: translateX(
+      calc(
+        -1 *
+          (
+            (var(--paper-w) - var(--sidebar-w) - var(--sidebar-gap) - var(--measure) - var(--rail-gutter) - var(--rail-w) - var(--sidebar-gap)) / 2 +
+              var(--sidebar-w) + var(--space-3) + var(--space-2)
+          )
+      )
+    );
   }
 
   :root[data-bg="on"] .article-sidebar::before,
