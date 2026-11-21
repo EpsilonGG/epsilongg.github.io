@@ -39,7 +39,7 @@ from collections import OrderedDict
 from datetime import date
 from pathlib import Path
 
-from . import brackets
+from . import brackets, expiry
 from .config import BILIBILI, BILI_VIEW, NEW, WORK
 from .corpus import day_of, norm_title
 from .game_routing import NO_GAME
@@ -135,34 +135,28 @@ def new_section_hits(markdown: str, rules: dict) -> list[str]:
     return sorted(set(hits))
 
 
-def _expired_sale(content: str, today: date) -> bool:
-    """一条 B 站正文是否是「写明结束日、且今天已过结束日」的贩卖信息。
+def _anchor_day(day: str, published_at: str) -> date:
+    """锚日＝这条动态自己的发布日（`到 25 日` 靠它才知道是哪个月）。"""
+    for raw in (published_at, day):
+        m = re.match(r"(\d{4})-(\d{2})-(\d{2})", str(raw or ""))
+        if not m:
+            continue
+        try:
+            return date(int(m.group(1)), int(m.group(2)), int(m.group(3)))
+        except ValueError:
+            continue
+    return date.today()
 
-    只认显式日期的贩卖词：没有期限的常驻通贩 / 促销不猜；到期当天仍算有效。
+
+def _expired_sale(content: str, today: date, cfg: dict | None = None,
+                  anchor: date | None = None) -> dict | None:
+    """一条 B 站正文是否写了「已过期的贩售」——判据在 `weekly/expiry.py`。
+
     2026-11-21 用户裁决：周报开始成形时已过期的贩卖消息直接删掉，不进报。
+    2026-11-22 把判据提到周报级后，X 侧与 B 站共用同一份 `expiry.find_expired()`，
+    这里只做转发；`today` 仍由本模块的 `date` 取（测试会替换它）。
     """
-    text = str(content or "")
-    if not re.search(r"セール|SALE|sale|促销|特卖|打折|折扣|优惠|受注|通販|通贩|贩卖|販売|售卖|限时|闪购", text, re.I):
-        return False
-    ends: list[date] = []
-    for m in re.finditer(r"(?<!\d)(\d{1,2})\s*月\s*(\d{1,2})\s*日[^。]{0,16}?(?:まで|截止|结束|止)", text):
-        ends.append(_sale_date(m.group(1), m.group(2), today))
-    for m in re.finditer(r"(?:至|截止|到|截至)\s*(\d{1,2})\s*月\s*(\d{1,2})\s*日", text):
-        ends.append(_sale_date(m.group(1), m.group(2), today))
-    for m in re.finditer(r"(?<!\d)(\d{1,2})/(\d{1,2})[^。]{0,16}?(?:まで|截止|结束|止)", text):
-        ends.append(_sale_date(m.group(1), m.group(2), today))
-    return bool(ends) and min(ends) < today
-
-
-def _sale_date(month: str, day: str, today: date) -> date:
-    """日文/中文公告里的月日补全年份：跨年边界按最近的一年算。"""
-    m, d = int(month), int(day)
-    year = today.year
-    if m < today.month - 6:
-        year += 1
-    elif m > today.month + 6:
-        year -= 1
-    return date(year, m, d)
+    return expiry.find_expired(content, today, anchor or today, cfg or {})
 
 
 def _route_map(data: dict | None) -> tuple[dict, dict]:
@@ -421,7 +415,10 @@ def attach(corpus: dict, rules: dict) -> dict:
                 content = str(rec.get("content") or "").strip()
                 if not key.startswith("bilibili:") or not url or not content or key in seen:
                     continue
-                if _expired_sale(content, today):
+                # 锚日取这条动态自己的发布日：`到 25 日` 才知道是哪个月。
+                anchor = _anchor_day(day, str(rec.get("published_at") or ""))
+                stale = _expired_sale(content, today, rules.get("expiry"), anchor)
+                if stale and stale.get("drop"):
                     expired += 1
                     continue
                 seen.add(key)

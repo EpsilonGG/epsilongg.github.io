@@ -17,6 +17,7 @@ import re
 import shutil
 import subprocess
 import sys
+from datetime import date, timedelta
 from pathlib import Path
 
 from .config import (BILI_VIEW, COLUMNS, DISPLAY_COLUMNS, EVIDENCE, MOVEMENT,
@@ -24,7 +25,7 @@ from .config import (BILI_VIEW, COLUMNS, DISPLAY_COLUMNS, EVIDENCE, MOVEMENT,
                      load_rules)
 from . import (corpus, pipeline, render, editor, image_preview,
                media_backfill, taxonomy_preview, game_routing, draft_export,
-               brackets, bilibili, publish as weekly_publish)
+               brackets, bilibili, expiry, publish as weekly_publish)
 
 
 def cmd_build(args) -> int:
@@ -53,6 +54,8 @@ def cmd_build(args) -> int:
           f"（让位 {s.get('forced_yielded', 0)} 条）；"
           f"生日词 {s['birthday_records']} 条 → 隐藏 {s.get('birthday_hidden', 0)} / "
           f"豁免 {s.get('birthday_exempt', 0)}；无主体观后感 {s.get('no_subject_records', 0)} 条")
+    print(f"  过期贩售 {s.get('expired_sales', 0)} 条删除"
+          f"（另有 {s.get('expired_sales_kept', 0)} 条因另一句有未来发售保留）")
     print(f"  内容组 {s['content_groups']}（重复 {s['duplicate_groups']}）；"
           f"转发提升 {s['promoted_records']} 条")
     bl = data.get("bilibili_lines") or []
@@ -437,6 +440,27 @@ def cmd_check(_args) -> int:
         if row.get("birthday_exempt") and not row.get("substantive"):
             problems.append(f"{row['rid']} 生日豁免缺少实质内容依据")
             break
+    # 过期贩售（2026-11-22 提到周报级）：成稿任何一行都不许再有「已结束的贩售」。
+    # 直接扫成稿而不是只看 records：B 站行与 X 侧行走的是两套入口，只有正文能兜全。
+    # 只写「到 15 日」这种没写月份的期限，月份要靠锚日补；成稿里没有条目日期，
+    # 所以按「成形日往回一周」逐日当锚试一遍——窗口内出现过的月份解释都算得上。
+    expiry_cfg = rules_snapshot.get("expiry") or {}
+    if expiry_cfg.get("enabled", True):
+        formed = date.today()
+        anchors = [formed - timedelta(days=i) for i in range(8)]
+        for line in draft.splitlines():
+            if not line.startswith("- "):
+                continue
+            body = re.sub(r"(?:\s+\[原文(?:\d+)?\]\([^)]+\))+$", "", line[2:])
+            hit = None
+            for anchor in anchors:
+                hit = expiry.find_expired(body, formed, anchor, expiry_cfg)
+                if hit and hit.get("drop"):
+                    break
+                hit = None
+            if hit:
+                problems.append(f"初稿仍留有过期贩售：{hit['raw']}｜{body[:40]}")
+                break
     # 无主体观后感一旦命中，在生效栏目里必须默认勾删（留在筛选页可恢复）。
     ns_items = {i["key"] for s in data["sections"] for i in s["items"]
                 if i.get("no_subject")
@@ -805,7 +829,7 @@ def cmd_check(_args) -> int:
           "账号标签大小写与链接一致、"
           "书名号归一、~ 拆对、@handle 兜底、weekly.md = draft.md、weekly.html 首图与栏目顺序")
     print("  事实：源索引全留且最新、归栏正交、强制词（含让位）、生日词与豁免、"
-          "未标注作品默认排除、无主体观后感、转推挂原推链接、裸题名需发售信号")
+          "未标注作品默认排除、无主体观后感、无过期贩售、转推挂原推链接、裸题名需发售信号")
     print("  分流：新作 ⊂ 作品情报、跨栏重复 0、未标注不当新作、空游戏组、切栏决策为空")
     print(f"  {manifest['stats']['sections']} 品牌中标题 / {manifest['stats']['game_groups']} 游戏小标题 / "
           f"{manifest['stats']['items']} 小条目 / {len(corpus_data['issues'])} 期 / "
@@ -853,6 +877,7 @@ def cmd_publish(args) -> int:
                                 for c in r["columns"]))
     print(f"  策略 新作标签={r['policy']['new_work_label_source']} · "
           f"人工确认={r['policy']['decisions_human_confirmed']} · "
+          f"过期贩售删 {r['policy'].get('expired_sales_dropped', 0)} 条 · "
           f"未上线栏目={'、'.join(r['policy']['disabled_display_columns']) or '无'}")
     return 0
 

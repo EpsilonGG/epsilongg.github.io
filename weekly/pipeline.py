@@ -13,10 +13,10 @@ import hashlib
 import html
 import re
 from collections import Counter, defaultdict
-from datetime import datetime
+from datetime import date, datetime
 
 from .config import COLUMNS, INDUSTRY, MOVEMENT, NEW, WORK
-from . import brackets
+from . import brackets, expiry
 from .corpus import TITLE_RE, norm_title
 from .identity import Identity
 from .source_grounding import source_facts
@@ -169,12 +169,15 @@ def dedupe_records(records: list[dict], refs: dict, key_to_gid: dict) -> tuple[l
     return alive, evidence
 
 
-def annotate(records: list[dict], rules: dict) -> list[dict]:
-    """④ 在筛除池之前标注「栏目强制词」与「生日词」——两者优先于筛除池。
+def annotate(records: list[dict], rules: dict, today: date | None = None) -> list[dict]:
+    """④ 在筛除池之前标注「栏目强制词」「生日词」与「过期贩售」。
 
     * 栏目强制词决定归栏，且保证该条不被 drop_if 里的「通販 / 特典 / 抽選」误杀；
     * 生日词只决定「默认不进初稿」：记录仍为 admit（留在筛选页），
       由 decisions.deleted_* 默认勾掉，点「恢复」即可入稿。
+    * 过期贩售（2026-11-21 裁决，2026-11-22 提到周报级）：写明结束日、且成形
+      时已经结束的贩售消息，整条 drop。只在 B 站行上做过是不够的——X 侧同样
+      有「后日通贩 11/16 截止」这种已经失效的消息。
     """
     forced = [{"column": str(e.get("column") or ""),
                "patterns": [re.compile(p) for p in (e.get("patterns") or [])]}
@@ -186,9 +189,13 @@ def annotate(records: list[dict], rules: dict) -> list[dict]:
     no_subject = [re.compile(p) for p in
                   ((rules.get("no_subject") or {}).get("patterns") or [])]
     birthday_exempt = bool((rules.get("birthday") or {}).get("exempt_if_substantive"))
+    expiry_cfg = rules.get("expiry") or {}
+    formed_on = today or date.today()
     evidence = []
     for rec in records:
         text = _evidence_text(rec)
+        anchor = _anchor(rec, formed_on)
+        rec["expiry"] = expiry.find_expired(text, formed_on, anchor, expiry_cfg)
         hit_forced = ""
         for entry in forced:
             if any(p.search(text) for p in entry["patterns"]):
@@ -203,12 +210,22 @@ def annotate(records: list[dict], rules: dict) -> list[dict]:
         # 无主体观后感：命中空话词且没有实质内容（栏目在 classify 之后才定）。
         rec["no_subject"] = (any(p.search(text) for p in no_subject)
                              and not rec["substantive"])
-        if hit_forced or rec["birthday"]:
+        if hit_forced or rec["birthday"] or rec["expiry"]:
             evidence.append({"rid": rec["rid"], "forced_column": hit_forced,
                              "birthday": rec["birthday"],
                              "birthday_exempt": rec["birthday_exempt"],
-                             "no_subject": rec["no_subject"], "text": text[:160]})
+                             "no_subject": rec["no_subject"],
+                             "expiry": rec["expiry"], "text": text[:160]})
     return evidence
+
+
+def _anchor(rec: dict, fallback: date) -> date:
+    """这条消息自己发生的那天：补年月用（`到 25 日` 才知道是哪个月）。"""
+    raw = str(rec.get("day") or "")
+    try:
+        return date.fromisoformat(raw[:10])
+    except ValueError:
+        return fallback
 
 
 def prefilter(records: list[dict], identity: Identity, rules: dict) -> list[dict]:
@@ -224,7 +241,10 @@ def prefilter(records: list[dict], identity: Identity, rules: dict) -> list[dict
         text = _evidence_text(rec)
         # 生日词只有在「没有实质内容」时才压掉这条；庆生＋发售的按正常条目走。
         birthday_only = bool(rec["birthday"] and not rec.get("birthday_exempt"))
-        if rec["forced_column"]:
+        stale = rec.get("expiry") or {}
+        if stale.get("drop"):
+            verdict, reason = "drop", "过期贩售：" + str(stale.get("why") or "")
+        elif rec["forced_column"]:
             verdict, reason = ("admit",
                                f"栏目强制词 → {rec['forced_column']}：优先于筛除池"
                                + ("；生日词默认不入初稿" if birthday_only else ""))
@@ -250,7 +270,8 @@ def prefilter(records: list[dict], identity: Identity, rules: dict) -> list[dict
                          "promoted": info["promoted"], "verdict": verdict,
                          "reason": reason, "sources": rec["sources"],
                          "forced_column": rec["forced_column"],
-                         "birthday": rec["birthday"]})
+                         "birthday": rec["birthday"],
+                         "expiry": rec.get("expiry")})
     return evidence
 
 
@@ -830,6 +851,12 @@ def run(corpus: dict, rules: dict) -> dict:
             "dedupe": dedupe_evidence,
             "prefilter": filter_evidence,
             "annotation": annotation,
+            "expiry": [{"rid": r["rid"], "end": r["expiry"].get("end"),
+                        "raw": r["expiry"].get("raw"),
+                        "drop": bool(r["expiry"].get("drop")),
+                        "why": r["expiry"].get("why"),
+                        "text": str(r.get("text") or r.get("sentence") or "")[:160]}
+                       for r in deduped if r.get("expiry")],
             "title_groups": normalizer.evidence(),
             "content_groups_duplicated": [g for g in groups if g["duplicate"]],
             "classification": [
@@ -875,6 +902,11 @@ def run(corpus: dict, rules: dict) -> dict:
                                           if r.get("work_basis") == "source+verbatim"),
             "source_title_conflicts": sum(1 for r in deduped if r.get("source_conflict")),
             "birthday_records": sum(1 for r in deduped if r["birthday"]),
+            "expired_sales": sum(1 for r in deduped
+                                 if (r.get("expiry") or {}).get("drop")),
+            "expired_sales_kept": sum(1 for r in deduped
+                                      if r.get("expiry")
+                                      and not r["expiry"].get("drop")),
             "birthday_hidden": sum(1 for r in deduped
                                    if r["birthday"] and not r.get("birthday_exempt")),
             "birthday_exempt": sum(1 for r in deduped if r.get("birthday_exempt")),

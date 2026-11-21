@@ -147,6 +147,7 @@ def build_report(rules: dict, manifest: dict, corpus: dict, decisions: dict,
         description = description[:70]
 
     routing = rules.get("game_routing") or {}
+    expiry_cfg = rules.get("expiry") or {}
     policy = {
         "new_work_label_source": str(routing.get("label_source") or "auto"),
         "new_work_signal_groups": sorted((routing.get("signals") or {}).keys()),
@@ -156,6 +157,10 @@ def build_report(rules: dict, manifest: dict, corpus: dict, decisions: dict,
         "decisions_human_confirmed": int(
             (decisions.get("policy") or {}).get("human_confirmed") or 0),
         "disabled_display_columns": disabled,
+        # 过期贩售（2026-11-22 提到周报级）：删了几条、按什么基准判的，都写进正本。
+        "expired_sales_dropped": int(
+            (manifest.get("stats") or {}).get("expired_sales") or 0),
+        "expiry_basis": str(expiry_cfg.get("basis") or ""),
     }
 
     return {
