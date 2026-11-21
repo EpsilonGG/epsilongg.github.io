@@ -1,6 +1,6 @@
 {
   "$comment": "由 scripts/optimize_images.mjs 生成，请勿手改。",
-  "generatedAt": "2026-11-18T10:50:00.334Z",
+  "generatedAt": "2026-11-21T05:25:05.982Z",
   "images": {
     "/images/blog/automaton-crymelight-mugenzakura-roundtable/01.jpg": {
       "w": 1080,
@@ -3418,6 +3418,450 @@
           "w": 670,
           "src": "/images/blog/mages-asada-makoto-interview/11-670.webp",
           "bytes": 45316
+        }
+      ]
+    },
+    "/images/blog/mahoyo-theatrical-pamphlet-zh/01.jpg": {
+      "w": 800,
+      "h": 541,
+      "bytes": 37833,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/mahoyo-theatrical-pamphlet-zh/01-600.webp",
+          "bytes": 16790
+        },
+        {
+          "w": 800,
+          "src": "/images/blog/mahoyo-theatrical-pamphlet-zh/01-800.webp",
+          "bytes": 24124
+        }
+      ]
+    },
+    "/images/blog/mahoyo-theatrical-pamphlet-zh/02.jpg": {
+      "w": 800,
+      "h": 470,
+      "bytes": 25466,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/mahoyo-theatrical-pamphlet-zh/02-600.webp",
+          "bytes": 10454
+        },
+        {
+          "w": 800,
+          "src": "/images/blog/mahoyo-theatrical-pamphlet-zh/02-800.webp",
+          "bytes": 14038
+        }
+      ]
+    },
+    "/images/blog/mahoyo-theatrical-pamphlet-zh/03.jpg": {
+      "w": 800,
+      "h": 430,
+      "bytes": 33575,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/mahoyo-theatrical-pamphlet-zh/03-600.webp",
+          "bytes": 14142
+        },
+        {
+          "w": 800,
+          "src": "/images/blog/mahoyo-theatrical-pamphlet-zh/03-800.webp",
+          "bytes": 19566
+        }
+      ]
+    },
+    "/images/blog/mahoyo-theatrical-pamphlet-zh/04.jpg": {
+      "w": 800,
+      "h": 623,
+      "bytes": 51824,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/mahoyo-theatrical-pamphlet-zh/04-600.webp",
+          "bytes": 21374
+        },
+        {
+          "w": 800,
+          "src": "/images/blog/mahoyo-theatrical-pamphlet-zh/04-800.webp",
+          "bytes": 30944
+        }
+      ]
+    },
+    "/images/blog/mahoyo-theatrical-pamphlet-zh/05.jpg": {
+      "w": 800,
+      "h": 523,
+      "bytes": 42146,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/mahoyo-theatrical-pamphlet-zh/05-600.webp",
+          "bytes": 17716
+        },
+        {
+          "w": 800,
+          "src": "/images/blog/mahoyo-theatrical-pamphlet-zh/05-800.webp",
+          "bytes": 25914
+        }
+      ]
+    },
+    "/images/blog/mahoyo-theatrical-pamphlet-zh/06.jpg": {
+      "w": 800,
+      "h": 488,
+      "bytes": 31752,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/mahoyo-theatrical-pamphlet-zh/06-600.webp",
+          "bytes": 12392
+        },
+        {
+          "w": 800,
+          "src": "/images/blog/mahoyo-theatrical-pamphlet-zh/06-800.webp",
+          "bytes": 17876
+        }
+      ]
+    },
+    "/images/blog/mahoyo-theatrical-pamphlet-zh/07.jpg": {
+      "w": 800,
+      "h": 302,
+      "bytes": 16092,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/mahoyo-theatrical-pamphlet-zh/07-600.webp",
+          "bytes": 5682
+        },
+        {
+          "w": 800,
+          "src": "/images/blog/mahoyo-theatrical-pamphlet-zh/07-800.webp",
+          "bytes": 7964
+        }
+      ]
+    },
+    "/images/blog/mahoyo-theatrical-pamphlet-zh/08.jpg": {
+      "w": 739,
+      "h": 632,
+      "bytes": 32018,
+      "variants": [
+        {
+          "w": 739,
+          "src": "/images/blog/mahoyo-theatrical-pamphlet-zh/08-739.webp",
+          "bytes": 16804
+        }
+      ]
+    },
+    "/images/blog/mahoyo-theatrical-pamphlet-zh/09.jpg": {
+      "w": 800,
+      "h": 464,
+      "bytes": 20139,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/mahoyo-theatrical-pamphlet-zh/09-600.webp",
+          "bytes": 6332
+        },
+        {
+          "w": 800,
+          "src": "/images/blog/mahoyo-theatrical-pamphlet-zh/09-800.webp",
+          "bytes": 9216
+        }
+      ]
+    },
+    "/images/blog/mahoyo-theatrical-pamphlet-zh/10.jpg": {
+      "w": 800,
+      "h": 244,
+      "bytes": 14258,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/mahoyo-theatrical-pamphlet-zh/10-600.webp",
+          "bytes": 5202
+        },
+        {
+          "w": 800,
+          "src": "/images/blog/mahoyo-theatrical-pamphlet-zh/10-800.webp",
+          "bytes": 7534
+        }
+      ]
+    },
+    "/images/blog/mahoyo-theatrical-pamphlet-zh/11.jpg": {
+      "w": 602,
+      "h": 308,
+      "bytes": 11952,
+      "variants": [
+        {
+          "w": 602,
+          "src": "/images/blog/mahoyo-theatrical-pamphlet-zh/11-602.webp",
+          "bytes": 5994
+        }
+      ]
+    },
+    "/images/blog/mahoyo-theatrical-pamphlet-zh/12.jpg": {
+      "w": 800,
+      "h": 640,
+      "bytes": 32220,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/mahoyo-theatrical-pamphlet-zh/12-600.webp",
+          "bytes": 12062
+        },
+        {
+          "w": 800,
+          "src": "/images/blog/mahoyo-theatrical-pamphlet-zh/12-800.webp",
+          "bytes": 17482
+        }
+      ]
+    },
+    "/images/blog/mahoyo-theatrical-pamphlet-zh/13.jpg": {
+      "w": 800,
+      "h": 794,
+      "bytes": 44331,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/mahoyo-theatrical-pamphlet-zh/13-600.webp",
+          "bytes": 15212
+        },
+        {
+          "w": 800,
+          "src": "/images/blog/mahoyo-theatrical-pamphlet-zh/13-800.webp",
+          "bytes": 22590
+        }
+      ]
+    },
+    "/images/blog/mahoyo-theatrical-pamphlet-zh/14.jpg": {
+      "w": 800,
+      "h": 468,
+      "bytes": 29667,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/mahoyo-theatrical-pamphlet-zh/14-600.webp",
+          "bytes": 10914
+        },
+        {
+          "w": 800,
+          "src": "/images/blog/mahoyo-theatrical-pamphlet-zh/14-800.webp",
+          "bytes": 16640
+        }
+      ]
+    },
+    "/images/blog/mahoyo-theatrical-pamphlet-zh/15.jpg": {
+      "w": 800,
+      "h": 290,
+      "bytes": 15684,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/mahoyo-theatrical-pamphlet-zh/15-600.webp",
+          "bytes": 5470
+        },
+        {
+          "w": 800,
+          "src": "/images/blog/mahoyo-theatrical-pamphlet-zh/15-800.webp",
+          "bytes": 8042
+        }
+      ]
+    },
+    "/images/blog/mahoyo-theatrical-pamphlet-zh/16.jpg": {
+      "w": 800,
+      "h": 575,
+      "bytes": 31853,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/mahoyo-theatrical-pamphlet-zh/16-600.webp",
+          "bytes": 12576
+        },
+        {
+          "w": 800,
+          "src": "/images/blog/mahoyo-theatrical-pamphlet-zh/16-800.webp",
+          "bytes": 18044
+        }
+      ]
+    },
+    "/images/blog/mahoyo-theatrical-pamphlet-zh/17.jpg": {
+      "w": 800,
+      "h": 579,
+      "bytes": 33344,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/mahoyo-theatrical-pamphlet-zh/17-600.webp",
+          "bytes": 12790
+        },
+        {
+          "w": 800,
+          "src": "/images/blog/mahoyo-theatrical-pamphlet-zh/17-800.webp",
+          "bytes": 18842
+        }
+      ]
+    },
+    "/images/blog/mahoyo-theatrical-pamphlet-zh/18.jpg": {
+      "w": 800,
+      "h": 312,
+      "bytes": 25359,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/mahoyo-theatrical-pamphlet-zh/18-600.webp",
+          "bytes": 10772
+        },
+        {
+          "w": 800,
+          "src": "/images/blog/mahoyo-theatrical-pamphlet-zh/18-800.webp",
+          "bytes": 15666
+        }
+      ]
+    },
+    "/images/blog/mahoyo-theatrical-pamphlet-zh/19.jpg": {
+      "w": 800,
+      "h": 412,
+      "bytes": 26129,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/mahoyo-theatrical-pamphlet-zh/19-600.webp",
+          "bytes": 10276
+        },
+        {
+          "w": 800,
+          "src": "/images/blog/mahoyo-theatrical-pamphlet-zh/19-800.webp",
+          "bytes": 15108
+        }
+      ]
+    },
+    "/images/blog/mahoyo-theatrical-pamphlet-zh/20.jpg": {
+      "w": 795,
+      "h": 327,
+      "bytes": 32169,
+      "variants": [
+        {
+          "w": 795,
+          "src": "/images/blog/mahoyo-theatrical-pamphlet-zh/20-795.webp",
+          "bytes": 22932
+        }
+      ]
+    },
+    "/images/blog/mahoyo-theatrical-pamphlet-zh/21.jpg": {
+      "w": 800,
+      "h": 227,
+      "bytes": 27838,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/mahoyo-theatrical-pamphlet-zh/21-600.webp",
+          "bytes": 13362
+        },
+        {
+          "w": 800,
+          "src": "/images/blog/mahoyo-theatrical-pamphlet-zh/21-800.webp",
+          "bytes": 21284
+        }
+      ]
+    },
+    "/images/blog/mahoyo-theatrical-pamphlet-zh/22.jpg": {
+      "w": 800,
+      "h": 367,
+      "bytes": 46496,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/mahoyo-theatrical-pamphlet-zh/22-600.webp",
+          "bytes": 22114
+        },
+        {
+          "w": 800,
+          "src": "/images/blog/mahoyo-theatrical-pamphlet-zh/22-800.webp",
+          "bytes": 32986
+        }
+      ]
+    },
+    "/images/blog/mahoyo-theatrical-pamphlet-zh/23.jpg": {
+      "w": 800,
+      "h": 321,
+      "bytes": 28258,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/mahoyo-theatrical-pamphlet-zh/23-600.webp",
+          "bytes": 12672
+        },
+        {
+          "w": 800,
+          "src": "/images/blog/mahoyo-theatrical-pamphlet-zh/23-800.webp",
+          "bytes": 18196
+        }
+      ]
+    },
+    "/images/blog/mahoyo-theatrical-pamphlet-zh/24.jpg": {
+      "w": 800,
+      "h": 479,
+      "bytes": 49456,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/mahoyo-theatrical-pamphlet-zh/24-600.webp",
+          "bytes": 23422
+        },
+        {
+          "w": 800,
+          "src": "/images/blog/mahoyo-theatrical-pamphlet-zh/24-800.webp",
+          "bytes": 33330
+        }
+      ]
+    },
+    "/images/blog/mahoyo-theatrical-pamphlet-zh/25.jpg": {
+      "w": 800,
+      "h": 555,
+      "bytes": 20024,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/mahoyo-theatrical-pamphlet-zh/25-600.webp",
+          "bytes": 6506
+        },
+        {
+          "w": 800,
+          "src": "/images/blog/mahoyo-theatrical-pamphlet-zh/25-800.webp",
+          "bytes": 9976
+        }
+      ]
+    },
+    "/images/blog/mahoyo-theatrical-pamphlet-zh/26.jpg": {
+      "w": 800,
+      "h": 244,
+      "bytes": 22818,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/mahoyo-theatrical-pamphlet-zh/26-600.webp",
+          "bytes": 10374
+        },
+        {
+          "w": 800,
+          "src": "/images/blog/mahoyo-theatrical-pamphlet-zh/26-800.webp",
+          "bytes": 14590
+        }
+      ]
+    },
+    "/images/blog/mahoyo-theatrical-pamphlet-zh/27.jpg": {
+      "w": 800,
+      "h": 400,
+      "bytes": 40719,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/mahoyo-theatrical-pamphlet-zh/27-600.webp",
+          "bytes": 19310
+        },
+        {
+          "w": 800,
+          "src": "/images/blog/mahoyo-theatrical-pamphlet-zh/27-800.webp",
+          "bytes": 27758
         }
       ]
     },
