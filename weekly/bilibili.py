@@ -17,6 +17,8 @@
 ① 写明结束日且成形时已过期的贩卖消息直接删掉；② 先按作品名/发布者认亲，
 认出的并进本期 X 侧已有品牌-游戏子集（栏目随原组）；③ 认不出的以
 `B站 · <发布者>` 名义统一归入作品动向（作品情报栏），一律不进新作。
+2026-11-21 追加：`never_new_publishers` 里的发布者（现为 HIKARIFIELD）即使
+认亲到新作游戏组也强制留在作品情报，作为临时口径。
 
 2026-11-12 追加口径（同日用户裁决）：**同一个账号的归到一起**，合并后超过
 150 字就概括。周报的归并单位是「账号 × 作品小标题」——品牌中标题本身就是
@@ -84,6 +86,17 @@ def _norm_brand(name: str) -> str:
             out = out[:-len(suffix)]
             break
     return out
+
+
+def never_new_publishers(rules: dict) -> set[str]:
+    """暂时禁止进「新作」的 B 站发布者（归一后比对）。"""
+    return {_norm_brand(x) for x in
+            (rules.get("bilibili") or {}).get("never_new_publishers") or []}
+
+
+def is_never_new_publisher(publisher: str, rules: dict) -> bool:
+    """HIKARIFIELD 这类发布者的内容暂时全部落作品情报。"""
+    return _norm_brand(publisher) in never_new_publishers(rules)
 
 
 def _expired_sale(content: str, today: date) -> bool:
@@ -484,6 +497,11 @@ def build_lines(corpus: dict, rules: dict, data: dict | None = None) -> list[dic
             target = brands.get(_norm_brand(row["publisher"]))
         mapped = bool(target)
         column = str(target.get("column") or WORK) if mapped_game else WORK
+        # 2026-11-21：HIKARIFIELD 暂时全部落作品情报；即使认亲到新作游戏组，
+        # 也不随原组上提。只覆盖发布者，不影响同品牌其它账号的 X 侧条目。
+        never_new = is_never_new_publisher(row["publisher"], rules)
+        if never_new:
+            column = WORK
         if target:
             brand = str(target["brand"])
             gkey = str(target.get("gkey") or "b:" + hashlib.md5(
@@ -498,6 +516,7 @@ def build_lines(corpus: dict, rules: dict, data: dict | None = None) -> list[dic
             "brand": brand, "gkey": gkey, "glabel": glabel,
             "text": row["text"], "official": False,
             "new_work": column == NEW, "mapped": mapped, "mapped_game": mapped_game,
+            "never_new": never_new,
             "day": row["day"], "url": row["url"], "publisher": row["publisher"],
             "group_label": group_label, "count": row["count"],
             "summarized": row["summarized"], "keys": row["keys"],

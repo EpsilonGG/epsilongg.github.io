@@ -383,6 +383,20 @@ _JS = r"""
     var a=[],b=[]; arr.forEach(function(x){ (x.official?a:b).push(x); });
     return a.concat(b);
   }
+  // 与 render.source_links() 逐字节同口径：单来源 [原文](url)，多来源
+  // [原文1](url1) [原文2](url2)…；链接只取 item.sources[].url，不另拼。
+  function sourceLinks(it){
+    var urls=[], seen={};
+    (it.sources||[]).forEach(function(s){
+      var u=String(s.url||'').trim();
+      if(u && !seen[u]){ seen[u]=1; urls.push(u); }
+    });
+    if(!urls.length) return '';
+    if(urls.length===1) return ' [原文]('+urls[0]+')';
+    return ' '+urls.map(function(u,i){
+      return '[原文'+(i+1)+']('+u+')';
+    }).join(' ');
+  }
 
   function buildMarkdown(d){
     var bySection={}, itOf={}, cols=DATA.columns;
@@ -429,6 +443,7 @@ _JS = r"""
         if(off && has(FMT.official_no_prefix,ruleCol)) body=sent;
         else if(off && has(FMT.official_space_prefix,ruleCol)) body=(pref?pref+' ':'')+sent;
         else body=(pref?pref+'：':'')+sent;
+        body += sourceLinks(it);
         register(column, sec.label, it.group_key, it.group_label)
           .push({text:'- '+body, official:off});
         counts[column].items++;

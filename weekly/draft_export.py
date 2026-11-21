@@ -43,6 +43,11 @@ def _stats(text: str) -> dict:
 
 # ---------- 图片 ----------
 
+# 条目末尾的原文链接（`[原文](…)` / `[原文1](…) …`）。插图匹配正文时先剥掉，
+# 否则 `body.endswith(sentence)` 会被链接尾巴挡住，整期图片会静默消失。
+_SOURCE_TAIL = re.compile(r"(?:\s+\[原文(?:\d+)?\]\([^)]+\))+$")
+
+
 def _image_index() -> dict[str, list[dict]]:
     path = OUT / "image-preview-data.json"
     if not path.is_file():
@@ -72,7 +77,7 @@ def _insert_images(text: str, idx: dict[str, list[dict]],
             out.append(line)
             continue
         if line.startswith("- ") and game:
-            body = line[2:]
+            body = _SOURCE_TAIL.sub("", line[2:])
             best = None
             for row in idx.get(game, []):
                 sentence = str(row.get("sentence") or "")
@@ -114,6 +119,8 @@ ul{margin:6px 0 10px;padding-left:22px}
 li{margin:3px 0}
 li img{display:block;max-width:100%;width:360px;border:1px solid var(--line);border-radius:6px;margin:6px 0 2px;background:#fff}
 a{color:var(--blue);text-decoration:none}a:hover{color:#1e3a8a}
+a.weekly-source{font-size:11px;color:var(--muted);white-space:nowrap;margin-left:4px}
+a.weekly-source:hover{color:#1e3a8a}
 code{font:12px/1.7 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;background:#f2f3f5;border-radius:4px;padding:1px 4px}
 blockquote{margin:18px 0 0;padding:10px 14px;border-left:3px solid #9ca3af;background:#f6f7f9;border-radius:0 6px 6px 0;color:#374151;font-size:12px}
 blockquote p{margin:2px 0}
@@ -161,8 +168,10 @@ def _inline(text: str) -> str:
             return _img_tag(html.escape(m.group(5), quote=True),
                             html.escape(m.group(4)))
         if m.group(6) is not None:
-            return (f'<a href="{html.escape(m.group(7), quote=True)}" '
-                    f'target="_blank" rel="noopener">{m.group(6)}</a>')
+            label = m.group(6)
+            cls = ' class="weekly-source"' if label.startswith("原文") else ""
+            return (f'<a{cls} href="{html.escape(m.group(7), quote=True)}" '
+                    f'target="_blank" rel="noopener">{label}</a>')
         return f"<strong>{m.group(8)}</strong>"
     return _INLINE.sub(repl, text)
 
@@ -302,6 +311,8 @@ def build(rules: dict | None = None) -> dict:
         "官号条目只写正文、不写账号名或品牌名；非官号保留「主语：」，"
         "名单外账号主语用 <code>@handle</code> 并挂原推链接（可点，不加下划线）；"
         "品牌号转发的条目署被转发账号的真实名称并挂原推链接。"
+        "每条小条目末尾再挂一个小号原文链接（多来源依次 原文1 / 原文2…），"
+        "链接逐字取源索引，不拼造。"
         + (f"<br>本版<b>含图片</b>：每个源推只取第一张，共 {n_images} 张；"
          "点击图片可到原推 <code>/photo/1</code>。"
          if n_images else

@@ -243,6 +243,13 @@ def cmd_check(_args) -> int:
                 problems.append(f"B站行落到非法栏目：{column}"
                                 f"（{'已认亲' if mapped else '未认亲'}）")
                 break
+            if column != WORK and bilibili.is_never_new_publisher(
+                    str(row.get("publisher") or ""), rules):
+                problems.append(f"HIKARIFIELD 行不该进新作：{row.get('key')}")
+                break
+            if row.get("never_new") and column != WORK:
+                problems.append(f"never_new 行没有落作品情报：{row.get('key')}")
+                break
             if not text.startswith("- [") or "](" not in text:
                 problems.append(f"B站行缺少发布者原文链接：{row.get('key')}")
                 break
@@ -721,12 +728,16 @@ def cmd_check(_args) -> int:
                     sentence = str(item.get("sentence_md") or item["sentence"])
                     # 新作是作品情报的子集，版式规则按作品情报读（与 render.line 同口径）。
                     rule_col = WORK if column == NEW else column
+                    suffix = render.source_links(item)
+                    if not suffix:
+                        problems.append(f"{item['key']} 缺少原文链接")
+                        break
                     if ln["official"] and rule_col in no_prefix:
-                        expected = "- " + sentence
+                        expected = "- " + sentence + suffix
                     elif ln["official"] and rule_col in space_prefix:
-                        expected = "- " + ((prefix + " ") if prefix else "") + sentence
+                        expected = "- " + ((prefix + " ") if prefix else "") + sentence + suffix
                     else:
-                        expected = "- " + ((prefix + "：") if prefix else "") + sentence
+                        expected = "- " + ((prefix + "：") if prefix else "") + sentence + suffix
                     if ln["text"] != expected:
                         problems.append(f"{column} 条目版式不符：{ln['text'][:60]} ≠ {expected[:60]}")
                         break

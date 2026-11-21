@@ -96,6 +96,10 @@ class ColumnConfigTests(unittest.TestCase):
         self.assertEqual(cfg["source_dir"], "data/bilibili/galgame")
         self.assertEqual(cfg["no_game_label"], "动态")
         self.assertNotEqual(cfg["no_game_label"], gr.NO_GAME)
+        self.assertIn("HIKARIFIELD", cfg["never_new_publishers"])
+        self.assertTrue(bili.is_never_new_publisher("HIKARI-FIELD", RULES))
+        self.assertTrue(bili.is_never_new_publisher("HIKARIFIELD", RULES))
+        self.assertFalse(bili.is_never_new_publisher("HOOKSOFT", RULES))
         self.assertEqual(config.BILIBILI, ROOT / "data" / "bilibili" / "galgame")
 
 
@@ -281,6 +285,21 @@ class GateRoutingTests(unittest.TestCase):
         self.assertEqual(row["brand"], "ゆずソフト")
         self.assertEqual(row["gkey"], "g:brand")
         self.assertEqual(row["glabel"], "品牌动向")
+
+    def test_hikari_field_stays_in_work_even_when_matched_game_is_new(self):
+        corpus = _corpus([dict(
+            _row("bilibili:0", "『GameA』官方中文版促销中"),
+            publisher="HIKARI-FIELD")])
+        lines = bili.build_lines(corpus, RULES, self._x_data())
+        row = lines[0]
+        # 认亲照旧并进原游戏子集，但 HIKARIFIELD 的栏目被强制留在作品情报。
+        self.assertTrue(row["mapped"])
+        self.assertTrue(row["mapped_game"])
+        self.assertTrue(row["never_new"])
+        self.assertEqual(row["column"], config.WORK)
+        self.assertFalse(row["new_work"])
+        self.assertEqual(row["gkey"], "g:game")
+        self.assertEqual(row["brand"], "ゆずソフト")
 
     def test_every_row_has_one_publisher_link_and_no_bare_url(self):
         lines = self._lines("『X』发售日期公布 " + URL + " 详情",

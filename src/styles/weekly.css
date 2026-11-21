@@ -267,6 +267,21 @@
   border-radius: var(--radius);
 }
 
+/* 条目末尾的原文链接：小号、弱化，不抢正文语气 */
+.weekly-body .weekly-source {
+  margin-left: 0.35em;
+  color: var(--color-text-muted);
+  font-size: var(--text-xs);
+  white-space: nowrap;
+}
+
+.weekly-body .weekly-source:hover,
+.weekly-body .weekly-source:focus-visible {
+  color: var(--color-text);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
 /* 碎图兜底后剩下的纯文字占位，保持行内、不加边框 */
 .weekly-body .weekly-img-fallback {
   color: var(--color-text-muted);

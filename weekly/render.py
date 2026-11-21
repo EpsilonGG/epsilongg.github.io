@@ -7,7 +7,8 @@
 命中游戏级「新作」规则的那几组仍上提到第一栏。
 
 正文不写出处键；名单外账号条目按裁决保留一条指向原推 URL 的
-Markdown 链接（URL 取自源索引），其余来源账号、候选分句与完整源索引只在素材库与筛选页。
+Markdown 链接（URL 取自源索引）；2026-11-21 起每条小条目末尾再挂一个小号
+`[原文](url)`（多来源依次编号），其余候选分句与完整源索引只在素材库与筛选页。
 """
 from __future__ import annotations
 
@@ -107,6 +108,27 @@ def _format_of(data: dict) -> dict:
     return fmt
 
 
+def source_links(item: dict) -> str:
+    """条目末尾的小号原文链接。
+
+    2026-11-21 用户裁决：周报已经按原推事实出稿，每条要能点回原文。
+    链接逐字取 `item["sources"][].url`（来自 M1 源索引，不拼造）；单来源写
+    `[原文](url)`，多来源依次写 `[原文1](url1) [原文2](url2)`。B 站行本身
+    句首已有原文链接，不走这个函数，避免同一行出现两条相同入口。
+    """
+    urls: list[str] = []
+    for src in item.get("sources") or []:
+        url = str(src.get("url") or "").strip()
+        if url and url not in urls:
+            urls.append(url)
+    if not urls:
+        return ""
+    if len(urls) == 1:
+        return f" [原文]({urls[0]})"
+    return " " + " ".join(f"[原文{i}]({url})"
+                          for i, url in enumerate(urls, start=1))
+
+
 def _ordered(lines: list[dict], column: str, fmt: dict) -> list[dict]:
     """官号条目前置：稳定分区，同区内保留筛选页的手动顺序。"""
     if column not in fmt["official_first"]:
@@ -159,7 +181,8 @@ def collect(data: dict, decisions: dict) -> dict:
             # 非官号 / 名单外 / manufacturer 转发的原作者：沿用「前缀：」，
             # 名单外前缀里带指向原推 URL 的 Markdown 链接。
             body = (prefix_md + "：" if prefix_md else "") + sentence
-        return {"text": "- " + body, "official": official, "key": item["key"]}
+        return {"text": "- " + body + source_links(item),
+                "official": official, "key": item["key"]}
 
     for key in decisions.get("section_order") or []:
         if key in ds:
