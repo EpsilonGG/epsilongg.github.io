@@ -22,6 +22,10 @@ sidecar 里的全部 URL 照旧保留（不回写、不重新联网），这里�
 缩略图用 `pbs.twimg.com` 直链，按 `cache_limit` best-effort 缓存几张样图到
 `out/images/`（其余走外链 + 占位块；不进 `public/`、不写图片清单）。
 
+2026-11-21 补充裁决：**图片栏目只认 X 原推**（`x:<tweet_id>` / `x.com/status`）。
+B站动态虽然已经能并进 X 侧品牌-游戏子集参与归栏，但它没有 `/photo/1` 入口，
+所以一律不进图片栏目；这条限制只管配图，不影响 B站文本的认亲和归栏。
+
 产物：`weekly/out/image-preview.html` + `weekly/out/image-preview-data.json`
 本模块不写 `draft.md` / `draft-selected.md` / `filter.html`，也不改动任何决策文件。
 """
@@ -40,6 +44,19 @@ from .identity import Identity
 
 XREADER = Path(__file__).resolve().parent.parent / "data" / "xreader" / "galgame"
 PHOTO_TAIL = re.compile(r"\d+$")
+X_KEY = re.compile(r"^x:\d+$", re.I)
+X_STATUS = re.compile(r"(?:x|twitter)\.com/[^/\s]+/status/\d+", re.I)
+
+
+def is_x_source(key: str, ref: dict | None) -> bool:
+    """配图只认 X 原推：键形如 x:<id>，或来源 URL 是 x.com/status。
+
+    B站动态能参与文本归栏，但没有 `/photo/1` 这种入口；把它放进图片栏目会
+    拼出 `.../opus/<id>/photo/1` 这种坏链，所以在这里就拦住。
+    """
+    ref = ref or {}
+    return bool(X_KEY.match(str(key) or "")
+                or X_STATUS.search(str(ref.get("url") or "")))
 
 
 def load_media() -> tuple[dict[str, list[str]], dict]:
@@ -115,13 +132,25 @@ def build_preview(rules: dict, data: dict, corpus: dict) -> tuple[dict, dict]:
             if key in refs and key not in media and images:
                 media[key] = images
                 provenance[key] = "backfill"
-    media_stats["crawl_image_tweets"] = media_stats["image_tweets"]
-    media_stats["crawl_images"] = media_stats["images"]
+
+    # 2026-11-21：B站行已经能并进 X 侧品牌/游戏子集，但没有 /photo/1 入口。
+    # 文本归栏照旧，配图只留 X 原推；被跳过的 B站图片单独计数，诊断表里也留痕。
+    all_media = dict(media)
+    non_x_keys = {k for k in all_media if not is_x_source(k, refs.get(k) or {})}
+    media_stats["non_x_image_tweets_skipped"] = len(non_x_keys)
+    media_stats["non_x_images_skipped"] = sum(len(all_media[k]) for k in non_x_keys)
+    media = {k: v for k, v in all_media.items() if k not in non_x_keys}
+
+    media_stats["crawl_image_tweets"] = sum(
+        1 for k, v in provenance.items() if v == "crawl" and k in media)
+    media_stats["crawl_images"] = sum(
+        len(media[k]) for k, v in provenance.items() if v == "crawl" and k in media)
     media_stats["image_tweets"] = len(media)
     media_stats["images"] = sum(len(v) for v in media.values())
-    media_stats["backfill_tweets"] = sum(1 for v in provenance.values() if v == "backfill")
-    media_stats["backfill_images"] = sum(len(media[k]) for k, v in provenance.items()
-                                         if v == "backfill")
+    media_stats["backfill_tweets"] = sum(
+        1 for k, v in provenance.items() if v == "backfill" and k in media)
+    media_stats["backfill_images"] = sum(
+        len(media[k]) for k, v in provenance.items() if v == "backfill" and k in media)
 
     # 2026-11-10：不论图片多少只取第一张。诊断表要能看出「原有几张 / 用了几张」，
     # 所以先记 raw_by_key 再裁；sidecar 与原始切片完全不动。
@@ -138,18 +167,24 @@ def build_preview(rules: dict, data: dict, corpus: dict) -> tuple[dict, dict]:
     eligible: list[dict] = []
     diagnostics: list[dict] = []
     in_corpus = set(media) & set(refs)
-    for key, images in sorted(media.items()):
+    for key, images in sorted(all_media.items()):
         ref = refs.get(key) or {}
+        if key in non_x_keys:
+            reason = "非 X 原推（B站动态不进图片栏目）"
+        elif key not in refs:
+            reason = "未进日报源索引"
+        else:
+            reason = ""
         diagnostics.append({
             "key": key,
             "url": str(ref.get("url") or ""),
             "author": str(ref.get("author") or ""),
-            "images": len(images),
+            "images": len(media.get(key) or []),
             "raw_images": raw_by_key.get(key, len(images)),
             "media_source": provenance.get(key, "crawl"),
             "in_source_index": key in refs,
             "used_by_draft": False,
-            "reason": "未进日报源索引" if key not in refs else "",
+            "reason": reason,
         })
     used_keys: set[str] = set()
 
@@ -223,6 +258,8 @@ def build_preview(rules: dict, data: dict, corpus: dict) -> tuple[dict, dict]:
         "integrated_into_filter": False,
         "rule": {
             "columns": [WORK], "tiers": sorted(tiers),
+            "source_scope": "x",
+            "source_scope_note": "只认 x:<tweet_id> / x.com/status 原推；B站动态可参与文本归栏，但不进图片栏目（没有 /photo/1 入口）",
             "requires_game_title": True, "requires_image": True,
             "photo_suffix": suffix,
             "first_image_only": first_only,
@@ -423,6 +460,7 @@ def render_html(payload: dict, path: Path) -> str:
         ("不写数据库 / 不入 git 图片", False),
         ("方案 C · sidecar 回填", True),
         (f"只放第 {' / '.join(map(str, rule['tiers']))} 档游戏条目", False),
+        ("只放 X 原推图", False),
     ]
     if rule.get("first_image_only"):
         badge_specs.append(("每推只取第一张 · 节约存储", False))
@@ -443,6 +481,7 @@ def render_html(payload: dict, path: Path) -> str:
             (s.get("qualified_raw_images", s["qualified_images"]) - s["qualified_images"],
              "★ 合格条目省下的图"),
             (s.get("dropped_extra_images", 0), "全库裁掉的多余图"),
+            (s.get("non_x_image_tweets_skipped", 0), "跳过的B站带图动态"),
             (s.get("qualified_from_backfill", 0), "其中来自回填"),
             (s.get("cached_images", 0), "已缓存样图"),
         )
@@ -574,7 +613,9 @@ def render_html(payload: dict, path: Path) -> str:
         '<div class="note"><b>规则</b>：只给「' + esc(WORK) + '」里第 '
         + ' / '.join(map(str, rule["tiers"])) + ' 档品牌、且挂了游戏小标题、且原推带图片的条目增设图片栏目。'
         '图片信号 = <code>data/xreader/galgame/*.jsonl</code> 的 '
-        '<code>media[type=image].url</code> ∪ <code>out/media-sidecar.json</code>。'
+        '<code>media[type=image].url</code> ∪ <code>out/media-sidecar.json</code>，'
+        '<b>只认 X 原推</b>（<code>x:&lt;id&gt;</code> / <code>x.com/status</code>）；'
+        'B站动态可参与文本归栏，但没有 <code>/photo/1</code> 入口，不进图片栏目。'
         '<b>为什么需要回填</b>：X-Reader 的 nitter RSS 解析器只认 '
         '<code>&lt;enclosure&gt;</code>，现役实例却把附件放在 CDATA 的 '
         '<code>&lt;img&gt;</code> 里，历史切片 <code>media[]</code> 几乎全空；'

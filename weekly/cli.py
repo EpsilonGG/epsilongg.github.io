@@ -519,9 +519,16 @@ def cmd_check(_args) -> int:
                 or ip.get("integrated_into_filter"):
             problems.append("image-preview-data.json 的隔离标记不对")
         tiers = set(ip["rule"]["tiers"])
+        if ip["rule"].get("source_scope") != "x":
+            problems.append("image-preview-data.json 的图片来源口径不是 X 原推")
+        img_refs = corpus_data.get("source_refs") or {}
         for row in ip["eligible"]:
             if row["tier"] not in tiers or not row["game"] or not row["images"]:
                 problems.append(f"图片栏目出现不合格条目：{row['item_key']}")
+                break
+            img_key = str(row.get("tweet_key") or "")
+            if not image_preview.is_x_source(img_key, img_refs.get(img_key) or {}):
+                problems.append(f"图片栏目混进非 X 原推：{img_key}")
                 break
             if row.get("media_source") not in ("crawl", "backfill"):
                 problems.append(f"图片栏目条目缺图片来源标记：{row['item_key']}")

@@ -273,6 +273,8 @@
     "photo_suffix": "/photo/1",
     "first_image_only": true,
     "first_image_only_note": "2026-11-10 用户裁决：有图片的推文不论几张只取第一张，节约存储。sidecar / 原始 JSONL 仍保留全部图片 URL（不丢原始数据、不用重新联网），只在生成预览时裁到 [0:1]；图片入口恒为 /photo/1，不再产出 /photo/2 及以上。",
+    "source_scope": "x",
+    "source_scope_note": "2026-11-21 裁决：B站行虽然能认亲并进 X 侧品牌-游戏子集参与归栏，但图片栏目只认 X 原推（x:<id> / x.com/status）。B站动态没有 /photo/1 入口，拼出来会是坏链，所以文本归栏照旧、配图跳过。",
     "media_backfill": {
       "enabled": true,
       "sidecar": "media-sidecar.json",
@@ -284,7 +286,7 @@
       "webp_sample": 10,
       "note": "2026-11-10 方案 C（只做回填，不改 X-Reader）：nitter RSS 解析器丢了 CDATA 里的 <img>，历史 40 天切片 media[] 几乎全空。这里只对候选源推查一次公开 API，把图片直链落到 out/media-sidecar.json，已查过的键（含确认无图）默认不重复联网。`scope: candidates` = 第 1/2 档作品情报游戏条目引用的源推；改 `all` 或命令带 --all 可扩到全部 source_refs。`cache_limit` 控制预览页本地缓存几张样图（0＝不限），其余走外链+占位；存储量测算用 HEAD，不落盘。build 不联网，只有 `backfill-media` 子命令联网。"
     },
-    "note": "试验性（未定是否保留）：只生成独立 image-preview.html，不进初稿、不进筛选页。图片信号 = 原始 JSONL 的 media[type=image].url ∪ media_backfill sidecar；图片入口链接＝原推 URL + /photo/1。"
+    "note": "试验性（未定是否保留）：只生成独立 image-preview.html，不进初稿、不进筛选页。图片信号 = 原始 JSONL 的 media[type=image].url ∪ media_backfill sidecar；只认 X 原推（B站动态不进图片栏目）；图片入口链接＝原推 URL + /photo/1。"
   },
   "title_merge": {
     "long_prefix_chars": 5,
