@@ -17,8 +17,10 @@
 ① 写明结束日且成形时已过期的贩卖消息直接删掉；② 先按作品名/发布者认亲，
 认出的并进本期 X 侧已有品牌-游戏子集（栏目随原组）；③ 认不出的以
 `B站 · <发布者>` 名义统一归入作品动向（作品情报栏），一律不进新作。
-2026-11-21 追加：`never_new_publishers` 里的发布者（现为 HIKARIFIELD）即使
-认亲到新作游戏组也强制留在作品情报，作为临时口径。
+2026-11-21 追加：`never_new_publishers` 里的发布者即使认亲到新作游戏组也
+强制留在作品情报。当前名单是 HIKARI-FIELD（海外发行 / 代理，本身不是作品
+发布方）与 Galgame批评（第三方周报汇总号，视频 / 专栏 / 动态都是汇总稿，
+不是作品发布方的公告），两者都按「临时口径」处理，理由逐条写在 rules.json。
 
 2026-11-12 追加口径（同日用户裁决）：**同一个账号的归到一起**，合并后超过
 150 字就概括。周报的归并单位是「账号 × 作品小标题」——品牌中标题本身就是
@@ -95,8 +97,41 @@ def never_new_publishers(rules: dict) -> set[str]:
 
 
 def is_never_new_publisher(publisher: str, rules: dict) -> bool:
-    """HIKARIFIELD 这类发布者的内容暂时全部落作品情报。"""
+    """HIKARI-FIELD / Galgame批评 这类发布者的内容暂时全部落作品情报。"""
     return _norm_brand(publisher) in never_new_publishers(rules)
+
+
+# 成稿里判断「这一行是谁的」只看两个结构位：`B站 · <发布者>` 与行首的
+# `[<发布者>](链接)`。不拿整句做子串匹配——新作条目里顺口提一句
+# 「海外版由 HIKARI FIELD 发行」是合法的，不该被判成漏过闸门。
+_BILI_BRAND = re.compile(r"B站 · ([^\n（）]{1,40})")
+_LINK_LABEL = re.compile(r"\[([^\]\n]{1,40})\]\(https?://")
+
+
+def new_section_hits(markdown: str, rules: dict) -> list[str]:
+    """成稿「新作」栏里出现的 never-new 发布者（返回原始拼写，去重）。
+
+    行级校验看的是 `row["column"]`；但行会被认亲并进某个游戏组，最终落在哪一栏
+    由组决定。这里直接扫渲染结果，堵住「行说在作品情报、正文却排在新作」这种
+    只有读者看得见的漏。
+    """
+    banned = never_new_publishers(rules)
+    if not banned:
+        return []
+    hits: list[str] = []
+    for part in re.split(r"(?m)^## ", markdown)[1:]:
+        if part.split("\n", 1)[0].strip() != NEW:
+            continue
+        for m in _BILI_BRAND.finditer(part):
+            name = m.group(1).strip()
+            if _norm_brand(name) in banned:
+                hits.append(name)
+        for m in _LINK_LABEL.finditer(part):
+            name = m.group(1).strip()
+            if _norm_brand(name) in banned:
+                hits.append(name)
+        break
+    return sorted(set(hits))
 
 
 def _expired_sale(content: str, today: date) -> bool:

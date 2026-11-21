@@ -245,7 +245,9 @@ def cmd_check(_args) -> int:
                 break
             if column != WORK and bilibili.is_never_new_publisher(
                     str(row.get("publisher") or ""), rules):
-                problems.append(f"HIKARIFIELD 行不该进新作：{row.get('key')}")
+                problems.append(
+                    f"never-new 发布者的行不该进新作：{row.get('key')}"
+                    f"（{row.get('publisher')}）")
                 break
             if row.get("never_new") and column != WORK:
                 problems.append(f"never_new 行没有落作品情报：{row.get('key')}")
@@ -283,6 +285,13 @@ def cmd_check(_args) -> int:
         leaked_bili = [k for k in bili_refs if k in draft]
         if leaked_bili:
             problems.append(f"draft.md 漏出了 B 站出处键：{leaked_bili[:3]}")
+
+    # 2026-11-21 追加：never-new 发布者一条都不许出现在「新作」栏。
+    # 上面逐行看的是 row["column"]，但行会被认亲并进某个游戏组，最终落哪一栏由组决定；
+    # 这里直接扫渲染结果，堵住「行说作品情报、正文却排在新作」这种只有读者看得见的漏。
+    new_hits = bilibili.new_section_hits(draft, rules)
+    if new_hits:
+        problems.append("新作栏混进了 never-new 发布者：" + " / ".join(new_hits))
 
     # 守恒：去重丢掉的记录 + 存活记录 = 原始记录；三种结论之和 = 存活记录。
     dedupe_ev = read_json(EVIDENCE / "dedupe.json")["dropped_records"]

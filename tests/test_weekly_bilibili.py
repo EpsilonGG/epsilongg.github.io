@@ -97,9 +97,14 @@ class ColumnConfigTests(unittest.TestCase):
         self.assertEqual(cfg["no_game_label"], "动态")
         self.assertNotEqual(cfg["no_game_label"], gr.NO_GAME)
         self.assertIn("HIKARIFIELD", cfg["never_new_publishers"])
+        self.assertIn("Galgame批评", cfg["never_new_publishers"])
         self.assertTrue(bili.is_never_new_publisher("HIKARI-FIELD", RULES))
         self.assertTrue(bili.is_never_new_publisher("HIKARIFIELD", RULES))
+        self.assertTrue(bili.is_never_new_publisher("Galgame批评", RULES))
+        # 繁体写法也命中：名单里的显示名随时可能被改成「批評」。
+        self.assertTrue(bili.is_never_new_publisher("Galgame批評", RULES))
         self.assertFalse(bili.is_never_new_publisher("HOOKSOFT", RULES))
+        self.assertFalse(bili.is_never_new_publisher("Galgame公式", RULES))
         self.assertEqual(config.BILIBILI, ROOT / "data" / "bilibili" / "galgame")
 
 
@@ -301,6 +306,19 @@ class GateRoutingTests(unittest.TestCase):
         self.assertEqual(row["gkey"], "g:game")
         self.assertEqual(row["brand"], "ゆずソフト")
 
+    def test_galgame_critique_weekly_column_stays_in_work_even_when_it_names_a_new_game(self):
+        # 【Gal周报】一条专栏里会同时提到十几部新作，按作品名认亲必被误提进新作；
+        # 发布者在 never_new_publishers 里，所以即使认亲成功也强制留在作品情报。
+        corpus = _corpus([dict(
+            _row("bilibili:0", "【Gal周报269期】『GameA』新作发表，『GameB』体验版公开"),
+            publisher="Galgame批评")])
+        row = bili.build_lines(corpus, RULES, self._x_data())[0]
+        self.assertTrue(row["mapped"])
+        self.assertTrue(row["mapped_game"])
+        self.assertTrue(row["never_new"])
+        self.assertEqual(row["column"], config.WORK)
+        self.assertFalse(row["new_work"])
+
     def test_every_row_has_one_publisher_link_and_no_bare_url(self):
         lines = self._lines("『X』发售日期公布 " + URL + " 详情",
                             "普通通知 https://t.co/abc 结束")
@@ -318,6 +336,37 @@ class GateRoutingTests(unittest.TestCase):
             RULES, bilibili={**RULES["bilibili"], "enabled": False})), [])
         with mock.patch.object(bili, "BILI_VIEW", ""):
             self.assertEqual(bili.build_lines(corpus, RULES), [])
+
+
+class NewSectionGuardTests(unittest.TestCase):
+    """成稿层闸门：never-new 发布者一条都不许排进「新作」。
+
+    行级校验只看 `row["column"]`；行被认亲并进游戏组之后，落哪一栏由组决定。
+    所以 `weekly check` 还要扫渲染结果——这一组就是那个扫描的回归。
+    """
+
+    def test_structural_hits_inside_new_are_reported(self):
+        md = ("## 新作\n\n### B站 · Galgame批评\n"
+              "- [Galgame批评](https://www.bilibili.com/opus/1)：一条周报\n"
+              "\n## 作品情报\n")
+        self.assertEqual(bili.new_section_hits(md, RULES), ["Galgame批评"])
+
+    def test_work_column_mentions_do_not_trip_the_guard(self):
+        md = ("## 新作\n\n### ゆずソフト\n"
+              "- 新作公开 [原文](https://x.com/a/status/1)\n"
+              "\n## 作品情报\n\n### B站 · HIKARI-FIELD\n"
+              "- [HIKARI-FIELD](https://www.bilibili.com/opus/1)：促销\n")
+        self.assertEqual(bili.new_section_hits(md, RULES), [])
+
+    def test_prose_mention_inside_new_is_not_a_structural_hit(self):
+        # 「海外版由 HIKARI FIELD 发行」是合法的作品情报句，不是漏过闸门的行。
+        md = ("## 新作\n\n### ゆずソフト\n"
+              "- 海外版由 HIKARI FIELD 发行 [原文](https://x.com/a/status/1)\n")
+        self.assertEqual(bili.new_section_hits(md, RULES), [])
+
+    def test_missing_new_section_is_not_an_error(self):
+        md = "## 作品情报\n\n### B站 · Galgame批评\n- 一条\n"
+        self.assertEqual(bili.new_section_hits(md, RULES), [])
 
 
 class RenderAndEditorTests(unittest.TestCase):
