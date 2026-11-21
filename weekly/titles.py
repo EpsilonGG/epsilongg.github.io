@@ -61,11 +61,15 @@ class TitleNormalizer:
             n = self.parent[n]
         return n
 
-    def _union(self, short: str, long: str, reason: str) -> None:
+    def _union(self, short: str, long: str, reason: str, prefer: str | None = None) -> None:
         rs, rl = self._find(short), self._find(long)
         if rs == rl:
             return
-        if (len(rs), rs) < (len(rl), rl):
+        if prefer and prefer in (rs, rl):
+            # 人工登记的目标名优先当根：标题怎么显示由登记值决定，不按长度猜。
+            if rs != prefer:
+                rs, rl = prefer, rs
+        elif (len(rs), rs) < (len(rl), rl):
             rs, rl = rl, rs
         self.parent[rl] = rs
         self.merge_reason.setdefault(normalize(self.display[rl]), reason)
@@ -76,7 +80,7 @@ class TitleNormalizer:
         # ① 人工登记的跨文字缩写（前缀规则覆盖不到）
         for short, long in self.aliases.items():
             if short in self.display and long in self.display:
-                self._union(short, long, "explicit_alias")
+                self._union(short, long, "explicit_alias", prefer=long)
 
         # ② 波浪号前字符相同 / 全称副标题：前缀 + 分隔符 → 同一游戏
         by_length = sorted(norms, key=lambda n: (len(n), n))

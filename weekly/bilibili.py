@@ -43,6 +43,7 @@ from . import brackets
 from .config import BILIBILI, BILI_VIEW, NEW, WORK
 from .corpus import day_of, norm_title
 from .game_routing import NO_GAME
+from .titles import normalize as titles_norm
 
 # URL 只吃 URL 合法的 ASCII 字符，遇到中文标点 / 空白就停，不会把后面的正文吞掉。
 URL_RE = re.compile(r"https?://[A-Za-z0-9\-._~:/?#\[\]@!$&'()*+,;=%]+", re.I)
@@ -478,12 +479,17 @@ def build_lines(corpus: dict, rules: dict, data: dict | None = None) -> list[dic
     no_game = str(cfg.get("no_game_label") or "动态")
 
     cells: "OrderedDict[tuple[str, str], list[dict]]" = OrderedDict()
+    # 作品名先过人工别名表（2026-11-21）：B 站正文常写拉丁名/略写，
+    # 不折算就认不出 X 侧同一部作品，会另起一个 `B站 · 账号` 的重复小标题。
+    alias_map = {titles_norm(k): v for k, v in
+                 ((rules.get("title_merge") or {}).get("canonical_aliases") or {}).items()}
     for rec in corpus.get("bilibili") or []:
         text = clean_text(rec["content"], titles, bracket_cfg)
         if not text:
             continue
         match = WORK_RE.search(text)
         title = norm_title(match.group(1)) if match else ""
+        title = alias_map.get(titles_norm(title), title)
         glabel = f"『{_display_title(title)}』" if title else no_game
         # 路由用「未标注作品」这个名字，让 new_work_labels() 的 never 列表直接生效。
         route_game = glabel if title else NO_GAME

@@ -319,6 +319,28 @@ class GateRoutingTests(unittest.TestCase):
         self.assertEqual(row["column"], config.WORK)
         self.assertFalse(row["new_work"])
 
+    def test_alias_table_folds_latin_title_onto_japanese_game(self):
+        # 2026-11-21：B 站正文写拉丁名（LimeLight Lemonade Jam），X 侧写日文名
+        # （ライムライト・レモネードジャム），不查别名表就会另起一个
+        # `B站 · 柚子社official` 的重复小标题，还把同一条消息留在作品情报。
+        data = {"sections": [{
+            "label": "ゆずソフト",
+            "items": [{"key": "x:1", "group_key": "g:yuzu",
+                       "group_label": "『ライムライト・レモネードジャム』",
+                       "work_canonical": "ライムライト・レモネードジャム",
+                       "display_column": config.NEW,
+                       "sentence": "『ライムライト・レモネードジャム』海外版发售决定"}],
+        }]}
+        corpus = _corpus([_row(
+            "bilibili:0", "柚子社最新作『LimeLight Lemonade Jam』确定推出海外版")])
+        row = bili.build_lines(corpus, RULES, data)[0]
+        self.assertTrue(row["mapped"])
+        self.assertTrue(row["mapped_game"])
+        self.assertEqual(row["brand"], "ゆずソフト")
+        self.assertEqual(row["gkey"], "g:yuzu")
+        self.assertEqual(row["glabel"], "『ライムライト・レモネードジャム』")
+        self.assertEqual(row["column"], config.NEW)
+
     def test_every_row_has_one_publisher_link_and_no_bare_url(self):
         lines = self._lines("『X』发售日期公布 " + URL + " 详情",
                             "普通通知 https://t.co/abc 结束")
