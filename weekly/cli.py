@@ -378,11 +378,15 @@ def cmd_check(_args) -> int:
         for rec in records:
             if str(rec.get("work_basis") or "") != "bare+release":
                 continue
+            # 原推优先（2026-11-21）：信号可能只在原推本推正文里，
+            # 中文概括没写不代表没有；与 pipeline._evidence_text 同口径。
             text = str(rec.get("text") or "")
-            if not any(p.search(text) for p in bare_sig):
+            src = str(rec.get("source_text") or "")
+            evidence = (text + "\n" + src).strip() if src else text
+            if not any(p.search(evidence) for p in bare_sig):
                 problems.append(f"{rec.get('rid')} 裸题名命中但没有发售信号：{text[:50]}")
                 break
-            if any(p.search(text) for p in bare_skip):
+            if any(p.search(evidence) for p in bare_skip):
                 problems.append(f"{rec.get('rid')} 汇整条目被裸题名兜底命中：{text[:50]}")
                 break
     # 书名号归一：作品『』/ 角色「」/ 乐曲书籍《》。归一函数是幂等的，

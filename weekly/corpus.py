@@ -114,10 +114,16 @@ def build(since: str | None = None, until: str | None = None,
             broken.append(issue)
 
         if index:
+            # 原推事实层（2026-11-21）：中文概括只作表述，作品名/信号以本推正文为准。
+            # 延迟导入避免 corpus ↔ source_grounding 的模块环。
+            from .source_grounding import primary_text, title_values
             for key, rec in (index.get("source_refs") or {}).items():
                 # 同一 key 多期出现时留原文更全的一条（与 weekly_material 同口径）。
                 if key not in refs or len(rec.get("text") or "") > len(refs[key].get("text") or ""):
-                    refs[key] = dict(rec)
+                    enriched = dict(rec)
+                    enriched["origin_text"] = primary_text(rec)
+                    enriched["origin_titles"] = title_values(enriched["origin_text"])
+                    refs[key] = enriched
             for person in index.get("people") or []:
                 handle = str(person.get("handle") or "")
                 summary = str(person.get("summary") or "")
@@ -167,13 +173,17 @@ def build(since: str | None = None, until: str | None = None,
             "请先运行 python scripts/daily_clauses.py sync --all"
         )
 
-    titles: set[str] = set()
+    titles_cn: set[str] = set()
     for row in daily_rows:
-        titles.update(norm_title(m.group(1)) for m in TITLE_RE.finditer(row["text"])
-                      if len(norm_title(m.group(1))) >= 2)
+        titles_cn.update(norm_title(m.group(1)) for m in TITLE_RE.finditer(row["text"])
+                         if len(norm_title(m.group(1))) >= 2)
     for cand in candidates:
-        titles.update(norm_title(m.group(1)) for m in TITLE_RE.finditer(cand["context"])
-                      if len(norm_title(m.group(1))) >= 2)
+        titles_cn.update(norm_title(m.group(1)) for m in TITLE_RE.finditer(cand["context"])
+                         if len(norm_title(m.group(1))) >= 2)
+    # 原推里写了、但中文概括漏掉的作品名也必须进词表，否则「认亲」这一步
+    # 根本没机会命中它。原推题名先过 title_values 的最小去噪（见该模块）。
+    titles_original: set[str] = {t for rec in refs.values() for t in (rec.get("origin_titles") or [])}
+    titles = titles_cn | titles_original
 
     payload = {
         "schema_version": 1,
@@ -189,6 +199,9 @@ def build(since: str | None = None, until: str | None = None,
         "candidates": candidates,
         "daily_rows": daily_rows,
         "titles": sorted(titles),
+        "original_titles": sorted(titles_original),
+        "chinese_titles": sorted(titles_cn),
+        "generator_note": "作品名与信号以 source_refs[].origin_text（原推本推正文）为准；中文概括只作表述层，不新增 LLM 调用。",
         "stats": {
             "issues": len(issues),
             "source_keys": len(refs),
@@ -196,6 +209,9 @@ def build(since: str | None = None, until: str | None = None,
             "daily_rows": len(daily_rows),
             "daily_rows_by_origin": dict(Counter(r["origin"] for r in daily_rows)),
             "titles": len(titles),
+            "titles_from_original": len(titles_original - titles_cn),
+            "titles_from_chinese_only": len(titles_cn - titles_original),
+            "source_grounding": True,
             "unresolved_source_keys": sorted({k for r in daily_rows for k in r["sources"]
                                              if k not in refs}),
         },

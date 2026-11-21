@@ -19,7 +19,15 @@ from .config import COLUMNS, INDUSTRY, MOVEMENT, NEW, WORK
 from . import brackets
 from .corpus import TITLE_RE, norm_title
 from .identity import Identity
+from .source_grounding import source_facts
 from .titles import TitleNormalizer
+
+# 归栏 / 筛选用的事实文本 = 中文表述 + 本推正文（已剥掉引用推与 URL）。
+# 中文句子仍是站点表述层，但「是不是作品 / 哪个作品 / 有无发售信号」先看原推。
+def _evidence_text(rec: dict) -> str:
+    cn = str(rec.get("text") or "")
+    src = str(rec.get("source_text") or "")
+    return (cn + "\n" + src).strip() if src else cn
 
 # 识别用：比 corpus.TITLE_RE 多认「」，但只认「归一后在语料 titles 里」的那几个，
 # 所以「恢复」「前缀：」这类引语不会被当成题名；『』/《》 优先于 「」。
@@ -72,7 +80,7 @@ def _records(corpus: dict) -> tuple[list[dict], list[dict]]:
             by_context[key] = {
                 "origin": "clause", "issue": cand["issue"], "day": cand["day"],
                 "text": cand["context"], "sources": [], "candidates": [],
-                "groups": [], "handles": [],
+                "groups": [], "handles": [], "source_text": "", "source_titles": [],
             }
             order.append(key)
         rec = by_context[key]
@@ -99,7 +107,13 @@ def _records(corpus: dict) -> tuple[list[dict], list[dict]]:
             "origin": row["origin"], "issue": row["issue"], "day": row["day"],
             "text": row["text"], "sources": list(row["sources"]),
             "candidates": [], "groups": [], "handles": [],
+            "source_text": "", "source_titles": [],
         })
+    refs = corpus.get("source_refs") or {}
+    for rec in records:
+        facts = source_facts(refs, rec["sources"])
+        rec["source_text"] = facts["text"]
+        rec["source_titles"] = facts["titles"]
     for i, rec in enumerate(records, start=1):
         rec["rid"] = f"r{i:04d}"
         rec["sources"] = sorted(set(rec["sources"]))
@@ -174,7 +188,7 @@ def annotate(records: list[dict], rules: dict) -> list[dict]:
     birthday_exempt = bool((rules.get("birthday") or {}).get("exempt_if_substantive"))
     evidence = []
     for rec in records:
-        text = rec["text"]
+        text = _evidence_text(rec)
         hit_forced = ""
         for entry in forced:
             if any(p.search(text) for p in entry["patterns"]):
@@ -207,7 +221,7 @@ def prefilter(records: list[dict], identity: Identity, rules: dict) -> list[dict
         info = identity.resolve(rec["sources"], rules["_refs"])
         rec["identity"] = info
         rec["account_class"] = info["class"]
-        text = rec["text"]
+        text = _evidence_text(rec)
         # 生日词只有在「没有实质内容」时才压掉这条；庆生＋发售的按正常条目走。
         birthday_only = bool(rec["birthday"] and not rec.get("birthday_exempt"))
         if rec["forced_column"]:
@@ -244,6 +258,8 @@ def classify(records: list[dict], corpus: dict, identity: Identity, rules: dict,
              normalizer: TitleNormalizer) -> None:
     """归栏只看内容：账号类不参与；栏目强制词在最后覆盖，并留原始判定。"""
     titles = set(corpus["titles"])
+    # 只从原推抽出的题名才有权压过中文概括里写的题名；中文词表留给兜底。
+    source_title_vocab = set(corpus.get("original_titles") or [])
     refs = rules["_refs"]
     ops = [re.compile(p) for p in ((rules.get("movement_rules") or {}).get("patterns") or [])]
     signals = [str(s) for s in ((rules.get("movement_rules") or {}).get("signals") or []) if s]
@@ -263,24 +279,49 @@ def classify(records: list[dict], corpus: dict, identity: Identity, rules: dict,
     bare_sig = [re.compile(p) for p in (bare_cfg.get("signals") or [])]
     bare_skip = [re.compile(p) for p in (bare_cfg.get("skip_if") or [])]
     # 裸题名兜底用：把作品名与正文都去掉空白再比，避免「题名带空格、正文不带」漏配。
-    norm_titles = sorted(((t, _norm_text(t)) for t in titles if len(_norm_text(t)) >= bare_min),
+    # 裸题名兜底只在「日报中文里本来就有的题名」上做：原推新增题名只用于
+    # 书名号显式命中，不参与裸串匹配（否则长推文里的「…アフターストーリー」
+    # 会被裸串认成作品名「ストーリー」）。
+    bare_vocab = set(corpus.get("chinese_titles") or titles)
+    norm_titles = sorted(((t, _norm_text(t)) for t in bare_vocab if len(_norm_text(t)) >= bare_min),
                          key=lambda x: -len(x[1]))
     for rec in records:
-        text = rec["text"]
+        text = rec["text"]                    # 中文表述层（展示 / 位置敏感判定）
+        grounded = _evidence_text(rec)        # 事实层（中文 + 原推本推正文）
+        source_titles = [t for t in (rec.get("source_titles") or [])
+                         if t in source_title_vocab and len(t) >= 2]
         found = [(m.group(1), norm_title(m.group(2))) for m in FIND_RE.finditer(text)]
         # 『』/《》 是明确的题名号，优先；「」 只作兜底——它也可能是角色名或引语。
         strict = [t for opener, t in found if opener in "『《" and t in titles and len(t) >= 2]
         loose = [t for _, t in found if t in titles and len(t) >= 2]
         work = (strict or loose or [""])[0]
         work_basis = "text" if work else ""
+        # 原推优先（2026-11-21）：只在中文题名是原推题名的截断/缩写时补全；
+        # 两边完全不同的题名（例：中文写作品、原推同时提到主题曲）不强行改栏，
+        # 只记 conflict 供核对。这样既救回被日报概括删掉的作品名，又不会把
+        # 主题曲 / 时间串 / 角色名误当成这一条的作品。
+        source_conflict = False
+        cn_titles = strict + loose
+        if source_titles and cn_titles:
+            repaired = next(
+                (s for s in source_titles for c in cn_titles
+                 if _norm_text(c) and (_norm_text(c) in _norm_text(s)
+                                       or _norm_text(s) in _norm_text(c))),
+                "")
+            if repaired and repaired != cn_titles[0]:
+                work, work_basis = repaired, "source+verbatim"
+            elif not any(c in source_titles for c in cn_titles):
+                source_conflict = True
+        elif not work and source_titles:
+            work, work_basis = source_titles[0], "source+verbatim"
         if not work and bare_cfg.get("enabled"):
             # 正文没给作品名加书名号时的兜底（2026-11-10 用户裁决：
             # 「包装版」就是实体版游戏，这条本来就该算作品情报）。只在句子里
             # 有「实体版 / 装盘 / 发售」这类作品发售信号时才认，取最长命中。
-            has_release = any(p.search(text) for p in bare_sig)
-            digest = any(p.search(text) for p in bare_skip)
+            has_release = any(p.search(grounded) for p in bare_sig)
+            digest = any(p.search(grounded) for p in bare_skip)
             if not digest and (has_release or not bare_cfg.get("require_substantive")):
-                normed = _norm_text(text)
+                normed = _norm_text(grounded)
                 hit = next((t for t, n in norm_titles if n and n in normed), "")
                 if hit:
                     work, work_basis = hit, "bare+release"
@@ -292,15 +333,17 @@ def classify(records: list[dict], corpus: dict, identity: Identity, rules: dict,
                 candidate = norm_title(group)
                 if candidate not in titles or len(candidate) < 2:
                     continue
-                if any(candidate in _norm_text((refs.get(k) or {}).get("text") or "")
+                if any(candidate in _norm_text(
+                        (refs.get(k) or {}).get("origin_text")
+                        or (refs.get(k) or {}).get("text") or "")
                        for k in rec["sources"]):
                     work, work_basis = candidate, "group+verbatim"
                     break
-        account_ops = any(p.search(text) for p in ops)
-        signal_hit = next((s for s in signals if s in text), "")
+        account_ops = any(p.search(grounded) for p in ops)
+        signal_hit = next((s for s in signals if s in grounded), "")
         brand = rec["identity"]["brand"]
         if not brand:
-            brand = next((b for b in brand_vocab if b and b in text), "")
+            brand = next((b for b in brand_vocab if b and b in grounded), "")
             brand = identity.canonical_brand(brand)
         if work and not account_ops:
             base_column = WORK
@@ -336,9 +379,12 @@ def classify(records: list[dict], corpus: dict, identity: Identity, rules: dict,
             "brand": brand or "未标注品牌", "account_ops": account_ops,
             "signal": signal_hit, "forced_yielded": yielded,
             "text": text_fixed, "bracket_changes": br_changes,
+            "source_work": source_titles[0] if source_titles else "",
+            "source_conflict": source_conflict,
             "classify_reason": (
                 f"work={work or '-'}({work_basis or 'none'}) ops={account_ops} "
                 f"signal={signal_hit or '-'} brand={brand or '-'} → {base_column}"
+                + ("；中文题名与原推不一致（保留中文，记待核）" if source_conflict else "")
                 + ("；强制词让位（发售信号更靠前）→ " + column if yielded
                    else ("；强制词覆盖 → " + column if rec["forced_column"] else ""))
             ),
@@ -676,6 +722,9 @@ def build_sections(records: list[dict], corpus: dict, identity: Identity,
             "account_class": rec["account_class"], "classify_reason": rec["classify_reason"],
             "work": rec["work"], "work_canonical": canonical,
             "work_basis": rec["work_basis"],
+            "source_text": rec.get("source_text") or "",
+            "source_titles": list(rec.get("source_titles") or []),
+            "source_conflict": bool(rec.get("source_conflict")),
             "sources": source_records,
             "candidates": rec["candidates"],
             "accounts": accounts,
@@ -757,6 +806,11 @@ def run(corpus: dict, rules: dict) -> dict:
     key_to_gid, groups = content_groups(refs)
     raw, prose_only = _records(corpus)
     deduped, dedupe_evidence = dedupe_records(raw, refs, key_to_gid)
+    # 去重会并 sources；事实文本必须跟着并完的来源重算，不能留输家的旧句子。
+    for rec in deduped:
+        facts = source_facts(refs, rec["sources"])
+        rec["source_text"] = facts["text"]
+        rec["source_titles"] = facts["titles"]
     annotation = annotate(deduped, rules)
     filter_evidence = prefilter(deduped, identity, rules)
     classify(deduped, corpus, identity, rules, normalizer)
@@ -786,6 +840,8 @@ def run(corpus: dict, rules: dict) -> dict:
                 "substantive": bool(r.get("substantive")),
                 "no_subject": bool(r.get("no_subject")),
                  "work": r["work"], "work_canonical": r["work_canonical"],
+                 "work_basis": r["work_basis"], "source_work": r.get("source_work", ""),
+                 "source_conflict": bool(r.get("source_conflict")),
                  "brand": r["brand"], "class": r["account_class"],
                  "verdict": r["verdict"], "reason": r["classify_reason"]}
                 for r in deduped
@@ -813,6 +869,11 @@ def run(corpus: dict, rules: dict) -> dict:
             "items": sum(len(s["items"]) for s in sections),
             "game_groups": sum(len(s["groups"]) for s in sections),
             "title_merges": len(normalizer.evidence()["merges"]),
+            "source_grounded_records": sum(1 for r in deduped if r.get("source_text")),
+            "source_titled_records": sum(1 for r in deduped if r.get("source_titles")),
+            "source_title_overrides": sum(1 for r in deduped
+                                          if r.get("work_basis") == "source+verbatim"),
+            "source_title_conflicts": sum(1 for r in deduped if r.get("source_conflict")),
             "birthday_records": sum(1 for r in deduped if r["birthday"]),
             "birthday_hidden": sum(1 for r in deduped
                                    if r["birthday"] and not r.get("birthday_exempt")),

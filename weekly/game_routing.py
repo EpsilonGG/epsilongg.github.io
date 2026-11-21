@@ -79,11 +79,18 @@ def _compile(cfg: dict) -> tuple[list[tuple[str, re.Pattern]], re.Pattern]:
 
 
 def _row_hits(sentence: str, pos: list[tuple[str, re.Pattern]],
-              neg: re.Pattern) -> list[str]:
-    """单条命中的信号；同一句命中 negative 就整句不计。"""
-    if neg.search(sentence):
-        return []
-    return [name for name, rex in pos if rex.search(sentence)]
+              neg: re.Pattern, extra: str = "") -> list[str]:
+    """单条命中的信号；每个文本面各自过 negative，命中就只丢这一面。
+
+    `extra` 是该条来源的原推本推正文（2026-11-21 原推优先）。中文概括与原推
+    是两个独立证据面：一面命中 negative 不能把另一面也带走；两边都算完再合并。
+    """
+    found: list[str] = []
+    for surface in (sentence, extra):
+        if not surface or neg.search(surface):
+            continue
+        found.extend(name for name, rex in pos if rex.search(surface))
+    return list(dict.fromkeys(found))
 
 
 def _has_other_news(rows: list[dict], cfg: dict) -> bool:
@@ -97,7 +104,8 @@ def _has_other_news(rows: list[dict], cfg: dict) -> bool:
     if not conditional:
         return True
     for row in rows:
-        hits = _row_hits(str(row.get("sentence") or ""), pos, neg)
+        hits = _row_hits(str(row.get("sentence") or ""), pos, neg,
+                         str(row.get("source_text") or ""))
         if not hits or not all(h in conditional for h in hits):
             return True
     return False
@@ -115,7 +123,8 @@ def game_signals(rows: list[dict], cfg: dict) -> list[str]:
     cond_ok = _has_other_news(rows, cfg)
     found: list[str] = []
     for row in rows:
-        for name in _row_hits(str(row.get("sentence") or ""), pos, neg):
+        for name in _row_hits(str(row.get("sentence") or ""), pos, neg,
+                              str(row.get("source_text") or "")):
             if name in conditional and not cond_ok:
                 continue
             found.append(name)
@@ -185,6 +194,7 @@ def build_preview(rules: dict) -> dict:
             by_game[game].append({
                 "key": it["key"], "brand": sec["label"], "game": game,
                 "sentence": str(it.get("sentence") or ""),
+                "source_text": str(it.get("source_text") or ""),
                 "prefix": str(it.get("prefix_md") or it.get("subject_prefix") or ""),
                 "official": bool(it.get("is_official")),
                 "in_draft": it["key"] not in deleted and not it.get("default_deleted"),
@@ -207,10 +217,11 @@ def build_preview(rules: dict) -> dict:
         # 条件信号的闸门与出稿分流共用（game_signals 口径），预览不能自己另算。
         cond_ok = _has_other_news(rows, cfg)
         for r in rows:
-            hit = _row_hits(r["sentence"], pos, neg)
+            hit = _row_hits(r["sentence"], pos, neg, r.get("source_text", ""))
             hit = [h for h in hit if h not in conditional or cond_ok]
             if hit:
                 evidence.append({"sentence": r["sentence"], "signals": hit,
+                                 "source_text": r.get("source_text", "")[:240],
                                  "day": r["day"]})
                 signals.extend(hit)
         signals = sorted(set(signals))
