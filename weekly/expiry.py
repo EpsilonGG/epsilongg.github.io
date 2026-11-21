@@ -153,14 +153,19 @@ def find_expired(text: str, today: date, anchor: date | None = None,
     latest = max(past, key=lambda c: c[2])
     _start, _end, when, raw, _kind, sentence = latest
     # 另一句带未来发售：删掉会连带丢新闻，保留并说明。
+    # 「另一句」必须整句都只谈未来——中文概括与日文原推是同一件事的两个文本面，
+    # 若那句自己也写了已经过去的日期（`11/27 发售作的特典…11/16 定下`），
+    # 它就不是另一条新闻，只是同一句的另一种写法，不能拿来豁免。
     if cfg.get("keep_if_future_release", True):
         for other in _sentences(body):
             if other == sentence:
                 continue
-            dates = DATE_ANY.findall(other)
-            if dates and RELEASE_WORDS.search(other):
-                upcoming = [d for d in (_guess(d, base) for d in dates)
-                            if d and d >= today]
+            dates = [d for d in (_guess(raw_date, base)
+                                 for raw_date in DATE_ANY.findall(other)) if d]
+            if not dates or any(d < today for d in dates):
+                continue
+            if RELEASE_WORDS.search(other):
+                upcoming = [d for d in dates if d >= today]
                 if upcoming:
                     return {"drop": False, "end": when.isoformat(), "raw": raw,
                             "context": sentence,
