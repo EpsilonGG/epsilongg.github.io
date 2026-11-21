@@ -5,9 +5,9 @@
 * 第四栏是**展示层**新增的一个值，归栏三值不动，前三栏顺序不动；
 * B 站正本走只读旁路：`source_refs` / `candidates` / `daily_rows` 一个键都不加，
   所以作品情报、业界动向与历史回测逐字不变；
-* B 站行参与 `game_routing.new_work_labels()` 的**同一份**游戏级「新作」过滤：
-  命中的游戏整组上提第一栏，其余留第四栏；没有作品名的绝不掉进「未标注作品」
-  默认排除池；
+* B 站行先在展示层过 2026-11-21 裁决的三道闸门：过期贩卖删掉；认得出
+  品牌/游戏的并进原品牌-游戏子集（栏目随原组）；认不出的以 B 站账号名义
+  统一落到作品动向（作品情报），一律不进新作；
 * 每条正文只留一条 `[发布者](B站原文)` 链接，裸 URL 全部剥掉；
 * 同个账号的归到一起（归并单位「账号 × 作品小标题」），合并后超过 150 字就概括，
   而条件信号仍按**逐条**判定，不因归并改变「新作」结论。
@@ -20,6 +20,7 @@ import json
 import sys
 import tempfile
 import unittest
+from datetime import date
 from pathlib import Path
 from unittest import mock
 
@@ -163,6 +164,24 @@ class AttachIsolationTests(unittest.TestCase):
         self.assertEqual(payload["bilibili"][0]["content"], "第一条")
         self.assertEqual(set(payload["bilibili_refs"]), {"bilibili:1"})
 
+    def test_expired_sale_is_dropped_but_active_sale_stays(self):
+        class FakeDate(date):
+            @classmethod
+            def today(cls) -> "FakeDate":
+                return cls(2026, 11, 21)
+
+        with mock.patch.object(bili, "date", FakeDate):
+            payload = self._attached([
+                _record("bilibili:1", "促销 11月1日まで，限定特卖"),
+                _record("bilibili:2", "促销 11月30日まで，限定特卖"),
+            ])
+        self.assertEqual([r["key"] for r in payload["bilibili"]], ["bilibili:2"])
+        self.assertEqual(payload["stats"]["bilibili_expired_sales"], 1)
+
+    def test_expired_sale_without_end_date_is_kept(self):
+        payload = self._attached([_record("bilibili:1", "セール開催中、详细稍后公开")])
+        self.assertEqual(len(payload["bilibili"]), 1)
+
     def test_disabled_config_returns_no_rows(self):
         with tempfile.TemporaryDirectory() as tmp:
             folder = Path(tmp)
@@ -185,68 +204,90 @@ class AttachIsolationTests(unittest.TestCase):
         self.assertEqual([day for day, _ in files], ["2026-11-10"])
 
 
-class GameLevelRoutingTests(unittest.TestCase):
-    def _lines(self, *texts: str) -> list[dict]:
+class GateRoutingTests(unittest.TestCase):
+    """2026-11-21 三道闸门：过期贩卖删、认亲并子集、未认亲落作品动向。"""
+
+    def _lines(self, *texts: str, data: dict | None = None) -> list[dict]:
         return bili.build_lines(_corpus([
             _row(f"bilibili:{i}", text) for i, text in enumerate(texts)
-        ]), RULES)
+        ]), RULES, data)
 
-    def test_new_work_signal_lifts_the_whole_game(self):
+    @staticmethod
+    def _x_data() -> dict:
+        return {"sections": [{
+            "label": "ゆずソフト",
+            "items": [
+                {"key": "x:1", "group_key": "g:game", "group_label": "『GameA』",
+                 "work_canonical": "GameA", "display_column": config.NEW,
+                 "sentence": "『GameA』新作公开"},
+                {"key": "x:2", "group_key": "g:brand", "group_label": "品牌动向",
+                 "work_canonical": "", "display_column": config.WORK,
+                 "sentence": "品牌动向"},
+            ],
+        }]}
+
+    def test_unmatched_rows_never_enter_new_work_even_with_release_signal(self):
         lines = self._lines(
             "『X』发售日期公布，12 月 25 日发售",
             "『X』公布了一段角色介绍",
             "『Y』Switch 版促销最后一天",
         )
-        # 同一账号 × 同一作品的动态归并成一行，key 用组内第一条。
         by_key = {x["key"]: x for x in lines}
         self.assertEqual(len(lines), 2)
-        self.assertEqual(by_key["bilibili:0"]["column"], config.NEW)
-        self.assertEqual(by_key["bilibili:0"]["count"], 2)  # 整组上提
+        self.assertEqual(by_key["bilibili:0"]["count"], 2)
         self.assertEqual(by_key["bilibili:0"]["keys"], ["bilibili:0", "bilibili:1"])
-        self.assertEqual(by_key["bilibili:2"]["column"], config.BILI_VIEW)
+        for row in lines:
+            self.assertEqual(row["column"], config.WORK)
+            self.assertFalse(row["mapped"])
+            self.assertFalse(row["new_work"])
+            self.assertTrue(row["brand"].startswith("B站 · "))
         self.assertEqual(by_key["bilibili:0"]["glabel"], "『X』")
 
-    def test_cg_alone_is_not_a_new_work_but_cg_with_news_is(self):
-        lines = bili.build_lines(_corpus([
-            _row("bilibili:0", "『Z』公开新CG"),
-            _row("bilibili:1", "『W』公开新CG"),
-            _row("bilibili:2", "『W』角色介绍公开"),
-        ]), RULES)
-        by_key = {x["key"]: x for x in lines}
-        self.assertEqual(by_key["bilibili:0"]["column"], config.BILI_VIEW)
-        self.assertEqual(by_key["bilibili:1"]["column"], config.NEW)
-        self.assertEqual(by_key["bilibili:1"]["count"], 2)
-
-    def test_conditional_signal_is_judged_per_dynamic_not_per_cell(self):
-        """归并成一行之后，条件信号仍按**逐条**判定，不能被拼接改变结论。"""
-        lines = bili.build_lines(_corpus([
-            _row("bilibili:0", "『W』公开新CG"),
-            _row("bilibili:1", "『W』角色介绍公开"),
-        ]), RULES)
+    def test_conditional_signal_still_keeps_sentence_granularity(self):
+        lines = self._lines("『W』公开新CG", "『W』角色介绍公开")
         self.assertEqual(len(lines), 1)
-        self.assertEqual(lines[0]["column"], config.NEW)
+        self.assertEqual(lines[0]["column"], config.WORK)
         self.assertEqual(lines[0]["sentences"],
                          ["『W』公开新CG", "『W』角色介绍公开"])
 
-    def test_no_game_rows_never_become_new_work_and_keep_a_safe_label(self):
-        lines = bili.build_lines(_corpus([
-            _row("bilibili:0", "【通知】秋叶原活动照常举行 " + URL),
-        ]), RULES)
-        self.assertEqual(len(lines), 1)
+    def test_no_game_rows_keep_a_safe_label_in_work_column(self):
+        lines = self._lines("【通知】秋叶原活动照常举行 " + URL)
         row = lines[0]
-        self.assertEqual(row["column"], config.BILI_VIEW)
+        self.assertEqual(row["column"], config.WORK)
         self.assertEqual(row["glabel"], RULES["bilibili"]["no_game_label"])
         self.assertNotEqual(row["glabel"], gr.NO_GAME)
         self.assertEqual(row["group_label"], gr.NO_GAME)
+        self.assertFalse(row["mapped"])
+
+    def test_matched_game_joins_the_original_brand_game_subset(self):
+        lines = self._lines("『GameA』海外版发售决定", data=self._x_data())
+        self.assertEqual(len(lines), 1)
+        row = lines[0]
+        self.assertTrue(row["mapped"])
+        self.assertTrue(row["mapped_game"])
+        self.assertEqual(row["column"], config.NEW)
+        self.assertEqual(row["brand"], "ゆずソフト")
+        self.assertEqual(row["gkey"], "g:game")
+        self.assertEqual(row["glabel"], "『GameA』")
+
+    def test_matched_brand_only_joins_brand_movement_in_work_column(self):
+        corpus = _corpus([dict(_row("bilibili:0", "新周边通贩开始"),
+                               publisher="ゆずソフト公式")])
+        lines = bili.build_lines(corpus, RULES, self._x_data())
+        row = lines[0]
+        self.assertTrue(row["mapped"])
+        self.assertFalse(row["mapped_game"])
+        self.assertEqual(row["column"], config.WORK)
+        self.assertEqual(row["brand"], "ゆずソフト")
+        self.assertEqual(row["gkey"], "g:brand")
+        self.assertEqual(row["glabel"], "品牌动向")
 
     def test_every_row_has_one_publisher_link_and_no_bare_url(self):
-        lines = bili.build_lines(_corpus([
-            _row("bilibili:0", "『X』发售日期公布 " + URL + " 详情"),
-            _row("bilibili:1", "普通通知 https://t.co/abc 结束"),
-        ]), RULES)
+        lines = self._lines("『X』发售日期公布 " + URL + " 详情",
+                            "普通通知 https://t.co/abc 结束")
         for row in lines:
             with self.subTest(key=row["key"]):
-                self.assertIn(row["column"], (config.NEW, config.BILI_VIEW))
+                self.assertEqual(row["column"], config.WORK)
                 self.assertTrue(row["text"].startswith("- [" + PUBLISHER + "](" + URL + ")："))
                 self.assertEqual(row["text"].count("http"), 1)
                 self.assertTrue(row["brand"].startswith("B站 · "))
@@ -271,13 +312,12 @@ class RenderAndEditorTests(unittest.TestCase):
             _row("bilibili:1", "普通通知"),
         ]), RULES)
         md = render.render_markdown(self._data(lines), {})
-        self.assertIn("## 新作", md)
-        self.assertIn("## B站动态", md)
+        self.assertIn("## 作品情报", md)
         self.assertIn("### B站 · " + PUBLISHER, md)
         self.assertIn("#### 动态", md)
-        self.assertNotIn("## 作品情报", md)
+        self.assertNotIn("## 新作", md)
+        self.assertNotIn("## B站动态", md)
         self.assertNotIn("## 业界动向", md)
-        self.assertTrue(md.index("## 新作") < md.index("## B站动态"))
 
     def test_deleting_a_bilibili_row_removes_its_column(self):
         lines = bili.build_lines(_corpus([
@@ -285,7 +325,7 @@ class RenderAndEditorTests(unittest.TestCase):
         ]), RULES)
         md = render.render_markdown(
             self._data(lines), {"deleted_items": ["bilibili:0"]})
-        self.assertNotIn("## 新作", md)
+        self.assertNotIn("## 作品情报", md)
         self.assertNotIn(URL, md)
 
     def test_filter_page_js_reads_the_same_bilibili_lines(self):

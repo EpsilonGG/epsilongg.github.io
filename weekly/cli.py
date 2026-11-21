@@ -227,15 +227,21 @@ def cmd_check(_args) -> int:
         covered_rows = sum(int(row.get("count") or 1) for row in bili_rows)
         if covered_rows != expect_rows:
             problems.append(f"B站动态归并后覆盖 {covered_rows} 条 ≠ 正本 {expect_rows} 条")
-        cells = [(str(r.get("brand") or ""), str(r.get("glabel") or "")) for r in bili_rows]
+        cells = [(str(r.get("brand") or ""), str(r.get("glabel") or ""))
+                 for r in bili_rows if not r.get("mapped")]
         if len(set(cells)) != len(cells):
             problems.append("B站行没有按「账号 × 作品」归并：出现重复的格子")
         limit = int((rules.get("bilibili") or {}).get("summary_limit") or 150)
         for row in bili_rows:
             column = str(row.get("column") or "")
             text = str(row.get("text") or "")
-            if column not in (NEW, BILI_VIEW):
-                problems.append(f"B站行落到非法栏目：{column}")
+            mapped = bool(row.get("mapped"))
+            # 2026-11-21：认亲成功的行并入 X 侧原栏目（新作 / 作品情报），
+            # 未认亲的一律留在作品动向（作品情报），绝不进新作。
+            allowed = (NEW, WORK) if mapped else (WORK,)
+            if column not in allowed:
+                problems.append(f"B站行落到非法栏目：{column}"
+                                f"（{'已认亲' if mapped else '未认亲'}）")
                 break
             if not text.startswith("- [") or "](" not in text:
                 problems.append(f"B站行缺少发布者原文链接：{row.get('key')}")
@@ -246,8 +252,8 @@ def cmd_check(_args) -> int:
             if str(row.get("glabel") or "") == "未标注作品":
                 problems.append("B站行用了默认排除的小标题「未标注作品」")
                 break
-            if not str(row.get("brand") or "").startswith("B站 · "):
-                problems.append(f"B站品牌中标题没加防冲突前缀：{row.get('brand')}")
+            if not mapped and not str(row.get("brand") or "").startswith("B站 · "):
+                problems.append(f"未认亲的B站品牌中标题没加防冲突前缀：{row.get('brand')}")
                 break
             # 归并后的正文（「共 N 条」之后的那一段）不得超过概括上限；
             # 多条合一的格子必须在正文前标「共 N 条」，读者才知道这不是原文一条。

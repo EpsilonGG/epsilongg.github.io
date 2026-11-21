@@ -19,7 +19,7 @@ from dataclasses import asdict, dataclass, field
 from datetime import datetime, timezone
 from pathlib import Path
 
-PROMPT_VERSION = 5  # 5：题面带账号显示名对照表，叙述禁止写 bili_<uid> 句柄
+PROMPT_VERSION = 6  # 6：题面要求完整照抄书名号内的作品名，禁止截断或拼入说明
 
 FRESH = "fresh"
 STALE = "stale"

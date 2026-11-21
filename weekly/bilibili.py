@@ -13,9 +13,10 @@
 
 所以 B 站条目只在**展示层**单独成行：按当期日报覆盖的 JST 日逐日读正本，
 每条压成单行，剥掉裸 URL（周报正文只允许 Markdown 链接）、归一书名号，
-句首挂一条 `[发布者](B站原文)`；再按 `game_routing.new_work_labels()`
-的**同一份**规则做游戏级「新作」过滤——命中的游戏整组进第一栏「新作」，
-其余留在第四栏「B站动态」。
+句首挂一条 `[发布者](B站原文)`；再按 2026-11-21 用户裁决过三道闸门：
+① 写明结束日且成形时已过期的贩卖消息直接删掉；② 先按作品名/发布者认亲，
+认出的并进本期 X 侧已有品牌-游戏子集（栏目随原组）；③ 认不出的以
+`B站 · <发布者>` 名义统一归入作品动向（作品情报栏），一律不进新作。
 
 2026-11-12 追加口径（同日用户裁决）：**同一个账号的归到一起**，合并后超过
 150 字就概括。周报的归并单位是「账号 × 作品小标题」——品牌中标题本身就是
@@ -31,12 +32,13 @@ import hashlib
 import json
 import re
 from collections import OrderedDict
+from datetime import date
 from pathlib import Path
 
 from . import brackets
 from .config import BILIBILI, BILI_VIEW, NEW, WORK
 from .corpus import day_of, norm_title
-from .game_routing import NO_GAME, new_work_labels
+from .game_routing import NO_GAME
 
 # URL 只吃 URL 合法的 ASCII 字符，遇到中文标点 / 空白就停，不会把后面的正文吞掉。
 URL_RE = re.compile(r"https?://[A-Za-z0-9\-._~:/?#\[\]@!$&'()*+,;=%]+", re.I)
@@ -72,6 +74,80 @@ def _display_title(title: str) -> str:
     if "~" not in str(title or ""):
         return str(title or "")
     return " ".join(str(title).replace("~", " ~ ").split())
+
+
+def _norm_brand(name: str) -> str:
+    """发布者 → 可与 X 侧品牌中标题比对的名字（去空格/连接符与常见账号后缀）。"""
+    out = re.sub(r"[\s\-_.]+", "", str(name or "")).lower()
+    for suffix in ("公式", "官方", "official", "officialsite", "公式site"):
+        if out.endswith(suffix) and len(out) > len(suffix):
+            out = out[:-len(suffix)]
+            break
+    return out
+
+
+def _expired_sale(content: str, today: date) -> bool:
+    """一条 B 站正文是否是「写明结束日、且今天已过结束日」的贩卖信息。
+
+    只认显式日期的贩卖词：没有期限的常驻通贩 / 促销不猜；到期当天仍算有效。
+    2026-11-21 用户裁决：周报开始成形时已过期的贩卖消息直接删掉，不进报。
+    """
+    text = str(content or "")
+    if not re.search(r"セール|SALE|sale|促销|特卖|打折|折扣|优惠|受注|通販|通贩|贩卖|販売|售卖|限时|闪购", text, re.I):
+        return False
+    ends: list[date] = []
+    for m in re.finditer(r"(?<!\d)(\d{1,2})\s*月\s*(\d{1,2})\s*日[^。]{0,16}?(?:まで|截止|结束|止)", text):
+        ends.append(_sale_date(m.group(1), m.group(2), today))
+    for m in re.finditer(r"(?:至|截止|到|截至)\s*(\d{1,2})\s*月\s*(\d{1,2})\s*日", text):
+        ends.append(_sale_date(m.group(1), m.group(2), today))
+    for m in re.finditer(r"(?<!\d)(\d{1,2})/(\d{1,2})[^。]{0,16}?(?:まで|截止|结束|止)", text):
+        ends.append(_sale_date(m.group(1), m.group(2), today))
+    return bool(ends) and min(ends) < today
+
+
+def _sale_date(month: str, day: str, today: date) -> date:
+    """日文/中文公告里的月日补全年份：跨年边界按最近的一年算。"""
+    m, d = int(month), int(day)
+    year = today.year
+    if m < today.month - 6:
+        year += 1
+    elif m > today.month + 6:
+        year -= 1
+    return date(year, m, d)
+
+
+def _route_map(data: dict | None) -> tuple[dict, dict]:
+    """从本期 X 侧出稿数据建「作品 → 原品牌/游戏格」与「品牌 → 品牌动向格」两张表。
+
+    2026-11-21 用户裁决：B 站内容过闸后先认亲——认得出品牌/游戏的并进它的
+    子集，认不出的才以 B 站账号名义落到作品动向（作品情报栏），一律不进新作。
+    """
+    games: dict[str, dict] = {}
+    brands: dict[str, dict] = {}
+    for sec in (data or {}).get("sections") or []:
+        label = str(sec.get("label") or "")
+        # 「未标注品牌」是默认排除池，不是可以认亲的落点；否则 B 站行并进去
+        # 会重新把排除池里的格子印进正文，被 check 拦下。
+        if label in ("未标注品牌", "未标注作品"):
+            continue
+        nbrand = _norm_brand(label)
+        for item in sec.get("items") or []:
+            glabel = str(item.get("group_label") or "")
+            work = norm_title(item.get("work_canonical") or "")
+            if not work and glabel.startswith("『") and glabel.endswith("』"):
+                work = norm_title(glabel[1:-1])
+            if work and work != NO_GAME:
+                games.setdefault(work, {
+                    "brand": label, "gkey": item.get("group_key"),
+                    "glabel": glabel or f"『{work}』",
+                    "column": item.get("display_column") or WORK,
+                })
+            elif nbrand and (not glabel or glabel == "品牌动向"):
+                brands.setdefault(nbrand, {
+                    "brand": label, "gkey": item.get("group_key"),
+                    "glabel": glabel or "品牌动向",
+                })
+    return games, brands
 
 
 def clean_text(text: str, titles: set[str], bracket_cfg: dict) -> str:
@@ -279,6 +355,8 @@ def attach(corpus: dict, rules: dict) -> dict:
     cfg = rules.get("bilibili") or {}
     rows: list[dict] = []
     refs: dict[str, dict] = {}
+    expired = 0
+    today = date.today()
     if cfg.get("enabled", True):
         seen: set[str] = set()
         for day, path in source_files(corpus.get("issues") or []):
@@ -293,6 +371,9 @@ def attach(corpus: dict, rules: dict) -> dict:
                 url = str(rec.get("canonical_url") or "")
                 content = str(rec.get("content") or "").strip()
                 if not key.startswith("bilibili:") or not url or not content or key in seen:
+                    continue
+                if _expired_sale(content, today):
+                    expired += 1
                     continue
                 seen.add(key)
                 meta = rec.get("metadata") or {}
@@ -313,7 +394,8 @@ def attach(corpus: dict, rules: dict) -> dict:
     payload = dict(corpus)
     payload["bilibili"] = rows
     payload["bilibili_refs"] = refs
-    payload["stats"] = {**dict(corpus.get("stats") or {}), "bilibili_rows": len(rows)}
+    payload["stats"] = {**dict(corpus.get("stats") or {}),
+                        "bilibili_rows": len(rows), "bilibili_expired_sales": expired}
     return payload
 
 
@@ -323,7 +405,7 @@ def read_json_line(raw: str) -> dict:
     return value if isinstance(value, dict) else {}
 
 
-def build_lines(corpus: dict, rules: dict) -> list[dict]:
+def build_lines(corpus: dict, rules: dict, data: dict | None = None) -> list[dict]:
     """B 站动态 → 出稿 / 筛选页共用的展示行（Python 与内联 JS 读同一份）。
 
     每行已经带好 `column / brand / gkey / glabel / text`，两端都不再计算，
@@ -333,6 +415,10 @@ def build_lines(corpus: dict, rules: dict) -> list[dict]:
     品牌中标题本身就是账号，再按作品拆一格，既不会把不同游戏混成一句，
     也不会破坏 `new_work_labels()` 的游戏级判定——`sentence` 仍是该格全部句子
     的拼接，信号该命中的一个不少。
+
+    2026-11-21 用户裁决：归并后先过认亲闸门——作品名或发布者能对应上本期
+    X 侧已有品牌/游戏的，并进该品牌-游戏子集（栏目随原组）；对应不上的才以
+    `B站 · <发布者>` 名义落到作品动向（作品情报栏），一律不进新作。
     """
     cfg = rules.get("bilibili") or {}
     if not cfg.get("enabled", True) or not BILI_VIEW:
@@ -385,23 +471,35 @@ def build_lines(corpus: dict, rules: dict) -> list[dict]:
             "keys": [item["rec"]["key"] for item in items],
         })
 
-    # 游戏级「新作」过滤：与 X 侧出稿分流读同一个函数、同一份 rules.json 配置。
-    # 传进去的是逐条动态，不是归并后的格子——见上面 `sentences` 的注释。
-    pseudo = [{
-        "column": WORK,
-        "items": [{"group_label": r["group_label"], "sentence": s}
-                  for r in rows for s in r["sentences"]],
-    }]
-    labels = new_work_labels(pseudo, rules.get("game_routing") or {}) if rows else set()
+    # 2026-11-21 用户裁决的新闸门：先按作品名 / 发布者认亲，认出的并进 X 侧
+    # 原品牌-游戏子集（原栏目原样继承），认不出的以 B 站账号名义落到作品动向
+    # （作品情报栏），**一律不进新作**。B 站动态栏仍保留为第四栏的显示出口。
+    games, brands = _route_map(data)
     lines: list[dict] = []
     for row in rows:
-        is_new = row["group_label"] != NO_GAME and row["group_label"] in labels
+        match = WORK_RE.search(row["glabel"])
+        target = games.get(norm_title(match.group(1))) if match else None
+        mapped_game = bool(target)
+        if target is None:
+            target = brands.get(_norm_brand(row["publisher"]))
+        mapped = bool(target)
+        column = str(target.get("column") or WORK) if mapped_game else WORK
+        if target:
+            brand = str(target["brand"])
+            gkey = str(target.get("gkey") or "b:" + hashlib.md5(
+                (brand + "|" + str(target["glabel"])).encode("utf-8")).hexdigest()[:12])
+            glabel = str(target["glabel"])
+            group_label = glabel
+        else:
+            brand, gkey = row["brand"], row["gkey"]
+            glabel, group_label = row["glabel"], row["group_label"]
         lines.append({
-            "key": row["key"], "column": NEW if is_new else BILI_VIEW,
-            "brand": row["brand"], "gkey": row["gkey"], "glabel": row["glabel"],
-            "text": row["text"], "official": False, "new_work": is_new,
+            "key": row["key"], "column": column,
+            "brand": brand, "gkey": gkey, "glabel": glabel,
+            "text": row["text"], "official": False,
+            "new_work": column == NEW, "mapped": mapped, "mapped_game": mapped_game,
             "day": row["day"], "url": row["url"], "publisher": row["publisher"],
-            "group_label": row["group_label"], "count": row["count"],
+            "group_label": group_label, "count": row["count"],
             "summarized": row["summarized"], "keys": row["keys"],
             "sentences": row["sentences"],
         })
