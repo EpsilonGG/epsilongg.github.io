@@ -610,14 +610,18 @@ def cmd_check(_args) -> int:
             problems.append("weekly.md 混进了图片（正文版不带图）")
     if wh.is_file():
         imaged = wh.read_text(encoding="utf-8")
-        if "首图" not in imaged or "/photo/1" not in imaged:
-            problems.append("weekly.html 没有首图或没有 /photo/1 入口")
+        # /photo/[2-9] 恒为硬拦截：图片入口只能是 /photo/1。
         if re.search(r'href="[^"]*/photo/[2-9]', imaged):
             problems.append("weekly.html 仍链到 /photo/2 及以上的图片")
-        # 2026-11-11 上线闸门：首图是外站热链，碎图必须能退化成纯文字。
+        # 2026-11-21：零图是合法的选材结果（tier 1/2 + 挂游戏小标题的条目本期
+        # 没有合格图），不是产物坏了。首图/onerror 只在真的出了图时才校验。
         img_tags = re.findall(r"<img\b[^>]*>", imaged)
-        if not img_tags or any("onerror=" not in tag for tag in img_tags):
-            problems.append(f"weekly.html 的 {len(img_tags)} 张 <img> 有缺少 onerror 兜底的")
+        if img_tags:
+            if "首图" not in imaged or "/photo/1" not in imaged:
+                problems.append("weekly.html 的图片缺首图或 /photo/1 入口")
+            # 2026-11-11 上线闸门：首图是外站热链，碎图必须能退化成纯文字。
+            if any("onerror=" not in tag for tag in img_tags):
+                problems.append(f"weekly.html 的 {len(img_tags)} 张 <img> 有缺少 onerror 兜底的")
         for column in expect_columns:
             if f">{column}</h2>" not in imaged:
                 problems.append(f"weekly.html 缺少栏目「{column}」")

@@ -302,8 +302,10 @@ def build(rules: dict | None = None) -> dict:
         "官号条目只写正文、不写账号名或品牌名；非官号保留「主语：」，"
         "名单外账号主语用 <code>@handle</code> 并挂原推链接（可点，不加下划线）；"
         "品牌号转发的条目署被转发账号的真实名称并挂原推链接。"
-        f"<br>本版<b>含图片</b>：每个源推只取第一张，共 {n_images} 张；"
-        "点击图片可到原推 <code>/photo/1</code>。"
+        + (f"<br>本版<b>含图片</b>：每个源推只取第一张，共 {n_images} 张；"
+         "点击图片可到原推 <code>/photo/1</code>。"
+         if n_images else
+         "<br>本期<b>无合格图片</b>（没有满足 tier / 游戏小标题条件的配图），正文为纯文字。")
     )
     badges = [("正式版版式", False), ("本地工作台稿", True)]
     badges += [(c + " " + str(stats["columns"].get(c, {}).get("items", 0)) + " 条", False)

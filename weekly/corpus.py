@@ -46,6 +46,29 @@ def _as_rows(items, origin: str, issue: str, day: str) -> list[dict]:
     return rows
 
 
+def _report_has_sources(report: dict) -> bool:
+    """正本 people / highlights / interactions 里是否出现任一出处 key。
+
+    与 `scripts/daily_clauses.py:issue_keys()` 的收集口径一致（只读）：sources
+    可能是字符串或字符串列表。C1 护栏据此区分「正常零图周」与「索引缓存断了」。
+    """
+    def has(value) -> bool:
+        if isinstance(value, str):
+            return bool(value)
+        if isinstance(value, list):
+            return any(has(item) for item in value)
+        return False
+
+    for person in report.get("people") or []:
+        if has(person.get("sources")):
+            return True
+    for group in ("highlights", "interactions"):
+        for claim in report.get(group) or []:
+            if isinstance(claim, dict) and has(claim.get("sources")):
+                return True
+    return False
+
+
 def build(since: str | None = None, until: str | None = None,
           last_days: int | None = None) -> dict:
     """组装语料。默认仍是「全集」（本地回测用），上线时按窗口取近 N 期。
@@ -78,13 +101,17 @@ def build(since: str | None = None, until: str | None = None,
     daily_rows: list[dict] = []
     indexed: list[str] = []
     prose_only: list[str] = []
+    broken: list[str] = []  # 缺索引、但正本明摆着有 sources 的期号（C1 护栏）
 
     for issue in issues:
         day = day_of(issue)
         report = read_json(DAILY / issue / "report.json")
+        has_sources = _report_has_sources(report)
         idx_path = CLAUSES / f"{issue}.json"
         index = read_json(idx_path) if idx_path.is_file() else None
         (indexed if index else prose_only).append(issue)
+        if not index and has_sources:
+            broken.append(issue)
 
         if index:
             for key, rec in (index.get("source_refs") or {}).items():
@@ -128,6 +155,17 @@ def build(since: str | None = None, until: str | None = None,
             "issue_meta": {"published_at": ((report.get("issue") or {}).get("published_at") or "")},
             "has_index": bool(index),
         })
+
+    # C1 护栏（2026-11-21）：某期缺索引、但正本明摆着有 sources 时，只可能是
+    # 本地 out/clauses/ 缓存断了（它 gitignored，日报自动化与 CI 都不生成）。
+    # build 必须早失败，不能产出一份「缺源索引」的稿子拖到 check 才以
+    # 「没有首图」的假象暴露。零图是合法的选材结果，缺源索引不是。
+    if broken:
+        raise RuntimeError(
+            f"窗口内 {len(broken)} 期日报没有 M1 分句索引（out/clauses/）："
+            + "、".join(broken) + "；但正本里存在 sources。"
+            "请先运行 python scripts/daily_clauses.py sync --all"
+        )
 
     titles: set[str] = set()
     for row in daily_rows:
