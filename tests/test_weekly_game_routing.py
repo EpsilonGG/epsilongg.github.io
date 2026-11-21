@@ -118,6 +118,74 @@ class NewWorkSignalTests(unittest.TestCase):
             _sections(("『X』", "『X』発売日が決定しました")), cfg), set())
 
 
+class RetrospectiveDateAndLocalizationTests(unittest.TestCase):
+    """2026-11-22 用户裁决的两条口径。
+
+    * 新公开的影片不一定是新作：OP 影片 / PV 公开顺带回顾的原作发售日（过去）
+      不能当成当期定档，要交叉确认。
+    * 「汉化决定」说明将要出汉化版本，算新作；只有完成时的「已发售」不算。
+    """
+
+    @staticmethod
+    def _rows(*pairs: tuple[str, str]) -> list[dict]:
+        return [{"group_label": game, "sentence": text, "source_text": src}
+                for game, text, src in pairs]
+
+    def test_rules_carry_the_date_signals(self):
+        self.assertEqual(CFG["date_signals"],
+                         ["定档", "日期发售", "版本发售", "临发售",
+                          "新作开卖", "发售日期公布"])
+        self.assertIn("本地化决定", CFG["signals"])
+
+    def test_op_movie_for_released_work_is_not_a_new_work(self):
+        """真实案例：SMEE『向阳＊甜恋 Sugar*Style』OP 影片，原作 2019 年发售。"""
+        labels = gr.new_work_labels([{ "column": WORK, "items": self._rows((
+            "『向阳＊甜恋Sugar*Style』",
+            "发布SMEE『向阳＊甜恋 Sugar*Style』OP影片，并回顾该作2019年1月25日发售。",
+            "『向阳＊甜恋 Sugar*Style』OP开场动画影片 《向阳＊甜恋 Sugar*Style》于2019年1月25日发售！",
+        ))}], CFG)
+        self.assertEqual(labels, set())
+
+    def test_past_date_only_kills_the_date_signals(self):
+        rows = self._rows(("『X』", "『X』2019年1月25日发售，同公开体验版", ""))
+        self.assertEqual(gr.game_signals(rows, CFG), ["体验版"])
+
+    def test_op_movie_with_future_date_still_labels(self):
+        rows = self._rows(("『X』", "『X』OP影片公开，2027年3月26日发售", ""))
+        self.assertEqual(gr.game_signals(rows, CFG), ["日期发售"])
+
+    def test_has_past_release_date(self):
+        self.assertTrue(gr.has_past_release_date("该作2019年1月25日发售"))
+        self.assertTrue(gr.has_past_release_date("2019/1/25 発売"))
+        self.assertFalse(gr.has_past_release_date("2027年3月26日发售"))
+        # 不写年份就不猜：跨年边界判不准，保守放过。
+        self.assertFalse(gr.has_past_release_date("1 月 25 日发售"))
+        self.assertFalse(gr.has_past_release_date("2019 年 2 月 30 日"))  # 非法日期
+
+    def test_localization_decision_labels_game(self):
+        for text in ("『X』确定推出简体中文版",
+                     "『X』翻訳版発売決定",
+                     "『X』海外版发售决定",
+                     "『X』新作确定多语版",
+                     "『X』翻译版确定登陆 Steam"):
+            with self.subTest(text=text):
+                self.assertEqual(
+                    gr.new_work_labels(_sections(("『X』", text)), CFG), {"『X』"})
+
+    def test_finished_localization_is_not_a_new_work(self):
+        for text in ("『X』中文版已发售", "『X』的中文版打折促销中"):
+            with self.subTest(text=text):
+                self.assertEqual(
+                    gr.new_work_labels(_sections(("『X』", text)), CFG), set())
+
+    def test_movie_publication_alone_is_not_a_new_work(self):
+        for text in ("『X』OP影片公开", "『X』オープニングムービー公開中",
+                     "『X』主题曲开始配信，OP 影像也公开"):
+            with self.subTest(text=text):
+                self.assertEqual(
+                    gr.new_work_labels(_sections(("『X』", text)), CFG), set())
+
+
 class SectionOrderTests(unittest.TestCase):
     @staticmethod
     def _sec(column: str, label: str, rank: tuple) -> dict:

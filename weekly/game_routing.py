@@ -11,6 +11,17 @@
 本模块只读 `filter-data.json` / `decisions.json` / `taxonomy` 词表，只写
 `out/game-routing-preview.{html,json}` + `out/game-routing-draft.md`；
 不改 draft.md / draft-selected.md / filter.html / decisions.json / records.json。
+
+2026-11-22 用户裁决（两条新判据）：
+
+* **「汉化决定」算新作**：说明将要出汉化 / 多语 / 海外版，是即将发行的新版本，
+  所以登记信号 `本地化决定`（决定/确定/宣布 + 汉化词）。
+* **影片公开不算新作，要交叉确认**：OP 影片 / PV / 开场动画公开本身不是新作证据。
+  它常顺带回顾原作发售日，写法与「定档」一模一样（`2019年1月25日发售`），
+  原来的口径会把一部 2019 年的老作整组提进新作。现在按 `date_signals` 处理：
+  同一段文本里写了**已经过去**的显式年月日，就不认其中的定档类信号——过去的
+  日期是追述，不是当期定档。真正的新作即使同时公开影片，也会带着未来的发售日
+  或预约 / 体验版信号，交叉确认照样过。
 """
 from __future__ import annotations
 
@@ -18,12 +29,30 @@ import html
 import json
 import re
 from collections import Counter, defaultdict
+from datetime import date
 from pathlib import Path
 
 from .config import OUT, WORK, read_json, write_json, write_text
 
 GENERATOR = "weekly/game-routing/1"
 NO_GAME = "未标注作品"
+
+# 显式年月日：`2019年1月25日` / `2019/1/25` / `2019-01-25`。
+# 只认写了年份的——「1月25日」跨年边界判不准，宁可不判（保守）。
+FULL_DATE = re.compile(r"(20\d{2})\s*[年/．.\-]\s*(\d{1,2})\s*[月/．.\-]\s*(\d{1,2})")
+
+
+def has_past_release_date(text: str, today: date | None = None) -> bool:
+    """这段文本里是否写了「已经过去」的显式年月日（判据见模块 docstring）。"""
+    base = today or date.today()
+    for m in FULL_DATE.finditer(str(text or "")):
+        try:
+            when = date(int(m.group(1)), int(m.group(2)), int(m.group(3)))
+        except ValueError:
+            continue
+        if when < base:
+            return True
+    return False
 
 _CSS = """
 :root{--bg:#fafafa;--card:#fff;--ink:#16181d;--muted:#6b7280;--line:#e3e5e9;--blue:#1d4ed8;--green:#065f46}
@@ -79,18 +108,30 @@ def _compile(cfg: dict) -> tuple[list[tuple[str, re.Pattern]], re.Pattern]:
 
 
 def _row_hits(sentence: str, pos: list[tuple[str, re.Pattern]],
-              neg: re.Pattern, extra: str = "") -> list[str]:
+              neg: re.Pattern, extra: str = "",
+              date_signals: set[str] | None = None) -> list[str]:
     """单条命中的信号；每个文本面各自过 negative，命中就只丢这一面。
 
     `extra` 是该条来源的原推本推正文（2026-11-21 原推优先）。中文概括与原推
     是两个独立证据面：一面命中 negative 不能把另一面也带走；两边都算完再合并。
+
+    `date_signals` 是「按日期判定的定档类信号」。这一面里如果写了已经过去的
+    显式年月日，就不认这些信号——`2019年1月25日发售` 是在回顾，不是当期定档
+    （2026-11-22 用户裁决，见模块 docstring 的「影片公开」一条）。
     """
     found: list[str] = []
+    skip = date_signals or set()
     for surface in (sentence, extra):
         if not surface or neg.search(surface):
             continue
-        found.extend(name for name, rex in pos if rex.search(surface))
+        stale = bool(skip) and has_past_release_date(surface)
+        found.extend(name for name, rex in pos
+                     if rex.search(surface) and not (stale and name in skip))
     return list(dict.fromkeys(found))
+
+
+def _date_signals(cfg: dict) -> set[str]:
+    return {str(x) for x in (cfg.get("date_signals") or [])}
 
 
 def _has_other_news(rows: list[dict], cfg: dict) -> bool:
@@ -105,7 +146,7 @@ def _has_other_news(rows: list[dict], cfg: dict) -> bool:
         return True
     for row in rows:
         hits = _row_hits(str(row.get("sentence") or ""), pos, neg,
-                         str(row.get("source_text") or ""))
+                         str(row.get("source_text") or ""), _date_signals(cfg))
         if not hits or not all(h in conditional for h in hits):
             return True
     return False
@@ -121,10 +162,11 @@ def game_signals(rows: list[dict], cfg: dict) -> list[str]:
     pos, neg = _compile(cfg)
     conditional = set(cfg.get("conditional_signals") or [])
     cond_ok = _has_other_news(rows, cfg)
+    dates = _date_signals(cfg)
     found: list[str] = []
     for row in rows:
         for name in _row_hits(str(row.get("sentence") or ""), pos, neg,
-                              str(row.get("source_text") or "")):
+                              str(row.get("source_text") or ""), dates):
             if name in conditional and not cond_ok:
                 continue
             found.append(name)
@@ -216,8 +258,9 @@ def build_preview(rules: dict) -> dict:
         signals: list[str] = []
         # 条件信号的闸门与出稿分流共用（game_signals 口径），预览不能自己另算。
         cond_ok = _has_other_news(rows, cfg)
+        dates = _date_signals(cfg)
         for r in rows:
-            hit = _row_hits(r["sentence"], pos, neg, r.get("source_text", ""))
+            hit = _row_hits(r["sentence"], pos, neg, r.get("source_text", ""), dates)
             hit = [h for h in hit if h not in conditional or cond_ok]
             if hit:
                 evidence.append({"sentence": r["sentence"], "signals": hit,

@@ -306,6 +306,22 @@ class GateRoutingTests(unittest.TestCase):
         self.assertEqual(row["gkey"], "g:game")
         self.assertEqual(row["brand"], "ゆずソフト")
 
+    def test_hikari_mention_by_other_account_is_not_blocked(self):
+        """2026-11-22 用户裁决：只拦 HIKARIFIELD 自己发的号，别家转述不拦。
+
+        汉化 / 多语 / 海外版决定本身是新作证据，柚子社official 发这类消息照进新作。
+        """
+        corpus = _corpus([dict(
+            _row("bilibili:0", "『GameA』确定推出海外版，由 HIKARIFIELD 发行"),
+            publisher="柚子社official")])
+        row = bili.build_lines(corpus, RULES, self._x_data())[0]
+        self.assertFalse(row["never_new"])
+        self.assertEqual(row["column"], config.NEW)
+        # 成稿闸门也不能被正文里的 HIKARIFIELD 触发：只看两个结构位。
+        markdown = ("## 新作\n\n### ゆずソフト\n\n- [柚子社official](https://www.bilibili.com/opus/1)："
+                    "『GameA』确定推出海外版，由 HIKARIFIELD 发行 [原文](https://x.com/a/status/1)\n")
+        self.assertEqual(bili.new_section_hits(markdown, RULES), [])
+
     def test_galgame_critique_weekly_column_stays_in_work_even_when_it_names_a_new_game(self):
         # 【Gal周报】一条专栏里会同时提到十几部新作，按作品名认亲必被误提进新作；
         # 发布者在 never_new_publishers 里，所以即使认亲成功也强制留在作品情报。
