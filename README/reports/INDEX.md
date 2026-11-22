@@ -1,88 +1,49 @@
-# 一次性报告索引
+# 报告索引 · README/reports
 
-这里放的是**某个时间点的证据与方案**，不是现行文档。现行口径看：
+本目录保留 **5 份按站点板块整理的现行摘要 + 1 份继续维护的名单 + 1 份缺口对比表 + 1 份强化方案 + 2 份实施/目标计划（审查稿）**（`galgame-directors-list-1-1.html`、`galgame-brand-history-missing-accounts.html`、`galgame-daily-weekly-enhancement-2026-11-19.html`、`galgame-daily-weekly-enhancement-plan.md`、`galplus-weekly-goal-plan.md`）。一次性原始报告已移入 [`_archive-2026-11/`](_archive-2026-11/)（没有删除），摘要里的「原始报告」表给出逐份路径与留存理由。
+
+## 按板块读
+
+| 文件 | 对应站点板块 | 什么时候读 |
+| --- | --- | --- |
+| [`01-site-overview.md`](01-site-overview.md) | 全局（仓库、部署、git、待办） | 想知道「这仓库现在什么状态、接下来做什么」 |
+| [`02-home-and-notes.md`](02-home-and-notes.md) | `/`、`/me/`、`/morelinks/`、`/blog/` | 想改首页/名片/链接库，或判断笔记页要不要加功能 |
+| [`03-daily.md`](03-daily.md) | `/daily/`（双版日报） | 动日报前：名单、语言、转发、长图、分句出处 |
+| [`04-weekly.md`](04-weekly.md) | `/weekly/`（含月报规划） | 动周报前：口径、分类、业界动向、方案沿革 |
+| [`05-pipeline-crawl-daily-weekly.md`](05-pipeline-crawl-daily-weekly.md) | 抓取 → 日报 → 周报 全链路 | 想知道「一条推文经过哪些文件、在哪一步被砍、谁写谁读」 |
+
+## 现行口径在哪
+
+摘要会过期。以下才是**真源**，数字和裁决以它们为准：
 
 - 项目怎么跑 → `README.md` / `README/project.md`
 - 日报怎么运营 → `docs/daily-report-guide.md`
-- 工作区现在什么状态 → `workspace-status-2026-11-08.md`（**最新的一份现状**）
+- 周报契约与排查 → `docs/weekly-report.md` / `weekly/rules.json`
+- 待办与决定 → `docs/backlog.md`
+- 名单正本 → `src/config/daily-roster.json`、`src/config/daily-roster-galgame.json`
+- Galgame 人工筛选名单（继续维护）→ [`galgame-directors-list-1-1.html`](galgame-directors-list-1-1.html)
+- Galgame 名单缺口对比 → [`galgame-brand-history-missing-accounts.html`](galgame-brand-history-missing-accounts.html)：四份人员名单里有、但 11-13 品牌全历史报告里没有的账号
+- Galgame 日报／周报强化方案 → [`galgame-daily-weekly-enhancement-2026-11-19.html`](galgame-daily-weekly-enhancement-2026-11-19.html)：以名单 1-1 为底座，日报互动做厚（创作者进抓取 + 预计算互提候选 + 四类判据）、周报业界动态上线（三处 rules 开关 + A/B/C/D 信源分级），另附七个其它方向
+- 上述方案的可执行版（审查稿）→ [`galgame-daily-weekly-enhancement-plan.md`](galgame-daily-weekly-enhancement-plan.md)：按批次拆分动作、闸门与回退，复核了 11-20 仓库漂移，并给出首批 20 个创作者 handle；尚未实施
+- Gplus 日报／周报目标计划（2026-11-22 修订）→ [`galplus-weekly-goal-plan.md`](galplus-weekly-goal-plan.md)：以「业界事件 + 人/组织交互」为定位，名单 1-1 全集 403 个 X 号为抓取与分析范围，独立 `Gplus_XXX` 期号；11.19–21 三期日报测试稿已出稿并推送，周报暂缓
 
-**读之前先看「状态」列**：标「历史」的只说明当时怎么想，别当现状引用；标「已被取代」的只留作决策痕迹。
+## 约定
 
----
+1. 摘要按**站点板块**分，不按时间分；同一板块的多轮报告合成一份，原始件进归档。
+2. 报告里的数字都带日期。**不要在这里写会被下个月推翻的页数/用例数。**
+3. 新增一次性调查产物直接写进 `_archive-2026-11/`，只在对应板块摘要里加一行索引。
+4. 被代码或文档引用的文件（如 `daily-language-repair-2026-11-06.json`）移动时，必须同步改引用方路径——本次已全部改完。
 
-## 项目现状与进展
+## 变更记录
 
-| 文件 | 是什么 | 状态 |
-| --- | --- | --- |
-| `workspace-status-2026-11-08.md` | 整仓现状：架构、抓取自动化、遗留产物、待办（P0/P1/P2） | **现行**（数字以此为准） |
-| `project-progress-2026-11-06.md` | M1–M5 周报交付与 D3 审计的进度报告 | 历史（周报未入库那版口径） |
-| `project-status-2026-11-05.md` | 完成度快照 + 卡点 A–F + B1–B4 / C1–C4 待裁决项 | 历史（**卡点与裁决项的原始定义在这里**） |
-| `project-progress-2026-10.html` | 建站期进展报告 | 历史 |
-| `weekly-structure-and-p0-review-2026-11-08.html` | 两套周报目录的分层分析、卡点 D 与 B/C 裁决项的通俗解释、P2-18 存量账号名单 | **现行** |
+- 2026-11-08：首轮归档，周报 v1–v5 等移入 `archive/reports/`。
+- 2026-11-17 上午：17 份一次性报告（55 MB）移入 `_archive-2026-11/`；主目录降到 ~1 MB。
+- 2026-11-17 中午：剩下 22 份按板块合并为 5 份摘要，原始件全部移入 `_archive-2026-11/`。详见 [`01-site-overview.md`](01-site-overview.md) 的「整理沿革」。
+- 2026-11-17 晚上：`galgame-directors-list-1-1-2026-11-13.html` 重命名并移回本目录为 `galgame-directors-list-1-1.html`，后续继续筛，暂不归档。
+- 2026-11-17 晚上：新增 `galgame-brand-history-missing-accounts.html`，列出四份 Galgame 人员名单相对 11-13 品牌全历史报告的缺失账号。
+- 2026-11-19：曾生成 `galgame-scenario-writers-2016-2026.html`（近十年剧本作者调查），同日按用户要求删除，成果并入 1-1 的剧本表。
+- 2026-11-19：新增 `galgame-daily-weekly-enhancement-2026-11-19.html`，基于名单 1-1 的日报互动／周报业界动态强化方案（含其它方向建议与实施顺序）。
+- 2026-11-20：新增 `galgame-daily-weekly-enhancement-plan.md`（审查稿），把方案拆成可回退批次，标明联系方式项已上线、只做验收。
+- 2026-11-22：新增 `galplus-weekly-goal-plan.md`（审查稿），定义 Galplus 的定位、第三条抓取线、独立期号与 P0–P4 阶段；同日按用户裁决改为日报先行（`Gplus_XXX`），完成 11.19–21 三期测试稿并上线 `/gplus/`，周报保留为目标未实施。
 
-## 日报
-
-| 文件 | 是什么 | 状态 |
-| --- | --- | --- |
-| `daily-token-cost.html` | 一期 5.2 万 token 的构成与压缩空间 | 历史（后改走「出题」路线，成本结构已变） |
-| `daily-rt-handling.html` | 转发条目怎么落地的方案对比（26102522 实测） | 历史（现按 `dedupe.py` 的 `identity_key` 处理） |
-| `daily-m5-m6-options.html` | 长图与视频稿的选型、代价与顺序 | 部分有效（M5 长图已落地，M6 未做） |
-| `daily-language-repair-2026-11-06.json` | 文案漂成日文那次修复的逐条记录 | 证据（已修完，保留备查） |
-| `category-module-proposal.html` | 笔记页底部「分类」模块可行性 | 未采纳 |
-
-## 周报 / 月报
-
-| 文件 | 是什么 | 状态 |
-| --- | --- | --- |
-| `weekly-report-plan-v6-2026-11-04.html` | 周报 v6 方案：「全览是工作台，预览版是产品」 | **最终口径**（v1–v5 已归档到 `archive/reports/`） |
-| `daily-clause-source-weekly-material-plan-2026-11-05.md` | 分句级出处 + 周报取料的里程碑规划（M0–M4） | 现行（M0–M4 已落地） |
-| `daily-weekly-monthly-redesign-2026-11-05.md` | 三报架构重设计：四条路线与取舍 | 现行（选的是 S0 维持现路线） |
-| `m0-clause-sample-2026-11-05.md` | M0 只读样张：日报分句 → 周报原材料 | 证据（样张，机制已实现） |
-
-## 名单
-
-| 文件 | 是什么 | 状态 |
-| --- | --- | --- |
-| `daily-roster-2026-10.html` | 两版在册 433 条的名单总表 | 历史（现 433 条但分版口径变过） |
-| `galgame-accounts-2026-10.html` | Galgame 名单第二轮：信息号 + 厂商侧个人号 | 历史（**P2-18 那批存量的出处**） |
-| `galgame-roster.html` | Galgame 版第一版名单 | 历史 |
-| `dlsite-va-roster.html` | DLsite 同人音声声优榜单与 X 账号 | 历史（候选池来源） |
-| `dlsite-circle-roster.html` | 近三年作品数 > 5 的同人音声社团 | 历史（候选池来源） |
-| `dlsite-game-brand-roster.html` | 近五年出过商业美少女游戏的厂商 | 历史（候选池来源） |
-| `manufacturer-roster.html` | 厂商名单 174 条 | 历史（现 178） |
-
-## 语音 / ASR（与站点无关，已归档代码）
-
-| 文件 | 是什么 | 状态 |
-| --- | --- | --- |
-| `asr-models-2026-10.html` | 语音识别选型调查（MOSS / Qwen3-ASR 等） | 历史 |
-| `asr-private-stack-2026-10.html` | 高敏感场景的本地语音栈（免费 / 离线 / 可审计） | 历史 |
-
-## 其它
-
-| 文件 | 是什么 | 状态 |
-| --- | --- | --- |
-| `github-repo-scan-2026-10.html` | 五个人的 GitHub 仓库扫描 | 历史 |
-| `notes-extensions-2026-10.html` | 笔记拓展功能参考（fuwari / PaperMod / Quartz） | 历史（未采纳） |
-
----
-
-## 已归档（不在本目录）
-
-2026-11-08 把过程稿与试验残留移到了 `archive/`，这里只留最终口径：
-
-| 原路径 | 现在 |
-| --- | --- |
-| `weekly-report-plan-2026-11.html` + `v2`–`v5` | `archive/reports/` |
-| `og-demo/`（晨报长图试验） | `archive/reports/og-demo/` |
-| `ASR project/`（方案性文档） | `archive/asr-project/` |
-| `scripts/daily1/`、`scripts/daily2/`、`scripts/out/` | `archive/scripts/` |
-| `scripts/daily_repair_sakuraemi.py` | `archive/scripts/` |
-| `tools/audio-translate/`（7.8 GB 模型与音频） | 代码与转写结果留在 `archive/audio-translate/`，模型已删 |
-| `src/templates/`（174 个 tsx） | `tools/templates/`（gitignored） |
-
-## 加新报告时
-
-1. 文件名带日期：`主题-YYYY-MM-DD.md|html`；同一主题多轮迭代用 `-v2`、`-v3`，**只把最终版留在本目录**。
-2. 在对应分组里加一行，写清「是什么」和「状态」。
-3. 报告里引用的数字要带日期。**不要在这里写会被下个月推翻的页数/用例数。**
+归档目录清单：[`_archive-2026-11/README.md`](_archive-2026-11/README.md)。

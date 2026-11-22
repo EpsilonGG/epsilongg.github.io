@@ -1,0 +1,1780 @@
+{
+  "schema_version": 1,
+  "issue": {
+    "id": "Gplus_002",
+    "published_at": "2026-11-21T01:00:00+09:00",
+    "window": {
+      "start": "2026-11-20T00:00:00+09:00",
+      "end": "2026-11-21T00:00:00+09:00"
+    },
+    "status": "confirmed",
+    "confirmed_at": "2026-11-20T16:00:00+00:00"
+  },
+  "counts": {
+    "items": 526,
+    "accounts": 154
+  },
+  "description": "年末新作与粉丝盘官网密集公开，演唱会、周边抽奖及多语言发行成焦点。",
+  "highlights": [
+    {
+      "text": "Guilty dash公开《紫幻華》《Nightmare×BlackSmith》《虜ノ桜》等多款年末新作及抱枕预购，被アリスNET、小梅 蓮与ruf转发。",
+      "sources": [
+        "x:2123766926396866689",
+        "x:2123696570055205053",
+        "x:2123695320735649837"
+      ]
+    },
+    {
+      "text": "自宅すたじお与F&C等集中公开粉丝盘《ギャルズフィクション-Festival-》官网、角色与声优出演信息，漫画版同步宣布发售。",
+      "sources": [
+        "x:2123771855609987248",
+        "x:2123690573211336900",
+        "x:2123684098996936952"
+      ]
+    },
+    {
+      "text": "HOOKSOFT公布2027年3月首场演唱会官网与最速抽选，多位出演声优及关联账号同步转发宣传。",
+      "sources": [
+        "x:2123657597907865818",
+        "x:2123693664841199695",
+        "x:2123738691940286683"
+      ]
+    },
+    {
+      "text": "ユニゾンシフト公开《小日向柚月も初夜したいっ！》新append的制作阵容与12月25日发售计划，原画与声优纷纷跟进。",
+      "sources": [
+        "x:2123690307762176038",
+        "x:2123735692752962009",
+        "x:2123793416492589069"
+      ]
+    },
+    {
+      "text": "DLsite公布类型国民投票结果，ゆずソフト新作确认英语、中文与韩语版并登陆Steam与DLsite，英文媒体跟进报道。",
+      "sources": [
+        "x:2123643973906596283",
+        "x:2123643358233108751",
+        "x:2123678032242356388"
+      ]
+    },
+    {
+      "text": "BEEP以美少女游戏复刻企划为中心，公开PC-98风新作《同居人》特装版受注、《狂った果実》ASMR及联动周边。",
+      "sources": [
+        "x:2123672698672836630",
+        "x:2123676466667773982",
+        "x:2123675207949058414"
+      ]
+    }
+  ],
+  "insights": [
+    {
+      "text": "当日公开、发售、预约类信息最为密集，新作官网、体验版与预购公告横跨创作者、品牌与媒体账号。",
+      "sources": [
+        "x:2123771855609987248",
+        "x:2123727953955881203",
+        "x:2123690307762176038",
+        "x:2123631079307596016"
+      ]
+    },
+    {
+      "text": "粉丝向活动成为热点，多部作品的声优出演、演唱会抽选与联动咖啡厅消息被反复扩散。",
+      "sources": [
+        "x:2123738691940286683",
+        "x:2123640059777991057",
+        "x:2123735048780431551"
+      ]
+    },
+    {
+      "text": "海外发行与本地化议题升温，英文媒体同步报道多语言版与重制版，DLsite自身也公布类型投票结果。",
+      "sources": [
+        "x:2123643358233108751",
+        "x:2123678032242356388",
+        "x:2123643973906596283"
+      ]
+    },
+    {
+      "text": "创作者个人动态与新作宣传交织，绘画、直播与日常随笔共同构成行业社交生态。",
+      "sources": [
+        "x:2123740480727032129",
+        "x:2123731196043796816",
+        "x:2123710361677537410"
+      ]
+    }
+  ],
+  "interactions": [
+    {
+      "text": "Guilty dash的年末新作消息被アリスNET、小梅 蓮与ruf转发，其中ruf同步发布了同系列的紫幻華预约信息。",
+      "sources": [
+        "x:2123766926396866689",
+        "x:2123695320735649837"
+      ]
+    },
+    {
+      "text": "EvilHeal的《Dominate》新作情报被U・Me SOFT与ruf转发，ruf还为该作举办关注转发抽奖。",
+      "sources": [
+        "x:2123705658998763562",
+        "x:2123702891429200067"
+      ]
+    },
+    {
+      "text": "シルキーズプラス的《きまぐれテンプテーション3》发表活动与抱枕消息被かずき ふみ、渡辺 僚一转发。",
+      "sources": [
+        "x:2123723366687526925",
+        "x:2123725852861223138"
+      ]
+    },
+    {
+      "text": "HOOKSOFT的1st LIVE公告被まさん、アリスNET及多位关联声优引用转发。",
+      "sources": [
+        "x:2123738691940286683",
+        "x:2123657597907865818",
+        "x:2123693664841199695"
+      ]
+    }
+  ],
+  "works": [],
+  "accounts": [
+    "07th_official",
+    "2yuuma8",
+    "_swav_",
+    "a1871108",
+    "adahemas",
+    "aicherry_dvd_pg",
+    "aikouka23",
+    "akaerocore_en",
+    "akibablog",
+    "akoutw",
+    "alice_net_pc",
+    "alice_soft",
+    "amane_koizumi",
+    "amuse_kenzen",
+    "amuse_sub",
+    "appetite_game",
+    "atelier__sakura",
+    "automatonjapan",
+    "babi_03",
+    "beep_shop",
+    "beni_carnelian",
+    "bootup_twit",
+    "bugbug_info",
+    "chaos_r_public",
+    "chiri_atoranta",
+    "clip_craft",
+    "cocoro_fw",
+    "coffeekizoku",
+    "crowd_anim",
+    "cyberworkskoho",
+    "debonosu",
+    "dengekionline",
+    "dessertsoft_tw",
+    "dlch_athena",
+    "dlsite",
+    "don_maru",
+    "ebi_curry_earl",
+    "elen_mass",
+    "entergram_info",
+    "erogearealive",
+    "escude1998",
+    "evil_heal",
+    "excaddie_kyako2",
+    "famishin",
+    "famitsu",
+    "fandc_staff",
+    "fanzagames_jhg",
+    "fgremake",
+    "foreversoft_pc",
+    "getchucom",
+    "go_1tk",
+    "guilty_willplus",
+    "hamham_soft",
+    "hasa_ma",
+    "hmyn_",
+    "holic_works",
+    "hooksoft",
+    "hozakura",
+    "hujisakiusa",
+    "inagaki_miko",
+    "info_9_nine_",
+    "info_palette",
+    "itolife",
+    "jinan_sanzan",
+    "jitaku_st",
+    "ka_fumifumi",
+    "kadukisaya",
+    "kantoku_5th",
+    "kay_comment",
+    "key_official",
+    "kidukirey",
+    "kionachi",
+    "kisaragiyu",
+    "kiss_staff",
+    "kobaggio",
+    "kogado_studio",
+    "koumeren0205",
+    "kudokou_now",
+    "kumanomisoft",
+    "kunaiuri",
+    "liaison__info",
+    "liar_railsoft",
+    "lilim_ntr",
+    "liliyulilili1",
+    "luneman_etc",
+    "madostaff",
+    "man_puri",
+    "masanlive",
+    "matsuisansan",
+    "melonec_epsilon",
+    "miel37319007",
+    "minikleminikle",
+    "mitsumi_m",
+    "mokowata",
+    "moonstonetwitt",
+    "morisakiryout",
+    "moto4_koinu",
+    "muvluv_official",
+    "nablack",
+    "nakahiro_sw",
+    "nao_sakura_s",
+    "natsume3611",
+    "nisidahajime",
+    "nitroplus_staff",
+    "nooksite",
+    "nsimayu",
+    "nsm_reborn",
+    "odawarahakone",
+    "onowasabi",
+    "orthrossoft",
+    "overflow_staff",
+    "pcshop_mk",
+    "pinkycream1",
+    "poison_new1992",
+    "project_citrus",
+    "projecti18",
+    "purple_ishikawa",
+    "purple_newwork",
+    "radish2951",
+    "riko0202",
+    "rodorin",
+    "route2_tri",
+    "ryunoon",
+    "sagaplanets",
+    "saigakai",
+    "sca_di",
+    "segamifumiya",
+    "seiya_saiga",
+    "sengoku_kh",
+    "shinjugai",
+    "shirabii",
+    "shiratamacaron",
+    "shunntoko_1224",
+    "silkysplus",
+    "sin_kou_hyou",
+    "smee_official",
+    "snow_chifuyu",
+    "sora_hajime",
+    "sprite_fairys",
+    "stealcatac",
+    "sukerasparo",
+    "syoko_mikuri",
+    "syrup_kouhou",
+    "tam_u",
+    "tokiko_flankoi",
+    "tomarigitei",
+    "trader_r18",
+    "tryset",
+    "u_me_soft",
+    "umihara_nozomu",
+    "unisonshift",
+    "urusibara_yuki",
+    "valkyria_info",
+    "watanaberyoichi",
+    "web_marmalade",
+    "willplus_staff",
+    "yaegasinan",
+    "youtan0309",
+    "yuzusoft",
+    "zion_staff",
+    "zn_cien"
+  ],
+  "people": [
+    {
+      "handle": "getchucom",
+      "category": "info",
+      "summary": "集中发布多款游戏的预约受理、特典情报与商品信息更新。",
+      "via": [],
+      "sources": [
+        "x:2123763966333890677",
+        "x:2123762254814621698",
+        "x:2123750868529119414"
+      ]
+    },
+    {
+      "handle": "jitaku_st",
+      "category": "brand",
+      "summary": "公开粉丝盘《ギャルズフィクション-Festival-》官网与角色声优出演信息。",
+      "via": [],
+      "sources": [
+        "x:2123771855609987248",
+        "x:2123619664760832266",
+        "x:2123769989551595696"
+      ]
+    },
+    {
+      "handle": "beep_shop",
+      "category": "brand",
+      "summary": "推出PC-98风新作《同居人》特装版受注、复刻游戏与联动周边。",
+      "via": [],
+      "sources": [
+        "x:2123702890607034634",
+        "x:2123764432098750762",
+        "x:2123733109740884417"
+      ]
+    },
+    {
+      "handle": "erogearealive",
+      "category": "info",
+      "summary": "以英文介绍多款新作、OP影像与海外发行信息。",
+      "via": [],
+      "sources": [
+        "x:2123784516946837626",
+        "x:2123774513879957985",
+        "x:2123759209137217929"
+      ]
+    },
+    {
+      "handle": "u_me_soft",
+      "category": "brand",
+      "summary": "发布《王様恋愛ミニファンディスク》官网，并关注职业摔角赛事。",
+      "via": [],
+      "sources": [
+        "x:2123694073639014898",
+        "x:2123753080760246674",
+        "x:2123737643657908702"
+      ]
+    },
+    {
+      "handle": "sprite_fairys",
+      "category": "brand",
+      "summary": "公开《小金井荘と金色の揚羽蝶》体验版、声优评论与发售倒计时。",
+      "via": [],
+      "sources": [
+        "x:2123748593240531340",
+        "x:2123718112780403164",
+        "x:2123733731525419134"
+      ]
+    },
+    {
+      "handle": "fandc_staff",
+      "category": "brand",
+      "summary": "宣传ギャルフェス官网公开、活动与复刻游戏周边预购。",
+      "via": [],
+      "sources": [
+        "x:2123787391257215082",
+        "x:2123675551156375792",
+        "x:2123675205419819369"
+      ]
+    },
+    {
+      "handle": "dessertsoft_tw",
+      "category": "brand",
+      "summary": "宣传《どいなかガールズゆーとぴあ》预约特典、抽选会与solfa二十周年演唱会。",
+      "via": [],
+      "sources": [
+        "x:2123757481285636333",
+        "x:2123722311291572681",
+        "x:2123723455367684578"
+      ]
+    },
+    {
+      "handle": "hooksoft",
+      "category": "brand",
+      "summary": "公开1st LIVE官网与抽选，以及《ワンナイトアフター》联动咖啡厅情报。",
+      "via": [],
+      "sources": [
+        "x:2123635056359190639",
+        "x:2123702783320969701",
+        "x:2123738691940286683"
+      ]
+    },
+    {
+      "handle": "hujisakiusa",
+      "category": "creator",
+      "summary": "进行游戏实况直播预告，并参与《あいミス》相关宣传。",
+      "via": [],
+      "sources": [
+        "x:2123783487161594052",
+        "x:2123749546627101092",
+        "x:2123740480727032129"
+      ]
+    },
+    {
+      "handle": "itolife",
+      "category": "creator",
+      "summary": "预告绘画讲解直播，并分享日常同人志与短片内容。",
+      "via": [],
+      "sources": [
+        "x:2123779335148781743",
+        "x:2123771288112263361",
+        "x:2123731196043796816"
+      ]
+    },
+    {
+      "handle": "rodorin",
+      "category": "creator",
+      "summary": "围绕个人信息泄露事件发表评论，并谈及职业生涯与演艺资讯。",
+      "via": [],
+      "sources": [
+        "x:2123697263600156711",
+        "x:2123710361677537410",
+        "x:2123737428087488744"
+      ]
+    },
+    {
+      "handle": "silkysplus",
+      "category": "brand",
+      "summary": "公布《きまぐれテンプテーション3》发表活动、抱枕预购及直播节目。",
+      "via": [],
+      "sources": [
+        "x:2123768658803736890",
+        "x:2123767870027075874",
+        "x:2123726471428792630"
+      ]
+    },
+    {
+      "handle": "go_1tk",
+      "category": "creator",
+      "summary": "表示本编工作已全部完成，并谈论绘画与游戏话题。",
+      "via": [],
+      "sources": [
+        "x:2123737440066408725",
+        "x:2123467855115280788",
+        "x:2123463180135583785"
+      ]
+    },
+    {
+      "handle": "kiss_staff",
+      "category": "brand",
+      "summary": "更新《カスタムロマンスシティ3D3》体验版与完成版情报。",
+      "via": [],
+      "sources": [
+        "x:2123768398656176131",
+        "x:2123724111935586728",
+        "x:2123702906570617147"
+      ]
+    },
+    {
+      "handle": "sora_hajime",
+      "category": "creator",
+      "summary": "宣传《あじゅ～るメモリア》预约及展会，并谈游戏与动画。",
+      "via": [],
+      "sources": [
+        "x:2123748196199338365",
+        "x:2123735644354875616",
+        "x:2123707939282395200"
+      ]
+    },
+    {
+      "handle": "akoutw",
+      "category": "info",
+      "summary": "分享漫画折扣、读者互动与赠品联络事项。",
+      "via": [],
+      "sources": [
+        "x:2123778099028648436",
+        "x:2123757400188760466",
+        "x:2123710691945370083"
+      ]
+    },
+    {
+      "handle": "hozakura",
+      "category": "creator",
+      "summary": "发布新作情报与日常感想，并谈及创作与业界观察。",
+      "via": [],
+      "sources": [
+        "x:2123431108087804298",
+        "x:2123787612800585842",
+        "x:2123730872411259117"
+      ]
+    },
+    {
+      "handle": "kionachi",
+      "category": "creator",
+      "summary": "报告离开KOMEWORKS转为自由业者，并提及同事独立与作品更新。",
+      "via": [],
+      "sources": [
+        "x:2123714896907190449",
+        "x:2123689677798740059",
+        "x:2123687804337332417"
+      ]
+    },
+    {
+      "handle": "koumeren0205",
+      "category": "creator",
+      "summary": "宣布担任新append原画与角色出演，并发布C109出展情报。",
+      "via": [],
+      "sources": [
+        "x:2123735692752962009",
+        "x:2123729271789404382",
+        "x:2123705204533334068"
+      ]
+    },
+    {
+      "handle": "mokowata",
+      "category": "creator",
+      "summary": "宣传画集重版预约与C109摊位及插画投稿。",
+      "via": [],
+      "sources": [
+        "x:2123779929368388087",
+        "x:2123780727217299682",
+        "x:2123780300803318150"
+      ]
+    },
+    {
+      "handle": "muvluv_official",
+      "category": "brand",
+      "summary": "更新《マブラヴ》世界观设定、网页小说与C109出展情报。",
+      "via": [],
+      "sources": [
+        "x:2123718013795135615",
+        "x:2123687798716952745",
+        "x:2123687818472182058"
+      ]
+    },
+    {
+      "handle": "nao_sakura_s",
+      "category": "creator",
+      "summary": "庆祝《転まお2》发售并参与演出，另分享动漫与游戏资讯。",
+      "via": [],
+      "sources": [
+        "x:2123732281072451986",
+        "x:2123740187981451755",
+        "x:2123687793943822761"
+      ]
+    },
+    {
+      "handle": "nitroplus_staff",
+      "category": "brand",
+      "summary": "发布紧急维护公告、招聘信息及《Dolls Nest》更新。",
+      "via": [],
+      "sources": [
+        "x:2123783940674908369",
+        "x:2123703142810575009",
+        "x:2123687924675813498"
+      ]
+    },
+    {
+      "handle": "overflow_staff",
+      "category": "brand",
+      "summary": "围绕少子化议题发表观点，并分享动画相关讨论。",
+      "via": [],
+      "sources": [
+        "x:2123790462569849283",
+        "x:2123538307808440409",
+        "x:2123458817245802662"
+      ]
+    },
+    {
+      "handle": "sukerasparo",
+      "category": "brand",
+      "summary": "宣传百合题材朗读剧、新刊颁布及作品评论文章。",
+      "via": [],
+      "sources": [
+        "x:2123764456681615816",
+        "x:2123730732963238307",
+        "x:2123735048780431551"
+      ]
+    },
+    {
+      "handle": "tam_u",
+      "category": "creator",
+      "summary": "发布C109特典封面插画、雪初音视觉图及新作动画情报。",
+      "via": [],
+      "sources": [
+        "x:2123739317441101948",
+        "x:2123675725366718864",
+        "x:2123767744952999968"
+      ]
+    },
+    {
+      "handle": "trader_r18",
+      "category": "info",
+      "summary": "发布PC游戏回收价格情报、推荐角色与新到货信息。",
+      "via": [],
+      "sources": [
+        "x:2123435077808140342",
+        "x:2123612298249908563",
+        "x:2123690840824697338"
+      ]
+    },
+    {
+      "handle": "dlsite",
+      "category": "info",
+      "summary": "公布类型国民投票结果并推广多款新上架作品。",
+      "via": [],
+      "sources": [
+        "x:2123643973906596283",
+        "x:2123601669032378427",
+        "x:2123601618579124731"
+      ]
+    },
+    {
+      "handle": "masanlive",
+      "category": "info",
+      "summary": "宣传HOOKSOFT演唱会并分享观影后的感想直播计划。",
+      "via": [],
+      "sources": [
+        "x:2123657597907865818",
+        "x:2123775323410198747",
+        "x:2123710442891628726"
+      ]
+    },
+    {
+      "handle": "nsm_reborn",
+      "category": "brand",
+      "summary": "报告《顔のない月》众筹回报已发货并展示周边实物。",
+      "via": [],
+      "sources": [
+        "x:2123689205562019969",
+        "x:2123705078108541150",
+        "x:2123673925888671930"
+      ]
+    },
+    {
+      "handle": "smee_official",
+      "category": "brand",
+      "summary": "公布《ワンナイトアフター》联动咖啡厅与DL版预约信息。",
+      "via": [],
+      "sources": [
+        "x:2123640059777991057",
+        "x:2123768321669492935",
+        "x:2123760016884641982"
+      ]
+    },
+    {
+      "handle": "unisonshift",
+      "category": "brand",
+      "summary": "公开《小日向柚月も初夜したいっ！》新append的制作阵容与官网。",
+      "via": [],
+      "sources": [
+        "x:2123694977620537363",
+        "x:2123702198093922430",
+        "x:2123690307762176038"
+      ]
+    },
+    {
+      "handle": "urusibara_yuki",
+      "category": "creator",
+      "summary": "发布FAVORITE玩偶活动情报，并分享作业BGM与生活杂感。",
+      "via": [],
+      "sources": [
+        "x:2123710442686009581",
+        "x:2123749055872504025",
+        "x:2123730301897805939"
+      ]
+    },
+    {
+      "handle": "watanaberyoichi",
+      "category": "creator",
+      "summary": "宣传新作网站更新与ユニゾンシフト新作，并谈创作理念。",
+      "via": [],
+      "sources": [
+        "x:2123687945307885960",
+        "x:2123773997775225236",
+        "x:2123781072462991659"
+      ]
+    },
+    {
+      "handle": "akibablog",
+      "category": "info",
+      "summary": "多位作者分享剧场动画《ボトムズ 灰色の魔女》观影感想。",
+      "via": [],
+      "sources": [
+        "x:2123791158854000908",
+        "x:2123765054126600433",
+        "x:2123660252088565867"
+      ]
+    },
+    {
+      "handle": "guilty_willplus",
+      "category": "brand",
+      "summary": "公开多款12月25日发售新作及抱枕カバー预购信息。",
+      "via": [],
+      "sources": [
+        "x:2123766926396866689",
+        "x:2123765604058562807",
+        "x:2123764984752869572"
+      ]
+    },
+    {
+      "handle": "kisaragiyu",
+      "category": "creator",
+      "summary": "宣传漫画第3卷animate特典，并转发生日企划与排名消息。",
+      "via": [],
+      "sources": [
+        "x:2123725066827714863",
+        "x:2123762252566397287",
+        "x:2123677977502478404"
+      ]
+    },
+    {
+      "handle": "kumanomisoft",
+      "category": "brand",
+      "summary": "庆祝《転性魔王さまは勇者に勝てない！2》DL版发售。",
+      "via": [],
+      "sources": [
+        "x:2123432840394416264",
+        "x:2123710443441324101",
+        "x:2123754986073202760"
+      ]
+    },
+    {
+      "handle": "liliyulilili1",
+      "category": "creator",
+      "summary": "转发C109出展与KISS完成版情报，并分享实况视频。",
+      "via": [],
+      "sources": [
+        "x:2123702937117659487",
+        "x:2123615242152464525",
+        "x:2123719469415719028"
+      ]
+    },
+    {
+      "handle": "odawarahakone",
+      "category": "creator",
+      "summary": "分享日常兴趣、周边中奖与生活杂感。",
+      "via": [],
+      "sources": [
+        "x:2123758105620369714",
+        "x:2123757887768219774",
+        "x:2123493375341187185"
+      ]
+    },
+    {
+      "handle": "yuzusoft",
+      "category": "brand",
+      "summary": "宣布新作《ライムライト・レモネードジャム》海外多语言版与联动企划。",
+      "via": [],
+      "sources": [
+        "x:2123643358233108751",
+        "x:2123703411858346089",
+        "x:2123698819259085003"
+      ]
+    },
+    {
+      "handle": "a1871108",
+      "category": "creator",
+      "summary": "宣布出演《小日向柚月》新append的新角色结。",
+      "via": [],
+      "sources": [
+        "x:2123772118391562277",
+        "x:2123793416492589069",
+        "x:2123716883056869743"
+      ]
+    },
+    {
+      "handle": "aikouka23",
+      "category": "info",
+      "summary": "分享OVA演技感想、银英传读书感想与实体店淘货经历。",
+      "via": [],
+      "sources": [
+        "x:2123784355843866848",
+        "x:2123665938373603714",
+        "x:2123686414269518148"
+      ]
+    },
+    {
+      "handle": "automatonjapan",
+      "category": "info",
+      "summary": "报道多人在线游戏新作、退款事件与Steam AI标示分析。",
+      "via": [],
+      "sources": [
+        "x:2123739730114429099",
+        "x:2123706618785509759",
+        "x:2123690469255459236"
+      ]
+    },
+    {
+      "handle": "bugbug_info",
+      "category": "info",
+      "summary": "介绍多款美少女游戏特集、周年活动与经典复刻资讯。",
+      "via": [],
+      "sources": [
+        "x:2123733593574842567",
+        "x:2123688294714126527",
+        "x:2123612797330477361"
+      ]
+    },
+    {
+      "handle": "debonosu",
+      "category": "brand",
+      "summary": "公开新作《鬼チンVS》预购与抱枕特典，并庆祝新作发售。",
+      "via": [],
+      "sources": [
+        "x:2123728688307179937",
+        "x:2123727953955881203",
+        "x:2123693418279023008"
+      ]
+    },
+    {
+      "handle": "escude1998",
+      "category": "brand",
+      "summary": "为《廃村少女［弐］外伝》举办问卷、抽奖与挂毯受注。",
+      "via": [],
+      "sources": [
+        "x:2123733108964880636",
+        "x:2123733106498924872",
+        "x:2123733101700673953"
+      ]
+    },
+    {
+      "handle": "ka_fumifumi",
+      "category": "creator",
+      "summary": "分享连载小说更新与日常随笔。",
+      "via": [],
+      "sources": [
+        "x:2123555065852268678",
+        "x:2123496859562115343",
+        "x:2123441020151144588"
+      ]
+    },
+    {
+      "handle": "key_official",
+      "category": "brand",
+      "summary": "公布anemoi与Summer Pockets生放送及人气投票日程。",
+      "via": [],
+      "sources": [
+        "x:2123703612547506430",
+        "x:2123612312884191425",
+        "x:2123612396208206304"
+      ]
+    },
+    {
+      "handle": "kidukirey",
+      "category": "creator",
+      "summary": "发布角色插画与游戏相关日常。",
+      "via": [],
+      "sources": [
+        "x:2123751262139371751",
+        "x:2123779946036465716",
+        "x:2123715983919784064"
+      ]
+    },
+    {
+      "handle": "kogado_studio",
+      "category": "creator",
+      "summary": "宣传ASMR合集发售与C109周边出展情报。",
+      "via": [],
+      "sources": [
+        "x:2123675222574526571",
+        "x:2123595935611486669",
+        "x:2123593419071377500"
+      ]
+    },
+    {
+      "handle": "kunaiuri",
+      "category": "creator",
+      "summary": "吐槽Vtuber声音表演并分享日常感受。",
+      "via": [],
+      "sources": [
+        "x:2123778796126105898",
+        "x:2123718113527316509",
+        "x:2123608531807129920"
+      ]
+    },
+    {
+      "handle": "lilim_ntr",
+      "category": "brand",
+      "summary": "公开《初恋ＢＬＵＥ》网页体验版并分享试玩感想。",
+      "via": [],
+      "sources": [
+        "x:2123702738873942155",
+        "x:2123621050026271200",
+        "x:2123620756114624591"
+      ]
+    },
+    {
+      "handle": "luneman_etc",
+      "category": "brand",
+      "summary": "发布OVA快闪店活动、年底休业公告与游戏活动。",
+      "via": [],
+      "sources": [
+        "x:2123713543124164839",
+        "x:2123632772044710379",
+        "x:2123432674178093156"
+      ]
+    },
+    {
+      "handle": "man_puri",
+      "category": "creator",
+      "summary": "宣传HOOKSOFT演唱会，并更新网站与周边投稿。",
+      "via": [],
+      "sources": [
+        "x:2123706759512719707",
+        "x:2123683534561063181",
+        "x:2123693986527486088"
+      ]
+    },
+    {
+      "handle": "matsuisansan",
+      "category": "creator",
+      "summary": "就登山救援、替代疗法发表看法并分享游戏机体评测。",
+      "via": [],
+      "sources": [
+        "x:2123623708967514275",
+        "x:2123603054377451977",
+        "x:2123596718214373380"
+      ]
+    },
+    {
+      "handle": "morisakiryout",
+      "category": "creator",
+      "summary": "担任新SSR卡剧本并宣传相关转蛋活动。",
+      "via": [],
+      "sources": [
+        "x:2123740063695765822",
+        "x:2123704406520578186",
+        "x:2123718057466253372"
+      ]
+    },
+    {
+      "handle": "nablack",
+      "category": "creator",
+      "summary": "发布新绘制联动周边与Vtuber出道倒计时插画。",
+      "via": [],
+      "sources": [
+        "x:2123715800284709345",
+        "x:2123733355808358718",
+        "x:2123733098647233008"
+      ]
+    },
+    {
+      "handle": "projecti18",
+      "category": "brand",
+      "summary": "发布新作免费追加数据、官网信息与紧急维护结束公告。",
+      "via": [],
+      "sources": [
+        "x:2123631931371946146",
+        "x:2123631933267861987",
+        "x:2123627637059055707"
+      ]
+    },
+    {
+      "handle": "purple_ishikawa",
+      "category": "creator",
+      "summary": "分享上海生活见闻与纪念合集再贩情报。",
+      "via": [],
+      "sources": [
+        "x:2123792401500352891",
+        "x:2123718000679531004",
+        "x:2123731822408556851"
+      ]
+    },
+    {
+      "handle": "riko0202",
+      "category": "creator",
+      "summary": "发布主题插图与动画第2期配信信息。",
+      "via": [],
+      "sources": [
+        "x:2123691121071345964",
+        "x:2123460543528980484",
+        "x:2123463948938924281"
+      ]
+    },
+    {
+      "handle": "ryunoon",
+      "category": "creator",
+      "summary": "宣传《アマカノ３》预约活动与新装版漫画发售。",
+      "via": [],
+      "sources": [
+        "x:2123695340608016509",
+        "x:2123606809328185345",
+        "x:2123598752162382218"
+      ]
+    },
+    {
+      "handle": "segamifumiya",
+      "category": "creator",
+      "summary": "宣传《転まお2》发售、感想抽奖与倒计时视频。",
+      "via": [],
+      "sources": [
+        "x:2123748198703616272",
+        "x:2123431108876354035",
+        "x:2123719249269043469"
+      ]
+    },
+    {
+      "handle": "shinjugai",
+      "category": "creator",
+      "summary": "为C109目录绘制特典插图并分享排行相关感想。",
+      "via": [],
+      "sources": [
+        "x:2123689077530894810",
+        "x:2123570402060554726",
+        "x:2123573617825128636"
+      ]
+    },
+    {
+      "handle": "shirabii",
+      "category": "creator",
+      "summary": "分享动画OP观看感想与纪念插画绘制。",
+      "via": [],
+      "sources": [
+        "x:2123691633027977514",
+        "x:2123656518159798406",
+        "x:2123636490437865629"
+      ]
+    },
+    {
+      "handle": "sin_kou_hyou",
+      "category": "creator",
+      "summary": "公布《まいてつ》与《アッシュアームズ》联动活动日程。",
+      "via": [],
+      "sources": [
+        "x:2123778390054584507",
+        "x:2123763288496325059",
+        "x:2123708569694699938"
+      ]
+    },
+    {
+      "handle": "tryset",
+      "category": "brand",
+      "summary": "宣布将迎来25周年并发布Ci-en新文章。",
+      "via": [],
+      "sources": [
+        "x:2123690232168235480",
+        "x:2123687721755623700",
+        "x:2123582130831884542"
+      ]
+    },
+    {
+      "handle": "07th_official",
+      "category": "creator",
+      "summary": "公布12月追加剧本与海龟汤15周年CD贩售信息。",
+      "via": [],
+      "sources": [
+        "x:2123613272985448744",
+        "x:2123551904886374446"
+      ]
+    },
+    {
+      "handle": "_swav_",
+      "category": "creator",
+      "summary": "发布服饰品牌秋季系列贩售信息与短句动态。",
+      "via": [],
+      "sources": [
+        "x:2123751442569887997",
+        "x:2123729498801946991"
+      ]
+    },
+    {
+      "handle": "alice_net_pc",
+      "category": "info",
+      "summary": "宣传HOOKSOFT演唱会出演与色纸赠品变更公告。",
+      "via": [],
+      "sources": [
+        "x:2123693664841199695",
+        "x:2123681264666652826"
+      ]
+    },
+    {
+      "handle": "amane_koizumi",
+      "category": "creator",
+      "summary": "分享对动画角色与展览的观后感。",
+      "via": [],
+      "sources": [
+        "x:2123534658252185754",
+        "x:2123727285576425730"
+      ]
+    },
+    {
+      "handle": "amuse_kenzen",
+      "category": "brand",
+      "summary": "介绍新作《養花師の背徳愛》角色与工作动态。",
+      "via": [],
+      "sources": [
+        "x:2123690056112013376",
+        "x:2123596093611258187"
+      ]
+    },
+    {
+      "handle": "clip_craft",
+      "category": "brand",
+      "summary": "开启ALF2026秋限定周边受注并公告通信贩售。",
+      "via": [],
+      "sources": [
+        "x:2123606267306627152",
+        "x:2123764096785109268"
+      ]
+    },
+    {
+      "handle": "dengekionline",
+      "category": "info",
+      "summary": "发布电影剧评与礼品抽奖活动。",
+      "via": [],
+      "sources": [
+        "x:2123597301562380602",
+        "x:2123716835409592323"
+      ]
+    },
+    {
+      "handle": "ebi_curry_earl",
+      "category": "creator",
+      "summary": "分享日常感想与角色歌曲创作意愿。",
+      "via": [],
+      "sources": [
+        "x:2123747347931009045",
+        "x:2123747154493841477"
+      ]
+    },
+    {
+      "handle": "entergram_info",
+      "category": "brand",
+      "summary": "宣传《君色パトラIF》限定版预约与《あじゅ～るメモリア》官网。",
+      "via": [],
+      "sources": [
+        "x:2123793235659440505",
+        "x:2123748196853629010"
+      ]
+    },
+    {
+      "handle": "fgremake",
+      "category": "brand",
+      "summary": "公告《遺作リメイク》预约者兑换活动与店家特典。",
+      "via": [],
+      "sources": [
+        "x:2123627392858276188",
+        "x:2123627644801708433"
+      ]
+    },
+    {
+      "handle": "hasa_ma",
+      "category": "creator",
+      "summary": "发布《ARIA BLUE》声优评论与广播节目募稿。",
+      "via": [],
+      "sources": [
+        "x:2123702908952691163",
+        "x:2123704901192831042"
+      ]
+    },
+    {
+      "handle": "inagaki_miko",
+      "category": "creator",
+      "summary": "寄出二周年纪念T恤并担任新作音频编辑。",
+      "via": [],
+      "sources": [
+        "x:2123740273117376956",
+        "x:2123785938748719570"
+      ]
+    },
+    {
+      "handle": "jinan_sanzan",
+      "category": "creator",
+      "summary": "宣传HOOKSOFT演唱会报名与朗读剧首演。",
+      "via": [],
+      "sources": [
+        "x:2123698897491296330",
+        "x:2123565464190431608"
+      ]
+    },
+    {
+      "handle": "moonstonetwitt",
+      "category": "brand",
+      "summary": "举办《ホめられて伸びるＳＲ少女たち２》转发抽奖。",
+      "via": [],
+      "sources": [
+        "x:2123667284510314747",
+        "x:2123660235277771168"
+      ]
+    },
+    {
+      "handle": "nisidahajime",
+      "category": "brand",
+      "summary": "阐述女装题材创作理念并宣传《女装百合嵐》发售。",
+      "via": [],
+      "sources": [
+        "x:2123711195287040188",
+        "x:2123679889471754734"
+      ]
+    },
+    {
+      "handle": "nooksite",
+      "category": "info",
+      "summary": "英文报道ゆずソフト新作多语言版与JAST重制版消息。",
+      "via": [],
+      "sources": [
+        "x:2123678032242356388",
+        "x:2123523192220209392"
+      ]
+    },
+    {
+      "handle": "onowasabi",
+      "category": "creator",
+      "summary": "分享关于阅读与创作、理想与现实落差的感悟。",
+      "via": [],
+      "sources": [
+        "x:2123765202667946327",
+        "x:2123734912335311241"
+      ]
+    },
+    {
+      "handle": "poison_new1992",
+      "category": "brand",
+      "summary": "更新Ci-en新作情报并宣传在售作品。",
+      "via": [],
+      "sources": [
+        "x:2123704334601081224",
+        "x:2123763298902704455"
+      ]
+    },
+    {
+      "handle": "project_citrus",
+      "category": "brand",
+      "summary": "分享爱猫日常与理发动态。",
+      "via": [],
+      "sources": [
+        "x:2123583552898166885",
+        "x:2123627736992551016"
+      ]
+    },
+    {
+      "handle": "stealcatac",
+      "category": "brand",
+      "summary": "发布猫咪风格日常问候与烤肉店分享。",
+      "via": [],
+      "sources": [
+        "x:2123595492336836778",
+        "x:2123585033147707841"
+      ]
+    },
+    {
+      "handle": "tokiko_flankoi",
+      "category": "creator",
+      "summary": "称赞中文logo并分享POPUP CAFE准备情况。",
+      "via": [],
+      "sources": [
+        "x:2123761554588074100",
+        "x:2123730291693064382"
+      ]
+    },
+    {
+      "handle": "umihara_nozomu",
+      "category": "creator",
+      "summary": "宣传あやよさん周边并为《狂った果実》ASMR绘制封面。",
+      "via": [],
+      "sources": [
+        "x:2123768948130972005",
+        "x:2123678444781478163"
+      ]
+    },
+    {
+      "handle": "willplus_staff",
+      "category": "brand",
+      "summary": "举办EvilHeal转发抽奖并宣传Guilty新作预约。",
+      "via": [],
+      "sources": [
+        "x:2123702891429200067",
+        "x:2123695320735649837"
+      ]
+    },
+    {
+      "handle": "zn_cien",
+      "category": "creator",
+      "summary": "发布同人本封面与角色台词。",
+      "via": [],
+      "sources": [
+        "x:2123616970239357288",
+        "x:2123548120512401802"
+      ]
+    },
+    {
+      "handle": "adahemas",
+      "category": "creator",
+      "summary": "称赞角色ビカラ可爱。",
+      "via": [],
+      "sources": [
+        "x:2123630172696166685"
+      ]
+    },
+    {
+      "handle": "akaerocore_en",
+      "category": "brand",
+      "summary": "为《SEVEN DAYS》举办Steam key与点数抽奖。",
+      "via": [],
+      "sources": [
+        "x:2123700947100807328"
+      ]
+    },
+    {
+      "handle": "alice_soft",
+      "category": "brand",
+      "summary": "更新第703回员工日记。",
+      "via": [],
+      "sources": [
+        "x:2123613459531350256"
+      ]
+    },
+    {
+      "handle": "amuse_sub",
+      "category": "brand",
+      "summary": "图解介绍逆NTR题材并引导查看官网。",
+      "via": [],
+      "sources": [
+        "x:2123692320797475245"
+      ]
+    },
+    {
+      "handle": "appetite_game",
+      "category": "brand",
+      "summary": "发售新作《背徳の母乳》Android版。",
+      "via": [],
+      "sources": [
+        "x:2123705617613472198"
+      ]
+    },
+    {
+      "handle": "babi_03",
+      "category": "creator",
+      "summary": "公开《グリザイア 集結の百果》主视觉图。",
+      "via": [],
+      "sources": [
+        "x:2123702911494434983"
+      ]
+    },
+    {
+      "handle": "beni_carnelian",
+      "category": "creator",
+      "summary": "分享夕焼け主题插画特集。",
+      "via": [],
+      "sources": [
+        "x:2123537604201124269"
+      ]
+    },
+    {
+      "handle": "bootup_twit",
+      "category": "brand",
+      "summary": "更新ビーインクリ付费内容投稿信息。",
+      "via": [],
+      "sources": [
+        "x:2123689301879996554"
+      ]
+    },
+    {
+      "handle": "cocoro_fw",
+      "category": "brand",
+      "summary": "感谢玩家评论并公开《COCORO》发售纪念草稿。",
+      "via": [],
+      "sources": [
+        "x:2123702895959040195"
+      ]
+    },
+    {
+      "handle": "coffeekizoku",
+      "category": "creator",
+      "summary": "公布色纸小游戏投票与明日追加数量。",
+      "via": [],
+      "sources": [
+        "x:2123770940395782627"
+      ]
+    },
+    {
+      "handle": "crowd_anim",
+      "category": "brand",
+      "summary": "为《きつ×みこ》追加衣装差分与试听语音。",
+      "via": [],
+      "sources": [
+        "x:2123622061289652588"
+      ]
+    },
+    {
+      "handle": "cyberworkskoho",
+      "category": "brand",
+      "summary": "为《ユメウツツ補習授業》追加一张CG。",
+      "via": [],
+      "sources": [
+        "x:2123751860448403963"
+      ]
+    },
+    {
+      "handle": "don_maru",
+      "category": "creator",
+      "summary": "公告She is Legend演唱会追加售票。",
+      "via": [],
+      "sources": [
+        "x:2123702917311938832"
+      ]
+    },
+    {
+      "handle": "elen_mass",
+      "category": "creator",
+      "summary": "为《千年戦争アイギス》绘制新黑卡角色。",
+      "via": [],
+      "sources": [
+        "x:2123683580207661528"
+      ]
+    },
+    {
+      "handle": "evil_heal",
+      "category": "brand",
+      "summary": "更新《Dominate》官网，追加CG与CV情报并举办抽奖。",
+      "via": [],
+      "sources": [
+        "x:2123705658998763562"
+      ]
+    },
+    {
+      "handle": "famishin",
+      "category": "creator",
+      "summary": "吐槽体重与工作的日常。",
+      "via": [],
+      "sources": [
+        "x:2123441291409412279"
+      ]
+    },
+    {
+      "handle": "famitsu",
+      "category": "info",
+      "summary": "发布《エースコンバット》访谈与新作参与消息。",
+      "via": [],
+      "sources": [
+        "x:2123784320326467944"
+      ]
+    },
+    {
+      "handle": "hamham_soft",
+      "category": "brand",
+      "summary": "感叹コミケ前账号被冻结的情况。",
+      "via": [],
+      "sources": [
+        "x:2123618012557459679"
+      ]
+    },
+    {
+      "handle": "hmyn_",
+      "category": "creator",
+      "summary": "发布一张图片动态。",
+      "via": [],
+      "sources": [
+        "x:2123562992541520350"
+      ]
+    },
+    {
+      "handle": "holic_works",
+      "category": "brand",
+      "summary": "公开《夜明け前にあいましょう》试听语音并提醒预售截止。",
+      "via": [],
+      "sources": [
+        "x:2123702892251259242"
+      ]
+    },
+    {
+      "handle": "info_9_nine_",
+      "category": "brand",
+      "summary": "公告9-nine-与Gratte联动活动。",
+      "via": [],
+      "sources": [
+        "x:2123618559469449313"
+      ]
+    },
+    {
+      "handle": "kantoku_5th",
+      "category": "creator",
+      "summary": "担任《佐々木とピーちゃん》第二季第7话演出。",
+      "via": [],
+      "sources": [
+        "x:2123619143698272757"
+      ]
+    },
+    {
+      "handle": "kay_comment",
+      "category": "creator",
+      "summary": "为anemoi广播节目造势。",
+      "via": [],
+      "sources": [
+        "x:2123717650555842649"
+      ]
+    },
+    {
+      "handle": "kobaggio",
+      "category": "creator",
+      "summary": "发布世界生成器大型更新，新增地图与地形功能。",
+      "via": [],
+      "sources": [
+        "x:2123612210593464452"
+      ]
+    },
+    {
+      "handle": "kudokou_now",
+      "category": "creator",
+      "summary": "宣传《ホーリーアンデッド》最新话公开。",
+      "via": [],
+      "sources": [
+        "x:2123740584666153218"
+      ]
+    },
+    {
+      "handle": "liaison__info",
+      "category": "brand",
+      "summary": "推广《天瀬島は色恋ざかり》DL版。",
+      "via": [],
+      "sources": [
+        "x:2123740804535759329"
+      ]
+    },
+    {
+      "handle": "liar_railsoft",
+      "category": "brand",
+      "summary": "回顾17年前发售的《白光のヴァルーシア》。",
+      "via": [],
+      "sources": [
+        "x:2123432359374528736"
+      ]
+    },
+    {
+      "handle": "madostaff",
+      "category": "brand",
+      "summary": "公告CS版作品折扣促销最后一天。",
+      "via": [],
+      "sources": [
+        "x:2123741096438296901"
+      ]
+    },
+    {
+      "handle": "miel37319007",
+      "category": "brand",
+      "summary": "公开12月新作恶役令嬢角色介绍。",
+      "via": [],
+      "sources": [
+        "x:2123715949966803390"
+      ]
+    },
+    {
+      "handle": "minikleminikle",
+      "category": "creator",
+      "summary": "分享背景素材集在面包店的使用实例。",
+      "via": [],
+      "sources": [
+        "x:2123687793893503421"
+      ]
+    },
+    {
+      "handle": "mitsumi_m",
+      "category": "creator",
+      "summary": "担任C109目录封面插画。",
+      "via": [],
+      "sources": [
+        "x:2123712831791263844"
+      ]
+    },
+    {
+      "handle": "moto4_koinu",
+      "category": "creator",
+      "summary": "公告塞尔达传说40周年音乐会追加公演。",
+      "via": [],
+      "sources": [
+        "x:2123613253725229192"
+      ]
+    },
+    {
+      "handle": "nakahiro_sw",
+      "category": "creator",
+      "summary": "分享游戏通关感想。",
+      "via": [],
+      "sources": [
+        "x:2123733103395115506"
+      ]
+    },
+    {
+      "handle": "natsume3611",
+      "category": "creator",
+      "summary": "庆祝生日并预告翻唱与配信。",
+      "via": [],
+      "sources": [
+        "x:2123431112081092620"
+      ]
+    },
+    {
+      "handle": "nsimayu",
+      "category": "creator",
+      "summary": "公告体验版感想活动奖品寄送并预告新抽奖。",
+      "via": [],
+      "sources": [
+        "x:2123677856974897384"
+      ]
+    },
+    {
+      "handle": "orthrossoft",
+      "category": "brand",
+      "summary": "分享顾客看到看板的趣味反馈。",
+      "via": [],
+      "sources": [
+        "x:2123604853381623963"
+      ]
+    },
+    {
+      "handle": "purple_newwork",
+      "category": "brand",
+      "summary": "宣布出展上海WePlay文化展。",
+      "via": [],
+      "sources": [
+        "x:2123717992517173304"
+      ]
+    },
+    {
+      "handle": "radish2951",
+      "category": "creator",
+      "summary": "发布一篇个人长文动态。",
+      "via": [],
+      "sources": [
+        "x:2123750155023426017"
+      ]
+    },
+    {
+      "handle": "route2_tri",
+      "category": "brand",
+      "summary": "预告Route2频道第238回直播。",
+      "via": [],
+      "sources": [
+        "x:2123739760497938564"
+      ]
+    },
+    {
+      "handle": "sagaplanets",
+      "category": "brand",
+      "summary": "公告ピカットパネル展新插画与贩售信息。",
+      "via": [],
+      "sources": [
+        "x:2123638230428041307"
+      ]
+    },
+    {
+      "handle": "saigakai",
+      "category": "creator",
+      "summary": "分享在GTA6中的游戏恐怖体验。",
+      "via": [],
+      "sources": [
+        "x:2123474185993494842"
+      ]
+    },
+    {
+      "handle": "sca_di",
+      "category": "creator",
+      "summary": "用中文分享cosplay相关动态。",
+      "via": [],
+      "sources": [
+        "x:2123674301090144739"
+      ]
+    },
+    {
+      "handle": "seiya_saiga",
+      "category": "info",
+      "summary": "发布《転まお2》攻略文章。",
+      "via": [],
+      "sources": [
+        "x:2123438371301433602"
+      ]
+    },
+    {
+      "handle": "sengoku_kh",
+      "category": "brand",
+      "summary": "公告《戦国†恋姫BRAVE弐》等周边贩售。",
+      "via": [],
+      "sources": [
+        "x:2123612299680178613"
+      ]
+    },
+    {
+      "handle": "shiratamacaron",
+      "category": "creator",
+      "summary": "发布冬コミ新刊完成与特典情报。",
+      "via": [],
+      "sources": [
+        "x:2123681015726301482"
+      ]
+    },
+    {
+      "handle": "shunntoko_1224",
+      "category": "creator",
+      "summary": "宣布AZKi出演《コヨリニウム》。",
+      "via": [],
+      "sources": [
+        "x:2123612213244244110"
+      ]
+    },
+    {
+      "handle": "snow_chifuyu",
+      "category": "creator",
+      "summary": "分享对男娘角色的心动感想。",
+      "via": [],
+      "sources": [
+        "x:2123718122511511744"
+      ]
+    },
+    {
+      "handle": "syoko_mikuri",
+      "category": "creator",
+      "summary": "吐槽天气寒冷。",
+      "via": [],
+      "sources": [
+        "x:2123645285922746875"
+      ]
+    },
+    {
+      "handle": "syrup_kouhou",
+      "category": "brand",
+      "summary": "分享锅物与开发室最新文章。",
+      "via": [],
+      "sources": [
+        "x:2123702904339268018"
+      ]
+    },
+    {
+      "handle": "valkyria_info",
+      "category": "brand",
+      "summary": "发送《女体狂乱プリンセス》抽奖中奖通知。",
+      "via": [],
+      "sources": [
+        "x:2123611020178690427"
+      ]
+    },
+    {
+      "handle": "web_marmalade",
+      "category": "brand",
+      "summary": "公告抱枕カバー再贩。",
+      "via": [],
+      "sources": [
+        "x:2123715040977306069"
+      ]
+    },
+    {
+      "handle": "yaegasinan",
+      "category": "creator",
+      "summary": "分享《閃乱カグラ》新动画篇章公开。",
+      "via": [],
+      "sources": [
+        "x:2123701998218551484"
+      ]
+    },
+    {
+      "handle": "youtan0309",
+      "category": "info",
+      "summary": "推广ゼウスコミックス创刊转发抽奖。",
+      "via": [],
+      "sources": [
+        "x:2123676972429766796"
+      ]
+    },
+    {
+      "handle": "zion_staff",
+      "category": "brand",
+      "summary": "发布Ci-en高分辨率插画情报。",
+      "via": [],
+      "sources": [
+        "x:2123431142984749204"
+      ]
+    }
+  ],
+  "provenance": {
+    "generator": "gplus/1",
+    "prompt_version": 1,
+    "cache_key": "gplus-2026-11-20",
+    "generated_at": "2026-11-22T00:00:00+00:00"
+  }
+}

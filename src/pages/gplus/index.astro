@@ -1,0 +1,34 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getGplusReports, type Gplus } from '../../lib/gplus';
+
+const reports = await getGplusReports();
+---
+
+<BaseLayout title="Gplus 日报" description="名单 1-1 全集的 Galgame 业界日报：创作者、厂商与信息号在同一周期里的动向">
+  <article class="page article-page">
+    <div class="container article-page__inner">
+      <div class="article-page__main">
+        <header class="page-header">
+          <h1 class="page-title">Gplus 日报</h1>
+          <p class="article-description">抓取与分析范围均为名单 1-1 全集（创作者・剧本・画师／品牌／信息号），不含 B 站与 Galgame 日报的其它账号。</p>
+        </header>
+        <div class="prose">
+          {reports.length > 0 ? (
+            <ul class="daily-roster">
+              {reports.map((report: Gplus) => (
+                <li>
+                  <a href={`/gplus/${report.id}/`}>{report.data.title}</a>
+                  <span class="daily-roster__sep">：</span>
+                  <span>{report.data.description}</span>
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p class="daily-pending">还没有已发布的 Gplus 日报。</p>
+          )}
+        </div>
+      </div>
+    </div>
+  </article>
+</BaseLayout>
