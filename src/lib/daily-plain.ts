@@ -100,7 +100,8 @@ export function dailyPlainMarkdown(data: DailyPlainData, identity: PlainIdentity
     .map((person) => {
       const handle = person.handle;
       // 名单外的 nameOf 本来就返回 `@handle`，别再写一遍括号。
-      const name = identity.nameOf(handle);
+      // 条目自带 `name`（全年龄 / 非全年龄名义分开写）时以条目为准，名单只做兜底。
+      const name = person.name ?? identity.nameOf(handle);
       const suffix = name === `@${handle}` ? '' : `（@${handle}）`;
       const via = person.via.length > 0
         ? `（另有 ${person.via.map((h) => `[@${h}](${identity.profileUrlOf(h)})`).join('、')}）`

@@ -121,6 +121,10 @@
         "required": ["handle"],
         "properties": {
           "handle": { "type": "string" },
+          "name": {
+            "type": "string",
+            "description": "条目级显示名（全年龄 / 非全年龄名义分开时用）：同一个 handle 可以出现两行，各写自己当天的署名；不写就退回名单里的名字"
+          },
           "category": { "type": "string" },
           "summary": { "type": "string" },
           "via": {

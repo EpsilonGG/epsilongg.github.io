@@ -173,6 +173,28 @@ class AuditTest(Base):
         findings = self.audit(report)
         self.assertTrue(any("重复出现" in f.message for f in findings))
 
+    def test_same_handle_as_two_personas_is_allowed(self) -> None:
+        """全年龄 / 非全年龄名义是两条不同条目：同一个号两行，各带 `name` 就不算重复。"""
+        report = report_with(
+            people=[
+                {"handle": "alice", "name": "アリス", "summary": "全年龄那边", "sources": ["x:1"]},
+                {"handle": "alice", "name": "アリス・オトナ", "summary": "另一边", "sources": ["x:2"]},
+            ]
+        )
+        findings = self.audit(report)
+        self.assertFalse(any("重复出现" in f.message for f in findings))
+
+    def test_same_handle_twice_with_one_name_is_still_duplicate(self) -> None:
+        """只给一行写 name 说明是拆漏了，仍按重复拦下。"""
+        report = report_with(
+            people=[
+                {"handle": "alice", "name": "アリス", "summary": "a", "sources": ["x:1"]},
+                {"handle": "alice", "summary": "b", "sources": ["x:2"]},
+            ]
+        )
+        findings = self.audit(report)
+        self.assertTrue(any("重复出现" in f.message for f in findings))
+
     def test_long_description_is_an_error(self) -> None:
         report = report_with(description="あ" * (DESCRIPTION_MAX + 1))
         findings = self.audit(report)

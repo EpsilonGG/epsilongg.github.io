@@ -179,6 +179,18 @@ const dailyReports = defineCollection({
       .array(
         z.object({
           handle: z.string().trim().min(1),
+          /**
+           * 条目级显示名，**不写就用名单里的名字**。
+           *
+           * 2026-11-22 用户裁决：全年龄名义与非全年龄名义是**两条不同条目**，不能拿
+           * `｜` 拼成一条（`桜咲 千依｜藤咲 ウサ`）。一个号当天如果两个名义都发了
+           * 东西，就在 `people` 里写两行、同一个 handle、各自 `name`，页面上就是两条；
+           * 只发了一边，就只留那一条、名字写实际署名的那个名义。
+           *
+           * 只在**当日内容确实用得上**时才写，不要拿它给整份名单改名——名单的名字
+           * 是账号级兜底，改名单会让所有历史期号的显示跟着变。
+           */
+          name: z.string().trim().optional(),
           category: z.string().trim().default(''),
           summary: z.string().trim().default(''),
           via: z.array(z.string().trim().min(1)).default([]),

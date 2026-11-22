@@ -21,6 +21,15 @@
         "data/daily/261120-gp/report.json",
         "data/daily/261121-gp/report.json"
       ]
+    },
+    {
+      "id": "gplus-persona-split-2026-11-22",
+      "authorized_by": "用户（2026-11-22：「全年龄 / 非全年龄名义分离……这里我写的是，分离为不同条目」）",
+      "authorized_on": "2026-11-22",
+      "reason": "同一账号的全年龄名义与非全年龄名义拆成不同条目：people[] 新增可选 name（不写就退回名单），audit 允许同名 handle 出现两行但必须各带 name，否则仍判重复。只放宽这一条判定，来源与名单检查不变。",
+      "paths": [
+        "scripts/daily/audit.py"
+      ]
     }
   ]
 }

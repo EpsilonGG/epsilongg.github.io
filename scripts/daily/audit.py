@@ -113,9 +113,19 @@ def audit_report(
                 )
             )
         if handle in seen:
-            findings.append(
-                Finding(f"{path}.handle", f"重复出现：{handle}（第一次在 people[{seen[handle]}]）")
-            )
+            # 同一个号写两行是**允许**的：全年龄名义与非全年龄名义是两条不同条目
+            # （2026-11-22 裁决），两行必须各写自己的 `name` 才分得清；名字一样就还是
+            # 重复，说明是拆错了或者复制粘贴。
+            previous = (report.get("people") or [])[seen[handle]]
+            same_name = str(previous.get("name") or "").strip() == str(person.get("name") or "").strip()
+            if not str(person.get("name") or "").strip() or same_name:
+                findings.append(
+                    Finding(
+                        f"{path}.handle",
+                        f"重复出现：{handle}（第一次在 people[{seen[handle]}]）；"
+                        "同一名义只能一条，全年龄 / 非全年龄分开写时两行都要带 name",
+                    )
+                )
         else:
             seen[handle] = i
         if not str(person.get("summary") or "").strip():

@@ -86,13 +86,14 @@ const {
  * 名单只渲染「当日确实有活动」的人：summary 为空即视为没有值得写的一句话。
  * 这样生成端可以放心把抓到的账号全列进来，不必自己判断谁该出现。
  *
- * 名字来自名单（`src/config/daily-roster.json`），不写进数据——
- * 同一个人有主号/小号/告知号，名字只有一处能改，才不会出现「同一人两个写法」。
+ * 名字默认来自名单（`src/config/daily-roster.json`），**条目上写了 `name` 就用条目上的**——
+ * 同一个号的全年龄名义与非全年龄名义是两条不同条目（2026-11-22 裁决），拼成
+ * `桜咲 千依｜藤咲 ウサ` 一条是不行的：当天只用了一个名义，就只留那一条、写那个名义。
  * 名单里没有的 handle 退回显示 @handle，并在这里告警：那说明名单漏了人。
  */
 const roster = people.filter((p) => p.summary.trim().length > 0);
 for (const person of roster) {
-  if (!displayNameOf(person.handle)) {
+  if (!person.name && !displayNameOf(person.handle)) {
     console.warn(`[daily] ${post.id} 的 @${person.handle} 不在名单里，详细栏会显示 handle`);
   }
 }
@@ -477,7 +478,7 @@ if (ja) {
                         target="_blank"
                         rel="noopener noreferrer"
                       >
-                        {nameOf(person.handle)}
+                        {person.name ?? nameOf(person.handle)}
                       </a>
                       <span class="daily-roster__sep">：</span>
                       <span set:html={withMentions(person.summary)} />
