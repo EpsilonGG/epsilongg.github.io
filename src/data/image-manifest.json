@@ -1,6 +1,6 @@
 {
   "$comment": "由 scripts/optimize_images.mjs 生成，请勿手改。",
-  "generatedAt": "2026-11-21T05:25:05.982Z",
+  "generatedAt": "2026-11-22T17:07:15.209Z",
   "images": {
     "/images/blog/automaton-crymelight-mugenzakura-roundtable/01.jpg": {
       "w": 1080,
@@ -4326,6 +4326,123 @@
           "w": 1192,
           "src": "/images/blog/rurudo-unreal/11-1192.webp",
           "bytes": 160020
+        }
+      ]
+    },
+    "/images/blog/sakunaverse-yuki-sakuna-interview/01.jpg": {
+      "w": 800,
+      "h": 931,
+      "bytes": 157071,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/sakunaverse-yuki-sakuna-interview/01-600.webp",
+          "bytes": 67238
+        },
+        {
+          "w": 800,
+          "src": "/images/blog/sakunaverse-yuki-sakuna-interview/01-800.webp",
+          "bytes": 102666
+        }
+      ]
+    },
+    "/images/blog/sakunaverse-yuki-sakuna-interview/02.jpg": {
+      "w": 1600,
+      "h": 900,
+      "bytes": 339335,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/sakunaverse-yuki-sakuna-interview/02-600.webp",
+          "bytes": 46492
+        },
+        {
+          "w": 960,
+          "src": "/images/blog/sakunaverse-yuki-sakuna-interview/02-960.webp",
+          "bytes": 121656
+        },
+        {
+          "w": 1600,
+          "src": "/images/blog/sakunaverse-yuki-sakuna-interview/02-1600.webp",
+          "bytes": 254234
+        }
+      ]
+    },
+    "/images/blog/sakunaverse-yuki-sakuna-interview/03.jpg": {
+      "w": 1600,
+      "h": 2108,
+      "bytes": 580683,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/sakunaverse-yuki-sakuna-interview/03-600.webp",
+          "bytes": 92892
+        },
+        {
+          "w": 960,
+          "src": "/images/blog/sakunaverse-yuki-sakuna-interview/03-960.webp",
+          "bytes": 183804
+        },
+        {
+          "w": 1600,
+          "src": "/images/blog/sakunaverse-yuki-sakuna-interview/03-1600.webp",
+          "bytes": 350126
+        }
+      ]
+    },
+    "/images/blog/sakunaverse-yuki-sakuna-interview/04.jpg": {
+      "w": 1192,
+      "h": 2600,
+      "bytes": 183706,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/sakunaverse-yuki-sakuna-interview/04-600.webp",
+          "bytes": 41872
+        },
+        {
+          "w": 1192,
+          "src": "/images/blog/sakunaverse-yuki-sakuna-interview/04-1192.webp",
+          "bytes": 103426
+        }
+      ]
+    },
+    "/images/blog/sakunaverse-yuki-sakuna-interview/05.jpg": {
+      "w": 1600,
+      "h": 900,
+      "bytes": 185249,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/sakunaverse-yuki-sakuna-interview/05-600.webp",
+          "bytes": 29910
+        },
+        {
+          "w": 960,
+          "src": "/images/blog/sakunaverse-yuki-sakuna-interview/05-960.webp",
+          "bytes": 54524
+        },
+        {
+          "w": 1600,
+          "src": "/images/blog/sakunaverse-yuki-sakuna-interview/05-1600.webp",
+          "bytes": 102002
+        }
+      ]
+    },
+    "/images/blog/sakunaverse-yuki-sakuna-interview/06.jpg": {
+      "w": 1192,
+      "h": 2600,
+      "bytes": 115706,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/sakunaverse-yuki-sakuna-interview/06-600.webp",
+          "bytes": 26328
+        },
+        {
+          "w": 1192,
+          "src": "/images/blog/sakunaverse-yuki-sakuna-interview/06-1192.webp",
+          "bytes": 63238
         }
       ]
     },
