@@ -77,8 +77,17 @@ data/daily/2611{19,20,21}-gp/report.json
 - 期号正则在 `content.config.ts` / `schemas/report.schema.json` / `scripts/daily/issue.py` / `src/lib/daily.ts` 四处同步扩出 `YYMMDD-gp`；`DailyKind` 增加 `gplus`，归档筛选按钮加 `Gplus`。
 - 显示名查 `src/lib/roster.ts`：名单 1-1 作为**兜底**并入（已有 handle 不改），新增 `creator` / `brand` 两个栏目 id；`info` 沿用 Galgame 版栏目。
 - `/daily/`、`/daily/<id>.txt`、`/daily/<id>.json`、`/daily/rss.xml` 四个出口自动覆盖三期，无需新路由。
-- **正文段序（2026-11-22 用户裁决）**：今日看点 → 分类摘要 → 作品动态 → 互动 → 洞察 → **详细**，`详细` 固定为最后一栏。改动落在 `src/layouts/DailyLayout.astro`（把「洞察」整段提到「详细」之前）与 `src/styles/components.css` 的段序注释；声优版与 Galgame 版同步生效。
+- **正文段序（2026-11-22 定稿）**：今日看点 → **总结**（洞察 / 互动两个可折叠栏目）→ 长图 → **详细**，`详细` 固定为最后一栏。改动落在 `src/layouts/DailyLayout.astro` + `src/scripts/daily-filter.ts`（按组遍历）+ `src/styles/components.css` 的 `.daily-summary`；声优版与 Galgame 版仍是「互动」「洞察」两段，不被这条影响。
 - 保护集按要求改动并登记 `tests/daily-protection-waivers.json`（batch `gplus-daily-entry-2026-11-22`）；取数脚本 `scripts/daily/` 与判卷脚本未改。
+
+### 1.5 定时任务（2026-11-23 用户裁决：并进 23:15 自动化）
+
+- **一个自动化跑三期**：WorkBuddy 自动化 `2dd4cc0c-7725-4819-85db-f45d4a704e9e`（`FREQ=DAILY;BYHOUR=23;BYMINUTE=15`）现在按 **声优 → Galgame → Gplus** 串行跑完三期。
+- **顺序**：声优先提取、先出稿，Galgame 其次，Gplus 最后；`daily_prepare`／`daily_digest` 只服务前两期。
+- **不再有固定等待**：原来抓取完成后那条 `sleep 300` 已删掉，数据落地（退出码 0）就开工；抓取失败仍按 23:40 补抓一次。
+- **各自推送**：每期 `confirm → publish → 长图 → push_site.py` 一条龙，推完再开下一期；不再攒到最后一起推。Gplus 的 push 带 `--path data/daily/ --path data/xreader/gplus/ --path public/images/gplus/`。
+- **Gplus 的取数改成可复现脚本**：新增 `scripts/gplus_digest.py`，从 `data/xreader/gplus/<JST 日期>.jsonl` 生成 `out/gplus/digest/<日期>.md`（`items/accounts/originals` + RT 集群 + 关键词词频 + 按账号分组的原文），最后一行打印 `last=HH:MM JST` 供覆盖闸门判断（距 24:00 超 2 小时即重抓一次，仍不全就跳过这一期）。此前这三份 digest 是手工生成的，定时任务里不能这么干。
+- Gplus 出稿仍是「写 `out/gplus/reports/Gplus_NNN.json` → `gplus_publish.py` 闸门 → 写 `data/daily/YYMMDD-gp/`」。
 
 ---
 
@@ -133,6 +142,7 @@ data/daily/2611{19,20,21}-gp/report.json
 ```bash
 python scripts/gplus_fetch.py --concurrency 14 --proxy http://127.0.0.1:7897 --out out/gplus/raw
 python scripts/gplus_slice.py --raw out/gplus/raw --keep 40
+python scripts/gplus_digest.py --date 2026-11-19   # 写 out/gplus/digest/2026-11-19.md，日期省略＝昨天（JST）
 python scripts/gplus_publish.py --all --check-only
 python scripts/gplus_publish.py --all
 export PATH="/c/Program Files/nodejs:$PATH"
@@ -174,7 +184,7 @@ python scripts/push_site.py -m "gplus: merge 3-day test into daily as YYMMDD-gp"
 
 ## 7 · 下一步（待裁决）
 
-- [ ] 三期测试稿的标题与取舍是否符合「业界」定位？不符合就备份后移走 `data/daily/2611{19,20,21}-gp/` 再重发（不要 `--force`）。
+- [x] 栏目结构与排期已定稿（2026-11-23）：互动 + 洞察合成「总结」，并进 23:15 自动化，顺序 声优 → Galgame → Gplus，各自推送、无固定等待。
 - [ ] 是否在归档筛选里长期保留 `Gplus` 按钮？（目前已加）
 - [ ] 是否开 X-Reader 第三条抓取线，用 html-first 拿引用/回复，把「账号互动」做厚？
 - [ ] Gplus 周报何时开始？是否接受 `Gplus_XXX` 独立序号（日报不再用它）？
