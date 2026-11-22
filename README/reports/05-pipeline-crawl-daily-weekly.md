@@ -219,7 +219,7 @@ data/daily/state.json       已见键（进 git）
 | `src/lib/bilibili-daily.ts` | B 站旁路取数：解析 → 按账号归并 → 超 100 字概括 → 与 `people[]` 概括行去重 |
 | `src/pages/daily/[...id].astro` | 详情页（`DailyLayout`） |
 | `src/pages/daily/[id].json.ts` | `/daily/<期号>.json`，**与正本逐字节相同** |
-| `src/pages/daily/[id].txt.ts` / `[id].ja.txt.ts` | 纯文字版（GFM Markdown，账号与原文链接齐全）/ Ci-en 粘贴用文本 |
+| `src/pages/daily/[id].txt.ts` / `[id].ja.txt.ts` | 纯文字版（GFM Markdown，各级标题文字加粗、账号与原文链接齐全）/ Ci-en 粘贴用文本 |
 | `src/pages/daily/index.astro` / `rss.xml.ts` | 归档页 / 日报独立 Feed |
 | `scripts/check_daily_site.py` | 出口闸门：有一份正本就必须有三份产物、JSON 与正本逐字节相同、主 Feed 里不许混进 `/daily/` |
 
@@ -430,7 +430,7 @@ drafts = draft_export.build(rules)     # ⑧ 正式版 weekly.md / weekly.html
 
 只读 `draft.md` + `image-preview-data.json`，只写 `weekly.md` / `weekly.html`：
 
-- `weekly.md` 是**纯文字正本**（2026-11-22 裁决）：GFM Markdown、不插图，只留正本正文；工作台标题 / `>` 版式说明 / `**导语**` / 分隔线 / `publish.disabled_display_columns` 里的栏目全部剥掉。规则函数 `public_markdown()` 与发布层共用，当前产物与 `data/weekly/<期号>/report.json:markdown` 逐字节相同；
+- `weekly.md` 是**论坛可贴的纯文字版**（2026-11-22 裁决）：GFM Markdown、不插图，只留正本正文；工作台标题 / `>` 版式说明 / `**导语**` / 分隔线 / `publish.disabled_display_columns` 里的栏目全部剥掉。先由共用的 `public_markdown()` 剥净，再由 `forum_markdown()` 给各级标题文字套 `**`（kungal 论坛规则：`# **标题**`，井号后留空格）；剥掉这层加粗后就是 `data/weekly/<期号>/report.json:markdown`。**站点正本不加粗、不重发**；
 - `weekly.html` 给每条插一张首图，插图前会先剥掉行尾的来源链接再匹配（`_SOURCE_TAIL` 正则），否则「同一句话 + 链接」匹配不上；
 - 来源链接在 HTML 里带 `class="weekly-source"`，样式真源是 `src/styles/weekly.css`（小号、灰色、不换行、hover 下划线）。
 
@@ -438,7 +438,7 @@ drafts = draft_export.build(rules)     # ⑧ 正式版 weekly.md / weekly.html
 
 `weekly/out/` 是工作台：有内部版式说明、导语里的「测试窗口」、筛选页、未定稿徽章、全部证据文件。`data/weekly/<期号>/report.json` 是发布正本：只带对外该有的东西（元信息 / 导语 / 栏目统计 / 干净的正文与 HTML 片段）。
 
-正文脱敏只有一份实现（`draft_export.public_markdown()`）；发布层再跑一次是幂等兜底，然后重写导语、写出 JSON。期号 `vol_XXX` 从这里分配。
+正文脱敏只有一份实现（`draft_export.public_markdown()`）；发布层再跑一次是幂等兜底——即使拿加粗过的 `weekly.md` 当输入，标题外层的 `**` 也会被剥掉，站点正文保持不加粗；然后重写导语、写出 JSON。期号 `vol_XXX` 从这里分配。
 
 期号用 `vol_XXX`（用户指定），与日报的 `YYMMDD-g` 完全无关；「上一期 / 下一期」由已发布期号排序派生，不写进正本。
 

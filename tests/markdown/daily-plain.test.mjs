@@ -47,9 +47,9 @@ test('sourceUrl 只拼绝对 URL，且只认合法的来源键', () => {
 
 test('纯文字版是 GFM：H1/H2、列表、绝对链接，没有图片', () => {
   const out = dailyPlainMarkdown(data, identity);
-  assert.ok(out.startsWith('# X 日报 · 2026-11-20 Galgame\n'));
+  assert.ok(out.startsWith('# **X 日报 · 2026-11-20 Galgame**\n'));
   assert.deepEqual(
-    [...out.matchAll(/^## (.+)$/gm)].map((m) => m[1]),
+    [...out.matchAll(/^## \*\*(.+)\*\*$/gm)].map((m) => m[1]),
     ['今日看点', '作品动态', '分类摘要', '互动', '详细', '洞察']
   );
   assert.match(out, /^- 甲转了乙。$/m);
@@ -58,6 +58,15 @@ test('纯文字版是 GFM：H1/H2、列表、绝对链接，没有图片', () =>
   assert.ok(!out.includes('data/daily/'));
   for (const url of out.matchAll(/\]\(([^)]+)\)/g)) {
     assert.match(url[1], /^https?:\/\//, `链接必须是绝对 URL：${url[1]}`);
+  }
+});
+
+test('各级标题的文字都按论坛规则加粗（# 后留空格）', () => {
+  const out = dailyPlainMarkdown(data, identity);
+  const headings = out.split('\n').filter((line) => /^#{1,6} /.test(line));
+  assert.ok(headings.length >= 7, '标题数不该变少');
+  for (const line of headings) {
+    assert.match(line, /^#{1,6} \*\*.+\*\*$/, `标题文字没加粗：${line}`);
   }
 });
 

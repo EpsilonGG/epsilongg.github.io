@@ -3,8 +3,9 @@
  *
  * 目标平台是 kungal 论坛的 GFM 编辑器（见 https://www.kungal.com/topic/1225）：
  * 只能用 `#` 标题、`[..](https://..)` 链接、`-` 列表这些基础语法；不放图片，
- * 链接一律绝对 URL（论坛里相对地址会被当成站内地址）。这里只做格式转换，
- * 段落顺序、句子、人名都照日报正本，不重新概括、不补正本没有的内容。
+ * 链接一律绝对 URL（论坛里相对地址会被当成站内地址）。标题文字还要按论坛
+ * 的加粗规则套 `**`（`# **标题**`，井号后留空格，第一对 `**` 前就有空格）。
+ * 这里只做格式转换，段落顺序、句子、人名都照日报正本，不重新概括、不补正本没有的内容。
  *
  * 单独成模块是为了能脱离 Astro（daily.ts 依赖 `astro:content`）做契约测试。
  */
@@ -67,7 +68,7 @@ function sourceLinks(sources: string[] | undefined): string {
 }
 
 export function dailyPlainMarkdown(data: DailyPlainData, identity: PlainIdentity): string {
-  const lines: string[] = [`# ${data.title}`];
+  const lines: string[] = [`# **${data.title.trim()}**`];
 
   if (data.description?.trim()) {
     lines.push('', data.description.trim());
@@ -77,11 +78,11 @@ export function dailyPlainMarkdown(data: DailyPlainData, identity: PlainIdentity
   // 列表型栏目：跟页面一致用 `- `，论坛的列表语法按 GFM 走。
   const paragraphs = (heading: string, items: string[]) => {
     const body = items.map((text) => text.trim()).filter(Boolean);
-    if (body.length > 0) lines.push('', `## ${heading}`, '', body.join('\n\n'));
+    if (body.length > 0) lines.push('', `## **${heading}**`, '', body.join('\n\n'));
   };
   const bullets = (heading: string, items: string[]) => {
     const body = items.map((text) => text.trim()).filter(Boolean);
-    if (body.length > 0) lines.push('', `## ${heading}`, '', body.map((text) => `- ${text}`).join('\n'));
+    if (body.length > 0) lines.push('', `## **${heading}**`, '', body.map((text) => `- ${text}`).join('\n'));
   };
 
   paragraphs('今日看点', data.highlights.map((claim) => claim.text));

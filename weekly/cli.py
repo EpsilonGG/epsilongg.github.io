@@ -653,7 +653,7 @@ def cmd_check(_args) -> int:
         text = (OUT / name).read_text(encoding="utf-8")
         if re.search(r"(?m)^#{2,3}\s*新作情报", text):
             problems.append(f"{name} 混进了试验性「新作情报」栏")
-    # 正式版两件产物：weekly.md 是 draft 剥掉工作台说明后的纯文字正本；
+    # 正式版两件产物：weekly.md 是 draft 剥净后、标题文字加粗的论坛可贴版；
     # weekly.html 必须有首图、三栏顺序与正文一致、插图片不改变条目数。
     for name in ("weekly.md", "weekly.html"):
         if not (OUT / name).is_file():
@@ -663,11 +663,13 @@ def cmd_check(_args) -> int:
         plain = wm.read_text(encoding="utf-8")
         cfg = weekly_publish._publish_rules(load_rules())
         disabled = [str(c) for c in cfg["disabled_display_columns"]]
-        want_plain = draft_export.public_markdown(draft, disabled)
+        want_plain = draft_export.forum_markdown(draft_export.public_markdown(draft, disabled))
         if plain != want_plain:
-            problems.append("weekly.md 不是 draft.md 的干净正本（只许差工作台说明/未启用栏目）")
+            problems.append("weekly.md 不是 draft.md 剥净并加粗标题后的论坛版（只许差工作台说明/未启用栏目/标题加粗）")
         if "![" in plain or "pbs.twimg.com" in plain or "<img" in plain:
             problems.append("weekly.md 混进了图片（纯文字版不带图）")
+        if re.search(r"(?m)^#{1,6} (?!\*\*)", plain):
+            problems.append("weekly.md 有标题文字没按论坛规则加粗")
     if wh.is_file():
         imaged = wh.read_text(encoding="utf-8")
         # /photo/[2-9] 恒为硬拦截：图片入口只能是 /photo/1。
@@ -830,7 +832,7 @@ def cmd_check(_args) -> int:
     print("  版式：栏目顺序与栏数（空栏整节不输出）、无看点与独立品牌动向栏、铺平栏为空、"
           "每栏 ####、官号前置、品牌中标题必挂官号链接、账号主语必带链接（无裸 @handle）、"
           "账号标签大小写与链接一致、"
-          "书名号归一、~ 拆对、@handle 兜底、weekly.md = 正本正文、weekly.html 首图与栏目顺序")
+          "书名号归一、~ 拆对、@handle 兜底、weekly.md = 剥净后加粗标题的正文、weekly.html 首图与栏目顺序")
     print("  事实：源索引全留且最新、归栏正交、强制词（含让位）、生日词与豁免、"
           "未标注作品默认排除、无主体观后感、无过期贩售、转推挂原推链接、裸题名需发售信号")
     print("  分流：新作 ⊂ 作品情报、跨栏重复 0、未标注不当新作、空游戏组、切栏决策为空")

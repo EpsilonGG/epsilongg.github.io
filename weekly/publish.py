@@ -5,16 +5,18 @@
 分工（很重要，别把两层混起来）：
 
 * `weekly/out/` 是**工作台**：draft / 筛选页 / 徽章 / 全部证据文件。
-  `weekly.md` 是纯文字正本（由 `draft_export.public_markdown()` 剥好），
-  `weekly.html` 才是带图的工作台版；这里的东西永远不直接进站点。
+  `weekly.md` 是论坛可贴的纯文字版（`draft_export.forum_markdown()` 剥净后
+  给标题文字加粗），`weekly.html` 才是带图的工作台版；这里的东西永远不直接进站点。
 * `data/weekly/<期号>/report.json` 是**发布正本**：只带对外该有的东西
-  （元信息 / 导语 / 栏目统计 / 干净的正文与 HTML 片段）。`src/lib/weekly.ts`
+  （元信息 / 导语 / 栏目统计 / 不加粗的干净正文与 HTML 片段）。`src/lib/weekly.ts`
   只读这一层，绝不 read `weekly/out/`。
 
 「对外脱敏」的正文规则只有一份，在 `draft_export.public_markdown()`；本模块
-再跑一次是幂等兜底（防止有人拿旧工作台稿直接 publish），并负责重写导语、
-生成期号/元信息。期号用 `vol_XXX`（用户指定），与日报的 `YYMMDD-g`
-完全无关；站点上「上一期 / 下一期」由已发布期号排序派生，不写进正本。
+再跑一次是幂等兜底（防止有人拿旧工作台稿或直接拿加粗的 `weekly.md` 来 publish），
+并负责重写导语、生成期号/元信息。纯文字**出口**的标题加粗只发生在
+`forum_markdown()`，发布正本不加粗、不重发。期号用 `vol_XXX`（用户指定），
+与日报的 `YYMMDD-g` 完全无关；站点上「上一期 / 下一期」由已发布期号排序派生，
+不写进正本。
 """
 from __future__ import annotations
 
@@ -90,6 +92,8 @@ def build_report(rules: dict, manifest: dict, corpus: dict, decisions: dict,
     disabled = [str(c) for c in cfg["disabled_display_columns"]]
     draft = (OUT / "weekly.md").read_text(encoding="utf-8")
 
+    # weekly.md 的标题文字带 `**`（论坛出口格式）；public_markdown() 会剥回
+    # 不加粗的站点正本，所以这一步不会把论坛排版写进 report.json。
     body_md = public_markdown(draft, disabled)
     leak = [s for s in INTERNAL_MARKERS if s in body_md]
     if leak:

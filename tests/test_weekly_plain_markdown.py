@@ -1,12 +1,14 @@
 """周报纯文字版的契约测试（2026-11-22）。
 
-`weekly/out/weekly.md` 是给论坛贴的纯文字正本：GFM Markdown、不插图、
-不带工作台内部说明；`report.json.markdown` 必须和它是同一份规则剥出来的。
+`weekly/out/weekly.md` 是给论坛贴的纯文字版：GFM Markdown、不插图、
+不带工作台内部说明，各级标题文字按论坛规则加粗；`report.json.markdown`
+是同一份规则剥出来的**不加粗**正本，这次不再重发。
 """
 from __future__ import annotations
 
 import importlib
 import importlib.util
+import re
 import sys
 import unittest
 from pathlib import Path
@@ -28,6 +30,7 @@ if ALIAS not in sys.modules:
 draft_export = importlib.import_module(f"{ALIAS}.draft_export")
 weekly_publish = importlib.import_module(f"{ALIAS}.publish")
 public_markdown = draft_export.public_markdown
+forum_markdown = draft_export.forum_markdown
 published_markdown = weekly_publish.public_markdown
 
 DRAFT = """# Galgame 周报
@@ -87,8 +90,26 @@ class WeeklyPlainMarkdownTest(unittest.TestCase):
         self.assertTrue(out.endswith("\n"))
         self.assertFalse(out.endswith("\n\n"))
 
-    def test_publish_uses_the_same_rule_and_is_idempotent(self) -> None:
+    def test_forum_export_bolds_every_heading_level(self) -> None:
+        out = forum_markdown(public_markdown(DRAFT, DISABLED))
+        self.assertIn("## **新作**\n", out)
+        self.assertIn("### **[ゆずソフト](https://x.com/yuzusoft)**\n", out)
+        self.assertIn("#### **『ライムライト・レモネードジャム』**\n", out)
+        self.assertIn("## **作品情报**\n", out)
+        headings = [ln for ln in out.splitlines() if re.match(r"^#{1,6} ", ln)]
+        self.assertEqual(len(headings), 4)
+        for line in headings:
+            self.assertRegex(line, r"^#{1,6} \*\*.+\*\*$", line)
+        self.assertNotIn("![", out)
+
+    def test_forum_bold_is_reversible_and_does_not_touch_canonical(self) -> None:
+        clean = public_markdown(DRAFT, DISABLED)
+        bolded = forum_markdown(clean)
+        self.assertEqual(public_markdown(bolded, DISABLED), clean)
+        self.assertEqual(forum_markdown(bolded), bolded, '重复加粗不该叠加星号')
         self.assertIs(published_markdown, public_markdown)
+
+    def test_publish_uses_the_same_rule_and_is_idempotent(self) -> None:
         once = public_markdown(DRAFT, DISABLED)
         self.assertEqual(once, public_markdown(once, DISABLED))
 

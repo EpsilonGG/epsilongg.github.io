@@ -2,7 +2,9 @@
 
 2026-11-10 用户裁决：以带图试稿的版式作为正式版版式。
 2026-11-22 用户裁决：纯文字版只输出周报正本——Markdown GFM、不插图、不带工作台
-内部说明；带图版继续用同一份 draft 另插首图，互不影响。
+内部说明；带图版继续用同一份 draft 另插首图，互不影响。同日追加：纯文字
+**出口**的各级标题文字按 kungal 论坛规则套 `**`（`forum_markdown()`），
+站点正本 `report.json:markdown` 不加粗、不重发。
 
 * 只读 `out/draft.md` / `out/image-preview-data.json`；
 * 只写 `out/weekly.md` 与 `out/weekly.html`；
@@ -23,21 +25,37 @@ from .config import OUT, read_json, write_text
 
 # ---------- 纯文字正本 ----------
 
+_HEADING_LINE = re.compile(r"^(#{1,6})[ \t]+(\S.*?)[ \t]*$")
+_BOLD_WRAPPED = re.compile(r"^\*\*(.+?)\*\*$")
+
+
+def _unbold_heading(text: str) -> str:
+    """标题整段被 `**` 包住时剥掉：正本 markdown 不加粗，只有纯文字出口加。"""
+    text = text.strip()
+    match = _BOLD_WRAPPED.fullmatch(text)
+    if match and "**" not in match.group(1):
+        return match.group(1).strip()
+    return text
+
 
 def public_markdown(draft: str, disabled_columns: list[str]) -> str:
-    """从工作台 `draft.md` 剥出**对外正文**（GFM Markdown，零图片）。
+    """从工作台 `draft.md` 剥出**对外正文**（GFM Markdown，零图片、标题不加粗）。
 
     删掉四类只属于工作台的行：页面标题（Astro 自己写）、`>` 版式说明块、
     `**导语**`（改由 report.json 的 `lead` 重写）、分隔线；再整节删掉
     上线策略里未启用的栏目（创刊阶段是「业界动向」）。
 
+    输入也可能是已经加粗的论坛出口 `weekly.md`（publish 的幂等兜底），所以
+    这里先把标题外层的 `**` 剥掉，保证发布正本永远是不加粗的那一份。
     条目里的 `[原文](绝对 URL)` 是正本的一部分，逐字保留——论坛编辑器只认
     http(s) 开头的链接，这里的 URL 本来就都是绝对地址。
     """
     banned = set(disabled_columns)
     out: list[str] = []
     skipping = False
-    for line in draft.splitlines():
+    for raw in draft.splitlines():
+        match = _HEADING_LINE.match(raw)
+        line = f"{match.group(1)} {_unbold_heading(match.group(2))}" if match else raw
         if line.startswith("## "):
             skipping = line[3:].strip() in banned
             if skipping:
@@ -54,6 +72,25 @@ def public_markdown(draft: str, disabled_columns: list[str]) -> str:
         out.pop(0)
     while out and not out[-1].strip():
         out.pop()
+    return "\n".join(out).rstrip() + "\n"
+
+
+def forum_markdown(md: str) -> str:
+    """干净正本 → 论坛可贴版：**只**给各级标题的文字套 `**`。
+
+    依据 kungal 论坛语法指南（topic/1225）：加粗是 `**文字**`，且第一对
+    `**` 前要留空格；`## **标题**` 的井号后空格正好满足。条目正文与
+    `[原文](绝对 URL)` 逐字不动；重复跑不会叠加星号。
+    """
+    out: list[str] = []
+    for line in md.splitlines():
+        match = _HEADING_LINE.match(line)
+        if match:
+            text = _unbold_heading(match.group(2))
+            if text:
+                out.append(f"{match.group(1)} **{text}**")
+                continue
+        out.append(line)
     return "\n".join(out).rstrip() + "\n"
 
 
@@ -331,12 +368,13 @@ def build(rules: dict | None = None) -> dict:
     draft = (OUT / "draft.md").read_text(encoding="utf-8")
     stats = _stats(draft)
 
-    # 纯文字版就是「站点正本里那段 markdown」，不是工作台稿的副本。
+    # 纯文字版 = 「站点正本里那段 markdown」+ 论坛标题加粗，不是工作台稿的副本。
+    # 正本本身不加粗、不重发；publish 再读 weekly.md 时会被 public_markdown() 剥回去。
     # 延迟导入发布层口径（它反过来 import 本模块），避免顶层循环依赖。
     from .publish import _publish_rules
 
     disabled = [str(c) for c in _publish_rules(rules)["disabled_display_columns"]]
-    write_text(OUT / "weekly.md", public_markdown(draft, disabled))
+    write_text(OUT / "weekly.md", forum_markdown(public_markdown(draft, disabled)))
 
     idx = _image_index()
     with_images, n_images = _insert_images(draft, idx)
