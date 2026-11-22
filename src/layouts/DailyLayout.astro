@@ -53,6 +53,22 @@ const dailyImage = await (async () => {
     height: meta.height,
   };
 })();
+/**
+ * Gplus 版长图：`node scripts/gplus-image/render.mjs <期号>` 输出
+ * `public/images/gplus/<期号>.webp`，内容是「标题 / 洞察 / 互动」三段（用户 2026-11-22 口径）。
+ * 只在 `-gp` 期号上找这张图，插在「详细」栏之前——详细是逐账号清单，不进图。
+ */
+const gplusImage =
+  post.data.kind === 'gplus'
+    ? await (async () => {
+        const file = path.join(process.cwd(), 'public', 'images', 'gplus', `${post.id}.webp`);
+        if (!fs.existsSync(file)) return null;
+        const meta = await sharp(file).metadata();
+        if (!meta.width || !meta.height) return null;
+        return { src: `/images/gplus/${post.id}.webp`, width: meta.width, height: meta.height };
+      })()
+    : null;
+
 const {
   title,
   description,
@@ -404,6 +420,25 @@ if (ja) {
               </section>
             ) : null
           }
+          {/*
+            Gplus 长图插在「详细」之前：读者看完互动、洞察之后，要的是一张能直接转存的浓缩图；
+            图里只放 标题 / 洞察 / 互动，逐账号清单不进图。
+          */}
+          {
+            gplusImage ? (
+              <figure class="daily-figure">
+                <img
+                  src={gplusImage.src}
+                  width={gplusImage.width}
+                  height={gplusImage.height}
+                  alt={`${title} 长图`}
+                  loading="lazy"
+                  decoding="async"
+                />
+              </figure>
+            ) : null
+          }
+
           {
             roster.length > 0 || bilibiliGroups.length > 0 ? (
               <section class="daily-block">
