@@ -21,6 +21,8 @@ export interface PlainCategory {
 
 export interface PlainPerson {
   handle: string;
+  /** 条目级显示名（全年龄 / 非全年龄名义分开时用）；不写就查名单。 */
+  name?: string;
   summary: string;
   via: string[];
   sources?: string[];
