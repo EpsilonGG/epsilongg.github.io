@@ -2,7 +2,7 @@
 
 > **用途**：把 `data/daily/<id>/report.json` 渲染成一张「每日晨报」长图。
 > **读者**：agent（或下次接手的自己）。本文件是**操作手册**，照 §0 就能出图；§3 是这次重选的风格方案与理由。
-> **关联文档**：`README/reports/daily-m5-m6-options.html` §9.6（M5 目标）；`docs/daily-report-guide.md`（日报运营流程）；`schemas/report.schema.json`（数据契约）；`src/styles/tokens.css`（配色来源）。
+> **关联文档**：`README/reports/_archive-2026-11/daily-m5-m6-options.html` §9.6（M5 目标）；`docs/daily-report-guide.md`（日报运营流程）；`schemas/report.schema.json`（数据契约）；`src/styles/tokens.css`（配色来源）。
 >
 > **路径变更（2026-11-08）**：本文里的实验脚本与试验产物已归档，命令里的旧路径按下表换算，照抄旧路径会失败。
 >
@@ -13,7 +13,7 @@
 > | `scripts/daily1/`、`scripts/daily2/` | `archive/scripts/` |
 > | `scripts/out/`（旧期号产物） | `archive/scripts/out/` |
 >
-> **正式版长图只用 `scripts/daily-image/render.mjs`**（§10 起）。§5 与 §8–§9 保留的是实验过程的记录，不是当前入口。
+> **正式版长图只用 `scripts/daily-image/render.mjs`**（§9 起）；Gplus 版用 `scripts/gplus-image/render.mjs`，沿用同一套模板模式（§10）。§5 与 §8 保留的是实验过程的记录，不是当前入口。
 
 ---
 
@@ -337,3 +337,23 @@ WebP 有 VP8/VP8L/VP8X 三种头，自己拆容易踩坑；sharp 本来就是构
 
 备选（都没用）：JPEG q86 约 815 KB（丢透明、色带更明显）、1080 宽 PNG 约 500 KB（清晰度不够）。
 木纹那层 `repeating-linear-gradient(…2px)` 是高频噪点，压缩率差的主因。
+
+---
+
+## 10. Gplus 出图：沿用同一套模板模式（2026-11-22）
+
+用户要求把声优日报的出图模板模式同步到 Gplus。落点是 `scripts/gplus-image/render.mjs`，
+**直接照搬 §8–§9 的机制**，不另造一套：
+
+```
+node scripts/gplus-image/render.mjs <期号> --final [--out=<webp>]   # 生产终版
+node scripts/gplus-image/render.mjs <期号> [--only=01,08]           # 模板对照稿
+```
+
+- **同一份 BASE + DRAFTS**：001 色块 / 012 竖轨 / 151 双框 / 077 衬线粗线 / 轨+框 / 题目 1.5× / 2× / 全文字号 1.2×，共 8 套；`--only` 按编号筛，终版固定 `08 rail-12x`。
+- **同一套视觉语言**：木色底 `GRAIN`、012 竖轨渐变、WOOD 变量、衬线序号、卡片瓦片、报头「期号 + 大标题 + 右日期」、导语按 `，。` 断行、`text-wrap:pretty` + `word-break:keep-all`；页脚仍保留站点域名与期号（Gplus 原图有，不删）。
+- **同一条出图链**：Playwright(msedge) 截 PNG 缓冲 → sharp 转 WebP，不落中间 PNG；画质也统一到 **q92 / effort 6**。
+- **栏目差异**：Gplus 没有作品表，只有 **导语 + 洞察 / 互动**（用户 2026-11-22 口径）：导语直接跟在报头后，**不写「标题」这类栏目名**（用户同日追加修正，与声优日报一致）；洞察与互动都用 **CSS 双栏卡片**（长条目不跨栏）；详细栏是逐账号清单，不进图。条目数不设上限，全部渲染，不截断。
+- **对照稿目录**：`pic/gplus-image/`（gitignore），带 `index.html` 联络表，跟 `pic/daily2/` 一样。
+- **体积**：q86 旧图 1.4–1.7 MB → q92 + 木纹底约 **2.0–2.4 MB**（261119/120/121 实测 2386/2014/2288 KB，高 6548/5435/6175px）。这是密集中文 + 木纹噪点的代价；若上线体积吃紧，优先降画质到 q88，不要删条目或改双栏。
+- **重渲染**：`DailyLayout.astro` 只读文件是否存在，不缓存尺寸，重出图后无需改页面代码；但要把三张 WebP 一起提交，否则线上还是旧图。
