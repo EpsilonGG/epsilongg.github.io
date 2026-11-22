@@ -393,6 +393,18 @@ if (ja) {
           }
 
           {
+            insights.length > 0 ? (
+              <section class="daily-block">
+                <h2>洞察</h2>
+                <ul>
+                  {insights.map((claim) => (
+                    <li set:html={withMentions(claim.text)} />
+                  ))}
+                </ul>
+              </section>
+            ) : null
+          }
+          {
             roster.length > 0 || bilibiliGroups.length > 0 ? (
               <section class="daily-block">
                 <h2>详细</h2>
@@ -495,18 +507,6 @@ if (ja) {
             ) : null
           }
 
-          {
-            insights.length > 0 ? (
-              <section class="daily-block">
-                <h2>洞察</h2>
-                <ul>
-                  {insights.map((claim) => (
-                    <li set:html={withMentions(claim.text)} />
-                  ))}
-                </ul>
-              </section>
-            ) : null
-          }
         </div>
 
         {

@@ -110,10 +110,16 @@ def main(argv: list[str] | None = None) -> int:
             counts = dict(report["counts"])
             counts.setdefault("late", 0)
             counts.setdefault("skipped_duplicate", 0)
-            payload = dict(report)
+            # 字段顺序必须与 Zod 出口一致（`categories` 在 `works` 之后、`accounts` 之前），
+            # 否则 `check:daily` 判「出口与正本不是逐字节相同」。
+            payload = {}
+            for key, value in report.items():
+                payload[key] = value
+                if key == "works":
+                    payload["categories"] = report.get("categories") or []
+            payload.setdefault("categories", [])
             payload["issue"] = published
             payload["counts"] = counts
-            payload.setdefault("categories", [])
             target = DEST / daily_id / "report.json"
             target.parent.mkdir(parents=True, exist_ok=True)
             target.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8", newline="\n")
