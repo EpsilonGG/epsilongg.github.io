@@ -157,6 +157,17 @@ function biliLinksOf(handle: string): string[] {
 }
 
 /**
+ * Gplus 版（`-gp`）的栏目归一：品牌号如果同时也在 gal 日报正本名单里，
+ * `categoryOf()` 会返回 `manufacturer`，于是页面上「品牌・厂商」和「游戏制造商」
+ * 两个按钮并存、说的是同一件事。这里只在 Gplus 版把 `manufacturer` 并进 `brand`，
+ * 其他两版的栏目一个字节都不动。
+ */
+function categoryIdOf(handle: string): string {
+  const id = categoryOf(handle);
+  return post.data.kind === 'gplus' && id === 'manufacturer' ? 'brand' : id;
+}
+
+/**
  * 按栏目（声优版：声优 / 音声社团；Galgame 版：游戏制造商 / 信息号 / B站动态）分组，
  * 给「详细」栏的筛选按钮用。
  *
@@ -169,7 +180,7 @@ function biliLinksOf(handle: string): string[] {
 const categoriesPresent = (() => {
   const counts = new Map<string, number>();
   for (const person of roster) {
-    const id = categoryOf(person.handle);
+    const id = categoryIdOf(person.handle);
     counts.set(id, (counts.get(id) ?? 0) + 1);
   }
   // 「B站动态」的条目数按**去重后的账号**算：概括行与正本行合并后一个账号一行，
@@ -191,7 +202,7 @@ const categoriesPresent = (() => {
  * 某期那一栏没有条目（或名单漏了人）就退回第一个栏目。
  */
 const preferredCategory =
-  post.data.kind === 'gplus' ? 'creator' : post.data.kind === 'galgame' ? 'manufacturer' : 'seiyuu';
+  post.data.kind === 'gplus' ? 'info' : post.data.kind === 'galgame' ? 'manufacturer' : 'seiyuu';
 const defaultCategory = categoriesPresent.some((item) => item.id === preferredCategory)
   ? preferredCategory
   : (categoriesPresent[0]?.id ?? '');
@@ -202,7 +213,7 @@ const showCategoryFilter = categoriesPresent.length > 1;
 /** 多栏目同时显示时按栏目聚在一起，扫起来才知道「下面是另一批人」。 */
 const sortedRoster = showCategoryFilter
   ? [...roster].sort(
-      (a, b) => categoryRankOf(categoryOf(a.handle)) - categoryRankOf(categoryOf(b.handle))
+      (a, b) => categoryRankOf(categoryIdOf(a.handle)) - categoryRankOf(categoryIdOf(b.handle))
     )
   : roster;
 
@@ -412,7 +423,7 @@ if (ja) {
                 ) : null}
                 <ul class="daily-roster" id="daily-detail-list" data-daily-roster>
                   {sortedRoster.map((person) => (
-                    <li data-category={categoryOf(person.handle)}>
+                    <li data-category={categoryIdOf(person.handle)}>
                       <a
                         class="daily-roster__name"
                         href={profileUrl(person.handle)}
