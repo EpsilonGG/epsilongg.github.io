@@ -29,6 +29,8 @@ export interface PlainPerson {
 }
 
 export interface DailyPlainData {
+  /** 哪一版。Gplus 的「洞察 + 互动」在页面与纯文字版里合成一栏「总结」。 */
+  kind?: 'voice' | 'galgame' | 'gplus';
   title: string;
   description?: string;
   highlights: PlainClaim[];
@@ -86,6 +88,11 @@ export function dailyPlainMarkdown(data: DailyPlainData, identity: PlainIdentity
     const body = items.map((text) => text.trim()).filter(Boolean);
     if (body.length > 0) lines.push('', `## **${heading}**`, '', body.map((text) => `- ${text}`).join('\n'));
   };
+  /** 「总结」里的子栏（洞察 / 互动）：比一级栏目低一级，但不拆成新的 `##` 段。 */
+  const subBullets = (heading: string, items: string[]) => {
+    const body = items.map((text) => text.trim()).filter(Boolean);
+    if (body.length > 0) lines.push('', `### **${heading}**`, '', body.map((text) => `- ${text}`).join('\n'));
+  };
 
   paragraphs('今日看点', data.highlights.map((claim) => claim.text));
   bullets('作品动态', data.works);
@@ -95,7 +102,14 @@ export function dailyPlainMarkdown(data: DailyPlainData, identity: PlainIdentity
       (category) => `${category.label}：${category.summary}`
     )
   );
-  bullets('互动', data.interactions.map((claim) => claim.text));
+  if (data.kind === 'gplus') {
+    // 页面上的「总结」是洞察 + 互动两栏，纯文字版跟着合成一段，顺序也照页面
+    if (data.insights.length + data.interactions.length > 0) lines.push('', '## **总结**');
+    subBullets('洞察', data.insights.map((claim) => claim.text));
+    subBullets('互动', data.interactions.map((claim) => claim.text));
+  } else {
+    bullets('互动', data.interactions.map((claim) => claim.text));
+  }
 
   const people = data.people
     .filter((person) => person.summary.trim().length > 0)
@@ -112,7 +126,7 @@ export function dailyPlainMarkdown(data: DailyPlainData, identity: PlainIdentity
         `${person.summary.trim()}${via}${sourceLinks(person.sources)}`;
     });
   bullets('详细', people);
-  bullets('洞察', data.insights.map((claim) => claim.text));
+  if (data.kind !== 'gplus') bullets('洞察', data.insights.map((claim) => claim.text));
 
   return lines.join('\n') + '\n';
 }

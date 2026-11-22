@@ -397,33 +397,82 @@ if (ja) {
             ) : null
           }
 
+          {/*
+            Gplus 版把「互动` + `洞察」合成一栏「总结」（2026-11-22 定稿）：
+            两栏各是一个可折叠的栏目按钮，交互与「详细」的栏目筛选完全一致，
+            只是分组依据从「账号栏目」换成「内容类型」。洞察在前——先看跨账号的
+            观察，再看具体的一来一往；两栏默认都亮，藏掉一半就读不出对照。
+            另两版保持各自独立的两块，不动。
+          */}
           {
-            interactions.length > 0 ? (
-              <section class="daily-block">
-                <h2>互动</h2>
-                <ul>
-                  {interactions.map((claim) => (
-                    <li set:html={withMentions(claim.text)} />
-                  ))}
-                </ul>
-              </section>
-            ) : null
-          }
+            post.data.kind === 'gplus' ? (
+              insights.length + interactions.length > 0 ? (
+                <section class="daily-block">
+                  <h2>总结</h2>
+                  <div class="daily-filter" data-daily-filter role="group" aria-label="按栏目折叠">
+                    <span class="daily-filter__label">栏目</span>
+                    <button
+                      class="daily-filter__tag"
+                      type="button"
+                      data-category-filter
+                      data-category="insight"
+                      aria-pressed="true"
+                      aria-controls="daily-summary-list"
+                    >
+                      洞察
+                    </button>
+                    <button
+                      class="daily-filter__tag"
+                      type="button"
+                      data-category-filter
+                      data-category="interaction"
+                      aria-pressed="true"
+                      aria-controls="daily-summary-list"
+                    >
+                      互动
+                    </button>
+                  </div>
+                  <ul class="daily-summary" id="daily-summary-list">
+                    {insights.map((claim) => (
+                      <li data-category="insight" set:html={withMentions(claim.text)} />
+                    ))}
+                    {interactions.map((claim) => (
+                      <li data-category="interaction" set:html={withMentions(claim.text)} />
+                    ))}
+                  </ul>
+                  <p class="daily-pending" data-daily-filter-empty hidden>
+                    未选择栏目。点上方按钮显示对应条目。
+                  </p>
+                </section>
+              ) : null
+            ) : (
+              <>
+                {interactions.length > 0 ? (
+                  <section class="daily-block">
+                    <h2>互动</h2>
+                    <ul>
+                      {interactions.map((claim) => (
+                        <li set:html={withMentions(claim.text)} />
+                      ))}
+                    </ul>
+                  </section>
+                ) : null}
 
-          {
-            insights.length > 0 ? (
-              <section class="daily-block">
-                <h2>洞察</h2>
-                <ul>
-                  {insights.map((claim) => (
-                    <li set:html={withMentions(claim.text)} />
-                  ))}
-                </ul>
-              </section>
-            ) : null
+                {insights.length > 0 ? (
+                  <section class="daily-block">
+                    <h2>洞察</h2>
+                    <ul>
+                      {insights.map((claim) => (
+                        <li set:html={withMentions(claim.text)} />
+                      ))}
+                    </ul>
+                  </section>
+                ) : null}
+              </>
+            )
           }
           {/*
-            Gplus 长图插在「详细」之前：读者看完互动、洞察之后，要的是一张能直接转存的浓缩图；
+            Gplus 长图插在「详细」之前：读者看完总结之后，要的是一张能直接转存的浓缩图；
             图里只放 标题 / 洞察 / 互动，逐账号清单不进图。
           */}
           {

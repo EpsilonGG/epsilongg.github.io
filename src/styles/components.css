@@ -490,6 +490,20 @@ a.link-row:hover .link-row__label {
   gap: var(--space-2);
 }
 
+/*
+  Gplus 的「总结」栏（洞察 + 互动，2026-11-22 定稿）。
+  两栏的条目合成一个列表、靠 `data-category` 折叠，所以这里跟 `.daily-roster`
+  一样去掉项目符号、用 flex gap 排版：隐藏项不会在列表开头顶出空行，
+  读起来也和「详细」是同一套节奏。
+*/
+.daily-summary {
+  padding-left: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
 /* 栏目筛选按钮那一排。和笔记页的标签栏同样的排布：标签 + 可换行的按钮 */
 .daily-filter {
   display: flex;
