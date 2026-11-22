@@ -110,7 +110,7 @@ Galgame 版 = `261031-g`。
 | `/daily/<期号>/` | 单期详情，`getStaticPaths` 从内容集合生成，没有手写路由；页头只写「发布于」——覆盖哪天已经在标题里 |
 | `/daily/rss.xml` | **归档 feed**，独立于主 `/rss.xml`（那个只收「笔记」）；`pubDate` 用真实的 `published_at` |
 | `/daily/<期号>.json` | **JSON**，与 `data/daily/<期号>/report.json` 逐字节相同（含 `sources`），给第三方/脚本 |
-| `/daily/<期号>.txt` | **纯文本**，给复制粘贴和 M6 的视频稿；只换格式，不重新概括 |
+| `/daily/<期号>.txt` | **纯文字版（GFM Markdown）**，可直接贴到 kungal 等论坛；`#`/`##` 标题 + 列表，账号挂主页链接、「详细」每条附 `[原文](绝对 URL)`，不出图片。只换格式，不重新概括 |
 | `/daily/<期号>.ja.txt` | **Ci-en 版**，首行是固定标题 `【声優Xまとめ M/D】…`，然后中日双语（中文在前、日文在后），按 Ci-en 记法排过版，只收声优栏目；每期都由 `daily ja` 产出，缺了 `publish` 会提醒。**只有声优版有**，`-g` 的期号不生成 |
 
 > 独立 feed 的理由：日报每天一期且是 AI 整理的，混进主 feed 会改变既有订阅者收到的东西。分开后，归档页能翻，feed 能被阅读器收走。
@@ -611,12 +611,13 @@ commit（2026-10-26 就把一篇 496 行的新访谈卷进了「docs: 抓取侧�
 | `src/content.config.ts` | `dailyReports` 集合：`glob({ base: './data/daily', pattern: '*/report.json' })` + Zod（**没有** `title` / `pubDate`，两者由期号推导） |
 | `src/lib/daily.ts` | 期号解析（`parseDailyId` / `toDailyId`）、`getDailyReports()`、按月分组、`dailyPath()`、`plainText()`（`.txt` 出口） |
 | `src/lib/roster.ts` | 名单查询：`nameOf()` / `displayNameOf()`，页面与 `.txt` 共用 |
-| `src/layouts/DailyLayout.astro` | 日报详情页布局（复用 `BaseLayout`，含"AI 整理"徽章、纯文本版链接、上/下篇导航） |
+| `src/layouts/DailyLayout.astro` | 日报详情页布局（复用 `BaseLayout`，含"AI 整理"徽章、纯文字版链接、上/下篇导航） |
 | `src/pages/daily/index.astro` | `/daily/` 归档列表（按月分组） |
 | `src/pages/daily/[...id].astro` | `/daily/<期号>/` 详情页（`getStaticPaths`） |
 | `src/pages/daily/rss.xml.ts` | `/daily/rss.xml` 归档 feed（独立于主 feed） |
 | `src/pages/daily/[id].json.ts` | `/daily/<期号>.json`：与正本逐字节相同的 JSON 出口 |
-| `src/pages/daily/[id].txt.ts` | `/daily/<期号>.txt`：纯文本出口（复制粘贴 / M6 视频稿） |
+| `src/pages/daily/[id].txt.ts` | `/daily/<期号>.txt`：纯文字出口（GFM Markdown，复制粘贴 / M6 视频稿） |
+| `src/lib/daily-plain.ts` | 纯文字版的 Markdown 排版（可脱离 Astro 测）；只做格式转换，不碰正本内容 |
 | `src/config/navigation.json` | 顶部导航的"日报"入口 |
 | `data/daily/<期号>/report.json` | **产出（已发布）**：站点读的正本，目录名即覆盖日 |
 | `out/<期号>/report.json` | 工作区正本（草稿/已定稿），`publish` 才搬到 `data/daily/` |
@@ -843,7 +844,7 @@ npm run golden:daily:switch -- --id 261025
       2026-10-31 → 261031 / 261031-g → /daily/261031/ · /daily/261031-g/
 同日第二期：261031-2 / 261031-g2（用 --new 排号）
 存档：/daily/（按月分组） 订阅：/daily/rss.xml
-出口：/daily/<期号>.json（正本逐字节相同） · /daily/<期号>.txt（纯文本）
+出口：/daily/<期号>.json（正本逐字节相同） · /daily/<期号>.txt（纯文字版，GFM Markdown）
       · /daily/<期号>.ja.txt（Ci-en，需 report.ja.json，只有声优版有）
 判卷：python scripts/daily_digest.py audit --issue <期号> [--published]
 ```

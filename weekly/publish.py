@@ -4,14 +4,16 @@
 
 分工（很重要，别把两层混起来）：
 
-* `weekly/out/` 是**工作台**：有内部版式说明、导语里的「测试窗口」、筛选页、
-  未定稿徽章、全部证据文件。这里的东西永远不进站点。
+* `weekly/out/` 是**工作台**：draft / 筛选页 / 徽章 / 全部证据文件。
+  `weekly.md` 是纯文字正本（由 `draft_export.public_markdown()` 剥好），
+  `weekly.html` 才是带图的工作台版；这里的东西永远不直接进站点。
 * `data/weekly/<期号>/report.json` 是**发布正本**：只带对外该有的东西
   （元信息 / 导语 / 栏目统计 / 干净的正文与 HTML 片段）。`src/lib/weekly.ts`
   只读这一层，绝不 read `weekly/out/`。
 
-因此本模块是唯一一次「对外脱敏」：删掉工作台内部说明、按上线策略剔除
-未启用的栏目、重写导语。期号用 `vol_XXX`（用户指定），与日报的 `YYMMDD-g`
+「对外脱敏」的正文规则只有一份，在 `draft_export.public_markdown()`；本模块
+再跑一次是幂等兜底（防止有人拿旧工作台稿直接 publish），并负责重写导语、
+生成期号/元信息。期号用 `vol_XXX`（用户指定），与日报的 `YYMMDD-g`
 完全无关；站点上「上一期 / 下一期」由已发布期号排序派生，不写进正本。
 """
 from __future__ import annotations
@@ -22,7 +24,13 @@ from pathlib import Path
 
 from . import highlight as highlight_mod
 from .config import OUT, ROOT, read_json, write_json
-from .draft_export import _image_index, _insert_images, _stats, render_public_fragment
+from .draft_export import (
+    _image_index,
+    _insert_images,
+    _stats,
+    public_markdown,
+    render_public_fragment,
+)
 
 PUBLISH_DIR = ROOT / "data" / "weekly"
 ISSUE_RE = re.compile(r"^vol_(\d{3,})$")
@@ -43,36 +51,6 @@ def _publish_rules(rules: dict) -> dict:
     cfg.setdefault("human_review_required", False)
     cfg.setdefault("selection_mode", "deterministic_default")
     return cfg
-
-
-def public_markdown(draft: str, disabled_columns: list[str]) -> str:
-    """从 `weekly.md` 剥出**对外正文**。
-
-    删掉四类只属于工作台的行：页面标题（Astro 自己写）、`>` 版式说明块、
-    `**导语**`（改由 report.json 的 `lead` 重写）、分隔线；再整节删掉
-    上线策略里未启用的栏目（创刊阶段是「业界动向」）。
-    """
-    banned = set(disabled_columns)
-    out: list[str] = []
-    skipping = False
-    for line in draft.splitlines():
-        if line.startswith("## "):
-            skipping = line[3:].strip() in banned
-            if skipping:
-                continue
-        if skipping:
-            continue
-        if line.startswith("# ") or line.startswith("> ") or line.strip() == "---":
-            continue
-        if line.startswith("**导语**"):
-            continue
-        out.append(line)
-    # 掐掉开头因删行留下的空行；结尾统一一个换行
-    while out and not out[0].strip():
-        out.pop(0)
-    while out and not out[-1].strip():
-        out.pop()
-    return "\n".join(out).rstrip() + "\n"
 
 
 def next_issue_id(cfg: dict) -> str:

@@ -3,11 +3,11 @@ import type { APIContext } from 'astro';
 import { getDailyReports, plainText, type Daily } from '../../lib/daily';
 
 /**
- * 纯文本出口：`/daily/<期号>.txt`。
+ * 纯文字出口：`/daily/<期号>.txt`，内容是 GFM Markdown（可直接贴到论坛）。
  *
  * 给复制粘贴用，也给 M6 的视频稿用——口播稿要从「读者已经看到的那段字」出发，
  * 而不是从另一份摘要出发。所以它和 HTML 页读同一份 `report.json`，
- * 转换逻辑在 `lib/daily.ts` 的 `plainText()` 里（只换格式，不重新概括）。
+ * 转换逻辑在 `lib/daily.ts` 的 `plainText()` 里（只换格式，不重新概括，不出图片）。
  */
 export async function getStaticPaths() {
   const reports = await getDailyReports();

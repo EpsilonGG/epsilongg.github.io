@@ -2,7 +2,8 @@ import { getCollection, type CollectionEntry } from 'astro:content';
 
 import { profile } from '../config/profile';
 import { cienText } from './cien';
-import { categoryOf, nameOf } from './roster';
+import { dailyPlainMarkdown } from './daily-plain';
+import { categoryOf, nameOf, profileUrlOf } from './roster';
 
 type DailyEntry = CollectionEntry<'dailyReports'>;
 
@@ -250,57 +251,18 @@ export function dailyPath(post: Daily): string {
 }
 
 /**
- * 纯文本出口 `/daily/<id>.txt` 的正文。
+ * 纯文字出口 `/daily/<id>.txt` 的正文（Markdown 版）。
  *
- * 给两件事用：① 复制粘贴到别处；② M6 的视频稿——口播稿要从「读者已经看到的那段字」
- * 出发，而不是从另一份摘要出发，否则画面和文字会对不上。
+ * 给两件事用：① 复制粘贴到 kungal 论坛等支持 GFM 的地方；② M6 的视频稿——
+ * 口播稿要从「读者已经看到的那段字」出发，而不是从另一份摘要出发。
  *
- * 所以这里**只做格式转换，不做二次概括**：段落顺序、句子、人名全部和页面一致。
- * 差别只有两个：人名后面带上 `@handle`（纯文本里没有链接，不留 handle 就找不回人），
- * 以及 `via` 写成「另有 @x」。
+ * 排版在 `lib/daily-plain.ts`，这里只把名单查询能力（显示名 / 主页）接进去。
+ * 依旧只做格式转换、不做二次概括：正本里的段落顺序、句子、人名一个不改。
+ * 与旧纯文本版的差别只有三处：`#` / `##` 标题与列表语法；账号名挂主页链接；
+ * 「详细」每行末尾把 `sources` 写成 `[原文](绝对 URL)`。依旧不出图片。
  */
 export function plainText(report: Daily): string {
-  const { data } = report;
-  // 标题里已经有「哪一天」，不再单起一行写「覆盖 … 00:00–24:00（日本时间）」
-  const lines: string[] = [data.title];
-
-  if (data.description) {
-    lines.push('', data.description);
-  }
-
-  const section = (heading: string, body: string[]) => {
-    if (body.length === 0) return;
-    lines.push('', heading, ...body);
-  };
-
-  section(
-    '今日看点',
-    data.highlights.map((claim) => claim.text)
-  );
-  section('作品动态', data.works);
-  section(
-    '分类摘要',
-    data.categories.filter((c) => c.summary).map((c) => `${c.label}：${c.summary}`)
-  );
-  section(
-    '互动',
-    data.interactions.map((claim) => claim.text)
-  );
-  section(
-    '详细',
-    data.people
-      .filter((person) => person.summary.trim().length > 0)
-      .map((person) => {
-        const extra = person.via.length > 0 ? `（另有 ${person.via.map((v) => `@${v}`).join('、')}）` : '';
-        return `${nameOf(person.handle)}（@${person.handle}）：${person.summary}${extra}`;
-      })
-  );
-  section(
-    '洞察',
-    data.insights.map((claim) => claim.text)
-  );
-
-  return lines.join('\n') + '\n';
+  return dailyPlainMarkdown(report.data, { nameOf, profileUrlOf });
 }
 
 /** 日语版条目（`data/daily/<期号>/report.ja.json`，可选）。 */
