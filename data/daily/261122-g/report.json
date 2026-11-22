@@ -1,0 +1,649 @@
+{
+  "schema_version": 1,
+  "issue": {
+    "id": "261122-g",
+    "published_at": "2026-11-23T00:37:31.776221+09:00",
+    "window": {
+      "start": "2026-11-22T00:00:00+09:00",
+      "end": "2026-11-23T00:00:00+09:00"
+    },
+    "status": "confirmed",
+    "confirmed_at": "2026-11-22T15:39:03+00:00"
+  },
+  "counts": {
+    "items": 260,
+    "accounts": 52,
+    "late": 54,
+    "skipped_duplicate": 6
+  },
+  "description": "NanaWind 只丢下一句新作企划始动，エンターグラム启动『ファーランドサーガ』30周年企划",
+  "highlights": [
+    {
+      "text": "NanaWind 放出『NanaWind New Game Project』，只说是新作游戏始动，详情日后公开",
+      "sources": [
+        "x:2124473600526922087"
+      ]
+    },
+    {
+      "text": "エンターグラム启动『ファーランドサーガ』诞生30周年记念企划，说要用新故事跨过这30年",
+      "sources": [
+        "x:2124337087801385363"
+      ]
+    },
+    {
+      "text": "ASa Project 宣布制作『王様恋愛ミニファンディスク ロイヤルスイート』，2027年1月29日发售，豪华限定版9990日元",
+      "sources": [
+        "bilibili:1273423125747335171"
+      ]
+    },
+    {
+      "text": "『虚妄爱丽丝 -岐梦重缘-』定11月27日上Steam，支持简中，设定是同名者必须互相残杀",
+      "sources": [
+        "bilibili:1273502483850723332"
+      ]
+    }
+  ],
+  "insights": [],
+  "interactions": [
+    {
+      "text": "秋叶原的合作咖啡同时挂了 SMEE 与 ASa Project，HOOKSOFT 还在店里替『王様恋愛』的联名拉客",
+      "sources": [
+        "x:2124324719809962218",
+        "x:2124331412279222627"
+      ]
+    },
+    {
+      "text": "F&C 与ギャルズフィクション同一天在介绍『ギャルズフィクション-Festival-』的角色，一边是東雲すず，一边是神志那葵",
+      "sources": [
+        "x:2124272581222273368",
+        "x:2124397560110645290"
+      ]
+    },
+    {
+      "text": "エスクード把『廃村少女［弐］外伝』的B2挂布放在 BugBug 商店受注，BugBug 编辑部同日也发了11月新作日历",
+      "sources": [
+        "x:2124472973927055420",
+        "x:2124473468477747529"
+      ]
+    }
+  ],
+  "works": [
+    "NanaWind 公布『NanaWind New Game Project』，只说是新作游戏始动，详情日后公开",
+    "エンターグラム启动『ファーランドサーガ』诞生30周年记念企划，称要跨越30年开启新故事",
+    "『虚妄爱丽丝 -岐梦重缘-』定11月27日登陆Steam，支持简繁日英，由 VISUAL ARTS 的 teamAeca 制作",
+    "ASa Project 宣布制作『王様恋愛ミニファンディスク ロイヤルスイート』，定2027年1月29日发售，初回版4990日元",
+    "『ワンナイトアフター -ONE NIGHT AFTER-』在FANZA GAMES开放下载版预约并配优惠券，11月27日发售",
+    "『小金井荘と金色の揚羽蝶』进入发售前4天，官方给预约者发了博客说明",
+    "『廃村少女［弐］外伝 ～千艶万匣～』开启问卷与FANZA评论活动，B2挂布受注到12月1日",
+    "『転性魔王さまは勇者に勝てない！２』在DLsite开卖，豪华版限期附开场曲完整版",
+    "『カノジョの妹のあざと誘惑～純愛なんてゴミですよ先輩♡』公开女主角葉月茜音，CV飴川紫乃",
+    "『養花師の背徳愛』公开DL版与初回限定版特典，含立绘补丁与会员卡套装",
+    "『西園家のかくしゴト』仍在发售中，官方借夫妇之日讲西園家的复杂家庭，并放出试玩影像",
+    "『ハッピーウィークエンド』Switch／PS4版定11月26日发售，下载版预约九折",
+    "『ギャルズフィクション-Festival-』继续公布角色，这次是神志那葵",
+    "『完堕ちX金髪家族』在POISON官方粉丝站追加情报，同页还有ギャル姉Z的新短篇",
+    "アトリエかぐや25周年纪念活动到后天截止，十本打包一万日元",
+    "『百合大忘年会2026』定12月30日举办，门票11月25日20点开卖",
+    "《Muv-Luv 少女庭园》进入上线倒计时2天，官方放出角色介绍",
+    "朗读剧 綴結 公开编剧淡乃晶的访谈，谈用声音与音乐描绘的生死观",
+    "《Monkeys!¡》官方中文登陆Steam",
+    "《兰斯》系列科普：妖怪离不开大蛇散发的妖气，所以出不了JAPAN",
+    "BLACK SOULS 快闪店的两款满赠特典全部发完，官方说明不再补货",
+    "『美少女万華鏡 Complete Collection -15th Anniversary Edition-』以13800日元中古上架",
+    "あまえて☆にぃに系列的合集版定12月25日发售，包装用代官山ゑびす新绘"
+  ],
+  "categories": [],
+  "accounts": [
+    "Moepedia_net",
+    "kiss_staff",
+    "HOOKSOFT",
+    "escude1998",
+    "purple_NewWork",
+    "ASaProject_2016",
+    "smee_official",
+    "entergram_info",
+    "Amuse_kenzen",
+    "POISON_NEW1992",
+    "FANDC_Staff",
+    "liar_railsoft",
+    "NanaWind",
+    "Amuse_sub",
+    "stealcatAC",
+    "SAGAPLANETS",
+    "sprite_fairys",
+    "Gotcha_MIX",
+    "nisidahajime",
+    "KUMANOMISoft",
+    "jitaku_st",
+    "jita_gf",
+    "Orthrossoft",
+    "Muvluv_Official",
+    "unisonshift",
+    "BEEP_SHOP",
+    "info_lovelet",
+    "adahemas",
+    "SukeraSparo",
+    "Overflow_staff",
+    "youtan0309",
+    "aikouka23",
+    "bugbug_info",
+    "hiro_in",
+    "AKOUtw",
+    "alice_net_pc",
+    "masanlive",
+    "4GamerNews",
+    "douzinr18",
+    "erogeAreAlive",
+    "bili_3632310624717268",
+    "bili_3691002382518448",
+    "bili_298686071",
+    "bili_3546874040551694",
+    "bili_3546948824992722",
+    "bili_3546900143802616",
+    "bili_3546816528255265",
+    "bili_41883712",
+    "bili_1436152920",
+    "bili_2072586344",
+    "bili_39471072",
+    "bili_16302815"
+  ],
+  "people": [
+    {
+      "handle": "Moepedia_net",
+      "category": "",
+      "summary": "报DESSERT Soft『どいなかガールズゆーとぴあ』27日发售并办抽选会，另报WendyBell新作同日上市",
+      "via": [],
+      "sources": [
+        "x:2124462898642907337",
+        "x:2124464156581507369"
+      ]
+    },
+    {
+      "handle": "kiss_staff",
+      "category": "",
+      "summary": "博客更新说明嫁イドアワーゴールデン的投稿范围，定制女仆与CRC3D3两作都能投",
+      "via": [],
+      "sources": [
+        "x:2124337251299762264"
+      ]
+    },
+    {
+      "handle": "HOOKSOFT",
+      "category": "",
+      "summary": "秋叶原合作咖啡开到23日，另催1st LIVE最速先行抽选到30日",
+      "via": [],
+      "sources": [
+        "x:2124324719809962218",
+        "x:2124338328438984827"
+      ]
+    },
+    {
+      "handle": "escude1998",
+      "category": "",
+      "summary": "『廃村少女［弐］外伝 ～千艶万匣～』开问卷送声优签名色纸，B2挂布受注到12月1日",
+      "via": [],
+      "sources": [
+        "x:2124472964498473258",
+        "x:2124472973927055420"
+      ]
+    },
+    {
+      "handle": "purple_NewWork",
+      "category": "",
+      "summary": "上海WePlay两天展出结束，发文谢客并说日本也会开卖",
+      "via": [],
+      "sources": [
+        "x:2124472977144361460"
+      ]
+    },
+    {
+      "handle": "ASaProject_2016",
+      "category": "",
+      "summary": "转AirVelocity『ハッピーウィークエンド』Switch／PS4版26日发售，下载版预约九折",
+      "via": [],
+      "sources": [
+        "x:2124476487835516946"
+      ]
+    },
+    {
+      "handle": "smee_official",
+      "category": "",
+      "summary": "『ワンナイトアフター -ONE NIGHT AFTER-』下载版在FANZA GAMES开放预约，并配优惠券",
+      "via": [],
+      "sources": [
+        "x:2124467931430142443"
+      ]
+    },
+    {
+      "handle": "entergram_info",
+      "category": "",
+      "summary": "启动『ファーランドサーガ』30周年企划，称要越过30年开启新故事",
+      "via": [],
+      "sources": [
+        "x:2124337087801385363"
+      ]
+    },
+    {
+      "handle": "Amuse_kenzen",
+      "category": "",
+      "summary": "公开『養花師の背徳愛』的下载版与初回限定版特典清单",
+      "via": [],
+      "sources": [
+        "x:2124415335243878408"
+      ]
+    },
+    {
+      "handle": "POISON_NEW1992",
+      "category": "",
+      "summary": "官方粉丝站更新『完堕ちX金髪家族』追加情报与ギャル姉Z新短篇",
+      "via": [],
+      "sources": [
+        "x:2124488064307257718"
+      ]
+    },
+    {
+      "handle": "FANDC_Staff",
+      "category": "",
+      "summary": "继续介绍『ギャルズフィクション-Festival-』的東雲すず，另把历代开场视频放上频道",
+      "via": [],
+      "sources": [
+        "x:2124272581222273368",
+        "x:2124479929807143246"
+      ]
+    },
+    {
+      "handle": "liar_railsoft",
+      "category": "",
+      "summary": "转了声优回忆『魔都拳侠傳』收录时喊了300种必杀技的旧帖",
+      "via": [],
+      "sources": [
+        "x:2124179647160307972"
+      ]
+    },
+    {
+      "handle": "NanaWind",
+      "category": "",
+      "summary": "只丢出『NanaWind New Game Project』一句，说详情日后公开",
+      "via": [],
+      "sources": [
+        "x:2124473600526922087"
+      ]
+    },
+    {
+      "handle": "Amuse_sub",
+      "category": "",
+      "summary": "公开『カノジョの妹のあざと誘惑』女主角葉月茜音，CV飴川紫乃",
+      "via": [],
+      "sources": [
+        "x:2124432447500886082"
+      ]
+    },
+    {
+      "handle": "stealcatAC",
+      "category": "",
+      "summary": "看图说这件衣服文乃好像也穿过",
+      "via": [],
+      "sources": [
+        "x:2124456858492571813"
+      ]
+    },
+    {
+      "handle": "SAGAPLANETS",
+      "category": "",
+      "summary": "ピカット面板展23日在秋叶原开场，另外晒了『ペットめいど』",
+      "via": [],
+      "sources": [
+        "x:2124337086715060446",
+        "x:2124338328241619046"
+      ]
+    },
+    {
+      "handle": "sprite_fairys",
+      "category": "",
+      "summary": "给预约『小金井荘と金色の揚羽蝶』的人发博客，倒数第4天",
+      "via": [],
+      "sources": [
+        "x:2124414978694484222",
+        "x:2124417626386616391"
+      ]
+    },
+    {
+      "handle": "Gotcha_MIX",
+      "category": "",
+      "summary": "借いいにぃにの日推あまえて☆にぃに合集版，25日发售",
+      "via": [],
+      "sources": [
+        "x:2124471780995936645"
+      ]
+    },
+    {
+      "handle": "nisidahajime",
+      "category": "",
+      "summary": "翻出一张自己也忘了为什么做的图，说想要的可以拿走",
+      "via": [],
+      "sources": [
+        "x:2124178579957444798"
+      ]
+    },
+    {
+      "handle": "KUMANOMISoft",
+      "category": "",
+      "summary": "『転性魔王さまは勇者に勝てない！２』DLsite在卖，豪华版附开场曲完整版",
+      "via": [],
+      "sources": [
+        "x:2124442766864429432"
+      ]
+    },
+    {
+      "handle": "jitaku_st",
+      "category": "",
+      "summary": "给『ナデレボ』的魅夕过生日，强调她看着这样其实是妈妈",
+      "via": [],
+      "sources": [
+        "x:2124434535035310384"
+      ]
+    },
+    {
+      "handle": "jita_gf",
+      "category": "",
+      "summary": "继续『ギャルズフィクション-Festival-』角色介绍，这次是神志那葵",
+      "via": [],
+      "sources": [
+        "x:2124397560110645290"
+      ]
+    },
+    {
+      "handle": "Orthrossoft",
+      "category": "",
+      "summary": "用中文谢过上海WePlay的来场者",
+      "via": [],
+      "sources": [
+        "x:2124444884904165629"
+      ]
+    },
+    {
+      "handle": "Muvluv_Official",
+      "category": "",
+      "summary": "战术机介绍轮到F-5Gトーネード，讲各国授权生产的差异",
+      "via": [],
+      "sources": [
+        "x:2124442796497183200"
+      ]
+    },
+    {
+      "handle": "unisonshift",
+      "category": "",
+      "summary": "公开新角色结，CV野々原まどか，是躲在风待神社的懒散土地神",
+      "via": [],
+      "sources": [
+        "x:2124426407912915152"
+      ]
+    },
+    {
+      "handle": "BEEP_SHOP",
+      "category": "",
+      "summary": "羽生世界角色峰会第二天收摊，说复古游戏与弹珠台区一直很挤",
+      "via": [],
+      "sources": [
+        "x:2124405524339020209",
+        "x:2124364733562437851"
+      ]
+    },
+    {
+      "handle": "info_lovelet",
+      "category": "",
+      "summary": "借夫妇之日讲『西園家のかくしゴト』的家庭关系，并放了试玩影像与各渠道链接",
+      "via": [],
+      "sources": [
+        "x:2124442774569377899",
+        "x:2124448708666458124"
+      ]
+    },
+    {
+      "handle": "adahemas",
+      "category": "",
+      "summary": "一天都在聊抽卡数字，顺手转了自家50%off",
+      "via": [],
+      "sources": [
+        "x:2124381867420115218",
+        "x:2124412627321593941"
+      ]
+    },
+    {
+      "handle": "SukeraSparo",
+      "category": "",
+      "summary": "宣布『百合大忘年会2026』12月30日办，门票25日20点开卖",
+      "via": [],
+      "sources": [
+        "x:2124457868518916394",
+        "x:2124341891147927889"
+      ]
+    },
+    {
+      "handle": "Overflow_staff",
+      "category": "",
+      "summary": "Vtuber西園寺世界第327回23点开播，Nice Boat连帽衫开始接单",
+      "via": [],
+      "sources": [
+        "x:2124438404842893315",
+        "x:2124503533231993054"
+      ]
+    },
+    {
+      "handle": "youtan0309",
+      "category": "",
+      "summary": "一天里数了四个发售周年，さおりんといっしょ!!满30年、穢翼新装版满10年",
+      "via": [],
+      "sources": [
+        "x:2124158392264458351",
+        "x:2124162166945169627"
+      ]
+    },
+    {
+      "handle": "aikouka23",
+      "category": "",
+      "summary": "说中古黄油收购量爆掉，休息日全用在收货上",
+      "via": [],
+      "sources": [
+        "x:2124476988958368035"
+      ]
+    },
+    {
+      "handle": "bugbug_info",
+      "category": "",
+      "summary": "放出11月新作发售日历，并说超昂大戦六周年在排行上很抢眼",
+      "via": [],
+      "sources": [
+        "x:2124473468477747529",
+        "x:2124337573073915993"
+      ]
+    },
+    {
+      "handle": "hiro_in",
+      "category": "",
+      "summary": "提醒アトリエかぐや25周年十本一万日元的活动后天截止",
+      "via": [],
+      "sources": [
+        "x:2124430937668612446"
+      ]
+    },
+    {
+      "handle": "AKOUtw",
+      "category": "",
+      "summary": "FBGM01派对收场，说曲目单惊人，还当场通关了転まお2",
+      "via": [],
+      "sources": [
+        "x:2124458439137173924",
+        "x:2124465332920410353"
+      ]
+    },
+    {
+      "handle": "alice_net_pc",
+      "category": "",
+      "summary": "为『ワンナイトアフター -ONE NIGHT AFTER-』办体验版直播与签名色纸抽选，还收了美少女万華鏡合集",
+      "via": [],
+      "sources": [
+        "x:2124371913212649965",
+        "x:2124402366422368301"
+      ]
+    },
+    {
+      "handle": "masanlive",
+      "category": "",
+      "summary": "说今天直播画面顺了，视觉小说部屋长期征稿",
+      "via": [],
+      "sources": [
+        "x:2124440205000356125",
+        "x:2124442421354455426"
+      ]
+    },
+    {
+      "handle": "4GamerNews",
+      "category": "",
+      "summary": "从WePlay发回两篇试玩，女性向ADV神缺席与斯拉夫神话动作ADV",
+      "via": [],
+      "sources": [
+        "x:2124333015879053457",
+        "x:2124348878896140297"
+      ]
+    },
+    {
+      "handle": "douzinr18",
+      "category": "",
+      "summary": "推FANZA同人先行专售，介绍絵援隊第三作与あいらんどう新作",
+      "via": [],
+      "sources": [
+        "x:2124473025856950519",
+        "x:2124488101817094377"
+      ]
+    },
+    {
+      "handle": "erogeAreAlive",
+      "category": "",
+      "summary": "回顾Pandora no Yume与Mikan各满25年，并介绍Zombie Police新作上架",
+      "via": [],
+      "sources": [
+        "x:2124155880254095405",
+        "x:2124171747020701828"
+      ]
+    },
+    {
+      "handle": "bili_3632310624717268",
+      "category": "",
+      "summary": "欢迎椋木咲夜入驻B站，转发其自述正在做美少女游戏",
+      "via": [],
+      "sources": [
+        "bilibili:1273547628241485843"
+      ]
+    },
+    {
+      "handle": "bili_3691002382518448",
+      "category": "",
+      "summary": "转Palette上海WePlay第二天开场，说如月结那在展位",
+      "via": [],
+      "sources": [
+        "bilibili:1273330113936621575"
+      ]
+    },
+    {
+      "handle": "bili_298686071",
+      "category": "",
+      "summary": "WePlay第二天继续开独立游戏吧台，列了A11等展位与试玩周边",
+      "via": [],
+      "sources": [
+        "bilibili:1273354930227249152"
+      ]
+    },
+    {
+      "handle": "bili_3546874040551694",
+      "category": "",
+      "summary": "公告BLACK SOULS快闪两款满赠特典全部发完，不再补货",
+      "via": [],
+      "sources": [
+        "bilibili:1273482739870334985"
+      ]
+    },
+    {
+      "handle": "bili_3546948824992722",
+      "category": "",
+      "summary": "科普兰斯世界的妖怪离不开大蛇妖气，所以出不了JAPAN",
+      "via": [],
+      "sources": [
+        "bilibili:1273457799027752960"
+      ]
+    },
+    {
+      "handle": "bili_3546900143802616",
+      "category": "",
+      "summary": "《Muv-Luv 少女庭园》进入上线倒计时2天，另讲Schwarzesmarken的粮食设定",
+      "via": [],
+      "sources": [
+        "bilibili:1273456166915014663",
+        "bilibili:1273471549362405379"
+      ]
+    },
+    {
+      "handle": "bili_3546816528255265",
+      "category": "",
+      "summary": "给黑泽真希过生日，同时放出『虚妄爱丽丝 -岐梦重缘-』11月27日Steam发售",
+      "via": [],
+      "sources": [
+        "bilibili:1273502483850723332",
+        "bilibili:1273177773586776065"
+      ]
+    },
+    {
+      "handle": "bili_41883712",
+      "category": "",
+      "summary": "四部作品开套装特卖，另上架想要传达给你的爱恋抱枕通贩",
+      "via": [],
+      "sources": [
+        "bilibili:1273193235474284550",
+        "bilibili:1273484176563109895"
+      ]
+    },
+    {
+      "handle": "bili_1436152920",
+      "category": "",
+      "summary": "在上海WePlay的FEVER区摆出春香与千夏",
+      "via": [],
+      "sources": [
+        "bilibili:1273404584380858392"
+      ]
+    },
+    {
+      "handle": "bili_2072586344",
+      "category": "",
+      "summary": "第270期周报：柚子社新作宣布官中，Monkeys!¡ 官中上Steam，ASa Project 公布FD",
+      "via": [],
+      "sources": [
+        "bilibili:1273423125747335171"
+      ]
+    },
+    {
+      "handle": "bili_39471072",
+      "category": "",
+      "summary": "转了黑泽真希生日与虚妄爱丽丝情报，还推了HBR同人卡牌与第238期广播",
+      "via": [],
+      "sources": [
+        "bilibili:1273538720501334041",
+        "bilibili:1273387331499327494"
+      ]
+    },
+    {
+      "handle": "bili_16302815",
+      "category": "",
+      "summary": "只放了21日晚的直播回放",
+      "via": [],
+      "sources": [
+        "bilibili:1273354724106567699"
+      ]
+    }
+  ],
+  "provenance": {
+    "generator": "daily",
+    "prompt_version": 1,
+    "cache_key": "answers:1",
+    "generated_at": "2026-11-22T15:38:59+00:00"
+  }
+}
