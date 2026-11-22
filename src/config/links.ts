@@ -90,15 +90,15 @@ export const linkGroups: LinkGroup[] = [
     layout: 'cards',
     links: [
       {
-        label: 'X-rss',
-        href: 'https://github.com/EpsilonGG/X-rss',
-        description: '基于 GitHub Actions 的 X / Twitter RSS 聚合器，自动生成标准 RSS 并发布到 Pages。',
+        label: 'XB-JSONMD',
+        href: 'https://github.com/EpsilonGG/XB-JSONMD',
+        description: '多账号 X 抓取、日报与周报生成，并输出结构化 JSON 与 Markdown 的独立流水线。',
         meta: 'Python',
       },
       {
-        label: 'X-Reader',
-        href: 'https://github.com/EpsilonGG/X-Reader',
-        description: '抓取 X、RSS 与 YouTube 的更新，推送到 Telegram 和 QQ。',
+        label: 'VisualNovel-Interview-RSS',
+        href: 'https://github.com/EpsilonGG/VisualNovel-Interview-RSS',
+        description: '把 Galgame 开发者访谈整理成 RSS，并发布到 GitHub Pages。',
         meta: 'Python',
       },
       {
