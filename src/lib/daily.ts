@@ -7,13 +7,14 @@ import { categoryOf, nameOf, profileUrlOf } from './roster';
 
 type DailyEntry = CollectionEntry<'dailyReports'>;
 
-/** 日报的两种版本。2026-10-29 起一天出两份，期号带 `-g` 的是 Galgame 版。 */
-export type DailyKind = 'voice' | 'galgame';
+/** 日报的三种版本。`-g` 是 Galgame 版，`-gp` 是 Gplus 业界版（2026-11-22 起）。 */
+export type DailyKind = 'voice' | 'galgame' | 'gplus';
 
 /** 版 → 页面上的名字。标题、归档、按钮都用这一份。 */
 export const KIND_LABEL: Record<DailyKind, string> = {
   voice: '声优',
   galgame: 'Galgame',
+  gplus: 'Gplus',
 };
 
 /**
@@ -58,7 +59,7 @@ export type DailyData = Daily['data'];
  * 期号比内容晚一天；钉个假时间，页面上的「发布于」就是错的（旧格式的 22:00 正是如此）。
  * 期号只说「哪一天、哪一版」，发布时间交给 `issue.published_at`。
  */
-export const DAILY_ID_PATTERN = /^(\d{2})(\d{2})(\d{2})(?:-(g?)(\d*))?$/;
+export const DAILY_ID_PATTERN = /^(\d{2})(\d{2})(\d{2})(?:-(gp|g?)(\d*))?$/;
 
 /** JST 相对 UTC 的偏移（分钟）。固定值，不依赖运行环境时区。 */
 const JST_OFFSET_MINUTES = 9 * 60;
@@ -79,7 +80,11 @@ export function parseDailyId(id: string): { day: Date; kind: DailyKind; seq: num
 
   let kind: DailyKind = 'voice';
   let seq = 1;
-  if (kindChar === 'g') {
+  if (kindChar === 'gp') {
+    kind = 'gplus';
+    // Gplus 日报一期号只有一期（周报才用独立序号段），-gp2 暂不接受
+    if (digits !== '') return null;
+  } else if (kindChar === 'g') {
     kind = 'galgame';
     if (digits !== '') seq = Number(digits);
   } else if (kindChar === '') {
@@ -112,6 +117,7 @@ export function toDailyId(day: Date, seq = 1, kind: DailyKind = 'voice'): string
   const back = new Date(day.getTime() + JST_OFFSET_MINUTES * 60 * 1000);
   const pad = (value: number, width = 2) => String(value).padStart(width, '0');
   const base = pad(back.getUTCFullYear() % 100) + pad(back.getUTCMonth() + 1) + pad(back.getUTCDate());
+  if (kind === 'gplus') return `${base}-gp`;
   if (kind === 'galgame') return `${base}-g${seq > 1 ? seq : ''}`;
   return seq <= 1 ? base : `${base}-${seq}`;
 }
@@ -186,8 +192,8 @@ export async function getDailyReports(): Promise<Daily[]> {
     const parsed = parseDailyId(entry.id);
     if (!parsed) {
       throw new Error(
-        `[daily] ${entry.id} 不是合法的期号（YYMMDD / YYMMDD-N / YYMMDD-g / YYMMDD-gN，JST）。` +
-          '例：2026-10-29 的声优版是 261029，Galgame 版是 261029-g。'
+        `[daily] ${entry.id} 不是合法的期号（YYMMDD / YYMMDD-N / YYMMDD-g / YYMMDD-gN / YYMMDD-gp，JST）。` +
+          '例：2026-10-29 的声优版是 261029，Galgame 版是 261029-g，Gplus 版是 261029-gp。'
       );
     }
     const suffix = parsed.seq > 1 ? `（第 ${parsed.seq} 期）` : '';
@@ -206,11 +212,12 @@ export async function getDailyReports(): Promise<Daily[]> {
   });
 
   // 归档顺序按「覆盖的那一天」，不按发布时间：补录旧日期时，旧的那期不该跳到最上面。
-  // 同一天里声优版在前、Galgame 版在后，同一版按第几期倒序。
+  // 同一天里声优版在前、Galgame 版居中、Gplus 版在后，同一版按第几期倒序。
+  const KIND_RANK: Record<DailyKind, number> = { voice: 0, galgame: 1, gplus: 2 };
   return reports.sort(
     (a, b) =>
       b.data.covered.getTime() - a.data.covered.getTime() ||
-      (a.data.kind === b.data.kind ? 0 : a.data.kind === 'voice' ? -1 : 1) ||
+      KIND_RANK[a.data.kind] - KIND_RANK[b.data.kind] ||
       b.data.seq - a.data.seq
   );
 }

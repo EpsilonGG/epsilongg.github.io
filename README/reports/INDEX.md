@@ -25,7 +25,7 @@
 - Galgame 名单缺口对比 → [`galgame-brand-history-missing-accounts.html`](galgame-brand-history-missing-accounts.html)：四份人员名单里有、但 11-13 品牌全历史报告里没有的账号
 - Galgame 日报／周报强化方案 → [`galgame-daily-weekly-enhancement-2026-11-19.html`](galgame-daily-weekly-enhancement-2026-11-19.html)：以名单 1-1 为底座，日报互动做厚（创作者进抓取 + 预计算互提候选 + 四类判据）、周报业界动态上线（三处 rules 开关 + A/B/C/D 信源分级），另附七个其它方向
 - 上述方案的可执行版（审查稿）→ [`galgame-daily-weekly-enhancement-plan.md`](galgame-daily-weekly-enhancement-plan.md)：按批次拆分动作、闸门与回退，复核了 11-20 仓库漂移，并给出首批 20 个创作者 handle；尚未实施
-- Gplus 日报／周报目标计划（2026-11-22 修订）→ [`galplus-weekly-goal-plan.md`](galplus-weekly-goal-plan.md)：以「业界事件 + 人/组织交互」为定位，名单 1-1 全集 403 个 X 号为抓取与分析范围，独立 `Gplus_XXX` 期号；11.19–21 三期日报测试稿已出稿并推送，周报暂缓
+- Gplus 日报／周报目标计划（2026-11-22 修订）→ [`galplus-weekly-goal-plan.md`](galplus-weekly-goal-plan.md)：以「业界事件 + 人/组织交互」为定位，名单 1-1 全集 403 个 X 号为抓取与分析范围；日报用 `YYMMDD-gp` 并入 `/daily/`（`Gplus_XXX` 留给周报），11.19–21 三期测试稿已上线，周报暂缓
 
 ## 约定
 
@@ -44,6 +44,6 @@
 - 2026-11-19：曾生成 `galgame-scenario-writers-2016-2026.html`（近十年剧本作者调查），同日按用户要求删除，成果并入 1-1 的剧本表。
 - 2026-11-19：新增 `galgame-daily-weekly-enhancement-2026-11-19.html`，基于名单 1-1 的日报互动／周报业界动态强化方案（含其它方向建议与实施顺序）。
 - 2026-11-20：新增 `galgame-daily-weekly-enhancement-plan.md`（审查稿），把方案拆成可回退批次，标明联系方式项已上线、只做验收。
-- 2026-11-22：新增 `galplus-weekly-goal-plan.md`（审查稿），定义 Galplus 的定位、第三条抓取线、独立期号与 P0–P4 阶段；同日按用户裁决改为日报先行（`Gplus_XXX`），完成 11.19–21 三期测试稿并上线 `/gplus/`，周报保留为目标未实施。
+- 2026-11-22：新增 `galplus-weekly-goal-plan.md`（审查稿），定义 Galplus 的定位、第三条抓取线、独立期号与 P0–P4 阶段；同日按用户裁决改为日报先行，完成 11.19–21 三期测试稿；再按用户修正撤掉独立 `/gplus/`，改为 `YYMMDD-gp` 并入 `/daily/`，周报保留为目标未实施。
 
 归档目录清单：[`_archive-2026-11/README.md`](_archive-2026-11/README.md)。

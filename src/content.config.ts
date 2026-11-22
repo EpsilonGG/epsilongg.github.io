@@ -110,8 +110,8 @@ const dailyReports = defineCollection({
       id: z
         .string()
         .regex(
-          /^[0-9]{6}(?:-(?:g(?:[2-9]|[1-9][0-9])?|(?:[2-9]|[1-9][0-9])))?$/,
-          '期号必须是 YYMMDD / YYMMDD-N / YYMMDD-g / YYMMDD-gN（N 从 2 起，最多两位）'
+          /^[0-9]{6}(?:-(?:gp|g(?:[2-9]|[1-9][0-9])?|(?:[2-9]|[1-9][0-9])))?$/,
+          '期号必须是 YYMMDD / YYMMDD-N / YYMMDD-g / YYMMDD-gN / YYMMDD-gp（N 从 2 起，最多两位）'
         ),
       published_at: z.string().trim().default(''),
       window: z.object({ start: z.string().optional(), end: z.string().optional() }).default({}),
@@ -257,60 +257,4 @@ const dailyJa = defineCollection({
   }),
 });
 
-/**
- * Gplus 日报：名单 1-1 全集的业界日报（`Gplus_XXX`）。
- *
- * 不复用 `dailyReports` 的集合：两者的期号规则不同（Gplus 是独立序列，
- * `Gplus_001` 这样），而日报集合的正则只认 `YYMMDD`。字段形状与日报一致，
- * 页面因此能并排呈现；改字段名仍要升 schema_version，这边也一样。
- */
-const gplusReports = defineCollection({
-  loader: glob({
-    base: './data/gplus',
-    pattern: '*/report.json',
-    generateId: ({ entry }) => entry.split(/[\\/]/)[0],
-  }),
-  schema: z.object({
-    schema_version: z.number().int().default(1),
-    issue: z.object({
-      id: z.string().regex(/^Gplus_\d{3,}$/, 'Gplus 期号必须是 Gplus_XXX（XXX 至少三位）'),
-      published_at: z.string().trim().default(''),
-      window: z.object({ start: z.string().optional(), end: z.string().optional() }).default({}),
-      status: z.enum(['draft', 'confirmed']).default('draft'),
-      confirmed_at: z.string().nullable().default(null),
-    }),
-    counts: z
-      .object({
-        items: z.number().int().nonnegative().default(0),
-        accounts: z.number().int().nonnegative().default(0),
-      })
-      .default({ items: 0, accounts: 0 }),
-    description: z.string().trim().max(70).default(''),
-    highlights: z.array(claim).default([]),
-    insights: z.array(claim).default([]),
-    interactions: z.array(claim).default([]),
-    works: z.array(z.string().trim().min(1)).max(24).default([]),
-    accounts: z.array(z.string().trim().min(1)).default([]),
-    people: z
-      .array(
-        z.object({
-          handle: z.string().trim().min(1),
-          category: z.string().trim().default(''),
-          summary: z.string().trim().default(''),
-          via: z.array(z.string().trim().min(1)).default([]),
-          sources: z.array(z.string()).default([]),
-        }),
-      )
-      .default([]),
-    provenance: z
-      .object({
-        generator: z.string().trim().default('gplus/1'),
-        prompt_version: z.number().int().default(1),
-        cache_key: z.string().default(''),
-        generated_at: z.string().default(''),
-      })
-      .default({ generator: 'gplus/1', prompt_version: 1, cache_key: '', generated_at: '' }),
-  }),
-});
-
-export const collections = { blog, dailyReports, dailyJa, gplusReports };
+export const collections = { blog, dailyReports, dailyJa };

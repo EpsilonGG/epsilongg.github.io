@@ -1,6 +1,7 @@
 import galgameRoster from '../config/daily-roster-galgame.json';
 import voiceRoster from '../config/daily-roster.json';
 import bilibiliRoster from '../config/daily-bilibili-galgame.json';
+import gplusRoster from '../config/gplus-roster.json';
 
 /**
  * 名单的查询层。
@@ -51,7 +52,7 @@ const bilibiliFile: RosterFile = {
   })),
 };
 
-// 顺序即栏目按钮顺序：声优版 → Galgame 版 → B站Gal（非 X 源排最后，other 永远垫底）。
+// 顺序即栏目按钮顺序：声优版 → Galgame 版 → B站Gal（非 X 源靠后，other 永远垫底）。
 const FILES: RosterFile[] = [
   voiceRoster as RosterFile,
   galgameRoster as RosterFile,
@@ -91,6 +92,40 @@ for (const file of FILES) {
     category.set(key, account.category || OTHER);
     if (account.profile_url) profileUrl.set(key, account.profile_url);
   }
+}
+
+/**
+ * Gplus（名单 1-1 全集）只做**查询兜底**：上面三份名单已经给过的 handle 一律不改，
+ * 避免同一账号在旧日报与新日报里显示两个名字、落进两个栏目。新出现的号才补显示名
+ * 与栏目；`info` 沿用 Galgame 名单已有的 id，创作者/品牌两个 id 只给 Gplus 用。
+ */
+const GPLUS_CATEGORY: Record<string, RosterCategory> = {
+  creator: { id: 'creator', label: '创作者・从业者' },
+  brand: { id: 'brand', label: '品牌・厂商' },
+};
+for (const [id, item] of Object.entries(GPLUS_CATEGORY)) {
+  if (!categoryList.some((existing) => existing.id === id)) {
+    categoryList.splice(categoryList.length - 1, 0, item);
+  }
+}
+// 上面的 categoryLabel / categoryRank 要在补完栏目后重建
+categoryLabel.clear();
+categoryRank.clear();
+categoryList.forEach((item, rank) => {
+  categoryLabel.set(item.id, item.label);
+  categoryRank.set(item.id, rank);
+});
+
+interface GplusAccount {
+  handle: string;
+  name: string;
+  group: string;
+}
+for (const account of gplusRoster.accounts as unknown as GplusAccount[]) {
+  const key = account.handle.toLowerCase();
+  if (!displayName.has(key) && account.name) displayName.set(key, account.name);
+  if (!order.has(key)) order.set(key, index++);
+  if (!category.has(key)) category.set(key, account.group || OTHER);
 }
 
 /**

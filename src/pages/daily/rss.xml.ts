@@ -17,7 +17,7 @@ export async function GET(context: APIContext) {
 
   return rss({
     title: `${site.name} · 日报`,
-    description: 'X（推特）动态日报，每天两期：声优版（声优 + 音声社团）与 Galgame 版（游戏制造商 + 信息号）',
+    description: 'X（推特）动态日报：声优版、Galgame 版与 Gplus 业界版（名单 1-1 全集）',
     site: context.site ?? site.url,
     items: reports.map((report) => ({
       title: report.data.title,

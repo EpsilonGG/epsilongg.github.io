@@ -35,17 +35,22 @@ JST = timezone(timedelta(hours=9))
 
 VOICE = "voice"
 GALGAME = "galgame"
+# 2026-11-22：Gplus 日报走同一条日报出口，期号 `YYMMDD-gp`。
+# 它不是 `daily --kind` 的可生成版别（抓取/出稿走 scripts/gplus_*），
+# 所以不进 KINDS；只为解析既有期号而存在。周报另用 `Gplus_XXX`。
+GPLUS = "gplus"
 KINDS = (VOICE, GALGAME)
 
 # 类型后缀 → 页面上的名字。标题、按钮、归档都用这一份，别在别处再写一遍。
-KIND_LABEL = {VOICE: "声优", GALGAME: "Galgame"}
+KIND_LABEL = {VOICE: "声优", GALGAME: "Galgame", GPLUS: "Gplus"}
 
-# `261029` / `261029-2` / `261029-g` / `261029-g2`。用 `-` 而不是直接接数字：
+# `261029` / `261029-2` / `261029-g` / `261029-g2` / `261119-gp`。用 `-` 而不是直接接数字：
 # `2610292` 分不清是「10-29 第 2 期」还是「10-29 02 时」（旧格式的读法）。
 # 序号限 2 位（2–99）：一天出到第 100 期不存在，限住才能和
 # `schemas/report.schema.json` / `content.config.ts` 的正则保持同一套接受集
 # （`tests/test_daily_schema_limits.py` 盯着这三处）。
-ID_RE = re.compile(r"^(\d{2})(\d{2})(\d{2})(?:-(g?)(\d{0,2}))?$")
+# `gp` 必须在 `g` 之前：交替匹配里 `g` 是 `gp` 的前缀，写反了 gp 会被拆成 g + 空序号。
+ID_RE = re.compile(r"^(\d{2})(\d{2})(\d{2})(?:-(gp|g?)(\d{0,2}))?$")
 
 
 def issue_id_for(day: date_cls, seq: int = 1, kind: str = VOICE) -> str:
@@ -65,21 +70,23 @@ def parse_issue_id(text: str) -> tuple[date_cls, str, int]:
     raw = text.strip()
     match = ID_RE.match(raw)
     if not match:
-        raise ValueError(f"期号 {raw!r} 不是 YYMMDD / YYMMDD-N / YYMMDD-g / YYMMDD-gN")
+        raise ValueError(f"期号 {raw!r} 不是 YYMMDD / YYMMDD-N / YYMMDD-g / YYMMDD-gN / YYMMDD-gp")
     year, month, day = (int(match.group(i)) for i in (1, 2, 3))
 
-    kind = GALGAME if match.group(4) == "g" else VOICE
-    digits = match.group(5) or ""
+    suffix, digits = match.group(4) or "", match.group(5) or ""
+    kind = GPLUS if suffix == "gp" else (GALGAME if suffix == "g" else VOICE)
     if match.group(4) is None:
         seq = 1
     elif digits == "":
-        if match.group(4) == "":
+        if suffix == "":
             raise ValueError(f"期号 {raw!r} 的 `-` 后面是空的")
-        seq = 1  # `-g` = Galgame 第 1 期
+        seq = 1  # `-g` / `-gp` = 第 1 期
     else:
         seq = int(digits)
         if seq < 2:
             raise ValueError(f"期号 {raw!r} 的序号要从 2 起（第 1 期不写后缀）")
+    if kind == GPLUS and seq > 1:
+        raise ValueError(f"期号 {raw!r}：Gplus 日报目前每期号只有一期，暂不支持 -gpN")
 
     try:
         covered = date_cls(2000 + year, month, day)

@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "issue": {
-    "id": "Gplus_002",
+    "id": "261120-gp",
     "published_at": "2026-11-21T01:00:00+09:00",
     "window": {
       "start": "2026-11-20T00:00:00+09:00",
@@ -12,7 +12,9 @@
   },
   "counts": {
     "items": 526,
-    "accounts": 154
+    "accounts": 154,
+    "late": 0,
+    "skipped_duplicate": 0
   },
   "description": "年末新作与粉丝盘官网密集公开，演唱会、周边抽奖及多语言发行成焦点。",
   "highlights": [
@@ -132,6 +134,7 @@
     }
   ],
   "works": [],
+  "categories": [],
   "accounts": [
     "07th_official",
     "2yuuma8",

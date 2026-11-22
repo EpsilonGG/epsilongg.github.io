@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "issue": {
-    "id": "Gplus_001",
+    "id": "261119-gp",
     "published_at": "2026-11-20T01:00:00+09:00",
     "window": {
       "start": "2026-11-19T00:00:00+09:00",
@@ -12,7 +12,9 @@
   },
   "counts": {
     "items": 247,
-    "accounts": 105
+    "accounts": 105,
+    "late": 0,
+    "skipped_duplicate": 0
   },
   "description": "新作发售与预约信息集中释出，联动企划、线下活动与安全维护公告交织成当日业界焦点",
   "highlights": [
@@ -125,6 +127,7 @@
     }
   ],
   "works": [],
+  "categories": [],
   "accounts": [
     "07th_official",
     "_coq",

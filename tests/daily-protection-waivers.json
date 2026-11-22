@@ -3,31 +3,24 @@
   "note": "日报保护集的显式授权白名单。不是关掉闸门：未登记的保护路径仍逐字节比对、保护目录里出现新文件仍一律拦下。每条都要写清授权日与理由；改动一旦 commit，diff 归零、豁免自动失效，届时应把该条从这里删掉。batches 用于「一次用户裁决要改一批同构文件」的场景，仍然逐条列出完整文件路径，不接受目录或通配符。",
   "cleared_on": "2026-11-20",
   "cleared_reason": "日报总览页笔记化与版本筛选已 commit（d602de9），保护集 diff 归零，豁免按设计失效。空列表才是正常状态。",
-  "waivers": [
+  "waivers": [],
+  "batches": [
     {
-      "path": "data/daily/261116-g/report.json",
-      "authorized_by": "user",
-      "authorized_on": "2026-11-21",
-      "reason": "用户指出 HOOKSOFT 概括把『放課後シンデレラ 長南陽佳は幼馴染。』拆成「长南阳佳电子书」，按原推更正 people[].summary"
-    },
-    {
-      "path": "data/daily/261120-g/report.json",
-      "authorized_by": "user",
-      "authorized_on": "2026-11-21",
-      "reason": "用户指出 yuzusoft 汉化决定漏了作品名、周报误归品牌动向，按原推补全『ライムライト・レモネードジャム』"
-    },
-    {
-      "path": "scripts/daily/prompt.py",
-      "authorized_by": "user",
-      "authorized_on": "2026-11-21",
-      "reason": "题面加「书名号内作品名必须完整照抄」硬规则，防止再次截断作品名"
-    },
-    {
-      "path": "scripts/daily/cache.py",
-      "authorized_by": "user",
-      "authorized_on": "2026-11-21",
-      "reason": "题面规则变更后按项目约定 PROMPT_VERSION 5→6 使旧缓存失效"
+      "id": "gplus-daily-entry-2026-11-22",
+      "authorized_by": "用户（2026-11-22 明确要求：Gplus 接进原日报入口、期号 YYMMDD-gp）",
+      "authorized_on": "2026-11-22",
+      "reason": "Gplus 日报并入 /daily/：期号正则扩出 YYMMDD-gp，布局支持 gplus 版，归档加筛选按钮，三份测试稿落在 data/daily/2611{19,20,21}-gp/。不碰日报取数与判卷脚本。",
+      "paths": [
+        "schemas/report.schema.json",
+        "scripts/daily/issue.py",
+        "src/content.config.ts",
+        "src/lib/daily.ts",
+        "src/pages/daily/index.astro",
+        "src/pages/daily/rss.xml.ts",
+        "data/daily/261119-gp/report.json",
+        "data/daily/261120-gp/report.json",
+        "data/daily/261121-gp/report.json"
+      ]
     }
-  ],
-  "batches": []
+  ]
 }

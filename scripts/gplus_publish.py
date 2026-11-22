@@ -1,4 +1,4 @@
-r"""Publish Gplus drafts (out/gplus/reports/Gplus_XXX.json) into data/gplus/.
+r"""Publish Gplus drafts (out/gplus/reports/Gplus_XXX.json) into data/daily/ as YYMMDD-gp.
 
 Checks before writing:
   * issue.id matches the directory name
@@ -20,7 +20,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 DRAFTS = ROOT / "out" / "gplus" / "reports"
-DEST = ROOT / "data" / "gplus"
+DEST = ROOT / "data" / "daily"
 
 
 def load_sources() -> dict[str, dict]:
@@ -40,7 +40,10 @@ def check(report: dict, sources: dict[str, dict], roster: set[str]) -> list[str]
     errors: list[str] = []
     issue_id = str(((report.get("issue") or {}).get("id")) or "")
     if not re.fullmatch(r"Gplus_\d{3,}", issue_id):
-        errors.append(f"bad issue.id {issue_id!r}")
+        errors.append(f"bad draft issue.id {issue_id!r}")
+    start = str(((report.get("issue") or {}).get("window") or {}).get("start") or "")
+    if not re.fullmatch(r"\d{4}-\d{2}-\d{2}T00:00:00\+09:00", start):
+        errors.append(f"bad window.start {start!r}; need JST midnight")
     if (report.get("issue") or {}).get("status") != "confirmed":
         errors.append("status must be confirmed")
     for claim in report.get("highlights", []) + report.get("insights", []) + report.get("interactions", []):
@@ -95,9 +98,25 @@ def main(argv: list[str] | None = None) -> int:
             continue
         print(f"{issue_id}: OK  highlights={len(report['highlights'])} people={len(report['people'])} sources={len(sources)}")
         if not args.check_only:
-            target = DEST / issue_id / "report.json"
+            from datetime import date
+            start = report["issue"]["window"]["start"]
+            # 期号按 JST 覆盖日：window.start 的日期就是那一天
+            d = date.fromisoformat(start[:10])
+            daily_id = d.strftime("%y%m%d") + "-gp"
+            published = dict(report["issue"])
+            published["id"] = daily_id
+            # Zod 的 dailyReports schema 会给这两个字段填默认值；出口必须与正本
+            # 逐字节相同（`check:daily` 盯着），所以发布时就写进正本，不留缺省。
+            counts = dict(report["counts"])
+            counts.setdefault("late", 0)
+            counts.setdefault("skipped_duplicate", 0)
+            payload = dict(report)
+            payload["issue"] = published
+            payload["counts"] = counts
+            payload.setdefault("categories", [])
+            target = DEST / daily_id / "report.json"
             target.parent.mkdir(parents=True, exist_ok=True)
-            target.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8", newline="\n")
+            target.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8", newline="\n")
             print(f"  wrote {target.relative_to(ROOT)}")
     return 1 if failed else 0
 

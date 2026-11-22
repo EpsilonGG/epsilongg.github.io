@@ -190,7 +190,8 @@ const categoriesPresent = (() => {
  * 默认栏目按**版**走：声优版默认声优，Galgame 版默认游戏制造商。
  * 某期那一栏没有条目（或名单漏了人）就退回第一个栏目。
  */
-const preferredCategory = post.data.kind === 'galgame' ? 'manufacturer' : 'seiyuu';
+const preferredCategory =
+  post.data.kind === 'gplus' ? 'creator' : post.data.kind === 'galgame' ? 'manufacturer' : 'seiyuu';
 const defaultCategory = categoriesPresent.some((item) => item.id === preferredCategory)
   ? preferredCategory
   : (categoriesPresent[0]?.id ?? '');

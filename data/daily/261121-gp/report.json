@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "issue": {
-    "id": "Gplus_003",
+    "id": "261121-gp",
     "published_at": "2026-11-22T01:00:00+09:00",
     "window": {
       "start": "2026-11-21T00:00:00+09:00",
@@ -12,7 +12,9 @@
   },
   "counts": {
     "items": 411,
-    "accounts": 118
+    "accounts": 118,
+    "late": 0,
+    "skipped_duplicate": 0
   },
   "description": "发售与新作公开仍是主线，免费同人游戏、展会活动和声优企划引发广泛讨论",
   "highlights": [
@@ -135,6 +137,7 @@
     }
   ],
   "works": [],
+  "categories": [],
   "accounts": [
     "07th_official",
     "4gamernews",
