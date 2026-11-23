@@ -4590,6 +4590,7 @@
   },
   {
    "handle": "youtan0309",
+   "reply_scope": true,
    "name": "ユウ＝ヤマナミ",
    "group": "info",
    "section": "其他 · 信息号・泛游戏媒体",
@@ -4674,6 +4675,7 @@
   },
   {
    "handle": "aikouka23",
+   "reply_scope": true,
    "name": "エロゲ情報収集愛好家",
    "group": "info",
    "section": "其他 · 信息号・泛游戏媒体",
@@ -4686,6 +4688,7 @@
   },
   {
    "handle": "AKOUtw",
+   "reply_scope": true,
    "name": "AKOU（アミューズクラフト）",
    "group": "info",
    "section": "其他 · 信息号・泛游戏媒体",
@@ -4710,6 +4713,7 @@
   },
   {
    "handle": "akibablog",
+   "reply_scope": true,
    "name": "アキバBlog",
    "group": "info",
    "section": "其他 · 信息号・泛游戏媒体",
@@ -4722,6 +4726,7 @@
   },
   {
    "handle": "erogeAreAlive",
+   "reply_scope": true,
    "name": "ErogeAreAlive",
    "group": "info",
    "section": "其他 · 信息号・泛游戏媒体",
@@ -4734,6 +4739,7 @@
   },
   {
    "handle": "masanlive",
+   "reply_scope": true,
    "name": "まさん",
    "group": "info",
    "section": "其他 · 信息号・泛游戏媒体",
@@ -4758,6 +4764,7 @@
   },
   {
    "handle": "hiro_in",
+   "reply_scope": true,
    "name": "ひろいん（ErogameScape）",
    "group": "info",
    "section": "其他 · 信息号・泛游戏媒体",
@@ -4782,6 +4789,7 @@
   },
   {
    "handle": "seiya_saiga",
+   "reply_scope": true,
    "name": "誠也の部屋@公式",
    "group": "info",
    "section": "其他 · 信息号・泛游戏媒体",
@@ -4794,6 +4802,7 @@
   },
   {
    "handle": "cloud668",
+   "reply_scope": true,
    "name": "Leslie Tang",
    "group": "info",
    "section": "其他 · 信息号・泛游戏媒体",
@@ -4806,6 +4815,7 @@
   },
   {
    "handle": "Nooksite",
+   "reply_scope": true,
    "name": "Nooksite",
    "group": "info",
    "section": "其他 · 信息号・泛游戏媒体",

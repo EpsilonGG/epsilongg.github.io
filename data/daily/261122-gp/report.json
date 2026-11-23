@@ -1,0 +1,991 @@
+{
+  "schema_version": 1,
+  "issue": {
+    "id": "261122-gp",
+    "published_at": "2026-11-23T01:00:00+09:00",
+    "window": {
+      "start": "2026-11-22T00:00:00+09:00",
+      "end": "2026-11-23T00:00:00+09:00"
+    },
+    "status": "confirmed",
+    "confirmed_at": "2026-11-22T16:00:00+00:00"
+  },
+  "counts": {
+    "items": 258,
+    "accounts": 64,
+    "late": 0,
+    "skipped_duplicate": 0
+  },
+  "description": "发售纪念日与展会报道并行，玩家号回复串成为当日互动主线",
+  "highlights": [
+    {
+      "text": "11月22日成为发售纪念日密集日：从《世界でいちばんNGな恋》《EVE burst error》到《さおりんといっしょ!!》，ユウ＝ヤマナミ与Moepedia集中回看19年前、31年前和30周年的作品。",
+      "sources": [
+        "x:2124160908578721975",
+        "x:2124157134296244671",
+        "x:2124158392264458351",
+        "x:2124350910273036300"
+      ]
+    },
+    {
+      "text": "Moepedia转出TRYSET将于2027年迎来25周年的消息；同日还列出多款发售30周年作品与《Summer Pockets REFLECTION BLUE》周边。",
+      "sources": [
+        "x:2124382619509149940",
+        "x:2124345877271830925",
+        "x:2124382371298549998"
+      ]
+    },
+    {
+      "text": "电击Online报道《GetBackers》语音漫画为宣传片使用生成AI致歉，同时《Gothic 1 Remake》PS5下载版因本地表现调整从11月24日延期。",
+      "sources": [
+        "x:2124388764881670572",
+        "x:2124382516253708514"
+      ]
+    },
+    {
+      "text": "4Gamer集中报道上海WePlay Expo 2026与韩国G-STAR独立游戏，覆盖《游戏设计师模拟器》《神缺席》等试玩与G-STAR Indie Awards获奖名单。",
+      "sources": [
+        "x:2124323811122397621",
+        "x:2124362157114655004",
+        "x:2124340410336280713"
+      ]
+    },
+    {
+      "text": "Key Live 2026台北公演落幕，豊泉 香城与如月 ゆう分别用中文和长文感谢当地观众，后者称这是年内唯一一场本地3D演唱会。",
+      "sources": [
+        "x:2124303587492893086",
+        "x:2124176151002460558"
+      ]
+    },
+    {
+      "text": "《ヘブンバーンズレッド》5周年线下活动抽选当日截止，松山 剛纪念负责剧本的《うみとら冒険譚》上线两周年。",
+      "sources": [
+        "x:2124337071049539817",
+        "x:2124286901276520941"
+      ]
+    },
+    {
+      "text": "FANZA同人的500日元促销与一亿点数活动进入最后阶段，BugBug同步发布月末美游预约榜。",
+      "sources": [
+        "x:2124306917225058738",
+        "x:2124155890131517880",
+        "x:2124156379023970402"
+      ]
+    }
+  ],
+  "insights": [
+    {
+      "text": "纪念日和复古话题是当日最厚的一条线：19年前的《キラ☆キラ》《世界でいちばんNGな恋》、31年前的《EVE burst error》、30年前的《さおりんといっしょ!!》被同一批发文串起，英文号也补上25年前的《Mikan》和《Pandora no Yume》。",
+      "sources": [
+        "x:2124155875371966779",
+        "x:2124160908578721975",
+        "x:2124157134296244671",
+        "x:2124158392264458351",
+        "x:2124156127311249756"
+      ]
+    },
+    {
+      "text": "周年企划横跨多个层级：TRYSET宣布2027年创业25周年，エンターグラム启动《ファーランドサーガ》30周年项目，HOOKSOFT开放首场演唱会抽选，DESSERT Soft公布solfa20th歌单。",
+      "sources": [
+        "x:2124382619509149940",
+        "x:2124337087801385363",
+        "x:2124338328438984827",
+        "x:2124183473674227729"
+      ]
+    },
+    {
+      "text": "展会报道集中在亚洲两端：4Gamer从上海WePlay与韩国G-STAR带回大量独立游戏试玩，AUTOMATON则关注《合金装备》2P小技、PC折扣和《鸣潮》载具。",
+      "sources": [
+        "x:2124323811122397621",
+        "x:2124340410336280713",
+        "x:2124374681277059531",
+        "x:2124366503940419640"
+      ]
+    },
+    {
+      "text": "生成AI的信任问题当天从两个方向出现：电击Online转述《GetBackers》宣传片致歉，木緒なち则把AI泛滥与电商信任下滑、实体店回归联系起来。",
+      "sources": [
+        "x:2124388764881670572",
+        "x:2124360821639925958"
+      ]
+    },
+    {
+      "text": "音乐与现场线由Key Live台北场贯穿：豊泉 香城记录首次台北演出，如月 ゆう称这是年内唯一本地3D个人场，DESSERT Soft与HOOKSOFT也各有演出节点。",
+      "sources": [
+        "x:2124303587492893086",
+        "x:2124176151002460558",
+        "x:2124183473674227729",
+        "x:2124338328438984827"
+      ]
+    },
+    {
+      "text": "线下零售与联动活动密集：BEEP的角色集会、SAGA PLANETS冬季画板展、HOOKSOFT等三品牌的秋叶原联动咖啡、アリスNET声优签名会与《甜蜜女友3》联动咖啡同日出现。",
+      "sources": [
+        "x:2124301306311684476",
+        "x:2124337086715060446",
+        "x:2124324719809962218",
+        "x:2124363453095891363",
+        "x:2124322895723888679"
+      ]
+    },
+    {
+      "text": "促销信息覆盖FANZA同人一亿点数与500日元专场、BugBug月末预约榜、トレーダーＲ１８回收价与AUTOMATON、电击Online的PC/PS折扣，构成一条完整的消费信息线。",
+      "sources": [
+        "x:2124155890131517880",
+        "x:2124306917225058738",
+        "x:2124156379023970402",
+        "x:2124329519305609555",
+        "x:2124373879582052694"
+      ]
+    },
+    {
+      "text": "“いい夫婦の日”被多家账号当作内容切口：电击Online做《我的幸福婚姻》企划，桐月画《花之野》角色段子，K.バッジョ转推相关投稿。",
+      "sources": [
+        "x:2124337191858082281",
+        "x:2124353869258043777",
+        "x:2124349969713041897"
+      ]
+    },
+    {
+      "text": "“いいツインテールの日”形成另一条轻量互动：K.バッジョ、稲垣みいこ、梱枝りこ与NABLACK等同日用贺图或玩梗参与。",
+      "sources": [
+        "x:2124378048128835798",
+        "x:2124327506178384022",
+        "x:2124300837417804072",
+        "x:2124339262636364200"
+      ]
+    },
+    {
+      "text": "アキバBlog把《ボトムズ 灰色の魔女》影评与续作公开、《魔法使いの夜》IMAX放映问题和《夢限大みゅーたいぷ》新动画串成影视向内容，和电击Online的动画消息互相呼应。",
+      "sources": [
+        "x:2124387039445659780",
+        "x:2124383365956878742",
+        "x:2124386031772537073",
+        "x:2124359843838595383"
+      ]
+    },
+    {
+      "text": "创作者侧的新作与工作线也很清楚：浅生 詠谈《恐怖爱好症》的角色设定与《リルヤとナツカ》促销，工画堂公开《Sugar Lies》OP，武田 弘光完成移植版通关调试。",
+      "sources": [
+        "x:2124368694310760625",
+        "x:2124356350688010577",
+        "x:2124337076938350854",
+        "x:2124339497878135126"
+      ]
+    },
+    {
+      "text": "ユウ＝ヤマナミ在自己回复串里反复替丸户史明旧作发声：称《NG恋》的音乐和世界观被低估，明确表示比《ホワルバ2》更想推荐《パルフェ》和本作，还补了DL版购买渠道。",
+      "sources": [
+        "x:2124249989723673036",
+        "x:2124403174413119499",
+        "x:2124499792894230692",
+        "x:2124256235176575291"
+      ]
+    },
+    {
+      "text": "AKOU（アミューズクラフト）的全角色通关投票收到1736票，71%选择一定全清；他在后续回复里谈到现在全价作品变少、大格局作品也影响玩家通关意愿。",
+      "sources": [
+        "x:2124362722511143328",
+        "x:2124470341997363227",
+        "x:2124364648678068626"
+      ]
+    },
+    {
+      "text": "英文账号承担了跨语言补位：ErogeAreAlive用英文回顾旧作发行，SAGA PLANETS也用英文向NekoNyan读者推荐《はつゆきさくら》，和日文侧形成互补。",
+      "sources": [
+        "x:2124171747020701828",
+        "x:2124219913632149850"
+      ]
+    }
+  ],
+  "interactions": [
+    {
+      "text": "Moepedia转推BugBug編集部的周间人气文章榜，把《超昂大戦》6周年与悪女品牌新作话题再扩散一次。",
+      "sources": [
+        "x:2124357188940697866",
+        "x:2124337573073915993"
+      ]
+    },
+    {
+      "text": "稲垣みいこ连续转推歩サラ、あおこ、ことの与potte的新作ASMR消息，自己又补了一条听感推荐，形成当天最密集的声优互推链。",
+      "sources": [
+        "x:2124352851451555996",
+        "x:2124198320050782352",
+        "x:2124198241340428751"
+      ]
+    },
+    {
+      "text": "K.バッジョ转推BenjaminKK41的双马尾日投稿与斋藤亚由美的《クロの戦記》角色文，自己也跟进同一话题。",
+      "sources": [
+        "x:2124378048128835798",
+        "x:2124349969713041897"
+      ]
+    },
+    {
+      "text": "SAGA PLANETS转推Moepedia的宠物女仆游戏条目，把Moepedia的30周年整理接到自家宣传里。",
+      "sources": [
+        "x:2124347247873986630"
+      ]
+    },
+    {
+      "text": "京極しん转推えびふりゃ332的舰これ限时绘图与まちぞう的投稿，又引用蔚蓝档案新角色介绍。",
+      "sources": [
+        "x:2124334282768593269",
+        "x:2124158489337761829",
+        "x:2124337487783014652"
+      ]
+    },
+    {
+      "text": "すかぢ转推summeroflov3的插画，同日自己也放出《H2O》角色新图。",
+      "sources": [
+        "x:2124299172425945327",
+        "x:2124178490836890111"
+      ]
+    },
+    {
+      "text": "瀬奈 茅冬转推ChickeIII为《某科学的超电磁炮》最终卷绘制的角色设计贺图。",
+      "sources": [
+        "x:2124220962782765064"
+      ]
+    },
+    {
+      "text": "伊東ライフ把粉丝在拉普拉斯公园的互动图转发出去，形成读者到画师的小回流。",
+      "sources": [
+        "x:2124371029430841558"
+      ]
+    },
+    {
+      "text": "ユウ＝ヤマナミ的回复串里，他先感谢读者回应，又反复说明丸户史明在剧本与群像对白上的优势，并把话题导向《NG恋》《パルフェ》等非《ホワルバ2》作品。",
+      "sources": [
+        "x:2124380060929106380",
+        "x:2124379671727157610",
+        "x:2124255016945131613",
+        "x:2124499792894230692"
+      ]
+    },
+    {
+      "text": "AKOU（アミューズクラフト） poll之后继续在回复里接话：认同投票结果，提到全价游戏变少，也说会考虑再做更醒目的投票。",
+      "sources": [
+        "x:2124470255372427507",
+        "x:2124470341997363227",
+        "x:2124364648678068626"
+      ]
+    },
+    {
+      "text": "アリスNET为逢真井もこ的《ワンナイトアフター》体验版直播和限定抽选导流，本人随后也发了直播准备过程。",
+      "sources": [
+        "x:2124371913212649965",
+        "x:2124359622912041085"
+      ]
+    },
+    {
+      "text": "BEEP活动现场先后迎来南波碧与声优るなっち☆ほし，摊位把复古游戏和角色集会两条线接在一起。",
+      "sources": [
+        "x:2124307987284312218",
+        "x:2124364733562437851"
+      ]
+    },
+    {
+      "text": "アキバBlog连续引用MOVIE WALKER PRESS、映画.com与ねとらぼ的三篇《ボトムズ》影评，再接上续作上映消息，形成一条外部媒体聚合链。",
+      "sources": [
+        "x:2124388036813472249",
+        "x:2124387536386900344",
+        "x:2124386521679884412"
+      ]
+    },
+    {
+      "text": "浅生 詠一边宣传自己参与的《リルヤとナツカ》促销，一边回复读者关于《恐怖爱好症》角色外貌设定的问题，并聊到个人创作与委托的边界。",
+      "sources": [
+        "x:2124356350688010577",
+        "x:2124368694310760625",
+        "x:2124339038056554737"
+      ]
+    }
+  ],
+  "works": [],
+  "categories": [],
+  "accounts": [
+    "youtan0309",
+    "moepedia_net",
+    "dengekionline",
+    "kobaggio",
+    "4gamernews",
+    "akibablog",
+    "akoutw",
+    "asou_ei",
+    "kidukirey",
+    "inagaki_miko",
+    "sca_di",
+    "famitsu",
+    "douzinr18",
+    "shin_kyogoku",
+    "alice_net_pc",
+    "beep_shop",
+    "ka_fumifumi",
+    "kudokou_now",
+    "trader_r18",
+    "adahemas",
+    "automatonjapan",
+    "beni_carnelian",
+    "erogearealive",
+    "hasa_ma",
+    "hujisakiusa",
+    "morisakiryout",
+    "sagaplanets",
+    "bugbug_info",
+    "fandc_staff",
+    "hooksoft",
+    "kionachi",
+    "kogado_studio",
+    "riko0202",
+    "shirabii",
+    "shiro_youduki",
+    "snow_chifuyu",
+    "sora_hajime",
+    "yuuki_sw",
+    "banya_izumi",
+    "dessertsoft_tw",
+    "ebi_curry_earl",
+    "elen_mass",
+    "entergram_info",
+    "go_1tk",
+    "hinanakase",
+    "hozakura",
+    "itolife",
+    "kisaragiyu",
+    "koumeren0205",
+    "mackine3",
+    "masanlive",
+    "matsuyama077",
+    "nablack",
+    "nisidahajime",
+    "onowasabi",
+    "purple_ishikawa",
+    "ryunoon",
+    "shinjugai",
+    "shiratamacaron",
+    "sin_kou_hyou",
+    "tatami10jyo",
+    "urusibara_yuki",
+    "yamanta_15",
+    "zn_cien"
+  ],
+  "people": [
+    {
+      "handle": "youtan0309",
+      "category": "info",
+      "summary": "围绕11月22日发售纪念日连发丸户史明旧作回顾，并在自己回复串里持续推荐《NG恋》《パルフェ》等作品。",
+      "via": [],
+      "sources": [
+        "x:2124160908578721975",
+        "x:2124499792894230692",
+        "x:2124380060929106380"
+      ]
+    },
+    {
+      "handle": "moepedia_net",
+      "category": "info",
+      "summary": "整理发售30周年作品与多品牌活动，涵盖Summer Pockets周边、超昂大战6周年及店铺活动。",
+      "via": [],
+      "sources": [
+        "x:2124350910273036300",
+        "x:2124382371298549998",
+        "x:2124382619509149940"
+      ]
+    },
+    {
+      "handle": "dengekionline",
+      "category": "info",
+      "summary": "报道《GetBackers》语音漫画为生成AI宣传片致歉、《Gothic 1 Remake》延期，以及多部动画新消息。",
+      "via": [],
+      "sources": [
+        "x:2124388764881670572",
+        "x:2124382516253708514",
+        "x:2124380714460422559"
+      ]
+    },
+    {
+      "handle": "kobaggio",
+      "category": "creator",
+      "summary": "转发赛马娘活动与投票信息，也聊游戏进度与日常。",
+      "via": [],
+      "sources": [
+        "x:2124375749507649670",
+        "x:2124312171769467363"
+      ]
+    },
+    {
+      "handle": "4gamernews",
+      "category": "info",
+      "summary": "集中报道上海WePlay Expo 2026与韩国G-STAR独立游戏奖项，覆盖多款试玩新作。",
+      "via": [],
+      "sources": [
+        "x:2124323811122397621",
+        "x:2124340410336280713",
+        "x:2124348766400717132"
+      ]
+    },
+    {
+      "handle": "akibablog",
+      "category": "info",
+      "summary": "汇总《装甲骑兵波特姆斯 灰色魔女》影评与续作消息，也关注《魔法使之夜》剧场版与动画企划。",
+      "via": [],
+      "sources": [
+        "x:2124387039445659780",
+        "x:2124383365956878742",
+        "x:2124386031772537073"
+      ]
+    },
+    {
+      "handle": "akoutw",
+      "category": "info",
+      "summary": "发起18禁游戏全角色通关投票，并在自己回复串里讨论全价作品减少与玩家攻略倾向。",
+      "via": [],
+      "sources": [
+        "x:2124362722511143328",
+        "x:2124470341997363227",
+        "x:2124364648678068626"
+      ]
+    },
+    {
+      "handle": "asou_ei",
+      "category": "creator",
+      "summary": "谈《恐怖爱好症》角色外观留白的创作意图，参与新年广告日历与朗读剧《缀结》宣传。",
+      "via": [],
+      "sources": [
+        "x:2124368694310760625",
+        "x:2124185305049862158",
+        "x:2124359432624832897"
+      ]
+    },
+    {
+      "handle": "kidukirey",
+      "category": "creator",
+      "summary": "画《花之野》夫妻日小图与蔚蓝档案角色，并说明漫画连载不受运营移管影响。",
+      "via": [],
+      "sources": [
+        "x:2124353869258043777",
+        "x:2124293784037163053"
+      ]
+    },
+    {
+      "handle": "inagaki_miko",
+      "category": "creator",
+      "summary": "转推并推荐步サラ新作ASMR，也参与双马尾日的玩笑互动。",
+      "via": [],
+      "sources": [
+        "x:2124352851451555996",
+        "x:2124327506178384022"
+      ]
+    },
+    {
+      "handle": "sca_di",
+      "category": "creator",
+      "summary": "发布《H2O》周边店见闻与角色新图，展示百合题材绘制。",
+      "via": [],
+      "sources": [
+        "x:2124199929556148393",
+        "x:2124250622115659989"
+      ]
+    },
+    {
+      "handle": "famitsu",
+      "category": "info",
+      "summary": "报道《Gothic 1 Remake》PS5版延期、世嘉土星32周年与多款周边预约。",
+      "via": [],
+      "sources": [
+        "x:2124382516253708514",
+        "x:2124261675385893289",
+        "x:2124337184249647313"
+      ]
+    },
+    {
+      "handle": "douzinr18",
+      "category": "info",
+      "summary": "推广FANZA同人500日元促销与一亿点数活动。",
+      "via": [],
+      "sources": [
+        "x:2124306917225058738",
+        "x:2124155890131517880"
+      ]
+    },
+    {
+      "handle": "shin_kyogoku",
+      "category": "creator",
+      "summary": "转发舰队collection绘图与蔚蓝档案角色介绍，也吐槽作品展开。",
+      "via": [],
+      "sources": [
+        "x:2124337487783014652",
+        "x:2124334282768593269"
+      ]
+    },
+    {
+      "handle": "alice_net_pc",
+      "category": "info",
+      "summary": "为《One Night After》体验版直播与声优签名活动导流。",
+      "via": [],
+      "sources": [
+        "x:2124371913212649965",
+        "x:2124363453095891363"
+      ]
+    },
+    {
+      "handle": "beep_shop",
+      "category": "brand",
+      "summary": "报道秋叶原商场角色集会与复古游戏摊位，上架同人志新货。",
+      "via": [],
+      "sources": [
+        "x:2124301306311684476",
+        "x:2124337077898952858"
+      ]
+    },
+    {
+      "handle": "ka_fumifumi",
+      "category": "creator",
+      "summary": "聊游戏抽卡与家庭日常。",
+      "via": [],
+      "sources": [
+        "x:2124332192029675899"
+      ]
+    },
+    {
+      "handle": "kudokou_now",
+      "category": "creator",
+      "summary": "记录Key Live 2026台北公演落幕与场地感想。",
+      "via": [],
+      "sources": [
+        "x:2124303587492893086",
+        "x:2124304935613526062"
+      ]
+    },
+    {
+      "handle": "trader_r18",
+      "category": "info",
+      "summary": "发布中古游戏回收价、店铺活动与角色生日信息。",
+      "via": [],
+      "sources": [
+        "x:2124329519305609555",
+        "x:2124337070412075149"
+      ]
+    },
+    {
+      "handle": "adahemas",
+      "category": "creator",
+      "summary": "手游吐槽与日常。",
+      "via": [],
+      "sources": [
+        "x:2124381867420115218"
+      ]
+    },
+    {
+      "handle": "automatonjapan",
+      "category": "info",
+      "summary": "报道初代《合金装备》2P小技、PC游戏折扣与《鸣潮》新载具。",
+      "via": [],
+      "sources": [
+        "x:2124374681277059531",
+        "x:2124373879582052694"
+      ]
+    },
+    {
+      "handle": "beni_carnelian",
+      "category": "creator",
+      "summary": "谈工作排期与家务日常。",
+      "via": [],
+      "sources": [
+        "x:2124320855668974028"
+      ]
+    },
+    {
+      "handle": "erogearealive",
+      "category": "info",
+      "summary": "英文回顾《僵尸警察》《Mikan》《Pandora no Yume》等作品发行与周年。",
+      "via": [],
+      "sources": [
+        "x:2124171747020701828",
+        "x:2124156127311249756"
+      ]
+    },
+    {
+      "handle": "hasa_ma",
+      "category": "creator",
+      "summary": "参加根室亚文化交流会并与上江洲诚交谈，晒出粉丝赠品。",
+      "via": [],
+      "sources": [
+        "x:2124190142743359798",
+        "x:2124190993096601610"
+      ]
+    },
+    {
+      "handle": "hujisakiusa",
+      "category": "creator",
+      "summary": "宣传ASaProject新作联动咖啡与游戏实况活动。",
+      "via": [],
+      "sources": [
+        "x:2124331412279222627"
+      ]
+    },
+    {
+      "handle": "morisakiryout",
+      "category": "creator",
+      "summary": "祝世嘉土星32周年并分享游戏生活。",
+      "via": [],
+      "sources": [
+        "x:2124155906011312423"
+      ]
+    },
+    {
+      "handle": "sagaplanets",
+      "category": "brand",
+      "summary": "预告冬季画板展，转推Moepedia宠物女仆专题。",
+      "via": [],
+      "sources": [
+        "x:2124337086715060446",
+        "x:2124347247873986630"
+      ]
+    },
+    {
+      "handle": "bugbug_info",
+      "category": "info",
+      "summary": "发布周间人气文章榜与月末美游预约排行。",
+      "via": [],
+      "sources": [
+        "x:2124337573073915993",
+        "x:2124156379023970402"
+      ]
+    },
+    {
+      "handle": "fandc_staff",
+      "category": "brand",
+      "summary": "介绍《ギャルフェス》新角色并征集Steam愿望单。",
+      "via": [],
+      "sources": [
+        "x:2124272581222273368",
+        "x:2124271200516055520"
+      ]
+    },
+    {
+      "handle": "hooksoft",
+      "category": "brand",
+      "summary": "开放首场演唱会最速抽选，参加秋叶原联动咖啡。",
+      "via": [],
+      "sources": [
+        "x:2124338328438984827",
+        "x:2124324719809962218"
+      ]
+    },
+    {
+      "handle": "kionachi",
+      "category": "creator",
+      "summary": "讨论AI泛滥导致电商信任下降与实体店回归。",
+      "via": [],
+      "sources": [
+        "x:2124360821639925958"
+      ]
+    },
+    {
+      "handle": "kogado_studio",
+      "category": "creator",
+      "summary": "公开《Sugar Lies》OP影像与主题曲信息。",
+      "via": [],
+      "sources": [
+        "x:2124337076938350854"
+      ]
+    },
+    {
+      "handle": "riko0202",
+      "category": "creator",
+      "summary": "发布护理主题新图与双马尾日贺图。",
+      "via": [],
+      "sources": [
+        "x:2124352314656084113"
+      ]
+    },
+    {
+      "handle": "shirabii",
+      "category": "creator",
+      "summary": "参加线下联动直播并吐槽花粉。",
+      "via": [],
+      "sources": [
+        "x:2124159608310882581"
+      ]
+    },
+    {
+      "handle": "shiro_youduki",
+      "category": "creator",
+      "summary": "发售自己绘制的玻璃鼠标垫周边。",
+      "via": [],
+      "sources": [
+        "x:2124155890815156480"
+      ]
+    },
+    {
+      "handle": "snow_chifuyu",
+      "category": "creator",
+      "summary": "转推《某科学的超电磁炮》最终卷角色设计贺图。",
+      "via": [],
+      "sources": [
+        "x:2124220962782765064"
+      ]
+    },
+    {
+      "handle": "sora_hajime",
+      "category": "creator",
+      "summary": "看完光之美少女新展开，晒初音未来轨道联名亚克力。",
+      "via": [],
+      "sources": [
+        "x:2124291526834704568",
+        "x:2124162654713585886"
+      ]
+    },
+    {
+      "handle": "yuuki_sw",
+      "category": "creator",
+      "summary": "更新个人网站与随笔。",
+      "via": [],
+      "sources": [
+        "x:2124161895213183379"
+      ]
+    },
+    {
+      "handle": "banya_izumi",
+      "category": "creator",
+      "summary": "介绍《我们的放学后战争》新SSR卡面。",
+      "via": [],
+      "sources": [
+        "x:2124347279930970345"
+      ]
+    },
+    {
+      "handle": "dessertsoft_tw",
+      "category": "brand",
+      "summary": "感谢solfa20th演唱会观众并公布歌单。",
+      "via": [],
+      "sources": [
+        "x:2124183473674227729"
+      ]
+    },
+    {
+      "handle": "ebi_curry_earl",
+      "category": "creator",
+      "summary": "吐槽CPU散热器损坏带来的黑五额外支出。",
+      "via": [],
+      "sources": [
+        "x:2124240435971567928"
+      ]
+    },
+    {
+      "handle": "elen_mass",
+      "category": "creator",
+      "summary": "为かずたまそふと新作绘制封面。",
+      "via": [],
+      "sources": [
+        "x:2124175316310757715"
+      ]
+    },
+    {
+      "handle": "entergram_info",
+      "category": "brand",
+      "summary": "启动《ファーランドサーガ》30周年纪念企划。",
+      "via": [],
+      "sources": [
+        "x:2124337087801385363"
+      ]
+    },
+    {
+      "handle": "go_1tk",
+      "category": "creator",
+      "summary": "表达想在高强度环境工作的意愿。",
+      "via": [],
+      "sources": [
+        "x:2124368693174194687"
+      ]
+    },
+    {
+      "handle": "hinanakase",
+      "category": "creator",
+      "summary": "聊周末赛马投注计划。",
+      "via": [],
+      "sources": [
+        "x:2124172216372011423"
+      ]
+    },
+    {
+      "handle": "hozakura",
+      "category": "creator",
+      "summary": "为《アイベヤ3》角色安昙野铃芽生日发文。",
+      "via": [],
+      "sources": [
+        "x:2124172786054906128"
+      ]
+    },
+    {
+      "handle": "itolife",
+      "category": "creator",
+      "summary": "转推粉丝在拉普拉斯公园的互动。",
+      "via": [],
+      "sources": [
+        "x:2124371029430841558"
+      ]
+    },
+    {
+      "handle": "kisaragiyu",
+      "category": "creator",
+      "summary": "迎接首次海外个人演唱会与年内唯一一场本地3D现场。",
+      "via": [],
+      "sources": [
+        "x:2124176151002460558"
+      ]
+    },
+    {
+      "handle": "koumeren0205",
+      "category": "creator",
+      "summary": "前往活动现场并回忆前夜烤鸡串。",
+      "via": [],
+      "sources": [
+        "x:2124348523093336186"
+      ]
+    },
+    {
+      "handle": "mackine3",
+      "category": "creator",
+      "summary": "带两岁孩子搬家的疲惫日常。",
+      "via": [],
+      "sources": [
+        "x:2124383589941092763"
+      ]
+    },
+    {
+      "handle": "masanlive",
+      "category": "info",
+      "summary": "预告下午的小说游戏闲聊直播。",
+      "via": [],
+      "sources": [
+        "x:2124340798233948485"
+      ]
+    },
+    {
+      "handle": "matsuyama077",
+      "category": "creator",
+      "summary": "纪念自己编剧的《うみとら冒険譚》上线两周年。",
+      "via": [],
+      "sources": [
+        "x:2124286901276520941"
+      ]
+    },
+    {
+      "handle": "nablack",
+      "category": "creator",
+      "summary": "参与双马尾日话题。",
+      "via": [],
+      "sources": [
+        "x:2124339262636364200"
+      ]
+    },
+    {
+      "handle": "nisidahajime",
+      "category": "brand",
+      "summary": "翻出旧作插画并免费分享。",
+      "via": [],
+      "sources": [
+        "x:2124178579957444798"
+      ]
+    },
+    {
+      "handle": "onowasabi",
+      "category": "creator",
+      "summary": "重拾吉他后感叹体力不如从前。",
+      "via": [],
+      "sources": [
+        "x:2124376630575485033"
+      ]
+    },
+    {
+      "handle": "purple_ishikawa",
+      "category": "creator",
+      "summary": "在展位听demo后反思作词用词。",
+      "via": [],
+      "sources": [
+        "x:2124297302240334258"
+      ]
+    },
+    {
+      "handle": "ryunoon",
+      "category": "creator",
+      "summary": "公布《甜蜜女友3》联动咖啡当日营业安排。",
+      "via": [],
+      "sources": [
+        "x:2124322895723888679"
+      ]
+    },
+    {
+      "handle": "shinjugai",
+      "category": "creator",
+      "summary": "完成移植版通关调试，进入支线与配音整合阶段。",
+      "via": [],
+      "sources": [
+        "x:2124339497878135126"
+      ]
+    },
+    {
+      "handle": "shiratamacaron",
+      "category": "creator",
+      "summary": "宣布2027年日历通贩当日截止。",
+      "via": [],
+      "sources": [
+        "x:2124348507037528248"
+      ]
+    },
+    {
+      "handle": "sin_kou_hyou",
+      "category": "creator",
+      "summary": "绘制《ものべの》同人图。",
+      "via": [],
+      "sources": [
+        "x:2124305130988445831"
+      ]
+    },
+    {
+      "handle": "tatami10jyo",
+      "category": "creator",
+      "summary": "分享女儿来电的搞笑日常。",
+      "via": [],
+      "sources": [
+        "x:2124352974650744911"
+      ]
+    },
+    {
+      "handle": "urusibara_yuki",
+      "category": "creator",
+      "summary": "写完当日剧本工作后转入企划。",
+      "via": [],
+      "sources": [
+        "x:2124170756733256054"
+      ]
+    },
+    {
+      "handle": "yamanta_15",
+      "category": "creator",
+      "summary": "打算早睡调整状态。",
+      "via": [],
+      "sources": [
+        "x:2124231697705443649"
+      ]
+    },
+    {
+      "handle": "zn_cien",
+      "category": "creator",
+      "summary": "发布《とつラバ》角色插图。",
+      "via": [],
+      "sources": [
+        "x:2124186092014538863"
+      ]
+    }
+  ],
+  "provenance": {
+    "generator": "gplus/1",
+    "prompt_version": 1,
+    "cache_key": "gplus-2026-11-22",
+    "generated_at": "2026-11-23T00:00:00+00:00"
+  }
+}
