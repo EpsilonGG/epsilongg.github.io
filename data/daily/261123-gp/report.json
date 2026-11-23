@@ -1,0 +1,1157 @@
+{
+  "schema_version": 1,
+  "issue": {
+    "id": "261123-gp",
+    "published_at": "2026-11-24T01:00:00+09:00",
+    "window": {
+      "start": "2026-11-23T00:00:00+09:00",
+      "end": "2026-11-24T00:00:00+09:00"
+    },
+    "status": "confirmed",
+    "confirmed_at": "2026-11-23T16:00:00+00:00"
+  },
+  "counts": {
+    "items": 438,
+    "accounts": 104,
+    "late": 0,
+    "skipped_duplicate": 0
+  },
+  "description": "Acacia两作延期待定新档，sprite周年作26日发售",
+  "highlights": [
+    {
+      "text": "Acacia宣布「配信少女ノ裏垢迷宮」与「魔法少女ノ因習村」双双延期，两作将分别在11月27日、12月1日公布新的发售日。",
+      "sources": [
+        "x:2124808951044989044",
+        "x:2124853827908342212",
+        "x:2124847285037330545",
+        "x:2124819862153523524"
+      ]
+    },
+    {
+      "text": "sprite十五周年作「小金井荘と金色の揚羽蝶」定11月26日发售，OP动画播放破50万，官方商店首批订单11月25日上午截止。",
+      "sources": [
+        "x:2124770121499742316",
+        "x:2124742107177127989",
+        "x:2124769823758684312",
+        "x:2124776019148358101"
+      ]
+    },
+    {
+      "text": "「魔法使いの夜」主题歌CD动画盘11月25日发售、supercell盘12月9日，原声集定12月23日，三张同步开放预约。",
+      "sources": [
+        "x:2124790058016473346",
+        "x:2124805162304929917"
+      ]
+    },
+    {
+      "text": "11月23日撞上多个发售纪念日：たまごっち30周年、ゼルダの伝説 スカイウォードソード15周年、「おいでよ どうぶつの森」21周年，另有25周年与20周年旧作被点名。",
+      "sources": [
+        "x:2124518367419871329",
+        "x:2124518381714104771",
+        "x:2124624081492554141",
+        "x:2124829062044491790",
+        "x:2124827805108314429"
+      ]
+    },
+    {
+      "text": "ωstar与FAVORITE将在C109合摊出展，「美少女万華鏡」15周年新周边与八宝備仁纪念主视觉制作中；同系列完整版当天开下载贩售。",
+      "sources": [
+        "x:2124810595367362738",
+        "x:2124809863092150329"
+      ]
+    },
+    {
+      "text": "HOOKSOFT首场演唱会定2027年3月20日涩谷，最速抽选11月30日截止；11月27日另有Waffle、SMEE、DESSERT Soft三社登台的電妄谈话活动。",
+      "sources": [
+        "x:2124835362052751767",
+        "x:2124721595923222630"
+      ]
+    }
+  ],
+  "insights": [
+    {
+      "text": "延期是当天最硬的信息：Acacia两作公告后，电击Online与Fami通同日各自成稿，英文号也补发一条，形成日英双语的同题报道。",
+      "sources": [
+        "x:2124808951044989044",
+        "x:2124853827908342212",
+        "x:2124847285037330545",
+        "x:2124822824514707778"
+      ]
+    },
+    {
+      "text": "年末发售窗口挤在11月26日至29日：26日有「小金井荘と金色の揚羽蝶」与「ハッピーウィークエンド」，27日有「ワンナイトアフター」「アンスリウム」，29日「シノビNEXUS」开服。",
+      "sources": [
+        "x:2124742107177127989",
+        "x:2124819749695836195",
+        "x:2124760358833562105",
+        "x:2124684359206678831"
+      ]
+    },
+    {
+      "text": "十五周年成了当天的共同切口：sprite周年作临近发售，「美少女万華鏡」与「いろとりどりのセカイ」同摊庆祝，TRYSET则预告2027年25周年的压轴企划。",
+      "sources": [
+        "x:2124770121499742316",
+        "x:2124810595367362738",
+        "x:2124761472102507003",
+        "x:2124809863092150329"
+      ]
+    },
+    {
+      "text": "线下活动同日一收一开：SAGA PLANETS画板展在秋叶原开场并改自由入场，「Canvas3」等身大立牌展与三社联动咖啡收官，メロンブックス首次参加黑五。",
+      "sources": [
+        "x:2124661710623768806",
+        "x:2124717910044312037",
+        "x:2124678334655369601",
+        "x:2124779635888255272"
+      ]
+    },
+    {
+      "text": "FANZA同人促销进入最后一周：游戏博览的10日元与500日元档都到11月30日15时59分，叠加一亿点数活动与旧作八成折扣，文案重心明显从新作转向清库存。",
+      "sources": [
+        "x:2124774986418368938",
+        "x:2124759901453115770",
+        "x:2124518263447318870",
+        "x:2124820304212132338"
+      ]
+    },
+    {
+      "text": "同一条海外快讯被三类账号同时搬运：综合媒体、同人品牌与创作者都在转NVIDIA社长复归的消息，科技新闻已进入游戏圈的日常信息流。",
+      "sources": [
+        "x:2124879661461315840",
+        "x:2124865060397019480",
+        "x:2124870015283277826"
+      ]
+    }
+  ],
+  "interactions": [
+    {
+      "text": "京極しん引用蔚蓝档案新活动PV并猜角色定位，桐月随后转推同一支PV，两位创作者围绕同一官方影像接力。",
+      "sources": [
+        "x:2124700156461535238",
+        "x:2124704308595953962"
+      ]
+    },
+    {
+      "text": "しらび为響咲リオナ绘制50万人纪念周边，同时公开自己担任CG的MV与个人周边开卖，把声优、官方商店与画师串成一条线。",
+      "sources": [
+        "x:2124804856368296114",
+        "x:2124809199440081093",
+        "x:2124802298681668060"
+      ]
+    },
+    {
+      "text": "志水はつみ连续转推珈琲貴族的咖啡豆连帽衫通贩，并补充说明含签名会套装的购买方式。",
+      "sources": [
+        "x:2124854865902047524",
+        "x:2124713992535089166"
+      ]
+    },
+    {
+      "text": "エスクード把「廃村少女［弐］外伝」的描き下ろし挂画交给BugBug商店接单，同时在FANZA开评论转发活动，媒体店铺与厂商双向导流。",
+      "sources": [
+        "x:2124820266601848938",
+        "x:2124820262050734207"
+      ]
+    },
+    {
+      "text": "保桜在FBGM01落幕后引用主办方贴文致谢，并提到选曲环节与あざらしそふと「初恋マスターアップ」的合作。",
+      "sources": [
+        "x:2124764254524133826",
+        "x:2124521355911790912"
+      ]
+    }
+  ],
+  "works": [],
+  "categories": [],
+  "accounts": [
+    "moepedia_net",
+    "4gamernews",
+    "kobaggio",
+    "douzinr18",
+    "dengekionline",
+    "youtan0309",
+    "asou_ei",
+    "akoutw",
+    "automatonjapan",
+    "akibablog",
+    "kidukirey",
+    "hujisakiusa",
+    "shin_kyogoku",
+    "sprite_fairys",
+    "overflow_staff",
+    "famitsu",
+    "hozakura",
+    "itolife",
+    "shirabii",
+    "kunaiuri",
+    "urusibara_yuki",
+    "fandc_staff",
+    "koumeren0205",
+    "kionachi",
+    "sukerasparo",
+    "jinan_sanzan",
+    "watanaberyoichi",
+    "sin_kou_hyou",
+    "purple_ishikawa",
+    "hooksoft",
+    "sora_hajime",
+    "sca_di",
+    "inagaki_miko",
+    "tatami10jyo",
+    "jitaku_st",
+    "sagaplanets",
+    "bugbug_info",
+    "tokiko_flankoi",
+    "simizuhatumi",
+    "natsume3611",
+    "adahemas",
+    "nablack",
+    "yamanta_15",
+    "escude1998",
+    "trader_r18",
+    "masanlive",
+    "f_maruto_staff",
+    "matsuisansan",
+    "zn_cien",
+    "radish2951",
+    "yaegasinan",
+    "minikleminikle",
+    "smee_official",
+    "silkysplus",
+    "muvluv_official",
+    "tryset",
+    "erogearealive",
+    "elen_mass",
+    "ryunoon",
+    "famishin",
+    "rodorin",
+    "onowasabi",
+    "ka_fumifumi",
+    "07th_official",
+    "nao_sakura_s",
+    "taiga_scenario",
+    "kudokou_now",
+    "hiizumipoi",
+    "kisaragiyu",
+    "tam_u",
+    "saigakai",
+    "go_1tk",
+    "takano_yuki",
+    "yukkiy19905",
+    "tsumaranai",
+    "snow_chifuyu",
+    "mitsumi_m",
+    "coffeekizoku",
+    "moto4_koinu",
+    "riko0202",
+    "white_neige",
+    "yuukipi",
+    "hmyn_",
+    "nekoten_yuuna",
+    "happo82099352",
+    "poison_new1992",
+    "amuse_kenzen",
+    "dessertsoft_tw",
+    "amuse_sub",
+    "stealcatac",
+    "unisonshift",
+    "poison_ex1992",
+    "purple_newwork",
+    "orthrossoft",
+    "akaerocore",
+    "liar_railsoft",
+    "cyberworkskoho",
+    "holic_works",
+    "irodori_soft",
+    "akaerocore_kr",
+    "project_navel",
+    "cabbage_soft",
+    "aikouka23"
+  ],
+  "people": [
+    {
+      "handle": "moepedia_net",
+      "category": "info",
+      "summary": "汇总「美少女万華鏡」完整版开下载，「魔法使いの夜」两张主题歌CD与25、20周年旧作回顾。",
+      "via": [],
+      "sources": [
+        "x:2124809863092150329",
+        "x:2124790058016473346",
+        "x:2124829062044491790"
+      ]
+    },
+    {
+      "handle": "4gamernews",
+      "category": "info",
+      "summary": "集中报道WePlay 2026试玩与indiePlay大奖结果，并转述NVIDIA社长复归消息。",
+      "via": [],
+      "sources": [
+        "x:2124879661461315840",
+        "x:2124706256208502814",
+        "x:2124774560369439114"
+      ]
+    },
+    {
+      "handle": "kobaggio",
+      "category": "creator",
+      "summary": "转NVIDIA公告，也宣传「The Queen Saves the World」12月起在「青騎士」连载。",
+      "via": [],
+      "sources": [
+        "x:2124865060397019480",
+        "x:2124854459415306397"
+      ]
+    },
+    {
+      "handle": "douzinr18",
+      "category": "info",
+      "summary": "连发FANZA同人先行专卖与游戏博览10日元、500日元档，逐条标注折扣与截止日。",
+      "via": [],
+      "sources": [
+        "x:2124774986418368938",
+        "x:2124850500051083439",
+        "x:2124820304212132338"
+      ]
+    },
+    {
+      "handle": "dengekionline",
+      "category": "info",
+      "summary": "报道Acacia两作延期，同时跟进漫画新刊与「三國志 真戦」新剧本。",
+      "via": [],
+      "sources": [
+        "x:2124853827908342212",
+        "x:2124847285037330545",
+        "x:2124813311678296279"
+      ]
+    },
+    {
+      "handle": "youtan0309",
+      "category": "info",
+      "summary": "记录「魔導物語1-2-3」35周年，并在大须骏河屋观察中古行情。",
+      "via": [],
+      "sources": [
+        "x:2124518275547541508",
+        "x:2124820271517331697"
+      ]
+    },
+    {
+      "handle": "asou_ei",
+      "category": "creator",
+      "summary": "发布Acacia两作延期公告，也谈「恐怖愛好症」通关感想与メロンブックス黑五促销。",
+      "via": [],
+      "sources": [
+        "x:2124808951044989044",
+        "x:2124829007917330592",
+        "x:2124779635888255272"
+      ]
+    },
+    {
+      "handle": "akoutw",
+      "category": "info",
+      "summary": "预告電脳妄想開発室第872回请到赤月ゆむ，并记录收录与配音样品更新。",
+      "via": [],
+      "sources": [
+        "x:2124711107910910083",
+        "x:2124828936513499233",
+        "x:2124790067390796230"
+      ]
+    },
+    {
+      "handle": "automatonjapan",
+      "category": "info",
+      "summary": "围绕「GTA6」连发多条细节报道，也介绍「カーテンの向こう側」12月11日发售。",
+      "via": [],
+      "sources": [
+        "x:2124820049878036536",
+        "x:2124784862804750716",
+        "x:2124800161323028916"
+      ]
+    },
+    {
+      "handle": "akibablog",
+      "category": "info",
+      "summary": "讨论AED施救引发的争议，并补「灰色の魔女」角色解读。",
+      "via": [],
+      "sources": [
+        "x:2124838053621739836",
+        "x:2124744762104136012"
+      ]
+    },
+    {
+      "handle": "kidukirey",
+      "category": "creator",
+      "summary": "跟进NVIDIA显卡SSD写入问题的修复进展，也画蔚蓝档案新活动角色。",
+      "via": [],
+      "sources": [
+        "x:2124740033777447311",
+        "x:2124704308595953962"
+      ]
+    },
+    {
+      "handle": "hujisakiusa",
+      "category": "creator",
+      "summary": "宣传ASaProject新作联动咖啡，并推「あいミス」8周年纪念啤酒黑五促销。",
+      "via": [],
+      "sources": [
+        "x:2124699946293297488",
+        "x:2124700716908281999"
+      ]
+    },
+    {
+      "handle": "shin_kyogoku",
+      "category": "creator",
+      "summary": "围绕蔚蓝档案新PV与云林院ウララ作画，另公开「アズールレーン」彩色样品。",
+      "via": [],
+      "sources": [
+        "x:2124700156461535238",
+        "x:2124805657333264531",
+        "x:2124699709164151151"
+      ]
+    },
+    {
+      "handle": "sprite_fairys",
+      "category": "brand",
+      "summary": "「小金井荘と金色の揚羽蝶」进入发售倒计时，OP破50万播放并公布首批出货截止。",
+      "via": [],
+      "sources": [
+        "x:2124770121499742316",
+        "x:2124742107177127989",
+        "x:2124769823758684312"
+      ]
+    },
+    {
+      "handle": "overflow_staff",
+      "category": "brand",
+      "summary": "与网友围绕「スクールデイズ」旧作梗互动，兼晒女儿画的同题图。",
+      "via": [],
+      "sources": [
+        "x:2124585869139165423",
+        "x:2124785372840268209"
+      ]
+    },
+    {
+      "handle": "famitsu",
+      "category": "info",
+      "summary": "报道Acacia延期与「猫撫でシミュレーター」话题，并用今日是何日串起三个纪念日。",
+      "via": [],
+      "sources": [
+        "x:2124819862153523524",
+        "x:2124807792355926395",
+        "x:2124518367419871329"
+      ]
+    },
+    {
+      "handle": "hozakura",
+      "category": "creator",
+      "summary": "以选曲身份参加FBGM01并连发感想，提到与あざらしそふと的合作环节。",
+      "via": [],
+      "sources": [
+        "x:2124764254524133826",
+        "x:2124535213955203413",
+        "x:2124521355911790912"
+      ]
+    },
+    {
+      "handle": "itolife",
+      "category": "creator",
+      "summary": "上传辣椒炖豆料理短片，并转发读者照自己食谱做出的成品。",
+      "via": [],
+      "sources": [
+        "x:2124767615080091705",
+        "x:2124876750530453934"
+      ]
+    },
+    {
+      "handle": "shirabii",
+      "category": "creator",
+      "summary": "为響咲リオナ绘制50万人纪念周边，并公开担任CG的MV与个人周边开卖。",
+      "via": [],
+      "sources": [
+        "x:2124804856368296114",
+        "x:2124809199440081093",
+        "x:2124802298681668060"
+      ]
+    },
+    {
+      "handle": "kunaiuri",
+      "category": "creator",
+      "summary": "连着点评しぃしぃ的新曲与新衣装。",
+      "via": [],
+      "sources": [
+        "x:2124832021851898327",
+        "x:2124827932485132758"
+      ]
+    },
+    {
+      "handle": "urusibara_yuki",
+      "category": "creator",
+      "summary": "粉丝破1.3万，晒温泉近况与作画进度。",
+      "via": [],
+      "sources": [
+        "x:2124799898839384115",
+        "x:2124716213179937258"
+      ]
+    },
+    {
+      "handle": "fandc_staff",
+      "category": "brand",
+      "summary": "预告明年2月PC游戏痛车线下会，并为「Canvas3」制服立牌展收官。",
+      "via": [],
+      "sources": [
+        "x:2124779011817808331",
+        "x:2124717910044312037",
+        "x:2124518272364159168"
+      ]
+    },
+    {
+      "handle": "koumeren0205",
+      "category": "creator",
+      "summary": "公布C109与ωstar合摊，「美少女万華鏡」15周年新周边与纪念主视觉制作中。",
+      "via": [],
+      "sources": [
+        "x:2124810595367362738"
+      ]
+    },
+    {
+      "handle": "kionachi",
+      "category": "creator",
+      "summary": "聊VCRGTA年末动向，也提到AI话题下的发言顾虑。",
+      "via": [],
+      "sources": [
+        "x:2124832352111378594",
+        "x:2124764857241387209"
+      ]
+    },
+    {
+      "handle": "sukerasparo",
+      "category": "brand",
+      "summary": "NF2026与成瀬ちさと个展同日收官，并预告同志社EVE新刊与年末百合忘年会。",
+      "via": [],
+      "sources": [
+        "x:2124817251660624157",
+        "x:2124815049546203456",
+        "x:2124803498726588425"
+      ]
+    },
+    {
+      "handle": "jinan_sanzan",
+      "category": "creator",
+      "summary": "推HOOKSOFT首场演唱会抽选，并宣传「ワンナイトアフター」体验版与朗读剧转播。",
+      "via": [],
+      "sources": [
+        "x:2124701975044321544",
+        "x:2124551717132087468"
+      ]
+    },
+    {
+      "handle": "watanaberyoichi",
+      "category": "creator",
+      "summary": "在FANBOX写「灰色の魔女」角色感想，照常更新字日记。",
+      "via": [],
+      "sources": [
+        "x:2124746983839789274",
+        "x:2124812178909974604"
+      ]
+    },
+    {
+      "handle": "sin_kou_hyou",
+      "category": "creator",
+      "summary": "转「まいてつ」与アッシュアームズ联动角色的SD动作，并晒自制ハチロク。",
+      "via": [],
+      "sources": [
+        "x:2124805947176649098",
+        "x:2124624989106385104"
+      ]
+    },
+    {
+      "handle": "purple_ishikawa",
+      "category": "creator",
+      "summary": "补写「マガルミナ」谈话活动感谢，并推ゆずソフト角色吉他包。",
+      "via": [],
+      "sources": [
+        "x:2124736329632383147",
+        "x:2124830822691676408"
+      ]
+    },
+    {
+      "handle": "hooksoft",
+      "category": "brand",
+      "summary": "开放首场演唱会最速抽选，同时推「ハッピーウィークエンド」预约与PS4版折扣。",
+      "via": [],
+      "sources": [
+        "x:2124835362052751767",
+        "x:2124819749695836195",
+        "x:2124809431753887830"
+      ]
+    },
+    {
+      "handle": "sora_hajime",
+      "category": "creator",
+      "summary": "观察「魔法使いの夜」电影带新玩家进入视觉小说，也吐槽GTA6在视频平台的处境。",
+      "via": [],
+      "sources": [
+        "x:2124869495085056309",
+        "x:2124695879810695554",
+        "x:2124529525434560720"
+      ]
+    },
+    {
+      "handle": "sca_di",
+      "category": "creator",
+      "summary": "转NVIDIA社长复归快讯，并打卡「H2O」20周年快闪。",
+      "via": [],
+      "sources": [
+        "x:2124870015283277826",
+        "x:2124782531098943918"
+      ]
+    },
+    {
+      "handle": "inagaki_miko",
+      "category": "creator",
+      "summary": "推杏子御津配音的ASMR套装，也发日常贺图。",
+      "via": [],
+      "sources": [
+        "x:2124878568660574448",
+        "x:2124556658450072029"
+      ]
+    },
+    {
+      "handle": "tatami10jyo",
+      "category": "creator",
+      "summary": "对比板绘与液タブ的操作手感，顺手吐槽工作量。",
+      "via": [],
+      "sources": [
+        "x:2124765954689421735",
+        "x:2124760128683716947"
+      ]
+    },
+    {
+      "handle": "jitaku_st",
+      "category": "brand",
+      "summary": "公布「ギャルズフィクション‐Festival‐」OP主题歌由月乃演唱。",
+      "via": [],
+      "sources": [
+        "x:2124770965079105630",
+        "x:2124661605019623921"
+      ]
+    },
+    {
+      "handle": "sagaplanets",
+      "category": "brand",
+      "summary": "秋叶原画板展当日开场并改自由入场，另开2025冬季復刻抽选。",
+      "via": [],
+      "sources": [
+        "x:2124661710623768806",
+        "x:2124719649355083779",
+        "x:2124790063988961501"
+      ]
+    },
+    {
+      "handle": "bugbug_info",
+      "category": "info",
+      "summary": "推「アンスリウム」发售前特集，并介绍「夢見ル乙女」动画第2话。",
+      "via": [],
+      "sources": [
+        "x:2124760358833562105",
+        "x:2124820757351985478"
+      ]
+    },
+    {
+      "handle": "tokiko_flankoi",
+      "category": "creator",
+      "summary": "为「ざこのあひる」一周年做两成折扣，并更新自制游戏的日英版本。",
+      "via": [],
+      "sources": [
+        "x:2124684618918236231",
+        "x:2124535350278410716"
+      ]
+    },
+    {
+      "handle": "simizuhatumi",
+      "category": "creator",
+      "summary": "说明咖啡豆连帽衫含签名会套装的购买方式与举办日期。",
+      "via": [],
+      "sources": [
+        "x:2124854865902047524",
+        "x:2124713992535089166"
+      ]
+    },
+    {
+      "handle": "natsume3611",
+      "category": "creator",
+      "summary": "晒「アンスリウム」包装样品，并为「恐怖愛好症」修文本错误。",
+      "via": [],
+      "sources": [
+        "x:2124812189626425443",
+        "x:2124694099932729346"
+      ]
+    },
+    {
+      "handle": "nablack",
+      "category": "creator",
+      "summary": "公布11月24日首次直播，并放出主视觉一张。",
+      "via": [],
+      "sources": [
+        "x:2124868373435777030",
+        "x:2124820264559296725"
+      ]
+    },
+    {
+      "handle": "yamanta_15",
+      "category": "creator",
+      "summary": "预告「スイメド」11月26日圣诞滑冰活动与11月24日限定卡池。",
+      "via": [],
+      "sources": [
+        "x:2124729908177826108",
+        "x:2124730411636920768"
+      ]
+    },
+    {
+      "handle": "escude1998",
+      "category": "brand",
+      "summary": "为「廃村少女［弐］外伝」开挂画受注、问卷抽奖与FANZA评论活动。",
+      "via": [],
+      "sources": [
+        "x:2124820266601848938",
+        "x:2124820263325831496",
+        "x:2124820262050734207"
+      ]
+    },
+    {
+      "handle": "trader_r18",
+      "category": "info",
+      "summary": "更新中古PC游戏回收价，并推通信回收与门店补货。",
+      "via": [],
+      "sources": [
+        "x:2124774955543929245",
+        "x:2124714877344505996"
+      ]
+    },
+    {
+      "handle": "masanlive",
+      "category": "info",
+      "summary": "办「魔法使いの夜」电影无存档感想直播。",
+      "via": [],
+      "sources": [
+        "x:2124699468968698181",
+        "x:2124857886560124932"
+      ]
+    },
+    {
+      "handle": "f_maruto_staff",
+      "category": "creator",
+      "summary": "宣传「今さらですが、幼なじみを好きになってしまいました」最新话。",
+      "via": [],
+      "sources": [
+        "x:2124714749606916575"
+      ]
+    },
+    {
+      "handle": "matsuisansan",
+      "category": "creator",
+      "summary": "打卡「アマカノ」联动咖啡，并聊12月出差安排。",
+      "via": [],
+      "sources": [
+        "x:2124703044524998904"
+      ]
+    },
+    {
+      "handle": "zn_cien",
+      "category": "creator",
+      "summary": "发布「きょうだい」槐すい的涂鸦。",
+      "via": [],
+      "sources": [
+        "x:2124831786668876032"
+      ]
+    },
+    {
+      "handle": "radish2951",
+      "category": "creator",
+      "summary": "更新随笔「やりたいことをやる」。",
+      "via": [],
+      "sources": [
+        "x:2124875954854264968"
+      ]
+    },
+    {
+      "handle": "yaegasinan",
+      "category": "creator",
+      "summary": "为「シノビNEXUS」11月29日开服倒数，并办声优签名色纸抽选。",
+      "via": [],
+      "sources": [
+        "x:2124684359206678831",
+        "x:2124791312864223403"
+      ]
+    },
+    {
+      "handle": "minikleminikle",
+      "category": "creator",
+      "summary": "更新Ci-en背景素材，并给付费会员发六折券。",
+      "via": [],
+      "sources": [
+        "x:2124784264852148714",
+        "x:2124714562054140189"
+      ]
+    },
+    {
+      "handle": "smee_official",
+      "category": "brand",
+      "summary": "「ワンナイトアフター」进入4天倒计时，FANZA下载版预约与优惠券同步开出。",
+      "via": [],
+      "sources": [
+        "x:2124699474518024300",
+        "x:2124830319522316421"
+      ]
+    },
+    {
+      "handle": "silkysplus",
+      "category": "brand",
+      "summary": "公布「きまテン3」安妮黑裙抱枕11月27日开订、2027年2月发售。",
+      "via": [],
+      "sources": [
+        "x:2124835329777844250",
+        "x:2124833925608673486"
+      ]
+    },
+    {
+      "handle": "muvluv_official",
+      "category": "brand",
+      "summary": "连载「マブラヴ」角色介绍，并摘录「マブD」小说新章。",
+      "via": [],
+      "sources": [
+        "x:2124805164385337420",
+        "x:2124774957171581111"
+      ]
+    },
+    {
+      "handle": "tryset",
+      "category": "brand",
+      "summary": "预告2027年25周年的压轴企划，等正式告知。",
+      "via": [],
+      "sources": [
+        "x:2124761472102507003"
+      ]
+    },
+    {
+      "handle": "erogearealive",
+      "category": "info",
+      "summary": "用英文报道Acacia两作延期，并公布あざらしそふと新作FD标题。",
+      "via": [],
+      "sources": [
+        "x:2124822824514707778",
+        "x:2124521358935953874"
+      ]
+    },
+    {
+      "handle": "elen_mass",
+      "category": "creator",
+      "summary": "转「エクエク」官网的立绘差分与试听音源公开。",
+      "via": [],
+      "sources": [
+        "x:2124817417901904326"
+      ]
+    },
+    {
+      "handle": "ryunoon",
+      "category": "creator",
+      "summary": "画「アマカノ2」黑姫結灯。",
+      "via": [],
+      "sources": [
+        "x:2124793427988812091"
+      ]
+    },
+    {
+      "handle": "rodorin",
+      "category": "creator",
+      "summary": "就京都观光公害与城市财政发表看法。",
+      "via": [],
+      "sources": [
+        "x:2124714816900419897"
+      ]
+    },
+    {
+      "handle": "onowasabi",
+      "category": "creator",
+      "summary": "借推理小说的结构谈剧本创作方向。",
+      "via": [],
+      "sources": [
+        "x:2124822089609675244"
+      ]
+    },
+    {
+      "handle": "ka_fumifumi",
+      "category": "creator",
+      "summary": "更新カクヨム连载第66话。",
+      "via": [],
+      "sources": [
+        "x:2124818041385132093"
+      ]
+    },
+    {
+      "handle": "07th_official",
+      "category": "creator",
+      "summary": "转述Cosplay活动签名会的感谢与收益用途。",
+      "via": [],
+      "sources": [
+        "x:2124720225107198174"
+      ]
+    },
+    {
+      "handle": "kudokou_now",
+      "category": "creator",
+      "summary": "结束台北活动行程，记录首次那覇转机与当地探店。",
+      "via": [],
+      "sources": [
+        "x:2124730250324218137"
+      ]
+    },
+    {
+      "handle": "kisaragiyu",
+      "category": "creator",
+      "summary": "预告21点广播，谈愿望达成的实绩解锁环节。",
+      "via": [],
+      "sources": [
+        "x:2124832380775264456"
+      ]
+    },
+    {
+      "handle": "tam_u",
+      "category": "creator",
+      "summary": "为动画「信者ゼロの女神サマ」第7话开播倒数。",
+      "via": [],
+      "sources": [
+        "x:2124835353303335185"
+      ]
+    },
+    {
+      "handle": "saigakai",
+      "category": "creator",
+      "summary": "发布可在游戏里复现商店街的素材套件。",
+      "via": [],
+      "sources": [
+        "x:2124646285320110409"
+      ]
+    },
+    {
+      "handle": "go_1tk",
+      "category": "creator",
+      "summary": "回应视觉小说是什么的讨论，推荐近年参与的作品。",
+      "via": [],
+      "sources": [
+        "x:2124864035166503056"
+      ]
+    },
+    {
+      "handle": "takano_yuki",
+      "category": "creator",
+      "summary": "推「エンクリ」与D.C.联动的復刻卡池。",
+      "via": [],
+      "sources": [
+        "x:2124518278517379297"
+      ]
+    },
+    {
+      "handle": "mitsumi_m",
+      "category": "creator",
+      "summary": "翻出刚入行时的原画旧稿。",
+      "via": [],
+      "sources": [
+        "x:2124726586297741583"
+      ]
+    },
+    {
+      "handle": "coffeekizoku",
+      "category": "creator",
+      "summary": "预告11月25日直播，聊签名会与周边情报。",
+      "via": [],
+      "sources": [
+        "x:2124707121489145909"
+      ]
+    },
+    {
+      "handle": "moto4_koinu",
+      "category": "creator",
+      "summary": "发布新嘗祭贺图。",
+      "via": [],
+      "sources": [
+        "x:2124521065850544213"
+      ]
+    },
+    {
+      "handle": "riko0202",
+      "category": "creator",
+      "summary": "开冬コミ作画直播。",
+      "via": [],
+      "sources": [
+        "x:2124801841133437107"
+      ]
+    },
+    {
+      "handle": "hmyn_",
+      "category": "creator",
+      "summary": "公开冬コミ周边要用的兔耳少女新图。",
+      "via": [],
+      "sources": [
+        "x:2124819976913867131"
+      ]
+    },
+    {
+      "handle": "nekoten_yuuna",
+      "category": "creator",
+      "summary": "转中古美少女游戏实体店全国清单，谈自社作品收集。",
+      "via": [],
+      "sources": [
+        "x:2124579674491855191"
+      ]
+    },
+    {
+      "handle": "happo82099352",
+      "category": "creator",
+      "summary": "为メロンブックス「Underwears10」绘制插图。",
+      "via": [],
+      "sources": [
+        "x:2124809186836193481"
+      ]
+    },
+    {
+      "handle": "poison_new1992",
+      "category": "brand",
+      "summary": "官网粉丝站更新「ギャル姉Z」短篇第5话。",
+      "via": [],
+      "sources": [
+        "x:2124850463128580431"
+      ]
+    },
+    {
+      "handle": "amuse_kenzen",
+      "category": "brand",
+      "summary": "公开「養花師の背徳愛」介绍影片，由两位声优出镜。",
+      "via": [],
+      "sources": [
+        "x:2124777974398603560"
+      ]
+    },
+    {
+      "handle": "dessertsoft_tw",
+      "category": "brand",
+      "summary": "「どいなかガールズゆーとぴあ」发售前4天提醒预约。",
+      "via": [],
+      "sources": [
+        "x:2124829394556641479"
+      ]
+    },
+    {
+      "handle": "amuse_sub",
+      "category": "brand",
+      "summary": "推「カノジョの妹のあざと誘惑」FANZA豪华版预约。",
+      "via": [],
+      "sources": [
+        "x:2124779736039608786"
+      ]
+    },
+    {
+      "handle": "unisonshift",
+      "category": "brand",
+      "summary": "公开「小日向柚月と初夜したい」桜音兔耳差分。",
+      "via": [],
+      "sources": [
+        "x:2124789047239332116"
+      ]
+    },
+    {
+      "handle": "poison_ex1992",
+      "category": "brand",
+      "summary": "开放「ギャル姉Z」同人版预告页，请读者加收藏。",
+      "via": [],
+      "sources": [
+        "x:2124667983842947542"
+      ]
+    },
+    {
+      "handle": "purple_newwork",
+      "category": "brand",
+      "summary": "上传「ハピメア」有声漫画短片第1话。",
+      "via": [],
+      "sources": [
+        "x:2124805159494595049"
+      ]
+    },
+    {
+      "handle": "orthrossoft",
+      "category": "brand",
+      "summary": "转上海WePlay展会感谢贴，晒「オトメき」角色立绘。",
+      "via": [],
+      "sources": [
+        "x:2124531966116790570"
+      ]
+    },
+    {
+      "handle": "akaerocore",
+      "category": "brand",
+      "summary": "办「セヴンデイズ」抽奖，送游戏序号与同人点数。",
+      "via": [],
+      "sources": [
+        "x:2124812700861579279"
+      ]
+    },
+    {
+      "handle": "liar_railsoft",
+      "category": "brand",
+      "summary": "回顾「赫炎のインガノック」19年前发售与当年配音感想。",
+      "via": [],
+      "sources": [
+        "x:2124803934258872372"
+      ]
+    },
+    {
+      "handle": "cyberworkskoho",
+      "category": "brand",
+      "summary": "「ユメウツツ補習授業」海报与复制原画在宇都宫店展示。",
+      "via": [],
+      "sources": [
+        "x:2124713190210854943"
+      ]
+    },
+    {
+      "handle": "holic_works",
+      "category": "brand",
+      "summary": "公开「夜明け前にあいましょう」试听音源，早期预约11月29日截止。",
+      "via": [],
+      "sources": [
+        "x:2124790242867810595"
+      ]
+    },
+    {
+      "handle": "irodori_soft",
+      "category": "brand",
+      "summary": "「くノ一学園のウラオモテ」新作11月27日发售，预约与试听公开。",
+      "via": [],
+      "sources": [
+        "x:2124829919138250838"
+      ]
+    },
+    {
+      "handle": "akaerocore_kr",
+      "category": "brand",
+      "summary": "以韩语同步「セヴンデイズ」抽奖活动。",
+      "via": [],
+      "sources": [
+        "x:2124813583737332165"
+      ]
+    },
+    {
+      "handle": "project_navel",
+      "category": "brand",
+      "summary": "更新「ねぶチューブ」第366回，年内还剩5期。",
+      "via": [],
+      "sources": [
+        "x:2124817128884937181"
+      ]
+    }
+  ],
+  "provenance": {
+    "generator": "gplus/1",
+    "prompt_version": 1,
+    "cache_key": "gplus-2026-11-23",
+    "generated_at": "2026-11-23T16:00:00+00:00"
+  }
+}

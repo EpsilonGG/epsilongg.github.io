@@ -122,13 +122,19 @@ def main(argv: list[str] | None = None) -> int:
     args.dest.mkdir(parents=True, exist_ok=True)
     # RSS feeds hold the newest ~20 tweets per account, so inactive accounts
     # contribute items from years ago, and a mid-day fetch already carries a
-    # few items from today. Anchor the retention window to the committed store,
-    # then ignore anything outside it instead of materialising 800 day files.
+    # few items from today. Anchor the retention window to the committed store
+    # *and* the fresh raw fetch, then ignore anything outside it instead of
+    # materialising 800 day files.
+    #
+    # 2026-11-23 修：原先只按已落盘日锚定，库停在昨天时新抓到的今天整天都会被
+    # 窗口挡掉（跑完 2026-11-23 一片都没写，看起来像「没数据」）。现在两边取
+    # 并集，并把上界钉在「JST 昨天」——当天的半截数据不落盘，等次日抓全再切。
     raw_by_day = load_items(args.raw)
     existing_days = {p.stem for p in args.dest.glob("????-??-??.jsonl")}
-    anchor_days = existing_days or set(raw_by_day)
+    anchor_days = existing_days | set(raw_by_day)
     if anchor_days:
-        keep_to = date.fromisoformat(max(anchor_days))
+        newest = max(date.fromisoformat(day) for day in anchor_days)
+        keep_to = min(newest, datetime.now(JST).date() - timedelta(days=1))
         keep_from = keep_to - timedelta(days=max(args.keep, 1) - 1)
     else:
         keep_to = keep_from = None
