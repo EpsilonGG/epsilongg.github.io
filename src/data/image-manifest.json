@@ -1,6 +1,6 @@
 {
   "$comment": "由 scripts/optimize_images.mjs 生成，请勿手改。",
-  "generatedAt": "2026-11-23T01:22:07.973Z",
+  "generatedAt": "2026-11-23T05:52:56.586Z",
   "images": {
     "/images/blog/automaton-crymelight-mugenzakura-roundtable/01.jpg": {
       "w": 1080,
@@ -1026,6 +1026,228 @@
           "w": 1600,
           "src": "/images/blog/famitsu-aniplex-roundtable/hero-1600.webp",
           "bytes": 237116
+        }
+      ]
+    },
+    "/images/blog/floraison-ikomochi-artbook-55q/01.jpg": {
+      "w": 1600,
+      "h": 1990,
+      "bytes": 418693,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/floraison-ikomochi-artbook-55q/01-600.webp",
+          "bytes": 75160
+        },
+        {
+          "w": 960,
+          "src": "/images/blog/floraison-ikomochi-artbook-55q/01-960.webp",
+          "bytes": 144966
+        },
+        {
+          "w": 1600,
+          "src": "/images/blog/floraison-ikomochi-artbook-55q/01-1600.webp",
+          "bytes": 272176
+        }
+      ]
+    },
+    "/images/blog/floraison-ikomochi-artbook-55q/02.jpg": {
+      "w": 1153,
+      "h": 1200,
+      "bytes": 101802,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/floraison-ikomochi-artbook-55q/02-600.webp",
+          "bytes": 30218
+        },
+        {
+          "w": 1153,
+          "src": "/images/blog/floraison-ikomochi-artbook-55q/02-1153.webp",
+          "bytes": 65646
+        }
+      ]
+    },
+    "/images/blog/floraison-ikomochi-artbook-55q/03.jpg": {
+      "w": 1373,
+      "h": 1800,
+      "bytes": 222528,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/floraison-ikomochi-artbook-55q/03-600.webp",
+          "bytes": 48636
+        },
+        {
+          "w": 960,
+          "src": "/images/blog/floraison-ikomochi-artbook-55q/03-960.webp",
+          "bytes": 88302
+        },
+        {
+          "w": 1373,
+          "src": "/images/blog/floraison-ikomochi-artbook-55q/03-1373.webp",
+          "bytes": 141764
+        }
+      ]
+    },
+    "/images/blog/floraison-ikomochi-artbook-55q/04.jpg": {
+      "w": 1286,
+      "h": 2005,
+      "bytes": 257756,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/floraison-ikomochi-artbook-55q/04-600.webp",
+          "bytes": 62928
+        },
+        {
+          "w": 960,
+          "src": "/images/blog/floraison-ikomochi-artbook-55q/04-960.webp",
+          "bytes": 106500
+        },
+        {
+          "w": 1286,
+          "src": "/images/blog/floraison-ikomochi-artbook-55q/04-1286.webp",
+          "bytes": 145596
+        }
+      ]
+    },
+    "/images/blog/floraison-ikomochi-artbook-55q/05.jpg": {
+      "w": 1494,
+      "h": 2000,
+      "bytes": 302484,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/floraison-ikomochi-artbook-55q/05-600.webp",
+          "bytes": 60180
+        },
+        {
+          "w": 960,
+          "src": "/images/blog/floraison-ikomochi-artbook-55q/05-960.webp",
+          "bytes": 108822
+        },
+        {
+          "w": 1494,
+          "src": "/images/blog/floraison-ikomochi-artbook-55q/05-1494.webp",
+          "bytes": 181786
+        }
+      ]
+    },
+    "/images/blog/floraison-ikomochi-artbook-55q/06.jpg": {
+      "w": 1146,
+      "h": 1581,
+      "bytes": 293184,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/floraison-ikomochi-artbook-55q/06-600.webp",
+          "bytes": 85658
+        },
+        {
+          "w": 1146,
+          "src": "/images/blog/floraison-ikomochi-artbook-55q/06-1146.webp",
+          "bytes": 211106
+        }
+      ]
+    },
+    "/images/blog/floraison-ikomochi-artbook-55q/07.jpg": {
+      "w": 1371,
+      "h": 1851,
+      "bytes": 371661,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/floraison-ikomochi-artbook-55q/07-600.webp",
+          "bytes": 79040
+        },
+        {
+          "w": 960,
+          "src": "/images/blog/floraison-ikomochi-artbook-55q/07-960.webp",
+          "bytes": 155470
+        },
+        {
+          "w": 1371,
+          "src": "/images/blog/floraison-ikomochi-artbook-55q/07-1371.webp",
+          "bytes": 268938
+        }
+      ]
+    },
+    "/images/blog/floraison-ikomochi-artbook-55q/08.jpg": {
+      "w": 1600,
+      "h": 1143,
+      "bytes": 219761,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/floraison-ikomochi-artbook-55q/08-600.webp",
+          "bytes": 39148
+        },
+        {
+          "w": 960,
+          "src": "/images/blog/floraison-ikomochi-artbook-55q/08-960.webp",
+          "bytes": 72810
+        },
+        {
+          "w": 1600,
+          "src": "/images/blog/floraison-ikomochi-artbook-55q/08-1600.webp",
+          "bytes": 135408
+        }
+      ]
+    },
+    "/images/blog/floraison-ikomochi-artbook-55q/09.jpg": {
+      "w": 1050,
+      "h": 550,
+      "bytes": 126919,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/floraison-ikomochi-artbook-55q/09-600.webp",
+          "bytes": 43940
+        },
+        {
+          "w": 1050,
+          "src": "/images/blog/floraison-ikomochi-artbook-55q/09-1050.webp",
+          "bytes": 97542
+        }
+      ]
+    },
+    "/images/blog/floraison-ikomochi-artbook-55q/10.jpg": {
+      "w": 1283,
+      "h": 1800,
+      "bytes": 294884,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/floraison-ikomochi-artbook-55q/10-600.webp",
+          "bytes": 77824
+        },
+        {
+          "w": 960,
+          "src": "/images/blog/floraison-ikomochi-artbook-55q/10-960.webp",
+          "bytes": 136428
+        },
+        {
+          "w": 1283,
+          "src": "/images/blog/floraison-ikomochi-artbook-55q/10-1283.webp",
+          "bytes": 190466
+        }
+      ]
+    },
+    "/images/blog/floraison-ikomochi-artbook-55q/11.jpg": {
+      "w": 1200,
+      "h": 849,
+      "bytes": 232737,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/floraison-ikomochi-artbook-55q/11-600.webp",
+          "bytes": 65160
+        },
+        {
+          "w": 1200,
+          "src": "/images/blog/floraison-ikomochi-artbook-55q/11-1200.webp",
+          "bytes": 188592
         }
       ]
     },
