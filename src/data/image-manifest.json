@@ -1,6 +1,6 @@
 {
   "$comment": "由 scripts/optimize_images.mjs 生成，请勿手改。",
-  "generatedAt": "2026-11-23T05:52:56.586Z",
+  "generatedAt": "2026-11-23T18:11:16.351Z",
   "images": {
     "/images/blog/automaton-crymelight-mugenzakura-roundtable/01.jpg": {
       "w": 1080,
@@ -1248,6 +1248,114 @@
           "w": 1200,
           "src": "/images/blog/floraison-ikomochi-artbook-55q/11-1200.webp",
           "bytes": 188592
+        }
+      ]
+    },
+    "/images/blog/gamespark-cdpr-nonlinear-quest-interview/01.jpg": {
+      "w": 670,
+      "h": 447,
+      "bytes": 54086,
+      "variants": [
+        {
+          "w": 670,
+          "src": "/images/blog/gamespark-cdpr-nonlinear-quest-interview/01-670.webp",
+          "bytes": 27324
+        }
+      ]
+    },
+    "/images/blog/gamespark-cdpr-nonlinear-quest-interview/02.jpg": {
+      "w": 670,
+      "h": 447,
+      "bytes": 76944,
+      "variants": [
+        {
+          "w": 670,
+          "src": "/images/blog/gamespark-cdpr-nonlinear-quest-interview/02-670.webp",
+          "bytes": 40954
+        }
+      ]
+    },
+    "/images/blog/gamespark-cdpr-nonlinear-quest-interview/03.jpg": {
+      "w": 670,
+      "h": 376,
+      "bytes": 85942,
+      "variants": [
+        {
+          "w": 670,
+          "src": "/images/blog/gamespark-cdpr-nonlinear-quest-interview/03-670.webp",
+          "bytes": 31826
+        }
+      ]
+    },
+    "/images/blog/gamespark-cdpr-nonlinear-quest-interview/04.jpg": {
+      "w": 670,
+      "h": 447,
+      "bytes": 50765,
+      "variants": [
+        {
+          "w": 670,
+          "src": "/images/blog/gamespark-cdpr-nonlinear-quest-interview/04-670.webp",
+          "bytes": 23666
+        }
+      ]
+    },
+    "/images/blog/gamespark-cdpr-nonlinear-quest-interview/05.jpg": {
+      "w": 670,
+      "h": 376,
+      "bytes": 155532,
+      "variants": [
+        {
+          "w": 670,
+          "src": "/images/blog/gamespark-cdpr-nonlinear-quest-interview/05-670.webp",
+          "bytes": 60440
+        }
+      ]
+    },
+    "/images/blog/gamespark-cdpr-nonlinear-quest-interview/06.jpg": {
+      "w": 670,
+      "h": 447,
+      "bytes": 78309,
+      "variants": [
+        {
+          "w": 670,
+          "src": "/images/blog/gamespark-cdpr-nonlinear-quest-interview/06-670.webp",
+          "bytes": 41652
+        }
+      ]
+    },
+    "/images/blog/gamespark-cdpr-nonlinear-quest-interview/07.jpg": {
+      "w": 670,
+      "h": 405,
+      "bytes": 50355,
+      "variants": [
+        {
+          "w": 670,
+          "src": "/images/blog/gamespark-cdpr-nonlinear-quest-interview/07-670.webp",
+          "bytes": 23056
+        }
+      ]
+    },
+    "/images/blog/gamespark-cdpr-nonlinear-quest-interview/08.jpg": {
+      "w": 670,
+      "h": 376,
+      "bytes": 76117,
+      "variants": [
+        {
+          "w": 670,
+          "src": "/images/blog/gamespark-cdpr-nonlinear-quest-interview/08-670.webp",
+          "bytes": 22344
+        }
+      ]
+    },
+    "/images/blog/gamespark-cdpr-nonlinear-quest-interview/09.jpg": {
+      "w": 670,
+      "h": 1003,
+      "bytes": 128007,
+      "variants": [
+        {
+          "w": 670,
+          "src": "/images/blog/gamespark-cdpr-nonlinear-quest-interview/09-670.webp",
+          "bytes": 63690
         }
       ]
     },
