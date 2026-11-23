@@ -1,6 +1,6 @@
 {
   "$comment": "由 scripts/optimize_images.mjs 生成，请勿手改。",
-  "generatedAt": "2026-11-23T00:55:33.201Z",
+  "generatedAt": "2026-11-23T01:22:07.973Z",
   "images": {
     "/images/blog/automaton-crymelight-mugenzakura-roundtable/01.jpg": {
       "w": 1080,
@@ -4443,6 +4443,28 @@
           "w": 1192,
           "src": "/images/blog/sakunaverse-yuki-sakuna-interview/06-1192.webp",
           "bytes": 63238
+        }
+      ]
+    },
+    "/images/blog/sakunaverse-yuki-sakuna-interview/hero.jpg": {
+      "w": 1600,
+      "h": 900,
+      "bytes": 316653,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/sakunaverse-yuki-sakuna-interview/hero-600.webp",
+          "bytes": 54566
+        },
+        {
+          "w": 960,
+          "src": "/images/blog/sakunaverse-yuki-sakuna-interview/hero-960.webp",
+          "bytes": 104768
+        },
+        {
+          "w": 1600,
+          "src": "/images/blog/sakunaverse-yuki-sakuna-interview/hero-1600.webp",
+          "bytes": 204586
         }
       ]
     },
