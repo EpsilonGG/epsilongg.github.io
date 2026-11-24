@@ -80,10 +80,15 @@ data/daily/2611{19,20,21}-gp/report.json
 - **正文段序（2026-11-22 定稿）**：今日看点 → **总结**（洞察 / 互动两个可折叠栏目）→ 长图 → **详细**，`详细` 固定为最后一栏。改动落在 `src/layouts/DailyLayout.astro` + `src/scripts/daily-filter.ts`（按组遍历）+ `src/styles/components.css` 的 `.daily-summary`；声优版与 Galgame 版仍是「互动」「洞察」两段，不被这条影响。
 - 保护集按要求改动并登记 `tests/daily-protection-waivers.json`（batch `gplus-daily-entry-2026-11-22`）；取数脚本 `scripts/daily/` 与判卷脚本未改。
 
-### 1.5 定时任务（2026-11-23 用户裁决：并进 23:15 自动化）
+### 1.5 定时任务（2026-11-23 用户裁决：并进 23:15 自动化；同日同步玩家号回复常规模式）
 
 - **一个自动化跑三期**：WorkBuddy 自动化 `2dd4cc0c-7725-4819-85db-f45d4a704e9e`（`FREQ=DAILY;BYHOUR=23;BYMINUTE=15`）现在按 **声优 → Galgame → Gplus** 串行跑完三期。
+- **11.22 那期即常规模板**：2026-11-23 把 `gplus_replies.py` 的玩家号本人回复抓取写进自动化第 3.1 步（清缓存 → `gplus_fetch.py` → `gplus_replies.py` → `gplus_slice.py` → `gplus_digest.py`），出稿口径照已发布的 `Gplus_004.json`（11.22）。回复抓取失败只报告、不阻塞 RSS 主线。`out/gplus/reports/` 是 gitignored 工作台，跨运行可能不在，按样板字段新建即可。
+- **每天开抓前必须清缓存**：两个抓取脚本是「文件存在＝缓存」，昨天的 JSON 留着会让全号报 cached、切片无当天数据、digest 退 2。清的是 `out/gplus/raw/`、`out/gplus/replies/`、`out/gplus/thread_replies/` 三处的 `*.json`，不碰 data/ 正本、reports 与 digest。
+- **必须显式传代理**（2026-11-24 事故）：`gplus_fetch.py` / `gplus_replies.py` 都加 `--proxy http://127.0.0.1:7897`。自动探测当时拿一个死掉的 `nitter.jaydenha.uk` 当探针，误判成「无代理」→ 405 号全走直连、每号 3 端点 ×2 次 ×20s 超时，抓了 64 分钟、372 个 raw 全 error，当晚无 Gplus 期。修法：`pick_proxy()` 改探可用实例、`ENDPOINTS` 把 `nitter.cf` 提到首位、前 24 个全失败即熔断（`summary.json:aborted=true`）；自动化命令仍显式传 `--proxy` 兜底。
+- **实例清单复核（2026-11-25）**：经 7897 实测 `<base>/<handle>/rss` 与 `/<handle>` HTML profile——可用并写进两个抓取脚本的 `ENDPOINTS`：`nitter.cf`（主）、`nitter.gq`、`xitter.gq`、`teapawt.org`（后三个为新增，真实号 RSS/HTML 都 200、1.4–3.6s，20 条 RSS / 15 个 timeline-item）；`nitter.meowing.monster` 9s 且偶发 404/429，只在 RSS 保留末位。不收录：`nitter.jaydenha.uk`（死）、`nitter.mie.foundation`（真实号 429）、`xnologin.com` / `nitter.xitter.cc` / `nitter.tiekoetter.com`（Anubis「not a bot」页）、`goyimx.com`（HTML 418、慢）。三个新实例同属 Teapawt 系，是主机级冗余、不是独立上游；主实例失效时仍要核对 digest 的 `last=` 与条数。
 - **顺序**：声优先提取、先出稿，Galgame 其次，Gplus 最后；`daily_prepare`／`daily_digest` 只服务前两期。
+- **转发口径（2026-11-25 用户裁决，三期通用）**：题面标 `repost` / `转发自 @xxx` / digest `RT @xxx:` 的条目是转发，写 highlights / works / interactions / people 必须写「A 转发了 B 的消息」，不能把被转内容记成 A 的原创。反面教材：261124 把 mirai_chiroru 转的『Cinnamon☆JewelryBox』公告写成「大山チロル精选集开订」。数据层 `Item.from_xreader()` 兜底识别 Nitter inline RT（`author_name` 形如 `RT @orig (by @owner)`），`PROMPT_VERSION` 升 7；Gplus digest 新增 `## Reposts` 段逐条列 `[id] -> @原作者`。
 - **不再有固定等待**：原来抓取完成后那条 `sleep 300` 已删掉，数据落地（退出码 0）就开工；抓取失败仍按 23:40 补抓一次。
 - **各自推送**：每期 `confirm → publish → 长图 → push_site.py` 一条龙，推完再开下一期；不再攒到最后一起推。Gplus 的 push 带 `--path data/daily/ --path data/xreader/gplus/ --path public/images/gplus/`。
 - **Gplus 的取数改成可复现脚本**：新增 `scripts/gplus_digest.py`，从 `data/xreader/gplus/<JST 日期>.jsonl` 生成 `out/gplus/digest/<日期>.md`（`items/accounts/originals` + RT 集群 + 关键词词频 + 按账号分组的原文），最后一行打印 `last=HH:MM JST` 供覆盖闸门判断（距 24:00 超 2 小时即重抓一次，仍不全就跳过这一期）。此前这三份 digest 是手工生成的，定时任务里不能这么干。
@@ -104,20 +109,20 @@ data/daily/2611{19,20,21}-gp/report.json
 
 ### 3.1 名单与抓取
 
-- `src/config/gplus-roster.json`：403 个号，字段 `handle / name / group / section / tier / role / brand / tags / last30 / last`；`group` ∈ `creator|brand|info`。另有可选布尔字段 `reply_scope`（2026-11-23 起）：只标玩家／评论总结向的 10 个号，与 `group` 无关，供回复抓取用。这是唯一可写正本。
+- `src/config/gplus-roster.json`：405 个号（2026-11-25 补入 `randall_kznr` / `KulVario0`），字段 `handle / name / group / section / tier / role / brand / tags / last30 / last`；`group` ∈ `creator|brand|info`。另有可选布尔字段 `reply_scope`（2026-11-23 起）：只标玩家／评论总结向的 12 个号，与 `group` 无关，供回复抓取用。这是唯一可写正本。
 - X-Reader 仓另开 `update-gplus.yml` + `config/config.galplus.yaml`（`data-galplus`），`accounts.galplus.yaml` 由 roster 生成；**本次测试用站点仓的 `scripts/gplus_fetch.py` 直连 Nitter 完成**，尚未在 X-Reader 仓落 workflow。两条路都要保证 403 号、独立 data_dir、独立 concurrency group。
 - 本机必须显式 `--proxy http://127.0.0.1:7897`；默认代理（65312）打不开 Nitter，直连超时。CI 上直连可用。
 - RSS 路由单号 20 条上限，403 号一次约 1.5 分钟（14 并发）；统计的「转推」来自 RSS 的 `RT by @…:` 文本前缀。
 - **回复抓取（2026-11-23 起）**：`gplus_fetch.py` 的 RSS 出口拿不到任何回复（`is_reply` 硬编码 false），但 X-Reader 仓已有 `parsers/nitter_html.py`，能读 `div.replying-to`；本机 `nitter.jaydenha.uk` 的 HTML 403/429、`nitter.meowing.monster` 是 Anubis 验证页，而 `nitter.cf` 实测 200（profile 与 status 页都可用）。因此新增 `scripts/gplus_replies.py`：
-  - **账号范围（用户裁决）**：只抓 `reply_scope: true` 的 10 个号——`youtan0309`、`cloud668`、`aikouka23`、`masanlive`、`hiro_in`、`seiya_saiga`、`akibablog`、`AKOUtw`、`Nooksite`、`erogeAreAlive`。日本官方媒体／商店号（famitsu、dengeki、DLsite 等）不抓，它们的回复多是广告与抽奖灌水。
-  - **内容范围（用户裁决）**：只收**这 10 个号本人发出的回复**，不收旁人在它们推文下的评论。实现上是 profile HTML 里带 `replying-to` 的 timeline item（`route=html`），加上 status 页里作者属于 reply_scope 的条目（`route=status-html` / `parent_tweet_id` / `parent_author`）；后者覆盖「账号在自己的评论区里回别人」的情况。旁人评论由 `scope_replies()` 过滤掉，缓存里的旧评论每次运行都会重新过滤并从磁盘删除（`prune_cache`），不会因名单收缩而残留。
+  - **账号范围（用户裁决）**：只抓 `reply_scope: true` 的 12 个号——`youtan0309`、`cloud668`、`aikouka23`、`masanlive`、`hiro_in`、`seiya_saiga`、`akibablog`、`AKOUtw`、`Nooksite`、`erogeAreAlive`、`randall_kznr`（Randall，FAKKU 英文编辑／设计）、`KulVario0`（Vario，ErogeAreAlive 运营／推理游戏评论）。日本官方媒体／商店号（famitsu、dengeki、DLsite 等）不抓，它们的回复多是广告与抽奖灌水。
+  - **内容范围（用户裁决）**：只收**这 12 个号本人发出的回复**，不收旁人在它们推文下的评论。实现上是 profile HTML 里带 `replying-to` 的 timeline item（`route=html`），加上 status 页里作者属于 reply_scope 的条目（`route=status-html` / `parent_tweet_id` / `parent_author`）；后者覆盖「账号在自己的评论区里回别人」的情况。旁人评论由 `scope_replies()` 过滤掉，缓存里的旧评论每次运行都会重新过滤并从磁盘删除（`prune_cache`），不会因名单收缩而残留。
   - Nitter status 页没有 `replying-to` 标记，日期只到分钟、正文空白会被压掉，所以这类条目**只新增、不覆盖**已有 RSS 项。
   - 限制：profile 只给最新约 20 条，回复若不在当前窗口就抓不到；不是完整评论归档。status 页可能夹带多层回复，parent 一律记所请求的那条推。每号最多开 `--per-account`（默认 3）条原创推的 status 页。
 
 ### 3.2 出稿与闸门
 
 - `scripts/gplus_slice.py` 按 JST 日切片、保留 40 天，并把 `out/gplus/replies/`（本人回复）与 `out/gplus/thread_replies/`（自己评论区里的本人回复）合进同一天文件；保留窗口锚定**已有切片的最新日**，不因 raw 里的老推或当天零星推新建/挤掉日片；已有条目逐字节保留，`route=html` 的同 id 项替换 RSS 项，`route=status-html` 只新增。只用 `--raw out/gplus/raw-empty` 可以先合回复、不碰 raw。`out/gplus/digest/` 是规则层工作台（RT 聚集、关键词频次、逐号原文），不进正本。
-- `scripts/gplus_publish.py` 检查：草稿期号格式、`status=confirmed`、每条来源能在 `data/xreader/gplus/` 解析到真实推文、`people[].handle` 在 403 名单内、叙述里没有 `@handle`、`works` 为空；发布时按 `window.start` 转成 `YYMMDD-gp`，补上 Zod 默认字段后写进 `data/daily/`。
+- `scripts/gplus_publish.py` 检查：草稿期号格式、`status=confirmed`、每条来源能在 `data/xreader/gplus/` 解析到真实推文、`people[].handle` 在名单内（现 405 号）、叙述里没有 `@handle`、`works` 为空；发布时按 `window.start` 转成 `YYMMDD-gp`，补上 Zod 默认字段后写进 `data/daily/`。
 - 站点出口只读 `data/daily/`（含三期 `-gp` 正本）；`out/gplus/` 与 `data/xreader/gplus/` 不进 Astro 构建，但后者要提交，供闸门校验来源。
 
 ### 3.3 与既有日报／周报的关系
@@ -182,7 +187,7 @@ python scripts/push_site.py -m "gplus: merge 3-day test into daily as YYMMDD-gp"
 | 风险                    | 对策                                                         |
 | --------------------- | ---------------------------------------------------------- |
 | 抓取号里很多当天不发言，详细栏看起来「空」 | 26%–38% 是真实覆盖；出稿只覆盖有原创推文的号，不补空行                            |
-| RSS 拿不到引用/回复元数据，交互栏偏薄 | 10 个玩家/评论号走 `gplus_replies.py` 的 Nitter HTML（本人回复，含自己评论区里的回复），其余号仍只有 RSS；要全覆盖得开 X-Reader 第三条 html-first 抓取线 |
+| RSS 拿不到引用/回复元数据，交互栏偏薄 | 12 个玩家/评论号走 `gplus_replies.py` 的 Nitter HTML（本人回复，含自己评论区里的回复），其余号仍只有 RSS；要全覆盖得开 X-Reader 第三条 html-first 抓取线 |
 | 与既有日报重复               | Gplus 叙述走「业界/交互」口径，`works` 恒空；双版日报不动                       |
 | 期号与日报混淆               | 日报统一 `YYMMDD`/`-g`/`-gp`，用 `DailyKind` 区分；周报才用 `Gplus_XXX` |
 | 推送卷进无关改动              | 严格 `--path` 白名单；推送后公开 API 核 SHA                            |

@@ -74,6 +74,40 @@ class ModelTest(unittest.TestCase):
         item = Item.from_xreader(RAW)
         validate(item.to_dict(), load_schema("item"))
 
+    def test_inline_rt_author_name_is_a_repost(self) -> None:
+        """Nitter `RT @orig (by @owner):` titles are reposts, not original posts.
+
+        2026-11-24 大山チロル错配：publisher=原作者、account=转发者、
+        author_name 带 `RT @… (by @…)`，但 is_retweet=false。
+        """
+        raw = dict(
+            RAW,
+            item_id="2124883809082741128",
+            publisher="cinnamon0109",
+            metadata=dict(
+                RAW["metadata"],
+                account="mirai_chiroru",
+                author_name="RT @cinnamon0109 (by @mirai_chiroru)",
+                is_retweet=False,
+            ),
+        )
+        item = Item.from_xreader(raw)
+        self.assertEqual(item.kind, "repost")
+        self.assertEqual(item.account, "mirai_chiroru")
+        self.assertEqual(item.repost_of, "cinnamon0109")
+        self.assertEqual(item.amplifiers, ["mirai_chiroru"])
+
+    def test_inline_rt_text_prefix_is_a_repost(self) -> None:
+        raw = dict(
+            RAW,
+            item_id="2124997627607670891",
+            content="RT @momojiri_nyugyo: 新作のお知らせ",
+            metadata=dict(RAW["metadata"], account="mirai_chiroru", is_retweet=False),
+        )
+        item = Item.from_xreader(raw)
+        self.assertEqual(item.kind, "repost")
+        self.assertEqual(item.repost_of, "mimoriaino")  # publisher from RAW fixture
+
     def test_engagement_does_not_leak_into_text(self) -> None:
         item = Item.from_xreader(RAW)
         self.assertEqual(item.engagement.score(), 0)

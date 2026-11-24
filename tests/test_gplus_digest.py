@@ -94,6 +94,11 @@ class GplusDigestTest(unittest.TestCase):
         text = self.build()
         self.assertIn("- @kionachi (木緒なち) x1: elen_mass", text)
 
+    def test_reposts_section_names_original_author(self) -> None:
+        text = self.build()
+        self.assertIn("## Reposts (retweeter -> [id] @original: body)", text)
+        self.assertIn("- [444] -> @kionachi: RT @kionachi: 『新作』の発売が決定しました", text)
+
     def test_keywords_count_items_not_occurrences(self) -> None:
         text = self.build()
         # 「発売」出现在两条（一条原创、一条转推），按条目数算 2

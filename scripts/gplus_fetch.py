@@ -36,26 +36,48 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_ROSTER = ROOT / "src" / "config" / "gplus-roster.json"
+# Order matters: the first endpoint is tried for every handle, so a dead host
+# at the front costs one full timeout per account (403 x 20s / 12 threads ~ 11
+# minutes). Probed through 127.0.0.1:7897 on 2026-11-25 with real roster handles:
+# nitter.cf 1.5s, nitter.gq 1.5s, xitter.gq 1.5s, teapawt.org 1.7s all returned
+# 20 RSS items; jaydenha.uk is dead and nitter.meowing.monster is slow (9s) and
+# intermittently 404/429, so it stays last. The three new hosts are Teapawt
+# siblings: host-level fallbacks, not independent upstreams.
 ENDPOINTS = [
-    "https://nitter.jaydenha.uk",
-    "https://nitter.meowing.monster",
     "https://nitter.cf",
+    "https://nitter.gq",
+    "https://xitter.gq",
+    "https://teapawt.org",
+    "https://nitter.meowing.monster",
 ]
 UA = "Mozilla/5.0 (compatible; GplusFetch/1.0)"
+LOCAL_PROXY = "http://127.0.0.1:7897"
 
 
 def pick_proxy(explicit: str | None) -> str | None:
+    """Pick the Nitter proxy without trusting a single (often dead) host.
+
+    2026-11-24 nightly: the auto-probe used ``nitter.jaydenha.uk``, which is
+    dead, so it returned None even though 7897 was up. Every request then went
+    direct, all 403 accounts timed out, and the fetch took ~64 minutes while
+    writing 372 error files. Probe the instance that actually works instead.
+    """
     if explicit:
         return explicit
-    # 7897 is the local proxy that can reach Nitter; the default 65312 cannot.
-    probe = "https://nitter.jaydenha.uk"
-    handler = urllib.request.ProxyHandler({"http": "http://127.0.0.1:7897", "https": "http://127.0.0.1:7897"})
+    handler = urllib.request.ProxyHandler({"http": LOCAL_PROXY, "https": LOCAL_PROXY})
     opener = urllib.request.build_opener(handler)
-    try:
-        with opener.open(urllib.request.Request(probe, headers={"User-Agent": UA}), timeout=8):
-            return "http://127.0.0.1:7897"
-    except Exception:
-        return None
+    # Try the known-good instance first; any HTTP response (even 403/429) proves
+    # the proxy tunnel works, so treat HTTPError as success too.
+    for base in ENDPOINTS:
+        try:
+            with opener.open(urllib.request.Request(base, headers={"User-Agent": UA}), timeout=8):
+                return LOCAL_PROXY
+        except urllib.error.HTTPError:
+            return LOCAL_PROXY
+        except Exception:
+            continue
+    # Proxy not usable. Direct may work on CI (documented), so fall back to it.
+    return None
 
 
 def build_opener(proxy: str | None):
@@ -163,13 +185,28 @@ def main(argv: list[str] | None = None) -> int:
     args.out.mkdir(parents=True, exist_ok=True)
 
     results = []
+    aborted = False
     with concurrent.futures.ThreadPoolExecutor(max_workers=args.concurrency) as pool:
         futures = {pool.submit(fetch_one, h, proxy, args.out, args.retries): h for h in handles}
-        for i, fut in enumerate(concurrent.futures.as_completed(futures), 1):
+        for fut in concurrent.futures.as_completed(futures):
             res = fut.result()
             results.append(res)
-            if i % 50 == 0:
-                print(f"  {i}/{len(handles)} done", file=sys.stderr)
+            if len(results) % 50 == 0:
+                print(f"  {len(results)}/{len(handles)} done", file=sys.stderr)
+            # Circuit breaker: if the first 24 accounts all failed, every
+            # endpoint is unreachable (wrong proxy / down instance). Bail out
+            # instead of burning an hour on 405 x 3 x 2 x 20s timeouts.
+            if len(results) == 24 and not any(r["status"] == "ok" for r in results):
+                aborted = True
+                for pending in futures:
+                    pending.cancel()
+                print(
+                    "abort: first 24 accounts all failed; check proxy/endpoints",
+                    file=sys.stderr,
+                )
+                break
+        if aborted:
+            pool.shutdown(wait=False, cancel_futures=True)
 
     ok = [r for r in results if r["status"] == "ok"]
     cached = [r for r in results if r["status"] == "cached"]
@@ -181,6 +218,7 @@ def main(argv: list[str] | None = None) -> int:
         "ok": len(ok),
         "cached": len(cached),
         "error": len(err),
+        "aborted": aborted,
         "items": sum(r["items"] for r in ok + cached),
         "errors": [{"handle": r["handle"], "detail": r.get("errors")} for r in err[:20]],
     }

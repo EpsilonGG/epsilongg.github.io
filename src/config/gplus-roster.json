@@ -4725,6 +4725,32 @@
    "last": "广告 1 · 业界 0 · 日常 1 · 抽奖 0 · 转推 10ご来店"
   },
   {
+   "handle": "randall_kznr",
+   "reply_scope": true,
+   "name": "Randall",
+   "group": "info",
+   "section": "其他 · 信息号・泛游戏媒体",
+   "tier": "② 7天1-10条",
+   "role": "信息号",
+   "brand": "英文エロ本編集・デザイン",
+   "tags": "11",
+   "last30": "2026-11-24 12:20补入",
+   "last": "广告 0 · 业界 0 · 日常 0 · 抽奖 0 · 转推 0—"
+  },
+  {
+   "handle": "KulVario0",
+   "reply_scope": true,
+   "name": "Vario",
+   "group": "info",
+   "section": "其他 · 信息号・泛游戏媒体",
+   "tier": "① 7天>10条",
+   "role": "信息号",
+   "brand": "ErogeAreAlive 运营・ミステリーゲーム评论",
+   "tags": "20",
+   "last30": "2026-11-24 12:20补入",
+   "last": "广告 0 · 业界 0 · 日常 0 · 抽奖 0 · 转推 0—"
+  },
+  {
    "handle": "erogeAreAlive",
    "reply_scope": true,
    "name": "ErogeAreAlive",

@@ -8,6 +8,11 @@ The Gplus line has no X-Reader prompt like the other two dailies: 247 items acro
     items=247 accounts=105 originals=234
 
     ## RT clusters (target -> retweeters)
+
+    ## Reposts (retweeter -> [id] @original: body)
+    ### @kionachi x2
+    - [2123414594740003293] -> @smee_official: あかん、眠すぎる。明日何とかします
+
     ## Keyword topics
     ## Accounts (originals only, group | name | handle | brand)
     ### creator | 木緒なち | @kionachi | — | n=8
@@ -122,6 +127,25 @@ def main(argv: list[str] | None = None) -> int:
     for target, retweeters in sorted(clusters.items(), key=lambda kv: -len(kv[1])):
         name = display(target, roster) if target in roster else "?"
         lines.append(f"- @{target} ({name}) x{len(retweeters)}: {','.join(sorted(retweeters))}")
+
+    # 2026-11-24：转发条目在「Accounts」里是看不到的（originals only），写稿就容易
+    # 把被转的内容记到转发者名下。这里给每条转单列一段，带 [id] 与原作者 handle，
+    # 写 highlights/interactions 时可以直接引用并写「X 转发了 Y 的消息」。
+    reposts: dict[str, list[dict]] = defaultdict(list)
+    for item in items:
+        if not (item.get("metadata") or {}).get("is_retweet"):
+            continue
+        retweeter = str(item.get("publisher") or "").lower()
+        body = flatten(item.get("content") or "")
+        m = re.match(r"RT\s+@([A-Za-z0-9_]{1,15})\s*:", body)
+        original = m.group(1) if m else "?"
+        reposts[retweeter].append({"id": item.get("item_id"), "original": original, "body": body})
+
+    lines.extend(["", "## Reposts (retweeter -> [id] @original: body)"])
+    for retweeter, rows in sorted(reposts.items(), key=lambda kv: -len(kv[1])):
+        lines.append(f"### @{retweeter} x{len(rows)}")
+        for row in rows:
+            lines.append(f"- [{row['id']}] -> @{row['original']}: {row['body'][:BODY_LIMIT]}")
 
     lines.extend(["", "## Keyword topics"])
     hits = Counter()

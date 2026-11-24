@@ -149,6 +149,25 @@ class Item:
         account = owner or author or source
         is_repost = bool(meta.get("is_retweet"))
         text = raw.get("content") or raw.get("title") or ""
+        # 2026-11-24 大山チロル错配：Nitter 有些 RSS 的 title 是
+        # `RT @cinnamon0109 (by @mirai_chiroru): …`，X-Reader 的 RSS parser 只认
+        # `RT by @…`，于是 is_retweet=false、publisher=原作者，而 account=转发者。
+        # 结果题面把原作者的内容标成转发者原创，写稿就写成「大山チロル的精选集开订」。
+        # 数据层兜底：author_name 带 `RT @orig (by @owner)` 或正文以 `RT @orig:` 开头
+        # 都算转发，避免改 X-Reader 那个独立仓库（每天会被 git pull 覆盖）。
+        if not is_repost:
+            inline = re.match(
+                r"^RT\s+@([A-Za-z0-9_]{1,15})\s+\(by\s+@([A-Za-z0-9_]{1,15})\)",
+                str(meta.get("author_name") or ""),
+            )
+            if inline:
+                is_repost = True
+                if not author:
+                    author = inline.group(1)
+            elif re.match(r"^RT\s+@[A-Za-z0-9_]{1,15}\s*:", str(text)):
+                # 正文里的 `RT @xxx: …`：publisher 已是原作者（X-Reader 从链接读出），
+                # account 才是转发者；只有两者不同才算转发，否则是本人写的引用文字。
+                is_repost = bool(author and owner and author.lower() != owner.lower())
         if is_repost:
             kind = "repost"
         elif meta.get("is_quote"):

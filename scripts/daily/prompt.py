@@ -96,6 +96,11 @@ RULES_FLAT = """\
     假名与标点），不许截断、拆成两段，也不许把「电子书 / 发售 / 促销」等说明拼进书名号；
     一句提到两个作品就写两组完整书名号。错误示例：把
     『放課後シンデレラ 長南陽佳は幼馴染。』写成「『放課後シンデレラ』长南阳佳电子书」。
+12. **材料里标 `repost` 的条目，是「转发者·账号」转了「转发自 @xxx」的消息，不是账号自己写的。**
+    人和事必须配对：写 highlights / works / people 时若内容来自转发，必须写成
+    「账号显示名 转发了 原作者显示名 的消息，内容是……」；不许把被转发的内容直接记成
+    `people[].handle` 那个账号的原创、原创作品或本人发言。判断依据只有题面那行的
+    `repost` 与 `转发自 @xxx`——正文里读起来像第一人称也一样。
 """
 
 # 术语表是 `data/glossary.json`：`ja` 原词、`zh` 本站统一写法、`avoid` 明确不许出现的写法。
@@ -167,6 +172,10 @@ def _item_lines(items: list[dict]) -> str:
     lines: list[str] = []
     for item in items:
         head = f"- [{item.get('key')}] @{item.get('account')} · {item.get('published_at')} · {item.get('kind')}"
+        # 2026-11-24 起：转发必须把「转的是谁」写在题面上。以前题面只标 `repost`，
+        # 写稿就把被转的内容当成账号原创（大山チロル那条就是这么错的）。
+        if item.get("kind") == "repost" and item.get("repost_of"):
+            head += f" · 转发自 @{item['repost_of']}"
         lines.append(head)
         body = (item.get("text") or "").strip()
         for line in body.splitlines():

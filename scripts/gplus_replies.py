@@ -54,13 +54,15 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_ROSTER = ROOT / "src" / "config" / "gplus-roster.json"
-# HTML-capable instances first (probed 2026-11-23: nitter.cf 200/106 KB,
-# jaydenha 429, meowing Anubis challenge). RSS-first endpoints are deliberately
-# NOT reused here: nitter.jaydenha.uk's RSS works while its HTML is throttled.
+# HTML-capable instances first. Probed through 127.0.0.1:7897 on 2026-11-25:
+# nitter.cf, nitter.gq, xitter.gq and teapawt.org all returned 200 with 15
+# timeline-item divs on /akibablog. Not reused here: jaydenha.uk is dead,
+# meowing.monster serves an Anubis challenge, goyimx.com answers 418 on HTML.
 ENDPOINTS = [
     "https://nitter.cf",
-    "https://nitter.jaydenha.uk",
-    "https://nitter.meowing.monster",
+    "https://nitter.gq",
+    "https://xitter.gq",
+    "https://teapawt.org",
 ]
 STATUS_RE = re.compile(r"/status/(\d+)")
 HANDLE_RE = re.compile(r"@([A-Za-z0-9_]{1,15})")
