@@ -1,0 +1,1170 @@
+{
+  "schema_version": 1,
+  "issue": {
+    "id": "261124",
+    "published_at": "2026-11-25T00:30:33.869030+09:00",
+    "window": {
+      "start": "2026-11-24T00:00:00+09:00",
+      "end": "2026-11-25T00:00:00+09:00"
+    },
+    "status": "confirmed",
+    "confirmed_at": "2026-11-24T15:34:50+00:00"
+  },
+  "counts": {
+    "items": 394,
+    "accounts": 110,
+    "late": 89,
+    "skipped_duplicate": 0
+  },
+  "description": "大山チロル精选集『Cinnamon☆JewelryBox』11月24日开订，同日宣布出演『ラビットフット学園』",
+  "highlights": [
+    {
+      "text": "大山チロル精选集『Cinnamon☆JewelryBox』开订，收原创曲与新曲共13首，带早期购入特典和周边套装",
+      "sources": [
+        "x:2124883809082741128"
+      ]
+    },
+    {
+      "text": "『ラビットフット学園』定2027年春发售，纪念周边开订，还能加钱把主角称呼录成自己的名字，12月28日截止",
+      "sources": [
+        "x:2125064418698592715",
+        "x:2124893624098062573"
+      ]
+    },
+    {
+      "text": "青春×フェティシズム『純愛当番』累计销量突破10万本，5名挂饰中奖者当晚公布",
+      "sources": [
+        "x:2125055158745026767",
+        "x:2125197741957775587"
+      ]
+    },
+    {
+      "text": "Ci-en 从下午三点起全站维护、结束时间未定，浅見ゆい与要しおり的限定配信和生日语音只能顺延",
+      "sources": [
+        "x:2125110486647906621",
+        "x:2125203281077297535",
+        "x:2125118356131049581"
+      ]
+    }
+  ],
+  "insights": [],
+  "interactions": [
+    {
+      "text": "雲八はち与逢坂成美25日21点30分在ニコニコチャンネルプラス做双人ASMR直播",
+      "sources": [
+        "x:2125225446061293864",
+        "x:2125225618266878065"
+      ]
+    },
+    {
+      "text": "胡桃ふゅ24日21点的夜勤病棟直播里当新人医生，被诊断的「实验患者」是歩サラ",
+      "sources": [
+        "x:2125102822903697866",
+        "x:2125167502246523302"
+      ]
+    },
+    {
+      "text": "歩サラ感谢北見六花帮忙宣传，potte新作五天就破了1000下载",
+      "sources": [
+        "x:2125076292932690288",
+        "x:2125237206201884811"
+      ]
+    }
+  ],
+  "works": [
+    "大山チロル『Cinnamon☆JewelryBox』11月24日开订，原创曲加新曲『JewelryBox』共13首，附早期购入特典与周边套装",
+    "『ラビットフット学園』定2027年春发售，纪念周边开订，另有把主角称呼录成买家名字的订制版，预约到12月28日",
+    "青春×フェティシズム『純愛当番』累计销量破10万本，5名挂饰中奖者当晚公布",
+    "桃尻乳業处女作『おちんぽ淫臭村』11月27日开卖，官方倒数到只剩3天",
+    "『ギャルズフィクション』发售外传FD，OVA第1卷12月上线、一共两卷",
+    "劇場アニメ『魔法使いの夜』宣布续篇制作，本篇仍在影院上映中",
+    "バイコーンの森『リワインド寝取られ』剧本已写好，作者说这是他今年最好的一个plot",
+    "青春×フェティシズム『ドスケベASMRみたいな青春Hを陽キャ彼女の水渡さんと』初回折扣到11月27日"
+  ],
+  "categories": [],
+  "accounts": [
+    "yukanyan2525",
+    "re_re_tsubame",
+    "tsubame_kokuchi",
+    "suzuka_minase",
+    "akinokaedevo",
+    "narumiaisaka",
+    "asuparama40",
+    "mirai_chiroru",
+    "chiroru_o_",
+    "devil_chiroru_v",
+    "mochiri_0909",
+    "mimo_chorion",
+    "harurupanda0827",
+    "shiho_moai",
+    "__amachi",
+    "322yui3",
+    "yui_RP32",
+    "ayakaigasaki",
+    "gemiko_voice",
+    "momokar181",
+    "mame_ruse",
+    "asagishiki00",
+    "suikauriko",
+    "urichansuika",
+    "momoka_vtuber",
+    "fujimura_rio",
+    "CV_kumoyahachi",
+    "oOYuKiKoOo",
+    "jiaomidsu3187",
+    "kuroseimu_000",
+    "Unicolony_uni",
+    "y_asm",
+    "DLyukimidaifuku",
+    "KAMiSiRO_cast",
+    "namimimiobot",
+    "mitakarin",
+    "mugisawa727",
+    "mei_misonoo",
+    "nemurinerima",
+    "mzn773",
+    "yu_hadki",
+    "ikuraeru",
+    "yukirinrin1191",
+    "my_mimichinchin",
+    "Setsune_Soyogi",
+    "jtjitkub5r_uuka",
+    "Suzune_2816",
+    "haruno_tsukushi",
+    "shimotsukiyuu",
+    "AMAKARAsyndrome",
+    "hekilab",
+    "mashiro_mayuki_",
+    "ayumi_sarah",
+    "potte1919",
+    "aoitokio",
+    "mskmiro316",
+    "refle_ookami",
+    "M_chipo_O",
+    "maihal_yuu",
+    "kanojo_nyui",
+    "runhanami",
+    "shindo_azusa",
+    "ricca_kitami",
+    "ao_subsubsub",
+    "miomio_okw",
+    "suzusanchi_",
+    "kaname_shiori",
+    "tsukino_kiiro",
+    "momoichi55",
+    "kurumihuyu963",
+    "Kyonyu0821",
+    "G_Sound0721",
+    "pawnlank7",
+    "uninimu",
+    "schildkrote00",
+    "072labo",
+    "aohachannel",
+    "inparovoice",
+    "TodoTodoproduce",
+    "mesupule",
+    "VicornF",
+    "kazutamadoujin",
+    "10ru00",
+    "romaapoinfo",
+    "nyu_nyu_fantasy",
+    "kurotukisyoukai",
+    "otoyome_18",
+    "glamorous_ko_pr",
+    "tareme4569",
+    "ShitsurakuGirl",
+    "ohshimap_new",
+    "cielo20245",
+    "Nyamaretto",
+    "WhiteLovers_R18",
+    "milkhuuka",
+    "cube_staff",
+    "mizuno_cho",
+    "bekesubeya",
+    "niinashinjou",
+    "yurika_koishite",
+    "Elysium_ASMR",
+    "skp175",
+    "aijo_machine",
+    "mahorobaasmr",
+    "make_nai_man",
+    "quiquiqui",
+    "MarKuS_D_S",
+    "kneepillow1",
+    "C_Little_Oasis",
+    "momojiri_nyugyo"
+  ],
+  "people": [
+    {
+      "handle": "yukanyan2525",
+      "category": "",
+      "summary": "在 AMNIBUS STORE 当班一天，晒柴犬こむぎ叼走ちいかわ玩偶的日常",
+      "via": [],
+      "sources": [
+        "x:2125031650778329538"
+      ]
+    },
+    {
+      "handle": "re_re_tsubame",
+      "category": "",
+      "summary": "コロコエ的NTR实况新作今天开卖，深夜另一部新作也将在25日0点上线",
+      "via": [
+        "tsubame_kokuchi"
+      ],
+      "sources": [
+        "x:2124884422327754816",
+        "x:2125089224135467173"
+      ]
+    },
+    {
+      "handle": "suzuka_minase",
+      "category": "",
+      "summary": "画了秋天主题的新衣装，说打GTA5打到累，今晚停播休息",
+      "via": [],
+      "sources": [
+        "x:2124903685755134006",
+        "x:2125142840452006216"
+      ]
+    },
+    {
+      "handle": "akinokaedevo",
+      "category": "",
+      "summary": "发了可塞进便当盒的VTuber素材，条件是没有，随便改随便用",
+      "via": [],
+      "sources": [
+        "x:2125156216804356133"
+      ]
+    },
+    {
+      "handle": "narumiaisaka",
+      "category": "",
+      "summary": "圣诞周边订单今晚23点59分截止，病还没好全也开了短场耳舐め直播",
+      "via": [],
+      "sources": [
+        "x:2125065785630711937",
+        "x:2125126506284495196"
+      ]
+    },
+    {
+      "handle": "asuparama40",
+      "category": "",
+      "summary": "28日大阪合作酒吧还在卖票，食物预约和声线委托折扣同时开着",
+      "via": [],
+      "sources": [
+        "x:2125040889483686043"
+      ]
+    },
+    {
+      "handle": "mirai_chiroru",
+      "category": "",
+      "summary": "精选集开订、以中井みのる名义进『ラビットフット学園』，本周录音排满",
+      "via": [
+        "chiroru_o_",
+        "devil_chiroru_v"
+      ],
+      "sources": [
+        "x:2124883809082741128",
+        "x:2124893624098062573"
+      ]
+    },
+    {
+      "handle": "mochiri_0909",
+      "category": "",
+      "summary": "和那丹谷かや打APEX，把鼠标灵敏度问成荤段子还自曝台词",
+      "via": [],
+      "sources": [
+        "x:2125221623267770463"
+      ]
+    },
+    {
+      "handle": "mimo_chorion",
+      "category": "",
+      "summary": "23点突开情景音声直播，说框子赶得勉强，插画还在收尾",
+      "via": [],
+      "sources": [
+        "x:2125168470468010372"
+      ]
+    },
+    {
+      "handle": "harurupanda0827",
+      "category": "",
+      "summary": "晒あさひるごはん的个体差，说可爱得不行",
+      "via": [],
+      "sources": [
+        "x:2125031443151880625"
+      ]
+    },
+    {
+      "handle": "shiho_moai",
+      "category": "",
+      "summary": "看セブン的ちいかわ联名说想要太多，感慨天天录音的人声带真强",
+      "via": [],
+      "sources": [
+        "x:2125042755336548641",
+        "x:2125185812870615230"
+      ]
+    },
+    {
+      "handle": "__amachi",
+      "category": "",
+      "summary": "21点开R.E.P.O.的限制play直播，开播前还在担心会不会迟到",
+      "via": [],
+      "sources": [
+        "x:2125133376407671115"
+      ]
+    },
+    {
+      "handle": "322yui3",
+      "category": "",
+      "summary": "收完一个录音，说今晚想打塞尔达，今年只剩38天",
+      "via": [
+        "yui_RP32"
+      ],
+      "sources": [
+        "x:2125075112135446666"
+      ]
+    },
+    {
+      "handle": "ayakaigasaki",
+      "category": "",
+      "summary": "新作今天开卖，同时请人帮忙扩散30日开场的生诞喫茶，因为自己账号被影ban",
+      "via": [],
+      "sources": [
+        "x:2125167542595437006"
+      ]
+    },
+    {
+      "handle": "gemiko_voice",
+      "category": "",
+      "summary": "人生第一次摸到雪，兴奋到发出怪声",
+      "via": [],
+      "sources": [
+        "x:2125188412844208511"
+      ]
+    },
+    {
+      "handle": "momokar181",
+      "category": "",
+      "summary": "配了理想爆乳宅女友，台词是问生日礼物要不要寝取らせ",
+      "via": [],
+      "sources": [
+        "x:2125155210137882757"
+      ]
+    },
+    {
+      "handle": "mame_ruse",
+      "category": "",
+      "summary": "连休玩得太尽兴说想再过一遍，还夸神プロラボ里的豆奴可爱",
+      "via": [],
+      "sources": [
+        "x:2125104806507483387"
+      ]
+    },
+    {
+      "handle": "asagishiki00",
+      "category": "",
+      "summary": "给全年齢向插画找画师接长期案，还说常玩的游戏没了在挑替代",
+      "via": [],
+      "sources": [
+        "x:2125178752707793218"
+      ]
+    },
+    {
+      "handle": "suikauriko",
+      "category": "",
+      "summary": "写长文讲新人做水音常被网上偏方带偏，劝按自己的做法来",
+      "via": [
+        "urichansuika"
+      ],
+      "sources": [
+        "x:2125153233798918386"
+      ]
+    },
+    {
+      "handle": "yuzuki_momoka",
+      "category": "",
+      "summary": "刚出院又染上A型流感，收录工作全灭，本月新作要推到下月",
+      "via": [
+        "momoka_vtuber"
+      ],
+      "sources": [
+        "x:2125086888042373437"
+      ]
+    },
+    {
+      "handle": "fujimura_rio",
+      "category": "",
+      "summary": "社团第三作今天开卖，第四作预告同时公开，还给新角色コンスタンサ打广告",
+      "via": [],
+      "sources": [
+        "x:2125132032984633818",
+        "x:2125132008859054157"
+      ]
+    },
+    {
+      "handle": "CV_kumoyahachi",
+      "category": "",
+      "summary": "めすぷれ♪新作开卖，25日21点30分还要和逢坂成美做双人ASMR直播",
+      "via": [],
+      "sources": [
+        "x:2125119031544090672",
+        "x:2125225446061293864"
+      ]
+    },
+    {
+      "handle": "oOYuKiKoOo",
+      "category": "",
+      "summary": "只发了一句早安",
+      "via": [],
+      "sources": [
+        "x:2125001726252204120"
+      ]
+    },
+    {
+      "handle": "jiaomidsu3187",
+      "category": "",
+      "summary": "周二出勤，说晚上才能回信，喊大家用爱心应援",
+      "via": [
+        "kuroseimu_000"
+      ],
+      "sources": [
+        "x:2125014786169880698"
+      ]
+    },
+    {
+      "handle": "Unicolony_uni",
+      "category": "",
+      "summary": "把ニコプラ的评论接到自己的服务器上，晚上开占星学直播",
+      "via": [],
+      "sources": [
+        "x:2125137792737128798"
+      ]
+    },
+    {
+      "handle": "y_asm",
+      "category": "",
+      "summary": "Ci-en维护到22点还没结束，今晚的限定配信只能延期再公告",
+      "via": [],
+      "sources": [
+        "x:2125203281077297535"
+      ]
+    },
+    {
+      "handle": "DLyukimidaifuku",
+      "category": "",
+      "summary": "一部实演作品拿到DLsite配音ASMR音乐累计榜213位",
+      "via": [],
+      "sources": [
+        "x:2124978837142585737"
+      ]
+    },
+    {
+      "handle": "KAMiSiRO_cast",
+      "category": "",
+      "summary": "转发薄稀『淫呪の迷宮 ～ミラと遊蕩の主～』在Ci-en开卖的公告",
+      "via": [],
+      "sources": [
+        "x:2125144572875677916"
+      ]
+    },
+    {
+      "handle": "namimimiobot",
+      "category": "",
+      "summary": "聊マゾ分两百种、向け作品容易踩空，顺带吐槽自家兔子猫咪",
+      "via": [],
+      "sources": [
+        "x:2124904734775730558"
+      ]
+    },
+    {
+      "handle": "mitakarin",
+      "category": "",
+      "summary": "翻唱『とっておきの一撃を』破三千播放，MV也是自己做的",
+      "via": [],
+      "sources": [
+        "x:2125071743991869691"
+      ]
+    },
+    {
+      "handle": "mugisawa727",
+      "category": "",
+      "summary": "看保育园小孩过马路看到想哭，说要靠曜どうでしょう把脑子清空",
+      "via": [],
+      "sources": [
+        "x:2125041710724169886"
+      ]
+    },
+    {
+      "handle": "mei_misonoo",
+      "category": "",
+      "summary": "收到转来的礼物，说甜点很好吃",
+      "via": [],
+      "sources": [
+        "x:2125225393208910138"
+      ]
+    },
+    {
+      "handle": "nemurinerima",
+      "category": "",
+      "summary": "配了愛和ゆめる的声音，12月委托已满、1月纳期的活还在募",
+      "via": [],
+      "sources": [
+        "x:2125206496862683200"
+      ]
+    },
+    {
+      "handle": "mzn773",
+      "category": "",
+      "summary": "外传FD要出、OVA第1卷12月发两卷，正在做后宫达成后的活动",
+      "via": [],
+      "sources": [
+        "x:2125237150799335548",
+        "x:2125187423357276347"
+      ]
+    },
+    {
+      "handle": "yu_hadki",
+      "category": "",
+      "summary": "给ゆうとぴゅあ的接吻特化作写了长评，说是时间小偷",
+      "via": [],
+      "sources": [
+        "x:2125151349696549165"
+      ]
+    },
+    {
+      "handle": "ikuraeru",
+      "category": "",
+      "summary": "在问仙台美食与景点，顺手吐槽Apple Pay充Suica冲了五千",
+      "via": [],
+      "sources": [
+        "x:2125153424484585643"
+      ]
+    },
+    {
+      "handle": "yukirinrin1191",
+      "category": "",
+      "summary": "今天慢慢过，做了不少东西",
+      "via": [],
+      "sources": [
+        "x:2125138929049596137"
+      ]
+    },
+    {
+      "handle": "my_mimichinchin",
+      "category": "",
+      "summary": "把土产贴纸贴在亚克力钥匙扣的OPP袋上，说可以撕下来重贴",
+      "via": [],
+      "sources": [
+        "x:2124905400306917705"
+      ]
+    },
+    {
+      "handle": "Setsune_Soyogi",
+      "category": "",
+      "summary": "Ci-en在维护，FC限定配信改在推上告知，25日发新作且前28天一枚硬币",
+      "via": [],
+      "sources": [
+        "x:2125184521494749571",
+        "x:2125180987915329741"
+      ]
+    },
+    {
+      "handle": "jtjitkub5r_uuka",
+      "category": "",
+      "summary": "给ももももぴ〜ち新作配了喜欢温柔乳首责的辣妹ユノ",
+      "via": [],
+      "sources": [
+        "x:2125202912246948273"
+      ]
+    },
+    {
+      "handle": "Suzune_2816",
+      "category": "",
+      "summary": "给一部职场题材的作品配了音，说在职场干这种事太大胆",
+      "via": [],
+      "sources": [
+        "x:2125206015511765259"
+      ]
+    },
+    {
+      "handle": "haruno_tsukushi",
+      "category": "",
+      "summary": "个人情景音声委托改到Ci-en方案里接，方案内容也一起改了",
+      "via": [],
+      "sources": [
+        "x:2125085504379273524"
+      ]
+    },
+    {
+      "handle": "shimotsukiyuu",
+      "category": "",
+      "summary": "北海道降温到零下，札幌今早-3度，下午还有录音",
+      "via": [],
+      "sources": [
+        "x:2125024709129687295",
+        "x:2125020136478572680"
+      ]
+    },
+    {
+      "handle": "sakissaki_voice",
+      "category": "",
+      "summary": "一部两小时巨根堕ち作品在打半价，同日的巫女様新作也破了100本",
+      "via": [
+        "AMAKARAsyndrome",
+        "hekilab"
+      ],
+      "sources": [
+        "x:2125235531240161281",
+        "x:2124907106096800081"
+      ]
+    },
+    {
+      "handle": "mashiro_mayuki_",
+      "category": "",
+      "summary": "配了斉藤しおん新作里的晶紀，说敬请期待",
+      "via": [],
+      "sources": [
+        "x:2125180409499824154"
+      ]
+    },
+    {
+      "handle": "ayumi_sarah",
+      "category": "",
+      "summary": "potte新作五天破1000下载，说多亏六花さん的力量",
+      "via": [
+        "potte1919"
+      ],
+      "sources": [
+        "x:2125237206201884811",
+        "x:2125076292932690288"
+      ]
+    },
+    {
+      "handle": "aoitokio",
+      "category": "",
+      "summary": "连休在静冈下车逛骏河屋本店，还吃了B1的拉面",
+      "via": [],
+      "sources": [
+        "x:2125144354545352926"
+      ]
+    },
+    {
+      "handle": "mskmiro316",
+      "category": "",
+      "summary": "第一次配ふたなり题材，说紧张但演得很舒服",
+      "via": [],
+      "sources": [
+        "x:2125150743158243344"
+      ]
+    },
+    {
+      "handle": "refle_ookami",
+      "category": "",
+      "summary": "只说了一句太冷了",
+      "via": [],
+      "sources": [
+        "x:2125221680419405894"
+      ]
+    },
+    {
+      "handle": "M_chipo_O",
+      "category": "",
+      "summary": "Ci-en在维护，新作系统6先发到Fantia，明天再补Ci-en",
+      "via": [],
+      "sources": [
+        "x:2125192801810047016"
+      ]
+    },
+    {
+      "handle": "maihal_yuu",
+      "category": "",
+      "summary": "也在问Ci-en是不是在维护，还在帮人转发声优登记表",
+      "via": [],
+      "sources": [
+        "x:2125223261009248567"
+      ]
+    },
+    {
+      "handle": "kanojo_nyui",
+      "category": "",
+      "summary": "博多弁女友作破200本，发卖纪念半价495日元",
+      "via": [],
+      "sources": [
+        "x:2125204181950791915"
+      ]
+    },
+    {
+      "handle": "runhanami",
+      "category": "",
+      "summary": "家人住院要跑医院，本月交付会压到月末但会赶上",
+      "via": [],
+      "sources": [
+        "x:2125162182111613400"
+      ]
+    },
+    {
+      "handle": "shindo_azusa",
+      "category": "",
+      "summary": "新作99下载、评价上了两篇，本周中间还要开本月最后一场直播",
+      "via": [],
+      "sources": [
+        "x:2125172511394713805",
+        "x:2125014878264152494"
+      ]
+    },
+    {
+      "handle": "ricca_kitami",
+      "category": "",
+      "summary": "配了高级美容系列第二弹的辣妹美容师，自己担当的单元曲也上线了",
+      "via": [],
+      "sources": [
+        "x:2125078271335555116",
+        "x:2125129756593324358"
+      ]
+    },
+    {
+      "handle": "ao_subsubsub",
+      "category": "",
+      "summary": "只发了招呼，转发逆NTR歌留多的一张牌",
+      "via": [],
+      "sources": [
+        "x:2125193719355990234"
+      ]
+    },
+    {
+      "handle": "miomio_okw",
+      "category": "",
+      "summary": "上了杂志的广播节目，深夜忏悔吃了三块巧克力",
+      "via": [],
+      "sources": [
+        "x:2125152456372056491",
+        "x:2125230346828693532"
+      ]
+    },
+    {
+      "handle": "suzusanchi_",
+      "category": "",
+      "summary": "劝大家趁大更新前把ふたりぐらし接回家，八折到12月1日",
+      "via": [],
+      "sources": [
+        "x:2124993116214329753"
+      ]
+    },
+    {
+      "handle": "kaname_shiori",
+      "category": "",
+      "summary": "Ci-en维护卡住生日留言，年贺状与续费特典也重新看了一遍",
+      "via": [],
+      "sources": [
+        "x:2125118356131049581"
+      ]
+    },
+    {
+      "handle": "tsukino_kiiro",
+      "category": "",
+      "summary": "吐槽今天风大到能把人吹走，嗓子要养着跑连场录音",
+      "via": [],
+      "sources": [
+        "x:2125050711524471170"
+      ]
+    },
+    {
+      "handle": "momoichi55",
+      "category": "",
+      "summary": "19点开生化HD重制第二场，带着シベリア和どら焼き当伴手",
+      "via": [],
+      "sources": [
+        "x:2125161622532755509"
+      ]
+    },
+    {
+      "handle": "kurumihuyu963",
+      "category": "",
+      "summary": "21点当新人医生直播夜勤病棟オンライン，患者是歩サラ",
+      "via": [],
+      "sources": [
+        "x:2125167248931442744",
+        "x:2125219507379818738"
+      ]
+    },
+    {
+      "handle": "Kyonyu0821",
+      "category": "",
+      "summary": "旗下三部作品同日各破500本",
+      "via": [],
+      "sources": [
+        "x:2124925999754490241",
+        "x:2125222991130976547"
+      ]
+    },
+    {
+      "handle": "G_Sound0721",
+      "category": "",
+      "summary": "一部作品破500本",
+      "via": [],
+      "sources": [
+        "x:2124944866996293905"
+      ]
+    },
+    {
+      "handle": "pawnlank7",
+      "category": "",
+      "summary": "26日发售的NTR新作放了角色扮演性爱场景图",
+      "via": [],
+      "sources": [
+        "x:2125188429021344150"
+      ]
+    },
+    {
+      "handle": "uninimu",
+      "category": "",
+      "summary": "Rabbitfoot的『ラビットフット学園』定2027年春，纪念周边与订制版开订",
+      "via": [],
+      "sources": [
+        "x:2125064418698592715"
+      ]
+    },
+    {
+      "handle": "schildkrote00",
+      "category": "",
+      "summary": "吐槽二手平台买家回复慢，还说今晚0点要发新作",
+      "via": [],
+      "sources": [
+        "x:2125176175580619116",
+        "x:2124885275784696043"
+      ]
+    },
+    {
+      "handle": "072labo",
+      "category": "",
+      "summary": "播客『我慢できるかな？』更新，这次是早乙女おにぎり回",
+      "via": [],
+      "sources": [
+        "x:2125067300776841350"
+      ]
+    },
+    {
+      "handle": "aohachannel",
+      "category": "",
+      "summary": "『純愛当番』10万本纪念抽选名单公布，新作初回折扣到27日",
+      "via": [],
+      "sources": [
+        "x:2125197741957775587",
+        "x:2125061854053474603"
+      ]
+    },
+    {
+      "handle": "inparovoice",
+      "category": "",
+      "summary": "綾川ちゆき的46分钟妈妈音声开卖",
+      "via": [],
+      "sources": [
+        "x:2124937303336611874"
+      ]
+    },
+    {
+      "handle": "TodoTodoproduce",
+      "category": "",
+      "summary": "早上跑完十公里再练腹肌，晚上赶完会议和剪辑",
+      "via": [],
+      "sources": [
+        "x:2124993857456947562",
+        "x:2125217491953893515"
+      ]
+    },
+    {
+      "handle": "mesupule",
+      "category": "",
+      "summary": "自己写剧本的新作开卖，请多关照",
+      "via": [],
+      "sources": [
+        "x:2125122532605046876"
+      ]
+    },
+    {
+      "handle": "VicornF",
+      "category": "",
+      "summary": "说写了今年最好的一个plot，『リワインド寝取られ』让人等着",
+      "via": [],
+      "sources": [
+        "x:2124937559294038168"
+      ]
+    },
+    {
+      "handle": "kazutamadoujin",
+      "category": "",
+      "summary": "一部作品破1000本，还转了别人对自家作品的DL频道评测",
+      "via": [],
+      "sources": [
+        "x:2124900794952773959",
+        "x:2125130651733237956"
+      ]
+    },
+    {
+      "handle": "10ru00",
+      "category": "",
+      "summary": "昼夜颠倒调理中，反而陷进更糟的循环",
+      "via": [],
+      "sources": [
+        "x:2125089025078038803"
+      ]
+    },
+    {
+      "handle": "romaapoinfo",
+      "category": "",
+      "summary": "公开新作概念，嫌々ダウナー許嫁加命令调教的配方",
+      "via": [],
+      "sources": [
+        "x:2125183648639193418"
+      ]
+    },
+    {
+      "handle": "nyu_nyu_fantasy",
+      "category": "",
+      "summary": "Ci-en维护，运营日记停更一天",
+      "via": [],
+      "sources": [
+        "x:2125219112519663806"
+      ]
+    },
+    {
+      "handle": "kurotukisyoukai",
+      "category": "",
+      "summary": "五周年作破1000本，新作列车题材开卖、四折到25日0点",
+      "via": [],
+      "sources": [
+        "x:2124892015100133865",
+        "x:2125148698707632286"
+      ]
+    },
+    {
+      "handle": "otoyome_18",
+      "category": "",
+      "summary": "漫画版开卖同时推出五作合集，一个月内半价",
+      "via": [],
+      "sources": [
+        "x:2124899720598544860"
+      ]
+    },
+    {
+      "handle": "glamorous_ko_pr",
+      "category": "",
+      "summary": "公开青番外ASMR的女主声优是羽澄ゆう",
+      "via": [],
+      "sources": [
+        "x:2125152460398285119"
+      ]
+    },
+    {
+      "handle": "tareme4569",
+      "category": "",
+      "summary": "新作在DLsite排到12位，说这次评价真高但剧本太复杂",
+      "via": [],
+      "sources": [
+        "x:2125112373656834328"
+      ]
+    },
+    {
+      "handle": "ShitsurakuGirl",
+      "category": "",
+      "summary": "25日0点开卖的柚木つばめ主演作收藏数破千，连声道谢",
+      "via": [],
+      "sources": [
+        "x:2125154062140363054"
+      ]
+    },
+    {
+      "handle": "ohshimap_new",
+      "category": "",
+      "summary": "试做下酒菜，说下次蒜和盐昆布都要加量",
+      "via": [],
+      "sources": [
+        "x:2124905619337642459"
+      ]
+    },
+    {
+      "handle": "cielo20245",
+      "category": "",
+      "summary": "冬コミ新刊的ちる先生系列续篇会有瀬名さん出场",
+      "via": [],
+      "sources": [
+        "x:2125063124080582902"
+      ]
+    },
+    {
+      "handle": "Nyamaretto",
+      "category": "",
+      "summary": "过往作品半价，到26日13点59分",
+      "via": [],
+      "sources": [
+        "x:2125084688637390975"
+      ]
+    },
+    {
+      "handle": "WhiteLovers_R18",
+      "category": "",
+      "summary": "催眠app题材新作预告公开，来夢ふらん配音",
+      "via": [],
+      "sources": [
+        "x:2125167819709149655"
+      ]
+    },
+    {
+      "handle": "milkhuuka",
+      "category": "",
+      "summary": "暗房题材新作由浪実みお配音，人外系列六作也在推",
+      "via": [],
+      "sources": [
+        "x:2125072749966319646",
+        "x:2125175594589823182"
+      ]
+    },
+    {
+      "handle": "cube_staff",
+      "category": "",
+      "summary": "新作『姫希ちゃんは激重彼女』开卖，聊ヤンデレ台词的尺度",
+      "via": [],
+      "sources": [
+        "x:2125075327684919589",
+        "x:2124906564788314453"
+      ]
+    },
+    {
+      "handle": "mizuno_cho",
+      "category": "",
+      "summary": "看窗外小孩唱IMMU KING，笑说一个人也能开的牧场",
+      "via": [],
+      "sources": [
+        "x:2125192700001661197"
+      ]
+    },
+    {
+      "handle": "bekesubeya",
+      "category": "",
+      "summary": "一部作品半价到26日14点，另一部破100本",
+      "via": [],
+      "sources": [
+        "x:2125073199989948882"
+      ]
+    },
+    {
+      "handle": "niinashinjou",
+      "category": "",
+      "summary": "公开スイカゲーム相関図，还测了心理性别比例",
+      "via": [],
+      "sources": [
+        "x:2125054296425373839",
+        "x:2125163794360115573"
+      ]
+    },
+    {
+      "handle": "yurika_koishite",
+      "category": "",
+      "summary": "30周年纪念作拿下配音ASMR周榜25位、综合30位，销量破100本",
+      "via": [],
+      "sources": [
+        "x:2124944857122951651",
+        "x:2124918450141409414"
+      ]
+    },
+    {
+      "handle": "Elysium_ASMR",
+      "category": "",
+      "summary": "新作已整音到第4轨，说照这速度周四能提交",
+      "via": [],
+      "sources": [
+        "x:2124948846879121514"
+      ]
+    },
+    {
+      "handle": "skp175",
+      "category": "",
+      "summary": "发了一段巨乳责め的试听，说耳机必备",
+      "via": [],
+      "sources": [
+        "x:2125206297050050564"
+      ]
+    },
+    {
+      "handle": "aijo_machine",
+      "category": "",
+      "summary": "录了新的SE，说声音很色",
+      "via": [],
+      "sources": [
+        "x:2125120139612086537"
+      ]
+    },
+    {
+      "handle": "mahorobaasmr",
+      "category": "",
+      "summary": "半周年110日元作破一万本，另一部破100本，第16作预告也出了",
+      "via": [],
+      "sources": [
+        "x:2124926001876726212",
+        "x:2125197752414113812"
+      ]
+    },
+    {
+      "handle": "make_nai_man",
+      "category": "",
+      "summary": "通关病能探偵，夸谜题好但吐槽立绘胸部太大让人分心",
+      "via": [],
+      "sources": [
+        "x:2125197552874361039"
+      ]
+    },
+    {
+      "handle": "quiquiqui",
+      "category": "",
+      "summary": "新作女孩录完了，担心演技太硬但成品超出想象",
+      "via": [],
+      "sources": [
+        "x:2125165656991777001"
+      ]
+    },
+    {
+      "handle": "MarKuS_D_S",
+      "category": "",
+      "summary": "傍晚要抽血，空腹录音还自嘲是不是マゾ",
+      "via": [],
+      "sources": [
+        "x:2125038201962475912"
+      ]
+    },
+    {
+      "handle": "kneepillow1",
+      "category": "",
+      "summary": "去看了劇場版『魔法使いの夜』，说一部电影讲不完，还碰上Ci-en维护",
+      "via": [],
+      "sources": [
+        "x:2125180368244617358",
+        "x:2125234527853539451"
+      ]
+    },
+    {
+      "handle": "C_Little_Oasis",
+      "category": "",
+      "summary": "转了一句マゾ有两百种的吐槽，说非常懂",
+      "via": [],
+      "sources": [
+        "x:2125090144403505577"
+      ]
+    },
+    {
+      "handle": "momojiri_nyugyo",
+      "category": "",
+      "summary": "处女作『おちんぽ淫臭村』27日开卖，倒数3天，暗号活动明天截止",
+      "via": [],
+      "sources": [
+        "x:2125197750148956380",
+        "x:2125137353463472405"
+      ]
+    }
+  ],
+  "provenance": {
+    "generator": "daily",
+    "prompt_version": 1,
+    "cache_key": "answers:1",
+    "generated_at": "2026-11-24T15:33:43+00:00"
+  }
+}
