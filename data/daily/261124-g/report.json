@@ -1,0 +1,735 @@
+{
+  "schema_version": 1,
+  "issue": {
+    "id": "261124-g",
+    "published_at": "2026-11-25T00:35:35.492556+09:00",
+    "window": {
+      "start": "2026-11-24T00:00:00+09:00",
+      "end": "2026-11-25T00:00:00+09:00"
+    },
+    "status": "confirmed",
+    "confirmed_at": "2026-11-24T15:37:35+00:00"
+  },
+  "counts": {
+    "items": 334,
+    "accounts": 63,
+    "late": 149,
+    "skipped_duplicate": 7
+  },
+  "description": "『Muv-Luv 少女庭园』正式上线，Liar-soft 两作定下12月18日与1月18日发售",
+  "highlights": [
+    {
+      "text": "『Muv-Luv 少女庭园』正式上线，免费放置RPG，官方中文服同步开放",
+      "sources": [
+        "bilibili:1274207150507294728",
+        "x:2125153134943121521"
+      ]
+    },
+    {
+      "text": "Liar-soft 公布两作发售日：『Twilight Pretender』12月18日、『Shunx's Tyrhia ~ What a Beautiful Dawn ~』1月18日",
+      "sources": [
+        "x:2125228083472998849"
+      ]
+    },
+    {
+      "text": "じゃんぱら秋葉原3号店与BEEP秋葉原店所在的两栋楼定2027年1月6日起开始解体",
+      "sources": [
+        "x:2125054328700588375"
+      ]
+    },
+    {
+      "text": "まどそふと 11月27日21时开生放送，公布『カフェトリカルカフェ』最新情报",
+      "sources": [
+        "x:2125202080013205802"
+      ]
+    }
+  ],
+  "insights": [],
+  "interactions": [],
+  "works": [
+    "『Muv-Luv 少女庭园』正式上线，免费放置RPG，官方中文服同步开放",
+    "Liar-soft 两作定档：『Twilight Pretender』12月18日、『Shunx's Tyrhia ~ What a Beautiful Dawn ~』1月18日",
+    "まどそふと 11月27日21时生放送，公布『カフェトリカルカフェ』最新情报与活动安排",
+    "『あまいろショコラータ3』11月24日满3周年",
+    "『アオイトリ』11月24日满9周年",
+    "寒蝉鸣泣之时第二章棉流篇简体中文版在 Steam 更新，第一章部分内容同步优化",
+    "『Dominate ～わからされた僕は悦楽に鳴く～』定2027年1月29日发售，sofmap 特典是两张B2挂布",
+    "『初恋ＢＬＵＥ』公开OP演示的 sofmap 特典藤崎紗矢香版，BLUE系列25周年纪念作",
+    "『カノジョの妹のあざと誘惑～純愛なんてゴミですよ先輩♡』登上 BugBug 封面联动特集第3回，这次讲H场景",
+    "『養花師の背徳愛～純真天使は抱かれて色めく～』公开 system 功能，可跳场景、看回放",
+    "『やらせてっ！てぃーちゃーリターンズChristmasVer』预约量超出预期，特典周边追加生产",
+    "『小金井荘と金色の揚羽蝶』距11月26日发售还有2天，官方同时开卖联名T恤与贴纸",
+    "『ハッピーウィークエンド』Switch／PS4版11月26日发售，Switch下载版预约九折到明天",
+    "『小日向柚月も初夜したいっ！』追加包定12月25日发售，新增柚月线、新神结与新衣装",
+    "アミューズクラフト系列开新品牌スティールキャット，专做逆NTR题材"
+  ],
+  "categories": [],
+  "accounts": [
+    "Moepedia_net",
+    "appetite_game",
+    "TRYSET",
+    "silkysplus",
+    "kiss_staff",
+    "HOOKSOFT",
+    "Route2_tri",
+    "crowd_anim",
+    "circus_info",
+    "purple_NewWork",
+    "smee_official",
+    "entergram_info",
+    "Amuse_kenzen",
+    "POISON_NEW1992",
+    "dessertsoft_tw",
+    "lumpofsuger",
+    "u_me_soft",
+    "FANDC_Staff",
+    "liar_railsoft",
+    "Amuse_sub",
+    "stealcatAC",
+    "luneman_etc",
+    "SAGAPLANETS",
+    "sprite_fairys",
+    "madostaff",
+    "cabbage_soft",
+    "evil_heal",
+    "jitaku_st",
+    "jita_gf",
+    "AQUAPLUS_JP",
+    "project_citrus",
+    "holic_works",
+    "Orthrossoft",
+    "Muvluv_Official",
+    "unisonshift",
+    "BEEP_SHOP",
+    "LiLiM_NTR",
+    "rail_romanesque",
+    "adahemas",
+    "SukeraSparo",
+    "Overflow_staff",
+    "nitroplus_staff",
+    "akaeroCore_en",
+    "youtan0309",
+    "getchucom",
+    "AKOUtw",
+    "alice_net_pc",
+    "trader_R18",
+    "masanlive",
+    "4GamerNews",
+    "akibablog",
+    "douzinr18",
+    "erogeAreAlive",
+    "Nooksite",
+    "bili_298686071",
+    "bili_3546948824992722",
+    "bili_3546900143802616",
+    "bili_3546387174132577",
+    "bili_41883712",
+    "bili_1436152920",
+    "bili_39471072",
+    "bili_574096087",
+    "bili_16302815"
+  ],
+  "people": [
+    {
+      "handle": "Moepedia_net",
+      "category": "",
+      "summary": "报SMEE『ワンナイトアフター』倒数视频更新到发售前3天，ワッフル『今日の２－X』也只剩3天",
+      "via": [],
+      "sources": [
+        "x:2125232972463001795",
+        "x:2124975974936912032"
+      ]
+    },
+    {
+      "handle": "appetite_game",
+      "category": "",
+      "summary": "两作同日公开げっちゅ屋店铺特典样图，特典都是原创插画卡",
+      "via": [],
+      "sources": [
+        "x:2125216086866178178"
+      ]
+    },
+    {
+      "handle": "TRYSET",
+      "category": "",
+      "summary": "『やらせてっ！てぃーちゃーリターンズChristmasVer』预约超预期，特典周边已追加生产",
+      "via": [],
+      "sources": [
+        "x:2125167788520362113"
+      ]
+    },
+    {
+      "handle": "silkysplus",
+      "category": "",
+      "summary": "『きまぐれテンプテーション3』抱枕定2027年2月26日发售、11月27日开订，25日直播还要聊联动菜单",
+      "via": [],
+      "sources": [
+        "x:2125104229413216740",
+        "x:2125070502163357705"
+      ]
+    },
+    {
+      "handle": "kiss_staff",
+      "category": "",
+      "summary": "25日13至18时S-court各店维护，另订正『カスタムロマンスシティ3D3』特典衣装名称",
+      "via": [],
+      "sources": [
+        "x:2125153009395232949",
+        "x:2125182377005928772"
+      ]
+    },
+    {
+      "handle": "HOOKSOFT",
+      "category": "",
+      "summary": "『ハッピーウィークエンド』Switch／PS4版26日发售，DL版预约九折到明天，PS4旧作打七折",
+      "via": [],
+      "sources": [
+        "x:2125205793670901978",
+        "x:2125185157527159251"
+      ]
+    },
+    {
+      "handle": "Route2_tri",
+      "category": "",
+      "summary": "Triangle 2026女主角抱枕受注延长到11月26日，26日20时30分还有ニコ生节目",
+      "via": [],
+      "sources": [
+        "x:2125163720586465632",
+        "x:2125206142477619201"
+      ]
+    },
+    {
+      "handle": "crowd_anim",
+      "category": "",
+      "summary": "『きつ×みこ』公开 sofmap 与げっちゅ屋店铺特典的语音剧试听",
+      "via": [],
+      "sources": [
+        "x:2125077609226891277"
+      ]
+    },
+    {
+      "handle": "circus_info",
+      "category": "",
+      "summary": "转发 CLOWN『アンスリウム -i entrust to you-』即将发售的介绍",
+      "via": [],
+      "sources": [
+        "x:2125053261271224816"
+      ]
+    },
+    {
+      "handle": "purple_NewWork",
+      "category": "",
+      "summary": "『アオイトリ』11月24日满9周年，回顾御影与克这对搭档和几首主题歌",
+      "via": [],
+      "sources": [
+        "x:2125167547985133775"
+      ]
+    },
+    {
+      "handle": "smee_official",
+      "category": "",
+      "summary": "『ワンナイトアフター』倒数视频公开，FANZA GAMES 下载版开放预约并配优惠券",
+      "via": [],
+      "sources": [
+        "x:2125061862039720383",
+        "x:2125192707442118916"
+      ]
+    },
+    {
+      "handle": "entergram_info",
+      "category": "",
+      "summary": "『君色パトラIF』BOOTH限定版与『あじゅ～るメモリア』官方店版本同时开放预约",
+      "via": [],
+      "sources": [
+        "x:2125074793246622204",
+        "x:2125156310937399648"
+      ]
+    },
+    {
+      "handle": "Amuse_kenzen",
+      "category": "",
+      "summary": "『養花師の背徳愛』介绍游戏 system，可跳场景、看回放、从记录里重看",
+      "via": [],
+      "sources": [
+        "x:2125140614245384251"
+      ]
+    },
+    {
+      "handle": "POISON_NEW1992",
+      "category": "",
+      "summary": "主打乳交的ADV新作11月27日上FANZA同人，两位留学生角色同时登场",
+      "via": [],
+      "sources": [
+        "x:2125212840545943842"
+      ]
+    },
+    {
+      "handle": "dessertsoft_tw",
+      "category": "",
+      "summary": "『どいなかガールズゆーとぴあ』封面插画联动特集开跑，第1回讲乡下巨乳女主",
+      "via": [],
+      "sources": [
+        "x:2125137846046441646"
+      ]
+    },
+    {
+      "handle": "lumpofsuger",
+      "category": "",
+      "summary": "同一天给『運命線上のφ』的リーニャ与『恋想リレーション』的アリサ庆生",
+      "via": [],
+      "sources": [
+        "x:2125061851415290047",
+        "x:2125061854271590487"
+      ]
+    },
+    {
+      "handle": "u_me_soft",
+      "category": "",
+      "summary": "『サンキューピッチ』第57话上线，另开漫画100话更新纪念周",
+      "via": [],
+      "sources": [
+        "x:2124881875344966080",
+        "x:2125061900686033150"
+      ]
+    },
+    {
+      "handle": "FANDC_Staff",
+      "category": "",
+      "summary": "晒出在手头的『Canvas2』桔梗雾相关工作",
+      "via": [],
+      "sources": [
+        "x:2125030106016219602"
+      ]
+    },
+    {
+      "handle": "liar_railsoft",
+      "category": "",
+      "summary": "回顾『白光のヴァルーシア』里アスル的配音，说当时一心想演好少年角色",
+      "via": [],
+      "sources": [
+        "x:2124949676218855639"
+      ]
+    },
+    {
+      "handle": "Amuse_sub",
+      "category": "",
+      "summary": "『養花師の背徳愛～純真天使は抱かれて色めく～』公开宣传，少女育成加寝取らせ的配方",
+      "via": [],
+      "sources": [
+        "x:2125068639590056171"
+      ]
+    },
+    {
+      "handle": "stealcatAC",
+      "category": "",
+      "summary": "逆NTR新作登上 BugBug 封面联动特集第3回，用剧本预览讲清这类题材的乐趣",
+      "via": [],
+      "sources": [
+        "x:2125201515241730410"
+      ]
+    },
+    {
+      "handle": "luneman_etc",
+      "category": "",
+      "summary": "连转『夢見ル乙女 #2』与多部OVA的发售、周边与店铺活动消息",
+      "via": [],
+      "sources": [
+        "x:2125023910450336217",
+        "x:2125023988250554533"
+      ]
+    },
+    {
+      "handle": "SAGAPLANETS",
+      "category": "",
+      "summary": "台北POP UP 办到12月1日，公开部分完售商品，同日还挂出一部新作的预告页",
+      "via": [],
+      "sources": [
+        "x:2125144333909451046",
+        "x:2125126057598857333"
+      ]
+    },
+    {
+      "handle": "sprite_fairys",
+      "category": "",
+      "summary": "『小金井荘と金色の揚羽蝶』与 everlasting flowers Windows版都只剩2天，官网店也上架了主机版",
+      "via": [],
+      "sources": [
+        "x:2125067092236079352",
+        "x:2125065592881447211"
+      ]
+    },
+    {
+      "handle": "madostaff",
+      "category": "",
+      "summary": "11月27日21时开生放送，公布新作『カフェトリカルカフェ』最新情报",
+      "via": [],
+      "sources": [
+        "x:2125202080013205802"
+      ]
+    },
+    {
+      "handle": "cabbage_soft",
+      "category": "",
+      "summary": "『あまいろショコラータ3』11月24日满3周年，官方和参与作词演唱的声优一起庆祝",
+      "via": [],
+      "sources": [
+        "x:2124880903646195773",
+        "x:2124984251385008416"
+      ]
+    },
+    {
+      "handle": "evil_heal",
+      "category": "",
+      "summary": "『Dominate ～わからされた僕は悦楽に鳴く～』定2027年1月29日发售，sofmap 特典是两张B2挂布",
+      "via": [],
+      "sources": [
+        "x:2125061849695535446"
+      ]
+    },
+    {
+      "handle": "jitaku_st",
+      "category": "",
+      "summary": "ギャルフェス本周预计追加一条试听语音",
+      "via": [],
+      "sources": [
+        "x:2125122347992817834"
+      ]
+    },
+    {
+      "handle": "jita_gf",
+      "category": "",
+      "summary": "『ギャルズフィクション』漫画版发售中、动画第1卷12月上线，Festival 还在做角色介绍",
+      "via": [],
+      "sources": [
+        "x:2125085030435479886",
+        "x:2125077534190846159"
+      ]
+    },
+    {
+      "handle": "AQUAPLUS_JP",
+      "category": "",
+      "summary": "十一月促销明天结束、对象作品最大七折，今天还是『ToHeart』雛山理緒生日",
+      "via": [],
+      "sources": [
+        "x:2125152450210680899",
+        "x:2124880662742401361"
+      ]
+    },
+    {
+      "handle": "project_citrus",
+      "category": "",
+      "summary": "家里猫的肾病和胰腺炎终于脱险，另去看了 M!LK 的东京塔点灯",
+      "via": [],
+      "sources": [
+        "x:2125026357025615875",
+        "x:2125135673015583187"
+      ]
+    },
+    {
+      "handle": "holic_works",
+      "category": "",
+      "summary": "黑色星期五开跑，らぶカル与 BOOTH 的数字商品七折到11月30日",
+      "via": [],
+      "sources": [
+        "x:2125171459555541105"
+      ]
+    },
+    {
+      "handle": "Orthrossoft",
+      "category": "",
+      "summary": "只丢下一句详情近日公开",
+      "via": [],
+      "sources": [
+        "x:2124920769151107556"
+      ]
+    },
+    {
+      "handle": "Muvluv_Official",
+      "category": "",
+      "summary": "讲『シュヴァルツェスマーケン』里BETA侵略造成的粮食危机与合成食品",
+      "via": [],
+      "sources": [
+        "x:2125167553115025517"
+      ]
+    },
+    {
+      "handle": "unisonshift",
+      "category": "",
+      "summary": "『小日向柚月も初夜したいっ！』追加包定12月25日发售，加柚月线、新神结与新衣装",
+      "via": [],
+      "sources": [
+        "x:2125147408694665333"
+      ]
+    },
+    {
+      "handle": "BEEP_SHOP",
+      "category": "",
+      "summary": "秋叶原两栋楼要拆、電気外祭り第7批参展公布，还晒了海外版『大工の源さん』包装",
+      "via": [],
+      "sources": [
+        "x:2125054328700588375",
+        "x:2125058697399529584"
+      ]
+    },
+    {
+      "handle": "LiLiM_NTR",
+      "category": "",
+      "summary": "『初恋ＢＬＵＥ』公开OP演示的 sofmap 特典藤崎紗矢香版，BLUE系列25周年纪念作",
+      "via": [],
+      "sources": [
+        "x:2125112621104050638",
+        "x:2125177886571434001"
+      ]
+    },
+    {
+      "handle": "rail_romanesque",
+      "category": "",
+      "summary": "去佐贺看热气球，风大到担心飞不起来，晚上还有无人机秀与烟火",
+      "via": [],
+      "sources": [
+        "x:2125209096219758936"
+      ]
+    },
+    {
+      "handle": "adahemas",
+      "category": "",
+      "summary": "想干活却被缠住脱不了身，另自嘲一顿花了三万",
+      "via": [],
+      "sources": [
+        "x:2125135538730717687"
+      ]
+    },
+    {
+      "handle": "SukeraSparo",
+      "category": "",
+      "summary": "给『ことのは』的レイ庆生，同时说明『ことのはレルナード』仍在制作中",
+      "via": [],
+      "sources": [
+        "x:2125031674245517404"
+      ]
+    },
+    {
+      "handle": "Overflow_staff",
+      "category": "",
+      "summary": "介绍 School Days 抽奖的D赏徽章样品",
+      "via": [],
+      "sources": [
+        "x:2125152455969124814"
+      ]
+    },
+    {
+      "handle": "nitroplus_staff",
+      "category": "",
+      "summary": "刀剣乱舞万屋本舗大阪梅田店正式开业",
+      "via": [],
+      "sources": [
+        "x:2125031645967188457"
+      ]
+    },
+    {
+      "handle": "akaerocore",
+      "category": "",
+      "summary": "『SEVEN DAYS』抽奖还剩两周，另推 Steam 上的 False Myth 2 与义妹同居新作",
+      "via": [
+        "akaeroCore_en"
+      ],
+      "sources": [
+        "x:2124907441607594220",
+        "x:2124983327459590445"
+      ]
+    },
+    {
+      "handle": "youtan0309",
+      "category": "",
+      "summary": "同一天回顾三部旧作：Making＊Lovers 与『アオイトリ』9年前、『ふぃぎゅ@メイト』20年前",
+      "via": [],
+      "sources": [
+        "x:2124885684184076510",
+        "x:2124945878343623039"
+      ]
+    },
+    {
+      "handle": "getchucom",
+      "category": "",
+      "summary": "一口气开放艦これ山風改二、ニディガ黏土人等手办预约，另更新アパタイト店铺特典图",
+      "via": [],
+      "sources": [
+        "x:2125160043360506079",
+        "x:2125194368701403341"
+      ]
+    },
+    {
+      "handle": "AKOUtw",
+      "category": "",
+      "summary": "说NTR这个题材自己其实一直没搞懂，还转了全国中古黄油店铺地图",
+      "via": [],
+      "sources": [
+        "x:2125184312073138185",
+        "x:2124886231020650736"
+      ]
+    },
+    {
+      "handle": "alice_net_pc",
+      "category": "",
+      "summary": "声优倉下撫子来店，在『SR少女2』的大海报上签了名",
+      "via": [],
+      "sources": [
+        "x:2125074168773546080"
+      ]
+    },
+    {
+      "handle": "trader_R18",
+      "category": "",
+      "summary": "本店6楼补货，收进『最終試験くじら』等稀有旧作",
+      "via": [],
+      "sources": [
+        "x:2125061859967680533"
+      ]
+    },
+    {
+      "handle": "masanlive",
+      "category": "",
+      "summary": "说在コメダ边吃边聊今年最好的视觉小说最爽",
+      "via": [],
+      "sources": [
+        "x:2125166991581594043"
+      ]
+    },
+    {
+      "handle": "4GamerNews",
+      "category": "",
+      "summary": "2026年Steam大奖开始接受提名，这次新设名人堂奖",
+      "via": [],
+      "sources": [
+        "x:2125161423504642361"
+      ]
+    },
+    {
+      "handle": "akibablog",
+      "category": "",
+      "summary": "勤労感謝の日应景，挑了五款工作体验游戏",
+      "via": [],
+      "sources": [
+        "x:2125153262022336935"
+      ]
+    },
+    {
+      "handle": "douzinr18",
+      "category": "",
+      "summary": "FANZA同人先行专售三连发，新作八五折、旧作四折五到12月24日",
+      "via": [],
+      "sources": [
+        "x:2125167672883359769",
+        "x:2125197803467206968"
+      ]
+    },
+    {
+      "handle": "erogeAreAlive",
+      "category": "",
+      "summary": "报KARAKARA3 发售与 Muv-Luv 少女庭园上线，另整理 Liar-soft 两作的发售日",
+      "via": [],
+      "sources": [
+        "x:2125039695729971500",
+        "x:2125228083472998849"
+      ]
+    },
+    {
+      "handle": "Nooksite",
+      "category": "",
+      "summary": "吐槽 Muv-Luv 少女庭园用AI翻译，警告却只写了日文",
+      "via": [],
+      "sources": [
+        "x:2125174021822070859"
+      ]
+    },
+    {
+      "handle": "bili_298686071",
+      "category": "",
+      "summary": "《沉星之序》全篇中文配音登陆 Steam，Gamirror 在展会上收到作者致谢",
+      "via": [],
+      "sources": [
+        "bilibili:1274230184454651922"
+      ]
+    },
+    {
+      "handle": "bili_3546948824992722",
+      "category": "",
+      "summary": "科普兰斯里大蛇倒下后妖力仍会渗进 JAPAN 全土，妖怪不会消失",
+      "via": [],
+      "sources": [
+        "bilibili:1274129299976224787"
+      ]
+    },
+    {
+      "handle": "bili_3546900143802616",
+      "category": "",
+      "summary": "《Muv-Luv 少女庭园》正式上线，同时开始连载角色介绍",
+      "via": [],
+      "sources": [
+        "bilibili:1274207150507294728",
+        "bilibili:1274213719714299910"
+      ]
+    },
+    {
+      "handle": "bili_3546387174132577",
+      "category": "",
+      "summary": "寒蝉鸣泣之时第二章棉流篇简中版在 Steam 更新，第一章也做了优化",
+      "via": [],
+      "sources": [
+        "bilibili:1274230150082330630"
+      ]
+    },
+    {
+      "handle": "bili_41883712",
+      "category": "",
+      "summary": "多部中文版在 Steam 特卖，套装与单品一起打折，《炼爱秘仪》31元起",
+      "via": [],
+      "sources": [
+        "bilibili:1273935405826179078",
+        "bilibili:1274074562741403650"
+      ]
+    },
+    {
+      "handle": "bili_1436152920",
+      "category": "",
+      "summary": "JAST Store 黑色星期五特卖开跑，到12月1日早上7点",
+      "via": [],
+      "sources": [
+        "bilibili:1274185310631100420"
+      ]
+    },
+    {
+      "handle": "bili_39471072",
+      "category": "",
+      "summary": "发 Summer Pockets 同人图，另预告绯染天空本周五的新双人卡",
+      "via": [],
+      "sources": [
+        "bilibili:1274232250354892850"
+      ]
+    },
+    {
+      "handle": "bili_574096087",
+      "category": "",
+      "summary": "春日野穹亚克力立牌受注到今天日本时间21点",
+      "via": [],
+      "sources": [
+        "bilibili:1274189867608178689"
+      ]
+    },
+    {
+      "handle": "bili_16302815",
+      "category": "",
+      "summary": "感慨显卡太贵，说等大降价那天就有妹子来送显卡",
+      "via": [],
+      "sources": [
+        "bilibili:1274135093849358342"
+      ]
+    }
+  ],
+  "provenance": {
+    "generator": "daily",
+    "prompt_version": 1,
+    "cache_key": "answers:1",
+    "generated_at": "2026-11-24T15:37:30+00:00"
+  }
+}
