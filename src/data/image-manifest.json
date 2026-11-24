@@ -1,7 +1,161 @@
 {
   "$comment": "由 scripts/optimize_images.mjs 生成，请勿手改。",
-  "generatedAt": "2026-11-24T09:48:26.805Z",
+  "generatedAt": "2026-11-24T17:34:23.614Z",
   "images": {
+    "/images/blog/4gamer-gate-of-gates-interview/01.jpg": {
+      "w": 1280,
+      "h": 853,
+      "bytes": 391116,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/4gamer-gate-of-gates-interview/01-600.webp",
+          "bytes": 18442
+        },
+        {
+          "w": 960,
+          "src": "/images/blog/4gamer-gate-of-gates-interview/01-960.webp",
+          "bytes": 35590
+        },
+        {
+          "w": 1280,
+          "src": "/images/blog/4gamer-gate-of-gates-interview/01-1280.webp",
+          "bytes": 54082
+        }
+      ]
+    },
+    "/images/blog/4gamer-gate-of-gates-interview/02.jpg": {
+      "w": 1920,
+      "h": 1080,
+      "bytes": 825545,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/4gamer-gate-of-gates-interview/02-600.webp",
+          "bytes": 31026
+        },
+        {
+          "w": 960,
+          "src": "/images/blog/4gamer-gate-of-gates-interview/02-960.webp",
+          "bytes": 61224
+        },
+        {
+          "w": 1920,
+          "src": "/images/blog/4gamer-gate-of-gates-interview/02-1920.webp",
+          "bytes": 141542
+        }
+      ]
+    },
+    "/images/blog/4gamer-gate-of-gates-interview/03.jpg": {
+      "w": 1920,
+      "h": 1080,
+      "bytes": 771987,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/4gamer-gate-of-gates-interview/03-600.webp",
+          "bytes": 26630
+        },
+        {
+          "w": 960,
+          "src": "/images/blog/4gamer-gate-of-gates-interview/03-960.webp",
+          "bytes": 52318
+        },
+        {
+          "w": 1920,
+          "src": "/images/blog/4gamer-gate-of-gates-interview/03-1920.webp",
+          "bytes": 126408
+        }
+      ]
+    },
+    "/images/blog/4gamer-gate-of-gates-interview/04.jpg": {
+      "w": 1280,
+      "h": 720,
+      "bytes": 608087,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/4gamer-gate-of-gates-interview/04-600.webp",
+          "bytes": 29468
+        },
+        {
+          "w": 960,
+          "src": "/images/blog/4gamer-gate-of-gates-interview/04-960.webp",
+          "bytes": 75148
+        },
+        {
+          "w": 1280,
+          "src": "/images/blog/4gamer-gate-of-gates-interview/04-1280.webp",
+          "bytes": 138482
+        }
+      ]
+    },
+    "/images/blog/4gamer-gate-of-gates-interview/05.jpg": {
+      "w": 1280,
+      "h": 720,
+      "bytes": 400703,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/4gamer-gate-of-gates-interview/05-600.webp",
+          "bytes": 22558
+        },
+        {
+          "w": 960,
+          "src": "/images/blog/4gamer-gate-of-gates-interview/05-960.webp",
+          "bytes": 41904
+        },
+        {
+          "w": 1280,
+          "src": "/images/blog/4gamer-gate-of-gates-interview/05-1280.webp",
+          "bytes": 61154
+        }
+      ]
+    },
+    "/images/blog/4gamer-gate-of-gates-interview/06.jpg": {
+      "w": 1920,
+      "h": 1080,
+      "bytes": 649321,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/4gamer-gate-of-gates-interview/06-600.webp",
+          "bytes": 22832
+        },
+        {
+          "w": 960,
+          "src": "/images/blog/4gamer-gate-of-gates-interview/06-960.webp",
+          "bytes": 40176
+        },
+        {
+          "w": 1920,
+          "src": "/images/blog/4gamer-gate-of-gates-interview/06-1920.webp",
+          "bytes": 86270
+        }
+      ]
+    },
+    "/images/blog/4gamer-gate-of-gates-interview/07.jpg": {
+      "w": 1920,
+      "h": 1080,
+      "bytes": 540964,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/4gamer-gate-of-gates-interview/07-600.webp",
+          "bytes": 16832
+        },
+        {
+          "w": 960,
+          "src": "/images/blog/4gamer-gate-of-gates-interview/07-960.webp",
+          "bytes": 28518
+        },
+        {
+          "w": 1920,
+          "src": "/images/blog/4gamer-gate-of-gates-interview/07-1920.webp",
+          "bytes": 63324
+        }
+      ]
+    },
     "/images/blog/automaton-crymelight-mugenzakura-roundtable/01.jpg": {
       "w": 1080,
       "h": 609,
