@@ -1,6 +1,6 @@
 {
   "$comment": "由 scripts/optimize_images.mjs 生成，请勿手改。",
-  "generatedAt": "2026-11-23T18:11:16.351Z",
+  "generatedAt": "2026-11-24T09:48:26.805Z",
   "images": {
     "/images/blog/automaton-crymelight-mugenzakura-roundtable/01.jpg": {
       "w": 1080,
@@ -5186,6 +5186,196 @@
           "w": 1400,
           "src": "/images/blog/tsui-no-stella-interview/10-1400.webp",
           "bytes": 98904
+        }
+      ]
+    },
+    "/images/blog/weibo-uchikoshi-broken-keys-interview/01.jpg": {
+      "w": 1400,
+      "h": 787,
+      "bytes": 99083,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/weibo-uchikoshi-broken-keys-interview/01-600.webp",
+          "bytes": 18202
+        },
+        {
+          "w": 960,
+          "src": "/images/blog/weibo-uchikoshi-broken-keys-interview/01-960.webp",
+          "bytes": 31412
+        },
+        {
+          "w": 1400,
+          "src": "/images/blog/weibo-uchikoshi-broken-keys-interview/01-1400.webp",
+          "bytes": 51076
+        }
+      ]
+    },
+    "/images/blog/weibo-uchikoshi-broken-keys-interview/02.jpg": {
+      "w": 832,
+      "h": 1037,
+      "bytes": 65953,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/weibo-uchikoshi-broken-keys-interview/02-600.webp",
+          "bytes": 26058
+        },
+        {
+          "w": 832,
+          "src": "/images/blog/weibo-uchikoshi-broken-keys-interview/02-832.webp",
+          "bytes": 35330
+        }
+      ]
+    },
+    "/images/blog/weibo-uchikoshi-broken-keys-interview/03.jpg": {
+      "w": 1400,
+      "h": 788,
+      "bytes": 214874,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/weibo-uchikoshi-broken-keys-interview/03-600.webp",
+          "bytes": 43592
+        },
+        {
+          "w": 960,
+          "src": "/images/blog/weibo-uchikoshi-broken-keys-interview/03-960.webp",
+          "bytes": 86410
+        },
+        {
+          "w": 1400,
+          "src": "/images/blog/weibo-uchikoshi-broken-keys-interview/03-1400.webp",
+          "bytes": 141826
+        }
+      ]
+    },
+    "/images/blog/weibo-uchikoshi-broken-keys-interview/04.jpg": {
+      "w": 400,
+      "h": 400,
+      "bytes": 66703,
+      "variants": [
+        {
+          "w": 400,
+          "src": "/images/blog/weibo-uchikoshi-broken-keys-interview/04-400.webp",
+          "bytes": 72722
+        }
+      ]
+    },
+    "/images/blog/weibo-uchikoshi-broken-keys-interview/05.jpg": {
+      "w": 1280,
+      "h": 720,
+      "bytes": 82624,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/weibo-uchikoshi-broken-keys-interview/05-600.webp",
+          "bytes": 14670
+        },
+        {
+          "w": 960,
+          "src": "/images/blog/weibo-uchikoshi-broken-keys-interview/05-960.webp",
+          "bytes": 27018
+        },
+        {
+          "w": 1280,
+          "src": "/images/blog/weibo-uchikoshi-broken-keys-interview/05-1280.webp",
+          "bytes": 41008
+        }
+      ]
+    },
+    "/images/blog/weibo-uchikoshi-broken-keys-interview/06.jpg": {
+      "w": 1000,
+      "h": 563,
+      "bytes": 182846,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/weibo-uchikoshi-broken-keys-interview/06-600.webp",
+          "bytes": 64840
+        },
+        {
+          "w": 1000,
+          "src": "/images/blog/weibo-uchikoshi-broken-keys-interview/06-1000.webp",
+          "bytes": 158534
+        }
+      ]
+    },
+    "/images/blog/weibo-uchikoshi-broken-keys-interview/07.jpg": {
+      "w": 1400,
+      "h": 787,
+      "bytes": 284857,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/weibo-uchikoshi-broken-keys-interview/07-600.webp",
+          "bytes": 59432
+        },
+        {
+          "w": 960,
+          "src": "/images/blog/weibo-uchikoshi-broken-keys-interview/07-960.webp",
+          "bytes": 116880
+        },
+        {
+          "w": 1400,
+          "src": "/images/blog/weibo-uchikoshi-broken-keys-interview/07-1400.webp",
+          "bytes": 199592
+        }
+      ]
+    },
+    "/images/blog/weibo-uchikoshi-broken-keys-interview/08.jpg": {
+      "w": 1024,
+      "h": 768,
+      "bytes": 74830,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/weibo-uchikoshi-broken-keys-interview/08-600.webp",
+          "bytes": 19784
+        },
+        {
+          "w": 1024,
+          "src": "/images/blog/weibo-uchikoshi-broken-keys-interview/08-1024.webp",
+          "bytes": 41948
+        }
+      ]
+    },
+    "/images/blog/weibo-uchikoshi-broken-keys-interview/09.jpg": {
+      "w": 1000,
+      "h": 563,
+      "bytes": 146278,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/weibo-uchikoshi-broken-keys-interview/09-600.webp",
+          "bytes": 53198
+        },
+        {
+          "w": 1000,
+          "src": "/images/blog/weibo-uchikoshi-broken-keys-interview/09-1000.webp",
+          "bytes": 119478
+        }
+      ]
+    },
+    "/images/blog/weibo-uchikoshi-broken-keys-interview/10.jpg": {
+      "w": 1400,
+      "h": 787,
+      "bytes": 228677,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/weibo-uchikoshi-broken-keys-interview/10-600.webp",
+          "bytes": 38604
+        },
+        {
+          "w": 960,
+          "src": "/images/blog/weibo-uchikoshi-broken-keys-interview/10-960.webp",
+          "bytes": 90318
+        },
+        {
+          "w": 1400,
+          "src": "/images/blog/weibo-uchikoshi-broken-keys-interview/10-1400.webp",
+          "bytes": 165712
         }
       ]
     }
