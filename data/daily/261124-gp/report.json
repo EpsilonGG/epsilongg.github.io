@@ -8,7 +8,7 @@
       "end": "2026-11-25T00:00:00+09:00"
     },
     "status": "confirmed",
-    "confirmed_at": "2026-11-24T17:38:47+00:00"
+    "confirmed_at": "2026-11-24T17:45:21+00:00"
   },
   "counts": {
     "items": 480,
@@ -1089,7 +1089,7 @@
     {
       "handle": "umihara_nozomu",
       "category": "creator",
-      "summary": "本と鍵の季節插画上集英社文库冬季书腰。",
+      "summary": "《本と鍵の季節》插画登上集英社文库冬季书腰。",
       "via": [],
       "sources": [
         "x:2125160131835179350"
@@ -1433,6 +1433,6 @@
     "generator": "gplus/1",
     "prompt_version": 1,
     "cache_key": "gplus-2026-11-24",
-    "generated_at": "2026-11-24T17:38:47+00:00"
+    "generated_at": "2026-11-24T17:45:21+00:00"
   }
 }
