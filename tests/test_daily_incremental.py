@@ -393,6 +393,8 @@ class InactiveAccountTest(unittest.TestCase):
         #                     role=sub + `brand=AMUSE CRAFT`，周报归栏进母厂那一栏。
         #   jita_gf         —— 2026-11-20 新增，ギャルズフィクション@ギャルフィク，
         #                     自宅すたじお 的 FD 官网号，role=sub + `brand=自宅すたじお`。
+        # VAScripts / AirVelo2026 曾按 role=sub 放在这一栏，2026-11-25 用户裁决
+        # 「当日新补的源号统一归信息号」后改为 category=info，见下一个断言。
         self.assertEqual(
             {a.handle for a in makers if a.role != "brand"},
             {"Moepedia_net", "akaerocore", "akaeroCore_en",
@@ -409,7 +411,7 @@ class InactiveAccountTest(unittest.TestCase):
              "alice_net_pc", "trader_r18", "masanlive", "dlsite", "moeaward",
              "cnexton", "famitsu", "dengekionline", "4gamernews",
              "automatonjapan", "akibablog", "douzinr18", "erogearealive",
-             "nooksite", "bishoujonews", "cloud668"},
+             "nooksite", "bishoujonews", "cloud668", "getchucom_n"},
         )
         self.assertTrue(all("游戏" in a.tags or "资料站" in a.tags for a in makers))
         self.assertTrue(any("Moe Award" in a.tags for a in makers), "拿过萌奖的应该有标签")
@@ -444,23 +446,29 @@ class InactiveAccountTest(unittest.TestCase):
         新增 16 个信息号（含 5 泛游戏媒体、4 游戏媒体、1 翻译者）；famitsu 按 1-1
         原注「不建议」登记为 active=false，只留档不进抓取。下断言仍逐条写死，
         防止后续无声增删。
+
+        2026-11-25 用户裁决：当日为补漏新补的源号（VAScripts／getchucom_n／
+        AirVelo2026）一律 category=info——它们补的是窗口，不是作品厂商本体。
+        B 站源号不走这条，见 test_daily_bilibili 的名单分家断言。
         """
         roster = Roster.load(kind="galgame")
         info = [a.handle for a in roster.accounts if a.category == "info"]
         self.assertEqual(
             sorted(info),
-            ["4GamerNews", "AKOUtw", "AUTOMATONJapan", "BishoujoNEWS",
-             "CNexton", "DLsite", "Nooksite", "aikouka23", "akibablog",
+            ["4GamerNews", "AKOUtw", "AUTOMATONJapan", "AirVelo2026",
+             "BishoujoNEWS", "CNexton", "DLsite", "Nooksite", "VAScripts",
+             "aikouka23", "akibablog",
              "alice_net_pc", "bugbug_info", "cloud668", "dengekionline",
-             "douzinr18", "erogeAreAlive", "famitsu", "getchucom", "hiro_in",
-             "masanlive", "moeaward", "seiya_saiga", "trader_R18", "youtan0309"],
+             "douzinr18", "erogeAreAlive", "famitsu", "getchucom", "getchucom_n",
+             "hiro_in", "masanlive", "moeaward", "seiya_saiga", "trader_R18",
+             "youtan0309"],
         )
         self.assertFalse(roster.is_active("famitsu"), " famitsu 不建议，只留档不抓取")
         for handle in ("Famishin", "nakazawatakumi", "digitarou"):
             self.assertFalse(roster.is_known(handle), f"{handle} 是厂商侧个人号，暂时不入册")
         # 媒体号必须是白名单，不是黑名单——黑名单列不全「不要什么」。
-        for handle in ("getchucom", "bugbug_info", "4gamernews", "automatonjapan",
-                       "dengekionline", "akibablog"):
+        for handle in ("getchucom", "getchucom_n", "bugbug_info", "4gamernews",
+                       "automatonjapan", "dengekionline", "akibablog"):
             self.assertIn("keep_if", roster.filters[handle], f"{handle} 应该走 keep_if")
         for handle in ("seiya_saiga", "youtan0309", "aikouka23"):
             self.assertNotIn("keep_if", roster.filters[handle], "个人号不收窄到白名单")
