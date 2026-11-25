@@ -1,6 +1,6 @@
 {
   "$comment": "由 scripts/optimize_images.mjs 生成，请勿手改。",
-  "generatedAt": "2026-11-24T17:34:23.614Z",
+  "generatedAt": "2026-11-25T11:02:37.598Z",
   "images": {
     "/images/blog/4gamer-gate-of-gates-interview/01.jpg": {
       "w": 1280,
@@ -447,6 +447,495 @@
           "w": 1800,
           "src": "/images/blog/bluearchive-publisher-change-interview/01-1800.webp",
           "bytes": 106698
+        }
+      ]
+    },
+    "/images/blog/bugbug-nakashima-column-01-04/01.jpg": {
+      "w": 1280,
+      "h": 720,
+      "bytes": 261443,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/bugbug-nakashima-column-01-04/01-600.webp",
+          "bytes": 67920
+        },
+        {
+          "w": 960,
+          "src": "/images/blog/bugbug-nakashima-column-01-04/01-960.webp",
+          "bytes": 135662
+        },
+        {
+          "w": 1280,
+          "src": "/images/blog/bugbug-nakashima-column-01-04/01-1280.webp",
+          "bytes": 201488
+        }
+      ]
+    },
+    "/images/blog/bugbug-nakashima-column-01-04/02.jpg": {
+      "w": 411,
+      "h": 560,
+      "bytes": 72584,
+      "variants": [
+        {
+          "w": 411,
+          "src": "/images/blog/bugbug-nakashima-column-01-04/02-411.webp",
+          "bytes": 58500
+        }
+      ]
+    },
+    "/images/blog/bugbug-nakashima-column-01-04/03.jpg": {
+      "w": 411,
+      "h": 560,
+      "bytes": 71162,
+      "variants": [
+        {
+          "w": 411,
+          "src": "/images/blog/bugbug-nakashima-column-01-04/03-411.webp",
+          "bytes": 58174
+        }
+      ]
+    },
+    "/images/blog/bugbug-nakashima-column-01-04/04.jpg": {
+      "w": 1280,
+      "h": 720,
+      "bytes": 196455,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/bugbug-nakashima-column-01-04/04-600.webp",
+          "bytes": 50322
+        },
+        {
+          "w": 960,
+          "src": "/images/blog/bugbug-nakashima-column-01-04/04-960.webp",
+          "bytes": 91772
+        },
+        {
+          "w": 1280,
+          "src": "/images/blog/bugbug-nakashima-column-01-04/04-1280.webp",
+          "bytes": 129742
+        }
+      ]
+    },
+    "/images/blog/bugbug-nakashima-column-01-04/05.jpg": {
+      "w": 1280,
+      "h": 720,
+      "bytes": 261874,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/bugbug-nakashima-column-01-04/05-600.webp",
+          "bytes": 68004
+        },
+        {
+          "w": 960,
+          "src": "/images/blog/bugbug-nakashima-column-01-04/05-960.webp",
+          "bytes": 135946
+        },
+        {
+          "w": 1280,
+          "src": "/images/blog/bugbug-nakashima-column-01-04/05-1280.webp",
+          "bytes": 201784
+        }
+      ]
+    },
+    "/images/blog/bugbug-nakashima-column-01-04/06.jpg": {
+      "w": 800,
+      "h": 450,
+      "bytes": 57762,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/bugbug-nakashima-column-01-04/06-600.webp",
+          "bytes": 24980
+        },
+        {
+          "w": 800,
+          "src": "/images/blog/bugbug-nakashima-column-01-04/06-800.webp",
+          "bytes": 36000
+        }
+      ]
+    },
+    "/images/blog/bugbug-nakashima-column-01-04/07.jpg": {
+      "w": 800,
+      "h": 450,
+      "bytes": 61107,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/bugbug-nakashima-column-01-04/07-600.webp",
+          "bytes": 27438
+        },
+        {
+          "w": 800,
+          "src": "/images/blog/bugbug-nakashima-column-01-04/07-800.webp",
+          "bytes": 39882
+        }
+      ]
+    },
+    "/images/blog/bugbug-nakashima-column-01-04/08.jpg": {
+      "w": 1280,
+      "h": 720,
+      "bytes": 197078,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/bugbug-nakashima-column-01-04/08-600.webp",
+          "bytes": 50380
+        },
+        {
+          "w": 960,
+          "src": "/images/blog/bugbug-nakashima-column-01-04/08-960.webp",
+          "bytes": 93994
+        },
+        {
+          "w": 1280,
+          "src": "/images/blog/bugbug-nakashima-column-01-04/08-1280.webp",
+          "bytes": 136214
+        }
+      ]
+    },
+    "/images/blog/bugbug-nakashima-column-01-04/09.jpg": {
+      "w": 1280,
+      "h": 720,
+      "bytes": 261900,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/bugbug-nakashima-column-01-04/09-600.webp",
+          "bytes": 68016
+        },
+        {
+          "w": 960,
+          "src": "/images/blog/bugbug-nakashima-column-01-04/09-960.webp",
+          "bytes": 135830
+        },
+        {
+          "w": 1280,
+          "src": "/images/blog/bugbug-nakashima-column-01-04/09-1280.webp",
+          "bytes": 201498
+        }
+      ]
+    },
+    "/images/blog/bugbug-nakashima-column-01-04/10.jpg": {
+      "w": 1272,
+      "h": 708,
+      "bytes": 88514,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/bugbug-nakashima-column-01-04/10-600.webp",
+          "bytes": 18902
+        },
+        {
+          "w": 1272,
+          "src": "/images/blog/bugbug-nakashima-column-01-04/10-1272.webp",
+          "bytes": 48700
+        }
+      ]
+    },
+    "/images/blog/bugbug-nakashima-column-01-04/11.jpg": {
+      "w": 422,
+      "h": 600,
+      "bytes": 56717,
+      "variants": [
+        {
+          "w": 422,
+          "src": "/images/blog/bugbug-nakashima-column-01-04/11-422.webp",
+          "bytes": 41392
+        }
+      ]
+    },
+    "/images/blog/bugbug-nakashima-column-01-04/12.jpg": {
+      "w": 1280,
+      "h": 720,
+      "bytes": 262173,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/bugbug-nakashima-column-01-04/12-600.webp",
+          "bytes": 68242
+        },
+        {
+          "w": 960,
+          "src": "/images/blog/bugbug-nakashima-column-01-04/12-960.webp",
+          "bytes": 136154
+        },
+        {
+          "w": 1280,
+          "src": "/images/blog/bugbug-nakashima-column-01-04/12-1280.webp",
+          "bytes": 201326
+        }
+      ]
+    },
+    "/images/blog/bugbug-nakashima-column-01-04/13.jpg": {
+      "w": 1274,
+      "h": 710,
+      "bytes": 119283,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/bugbug-nakashima-column-01-04/13-600.webp",
+          "bytes": 25756
+        },
+        {
+          "w": 1274,
+          "src": "/images/blog/bugbug-nakashima-column-01-04/13-1274.webp",
+          "bytes": 69814
+        }
+      ]
+    },
+    "/images/blog/bugbug-nakashima-column-01-04/14.jpg": {
+      "w": 783,
+      "h": 1111,
+      "bytes": 159081,
+      "variants": [
+        {
+          "w": 783,
+          "src": "/images/blog/bugbug-nakashima-column-01-04/14-783.webp",
+          "bytes": 109870
+        }
+      ]
+    },
+    "/images/blog/bugbug-nakashima-column-05-08/01.jpg": {
+      "w": 1280,
+      "h": 720,
+      "bytes": 261838,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/bugbug-nakashima-column-05-08/01-600.webp",
+          "bytes": 67998
+        },
+        {
+          "w": 960,
+          "src": "/images/blog/bugbug-nakashima-column-05-08/01-960.webp",
+          "bytes": 135928
+        },
+        {
+          "w": 1280,
+          "src": "/images/blog/bugbug-nakashima-column-05-08/01-1280.webp",
+          "bytes": 201634
+        }
+      ]
+    },
+    "/images/blog/bugbug-nakashima-column-05-08/02.jpg": {
+      "w": 420,
+      "h": 595,
+      "bytes": 62591,
+      "variants": [
+        {
+          "w": 420,
+          "src": "/images/blog/bugbug-nakashima-column-05-08/02-420.webp",
+          "bytes": 46646
+        }
+      ]
+    },
+    "/images/blog/bugbug-nakashima-column-05-08/03.jpg": {
+      "w": 1280,
+      "h": 720,
+      "bytes": 129707,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/bugbug-nakashima-column-05-08/03-600.webp",
+          "bytes": 31142
+        },
+        {
+          "w": 960,
+          "src": "/images/blog/bugbug-nakashima-column-05-08/03-960.webp",
+          "bytes": 56954
+        },
+        {
+          "w": 1280,
+          "src": "/images/blog/bugbug-nakashima-column-05-08/03-1280.webp",
+          "bytes": 78738
+        }
+      ]
+    },
+    "/images/blog/bugbug-nakashima-column-05-08/04.jpg": {
+      "w": 716,
+      "h": 490,
+      "bytes": 115044,
+      "variants": [
+        {
+          "w": 716,
+          "src": "/images/blog/bugbug-nakashima-column-05-08/04-716.webp",
+          "bytes": 86542
+        }
+      ]
+    },
+    "/images/blog/bugbug-nakashima-column-05-08/05.jpg": {
+      "w": 1280,
+      "h": 720,
+      "bytes": 261866,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/bugbug-nakashima-column-05-08/05-600.webp",
+          "bytes": 67974
+        },
+        {
+          "w": 960,
+          "src": "/images/blog/bugbug-nakashima-column-05-08/05-960.webp",
+          "bytes": 135842
+        },
+        {
+          "w": 1280,
+          "src": "/images/blog/bugbug-nakashima-column-05-08/05-1280.webp",
+          "bytes": 201464
+        }
+      ]
+    },
+    "/images/blog/bugbug-nakashima-column-05-08/06.jpg": {
+      "w": 800,
+      "h": 450,
+      "bytes": 103016,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/bugbug-nakashima-column-05-08/06-600.webp",
+          "bytes": 52164
+        },
+        {
+          "w": 800,
+          "src": "/images/blog/bugbug-nakashima-column-05-08/06-800.webp",
+          "bytes": 79066
+        }
+      ]
+    },
+    "/images/blog/bugbug-nakashima-column-05-08/07.jpg": {
+      "w": 1400,
+      "h": 1037,
+      "bytes": 110954,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/bugbug-nakashima-column-05-08/07-600.webp",
+          "bytes": 18244
+        },
+        {
+          "w": 960,
+          "src": "/images/blog/bugbug-nakashima-column-05-08/07-960.webp",
+          "bytes": 38972
+        },
+        {
+          "w": 1400,
+          "src": "/images/blog/bugbug-nakashima-column-05-08/07-1400.webp",
+          "bytes": 65538
+        }
+      ]
+    },
+    "/images/blog/bugbug-nakashima-column-05-08/08.jpg": {
+      "w": 1280,
+      "h": 720,
+      "bytes": 261915,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/bugbug-nakashima-column-05-08/08-600.webp",
+          "bytes": 68028
+        },
+        {
+          "w": 960,
+          "src": "/images/blog/bugbug-nakashima-column-05-08/08-960.webp",
+          "bytes": 135920
+        },
+        {
+          "w": 1280,
+          "src": "/images/blog/bugbug-nakashima-column-05-08/08-1280.webp",
+          "bytes": 201666
+        }
+      ]
+    },
+    "/images/blog/bugbug-nakashima-column-05-08/09.jpg": {
+      "w": 800,
+      "h": 450,
+      "bytes": 63368,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/bugbug-nakashima-column-05-08/09-600.webp",
+          "bytes": 29212
+        },
+        {
+          "w": 800,
+          "src": "/images/blog/bugbug-nakashima-column-05-08/09-800.webp",
+          "bytes": 41998
+        }
+      ]
+    },
+    "/images/blog/bugbug-nakashima-column-05-08/10.jpg": {
+      "w": 844,
+      "h": 1200,
+      "bytes": 142562,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/bugbug-nakashima-column-05-08/10-600.webp",
+          "bytes": 56116
+        },
+        {
+          "w": 844,
+          "src": "/images/blog/bugbug-nakashima-column-05-08/10-844.webp",
+          "bytes": 91014
+        }
+      ]
+    },
+    "/images/blog/bugbug-nakashima-column-05-08/11.jpg": {
+      "w": 1280,
+      "h": 720,
+      "bytes": 261805,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/bugbug-nakashima-column-05-08/11-600.webp",
+          "bytes": 67918
+        },
+        {
+          "w": 960,
+          "src": "/images/blog/bugbug-nakashima-column-05-08/11-960.webp",
+          "bytes": 135994
+        },
+        {
+          "w": 1280,
+          "src": "/images/blog/bugbug-nakashima-column-05-08/11-1280.webp",
+          "bytes": 201542
+        }
+      ]
+    },
+    "/images/blog/bugbug-nakashima-column-05-08/12.jpg": {
+      "w": 800,
+      "h": 450,
+      "bytes": 64458,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/bugbug-nakashima-column-05-08/12-600.webp",
+          "bytes": 28694
+        },
+        {
+          "w": 800,
+          "src": "/images/blog/bugbug-nakashima-column-05-08/12-800.webp",
+          "bytes": 41666
+        }
+      ]
+    },
+    "/images/blog/bugbug-nakashima-column-05-08/13.jpg": {
+      "w": 845,
+      "h": 1199,
+      "bytes": 146447,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/bugbug-nakashima-column-05-08/13-600.webp",
+          "bytes": 58238
+        },
+        {
+          "w": 845,
+          "src": "/images/blog/bugbug-nakashima-column-05-08/13-845.webp",
+          "bytes": 93454
         }
       ]
     },
