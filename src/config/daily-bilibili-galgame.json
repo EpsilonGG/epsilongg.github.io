@@ -11,7 +11,7 @@
       "label": "B站Gal"
     }
   ],
-  "note": "Galgame 日报的 **B 站动态监控名单正本**（2026-11-11 用户裁决：与 X 名单彻底分家）。本文件同时是站点查询层的「独立名单文件」：category/categories 给栏目，accounts 给显示名、profile_url 与 B站Gal 标签。所有监控账号统一打 `B站Gal` 分类标签（category=bili_gal / tags=[B站Gal]），由 scripts/bilibili_daily.py 每天抓取 `x/polymer/web-dynamic/v1/feed/space`，按 JST 自然日落 data/bilibili/galgame/<YYYY-MM-DD>.jsonl，并镜像成 X-Reader 形状的 .xreader/data-galgame/items/bilibili.jsonl，让 `daily build --kind galgame` 无需改代码就能读到。handle 是站点侧的合成标识（bili_<uid>），**不是 X 账号**；本文件绝不写进 src/config/daily-roster-galgame.json，sync_xreader_accounts.py 也不会把 B 站号当成 X 账号抓取。src/lib/roster.ts 与 scripts/daily/roster.py 各自单独把本文件并进查询表。 2026-11-12 用户批量新增监控号：纯数字按 UID 直接录入并用 /x/web-interface/card 回查昵称；其余昵称经 B 站用户搜索（wbi/search/type, search_type=bili_user）解析成 UID，以 UID 为准，name 记录用户给的昵称（只给 UID 未给昵称的账号则记 /x/web-interface/card 回查到的昵称，2026-11-12 又用 feed/space 的 module_author.name 复核）；B 站当前昵称不同时另记 bilibili_uname。『TamaMako七花舞_ななかまい』经用户 2026-11-12 确认确为两个独立账号，按 UID 分别录入。『株式会社C-End』在 B 站用户搜索里查不到同名账号（同名候选 157270804 是 0 粉丝空号，未采用），搜索引擎索引到的两条 2026-03 yakumo 动态（opus 1180398459152236626 / 1180767727509307415）仅作侧面佐证；2026-11-12 用户直接补 UID 3546838852438089 后按 UID 录入，并用 feed/space 的 module_author.name 回查确认昵称一致。至此用户给出的账号全部录入。 2026-11-20 用户裁决：永久删除 z8yi176swlx05b（UID 207286344）与 bili_13283940707（UID 1797241376）——两者长期被 B 站风控（code -352），每天 16 次重试全部失败、只能靠 exit 3 空转，故从本文件移除，**不要重新加回**；已抓到的历史数据（data/bilibili/galgame/*.jsonl 与镜像）保留不动，不做清理。",
+  "note": "Galgame 日报的 **B 站动态监控名单正本**（2026-11-11 用户裁决：与 X 名单彻底分家）。本文件同时是站点查询层的「独立名单文件」：category/categories 给栏目，accounts 给显示名、profile_url 与 B站Gal 标签。所有监控账号统一打 `B站Gal` 分类标签（category=bili_gal / tags=[B站Gal]），由 scripts/bilibili_daily.py 每天抓取 `x/polymer/web-dynamic/v1/feed/space`，按 JST 自然日落 data/bilibili/galgame/<YYYY-MM-DD>.jsonl，并镜像成 X-Reader 形状的 .xreader/data-galgame/items/bilibili.jsonl，让 `daily build --kind galgame` 无需改代码就能读到。handle 是站点侧的合成标识（bili_<uid>），**不是 X 账号**；本文件绝不写进 src/config/daily-roster-galgame.json，sync_xreader_accounts.py 也不会把 B 站号当成 X 账号抓取。src/lib/roster.ts 与 scripts/daily/roster.py 各自单独把本文件并进查询表。 2026-11-12 用户批量新增监控号：纯数字按 UID 直接录入并用 /x/web-interface/card 回查昵称；其余昵称经 B 站用户搜索（wbi/search/type, search_type=bili_user）解析成 UID，以 UID 为准，name 记录用户给的昵称（只给 UID 未给昵称的账号则记 /x/web-interface/card 回查到的昵称，2026-11-12 又用 feed/space 的 module_author.name 复核）；B 站当前昵称不同时另记 bilibili_uname。『TamaMako七花舞_ななかまい』经用户 2026-11-12 确认确为两个独立账号，按 UID 分别录入。『株式会社C-End』在 B 站用户搜索里查不到同名账号（同名候选 157270804 是 0 粉丝空号，未采用），搜索引擎索引到的两条 2026-03 yakumo 动态（opus 1180398459152236626 / 1180767727509307415）仅作侧面佐证；2026-11-12 用户直接补 UID 3546838852438089 后按 UID 录入，并用 feed/space 的 module_author.name 回查确认昵称一致。至此用户给出的账号全部录入。 2026-11-20 用户裁决：永久删除 z8yi176swlx05b（UID 207286344）与 bili_13283940707（UID 1797241376）——两者长期被 B 站风控（code -352），每天 16 次重试全部失败、只能靠 exit 3 空转，故从本文件移除，**不要重新加回**；已抓到的历史数据（data/bilibili/galgame/*.jsonl 与镜像）保留不动，不做清理。 2026-11-25 用户裁决：为扩充汉化内容的抓取与分析范围，补入 Kagami-Games（官方中文版／Steam 首发）、AUTOMATON_CN（官中发行专访／移植分析）两个 B 站号；仍遵守两条名单分家，不写进 X 名单。 2026-11-25 用户裁决（红线）：B 站源号**一律 category=bili_gal**，绝不为「新号统一归信息号」而改成 info——info 会让页面按 X 号拼出 `https://x.com/bili_<uid>` 的错误链接，只有 bili_gal 才走 profile_url 的 B 站空间并落进「B站动态」栏。",
   "accounts": [
     {
       "uid": "3632310624717268",
@@ -867,6 +867,34 @@
       "active": true,
       "profile_url": "https://space.bilibili.com/2805329/dynamic",
       "note": "用户 2026-11-12 给昵称，B 站用户搜索按同名 + 粉丝/认证信息解析出 UID；UID 为准。"
+    },
+    {
+      "uid": "3546814221388175",
+      "name": "Kagami-Games",
+      "handle": "bili_3546814221388175",
+      "source": "bilibili",
+      "category": "bili_gal",
+      "role": "main",
+      "tags": [
+        "B站Gal"
+      ],
+      "active": true,
+      "profile_url": "https://space.bilibili.com/3546814221388175/dynamic",
+      "note": "MOONSTONE Cherry 等官方中文版／Steam 首发信息转发 · 2026-11-25 用户裁决「汉化内容抓取和分析范围可用 B 站账号扩充」补入；UID 由 B 站用户搜索按同名核对"
+    },
+    {
+      "uid": "3691008573311600",
+      "name": "AUTOMATON_CN",
+      "handle": "bili_3691008573311600",
+      "source": "bilibili",
+      "category": "bili_gal",
+      "role": "main",
+      "tags": [
+        "B站Gal"
+      ],
+      "active": true,
+      "profile_url": "https://space.bilibili.com/3691008573311600/dynamic",
+      "note": "AUTOMATON 中文站：官中发行专访／Steam 移植与销量分析 · 2026-11-25 用户裁决「汉化内容抓取和分析范围可用 B 站账号扩充」补入；UID 由 B 站用户搜索按同名核对"
     }
   ]
 }

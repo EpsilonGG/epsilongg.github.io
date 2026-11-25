@@ -1,6 +1,6 @@
 {
   "schema_version": 5,
-  "note": "Galgame 版日报的 **X 名单**（`daily build --kind galgame`，期号 `YYMMDD-g`）。2026-11-20 补 jita_gf（ギャルズフィクション@ギャルフィク，自宅すたじお 的 FD 官网号，登记在 jitaku_st 之后，role=sub · brand=自宅すたじお）。厂商一个 handle 一条，同社多品牌写进 note；黑系（エロス系作品BLACK賞）这批没有建。信息号（category=info）2026-10-29 先启用五个：seiya_saiga / youtan0309 / aikouka23 三个个人向，加 getchucom（发售日历）与 bugbug_info（新作介绍）两个媒体号——媒体号走 `keep_if` 白名单，只收指定内容。2026-11-01 再补两个：hiro_in（ErogameScape 管理人）与 AKOUtw（アミューズクラフト 导演个人号）。Moepedia 是作品情报站，仍挂在 manufacturer 下（tags: 资料站 / 作品情报）。akaeroCore 的四个语言号 2026-11-01 起并入 manufacturer，按 name 合并成一行（主号 akaerocore，其余进 via）。 2026-11-10 补 stealcatAC（スティールキャット，アミューズクラフト系列新品牌，brand=AMUSE CRAFT）。 2026-11-11 用户裁决：B 站监控号与 X 名单**彻底分家**——B 站名单只在 src/config/daily-bilibili-galgame.json，抓取只在 scripts/bilibili_daily.py；本文件只放 X 账号，不出现 `bili_*` / `bili_gal` / `source=bilibili`。站点查询层（src/lib/roster.ts）与日报名单层（scripts/daily/roster.py）各自单独并入 B 站名单文件。 2026-11-19 晚：按用户要求把名单 1-1「其他 · 信息号・泛游戏媒体」表整表同步进本名单，新增 16 个账号（6 信息号／5 泛游戏媒体／4 游戏媒体／1 翻译者），其中 famitsu 按 1-1 原注「不建议」登记为 active=false；原表已有的 8 个账号未改动；翻译者 flankoi 已于同日移到 1-1 第一表，不进日报名单。",
+  "note": "Galgame 版日报的 **X 名单**（`daily build --kind galgame`，期号 `YYMMDD-g`）。2026-11-20 补 jita_gf（ギャルズフィクション@ギャルフィク，自宅すたじお 的 FD 官网号，登记在 jitaku_st 之后，role=sub · brand=自宅すたじお）。厂商一个 handle 一条，同社多品牌写进 note；黑系（エロス系作品BLACK賞）这批没有建。信息号（category=info）2026-10-29 先启用五个：seiya_saiga / youtan0309 / aikouka23 三个个人向，加 getchucom（发售日历）与 bugbug_info（新作介绍）两个媒体号——媒体号走 `keep_if` 白名单，只收指定内容。2026-11-01 再补两个：hiro_in（ErogameScape 管理人）与 AKOUtw（アミューズクラフト 导演个人号）。Moepedia 是作品情报站，仍挂在 manufacturer 下（tags: 资料站 / 作品情报）。akaeroCore 的四个语言号 2026-11-01 起并入 manufacturer，按 name 合并成一行（主号 akaerocore，其余进 via）。 2026-11-10 补 stealcatAC（スティールキャット，アミューズクラフト系列新品牌，brand=AMUSE CRAFT）。 2026-11-11 用户裁决：B 站监控号与 X 名单**彻底分家**——B 站名单只在 src/config/daily-bilibili-galgame.json，抓取只在 scripts/bilibili_daily.py；本文件只放 X 账号，不出现 `bili_*` / `bili_gal` / `source=bilibili`。站点查询层（src/lib/roster.ts）与日报名单层（scripts/daily/roster.py）各自单独并入 B 站名单文件。 2026-11-19 晚：按用户要求把名单 1-1「其他 · 信息号・泛游戏媒体」表整表同步进本名单，新增 16 个账号（6 信息号／5 泛游戏媒体／4 游戏媒体／1 翻译者），其中 famitsu 按 1-1 原注「不建议」登记为 active=false；原表已有的 8 个账号未改动；翻译者 flankoi 已于同日移到 1-1 第一表，不进日报名单。 2026-11-25 用户裁决整改措施：补入 VAScripts（VISUAL ARTS Scripts開発室）、getchucom_n（げっちゅ屋一般号）、AirVelo2026（恋愛、はじめまして项目号）三个 X 抓取源号，分别对应鉄廻城砦／店铺特典／主机版移植的窗口内漏收。 2026-11-25 用户裁决：当日新补入的抓取源号一律 category=info（role=info）——它们是「补漏的窗口号」，不是作品厂商本体号，VAScripts 与 AirVelo2026 由 manufacturer 改判 info。B 站源号不走这条：它们留在 daily-bilibili-galgame.json 的 bili_gal，否则页面会按 X 号拼出 x.com 链接。",
   "categories": [
     {
       "id": "manufacturer",
@@ -2861,6 +2861,60 @@
         ],
         "max_items": 5
       }
+    },
+    {
+      "handle": "VAScripts",
+      "name": "VISUAL ARTS Scripts開発室",
+      "category": "info",
+      "role": "info",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏",
+        "新作"
+      ],
+      "note": "VISUAL ARTS 旗下 Scripts 品牌官号（Key 母公司新品牌）· 2026-11-25 用户点名补入；鉄廻城砦の灰花的原画／声优评论／初回版预约／店铺特典源号"
+    },
+    {
+      "handle": "getchucom_n",
+      "name": "Getchu.com（げっちゅ屋）＠一般",
+      "category": "info",
+      "role": "info",
+      "active": true,
+      "tags": [
+        "游戏情报",
+        "平台",
+        "店铺特典"
+      ],
+      "note": "げっちゅ屋 一般向账号，与既有 getchucom 分工：店铺特典／新周边开卖信息在此号 · 2026-11-25 用户点名补入",
+      "filter": {
+        "drop_kinds": [
+          "repost"
+        ],
+        "keep_if": [
+          "予約",
+          "発売",
+          "特典",
+          "店舗",
+          "グッズ",
+          "新グッズ",
+          "カウントダウン"
+        ],
+        "max_items": 8
+      }
+    },
+    {
+      "handle": "AirVelo2026",
+      "name": "AirVelocity（エアヴェロシティ）",
+      "category": "info",
+      "role": "info",
+      "active": true,
+      "tags": [
+        "创作者",
+        "游戏",
+        "移植"
+      ],
+      "note": "恋愛、はじめまして 主机版项目官号 · 2026-11-25 用户点名补入；Switch 豪华限定版／CG 追加／ED 曲等移植消息源号"
     }
   ]
 }
