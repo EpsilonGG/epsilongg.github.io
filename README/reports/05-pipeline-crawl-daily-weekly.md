@@ -188,7 +188,7 @@ data/daily/state.json       已见键（进 git）
 
 - `summary`：今日看点简报（≤60，页面副标题）
 - `works`：作品动态（**一条一个作品**）
-- `interactions`：名单内多人互动
+- `interactions`：名单内多人互动（三期都不限条数，有几条站得住写几条）
 - `people[].summary`：每人一句话（空 = 当日无活动，不渲染）
 
 `validate.py` 是「叙述里写显示名、不写句柄」这条规则的执行者；`schema.py` 保证写出去的东西结构合法（`schemas/report.schema.json`）。

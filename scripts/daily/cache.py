@@ -19,7 +19,7 @@ from dataclasses import asdict, dataclass, field
 from datetime import datetime, timezone
 from pathlib import Path
 
-PROMPT_VERSION = 7  # 7：repost 条目必须写明「转发了谁的消息」，题面标注 转发自 @xxx；6：完整照抄书名号内的作品名
+PROMPT_VERSION = 8  # 8：出稿取消条数限制（highlights / works / interactions / insights 均不限条数）；7：repost 条目必须写明「转发了谁的消息」，题面标注 转发自 @xxx
 
 FRESH = "fresh"
 STALE = "stale"

@@ -62,6 +62,14 @@ export function sourceUrl(key: string): string | null {
     : `https://www.bilibili.com/opus/${match[2]}`;
 }
 
+/**
+ * 「详细」栏的账号主页加 `/all`（原创 + 转发一起看，2026-11-26 用户裁决）。
+ * 只拼 `https://x.com/<handle>` 这一层；B 站空间与推文单页链接原样返回。
+ */
+function detailProfileUrl(url: string): string {
+  return /^https:\/\/x\.com\/[^/?#]+\/?$/i.test(url) ? `${url.replace(/\/$/, '')}/all` : url;
+}
+
 function sourceLinks(sources: string[] | undefined): string {
   const urls = [...new Set((sources ?? []).map(sourceUrl).filter((url): url is string => url !== null))];
   if (urls.length === 0) return '';
@@ -95,20 +103,28 @@ export function dailyPlainMarkdown(data: DailyPlainData, identity: PlainIdentity
   };
 
   paragraphs('今日看点', data.highlights.map((claim) => claim.text));
-  bullets('作品动态', data.works);
-  bullets(
-    '分类摘要',
-    data.categories.filter((category) => category.summary.trim()).map(
-      (category) => `${category.label}：${category.summary}`
-    )
-  );
   if (data.kind === 'gplus') {
+    bullets('作品动态', data.works);
+    bullets(
+      '分类摘要',
+      data.categories.filter((category) => category.summary.trim()).map(
+        (category) => `${category.label}：${category.summary}`
+      )
+    );
     // 页面上的「总结」是洞察 + 互动两栏，纯文字版跟着合成一段，顺序也照页面
     if (data.insights.length + data.interactions.length > 0) lines.push('', '## **总结**');
     subBullets('洞察', data.insights.map((claim) => claim.text));
     subBullets('互动', data.interactions.map((claim) => claim.text));
   } else {
+    // 2026-11-26：互动紧跟今日看点，和页面顺序一致；作品动态仍是独立一段
     bullets('互动', data.interactions.map((claim) => claim.text));
+    bullets('作品动态', data.works);
+    bullets(
+      '分类摘要',
+      data.categories.filter((category) => category.summary.trim()).map(
+        (category) => `${category.label}：${category.summary}`
+      )
+    );
   }
 
   const people = data.people
@@ -120,9 +136,9 @@ export function dailyPlainMarkdown(data: DailyPlainData, identity: PlainIdentity
       const name = person.name ?? identity.nameOf(handle);
       const suffix = name === `@${handle}` ? '' : `（@${handle}）`;
       const via = person.via.length > 0
-        ? `（另有 ${person.via.map((h) => `[@${h}](${identity.profileUrlOf(h)})`).join('、')}）`
+        ? `（另有 ${person.via.map((h) => `[@${h}](${detailProfileUrl(identity.profileUrlOf(h))})`).join('、')}）`
         : '';
-      return `[${name}](${identity.profileUrlOf(handle)})${suffix}：` +
+      return `[${name}](${detailProfileUrl(identity.profileUrlOf(handle))})${suffix}：` +
         `${person.summary.trim()}${via}${sourceLinks(person.sources)}`;
     });
   bullets('详细', people);

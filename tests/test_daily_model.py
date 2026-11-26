@@ -139,7 +139,8 @@ class SchemaTest(unittest.TestCase):
         with self.assertRaises(SchemaError):
             validate("2610232", schema, "$.issue.id")
 
-    def test_min_items(self) -> None:
+    def test_no_highlight_count_limit(self) -> None:
+        """2026-11-26 用户裁决：出稿取消条数限制，六条看点不再判失败。"""
         schema = load_schema("generation")
         payload = {
             "category": "seiyuu",
@@ -148,9 +149,21 @@ class SchemaTest(unittest.TestCase):
             "interactions": [],
             "people": [],
         }
+        validate(payload, schema)
+
+    def test_sources_still_require_one_item(self) -> None:
+        """条数上限取消，但每条仍必须挂得到来源。"""
+        schema = load_schema("generation")
+        payload = {
+            "category": "seiyuu",
+            "summary": "…",
+            "highlights": [{"text": "一", "sources": []}],
+            "interactions": [],
+            "people": [],
+        }
         with self.assertRaises(SchemaError) as ctx:
             validate(payload, schema)
-        self.assertIn("最多 4 项", ctx.exception.message)
+        self.assertIn("至少 1 项", ctx.exception.message)
 
     def test_good_generation_passes(self) -> None:
         payload = {

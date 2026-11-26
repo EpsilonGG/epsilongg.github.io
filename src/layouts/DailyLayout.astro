@@ -17,6 +17,7 @@ import {
   categoryLabelOf,
   categoryOf,
   categoryRankOf,
+  detailProfileUrlOf,
   displayNameOf,
   nameOf,
   profileUrlOf,
@@ -102,6 +103,9 @@ for (const person of roster) {
 /**
  * 正文里的 `@handle` 自动变成主页链接，但只认这一期出现过的号。
  * 先转义再加链接——顺序反了会把文字里的 `<` 当成标签。
+ *
+ * `detail=true` 给「详细」栏用：X 主页一律带 `/all`（原创 + 转发），
+ * 其余段落仍是普通主页链接。
  */
 const canonicalHandle = new Map<string, string>();
 for (const handle of [...accounts, ...people.flatMap((p) => [p.handle, ...p.via])]) {
@@ -116,20 +120,15 @@ const HTML_ESCAPES: Record<string, string> = {
   "'": '&#39;',
 };
 
-function withMentions(text: string): string {
+function withMentions(text: string, detail = false): string {
   const escaped = text.replace(/[&<>"']/g, (char) => HTML_ESCAPES[char] ?? char);
   return escaped.replace(/@([A-Za-z0-9_]+)/g, (whole, handle: string) => {
     const canonical = canonicalHandle.get(handle.toLowerCase());
     if (!canonical) return whole;
-    return `<a class="daily-mention" href="${profileUrlOf(canonical)}" target="_blank" rel="noopener noreferrer">@${canonical}</a>`;
+    const url = detail ? detailProfileUrlOf(canonical) : profileUrlOf(canonical);
+    return `<a class="daily-mention" href="${url}" target="_blank" rel="noopener noreferrer">@${canonical}</a>`;
   });
 }
-
-/**
- * 名单里带 `profile_url` 的非 X 账号（`source=bilibili` 的 B 站动态监控号）
- * 链到 B 站空间；其余仍是 X 主页。旧期号里没有这些字段，行为不变。
- */
-const profileUrl = profileUrlOf;
 
 /**
  * B 站动态（2026-11-12 用户裁决）。
@@ -186,12 +185,21 @@ function categoryIdOf(handle: string): string {
 }
 
 /**
- * 按栏目（声优版：声优 / 音声社团；Galgame 版：游戏制造商 / 信息号 / B站动态）分组，
- * 给「详细」栏的筛选按钮用。
+ * 声优 / Galgame 版的「新作」（`works`）从页面顶部的独立一段挪进「详细」栏，
+ * 当成一个和账号栏目平行的筛选单元（2026-11-26 用户裁决）。条目格式不变：
+ * 一行一条原句，只是现在默认展开的是它，其它账号栏目要手动点开——
+ * 那些一行一句里有作品名和剧透，不该在读者扫「详细」时先撞上。
+ * Gplus 的 `works` 恒为空，不参与。
+ */
+const worksInDetail = post.data.kind !== 'gplus' && works.length > 0;
+
+/**
+ * 按栏目（声优版：新作 / 声优 / 音声社团；Galgame 版：新作 / 游戏制造商 /
+ * 信息号 / B站动态）分组，给「详细」栏的筛选按钮用。
  *
  * 顺序跟名单的 `categories` 走，不跟数据走：同一期里「声优在前、社团在后」
- * 应该是稳定约定，而不是「谁先被抓到谁排前面」。B 站名单排在两份 X 名单之后，
- * 所以「B站动态」天然是 Galgame 版的第三个按钮。
+ * 应该是稳定约定，而不是「谁先被抓到谁排前面」。「新作」固定在最前面且默认亮；
+ * B 站名单排在两份 X 名单之后，所以「B站动态」天然是 Galgame 版的最后一个按钮。
  *
  * 只保留这一期确实有条目的栏目——空栏目的按钮点开是空的，等于骗人。
  */
@@ -212,15 +220,22 @@ const categoriesPresent = (() => {
       count,
       rank: categoryRankOf(id),
     }))
+    .concat(worksInDetail ? [{ id: 'works', label: '新作', count: works.length, rank: -1 }] : [])
     .sort((a, b) => a.rank - b.rank || b.count - a.count);
 })();
 
 /**
- * 默认栏目按**版**走：声优版默认声优，Galgame 版默认游戏制造商。
- * 某期那一栏没有条目（或名单漏了人）就退回第一个栏目。
+ * 默认栏目按**版**走：声优 / Galgame 版有「新作」就默认只亮它（点别的栏目是加，
+ * 剧透账号要读者自己点开）；没有新作时退回原来的声优 / 游戏制造商。
+ * Gplus 仍默认「创作者・从业者」。某期那一栏没有条目就退回第一个栏目。
  */
-const preferredCategory =
-  post.data.kind === 'gplus' ? 'info' : post.data.kind === 'galgame' ? 'manufacturer' : 'seiyuu';
+const preferredCategory = worksInDetail
+  ? 'works'
+  : post.data.kind === 'gplus'
+    ? 'info'
+    : post.data.kind === 'galgame'
+      ? 'manufacturer'
+      : 'seiyuu';
 const defaultCategory = categoriesPresent.some((item) => item.id === preferredCategory)
   ? preferredCategory
   : (categoriesPresent[0]?.id ?? '');
@@ -346,6 +361,22 @@ if (ja) {
             }
           </section>
 
+          {/*
+            互动前移到「今日看点」之后、长图之前（2026-11-26 用户裁决）：
+            它是一来一往的具体事例，紧跟看点读最顺；有了它再扫分类摘要与长图。
+            Gplus 的互动并进「总结」，不走这一块。
+          */}
+          {post.data.kind !== 'gplus' && interactions.length > 0 ? (
+            <section class="daily-block">
+              <h2>互动</h2>
+              <ul>
+                {interactions.map((claim) => (
+                  <li set:html={withMentions(claim.text)} />
+                ))}
+              </ul>
+            </section>
+          ) : null}
+
           {
             categories.some((category) => category.summary.trim().length > 0) ? (
               <section class="daily-block">
@@ -365,22 +396,10 @@ if (ja) {
             ) : null
           }
 
-          {
-            works.length > 0 ? (
-              <section class="daily-block">
-                <h2>作品动态</h2>
-                <ul>
-                  {works.map((line) => (
-                    <li set:html={withMentions(line)} />
-                  ))}
-                </ul>
-              </section>
-            ) : null
-          }
-
           {/*
-            长图插在「作品动态」之后：那是读者扫完标题、要点、作品后，
+            长图插在「分类摘要」之后：那是读者扫完标题、要点、互动后，
             最想「存一张走」的位置。图本身就是整期的浓缩版（题目 / 要点 / 作品）。
+            原「作品动态」一段已折进「详细」的「新作」筛选单元。
           */}
           {
             dailyImage ? (
@@ -402,7 +421,7 @@ if (ja) {
             两栏各是一个可折叠的栏目按钮，交互与「详细」的栏目筛选完全一致，
             只是分组依据从「账号栏目」换成「内容类型」。洞察在前——先看跨账号的
             观察，再看具体的一来一往；两栏默认都亮，藏掉一半就读不出对照。
-            另两版保持各自独立的两块，不动。
+            另两版的洞察仍在长图后独立一段；互动已在 2026-11-26 前移到看点之后。
           */}
           {
             post.data.kind === 'gplus' ? (
@@ -447,17 +466,6 @@ if (ja) {
               ) : null
             ) : (
               <>
-                {interactions.length > 0 ? (
-                  <section class="daily-block">
-                    <h2>互动</h2>
-                    <ul>
-                      {interactions.map((claim) => (
-                        <li set:html={withMentions(claim.text)} />
-                      ))}
-                    </ul>
-                  </section>
-                ) : null}
-
                 {insights.length > 0 ? (
                   <section class="daily-block">
                     <h2>洞察</h2>
@@ -491,15 +499,16 @@ if (ja) {
           }
 
           {
-            roster.length > 0 || bilibiliGroups.length > 0 ? (
+            roster.length > 0 || bilibiliGroups.length > 0 || worksInDetail ? (
               <section class="daily-block">
                 <h2>详细</h2>
                 {/*
-                  栏目筛选：默认只亮一栏（声优版「声优」、Galgame 版「游戏制造商」）。
+                  栏目筛选：声优 / Galgame 版有「新作」时默认只亮它，账号栏目要
+                  读者自己点开（2026-11-26）；Gplus 仍按版默认创作者栏目。
                   点另一个栏目是**加**（两个都亮），再点自己一次是**减**——所以
-                  「只想看制造商」是「点制造商、再点声优」，不用先全清再选。
-                  「B站动态」是第三个按钮，与游戏制造商 / 信息号平行；筛选脚本只看
-                  `[data-category]`，新栏目不需要改任何客户端逻辑。
+                  「只想看制造商」是「点制造商、再点新作」，不用先全清再选。
+                  「新作」「B站动态」与账号栏目平行；筛选脚本只看 `[data-category]`，
+                  新栏目不需要改任何客户端逻辑。
                   交互和笔记页的标签按钮一致（aria-pressed 表达选中）。
                 */}
                 {showCategoryFilter ? (
@@ -520,25 +529,38 @@ if (ja) {
                   </div>
                 ) : null}
                 <ul class="daily-roster" id="daily-detail-list" data-daily-roster>
+                  {/*
+                    原「作品动态」一段（2026-11-26）：条目格式照旧，一行一条原句，
+                    只是改成 `data-category="works"`，和其它账号栏目一起受上面的按钮管。
+                  */}
+                  {worksInDetail
+                    ? works.map((line) => (
+                        <li data-category="works" set:html={withMentions(line, true)} />
+                      ))
+                    : null}
                   {sortedRoster.map((person) => (
                     <li data-category={categoryIdOf(person.handle)}>
                       <a
                         class="daily-roster__name"
-                        href={profileUrl(person.handle)}
+                        href={detailProfileUrlOf(person.handle)}
                         target="_blank"
                         rel="noopener noreferrer"
                       >
                         {person.name ?? nameOf(person.handle)}
                       </a>
                       <span class="daily-roster__sep">：</span>
-                      <span set:html={withMentions(person.summary)} />
+                      <span set:html={withMentions(person.summary, true)} />
                       {person.via.length > 0 ? (
                         <span class="daily-roster__via">
                           <span aria-hidden="true">·</span>
                           {person.via.map((via, index) => (
                             <>
                               {index > 0 ? <span aria-hidden="true">、</span> : null}
-                              <a href={profileUrl(via)} target="_blank" rel="noopener noreferrer">
+                              <a
+                                href={detailProfileUrlOf(via)}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                              >
                                 @{via}
                               </a>
                             </>
@@ -566,7 +588,7 @@ if (ja) {
                     <li data-category={BILIBILI_CATEGORY} class="daily-roster__bili">
                       <a
                         class="daily-roster__name"
-                        href={profileUrl(group.handle)}
+                        href={detailProfileUrlOf(group.handle)}
                         target="_blank"
                         rel="noopener noreferrer"
                       >

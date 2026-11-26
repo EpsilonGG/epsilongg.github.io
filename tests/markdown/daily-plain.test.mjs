@@ -50,7 +50,7 @@ test('纯文字版是 GFM：H1/H2、列表、绝对链接，没有图片', () =>
   assert.ok(out.startsWith('# **X 日报 · 2026-11-20 Galgame**\n'));
   assert.deepEqual(
     [...out.matchAll(/^## \*\*(.+)\*\*$/gm)].map((m) => m[1]),
-    ['今日看点', '作品动态', '分类摘要', '互动', '详细', '洞察']
+    ['今日看点', '互动', '作品动态', '分类摘要', '详细', '洞察']
   );
   assert.match(out, /^- 甲转了乙。$/m);
   assert.ok(!out.includes('!['), '纯文字版不该有图片语法');
@@ -75,7 +75,7 @@ test('详细栏保留账号、via 与逐条原文链接，且不重复', () => {
   const line = out.split('\n').find((l) => l.startsWith('- [品牌 A]'));
   assert.ok(line);
   assert.match(line, /^- \[品牌 A\]\(https:\/\/www\.bilibili\.com\/space\/1\)（@brand_a）：/);
-  assert.match(line, /\[@info_b\]\(https:\/\/x\.com\/info_b\)/);
+  assert.match(line, /\[@info_b\]\(https:\/\/x\.com\/info_b\/all\)/);
   assert.match(line, /\[原文1\]\(https:\/\/x\.com\/i\/web\/status\/123\)/);
   assert.match(line, /\[原文2\]\(https:\/\/www\.bilibili\.com\/opus\/456\)/);
   assert.equal((line.match(/原文1/g) ?? []).length, 1, '同一条来源只写一次');
@@ -86,7 +86,14 @@ test('详细栏保留账号、via 与逐条原文链接，且不重复', () => {
     { ...data, people: [{ handle: 'new_person', summary: '一句话。', via: [], sources: [] }] },
     identity
   );
-  assert.match(unknown, /^- \[@new_person\]\(https:\/\/x\.com\/new_person\)：一句话。$/m);
+  assert.match(unknown, /^- \[@new_person\]\(https:\/\/x\.com\/new_person\/all\)：一句话。$/m);
+});
+
+test('详细栏的 X 主页带 /all，但原文链接与 B 站主页不变', () => {
+  const out = dailyPlainMarkdown(data, identity);
+  assert.ok(!out.includes('https://x.com/brand_a/all'), 'B 站主页不能被拼成 X 链接');
+  assert.match(out, /\[原文1\]\(https:\/\/x\.com\/i\/web\/status\/123\)/);
+  assert.doesNotMatch(out, /\/i\/web\/status\/\d+\/all/);
 });
 
 test('正本的字句逐字保留，没有二次概括', () => {

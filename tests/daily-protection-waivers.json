@@ -1,26 +1,32 @@
 {
   "schema_version": 1,
   "note": "日报保护集的显式授权白名单。不是关掉闸门：未登记的保护路径仍逐字节比对、保护目录里出现新文件仍一律拦下。每条都要写清授权日与理由；改动一旦 commit，diff 归零、豁免自动失效，届时应把该条从这里删掉。batches 用于「一次用户裁决要改一批同构文件」的场景，仍然逐条列出完整文件路径，不接受目录或通配符。",
-  "cleared_on": "2026-11-20",
-  "cleared_reason": "日报总览页笔记化与版本筛选已 commit（d602de9），保护集 diff 归零，豁免按设计失效。空列表才是正常状态。",
+  "cleared_on": "2026-11-25",
+  "cleared_reason": "转发归属修正、实例扩充与回复名单扩充已 commit（c6ebc07），保护集 diff 归零，豁免按设计失效。空列表才是正常状态。",
   "waivers": [
     {
-      "path": "scripts/daily/model.py",
-      "authorized_by": "用户（2026-11-25：「输出时未分清消息是转发还是原创……如今天的大山チロル」）",
-      "authorized_on": "2026-11-25",
-      "reason": "from_xreader 兜底识别 Nitter inline RT（author_name 形如 RT @orig (by @owner)：，或正文 RT @orig:）；publisher=原作者、account=转发者，但 is_retweet=false 的条目现在标成 repost 并填 repost_of，防止把被转内容记成转发者原创。"
-    },
-    {
       "path": "scripts/daily/prompt.py",
-      "authorized_by": "用户（2026-11-25：转发必须写明是转发了谁的消息）",
-      "authorized_on": "2026-11-25",
-      "reason": "RULES_FLAT 加第 12 条转发口径；_item_lines 在 repost 条目的 head 追加「转发自 @xxx」，题面直接可见。"
+      "authorized_by": "用户（2026-11-26：出稿取消条数限制）",
+      "authorized_on": "2026-11-26",
+      "reason": "flat / map / reduce 三处题面与回答模板去掉 highlights、works、interactions 的数字上限，明确「不限条数」，避免出稿 prompt 与自动化指令不一致。"
     },
     {
       "path": "scripts/daily/cache.py",
-      "authorized_by": "用户（2026-11-25：改题面要求必须重出题面）",
-      "authorized_on": "2026-11-25",
-      "reason": "PROMPT_VERSION 6 -> 7：题面新增 repost 口径与「转发自 @xxx」标注，旧缓存题面必须失效重出。"
+      "authorized_by": "用户（2026-11-26：出稿取消条数限制）",
+      "authorized_on": "2026-11-26",
+      "reason": "PROMPT_VERSION 7 -> 8：题面去掉条数限制后旧缓存题面必须失效重出。"
+    },
+    {
+      "path": "schemas/report.schema.json",
+      "authorized_by": "用户（2026-11-26：出稿取消条数限制）",
+      "authorized_on": "2026-11-26",
+      "reason": "works 去掉 maxItems=24，与题面「不限条数」一致；其余字段与结构不动。"
+    },
+    {
+      "path": "schemas/generation.schema.json",
+      "authorized_by": "用户（2026-11-26：出稿取消条数限制）",
+      "authorized_on": "2026-11-26",
+      "reason": "回答层去掉 works maxItems=24、highlights minItems=2/maxItems=4，判卷不再拦真实素材够多的条目；sources 至少一条的来源闸门不动。"
     }
   ],
   "batches": [

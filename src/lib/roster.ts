@@ -136,6 +136,16 @@ export function profileUrlOf(handle: string): string {
   return profileUrl.get(handle.toLowerCase()) ?? `https://x.com/${handle}`;
 }
 
+/**
+ * 「详细」栏的账号主页：X 号加 `/all`，原创与转发一起看（2026-11-26 用户裁决）。
+ * B 站号走的是 `profile_url`，原样返回；已经是 `/all` 的也不重复拼。
+ * 只认 `https://x.com/<handle>` 这一层，推文单页 `/i/web/status/...` 不受影响。
+ */
+export function detailProfileUrlOf(handle: string): string {
+  const url = profileUrlOf(handle);
+  return /^https:\/\/x\.com\/[^/?#]+\/?$/i.test(url) ? `${url.replace(/\/$/, '')}/all` : url;
+}
+
 /** 名单里的显示名；不在名单（或该条没有 `name`）返回 null。 */
 export function displayNameOf(handle: string): string | null {
   return displayName.get(handle.toLowerCase()) ?? null;
