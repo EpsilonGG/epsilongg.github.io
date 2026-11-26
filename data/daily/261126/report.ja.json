@@ -1,0 +1,312 @@
+{
+  "schema_version": 1,
+  "hook": "一ノ瀬りと初の著書が全国の書店に並び、電子版も同時発売。胡桃ふゅのサークル初作品も今夜0時に解禁",
+  "description": "一ノ瀬りと初の著書が全国で発売され電子版も同時にスタートしました。胡桃ふゅの所属サークルの初作品も今夜0時に発売です。",
+  "description_zh": "一ノ瀬りと首部著作全国上市，电子版同步开卖；胡桃ふゅ所在社团的首作今夜开卖。",
+  "highlights": [
+    "一ノ瀬りと初の著書が全国の書店で発売、電子版も同時にスタート。本人は一部店舗で既に入荷したと報告し、陳列を撮るときは店員に一声かけてほしいと呼びかけました。",
+    "胡桃ふゅの所属サークル・桃尻乳業の初作品『おちんぽ淫臭村』が今夜0時に発売。彼女は23時から見守り配信を開きます。",
+    "歩サラと胡桃ふゅが2027年1月24日に新宿LOFT PLUS ONEで「真ん中バースデー2027」を開催、会場チケットは12月15日まで抽選で、配信チケットも用意。歩サラは1月30日の『きまぐれテンプテーション３』制作発表会にも出演します。",
+    "藍沢夏癒の誕生日。昼の収録が無事に終わり、21時からニコ生でお祝いのコメントを読みました。終了後は何度もお礼を伝えています。"
+  ],
+  "highlight_indexes": [
+    0,
+    1,
+    2,
+    5
+  ],
+  "works": [
+    "桃尻乳業の初作品『おちんぽ淫臭村』が今夜0時に発売、胡桃ふゅが主演で見守り配信も実施。",
+    "072LABOの新作『感じちゃ駄目ゲーム』が発売、砂糖しおが主演、常識改変もの。",
+    "『クロネのきもち』が今夜0時に発売、来夢ふらんがヒロイン役を担当。"
+  ],
+  "interactions": [
+    "胡桃ふゅがXでバースデーイベントのチケットを呼びかけ、歩サラが「今回もちゃんと出ます」と返しました。",
+    "涼花みなせが一ノ瀬りとの新刊発売ツイートをリポストし、柚木つばめも同じ投稿をリポストしました。",
+    "大山チロルが、自分と秋山はるるを並べて共演を望む投稿をリポストしました。",
+    "きみりんこ。が自サークルの音声素材が「アトリエすえ」の新作に使われたと報告し、お礼を述べました。"
+  ],
+  "people": [
+    {
+      "handle": "yukanyan2525",
+      "summary": "いい天気の朝を報告するあいさつ投稿。"
+    },
+    {
+      "handle": "re_re_tsubame",
+      "summary": "体調から復帰、作品DLが7000突破、簡体字中国語版も公開。"
+    },
+    {
+      "handle": "suzuka_minase",
+      "summary": "22時から久々の雑談配信、りとの新刊投稿もリポスト。"
+    },
+    {
+      "handle": "akinokaedevo",
+      "summary": "心情をつづる投稿を連投し、寝る姿勢をファンに質問。"
+    },
+    {
+      "handle": "narumiaisaka",
+      "summary": "一日中寝ていたと報告、起きていたのは昼の1時間ほど。"
+    },
+    {
+      "handle": "asuparama40",
+      "summary": "来月の新作タイトルが決定、予告は来週。来年は配信頻度を上げたいと語る。"
+    },
+    {
+      "handle": "mirai_chiroru",
+      "summary": "心情代弁の新作が発売、この演技の作り方を連日説明。"
+    },
+    {
+      "handle": "chiroru_o_",
+      "summary": "温泉やVRChat炒飯などの雑談をリポスト、温泉に行きたいと呟く。"
+    },
+    {
+      "handle": "devil_chiroru_v",
+      "summary": "魔王口調であいさつ、週末に配信できたらと話す。"
+    },
+    {
+      "handle": "mochiri_0909",
+      "summary": "遠野あおとひつじのスタジオで合録、相手を可愛いと称賛。"
+    },
+    {
+      "handle": "mimo_chorion",
+      "summary": "深夜の雑談配信を終え、たくさん話せて満足と報告。"
+    },
+    {
+      "handle": "harurupanda0827",
+      "summary": "4〜5月の枠が埋まり、11月28日で受付終了、以降は6月以降に。"
+    },
+    {
+      "handle": "shiho_moai",
+      "summary": "主演新作が発売、発売記念の半額は12月23日まで。"
+    },
+    {
+      "handle": "__amachi",
+      "summary": "会員限定配信が終了、逢坂成美との共演作は11月27日公開。"
+    },
+    {
+      "handle": "322yui3",
+      "summary": "ゼルダ配信を明日に移し、作品レビューを読み返して調整中。"
+    },
+    {
+      "handle": "yui_RP32",
+      "summary": "Android版作品を紹介、今日の補給だと添える。"
+    },
+    {
+      "handle": "ayakaigasaki",
+      "summary": "アカウントが制限され、健全なイラストにも敏感ラベル。今は文字だけ。"
+    },
+    {
+      "handle": "gemiko_voice",
+      "summary": "自分にWikipediaの項目があるという投稿をリポストし、驚きを口に。"
+    },
+    {
+      "handle": "mame_ruse",
+      "summary": "新作で看護師役、収録の合間にコメダで食事。"
+    },
+    {
+      "handle": "asagishiki00",
+      "summary": "Ci-enで11月の壁紙と限定グッズを公開、質問にも一通り回答。"
+    },
+    {
+      "handle": "fujimura_rio",
+      "summary": "風慈宮ユキの演技を絶賛、直近作から試聴を勧める。"
+    },
+    {
+      "handle": "nashihanami",
+      "summary": "フォロワー1万9000を目指す途中で50人減、あと20人まで戻る。"
+    },
+    {
+      "handle": "bee_ryo",
+      "summary": "ハムスターを迎えに行って、ずっと撫でていた。"
+    },
+    {
+      "handle": "1_rito",
+      "summary": "初の著書が全国書店と電子版で同時発売、bookwalkerとも交渉中。"
+    },
+    {
+      "handle": "p_o_g_s2",
+      "summary": "スタジオ収録を再開、来年のカレンダーを作りBOOTHで受注。"
+    },
+    {
+      "handle": "aizawa_nachu",
+      "summary": "誕生日に収録が無事終了、21時からニコ生でお祝いを読む。"
+    },
+    {
+      "handle": "CV_kumoyahachi",
+      "summary": "Ci-enで盲盒の押しつぶし玩具3種を実写開封。"
+    },
+    {
+      "handle": "oOYuKiKoOo",
+      "summary": "おはようと一言だけ投稿。"
+    },
+    {
+      "handle": "jiaomidsu3187",
+      "summary": "京都弁の作品を褒められ、キャラと収録の思い出を返信で語る。"
+    },
+    {
+      "handle": "kuroseimu_000",
+      "summary": "おでんと熱燗で仲直りする夫婦の漫画をリポスト。"
+    },
+    {
+      "handle": "flanklm",
+      "summary": "『クロネのきもち』が今夜0時に発売、ヒロイン役を担当。"
+    },
+    {
+      "handle": "Unicolony_uni",
+      "summary": "サークルの接客クイズをリポスト。"
+    },
+    {
+      "handle": "sato_sioo",
+      "summary": "11月が忙しく免疫力が落ちて風邪をひいたと報告。"
+    },
+    {
+      "handle": "yuzukiakari",
+      "summary": "今夜24時から配信、音質調整で遅れそうになった。"
+    },
+    {
+      "handle": "namimimiobot",
+      "summary": "雑談を連投、知人に貸した金の話やハムスターの話題。"
+    },
+    {
+      "handle": "mitakarin",
+      "summary": "提携スタジオの甘い声の特典が今日までと注意喚起。"
+    },
+    {
+      "handle": "hoshinora1212",
+      "summary": "11月27日から3夜連続でCi-enにミニ音声を投稿。"
+    },
+    {
+      "handle": "mugisawa727",
+      "summary": "シンプルな味付けが一番と呟く。"
+    },
+    {
+      "handle": "mei_misonoo",
+      "summary": "19時からゲーム配信、自分の番組特集も宣伝。"
+    },
+    {
+      "handle": "nemurinerima",
+      "summary": "登録1万突破で記念企画を募集中、23時半からASMR配信。"
+    },
+    {
+      "handle": "nekomi_hime",
+      "summary": "時間が経つのが早いと嘆き、自分の声を武器にしたいと語る。"
+    },
+    {
+      "handle": "yu_hadki",
+      "summary": "新作に長文レビューが続き、作品ページ付きで感謝。"
+    },
+    {
+      "handle": "ikuraeru",
+      "summary": "21時から配信、作品の繁体字中国語版公開も宣伝。"
+    },
+    {
+      "handle": "yukirinrin1191",
+      "summary": "withny深夜配信を予告、遠隔操作権の抽選も実施。"
+    },
+    {
+      "handle": "my_mimichinchin",
+      "summary": "風呂上がりのフリートーク音声を投稿。"
+    },
+    {
+      "handle": "Setsune_Soyogi",
+      "summary": "深夜に掃除配信を開始、話しながら掃除。"
+    },
+    {
+      "handle": "jtjitkub5r_uuka",
+      "summary": "11月28日にラジオ出演、演技やSM、サキュバスの話。"
+    },
+    {
+      "handle": "haruno_tsukushi",
+      "summary": "新作発売まで4時間、まず体験版をと促す。"
+    },
+    {
+      "handle": "shimotsukiyuu",
+      "summary": "昼は収録と講習、終わって大きな椎茸を披露。"
+    },
+    {
+      "handle": "AMAKARAsyndrome",
+      "summary": "新作のギフトコード企画が今日締切、急かし気味に案内。"
+    },
+    {
+      "handle": "hekilab",
+      "summary": "自作品の3割引が終わると知らせる投稿をリポスト。"
+    },
+    {
+      "handle": "yuna_na7se",
+      "summary": "好きな妄想設定を共有。"
+    },
+    {
+      "handle": "mashiro_mayuki_",
+      "summary": "初めて店でちからうどんを食べ、イラスト制作中とも報告。"
+    },
+    {
+      "handle": "ayumi_sarah",
+      "summary": "来年1月24日のバースデーイベントを発表、30日の発表会にも出演。"
+    },
+    {
+      "handle": "potte1919",
+      "summary": "新作レビューが7件、早期購入特典5種は12月2日まで。"
+    },
+    {
+      "handle": "aoitokio",
+      "summary": "写真が消えたと嘆き、無印のチャイと割れたクッキー缶の話。"
+    },
+    {
+      "handle": "mskmiro316",
+      "summary": "いい風呂の日に合わせ、Wサキュバス作品を紹介。"
+    },
+    {
+      "handle": "maihal_yuu",
+      "summary": "来月は地元の酒が飲めそう、HPとフォームを直したいと話す。"
+    },
+    {
+      "handle": "kanojo_nyui",
+      "summary": "自分が出演した3作品の発売情報をリポスト。"
+    },
+    {
+      "handle": "seiraakane",
+      "summary": "グッズの毛布を披露、父にねだって買ってもらったと話す。"
+    },
+    {
+      "handle": "runhanami",
+      "summary": "届いたメールに全部返信、1月末までの枠はまだ空きあり。"
+    },
+    {
+      "handle": "shindo_azusa",
+      "summary": "22時から配信、終了後に産卵パートのハプニングを報告。"
+    },
+    {
+      "handle": "aji_3_ma",
+      "summary": "ワッフル無料券の抽選企画をリポスト。"
+    },
+    {
+      "handle": "miomio_okw",
+      "summary": "ライアーソフト旧作の電話シーンが一番好きと語る。"
+    },
+    {
+      "handle": "suzusanchi_",
+      "summary": "ゲーム楽曲を配信サイトで公開、オフライン版は12月3日。"
+    },
+    {
+      "handle": "kaname_shiori",
+      "summary": "27日の合言葉を追記、文化祭イベントのお礼記事も投稿。"
+    },
+    {
+      "handle": "tsukino_kiiro",
+      "summary": "喉の調子が良ければ配信すると話し、solfa20周年の集合写真も。"
+    },
+    {
+      "handle": "matsuoka_yuuri",
+      "summary": "共演作のドルゴフ局長の誕生日を祝う。"
+    },
+    {
+      "handle": "momoichi55",
+      "summary": "夕食のグラコロを披露して話題に乗る。"
+    },
+    {
+      "handle": "kurumihuyu963",
+      "summary": "サークル初作品が今夜0時に発売、23時から見守り配信。"
+    }
+  ],
+  "insights": []
+}
