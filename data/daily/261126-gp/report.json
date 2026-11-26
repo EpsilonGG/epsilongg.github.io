@@ -1,0 +1,1516 @@
+{
+  "schema_version": 1,
+  "issue": {
+    "id": "261126-gp",
+    "published_at": "2026-11-27T01:00:00+09:00",
+    "window": {
+      "start": "2026-11-26T00:00:00+09:00",
+      "end": "2026-11-27T00:00:00+09:00"
+    },
+    "status": "confirmed",
+    "confirmed_at": "2026-11-26T16:13:37+00:00"
+  },
+  "counts": {
+    "items": 546,
+    "accounts": 134,
+    "late": 0,
+    "skipped_duplicate": 0
+  },
+  "description": "sprite 十五周年作发售即卖完限定版，センチメンタルグラフティ重制定档三月并直接开订。",
+  "highlights": [
+    {
+      "text": "sprite 十五周年作『小金井荘と金色の揚羽蝶』今日发售，Switch 限定版预约量超出产能，官方商店宣布 15 时以后的订单一律改为 12 月中旬出货，随后又补上即纳库存。",
+      "sources": [
+        "x:2125605830007394534",
+        "x:2125905894655623399",
+        "x:2125901516104175871"
+      ]
+    },
+    {
+      "text": "ENTERGRAM 的『センチメンタルグラフティリメイク』定 2027 年 3 月 25 日，普通版 9878 円、下载版 8980 円、完全生产限定版 29700 円，今日起在日本全国门店开订。",
+      "sources": [
+        "x:2125907694410400031",
+        "x:2125877235387388310"
+      ]
+    },
+    {
+      "text": "KISS 在博客说明 Ci-en 支援者的联络与返礼品，因措辞引来误解，当天再发订正版并加注，公开致歉。",
+      "sources": [
+        "x:2125607730941731173",
+        "x:2125817003265171938"
+      ]
+    },
+    {
+      "text": "FANZA 冬の同人祭开跑：対象作品 10 円、游戏专场 300 円，另配 20% 优惠券，活动到 2027 年 2 月 1 日。",
+      "sources": [
+        "x:2125786809951289361",
+        "x:2125809306612441234",
+        "x:2125847068619202690"
+      ]
+    },
+    {
+      "text": "Moepedia 预告 11 月 27 日凌晨 4 时到 10 时 S-court 与各贩售店维护，正好压在新作发售日上。",
+      "sources": [
+        "x:2125932111593164961"
+      ]
+    },
+    {
+      "text": "明天 11 月 27 日一天挤进多款新作：SMEE『ワンナイトアフター』、DESSERT Soft『どいなかガールズゆーとぴあ』、Studio 奪『人妻魔法戦士サクラ』包装版与アパタイト第 316、317 弹。",
+      "sources": [
+        "x:2125938512151392272",
+        "x:2125944825853948209",
+        "x:2125894968657236349"
+      ]
+    },
+    {
+      "text": "アリスソフト官方商店维护结束，恢复原样营业。",
+      "sources": [
+        "x:2125907678887367045"
+      ]
+    },
+    {
+      "text": "BEEP 放出『狂った果実』ASMR 的废案草图，确认月島美夏仍由宮木南美配音。",
+      "sources": [
+        "x:2125798893531361479"
+      ]
+    }
+  ],
+  "insights": [
+    {
+      "text": "センチメンタルグラフティ重制把限定版定到 29700 円，接近普通版的三倍，靠同捆特典拉高客单价；同日 ENTERGRAM 的『コヨリニウム』也定 3 月 25 日，两作同日互抢预约。",
+      "sources": [
+        "x:2125907694410400031",
+        "x:2125877235387388310"
+      ]
+    },
+    {
+      "text": "11 月 27 日不只是盒装新作扎堆，零售端也压在同一天：秋叶原与大阪都有发售纪念抽选会，Trader 更新特典收购价，アリスNET 换立看板，渠道把发售日当成活动日来经营。",
+      "sources": [
+        "x:2125892318658204038",
+        "x:2125914971993489560",
+        "x:2125874196450517188"
+      ]
+    },
+    {
+      "text": "FANZA 同人祭把同人价格锚点直接打到 10 円与 300 円，エスクード也跟进把『廃村少女』压到 10 円，折扣战从单作促销变成整季清仓。",
+      "sources": [
+        "x:2125809306612441234",
+        "x:2125796773604348082"
+      ]
+    },
+    {
+      "text": "Ci-en 事件之后，各家对支援者沟通明显谨慎：KISS 一篇说明文引误解当天订正，ZION、しんじゅ街 仍照常更新付费限定内容。",
+      "sources": [
+        "x:2125817003265171938",
+        "x:2125891246438949328"
+      ]
+    }
+  ],
+  "interactions": [
+    {
+      "text": "LiarSoft 转发ユウ＝ヤマナミ 的『紫影のソナーニル』十六周年纪念，并补一句「エリシア才是主角」，随后又转了他谈电话场景的推。",
+      "sources": [
+        "x:2125796591831568858",
+        "x:2125818572819865894"
+      ]
+    },
+    {
+      "text": "アリスNET 与シルキーズプラス 围绕きまテン３预约互相喊话：前者预告明天立看板换新，后者宣布 27 日开订黑裙抱枕套。",
+      "sources": [
+        "x:2125874196450517188",
+        "x:2125812522796363816"
+      ]
+    },
+    {
+      "text": "小梅蓮 转发 Purple software 的冬促公告，补一句『マガルミナ』大概是首次参加促销。",
+      "sources": [
+        "x:2125913106148892808",
+        "x:2125892319916507539"
+      ]
+    },
+    {
+      "text": "Miel 转发 FANZA 的ブラウザ版介绍，Miel 自家作品也在冬促名单里。",
+      "sources": [
+        "x:2125910105451593770"
+      ]
+    },
+    {
+      "text": "しらたま 与きゃべつそふと 同步公开『恋と魔法のティーパーティー』官网，插画师本人也发了一条官网开放。",
+      "sources": [
+        "x:2125879551800770702",
+        "x:2125911711941304624"
+      ]
+    }
+  ],
+  "works": [],
+  "categories": [],
+  "accounts": [
+    "douzinr18",
+    "sprite_fairys",
+    "entergram_info",
+    "akibablog",
+    "4gamernews",
+    "automatonjapan",
+    "moepedia_net",
+    "dengekionline",
+    "shin_kyogoku",
+    "akoutw",
+    "asou_ei",
+    "youtan0309",
+    "famitsu",
+    "watanaberyoichi",
+    "kobaggio",
+    "itolife",
+    "sora_hajime",
+    "hozakura",
+    "07th_official",
+    "urusibara_yuki",
+    "appetite_game",
+    "dessertsoft_tw",
+    "smee_official",
+    "hooksoft",
+    "beep_shop",
+    "jinan_sanzan",
+    "sin_kou_hyou",
+    "stealcatac",
+    "hamham_soft",
+    "trader_r18",
+    "koumeren0205",
+    "onowasabi",
+    "yuuki_sw",
+    "shiratamacaron",
+    "hinanakase",
+    "fandc_staff",
+    "studio_ubai",
+    "getchucom",
+    "alice_net_pc",
+    "erogearealive",
+    "natsume3611",
+    "rodorin",
+    "babi_03",
+    "kionachi",
+    "kisaragiyu",
+    "adahemas",
+    "odawarahakone",
+    "go_1tk",
+    "yamanta_15",
+    "amuse_sub",
+    "project_citrus",
+    "crystalia_ac",
+    "liar_railsoft",
+    "fgremake",
+    "akaerocore_jp",
+    "cabbage_soft",
+    "bugbug_info",
+    "randall_kznr",
+    "moeaward",
+    "nooksite",
+    "aokyunsan",
+    "ka_fumifumi",
+    "kidukirey",
+    "nanyate_kudou",
+    "nao_sakura_s",
+    "nt_aka8",
+    "taiga_scenario",
+    "hiizumipoi",
+    "syoko_mikuri",
+    "inagaki_miko",
+    "shinjugai",
+    "yukkiy19905",
+    "tsumaranai",
+    "mokowata",
+    "escude1998",
+    "kiss_staff",
+    "route2_tri",
+    "silkysplus",
+    "jitaku_st",
+    "unisonshift",
+    "info_lovelet",
+    "aquaplus_jp",
+    "digination_info",
+    "key_official",
+    "fortuneglovety",
+    "evil_heal",
+    "touta_tsubuyaki",
+    "f_maruto_staff",
+    "morisakiryout",
+    "matsuisansan",
+    "simizuhatumi",
+    "elen_mass",
+    "radish2951",
+    "hozumik",
+    "beni_carnelian",
+    "tkng_rame",
+    "nakahiro_sw",
+    "nsimayu",
+    "matsuyama077",
+    "hujisakiusa",
+    "shirabii",
+    "kilacco",
+    "piromizu",
+    "horiisi",
+    "minori_chigusa",
+    "riko0202",
+    "white_neige",
+    "kunaiuri",
+    "poison_new1992",
+    "alice_soft",
+    "nitroplus_staff",
+    "kumanomisoft",
+    "amuse_kenzen",
+    "luneman_etc",
+    "muvluv_official",
+    "miel37319007",
+    "purple_newwork",
+    "yuzusoft",
+    "orthrossoft",
+    "keromakurastaff",
+    "crowd_anim",
+    "tryset",
+    "moonstonetwitt",
+    "nisidahajime",
+    "archive_staff_",
+    "valkyria_info",
+    "eushully_info",
+    "clip_craft",
+    "furikuru_game",
+    "zion_staff",
+    "kulvario0",
+    "masanlive",
+    "hiro_in",
+    "seiya_saiga"
+  ],
+  "people": [
+    {
+      "handle": "douzinr18",
+      "category": "info",
+      "summary": "FANZA 冬の同人祭开跑，10 円特卖与 300 円游戏专场同日上线。",
+      "via": [],
+      "sources": [
+        "x:2125809306612441234",
+        "x:2125847068619202690"
+      ]
+    },
+    {
+      "handle": "sprite_fairys",
+      "category": "brand",
+      "summary": "十五周年作『小金井荘と金色の揚羽蝶』今日发售，限定版卖完、改 12 月中旬出货。",
+      "via": [],
+      "sources": [
+        "x:2125605830007394534",
+        "x:2125905894655623399"
+      ]
+    },
+    {
+      "handle": "entergram_info",
+      "category": "brand",
+      "summary": "『センチメンタルグラフティリメイク』定 2027-03-25，公布三档价格与 OP。",
+      "via": [],
+      "sources": [
+        "x:2125907694410400031",
+        "x:2125877235387388310"
+      ]
+    },
+    {
+      "handle": "akibablog",
+      "category": "info",
+      "summary": "汇总秋叶原近况：魂展、孤独摇滚联名与 GiGO 新店。",
+      "via": [],
+      "sources": [
+        "x:2125887251397902767"
+      ]
+    },
+    {
+      "handle": "4gamernews",
+      "category": "info",
+      "summary": "报道桌游『クォルク』日文版 12 月下旬发售。",
+      "via": [],
+      "sources": [
+        "x:2125958834137268368"
+      ]
+    },
+    {
+      "handle": "automatonjapan",
+      "category": "info",
+      "summary": "整理 PS5『地球防衛軍6.2』生放送的新要素。",
+      "via": [],
+      "sources": [
+        "x:2125951030433402998"
+      ]
+    },
+    {
+      "handle": "moepedia_net",
+      "category": "info",
+      "summary": "预告 11 月 27 日凌晨 4 时到 10 时 S-court 与各店维护。",
+      "via": [],
+      "sources": [
+        "x:2125932111593164961",
+        "x:2125926674336481527"
+      ]
+    },
+    {
+      "handle": "dengekionline",
+      "category": "info",
+      "summary": "报道ちいかわ圣诞市集周边提前售罄与改受注販売。",
+      "via": [],
+      "sources": [
+        "x:2125966912098345164"
+      ]
+    },
+    {
+      "handle": "shin_kyogoku",
+      "category": "creator",
+      "summary": "参与作画的『センチメンタルグラフティリメイク』定档并开订。",
+      "via": [],
+      "sources": [
+        "x:2125879700501446942"
+      ]
+    },
+    {
+      "handle": "akoutw",
+      "category": "info",
+      "summary": "谈 AI 试作与剧本，另转关西活动情报。",
+      "via": [],
+      "sources": [
+        "x:2125914981350990093",
+        "x:2125935227847803384"
+      ]
+    },
+    {
+      "handle": "asou_ei",
+      "category": "creator",
+      "summary": "纪念 PS 版『serial experiments lain』发售 28 周年。",
+      "via": [],
+      "sources": [
+        "x:2125840063250784667"
+      ]
+    },
+    {
+      "handle": "youtan0309",
+      "category": "info",
+      "summary": "办 150 万关注抽奖，另聊绿发女主角的谱系。",
+      "via": [],
+      "sources": [
+        "x:2125907429611233679",
+        "x:2125922528057254314"
+      ]
+    },
+    {
+      "handle": "famitsu",
+      "category": "info",
+      "summary": "周销量榜：『GTA6』首周登顶，『桃鉄2』因体验版回到前十。",
+      "via": [],
+      "sources": [
+        "x:2125937735861191133"
+      ]
+    },
+    {
+      "handle": "watanaberyoichi",
+      "category": "creator",
+      "summary": "在 FANBOX 公开新随笔，另发时事吐槽。",
+      "via": [],
+      "sources": [
+        "x:2125786310036373677"
+      ]
+    },
+    {
+      "handle": "kobaggio",
+      "category": "creator",
+      "summary": "为獅白ぼたん圣诞活动做视觉，另晒天地无用涂鸦。",
+      "via": [],
+      "sources": [
+        "x:2125879243297189896"
+      ]
+    },
+    {
+      "handle": "itolife",
+      "category": "creator",
+      "summary": "晚 22 点开宝可梦杂谈配信。",
+      "via": [],
+      "sources": [
+        "x:2125911801951133978"
+      ]
+    },
+    {
+      "handle": "sora_hajime",
+      "category": "creator",
+      "summary": "公布『センチメンタルグラフティリメイク』定档与预约开始。",
+      "via": [],
+      "sources": [
+        "x:2125877235387388310"
+      ]
+    },
+    {
+      "handle": "hozakura",
+      "category": "creator",
+      "summary": "Fantia 更新新作插图，另转孤独的美食家跨年特别篇。",
+      "via": [],
+      "sources": [
+        "x:2125880116656185501"
+      ]
+    },
+    {
+      "handle": "07th_official",
+      "category": "creator",
+      "summary": "晒 SILENT HILL f 深水雛子手办开订。",
+      "via": [],
+      "sources": [
+        "x:2125790951935484069"
+      ]
+    },
+    {
+      "handle": "urusibara_yuki",
+      "category": "creator",
+      "summary": "感谢读者支持第三卷，盼能继续写下去。",
+      "via": [],
+      "sources": [
+        "x:2125955275169677401"
+      ]
+    },
+    {
+      "handle": "appetite_game",
+      "category": "brand",
+      "summary": "アパタイト第 316、317 弹包装版明日发售。",
+      "via": [],
+      "sources": [
+        "x:2125921188803461344"
+      ]
+    },
+    {
+      "handle": "dessertsoft_tw",
+      "category": "brand",
+      "summary": "『どいなかガールズゆーとぴあ』明日发售，今晚做体验版实况。",
+      "via": [],
+      "sources": [
+        "x:2125944825853948209",
+        "x:2125938457512149503"
+      ]
+    },
+    {
+      "handle": "smee_official",
+      "category": "brand",
+      "summary": "『ワンナイトアフター』明日发售，转发自家作品介绍。",
+      "via": [],
+      "sources": [
+        "x:2125882355487584411"
+      ]
+    },
+    {
+      "handle": "hooksoft",
+      "category": "brand",
+      "summary": "宣布明天 21 点开『ハッピーウィークエンド』Switch 版实况。",
+      "via": [],
+      "sources": [
+        "x:2125957609752760795"
+      ]
+    },
+    {
+      "handle": "beep_shop",
+      "category": "brand",
+      "summary": "晒『狂った果実』ASMR 的废案草图。",
+      "via": [],
+      "sources": [
+        "x:2125798893531361479"
+      ]
+    },
+    {
+      "handle": "jinan_sanzan",
+      "category": "creator",
+      "summary": "谈『ハッピーウィークエンド』发售与 SMEE 新作明天上市。",
+      "via": [],
+      "sources": [
+        "x:2125606275086188914",
+        "x:2125938512151392272"
+      ]
+    },
+    {
+      "handle": "sin_kou_hyou",
+      "category": "creator",
+      "summary": "转发アッシュアームズ与まいてつ联动活动 PV。",
+      "via": [],
+      "sources": [
+        "x:2125877234066215302"
+      ]
+    },
+    {
+      "handle": "stealcatac",
+      "category": "brand",
+      "summary": "提醒カノ妹 FANZA 优惠券今天到期，明天有抽选会。",
+      "via": [],
+      "sources": [
+        "x:2125905151588512101",
+        "x:2125888542135967781"
+      ]
+    },
+    {
+      "handle": "hamham_soft",
+      "category": "brand",
+      "summary": "『ハイアングル』发售满月，晒女主介绍影片。",
+      "via": [],
+      "sources": [
+        "x:2125889110745444680"
+      ]
+    },
+    {
+      "handle": "trader_r18",
+      "category": "info",
+      "summary": "更新 11 月新作店铺特典的收购价。",
+      "via": [],
+      "sources": [
+        "x:2125914971993489560"
+      ]
+    },
+    {
+      "handle": "koumeren0205",
+      "category": "creator",
+      "summary": "宣传『マガルミナ』首次参加冬促。",
+      "via": [],
+      "sources": [
+        "x:2125913106148892808"
+      ]
+    },
+    {
+      "handle": "onowasabi",
+      "category": "creator",
+      "summary": "晒久我山栞快闪店，另谈读书习惯。",
+      "via": [],
+      "sources": [
+        "x:2125804755310264676",
+        "x:2125901688795992115"
+      ]
+    },
+    {
+      "handle": "yuuki_sw",
+      "category": "creator",
+      "summary": "在官网加感想表单，另说要把封面废稿放上站。",
+      "via": [],
+      "sources": [
+        "x:2125932131448971659"
+      ]
+    },
+    {
+      "handle": "shiratamacaron",
+      "category": "creator",
+      "summary": "『恋と魔法のティーパーティー』官网开放并公开特典绘。",
+      "via": [],
+      "sources": [
+        "x:2125879551800770702"
+      ]
+    },
+    {
+      "handle": "hinanakase",
+      "category": "creator",
+      "summary": "Switch 版『Magicalcharming!』今日发售。",
+      "via": [],
+      "sources": [
+        "x:2125938310556328350"
+      ]
+    },
+    {
+      "handle": "fandc_staff",
+      "category": "brand",
+      "summary": "借「いい風呂の日」介绍『ひまわりの咲くまち』銭湯舞台。",
+      "via": [],
+      "sources": [
+        "x:2125961212819341346",
+        "x:2125910472696471776"
+      ]
+    },
+    {
+      "handle": "studio_ubai",
+      "category": "brand",
+      "summary": "『人妻魔法戦士サクラ』包装版明日发售。",
+      "via": [],
+      "sources": [
+        "x:2125894968657236349"
+      ]
+    },
+    {
+      "handle": "getchucom",
+      "category": "info",
+      "summary": "公布『きみの全てを奪うまで』店铺特典，另开两款手办预约。",
+      "via": [],
+      "sources": [
+        "x:2125892798339785178"
+      ]
+    },
+    {
+      "handle": "alice_net_pc",
+      "category": "info",
+      "summary": "预告明天店面立看板换新，并转发きまテン３预约消息。",
+      "via": [],
+      "sources": [
+        "x:2125874196450517188",
+        "x:2125869094989934723"
+      ]
+    },
+    {
+      "handle": "erogearealive",
+      "category": "info",
+      "summary": "英文介绍『Crescendo』重制版与『恋愛、はじめまして』英译。",
+      "via": [],
+      "sources": [
+        "x:2125647363716841825",
+        "x:2125617731386962186"
+      ]
+    },
+    {
+      "handle": "natsume3611",
+      "category": "creator",
+      "summary": "公开 CLOWN 新作角色设定与体验版进度。",
+      "via": [],
+      "sources": [
+        "x:2125622870353260950"
+      ]
+    },
+    {
+      "handle": "rodorin",
+      "category": "creator",
+      "summary": "读书杂谈，晒最近读完的几本。",
+      "via": [],
+      "sources": [
+        "x:2125919276561531349"
+      ]
+    },
+    {
+      "handle": "babi_03",
+      "category": "creator",
+      "summary": "宣传『グリザイア 集結の百果』签名色纸抽选。",
+      "via": [],
+      "sources": [
+        "x:2125877241129128267"
+      ]
+    },
+    {
+      "handle": "kionachi",
+      "category": "creator",
+      "summary": "感叹常去的拉面店全关，另晒奥赛美术馆。",
+      "via": [],
+      "sources": [
+        "x:2125885309842051366"
+      ]
+    },
+    {
+      "handle": "kisaragiyu",
+      "category": "creator",
+      "summary": "『かじがく』第 7 卷确定发售。",
+      "via": [],
+      "sources": [
+        "x:2125782377482060011"
+      ]
+    },
+    {
+      "handle": "adahemas",
+      "category": "creator",
+      "summary": "发游戏与跑步的日常碎念。",
+      "via": [],
+      "sources": [
+        "x:2125738883824734325"
+      ]
+    },
+    {
+      "handle": "odawarahakone",
+      "category": "creator",
+      "summary": "谈参与センチメンタルグラフティ工作的自嘲。",
+      "via": [],
+      "sources": [
+        "x:2125938881665306678"
+      ]
+    },
+    {
+      "handle": "go_1tk",
+      "category": "creator",
+      "summary": "拿 DLsite 体量开玩笑。",
+      "via": [],
+      "sources": [
+        "x:2125895883418144976"
+      ]
+    },
+    {
+      "handle": "yamanta_15",
+      "category": "creator",
+      "summary": "宣传新赛季通行证与新活动。",
+      "via": [],
+      "sources": [
+        "x:2125862370274668586"
+      ]
+    },
+    {
+      "handle": "amuse_sub",
+      "category": "brand",
+      "summary": "公开『カノジョの妹のあざと誘惑』OP 影片。",
+      "via": [],
+      "sources": [
+        "x:2125897350270881888"
+      ]
+    },
+    {
+      "handle": "project_citrus",
+      "category": "brand",
+      "summary": "晒东京巨蛋演唱会与自家猫的日常。",
+      "via": [],
+      "sources": [
+        "x:2125936288239177858"
+      ]
+    },
+    {
+      "handle": "crystalia_ac",
+      "category": "brand",
+      "summary": "まくらぶ两款抱枕套开订，2 月 12 日发售。",
+      "via": [],
+      "sources": [
+        "x:2125892366162915367"
+      ]
+    },
+    {
+      "handle": "liar_railsoft",
+      "category": "brand",
+      "summary": "转发并补充『紫影のソナーニル』十六周年纪念。",
+      "via": [],
+      "sources": [
+        "x:2125796591831568858",
+        "x:2125818572819865894"
+      ]
+    },
+    {
+      "handle": "fgremake",
+      "category": "brand",
+      "summary": "官网追加两张 CG，明天起第三弹兑换活动。",
+      "via": [],
+      "sources": [
+        "x:2125864886328574370"
+      ]
+    },
+    {
+      "handle": "akaerocore_jp",
+      "category": "brand",
+      "summary": "为『Unholy Maiden』赠品企划链接出错致歉并订正。",
+      "via": [],
+      "sources": [
+        "x:2125762769618362813"
+      ]
+    },
+    {
+      "handle": "cabbage_soft",
+      "category": "brand",
+      "summary": "『恋と魔法のティーパーティー』OP 公开，明天开订。",
+      "via": [],
+      "sources": [
+        "x:2125911711941304624"
+      ]
+    },
+    {
+      "handle": "bugbug_info",
+      "category": "info",
+      "summary": "介绍『転性魔王さまは勇者に勝てない！２』发售与包装版档期。",
+      "via": [],
+      "sources": [
+        "x:2125907921959571937"
+      ]
+    },
+    {
+      "handle": "randall_kznr",
+      "category": "info",
+      "summary": "发『魔法使いの夜』相关与观影感想。",
+      "via": [],
+      "sources": [
+        "x:2125658597900394881"
+      ]
+    },
+    {
+      "handle": "moeaward",
+      "category": "info",
+      "summary": "介绍エスクード在 FANZA 最高八折，另推同人大赏。",
+      "via": [],
+      "sources": [
+        "x:2125878506815168562"
+      ]
+    },
+    {
+      "handle": "nooksite",
+      "category": "info",
+      "summary": "英文介绍 NekoNyan 与 Kagura 的『恋愛、はじめまして』。",
+      "via": [],
+      "sources": [
+        "x:2125620526127477153"
+      ]
+    },
+    {
+      "handle": "aokyunsan",
+      "category": "creator",
+      "summary": "预告明天中午公开新作玩偶。",
+      "via": [],
+      "sources": [
+        "x:2125899871664140755"
+      ]
+    },
+    {
+      "handle": "ka_fumifumi",
+      "category": "creator",
+      "summary": "说要开始自炊，另更新连载第 69 话。",
+      "via": [],
+      "sources": [
+        "x:2125756148766900340"
+      ]
+    },
+    {
+      "handle": "kidukirey",
+      "category": "creator",
+      "summary": "发蔚蓝档案挑战关卡的攻略影片。",
+      "via": [],
+      "sources": [
+        "x:2125680770727690718"
+      ]
+    },
+    {
+      "handle": "nanyate_kudou",
+      "category": "creator",
+      "summary": "为『アントリ』ドルゴフ庆生，另谈五周年翻唱。",
+      "via": [],
+      "sources": [
+        "x:2125605446463430943",
+        "x:2125908928630595753"
+      ]
+    },
+    {
+      "handle": "nao_sakura_s",
+      "category": "creator",
+      "summary": "杂谈 FGO 令咒与没订到疾风切札。",
+      "via": [],
+      "sources": [
+        "x:2125901868052480153",
+        "x:2125900694750441915"
+      ]
+    },
+    {
+      "handle": "nt_aka8",
+      "category": "creator",
+      "summary": "说负责『コヨリニウム』的谜题原案。",
+      "via": [],
+      "sources": [
+        "x:2125889354157736357"
+      ]
+    },
+    {
+      "handle": "taiga_scenario",
+      "category": "creator",
+      "summary": "日常杂谈，聊饮食与蛋白粉。",
+      "via": [],
+      "sources": [
+        "x:2125899393744175213"
+      ]
+    },
+    {
+      "handle": "hiizumipoi",
+      "category": "creator",
+      "summary": "去看展并买场刊，预告这两天出摊。",
+      "via": [],
+      "sources": [
+        "x:2125920037450187058"
+      ]
+    },
+    {
+      "handle": "syoko_mikuri",
+      "category": "creator",
+      "summary": "与朋友午餐的日常。",
+      "via": [],
+      "sources": [
+        "x:2125783145522036959"
+      ]
+    },
+    {
+      "handle": "inagaki_miko",
+      "category": "creator",
+      "summary": "借いい風呂の日发文，另提醒 DLsite 黑五将结束。",
+      "via": [],
+      "sources": [
+        "x:2125891039693312195"
+      ]
+    },
+    {
+      "handle": "shinjugai",
+      "category": "creator",
+      "summary": "Ci-en 更新 NTR 新作第一段 CG 进度。",
+      "via": [],
+      "sources": [
+        "x:2125880208020648382"
+      ]
+    },
+    {
+      "handle": "yukkiy19905",
+      "category": "creator",
+      "summary": "晒新买的羽绒背心，另转照片消失的吐槽。",
+      "via": [],
+      "sources": [
+        "x:2125934103258382522"
+      ]
+    },
+    {
+      "handle": "tsumaranai",
+      "category": "creator",
+      "summary": "围观二创剧情与喉糖广告的吐槽。",
+      "via": [],
+      "sources": [
+        "x:2125937589056340244"
+      ]
+    },
+    {
+      "handle": "mokowata",
+      "category": "creator",
+      "summary": "画集重版受注到 28 日，连日宣传。",
+      "via": [],
+      "sources": [
+        "x:2125868604398981528"
+      ]
+    },
+    {
+      "handle": "escude1998",
+      "category": "brand",
+      "summary": "转发『廃村少女』10 円与九折促销。",
+      "via": [],
+      "sources": [
+        "x:2125796773604348082"
+      ]
+    },
+    {
+      "handle": "kiss_staff",
+      "category": "brand",
+      "summary": "博客说明 Ci-en 支援者联络后发订正致歉。",
+      "via": [],
+      "sources": [
+        "x:2125817003265171938",
+        "x:2125607730941731173"
+      ]
+    },
+    {
+      "handle": "route2_tri",
+      "category": "brand",
+      "summary": "三角魂第 238、239 回连播。",
+      "via": [],
+      "sources": [
+        "x:2125957760932270133"
+      ]
+    },
+    {
+      "handle": "silkysplus",
+      "category": "brand",
+      "summary": "きまテン３发表会抽选开始，明天开订抱枕套。",
+      "via": [],
+      "sources": [
+        "x:2125812522796363816"
+      ]
+    },
+    {
+      "handle": "jitaku_st",
+      "category": "brand",
+      "summary": "秋叶原开会，另晒ギャルフェス出摊。",
+      "via": [],
+      "sources": [
+        "x:2125856723642761306"
+      ]
+    },
+    {
+      "handle": "unisonshift",
+      "category": "brand",
+      "summary": "更新『小日向柚月と初夜したい』制品情报与角色介绍。",
+      "via": [],
+      "sources": [
+        "x:2125889037852606573",
+        "x:2125866144615530591"
+      ]
+    },
+    {
+      "handle": "info_lovelet",
+      "category": "brand",
+      "summary": "借いい風呂の日介绍『西園家のかくしゴト』浴室玩法。",
+      "via": [],
+      "sources": [
+        "x:2125892328724283898"
+      ]
+    },
+    {
+      "handle": "aquaplus_jp",
+      "category": "brand",
+      "summary": "为緒方理奈与イルファ庆生。",
+      "via": [],
+      "sources": [
+        "x:2125605489417625870"
+      ]
+    },
+    {
+      "handle": "digination_info",
+      "category": "brand",
+      "summary": "『タマユラミライ』Switch 版今日发售，日港同步。",
+      "via": [],
+      "sources": [
+        "x:2125892767482290310"
+      ]
+    },
+    {
+      "handle": "key_official",
+      "category": "brand",
+      "summary": "宣布 TV 动画『Summer Pockets』两场免费配信。",
+      "via": [],
+      "sources": [
+        "x:2125877929435664426"
+      ]
+    },
+    {
+      "handle": "fortuneglovety",
+      "category": "brand",
+      "summary": "晒声优色纸，另公布感想活动的中奖者。",
+      "via": [],
+      "sources": [
+        "x:2125890529137406000",
+        "x:2125893960115900713"
+      ]
+    },
+    {
+      "handle": "evil_heal",
+      "category": "brand",
+      "summary": "公布『Dominate』店铺特典与预约链接。",
+      "via": [],
+      "sources": [
+        "x:2125786642413728008"
+      ]
+    },
+    {
+      "handle": "touta_tsubuyaki",
+      "category": "creator",
+      "summary": "宣传连载第 285 话与关注数达成。",
+      "via": [],
+      "sources": [
+        "x:2125733552495157518"
+      ]
+    },
+    {
+      "handle": "f_maruto_staff",
+      "category": "creator",
+      "summary": "公开新刊第三卷书影，12 月 10 日发售。",
+      "via": [],
+      "sources": [
+        "x:2125877451888959728"
+      ]
+    },
+    {
+      "handle": "morisakiryout",
+      "category": "creator",
+      "summary": "为ハピメア两位女主庆生。",
+      "via": [],
+      "sources": [
+        "x:2125873725203714065"
+      ]
+    },
+    {
+      "handle": "matsuisansan",
+      "category": "creator",
+      "summary": "转发了谈 BaseSon 系谱的推并补充。",
+      "via": [],
+      "sources": [
+        "x:2125790585948971411"
+      ]
+    },
+    {
+      "handle": "simizuhatumi",
+      "category": "creator",
+      "summary": "发百合话题的短评。",
+      "via": [],
+      "sources": [
+        "x:2125631127767642361"
+      ]
+    },
+    {
+      "handle": "elen_mass",
+      "category": "creator",
+      "summary": "参与剧本的音声作品开始预告。",
+      "via": [],
+      "sources": [
+        "x:2125619223695384969"
+      ]
+    },
+    {
+      "handle": "radish2951",
+      "category": "creator",
+      "summary": "更新随笔。",
+      "via": [],
+      "sources": [
+        "x:2125943453498610051"
+      ]
+    },
+    {
+      "handle": "hozumik",
+      "category": "creator",
+      "summary": "自家作品五折优惠即将结束。",
+      "via": [],
+      "sources": [
+        "x:2125658330177884184"
+      ]
+    },
+    {
+      "handle": "beni_carnelian",
+      "category": "creator",
+      "summary": "在 FANBOX 谈手绘的立场。",
+      "via": [],
+      "sources": [
+        "x:2125897125657784591"
+      ]
+    },
+    {
+      "handle": "tkng_rame",
+      "category": "creator",
+      "summary": "转发『タマユラミライ』Switch 版发售公告。",
+      "via": [],
+      "sources": [
+        "x:2125892331903525199"
+      ]
+    },
+    {
+      "handle": "nakahiro_sw",
+      "category": "creator",
+      "summary": "借いい風呂の日发话题标签。",
+      "via": [],
+      "sources": [
+        "x:2125831923855495480"
+      ]
+    },
+    {
+      "handle": "nsimayu",
+      "category": "creator",
+      "summary": "しおり配布进入最后一弹，暗示下周有惊喜。",
+      "via": [],
+      "sources": [
+        "x:2125881910564196723"
+      ]
+    },
+    {
+      "handle": "matsuyama077",
+      "category": "creator",
+      "summary": "新书 12 月 25 日发售，公布限定版特典。",
+      "via": [],
+      "sources": [
+        "x:2125861910222663938"
+      ]
+    },
+    {
+      "handle": "hujisakiusa",
+      "category": "creator",
+      "summary": "早安日常。",
+      "via": [],
+      "sources": [
+        "x:2125699909152395436"
+      ]
+    },
+    {
+      "handle": "shirabii",
+      "category": "creator",
+      "summary": "说医院检查来回花了三小时。",
+      "via": [],
+      "sources": [
+        "x:2125871636683608366"
+      ]
+    },
+    {
+      "handle": "kilacco",
+      "category": "creator",
+      "summary": "预告 27 日晚 9 点开通贩。",
+      "via": [],
+      "sources": [
+        "x:2125863911492919511"
+      ]
+    },
+    {
+      "handle": "piromizu",
+      "category": "creator",
+      "summary": "说明『アマカノ３』店铺特典为复刻版。",
+      "via": [],
+      "sources": [
+        "x:2125884771863544250"
+      ]
+    },
+    {
+      "handle": "horiisi",
+      "category": "creator",
+      "summary": "天冷就想起スノハレ的梗。",
+      "via": [],
+      "sources": [
+        "x:2125786595483873419"
+      ]
+    },
+    {
+      "handle": "minori_chigusa",
+      "category": "creator",
+      "summary": "只发了一个樱花符号。",
+      "via": [],
+      "sources": [
+        "x:2125863028138938755"
+      ]
+    },
+    {
+      "handle": "riko0202",
+      "category": "creator",
+      "summary": "Switch 版『Magicalcharming!』今日发售。",
+      "via": [],
+      "sources": [
+        "x:2125920245135425994"
+      ]
+    },
+    {
+      "handle": "white_neige",
+      "category": "creator",
+      "summary": "很久没打，去打了流感疫苗。",
+      "via": [],
+      "sources": [
+        "x:2125857417393291671"
+      ]
+    },
+    {
+      "handle": "kunaiuri",
+      "category": "creator",
+      "summary": "取暖器送到，家里暖和了。",
+      "via": [],
+      "sources": [
+        "x:2125860253745152070"
+      ]
+    },
+    {
+      "handle": "poison_new1992",
+      "category": "brand",
+      "summary": "预告 FANZA 同人 11 月 27 日的『ソフィーさん』新作。",
+      "via": [],
+      "sources": [
+        "x:2125937626704224561"
+      ]
+    },
+    {
+      "handle": "alice_soft",
+      "category": "brand",
+      "summary": "官方商店维护结束，恢复营业。",
+      "via": [],
+      "sources": [
+        "x:2125907678887367045"
+      ]
+    },
+    {
+      "handle": "nitroplus_staff",
+      "category": "brand",
+      "summary": "转发まどか、ほむら黏土人再贩。",
+      "via": [],
+      "sources": [
+        "x:2125789912754495507"
+      ]
+    },
+    {
+      "handle": "kumanomisoft",
+      "category": "brand",
+      "summary": "『転性魔王さまは勇者に勝てない！２』包装版预约中。",
+      "via": [],
+      "sources": [
+        "x:2125896092655226978"
+      ]
+    },
+    {
+      "handle": "amuse_kenzen",
+      "category": "brand",
+      "summary": "早安杂谈，吐槽换季穿衣。",
+      "via": [],
+      "sources": [
+        "x:2125758427532247468"
+      ]
+    },
+    {
+      "handle": "luneman_etc",
+      "category": "brand",
+      "summary": "转发 ANIPHA 圣诞限定套装。",
+      "via": [],
+      "sources": [
+        "x:2125862080461021422"
+      ]
+    },
+    {
+      "handle": "muvluv_official",
+      "category": "brand",
+      "summary": "WEB 小说『マブラヴ：ディメンションズ』更新第 3-14 话。",
+      "via": [],
+      "sources": [
+        "x:2125892345199829444"
+      ]
+    },
+    {
+      "handle": "miel37319007",
+      "category": "brand",
+      "summary": "Norn／Miel 品牌活动今天结束，最高九折。",
+      "via": [],
+      "sources": [
+        "x:2125910105451593770"
+      ]
+    },
+    {
+      "handle": "purple_newwork",
+      "category": "brand",
+      "summary": "FANZA 冬促开跑，自家作品三折起。",
+      "via": [],
+      "sources": [
+        "x:2125892319916507539"
+      ]
+    },
+    {
+      "handle": "yuzusoft",
+      "category": "brand",
+      "summary": "FANZA 促销自家作品最高五折。",
+      "via": [],
+      "sources": [
+        "x:2125894953264087199"
+      ]
+    },
+    {
+      "handle": "orthrossoft",
+      "category": "brand",
+      "summary": "自家两作参加 FANZA 冬促。",
+      "via": [],
+      "sources": [
+        "x:2125828453194998196"
+      ]
+    },
+    {
+      "handle": "keromakurastaff",
+      "category": "brand",
+      "summary": "FANZA 冬促，ケロQ枕全作品参战。",
+      "via": [],
+      "sources": [
+        "x:2125862124085793124"
+      ]
+    },
+    {
+      "handle": "crowd_anim",
+      "category": "brand",
+      "summary": "转发 ANIM 新作『きつ×みこ』12 月 25 日发售。",
+      "via": [],
+      "sources": [
+        "x:2125853368660984240"
+      ]
+    },
+    {
+      "handle": "tryset",
+      "category": "brand",
+      "summary": "明天发售的『催眠痴漢Episode１』样品到手。",
+      "via": [],
+      "sources": [
+        "x:2125823378791792808"
+      ]
+    },
+    {
+      "handle": "moonstonetwitt",
+      "category": "brand",
+      "summary": "『ホめられて伸びるSR少女たち２』体验版公开。",
+      "via": [],
+      "sources": [
+        "x:2125872423119859751"
+      ]
+    },
+    {
+      "handle": "nisidahajime",
+      "category": "brand",
+      "summary": "转发『女装百合嵐』样品，称自己演綾野原御影。",
+      "via": [],
+      "sources": [
+        "x:2125864338191974866"
+      ]
+    },
+    {
+      "handle": "archive_staff_",
+      "category": "brand",
+      "summary": "为『アントリ』ドルゴフ局长庆生。",
+      "via": [],
+      "sources": [
+        "x:2125944104618229783"
+      ]
+    },
+    {
+      "handle": "valkyria_info",
+      "category": "brand",
+      "summary": "介绍『プレイ！プレイ！プレイ！ロック』钢琴少女。",
+      "via": [],
+      "sources": [
+        "x:2125786246190694642"
+      ]
+    },
+    {
+      "handle": "eushully_info",
+      "category": "brand",
+      "summary": "『天秤のLaDEA。 戦女神MEMORIA 廉価版』2027-01-29 发售。",
+      "via": [],
+      "sources": [
+        "x:2125790060192973071"
+      ]
+    },
+    {
+      "handle": "clip_craft",
+      "category": "brand",
+      "summary": "提醒今晚 23:59 截止受注，售完不再版。",
+      "via": [],
+      "sources": [
+        "x:2125764817583829062"
+      ]
+    },
+    {
+      "handle": "furikuru_game",
+      "category": "brand",
+      "summary": "『諦観のイヴ・ベセル』三折促销。",
+      "via": [],
+      "sources": [
+        "x:2125933001796464715"
+      ]
+    },
+    {
+      "handle": "zion_staff",
+      "category": "brand",
+      "summary": "Ci-en 更新 12 月付费限定草图。",
+      "via": [],
+      "sources": [
+        "x:2125891246438949328"
+      ]
+    },
+    {
+      "handle": "kulvario0",
+      "category": "info",
+      "summary": "吐槽重制版一张 CG 画得让人受不了。",
+      "via": [],
+      "sources": [
+        "x:2125948548629840234"
+      ]
+    },
+    {
+      "handle": "masanlive",
+      "category": "info",
+      "summary": "发 FANZA 冬促十五选影片。",
+      "via": [],
+      "sources": [
+        "x:2125880993739419975"
+      ]
+    },
+    {
+      "handle": "hiro_in",
+      "category": "info",
+      "summary": "整理 FANZA 冬促 2026 对象游戏一览。",
+      "via": [],
+      "sources": [
+        "x:2125926219233563082"
+      ]
+    },
+    {
+      "handle": "seiya_saiga",
+      "category": "info",
+      "summary": "发布『小金井荘と金色の揚羽蝶』PC／Switch 攻略。",
+      "via": [],
+      "sources": [
+        "x:2125801114411126872"
+      ]
+    }
+  ],
+  "provenance": {
+    "generator": "gplus/1",
+    "prompt_version": 1,
+    "cache_key": "gplus:2026-11-26",
+    "generated_at": "2026-11-26T16:13:37+00:00"
+  }
+}
