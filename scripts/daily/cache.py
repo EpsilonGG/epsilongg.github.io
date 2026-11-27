@@ -19,7 +19,7 @@ from dataclasses import asdict, dataclass, field
 from datetime import datetime, timezone
 from pathlib import Path
 
-PROMPT_VERSION = 9  # 9：引用推（· 引用了 @xxx）同样不得算本人发言，people 至少一条本人原创来源；8：出稿取消条数限制；7：repost 条目必须写明「转发了谁的消息」
+PROMPT_VERSION = 10  # 10：转发者也写进 people，但必须写「转发了谁的什么事」，并禁止分类字样；9：people 必须本人原创（已撤销）；8：出稿取消条数限制
 
 FRESH = "fresh"
 STALE = "stale"

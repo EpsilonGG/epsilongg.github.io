@@ -8,7 +8,7 @@
       "end": "2026-11-28T00:00:00+09:00"
     },
     "status": "confirmed",
-    "confirmed_at": "2026-11-27T17:24:17+00:00"
+    "confirmed_at": "2026-11-27T17:56:25+00:00"
   },
   "counts": {
     "items": 883,
@@ -234,23 +234,29 @@
   "works": [],
   "categories": [],
   "accounts": [
+    "07th_official",
     "4gamernews",
     "_asanoha",
     "_swav_",
     "akaerocore_en",
+    "akibablog",
+    "akoutw",
     "alice_net_pc",
     "alice_soft",
     "amuse_kenzen",
     "amuse_sub",
     "appetite_game",
     "argonautssoft",
+    "asou_ei",
     "automatonjapan",
     "babi_03",
     "beep_shop",
     "bugbug_info",
     "butch_gen",
     "cabbage_soft",
+    "cloud668",
     "cnexton",
+    "coffeekizoku",
     "crowd_anim",
     "cuteuphoria",
     "cyberworkskoho",
@@ -265,10 +271,12 @@
     "evil_heal",
     "famitsu",
     "fandc_staff",
+    "favo_official",
     "fgremake",
     "getchucom",
     "go_1tk",
     "hamham_soft",
+    "hasuroot",
     "hinanakase",
     "hiro_in",
     "holic_works",
@@ -280,6 +288,7 @@
     "jinan_sanzan",
     "jitaku_st",
     "ka_fumifumi",
+    "kantoku_5th",
     "kay_comment",
     "key_official",
     "kidukirey",
@@ -287,7 +296,9 @@
     "kionachi",
     "kisaragiyu",
     "kiss_staff",
+    "kiyo_mizutsuki",
     "kobaggio",
+    "kogado_studio",
     "koumeren0205",
     "kulvario0",
     "kumanomisoft",
@@ -297,6 +308,7 @@
     "lumpofsuger",
     "luneman_etc",
     "madostaff",
+    "matsuyama077",
     "miel37319007",
     "mignon",
     "minikleminikle",
@@ -315,15 +327,23 @@
     "odawarahakone",
     "onowasabi",
     "overflow_staff",
+    "pas_staff",
     "poison_ex1992",
     "poison_new1992",
+    "project_citrus",
+    "project_navel",
     "projecti18",
     "psychic_eclipse",
+    "purple_ishikawa",
     "randall_kznr",
     "riko0202",
     "rodorin",
     "rootnuko_tw",
+    "ryunoon",
+    "sagaplanets",
     "sainexxx",
+    "sca_di",
+    "shin_kyogoku",
     "shiratamacaron",
     "shiro_youduki",
     "shona_m",
@@ -331,24 +351,31 @@
     "simizuhatumi",
     "sin_kou_hyou",
     "smee_official",
+    "snow_chifuyu",
     "sora_hajime",
     "sprite_fairys",
     "stealcatac",
     "studio_ubai",
+    "sukerasparo",
     "suzuhirahiro666",
     "syrup_kouhou",
     "taiga_scenario",
+    "takano_yuki",
     "touta_tsubuyaki",
     "trader_r18",
     "tryset",
+    "u_me_soft",
     "unisonshift",
     "watanaberyoichi",
     "whirlpool_soft",
+    "willplus_staff",
     "windmill_oasis",
     "wonder_fool24",
+    "yaegasinan",
     "yoshimatakatsuo",
     "youtan0309",
     "yoyukko",
+    "yunmi_0527",
     "yuuki_sw",
     "yuzusoft",
     "zion_staff",
@@ -358,7 +385,7 @@
     {
       "handle": "kiss_staff",
       "category": "brand",
-      "summary": "游戏品牌，发布《カスタムロマンスシティ3D3》的发售与下载时间通知、补丁更新、维护公告及众筹特典码发放安排。",
+      "summary": "发布《カスタムロマンスシティ3D3》的发售与下载时间通知、补丁更新、维护公告及众筹特典码发放安排。",
       "via": [],
       "sources": [
         "x:2126318651087454488",
@@ -377,7 +404,7 @@
     {
       "handle": "getchucom",
       "category": "info",
-      "summary": "商品情报账号，发布游戏预约受理与特典挂画、抱枕套、手办模型等周边商品的开售信息。",
+      "summary": "发布游戏预约受理与特典挂画、抱枕套、手办模型等周边商品的开售信息。",
       "via": [],
       "sources": [
         "x:2126283333189660970",
@@ -395,7 +422,7 @@
     {
       "handle": "4gamernews",
       "category": "info",
-      "summary": "游戏媒体账号，报道新作公布、Steam发售、销量榜单与业界动态等新闻。",
+      "summary": "报道新作公布、Steam发售、销量榜单与业界动态等新闻。",
       "via": [],
       "sources": [
         "x:2126317428145827928",
@@ -462,7 +489,7 @@
     {
       "handle": "famitsu",
       "category": "info",
-      "summary": "综合游戏媒体，发布新作资讯、试玩评测、动画改编消息与联动活动信息。",
+      "summary": "发布新作资讯、试玩评测、动画改编消息与联动活动信息。",
       "via": [],
       "sources": [
         "x:2126302375451541577",
@@ -486,7 +513,7 @@
     {
       "handle": "dengekionline",
       "category": "info",
-      "summary": "游戏媒体账号，发布新作发售、联动活动、手办周边、折扣促销与直播节目预告等业界资讯。",
+      "summary": "发布新作发售、联动活动、手办周边、折扣促销与直播节目预告等业界资讯。",
       "via": [],
       "sources": [
         "x:2126313194314748093",
@@ -694,7 +721,7 @@
     {
       "handle": "erogearealive",
       "category": "info",
-      "summary": "英文资讯号，速报CUBE「アクアチャイム」、CLOWN「ウィステリア-I live my own life-」、Alt Account Labyrinth、Tekkai Jousai no Haika与The False Alice等新作动态。",
+      "summary": "速报CUBE「アクアチャイム」、CLOWN「ウィステリア-I live my own life-」、Alt Account Labyrinth、Tekkai Jousai no Haika与The False Alice等新作动态。",
       "via": [],
       "sources": [
         "x:2126291664754839681",
@@ -802,7 +829,7 @@
     {
       "handle": "entergram_info",
       "category": "brand",
-      "summary": "游戏发行品牌，发布『君色パトラIF』预约抽奖，为『センチメンタルグラフティリメイク』OP出错致歉修正。",
+      "summary": "发布『君色パトラIF』预约抽奖，为『センチメンタルグラフティリメイク』OP出错致歉修正。",
       "via": [],
       "sources": [
         "x:2126239620585431384",
@@ -812,7 +839,7 @@
     {
       "handle": "fandc_staff",
       "category": "brand",
-      "summary": "游戏公司账号，发布迷你游戏『恋ちゃんキック！』测试版、『Piaキャロット3』制服接单及角色生日企划。",
+      "summary": "发布迷你游戏『恋ちゃんキック！』测试版、『Piaキャロット3』制服接单及角色生日企划。",
       "via": [],
       "sources": [
         "x:2126215746409889964",
@@ -824,7 +851,7 @@
     {
       "handle": "holic_works",
       "category": "brand",
-      "summary": "游戏品牌账号，播报周边发货、黑五促销、『夜明け前にあいましょう』预约特典及『東京殺人鬼』体验版与问卷。",
+      "summary": "播报周边发货、黑五促销、『夜明け前にあいましょう』预约特典及『東京殺人鬼』体验版与问卷。",
       "via": [],
       "sources": [
         "x:2126252603470426283",
@@ -836,7 +863,7 @@
     {
       "handle": "hamham_soft",
       "category": "brand",
-      "summary": "游戏品牌账号，为『ハイアングル』发售满月办关注转推抽签送签名色纸活动，并提及账号遭冻结。",
+      "summary": "为『ハイアングル』发售满月办关注转推抽签送签名色纸活动，并提及账号遭冻结。",
       "via": [],
       "sources": [
         "x:2126284965046542377",
@@ -848,7 +875,7 @@
     {
       "handle": "simizuhatumi",
       "category": "creator",
-      "summary": "创作者账号，分享推理剧门票信息、地方电台活动MC工作，并盛赞游戏Flowers。",
+      "summary": "分享推理剧门票信息、地方电台活动MC工作，并盛赞游戏Flowers。",
       "via": [],
       "sources": [
         "x:2126297720919069021",
@@ -859,7 +886,7 @@
     {
       "handle": "ka_fumifumi",
       "category": "creator",
-      "summary": "创作者账号，宣布虚拟主播毕业配信、『きまぐれテンプテーション3』抱枕套预约，并更新网络小说章节。",
+      "summary": "宣布虚拟主播毕业配信、『きまぐれテンプテーション3』抱枕套预约，并更新网络小说章节。",
       "via": [],
       "sources": [
         "x:2126276493403951282",
@@ -870,7 +897,7 @@
     {
       "handle": "hozakura",
       "category": "creator",
-      "summary": "创作者账号，日常吐槽亚马逊设备反应慢、声优奇名与松饼，并关注社会事件。",
+      "summary": "日常吐槽亚马逊设备反应慢、声优奇名与松饼，并关注社会事件。",
       "via": [],
       "sources": [
         "x:2126289013309129080",
@@ -882,7 +909,7 @@
     {
       "handle": "hinanakase",
       "category": "creator",
-      "summary": "创作者兼声优，分享『恋と魔法のティーパーティー』网站公开及音效制作，并出演Switch版『Magicalcharming!』。",
+      "summary": "分享『恋と魔法のティーパーティー』网站公开及音效制作，并出演Switch版『Magicalcharming!』。",
       "via": [],
       "sources": [
         "x:2126174521376034998",
@@ -892,7 +919,7 @@
     {
       "handle": "luneman_etc",
       "category": "brand",
-      "summary": "ルネピクチャーズ品牌号，发布「OVAお隣の贄」等多部作品动画化及DVD发售情报，并介绍『エルフェンキング』廉价版再登场。",
+      "summary": "发布「OVAお隣の贄」等多部作品动画化及DVD发售情报，并介绍『エルフェンキング』廉价版再登场。",
       "via": [],
       "sources": [
         "x:2126249020578537648",
@@ -904,7 +931,7 @@
     {
       "handle": "beep_shop",
       "category": "brand",
-      "summary": "BEEP商店品牌号，分享街机基板上架、『ロードランナー』認定証与Compaq便携机『Portable386』等怀旧话题，并介绍《イース》广播剧CD新入荷。",
+      "summary": "分享街机基板上架、『ロードランナー』認定証与Compaq便携机『Portable386』等怀旧话题，并介绍《イース》广播剧CD新入荷。",
       "via": [],
       "sources": [
         "x:2126269810556408250",
@@ -916,7 +943,7 @@
     {
       "handle": "crowd_anim",
       "category": "brand",
-      "summary": "ANIM品牌号，公开「きつ×みこ」作品PV，介绍薬師るり演唱的OP曲『コンな毎日！』，追加样本CG并发布原创特典。",
+      "summary": "公开「きつ×みこ」作品PV，介绍薬師るり演唱的OP曲『コンな毎日！』，追加样本CG并发布原创特典。",
       "via": [],
       "sources": [
         "x:2126224050729173377",
@@ -927,7 +954,7 @@
     {
       "handle": "nisidahajime",
       "category": "brand",
-      "summary": "の～すとらいく品牌号，宣传女装百合嵐DL版配信与实体版发售，展示あおぎりぺんた新绘图并分享角色真尋可爱日常。",
+      "summary": "宣传女装百合嵐DL版配信与实体版发售，展示あおぎりぺんた新绘图并分享角色真尋可爱日常。",
       "via": [],
       "sources": [
         "x:2126237720465096933",
@@ -939,7 +966,7 @@
     {
       "handle": "youtan0309",
       "category": "info",
-      "summary": "ユウ＝ヤマナミ资讯号，吐槽BALDR SKY新作久无音讯，推荐DMM特卖500日元名作集，并称赞デアボリカ重制版。",
+      "summary": "吐槽BALDR SKY新作久无音讯，推荐DMM特卖500日元名作集，并称赞デアボリカ重制版。",
       "via": [],
       "sources": [
         "x:2126315122943545749",
@@ -951,7 +978,7 @@
     {
       "handle": "trader_r18",
       "category": "info",
-      "summary": "トレーダーＲ１８综合号，发布本店开业特价、新作预约、二手收购价上调及每周推荐角色等店铺情报。",
+      "summary": "发布本店开业特价、新作预约、二手收购价上调及每周推荐角色等店铺情报。",
       "via": [],
       "sources": [
         "x:2126143201400815829",
@@ -963,7 +990,7 @@
     {
       "handle": "sin_kou_hyou",
       "category": "creator",
-      "summary": "進行豹创作号，报告走失玩偶ほたる平安寻回并向网友致谢，参与まいてつ联动扭蛋，分享ぬいれいな日常。",
+      "summary": "报告走失玩偶ほたる平安寻回并向网友致谢，参与まいてつ联动扭蛋，分享ぬいれいな日常。",
       "via": [],
       "sources": [
         "x:2126209490227982808",
@@ -974,7 +1001,7 @@
     {
       "handle": "natsume3611",
       "category": "creator",
-      "summary": "満腹亭白米创作号，祝贺『アンスリウム-i entrust to you-』发售并透露出演緒方浩平一角，另吐槽ソフマップ宣传图。",
+      "summary": "祝贺『アンスリウム-i entrust to you-』发售并透露出演緒方浩平一角，另吐槽ソフマップ宣传图。",
       "via": [],
       "sources": [
         "x:2126260953625100678",
@@ -984,7 +1011,7 @@
     {
       "handle": "hujisakiusa",
       "category": "creator",
-      "summary": "藤咲ウサ创作号，播报《あいミスRADIO》第395回上线，并分享因寒冷购入羽绒服过冬的生活日常。",
+      "summary": "播报《あいミスRADIO》第395回上线，并分享因寒冷购入羽绒服过冬的生活日常。",
       "via": [],
       "sources": [
         "x:2126225633021989375",
@@ -994,7 +1021,7 @@
     {
       "handle": "escude1998",
       "category": "brand",
-      "summary": "游戏品牌，发布《廃村少女》系列问卷调查、挂毯预售及抽奖等商品企划。",
+      "summary": "发布《廃村少女》系列问卷调查、挂毯预售及抽奖等商品企划。",
       "via": [],
       "sources": [
         "x:2126269822321283304",
@@ -1005,7 +1032,7 @@
     {
       "handle": "poison_new1992",
       "category": "brand",
-      "summary": "品牌账号，发布《完堕ちX金髪家族》预告、新作企划及同人作品促销信息。",
+      "summary": "发布《完堕ちX金髪家族》预告、新作企划及同人作品促销信息。",
       "via": [],
       "sources": [
         "x:2126240696508010842",
@@ -1016,7 +1043,7 @@
     {
       "handle": "alice_soft",
       "category": "brand",
-      "summary": "游戏品牌，发布《デアボリカ》重制版、Steam奖项投票及员工日记等信息。",
+      "summary": "发布《デアボリカ》重制版、Steam奖项投票及员工日记等信息。",
       "via": [],
       "sources": [
         "x:2126240391251021951",
@@ -1027,7 +1054,7 @@
     {
       "handle": "silkysplus",
       "category": "brand",
-      "summary": "品牌账号，发布《きまぐれテンプテーション３》抱枕套预订及宣传视频信息。",
+      "summary": "发布《きまぐれテンプテーション３》抱枕套预订及宣传视频信息。",
       "via": [],
       "sources": [
         "x:2126128653482471762",
@@ -1037,7 +1064,7 @@
     {
       "handle": "dessertsoft_tw",
       "category": "brand",
-      "summary": "品牌账号，发布《どいなかガールズゆーとぴあ》配信与限定特典信息。",
+      "summary": "发布《どいなかガールズゆーとぴあ》配信与限定特典信息。",
       "via": [],
       "sources": [
         "x:2126184251582456216"
@@ -1046,7 +1073,7 @@
     {
       "handle": "moonstonetwitt",
       "category": "brand",
-      "summary": "品牌账号，发布《ホめられて伸びるＳＲ少女たち２》抽奖活动与特卖信息。",
+      "summary": "发布《ホめられて伸びるＳＲ少女たち２》抽奖活动与特卖信息。",
       "via": [],
       "sources": [
         "x:2126256525786419226",
@@ -1057,7 +1084,7 @@
     {
       "handle": "key_official",
       "category": "brand",
-      "summary": "游戏品牌，发布《アネモイ》网络广播与《サマポケ》直播活动预告。",
+      "summary": "发布《アネモイ》网络广播与《サマポケ》直播活动预告。",
       "via": [],
       "sources": [
         "x:2126254386175463919",
@@ -1068,7 +1095,7 @@
     {
       "handle": "yoshimatakatsuo",
       "category": "creator",
-      "summary": "剧本创作者，新写香奈実与ささら相关短篇，分享角色过往与创作动态。",
+      "summary": "新写香奈実与ささら相关短篇，分享角色过往与创作动态。",
       "via": [],
       "sources": [
         "x:2126229591111106605",
@@ -1078,7 +1105,7 @@
     {
       "handle": "kay_comment",
       "category": "creator",
-      "summary": "游戏创作者，宣布《偽りのアリス -Retold Tale-》在Steam发售并致谢支持者。",
+      "summary": "宣布《偽りのアリス -Retold Tale-》在Steam发售并致谢支持者。",
       "via": [],
       "sources": [
         "x:2126149014827720912"
@@ -1087,7 +1114,7 @@
     {
       "handle": "nakahiro_sw",
       "category": "creator",
-      "summary": "游戏创作者，回顾《保健室のセンセーとシャボン玉中毒の助手》发售并分享取景秘闻。",
+      "summary": "回顾《保健室のセンセーとシャボン玉中毒の助手》发售并分享取景秘闻。",
       "via": [],
       "sources": [
         "x:2125967829564530883"
@@ -1203,7 +1230,7 @@
     {
       "handle": "lilim_ntr",
       "category": "brand",
-      "summary": "游戏品牌，举办初恋ＢＬＵＥ传单免费发放活动，并公开店铺绘制特典彩色图。",
+      "summary": "举办初恋ＢＬＵＥ传单免费发放活动，并公开店铺绘制特典彩色图。",
       "via": [],
       "sources": [
         "x:2126210679824949489",
@@ -1213,7 +1240,7 @@
     {
       "handle": "projecti18",
       "category": "brand",
-      "summary": "游戏品牌，宣布『甘夏ろけーしょん』好评发售中，并提供壁纸日历与免费追加数据。",
+      "summary": "宣布『甘夏ろけーしょん』好评发售中，并提供壁纸日历与免费追加数据。",
       "via": [],
       "sources": [
         "x:2126134133600686327"
@@ -1222,7 +1249,7 @@
     {
       "handle": "tryset",
       "category": "brand",
-      "summary": "游戏品牌，分享社长拜访店铺的照片，并宣布『催眠痴漢Episode１』正式发售。",
+      "summary": "分享社长拜访店铺的照片，并宣布『催眠痴漢Episode１』正式发售。",
       "via": [],
       "sources": [
         "x:2126226181557284962",
@@ -1232,7 +1259,7 @@
     {
       "handle": "fgremake",
       "category": "brand",
-      "summary": "游戏品牌，启动预约兑换活动第三弹，并参加FANZA GAMES冬季大促。",
+      "summary": "启动预约兑换活动第三弹，并参加FANZA GAMES冬季大促。",
       "via": [],
       "sources": [
         "x:2126136677244821885",
@@ -1242,7 +1269,7 @@
     {
       "handle": "lumpofsuger",
       "category": "brand",
-      "summary": "游戏品牌，宣布『Magicalcharming!』Switch版发售，并庆祝『コドモノアソビ』发售十一周年。",
+      "summary": "宣布『Magicalcharming!』Switch版发售，并庆祝『コドモノアソビ』发售十一周年。",
       "via": [],
       "sources": [
         "x:2126254719899414724",
@@ -1252,7 +1279,7 @@
     {
       "handle": "windmill_oasis",
       "category": "brand",
-      "summary": "游戏品牌，举办FANZA与DLsite冬季促销，并宣布秋叶原合作咖啡厅活动。",
+      "summary": "举办FANZA与DLsite冬季促销，并宣布秋叶原合作咖啡厅活动。",
       "via": [],
       "sources": [
         "x:2126284920846737635",
@@ -1262,7 +1289,7 @@
     {
       "handle": "rootnuko_tw",
       "category": "brand",
-      "summary": "游戏品牌，公开『てにおはっ！feat.真美＆育美Ｗセット』套装网站及店铺特典。",
+      "summary": "公开『てにおはっ！feat.真美＆育美Ｗセット』套装网站及店铺特典。",
       "via": [],
       "sources": [
         "x:2126274479919956227",
@@ -1272,7 +1299,7 @@
     {
       "handle": "bugbug_info",
       "category": "info",
-      "summary": "游戏媒体，介绍スワッピングAVG新作，并提醒『ワンナイトアフター』挂画应募截止。",
+      "summary": "介绍スワッピングAVG新作，并提醒『ワンナイトアフター』挂画应募截止。",
       "via": [],
       "sources": [
         "x:2126270308546117910",
@@ -1282,7 +1309,7 @@
     {
       "handle": "kulvario0",
       "category": "info",
-      "summary": "资讯账号，关注本月视觉小说新作，并介绍Heaven Burns Red剧情跳过功能。",
+      "summary": "关注本月视觉小说新作，并介绍Heaven Burns Red剧情跳过功能。",
       "via": [],
       "sources": [
         "x:2126315989105328213",
@@ -1292,7 +1319,7 @@
     {
       "handle": "moeaward",
       "category": "info",
-      "summary": "游戏媒体，报道CLOWN新作官网开放，并公布月度奖『王様恋愛』。",
+      "summary": "报道CLOWN新作官网开放，并公布月度奖『王様恋愛』。",
       "via": [],
       "sources": [
         "x:2126156561601159450",
@@ -1302,7 +1329,7 @@
     {
       "handle": "cnexton",
       "category": "info",
-      "summary": "资讯账号，招募会员与员工聚餐，并发布创作者访谈中篇。",
+      "summary": "招募会员与员工聚餐，并发布创作者访谈中篇。",
       "via": [],
       "sources": [
         "x:2126209415577842029",
@@ -1312,7 +1339,7 @@
     {
       "handle": "liliyulilili1",
       "category": "creator",
-      "summary": "创作者，投稿短视频，并聊到打算提前准备情人节视频。",
+      "summary": "投稿短视频，并聊到打算提前准备情人节视频。",
       "via": [],
       "sources": [
         "x:2126275125054218276"
@@ -1321,7 +1348,7 @@
     {
       "handle": "touta_tsubuyaki",
       "category": "creator",
-      "summary": "创作者，宣传已完结的Web小说，评论达1190条并更新至第285话。",
+      "summary": "宣传已完结的Web小说，评论达1190条并更新至第285话。",
       "via": [],
       "sources": [
         "x:2126088611359567883"
@@ -1330,7 +1357,7 @@
     {
       "handle": "jinan_sanzan",
       "category": "creator",
-      "summary": "创作者，祝贺『ワンナイトアフター』发售，并透露自己参与剧本创作。",
+      "summary": "祝贺『ワンナイトアフター』发售，并透露自己参与剧本创作。",
       "via": [],
       "sources": [
         "x:2125972039488172052"
@@ -1677,12 +1704,273 @@
       "sources": [
         "x:2126254220609515847"
       ]
+    },
+    {
+      "handle": "shin_kyogoku",
+      "category": "creator",
+      "summary": "转发了pixivFANBOX关于终止部分Mastercard及PayPal支付的公告",
+      "via": [],
+      "sources": [
+        "x:2126256328029139211",
+        "x:2126189888316051507"
+      ]
+    },
+    {
+      "handle": "kogado_studio",
+      "category": "creator",
+      "summary": "转发了gamebiz关于《Sugar Lies》Steam版12月10日发售，ファミ通称Switch版2027年春发售",
+      "via": [],
+      "sources": [
+        "x:2126267263796015352",
+        "x:2126224612803682671",
+        "x:2126213182129942784"
+      ]
+    },
+    {
+      "handle": "akibablog",
+      "category": "info",
+      "summary": "转发了もへもへ对事实核查中心未核对原始视频的批评，以及黒井弘騎对叶姊妹参加Comic Market的称赞",
+      "via": [],
+      "sources": [
+        "x:2126117750796067097",
+        "x:2126172887682019467"
+      ]
+    },
+    {
+      "handle": "akoutw",
+      "category": "info",
+      "summary": "转发了中京マイコン的新作入荷通知，以及永田るいす收到《マブラヴ ガールズガーデン》公式视觉书的感想",
+      "via": [],
+      "sources": [
+        "x:2126149032988836152",
+        "x:2126230759493296227",
+        "x:2126259394732281887"
+      ]
+    },
+    {
+      "handle": "ryunoon",
+      "category": "creator",
+      "summary": "转发了CranCrown关于《アマカノ3》玩偶5月发售，Getchu.com称Perfect Edition开放预约",
+      "via": [],
+      "sources": [
+        "x:2126149540638343611",
+        "x:2126160591564001331",
+        "x:2126196427231735823"
+      ]
+    },
+    {
+      "handle": "07th_official",
+      "category": "creator",
+      "summary": "转发了カンフェティ关于11月28、29日《うみねこのなく頃に》活动配信观看方法的指南",
+      "via": [],
+      "sources": [
+        "x:2126259912263307497",
+        "x:2126249531633496357",
+        "x:2126169121578791240"
+      ]
+    },
+    {
+      "handle": "asou_ei",
+      "category": "creator",
+      "summary": "转发了水野七海出演Liar-soft《愛型淘汰LOVE HEXA》中ミャウワウ一角的消息",
+      "via": [],
+      "sources": [
+        "x:2126325643659079835",
+        "x:2126223564793958426",
+        "x:2126298253570494971"
+      ]
+    },
+    {
+      "handle": "sca_di",
+      "category": "creator",
+      "summary": "转发了荒川工关于预定明年春天发售新小说的预告",
+      "via": [],
+      "sources": [
+        "x:2125970582827356277"
+      ]
+    },
+    {
+      "handle": "purple_ishikawa",
+      "category": "creator",
+      "summary": "转发了アへ顔ダブルフラクチャー分享的Suica企鹅铜像春天也将撤除的新闻",
+      "via": [],
+      "sources": [
+        "x:2126275592022884446"
+      ]
+    },
+    {
+      "handle": "matsuyama077",
+      "category": "creator",
+      "summary": "转发了ひなちゃんの金魚分享的《LOOPERS PLUS&虹彩都市》一周年合作咖啡店体验",
+      "via": [],
+      "sources": [
+        "x:2126253133978616125",
+        "x:2126296633281589280"
+      ]
+    },
+    {
+      "handle": "takano_yuki",
+      "category": "creator",
+      "summary": "转发了エンターグラム的D.C.5发售纪念签名色纸抽奖活动，以及満腹亭白米的《ウィステリア》完结作官网开放消息。",
+      "via": [],
+      "sources": [
+        "x:2126239610820850163",
+        "x:2126163176354156623"
+      ]
+    },
+    {
+      "handle": "yaegasinan",
+      "category": "creator",
+      "summary": "转发了小原莉子的月光主题签名色纸，以及【公式】シノビNEXUS的11月29日上线倒计时与事前登录通知。",
+      "via": [],
+      "sources": [
+        "x:2126257540862460082",
+        "x:2126118811804061905"
+      ]
+    },
+    {
+      "handle": "u_me_soft",
+      "category": "brand",
+      "summary": "转发了EvilHeal的《Dominate》店铺特典介绍，以及アリスNET的《きつ×みこ》原创塑料卡特典决定通知。",
+      "via": [],
+      "sources": [
+        "x:2126149029382045874",
+        "x:2126216263806656965"
+      ]
+    },
+    {
+      "handle": "project_citrus",
+      "category": "brand",
+      "summary": "转发了Ceui的明日公告筹备与ヒーリングエデン排练、门票发售消息。",
+      "via": [],
+      "sources": [
+        "x:2126127195349532769"
+      ]
+    },
+    {
+      "handle": "willplus_staff",
+      "category": "brand",
+      "summary": "转发了Guilty dash的《紫幻華》完工与12月发售消息，以及EvilHeal的《Dominate》新增CG通知。",
+      "via": [],
+      "sources": [
+        "x:2126228540190584947",
+        "x:2126240658742722763"
+      ]
+    },
+    {
+      "handle": "coffeekizoku",
+      "category": "creator",
+      "summary": "转发了タイチョー的复古游戏物贩活动咖啡礼盒贩售与江户樱通地下步道蔬菜市集消息。",
+      "via": [],
+      "sources": [
+        "x:2126192576290283568",
+        "x:2126149937478226100"
+      ]
+    },
+    {
+      "handle": "pas_staff",
+      "category": "creator",
+      "summary": "转发了CUBE公式的《アクアチャイム》2027年春发售计划及企划、原画与音乐阵容。",
+      "via": [],
+      "sources": [
+        "x:2126284809542783250"
+      ]
+    },
+    {
+      "handle": "snow_chifuyu",
+      "category": "creator",
+      "summary": "转发了アドベンチャーワールド 公式的キタイワトビペンギン人工授精繁殖成功与DNA亲子鉴定消息。",
+      "via": [],
+      "sources": [
+        "x:2126135650982433123"
+      ]
+    },
+    {
+      "handle": "kiyo_mizutsuki",
+      "category": "creator",
+      "summary": "转发了Key的《Summer Pockets Sunnyside Stories》下载版预约页面公开消息。",
+      "via": [],
+      "sources": [
+        "x:2126241367613682144"
+      ]
+    },
+    {
+      "handle": "kantoku_5th",
+      "category": "creator",
+      "summary": "转发了『佐々木とピーちゃん』公式的新绘周边预订消息，彩色游行服装角色挂画等商品登场。",
+      "via": [],
+      "sources": [
+        "x:2126239617804313006"
+      ]
+    },
+    {
+      "handle": "hasuroot",
+      "category": "creator",
+      "summary": "转发了天海くりね的演唱会消息，ねりね组首场演出定档2月28日，感谢粉丝让应援棒和法被得以量产。",
+      "via": [],
+      "sources": [
+        "x:2126242845023670515"
+      ]
+    },
+    {
+      "handle": "yunmi_0527",
+      "category": "creator",
+      "summary": "转发了塚田サオ的独立动画视频，ボルトガール运输途中的画面片段。",
+      "via": [],
+      "sources": [
+        "x:2126263039939027231"
+      ]
+    },
+    {
+      "handle": "sukerasparo",
+      "category": "brand",
+      "summary": "转发了J-MENT的纯百合异世界语言应用『ことのはレルナード』难度调查，请玩家选出能答对的题型。",
+      "via": [],
+      "sources": [
+        "x:2126165296117604810"
+      ]
+    },
+    {
+      "handle": "favo_official",
+      "category": "brand",
+      "summary": "转发了CranCrown的秋叶原ソフマップ店头活动消息，FAVO玩偶第二弹预约者获赠背景纸并展示样品。",
+      "via": [],
+      "sources": [
+        "x:2126167994816676036"
+      ]
+    },
+    {
+      "handle": "sagaplanets",
+      "category": "brand",
+      "summary": "转发了羽田プロジェクトR的参展预告，电气外祭2026冬日展将售金色ラブリッチェ限定抽奖券与挂画。",
+      "via": [],
+      "sources": [
+        "x:2126269814884958246"
+      ]
+    },
+    {
+      "handle": "project_navel",
+      "category": "brand",
+      "summary": "转发了西又葵的感慨长文，回顾十五年活动与三十年绘画经历，感恩粉丝一路支持与人生交织。",
+      "via": [],
+      "sources": [
+        "x:2126094124642377866"
+      ]
+    },
+    {
+      "handle": "cloud668",
+      "category": "info",
+      "summary": "转发了Heaven Burns Red Official EN的主线第5章第三部分最终预告，建议先看第二部分。",
+      "via": [],
+      "sources": [
+        "x:2125982927322333589"
+      ]
     }
   ],
   "provenance": {
     "generator": "gplus/1",
-    "prompt_version": 2,
-    "cache_key": "gplus:2026-11-27:attribution-fix",
-    "generated_at": "2026-11-27T17:24:17+00:00"
+    "prompt_version": 3,
+    "cache_key": "gplus:2026-11-27:reposters-restored",
+    "generated_at": "2026-11-27T17:56:25+00:00"
   }
 }

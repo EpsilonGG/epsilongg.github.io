@@ -140,6 +140,8 @@ src/pages/daily/*         （原文全文，gitignore）                  │
 
 引用推的 description 被 `<hr/>` 切成「本人正文 + `<blockquote>` 引用正文」，解析器只把本人正文放进 `content`，引用内容与署名进 metadata。**下游任何环节都不许把 `metadata.account` 当作者**。
 
+名单外的转发原作者没有显示名，`scripts/gplus_names.py --date <日> --proxy http://127.0.0.1:7897` 用 fxtwitter 补到 `data/gplus-author-names.json`；`gplus_digest.py` 在 Reposts/Quotes 段把名字写在 `@handle` 后的括号里，写稿才能写「转发了某人（显示名）的消息」而不是把句柄塞进叙述。
+
 ---
 
 ## 3. 日报段
@@ -162,7 +164,9 @@ src/pages/daily/*         （原文全文，gitignore）                  │
 | 3 | 抓取仓拉取失败 | 检查网络/凭据 |
 | 5 | 只抓到一半（最后一条距 24:00 > 2 小时） | 先 `trigger_fetch.py` 补；确认要出残稿才加 `--allow-partial` |
 
-**归属铁律（三期通用，2026-11-28 补）**：`people[]` 的每一行只写该 handle **本人原创**的事；来源里若只有转发／引用别人的推文，这个账号就不该出现在 `people`。题面标 `repost` / `转发自 @xxx` / `· 引用了 @xxx` 的条目必须写成「A 转发/引用了 B 的消息」，不许把 B 的内容算成 A 的发言。`gplus_publish.py::check()` 会逐行核对 `sources` 里至少有一条 `publisher == handle`；`scripts/daily/prompt.py` 规则 12（`PROMPT_VERSION=9`）同步约束三期出稿。
+**归属铁律（三期通用，2026-11-28 定稿）**：题面标 `repost` / `转发自 @xxx` / `· 引用了 @xxx` 的条目必须写成「A 转发/引用了 B 的消息」，不许把 B 的内容算成 A 的发言。**转发者也留在 `people[]`，不能删掉**：只有转发的账号，sources 挂那条转发的 [id]，summary 写「转发了原作者显示名的消息，内容是……」；既有原创又有转发的账号，`people[].sources` 只挂本人原创，转发内容写进 highlights/works 并注明关系。`gplus_publish.py::check()` 逐行核对转发来源是否写明「转发/引用」且点出原作者显示名；`scripts/daily/prompt.py` 规则 12（`PROMPT_VERSION=10`）同步约束三期出稿。
+
+**分类字样不进前台（2026-11-28）**：people 的 summary 直接写「做了什么」，不要写「创作者」「游戏品牌」「品牌账号」「资讯账号」「游戏媒体账号」——分类只在 `category` 字段里。大题面用 `scripts/gplus_chunks.py --date <日> --per-chunk 42` 拆 `global.md` + 账号分片，分片题面带归属铁律与分类禁令。名单外的转发作者显示名由 `scripts/gplus_names.py --date <日> --proxy http://127.0.0.1:7897` 查 fxtwitter，落到 `data/gplus-author-names.json`，digest 的 Reposts/Quotes 段会把名字写在 handle 后的括号里。
 
 ### 3.2 `daily build` 内部：七个模块各管一件事
 

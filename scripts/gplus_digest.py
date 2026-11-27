@@ -40,6 +40,8 @@ JST = timezone(timedelta(hours=9))
 SLICES = ROOT / "data" / "xreader" / "gplus"
 DIGESTS = ROOT / "out" / "gplus" / "digest"
 ROSTER = ROOT / "src" / "config" / "gplus-roster.json"
+# 名单外作者的显示名（fxtwitter 查一次落盘），写「转发了某人的消息」时要用。
+AUTHOR_NAMES = ROOT / "data" / "gplus-author-names.json"
 
 # 观察「今天业界在说什么」用的固定词表。不去猜新词：同一个词表才能和昨天的数字比。
 KEYWORDS = [
@@ -68,9 +70,21 @@ def flatten(text: str) -> str:
     return re.sub(r"\s+", " ", text or "").strip()
 
 
-def display(handle: str, roster: dict[str, dict]) -> str:
+def load_author_names() -> dict[str, str]:
+    if not AUTHOR_NAMES.exists():
+        return {}
+    try:
+        data = json.loads(AUTHOR_NAMES.read_text(encoding="utf-8"))
+    except Exception:
+        return {}
+    return {str(k).lower(): str(v).strip() for k, v in data.items() if v}
+
+
+def display(handle: str, roster: dict[str, dict], names: dict[str, str] | None = None) -> str:
     account = roster.get(handle) or {}
     name = str(account.get("name") or "").strip()
+    if not name and names:
+        name = names.get(handle, "")
     return name or f"@{handle}"
 
 
@@ -117,6 +131,8 @@ def main(argv: list[str] | None = None) -> int:
         return 2
 
     roster, order = load_roster()
+    author_names = load_author_names()
+    names_for_display = set(roster) | set(author_names)
     originals = [item for item in items if not (item.get("metadata") or {}).get("is_retweet")]
 
     publishers = Counter(str(item.get("publisher") or "").lower() for item in items)
@@ -139,13 +155,14 @@ def main(argv: list[str] | None = None) -> int:
         f"items={len(items)} accounts={len(publishers)} originals={len(originals)}",
         "",
         "归属铁律：`## Accounts` 只列本人原创；`## Reposts` / `## Quotes` 里的正文属于原作者，",
-        "不算该账号本人发言。写 people 时 sources 至少要有一条该 handle 本人原创的 [id]。",
+        "不算该账号本人发言。写 people 时原创账号挂自己的 [id]；只有转发的账号也要写，",
+        "sources 挂 Reposts/Quotes 里的 [id]，summary 必须写「转发了某人的什么事」。",
         "",
         "## RT clusters (target -> retweeters)",
     ]
     # 次数多的在前；同数保持「第一次出现」的顺序（dict 插入序），跟抓取顺序一致
     for target, retweeters in sorted(clusters.items(), key=lambda kv: -len(kv[1])):
-        name = display(target, roster) if target in roster else "?"
+        name = display(target, roster, author_names) if target in roster or target in author_names else "?"
         lines.append(f"- @{target} ({name}) x{len(retweeters)}: {','.join(sorted(retweeters))}")
 
     # 2026-11-24：转发条目在「Accounts」里是看不到的（originals only），写稿就容易
@@ -166,7 +183,8 @@ def main(argv: list[str] | None = None) -> int:
     for retweeter, rows in sorted(reposts.items(), key=lambda kv: -len(kv[1])):
         lines.append(f"### @{retweeter} x{len(rows)}")
         for row in rows:
-            lines.append(f"- [{row['id']}] -> @{row['original']}: {row['body'][:BODY_LIMIT]}")
+            name = display(row["original"], roster, author_names) if row["original"] in names_for_display else "?"
+            lines.append(f"- [{row['id']}] -> @{row['original']} ({name}): {row['body'][:BODY_LIMIT]}")
 
     # 引用推：本人的话在 Accounts 里（带「引用自 @xxx」标记），引用的正文在这里单列并
     # 明确署名原作者，避免「A 引用 B 的公告」被写成「A 公布」。
@@ -188,7 +206,8 @@ def main(argv: list[str] | None = None) -> int:
     for quoter, rows in sorted(quotes.items(), key=lambda kv: -len(kv[1])):
         lines.append(f"### @{quoter} x{len(rows)}")
         for row in rows:
-            lines.append(f"- [{row['id']}] {row['own'][:80]} || @{row['author']}: {row['body'][:BODY_LIMIT]}")
+            name = display(row["author"], roster, author_names) if row["author"] in names_for_display else "?"
+            lines.append(f"- [{row['id']}] {row['own'][:80]} || @{row['author']} ({name}): {row['body'][:BODY_LIMIT]}")
 
     lines.extend(["", "## Keyword topics"])
     hits = Counter()
@@ -214,7 +233,9 @@ def main(argv: list[str] | None = None) -> int:
             # 归属标记必须内联在 bullet 上，写稿时才不会把引用内容算成本人原创。
             meta = row.get("metadata") or {}
             if meta.get("is_quote"):
-                body = f"· 引用了 @{str(meta.get('quoted_author') or '?').lower()}（引用正文见 Quotes 段）：{body}"
+                q_author = str(meta.get("quoted_author") or "?").lower()
+                q_name = display(q_author, roster, author_names) if q_author in names_for_display else "?"
+                body = f"· 引用了 @{q_author}（{q_name}，引用正文见 Quotes 段）：{body}"
             lines.append(f"- [{row.get('item_id')}] {body}")
 
     args.dest.mkdir(parents=True, exist_ok=True)

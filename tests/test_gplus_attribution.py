@@ -123,12 +123,15 @@ class GplusDigestAttributionTest(unittest.TestCase):
         (self.slices / f"{DATE}.jsonl").write_text(
             "\n".join(json.dumps(row, ensure_ascii=False) for row in rows) + "\n", encoding="utf-8"
         )
-        self._old = (gplus_digest.SLICES, gplus_digest.ROSTER)
+        names = root / "author-names.json"
+        names.write_text(json.dumps({"sayuki_acp": "佐雪隼"}), encoding="utf-8")
+        self._old = (gplus_digest.SLICES, gplus_digest.ROSTER, gplus_digest.AUTHOR_NAMES)
         gplus_digest.SLICES, gplus_digest.ROSTER = self.slices, roster
+        gplus_digest.AUTHOR_NAMES = names
         self.addCleanup(self._restore)
 
     def _restore(self) -> None:
-        gplus_digest.SLICES, gplus_digest.ROSTER = self._old
+        gplus_digest.SLICES, gplus_digest.ROSTER, gplus_digest.AUTHOR_NAMES = self._old
 
     def build(self) -> str:
         self.assertEqual(gplus_digest.main(["--date", DATE, "--dest", str(self.dest)]), 0)
@@ -146,9 +149,9 @@ class GplusDigestAttributionTest(unittest.TestCase):
     def test_reposts_and_quotes_name_the_real_author(self) -> None:
         text = self.build()
         self.assertIn("### @asou_ei x1", text)
-        self.assertIn("- [2] -> @sayuki_acp: 終のステラ700円", text)
+        self.assertIn("- [2] -> @sayuki_acp (佐雪隼): 終のステラ700円", text)
         self.assertIn("## Quotes (quoter -> [id] @quoted_author: quoted body)", text)
-        self.assertIn("@liar_railsoft: ティザー公開", text)
+        self.assertIn("@liar_railsoft (?): ティザー公開", text)
 
 
 class DailyPromptAttributionTest(unittest.TestCase):
@@ -194,14 +197,24 @@ class GplusPublishAttributionTest(unittest.TestCase):
             "works": [],
         }
 
-    def test_person_with_only_retweeted_sources_is_rejected(self) -> None:
-        errors = gplus_publish.check(self.report, self.sources, {"asou_ei", "sayuki_acp"})
-        self.assertTrue(any("no source authored by this handle" in err for err in errors), errors)
+    def test_retweet_only_person_kept_when_original_author_is_named(self) -> None:
+        self.report["people"][0]["summary"] = "浅生詠转发了佐雪隼的消息：終のステラ降到700日元"
+        errors = gplus_publish.check(self.report, self.sources, {"asou_ei", "sayuki_acp"}, {"sayuki_acp": "佐雪隼"})
+        self.assertFalse([err for err in errors if "asou_ei:" in err], errors)
+
+    def test_retweet_only_person_rejected_without_attribution(self) -> None:
+        errors = gplus_publish.check(self.report, self.sources, {"asou_ei", "sayuki_acp"}, {"sayuki_acp": "佐雪隼"})
+        self.assertTrue(any("repost sources need 转发/引用 wording" in err for err in errors), errors)
+
+    def test_retweet_only_person_rejected_without_author_name(self) -> None:
+        self.report["people"][0]["summary"] = "浅生詠转发了别人的消息：終のステラ降到700日元"
+        errors = gplus_publish.check(self.report, self.sources, {"asou_ei", "sayuki_acp"}, {"sayuki_acp": "佐雪隼"})
+        self.assertTrue(any("must name the original author" in err for err in errors), errors)
 
     def test_person_with_own_source_passes_attribution_check(self) -> None:
         self.report["people"][0]["sources"] = ["x:2"]
         errors = gplus_publish.check(self.report, self.sources, {"asou_ei", "sayuki_acp"})
-        self.assertFalse([err for err in errors if "authored by this handle" in err], errors)
+        self.assertFalse([err for err in errors if "asou_ei:" in err], errors)
 
     def test_repost_source_requires_attribution_wording(self) -> None:
         self.report["people"] = []

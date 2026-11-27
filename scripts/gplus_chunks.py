@@ -22,11 +22,14 @@ DIGESTS = ROOT / "out" / "gplus" / "digest"
 CHUNKS = ROOT / "out" / "gplus" / "chunks"
 
 RULES = """归属铁律（写稿必读）：
-- 只写 `### group | 显示名 | @handle | brand | n=N` 下面 `- [id]` 的条目。
-- 条目正文是 `@handle` 本人原创；带 `· 引用了 @xxx` 的是本人对别人推文的评论，引用正文本身属于被引用者。
-- `## Reposts` / `## Quotes` 段的正文属于被转/被引用的作者，不算抓取账号原创。
-- people 的 sources 只能挂该 handle 本人原创的 [id]；只有转发的账号不要写 people。
-- 显示名用 `###` 行里的名字，不要在叙述里写 @handle；summary ≤60 个汉字。
+- `## Accounts` 的 `### group | 显示名 | @handle | brand | n=N` 下面 `- [id]` 是该 handle 本人原创；
+  带 `· 引用了 @xxx（名字）` 的是本人评论，引用正文本身属于被引用者。
+- `## Reposts` / `## Quotes` 段的正文属于被转/被引用的作者，不算抓取账号原创；
+  但**转发者也要写进 people**，sources 挂该转发者的 [id]，summary 写「转发了某人（显示名）的什么事」。
+- 同一个 handle 既有原创又有转发时，people 的 sources 只挂本人原创的 [id]；
+  转发内容只写进 highlights/insights/interactions，并写明「A 转发了 B 的消息」。
+- 显示名取 `###` 行或 Reposts/Quotes 括号里的名字；叙述里不写 @handle。
+- summary 直接写「做了什么」，不要写「创作者/品牌/信息/游戏媒体账号」这类分类字样；≤60 个汉字。
 """
 
 

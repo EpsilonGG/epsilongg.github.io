@@ -5,8 +5,8 @@ Checks before writing:
   * status is confirmed
   * every source key resolves to a real fetched tweet in data/xreader/gplus/
   * every people[].handle is in the list 1-1 roster
-  * every people[] row has at least one source authored by that handle
-    (retweets/quotes of somebody else are not that account's own words)
+  * people rows whose sources are retweets of somebody else say 「转发了某人…」
+    (retweet-only accounts stay in people, but the original author must be named)
   * claims whose sources include a repost say 「转发」/「引用」
   * no @handle appears inside narrative text
 
@@ -24,6 +24,17 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 DRAFTS = ROOT / "out" / "gplus" / "reports"
 DEST = ROOT / "data" / "daily"
+AUTHOR_NAMES = ROOT / "data" / "gplus-author-names.json"
+
+
+def load_author_names() -> dict[str, str]:
+    if not AUTHOR_NAMES.exists():
+        return {}
+    try:
+        data = json.loads(AUTHOR_NAMES.read_text(encoding="utf-8"))
+    except Exception:
+        return {}
+    return {str(k).lower(): str(v).strip() for k, v in data.items() if v}
 
 
 def load_sources() -> dict[str, dict]:
@@ -44,8 +55,9 @@ def author_of(item: dict) -> str:
     return str(item.get("publisher") or "").lower()
 
 
-def check(report: dict, sources: dict[str, dict], roster: set[str]) -> list[str]:
+def check(report: dict, sources: dict[str, dict], roster: set[str], names: dict[str, str] | None = None) -> list[str]:
     errors: list[str] = []
+    names = names or {}
     issue_id = str(((report.get("issue") or {}).get("id")) or "")
     if not re.fullmatch(r"Gplus_\d{3,}", issue_id):
         errors.append(f"bad draft issue.id {issue_id!r}")
@@ -83,12 +95,32 @@ def check(report: dict, sources: dict[str, dict], roster: set[str]) -> list[str]
                 errors.append(f"unresolved source {key} in {h}")
                 continue
             attached.append(sources[key])
-        # people = 当天有原创的账号。只有转发别人的推文不构成「本人发言」。
-        if attached and not any(author_of(item) == h for item in attached):
-            errors.append(
-                f"{h}: no source authored by this handle; "
-                f"authors={sorted({author_of(item) for item in attached})}"
-            )
+        # 只有转发的账号也要留在 people 里，但不能把原作者的话写成自己的。
+        # 这类行的 summary 必须写「转发了<原作者显示名>的<内容>」，并挂转发 [id]。
+        forwarded = [
+            item for item in attached
+            if (item.get("metadata") or {}).get("is_retweet") and author_of(item) != h
+        ]
+        if forwarded:
+            summary = str(person.get("summary") or "")
+            if not re.search(r"转发|引用", summary):
+                errors.append(f"{h}: repost sources need 转发/引用 wording in people summary: {summary[:48]}")
+            if not any(author_of(item) == h for item in attached):
+                labels: set[str] = set()
+                for item in forwarded:
+                    label = (
+                        names.get(author_of(item), "")
+                        or str((item.get("metadata") or {}).get("author_name") or "").strip()
+                        or author_of(item)
+                    )
+                    if not label:
+                        continue
+                    labels.add(label)
+                    # fxtwitter 的名字常带「＠接稿中」「 配信版」等尾巴；写稿用短名也算点名。
+                    labels.add(re.split(r"[\s＠@]", label)[0])
+                labels.discard("")
+                if not any(label and label in summary for label in labels):
+                    errors.append(f"{h}: repost-only people row must name the original author: {sorted(labels)}")
     narrative = [report.get("description", "")]
     for claim in report.get("highlights", []) + report.get("insights", []) + report.get("interactions", []):
         narrative.append(claim.get("text", ""))
@@ -109,6 +141,7 @@ def main(argv: list[str] | None = None) -> int:
     args = ap.parse_args(argv)
 
     roster = {a["handle"].lower() for a in json.loads((ROOT / "src/config/gplus-roster.json").read_text(encoding="utf-8"))["accounts"]}
+    names = load_author_names()
     sources = load_sources()
     files = sorted(DRAFTS.glob("Gplus_*.json")) if args.all else [DRAFTS / f"{args.issue}.json"]
     failed = False
@@ -118,7 +151,7 @@ def main(argv: list[str] | None = None) -> int:
             failed = True
             continue
         report = json.loads(f.read_text(encoding="utf-8"))
-        errors = check(report, sources, roster)
+        errors = check(report, sources, roster, names)
         issue_id = report["issue"]["id"]
         if errors:
             failed = True
