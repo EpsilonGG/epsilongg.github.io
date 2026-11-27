@@ -2,27 +2,8 @@
   "schema_version": 1,
   "note": "日报保护集的显式授权白名单。不是关掉闸门：未登记的保护路径仍逐字节比对、保护目录里出现新文件仍一律拦下。每条都要写清授权日与理由；改动一旦 commit，diff 归零、豁免自动失效，届时应把该条从这里删掉。batches 用于「一次用户裁决要改一批同构文件」的场景，仍然逐条列出完整文件路径，不接受目录或通配符。",
   "cleared_on": "2026-11-28",
-  "cleared_reason": "X 推文归属修复（题面规则 12 与 PROMPT_VERSION 9）已 commit（8cf2c53），保护集 diff 归零，豁免按设计失效。空列表才是正常状态。",
-  "waivers": [
-    {
-      "path": "scripts/daily/prompt.py",
-      "authorized_by": "用户（2026-11-28：转发者要留在 people 里，写成「转发了谁谁谁的什么事」；分类字样不得进前台）",
-      "authorized_on": "2026-11-28",
-      "reason": "规则 12 从「只有转发的账号不要写进 people」改为「转发者也写进 people 但必须点名原作者」，并禁止 summary 出现创作者/品牌/信息分类字样。"
-    },
-    {
-      "path": "scripts/daily/cache.py",
-      "authorized_by": "用户（2026-11-28：同上归属口径修正）",
-      "authorized_on": "2026-11-28",
-      "reason": "PROMPT_VERSION 9 -> 10：规则 12 变更后旧缓存题面必须失效重出，否则当天仍按「删掉转发者」的旧口径写稿。"
-    },
-    {
-      "path": "data/daily/261127-gp/report.json",
-      "authorized_by": "用户（2026-11-28：浅生詠与转发型创作者要留在日报里，改成注明转发了谁的什么事；分类字样不得进前台）",
-      "authorized_on": "2026-11-28",
-      "reason": "重出 261127-gp：恢复 27 个只有转发的账号并写明原作者，清掉 48 条 summary 里的分类前缀；people 119 -> 146。"
-    }
-  ],
+  "cleared_reason": "转发者保留与分类字样清理已 commit（013a35b），保护集 diff 归零，豁免按设计失效。空列表才是正常状态。",
+  "waivers": [],
   "batches": [
     {
       "id": "gplus-daily-entry-2026-11-22",
