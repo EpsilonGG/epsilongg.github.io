@@ -1,6 +1,6 @@
 {
   "$comment": "由 scripts/optimize_images.mjs 生成，请勿手改。",
-  "generatedAt": "2026-11-27T12:49:11.224Z",
+  "generatedAt": "2026-11-27T17:58:07.488Z",
   "images": {
     "/images/blog/4gamer-gate-of-gates-interview/01.jpg": {
       "w": 1280,
@@ -4281,6 +4281,419 @@
           "w": 1080,
           "src": "/images/blog/busara-bugbug-interview/15-1080.webp",
           "bytes": 32608
+        }
+      ]
+    },
+    "/images/blog/denfaminico-wizardry-woodhead/01.jpg": {
+      "w": 1400,
+      "h": 788,
+      "bytes": 29498,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/denfaminico-wizardry-woodhead/01-600.webp",
+          "bytes": 6456
+        },
+        {
+          "w": 960,
+          "src": "/images/blog/denfaminico-wizardry-woodhead/01-960.webp",
+          "bytes": 10430
+        },
+        {
+          "w": 1400,
+          "src": "/images/blog/denfaminico-wizardry-woodhead/01-1400.webp",
+          "bytes": 15398
+        }
+      ]
+    },
+    "/images/blog/denfaminico-wizardry-woodhead/02.jpg": {
+      "w": 1400,
+      "h": 433,
+      "bytes": 91719,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/denfaminico-wizardry-woodhead/02-600.webp",
+          "bytes": 17806
+        },
+        {
+          "w": 960,
+          "src": "/images/blog/denfaminico-wizardry-woodhead/02-960.webp",
+          "bytes": 35704
+        },
+        {
+          "w": 1400,
+          "src": "/images/blog/denfaminico-wizardry-woodhead/02-1400.webp",
+          "bytes": 56978
+        }
+      ]
+    },
+    "/images/blog/denfaminico-wizardry-woodhead/03.jpg": {
+      "w": 1400,
+      "h": 1050,
+      "bytes": 70831,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/denfaminico-wizardry-woodhead/03-600.webp",
+          "bytes": 10260
+        },
+        {
+          "w": 960,
+          "src": "/images/blog/denfaminico-wizardry-woodhead/03-960.webp",
+          "bytes": 22042
+        },
+        {
+          "w": 1400,
+          "src": "/images/blog/denfaminico-wizardry-woodhead/03-1400.webp",
+          "bytes": 40326
+        }
+      ]
+    },
+    "/images/blog/denfaminico-wizardry-woodhead/04.jpg": {
+      "w": 1400,
+      "h": 1050,
+      "bytes": 72768,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/denfaminico-wizardry-woodhead/04-600.webp",
+          "bytes": 13138
+        },
+        {
+          "w": 960,
+          "src": "/images/blog/denfaminico-wizardry-woodhead/04-960.webp",
+          "bytes": 24004
+        },
+        {
+          "w": 1400,
+          "src": "/images/blog/denfaminico-wizardry-woodhead/04-1400.webp",
+          "bytes": 40442
+        }
+      ]
+    },
+    "/images/blog/denfaminico-wizardry-woodhead/05.jpg": {
+      "w": 1400,
+      "h": 1050,
+      "bytes": 77078,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/denfaminico-wizardry-woodhead/05-600.webp",
+          "bytes": 13038
+        },
+        {
+          "w": 960,
+          "src": "/images/blog/denfaminico-wizardry-woodhead/05-960.webp",
+          "bytes": 26852
+        },
+        {
+          "w": 1400,
+          "src": "/images/blog/denfaminico-wizardry-woodhead/05-1400.webp",
+          "bytes": 46434
+        }
+      ]
+    },
+    "/images/blog/denfaminico-wizardry-woodhead/06.jpg": {
+      "w": 1400,
+      "h": 1050,
+      "bytes": 86611,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/denfaminico-wizardry-woodhead/06-600.webp",
+          "bytes": 14988
+        },
+        {
+          "w": 960,
+          "src": "/images/blog/denfaminico-wizardry-woodhead/06-960.webp",
+          "bytes": 30228
+        },
+        {
+          "w": 1400,
+          "src": "/images/blog/denfaminico-wizardry-woodhead/06-1400.webp",
+          "bytes": 54586
+        }
+      ]
+    },
+    "/images/blog/denfaminico-wizardry-woodhead/07.jpg": {
+      "w": 1400,
+      "h": 1050,
+      "bytes": 75403,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/denfaminico-wizardry-woodhead/07-600.webp",
+          "bytes": 12996
+        },
+        {
+          "w": 960,
+          "src": "/images/blog/denfaminico-wizardry-woodhead/07-960.webp",
+          "bytes": 27582
+        },
+        {
+          "w": 1400,
+          "src": "/images/blog/denfaminico-wizardry-woodhead/07-1400.webp",
+          "bytes": 48138
+        }
+      ]
+    },
+    "/images/blog/denfaminico-wizardry-woodhead/08.jpg": {
+      "w": 1400,
+      "h": 1050,
+      "bytes": 80485,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/denfaminico-wizardry-woodhead/08-600.webp",
+          "bytes": 13592
+        },
+        {
+          "w": 960,
+          "src": "/images/blog/denfaminico-wizardry-woodhead/08-960.webp",
+          "bytes": 27504
+        },
+        {
+          "w": 1400,
+          "src": "/images/blog/denfaminico-wizardry-woodhead/08-1400.webp",
+          "bytes": 47570
+        }
+      ]
+    },
+    "/images/blog/denfaminico-wizardry-woodhead/09.jpg": {
+      "w": 1400,
+      "h": 433,
+      "bytes": 103104,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/denfaminico-wizardry-woodhead/09-600.webp",
+          "bytes": 20672
+        },
+        {
+          "w": 960,
+          "src": "/images/blog/denfaminico-wizardry-woodhead/09-960.webp",
+          "bytes": 42542
+        },
+        {
+          "w": 1400,
+          "src": "/images/blog/denfaminico-wizardry-woodhead/09-1400.webp",
+          "bytes": 72034
+        }
+      ]
+    },
+    "/images/blog/denfaminico-wizardry-woodhead/10.jpg": {
+      "w": 1221,
+      "h": 916,
+      "bytes": 55512,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/denfaminico-wizardry-woodhead/10-600.webp",
+          "bytes": 12532
+        },
+        {
+          "w": 1221,
+          "src": "/images/blog/denfaminico-wizardry-woodhead/10-1221.webp",
+          "bytes": 32556
+        }
+      ]
+    },
+    "/images/blog/denfaminico-wizardry-woodhead/11.jpg": {
+      "w": 1400,
+      "h": 1050,
+      "bytes": 76851,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/denfaminico-wizardry-woodhead/11-600.webp",
+          "bytes": 13820
+        },
+        {
+          "w": 960,
+          "src": "/images/blog/denfaminico-wizardry-woodhead/11-960.webp",
+          "bytes": 23820
+        },
+        {
+          "w": 1400,
+          "src": "/images/blog/denfaminico-wizardry-woodhead/11-1400.webp",
+          "bytes": 40656
+        }
+      ]
+    },
+    "/images/blog/denfaminico-wizardry-woodhead/12.jpg": {
+      "w": 1400,
+      "h": 433,
+      "bytes": 92826,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/denfaminico-wizardry-woodhead/12-600.webp",
+          "bytes": 19188
+        },
+        {
+          "w": 960,
+          "src": "/images/blog/denfaminico-wizardry-woodhead/12-960.webp",
+          "bytes": 38772
+        },
+        {
+          "w": 1400,
+          "src": "/images/blog/denfaminico-wizardry-woodhead/12-1400.webp",
+          "bytes": 65028
+        }
+      ]
+    },
+    "/images/blog/denfaminico-wizardry-woodhead/13.jpg": {
+      "w": 1344,
+      "h": 1008,
+      "bytes": 67733,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/denfaminico-wizardry-woodhead/13-600.webp",
+          "bytes": 12418
+        },
+        {
+          "w": 960,
+          "src": "/images/blog/denfaminico-wizardry-woodhead/13-960.webp",
+          "bytes": 25146
+        },
+        {
+          "w": 1344,
+          "src": "/images/blog/denfaminico-wizardry-woodhead/13-1344.webp",
+          "bytes": 42070
+        }
+      ]
+    },
+    "/images/blog/denfaminico-wizardry-woodhead/14.jpg": {
+      "w": 1400,
+      "h": 1050,
+      "bytes": 80047,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/denfaminico-wizardry-woodhead/14-600.webp",
+          "bytes": 14022
+        },
+        {
+          "w": 960,
+          "src": "/images/blog/denfaminico-wizardry-woodhead/14-960.webp",
+          "bytes": 28262
+        },
+        {
+          "w": 1400,
+          "src": "/images/blog/denfaminico-wizardry-woodhead/14-1400.webp",
+          "bytes": 48872
+        }
+      ]
+    },
+    "/images/blog/denfaminico-wizardry-woodhead/15.jpg": {
+      "w": 1400,
+      "h": 433,
+      "bytes": 96340,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/denfaminico-wizardry-woodhead/15-600.webp",
+          "bytes": 18704
+        },
+        {
+          "w": 960,
+          "src": "/images/blog/denfaminico-wizardry-woodhead/15-960.webp",
+          "bytes": 37152
+        },
+        {
+          "w": 1400,
+          "src": "/images/blog/denfaminico-wizardry-woodhead/15-1400.webp",
+          "bytes": 60514
+        }
+      ]
+    },
+    "/images/blog/denfaminico-wizardry-woodhead/16.jpg": {
+      "w": 1400,
+      "h": 1050,
+      "bytes": 73318,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/denfaminico-wizardry-woodhead/16-600.webp",
+          "bytes": 12536
+        },
+        {
+          "w": 960,
+          "src": "/images/blog/denfaminico-wizardry-woodhead/16-960.webp",
+          "bytes": 25792
+        },
+        {
+          "w": 1400,
+          "src": "/images/blog/denfaminico-wizardry-woodhead/16-1400.webp",
+          "bytes": 45338
+        }
+      ]
+    },
+    "/images/blog/denfaminico-wizardry-woodhead/17.jpg": {
+      "w": 1400,
+      "h": 433,
+      "bytes": 82144,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/denfaminico-wizardry-woodhead/17-600.webp",
+          "bytes": 17816
+        },
+        {
+          "w": 960,
+          "src": "/images/blog/denfaminico-wizardry-woodhead/17-960.webp",
+          "bytes": 35024
+        },
+        {
+          "w": 1400,
+          "src": "/images/blog/denfaminico-wizardry-woodhead/17-1400.webp",
+          "bytes": 57304
+        }
+      ]
+    },
+    "/images/blog/denfaminico-wizardry-woodhead/18.jpg": {
+      "w": 1400,
+      "h": 1050,
+      "bytes": 73301,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/denfaminico-wizardry-woodhead/18-600.webp",
+          "bytes": 12470
+        },
+        {
+          "w": 960,
+          "src": "/images/blog/denfaminico-wizardry-woodhead/18-960.webp",
+          "bytes": 25842
+        },
+        {
+          "w": 1400,
+          "src": "/images/blog/denfaminico-wizardry-woodhead/18-1400.webp",
+          "bytes": 45674
+        }
+      ]
+    },
+    "/images/blog/denfaminico-wizardry-woodhead/19.jpg": {
+      "w": 1400,
+      "h": 433,
+      "bytes": 87178,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/denfaminico-wizardry-woodhead/19-600.webp",
+          "bytes": 16542
+        },
+        {
+          "w": 960,
+          "src": "/images/blog/denfaminico-wizardry-woodhead/19-960.webp",
+          "bytes": 31880
+        },
+        {
+          "w": 1400,
+          "src": "/images/blog/denfaminico-wizardry-woodhead/19-1400.webp",
+          "bytes": 51094
         }
       ]
     },
