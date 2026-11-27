@@ -126,6 +126,20 @@ src/pages/daily/*         （原文全文，gitignore）                  │
 
 镜像这一步是本段最巧的设计：`daily_prepare.py::items_dir_for()` 优先读 `.xreader/data-galgame/items/`，而 `scan_day()` / `XReaderAdapter` 只认 `*.jsonl` 与 `published_at`——于是 B 站动态会以 `[bilibili:<动态id>]` 的来源键自然出现在 briefing、题面与正文里，**日报管线一行都不用改**。
 
+### 2.4 Gplus 抓取：Nitter RSS 的归属解析
+
+`scripts/gplus_fetch.py` 直接抓 Nitter RSS（不走 X-Reader）。**归属只能从 RSS `<title>` 读，不能从抓取账号猜**：
+
+| RSS title | 真实作者 `publisher` | 时间线主人 `metadata.account` | 标记 |
+| --- | --- | --- | --- |
+| `@asou_ei: 正文` | `asou_ei` | `asou_ei` | 原创 |
+| `RT @sayuki_acp (by @asou_ei): 正文` | `sayuki_acp` | `asou_ei` | `is_retweet=true` |
+| `RT @mzn773 (by @asou_ei): …` 且 description 带 `<blockquote>` | `mzn773` | `asou_ei` | 转发 + `is_quote=true`，引用正文另存 `quoted_text` / `quoted_author` |
+
+2026-11-27 事故：旧解析器丢掉 title，把 `publisher` 一律写成被抓账号，浅生詠名下三条来源其实全是 mzn773 / sayuki_acp / tkwsnb 的推文，稿子写成「浅生詠出演リラフト新作角色、提到『終のステラ』促销」。修法见 `parse_rss()`，回归测试 `tests/test_gplus_attribution.py`。
+
+引用推的 description 被 `<hr/>` 切成「本人正文 + `<blockquote>` 引用正文」，解析器只把本人正文放进 `content`，引用内容与署名进 metadata。**下游任何环节都不许把 `metadata.account` 当作者**。
+
 ---
 
 ## 3. 日报段
@@ -147,6 +161,8 @@ src/pages/daily/*         （原文全文，gitignore）                  │
 | 2 | 目标日一条都没有 | 抓取没跑或失败，**不要**写这一期 |
 | 3 | 抓取仓拉取失败 | 检查网络/凭据 |
 | 5 | 只抓到一半（最后一条距 24:00 > 2 小时） | 先 `trigger_fetch.py` 补；确认要出残稿才加 `--allow-partial` |
+
+**归属铁律（三期通用，2026-11-28 补）**：`people[]` 的每一行只写该 handle **本人原创**的事；来源里若只有转发／引用别人的推文，这个账号就不该出现在 `people`。题面标 `repost` / `转发自 @xxx` / `· 引用了 @xxx` 的条目必须写成「A 转发/引用了 B 的消息」，不许把 B 的内容算成 A 的发言。`gplus_publish.py::check()` 会逐行核对 `sources` 里至少有一条 `publisher == handle`；`scripts/daily/prompt.py` 规则 12（`PROMPT_VERSION=9`）同步约束三期出稿。
 
 ### 3.2 `daily build` 内部：七个模块各管一件事
 

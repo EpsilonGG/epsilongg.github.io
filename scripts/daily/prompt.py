@@ -13,6 +13,7 @@
 from __future__ import annotations
 
 import json
+import re
 from dataclasses import dataclass
 from pathlib import Path
 
@@ -99,11 +100,12 @@ RULES_FLAT = """\
     假名与标点），不许截断、拆成两段，也不许把「电子书 / 发售 / 促销」等说明拼进书名号；
     一句提到两个作品就写两组完整书名号。错误示例：把
     『放課後シンデレラ 長南陽佳は幼馴染。』写成「『放課後シンデレラ』长南阳佳电子书」。
-12. **材料里标 `repost` 的条目，是「转发者·账号」转了「转发自 @xxx」的消息，不是账号自己写的。**
-    人和事必须配对：写 highlights / works / people 时若内容来自转发，必须写成
-    「账号显示名 转发了 原作者显示名 的消息，内容是……」；不许把被转发的内容直接记成
+12. **材料里标 `repost` / `转发自 @xxx` / `· 引用了 @xxx` 的条目，不是账号自己写的。**
+    人和事必须配对：写 highlights / works / people 时若内容来自转发或引用，必须写成
+    「账号显示名 转发了 原作者显示名 的消息，内容是……」；不许把被转发／被引用的内容直接记成
     `people[].handle` 那个账号的原创、原创作品或本人发言。判断依据只有题面那行的
-    `repost` 与 `转发自 @xxx`——正文里读起来像第一人称也一样。
+    `repost` / `转发自 @xxx` / `· 引用了 @xxx`——正文里读起来像第一人称也一样。
+    `people` 一行至少要挂一条该 handle **本人原创**的来源；只有转发的账号不要写进 `people`。
 """
 
 # 术语表是 `data/glossary.json`：`ja` 原词、`zh` 本站统一写法、`avoid` 明确不许出现的写法。
@@ -171,6 +173,11 @@ def _glossary_lines(limit: int = 80) -> str:
     return "\n".join(lines)
 
 
+# X-Reader 的 RSS 出口把引用推压成一段正文，末尾留 `— https://nitter.cf/@作者/status/id`。
+# metadata.is_quote 常年是 false，光看 kind 会把引用内容算成抓取账号本人原创。
+FLATTENED_QUOTE = re.compile(r"—\s*https?://[^/\s]+/([A-Za-z0-9_]{1,15})/status/\d+")
+
+
 def _item_lines(items: list[dict]) -> str:
     lines: list[str] = []
     for item in items:
@@ -179,8 +186,11 @@ def _item_lines(items: list[dict]) -> str:
         # 写稿就把被转的内容当成账号原创（大山チロル那条就是这么错的）。
         if item.get("kind") == "repost" and item.get("repost_of"):
             head += f" · 转发自 @{item['repost_of']}"
-        lines.append(head)
         body = (item.get("text") or "").strip()
+        quoted = FLATTENED_QUOTE.search(body)
+        if quoted and quoted.group(1).lower() != str(item.get("account") or "").lower():
+            head += f" · 引用了 @{quoted.group(1)}（该作者正文在下方，勿算本人原创）"
+        lines.append(head)
         for line in body.splitlines():
             lines.append(f"    {line}")
         lines.append("")

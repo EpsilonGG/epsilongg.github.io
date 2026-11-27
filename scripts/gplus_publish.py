@@ -5,6 +5,9 @@ Checks before writing:
   * status is confirmed
   * every source key resolves to a real fetched tweet in data/xreader/gplus/
   * every people[].handle is in the list 1-1 roster
+  * every people[] row has at least one source authored by that handle
+    (retweets/quotes of somebody else are not that account's own words)
+  * claims whose sources include a repost say 「转发」/「引用」
   * no @handle appears inside narrative text
 
 Usage:
@@ -36,6 +39,11 @@ def load_sources() -> dict[str, dict]:
     return out
 
 
+def author_of(item: dict) -> str:
+    """真正写这条推文的人，不是抓到它的时间线主人。"""
+    return str(item.get("publisher") or "").lower()
+
+
 def check(report: dict, sources: dict[str, dict], roster: set[str]) -> list[str]:
     errors: list[str] = []
     issue_id = str(((report.get("issue") or {}).get("id")) or "")
@@ -46,17 +54,41 @@ def check(report: dict, sources: dict[str, dict], roster: set[str]) -> list[str]
         errors.append(f"bad window.start {start!r}; need JST midnight")
     if (report.get("issue") or {}).get("status") != "confirmed":
         errors.append("status must be confirmed")
-    for claim in report.get("highlights", []) + report.get("insights", []) + report.get("interactions", []):
+    claims = report.get("highlights", []) + report.get("insights", []) + report.get("interactions", [])
+    for claim in claims:
+        attached = []
         for key in claim.get("sources", []):
             if key not in sources:
                 errors.append(f"unresolved source {key} in claim")
+                continue
+            attached.append(sources[key])
+        # 261127-gp 的浅生詠：三条来源全是别人写的转发，稿子却写成她本人出演/促销。
+        # 自己转自己的推（author == account）不算错配，不要求改措辞。
+        amplified = any(
+            (s.get("metadata") or {}).get("is_retweet")
+            and author_of(s) != str((s.get("metadata") or {}).get("account") or "").lower()
+            for s in attached
+        )
+        if amplified:
+            text = str(claim.get("text") or "")
+            if not re.search(r"转发|引用", text):
+                errors.append(f"repost source needs 转发/引用 wording: {text[:48]}")
     for person in report.get("people", []):
         h = str(person.get("handle", "")).lower()
         if h not in roster:
             errors.append(f"handle not in roster: {h}")
+        attached = []
         for key in person.get("sources", []):
             if key not in sources:
                 errors.append(f"unresolved source {key} in {h}")
+                continue
+            attached.append(sources[key])
+        # people = 当天有原创的账号。只有转发别人的推文不构成「本人发言」。
+        if attached and not any(author_of(item) == h for item in attached):
+            errors.append(
+                f"{h}: no source authored by this handle; "
+                f"authors={sorted({author_of(item) for item in attached})}"
+            )
     narrative = [report.get("description", "")]
     for claim in report.get("highlights", []) + report.get("insights", []) + report.get("interactions", []):
         narrative.append(claim.get("text", ""))

@@ -93,6 +93,51 @@ def strip_html(s: str) -> str:
     return html_mod.unescape(s).strip()
 
 
+# Nitter RSS title is the only place that records a retweet's real author:
+#   RT @muninmumu (by @asou_ei): <original body>
+# Historically we only looked at the description and set publisher=handle, so
+# every retweet in a timeline was filed under the account being scraped. That
+# is how 261127-gp ended up saying 浅生詠 announced her own role and sale when
+# all three sources were retweets of mzn773 / sayuki_acp / tkwsnb.
+RT_TITLE = re.compile(
+    r"^RT\s+@([A-Za-z0-9_]{1,15})\s*(?:\(\s*by\s+@([A-Za-z0-9_]{1,15})\s*\))?\s*:\s*(.*)$",
+    re.I | re.S,
+)
+BLOCKQUOTE = re.compile(r"<blockquote\b[^>]*>(.*?)</blockquote>", re.I | re.S)
+QUOTE_NAME = re.compile(r"<b[^>]*>(.*?)</b>", re.I | re.S)
+QUOTE_HANDLE = re.compile(r"@([A-Za-z0-9_]{1,15})")
+QUOTE_STATUS = re.compile(r"/status/(\d+)")
+IMG_AUTHOR = re.compile(r'alt="Image from (.*?) \(@([A-Za-z0-9_]{1,15})\)"', re.I)
+PINNED = re.compile(r"^Pinned:\s*", re.I)
+
+
+def _split_quote(desc_html: str) -> tuple[str, str | None, str | None, str | None]:
+    """Return (own_html, quoted_author, quoted_tweet_id, quoted_text).
+
+    A Nitter quote tweet appends `<hr/><blockquote>…<footer>— link</footer>`
+    to the description. Keeping that block inside `content` makes the writer
+    read somebody else's words as the timeline owner's, so split it out and
+    keep the attribution as metadata instead.
+    """
+    parts = re.split(r"<hr\s*/?>", desc_html or "", maxsplit=1, flags=re.I)
+    own_html = parts[0]
+    if len(parts) == 1:
+        return own_html, None, None, None
+    block = BLOCKQUOTE.search(parts[1])
+    if not block:
+        return own_html, None, None, None
+    inner = block.group(1)
+    name = QUOTE_NAME.search(inner)
+    handle = QUOTE_HANDLE.search(html_mod.unescape(strip_html(name.group(1)))) if name else None
+    quoted_author = handle.group(1) if handle else None
+    status = QUOTE_STATUS.search(inner)
+    quoted_id = status.group(1) if status else None
+    quoted_body = re.sub(r"<b[^>]*>.*?</b>", "", inner, flags=re.I | re.S)
+    quoted_body = re.sub(r"<footer\b[^>]*>.*?</footer>", "", quoted_body, flags=re.I | re.S)
+    quoted_text = strip_html(quoted_body) or None
+    return own_html, quoted_author, quoted_id, quoted_text
+
+
 def parse_rss(raw: bytes, handle: str) -> list[dict]:
     root = ET.fromstring(raw)
     out = []
@@ -100,11 +145,32 @@ def parse_rss(raw: bytes, handle: str) -> list[dict]:
         link = it.findtext("link") or ""
         m = re.search(r"/status/(\d+)", link)
         source_id = m.group(1) if m else (it.findtext("guid") or "")
-        desc = strip_html(it.findtext("description") or "")
+        desc_html = it.findtext("description") or ""
         title = (it.findtext("title") or "").strip()
-        # Nitter RSS title duplicates the text when there is no link card;
-        # description is the cleaner source of the tweet body.
-        text = desc if desc else html_mod.unescape(title)
+        rt = RT_TITLE.match(title)
+        if rt:
+            # `publisher` is the original author, `metadata.account` is the
+            # timeline owner who amplified it — same contract as X-Reader.
+            author = rt.group(1).lower()
+            retweeted_by = (rt.group(2) or handle).lower()
+            text = desc_html and strip_html(desc_html) or html_mod.unescape(rt.group(3))
+        else:
+            author = handle.lower()
+            retweeted_by = None
+            pinned = PINNED.match(title)
+            body = PINNED.sub("", title) if pinned else title
+            text = desc_html and strip_html(desc_html) or html_mod.unescape(body)
+        own_html, quoted_author, quoted_id, quoted_text = _split_quote(desc_html)
+        if quoted_author or quoted_id:
+            # The quote's body may be the *whole* description for a retweet of
+            # a quote tweet; re-split the same HTML we just used for `text`.
+            own_text = strip_html(own_html)
+            if own_text:
+                text = own_text
+        img = IMG_AUTHOR.search(desc_html)
+        canonical = re.sub(r"^https?://[^/]+", "https://x.com", link) if "/status/" in link else (
+            f"https://x.com/{author}/status/{source_id}" if source_id else ""
+        )
         try:
             published = parsedate_to_datetime(it.findtext("pubDate") or "")
             if published.tzinfo is None:
@@ -116,15 +182,24 @@ def parse_rss(raw: bytes, handle: str) -> list[dict]:
                 "identity_key": f"x:{source_id}",
                 "source_id": "x",
                 "item_id": source_id,
-                "publisher": handle,
-                "canonical_url": f"https://x.com/{handle}/status/{source_id}" if source_id else "",
+                "publisher": author,
+                "canonical_url": canonical,
                 "published_at": published.isoformat(),
                 "content": text,
                 "metadata": {
-                    "is_retweet": text.startswith("RT "),
-                    "is_quote": False,
+                    "account": handle.lower(),
+                    "author_name": (img.group(1).strip() if img else None),
+                    "is_retweet": bool(rt),
+                    "retweeted_by": retweeted_by,
                     "is_reply": False,
+                    "reply_to": None,
+                    "is_quote": bool(quoted_author or quoted_id),
+                    "quoted_tweet_id": quoted_id,
+                    "quoted_author": quoted_author,
+                    "quoted_text": quoted_text,
+                    "is_pinned": bool(not rt and PINNED.match(title)),
                     "provider": "nitter-rss",
+                    "route": "rss",
                 },
             }
         )
