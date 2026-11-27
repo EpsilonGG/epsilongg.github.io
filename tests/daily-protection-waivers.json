@@ -1,22 +1,9 @@
 {
   "schema_version": 1,
   "note": "日报保护集的显式授权白名单。不是关掉闸门：未登记的保护路径仍逐字节比对、保护目录里出现新文件仍一律拦下。每条都要写清授权日与理由；改动一旦 commit，diff 归零、豁免自动失效，届时应把该条从这里删掉。batches 用于「一次用户裁决要改一批同构文件」的场景，仍然逐条列出完整文件路径，不接受目录或通配符。",
-  "cleared_on": "2026-11-26",
-  "cleared_reason": "日报版式、flankoi handle 与出稿取消条数限制已 commit（2de0a3c），保护集 diff 归零，豁免按设计失效。空列表才是正常状态。",
-  "waivers": [
-    {
-      "path": "scripts/daily/prompt.py",
-      "authorized_by": "用户（2026-11-28：日报详细栏 X 推文归属错配，转发/引用不得算本人发言）",
-      "authorized_on": "2026-11-28",
-      "reason": "规则 12 从只覆盖 repost 扩展到 `· 引用了 @xxx`，明确 people 至少要有一条本人原创来源；与 Gplus fetch/digest/publish 的归属修复同步，避免题面口径落后于数据层。"
-    },
-    {
-      "path": "scripts/daily/cache.py",
-      "authorized_by": "用户（2026-11-28：同上归属修复）",
-      "authorized_on": "2026-11-28",
-      "reason": "PROMPT_VERSION 8 -> 9：规则 12 变更后旧缓存题面必须失效重出，否则当天仍按旧口径写稿。"
-    }
-  ],
+  "cleared_on": "2026-11-28",
+  "cleared_reason": "X 推文归属修复（题面规则 12 与 PROMPT_VERSION 9）已 commit（8cf2c53），保护集 diff 归零，豁免按设计失效。空列表才是正常状态。",
+  "waivers": [],
   "batches": [
     {
       "id": "gplus-daily-entry-2026-11-22",
