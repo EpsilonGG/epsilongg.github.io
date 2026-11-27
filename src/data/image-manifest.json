@@ -1,6 +1,6 @@
 {
   "$comment": "由 scripts/optimize_images.mjs 生成，请勿手改。",
-  "generatedAt": "2026-11-25T12:11:12.028Z",
+  "generatedAt": "2026-11-27T12:49:11.224Z",
   "images": {
     "/images/blog/4gamer-gate-of-gates-interview/01.jpg": {
       "w": 1280,
@@ -8847,6 +8847,18 @@
           "w": 1400,
           "src": "/images/blog/weibo-uchikoshi-broken-keys-interview/10-1400.webp",
           "bytes": 165712
+        }
+      ]
+    },
+    "/images/blog/ymgal-galgame-planning-guide/01.jpg": {
+      "w": 500,
+      "h": 263,
+      "bytes": 36676,
+      "variants": [
+        {
+          "w": 500,
+          "src": "/images/blog/ymgal-galgame-planning-guide/01-500.webp",
+          "bytes": 14326
         }
       ]
     }
