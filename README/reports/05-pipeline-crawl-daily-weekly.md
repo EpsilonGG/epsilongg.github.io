@@ -257,6 +257,8 @@ data/daily/state.json       已见键（进 git）
 | `scripts/daily_clauses.py check --all` | 校验索引未过期且自洽（周报 `sync` 前置） |
 | `scripts/daily_clauses.py export-links` | 导出 `data/period-sources/backfill-links.json`（只有链接与元数据，进 git） |
 
+2026-11-28：`answer/` 里顶层为 list 的 `pN.json` / `people.json` 是分片出稿的 people 片段，不是答题对象；`sync` 一律跳过，只读带 `people[]` 的完整 JSON，避免整批索引同步被这些片段打断。
+
 它**不参与日报生产**，产物全部落在保护集之外。为什么必须走旁路而不是往 `report.json` 里加字段：
 
 - `tests/test_daily_protection.py` 用 `git diff` 把 `data/daily/`、`schemas/`、`scripts/daily/` 逐字节钉死在 HEAD，还断言 schema 顶层属性集合；
@@ -587,6 +589,8 @@ python scripts/push_site.py -m "weekly: vol_003" \
 | 周报图片 404 / 坏链 | `image-preview-data.json` 里的 `tweet_key` | 混进 `bilibili:*`（应被 `is_x_source` 拦掉） |
 | 周报作品名错得离谱 | `out/clauses/<期号>.json` 的 `source_refs[].text` | 索引过期或缺失（`prose_only`），跑 `daily_clauses sync` |
 | 周报缺原文链接 | `draft.md` 行尾 | `item["sources"]` 为空（B 站行本来只挂发布者链接） |
+| `weekly check` 报「初稿仍出现无主体观后感」 | 该条目的 `display_column` | 品牌动向展示时并入作品情报；`no_subject.apply_to=["作品情报"]` 的判定必须按展示栏，而不能只看归栏三值 |
+| `weekly check` 报「转推主语仍是品牌自己」 | 该条 `sources[].origin` 与 `handle` | 原作者就是该品牌（品牌自转 / 同集团号转它）时主语写品牌是对的；只有跨账号转发的转发者全是该品牌才算漏改原作者 |
 | 新作栏冒出 HIKARI / Galgame批评 | `weekly check` 报「新作栏混进了 never-new 发布者」 | 行被认亲并进新作游戏组；先看 `rules.json:bilibili.never_new_publishers` 是否登记了这个写法 |
 | 老作的 OP 影片被提进新作 | `game_routing.game_signals()` 命中了哪个信号 | 影片消息里写了原作过去的发售日；确认 `rules.json:game_routing.date_signals` 含该信号名（`2019年1月25日发售` 这类应被 `has_past_release_date()` 拦掉） |
 | 汉化 / 多语版消息没进新作 | 该段文本是「决定」还是「已发售」 | 只有决定 / 确定 / 宣布算新作证据；完成时表述不算 |

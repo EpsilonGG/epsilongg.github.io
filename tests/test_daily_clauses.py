@@ -256,6 +256,24 @@ class BuildIndexTests(unittest.TestCase):
                                     for c in index["people"][0]["clauses"]),
                                 "不合格的显式分句必须整行退回 row，不许部分采用")
 
+    def test_answer_fragment_lists_are_ignored(self) -> None:
+        # 分片出稿会把顶层为 list 的 people 片段放进 answer/，它们不是答题对象。
+        answer_dir = dc.paths_for(self.root)["out"] / "261104" / "answer"
+        answer_dir.mkdir(parents=True, exist_ok=True)
+        (answer_dir / "p1.json").write_text(
+            json.dumps([{"handle": "alice", "summary": "片段", "sources": []}],
+                       ensure_ascii=False), encoding="utf-8")
+        parts = dc.split_clauses(self.report["people"][0]["summary"])
+        (answer_dir / "all.json").write_text(json.dumps({
+            "people": [{"handle": "alice", "clauses": [
+                {"text": parts[0], "sources": ["x:1"]},
+                {"text": parts[1], "sources": ["x:2"]},
+            ]}],
+        }, ensure_ascii=False), encoding="utf-8")
+        self.assertEqual(
+            ["all.json"],
+            [dc.load_answer_clauses("261104", root=self.root)["alice"]["origin"]])
+
     def test_kind_of_separates_the_two_editions(self) -> None:
         self.assertEqual("voice", kind_of("261104"))
         self.assertEqual("galgame", kind_of("261104-g"))

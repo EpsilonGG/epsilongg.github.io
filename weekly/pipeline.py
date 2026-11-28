@@ -713,7 +713,11 @@ def build_sections(records: list[dict], corpus: dict, identity: Identity,
             reasons.append("未标注作品")
         if label in excl_brands and (not excl_columns or column in excl_columns):
             reasons.append("未标注品牌")
-        if (rec.get("no_subject") and (not no_subject_cols or column in no_subject_cols)):
+        # 「作品情报」的生效范围要按展示栏算：品牌动向在正式版已并入作品情报，
+        # 只比对归栏三值会让这类空话绕过默认排除，最后被 check 的成稿兜底拦下。
+        shown_column = WORK if column == MOVEMENT else column
+        if (rec.get("no_subject")
+                and (not no_subject_cols or shown_column in no_subject_cols)):
             reasons.append("无主体观后感")
         digest = hashlib.md5(_norm_text(rec["text"]).encode("utf-8")).hexdigest()[:8]
         prefix_md = _prefix_md(subject, source_records, rules,

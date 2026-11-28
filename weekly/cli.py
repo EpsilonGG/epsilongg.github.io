@@ -462,9 +462,15 @@ def cmd_check(_args) -> int:
                 problems.append(f"初稿仍留有过期贩售：{hit['raw']}｜{body[:40]}")
                 break
     # 无主体观后感一旦命中，在生效栏目里必须默认勾删（留在筛选页可恢复）。
+    # 与 pipeline 同一口径：品牌动向展示时并入作品情报，新作也是从作品情报上提，
+    # 两者都应落在「作品情报」的生效范围里。
+    def _no_subject_column(section: dict, item: dict) -> str:
+        column = str(item.get("display_column") or section["column"])
+        return WORK if column in (MOVEMENT, NEW) else column
+
     ns_items = {i["key"] for s in data["sections"] for i in s["items"]
                 if i.get("no_subject")
-                and (not no_subject_cols or s["column"] in no_subject_cols)}
+                and (not no_subject_cols or _no_subject_column(s, i) in no_subject_cols)}
     if ns_items - defaults:
         problems.append(f"无主体观后感未默认排除：{sorted(ns_items - defaults)[:3]}")
     # 端到端：初稿的任何小条目都不许是「空话词命中且无实质内容」。
@@ -504,7 +510,18 @@ def cmd_check(_args) -> int:
             if not has_link:
                 problems.append(f"{item['key']} 品牌号转发但没有原推链接")
                 break
-            if str(item.get("subject_prefix") or "") == str(section["label"]):
+            # 主语等于品牌中标题不必然是错：原作者自己就是该品牌时（品牌号自转、
+            # 同集团其它号转这个品牌），主语本来就该是品牌。只拦「跨账号转发的
+            # 转发者全都是这个品牌、主语却还写成品牌自己」那种漏改原作者的情况。
+            subject = str(item.get("subject_prefix") or "")
+            cross_names = [str(src.get("display_name") or "")
+                           for src in (item.get("sources") or [])
+                           if src.get("retweet")
+                           and str(src.get("origin") or "").lower()
+                           != str(src.get("handle") or "").lower()
+                           and src.get("display_name")]
+            if (subject == str(section["label"]) and cross_names
+                    and all(name == subject for name in cross_names)):
                 problems.append(f"{item['key']} 转推主语仍是品牌自己：{section['label']}")
                 break
 

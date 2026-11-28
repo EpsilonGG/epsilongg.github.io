@@ -298,7 +298,13 @@ def load_answer_clauses(issue: str, root: Path = ROOT) -> dict[str, dict]:
             data = json.loads(path.read_text(encoding="utf-8"))
         except (OSError, json.JSONDecodeError):
             continue
+        # 分片出稿会往 answer/ 放顶层为 list 的 people 片段，它们不是完整答题对象，
+        # 也没有 people[].clauses；直接跳过，别把 list 当 dict 读。
+        if not isinstance(data, dict):
+            continue
         for person in data.get("people") or []:
+            if not isinstance(person, dict):
+                continue
             handle = person.get("handle")
             clauses = person.get("clauses")
             if not handle or not isinstance(clauses, list) or not clauses:
