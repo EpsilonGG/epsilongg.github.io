@@ -1,6 +1,6 @@
 {
   "$comment": "由 scripts/optimize_images.mjs 生成，请勿手改。",
-  "generatedAt": "2026-11-27T17:58:07.488Z",
+  "generatedAt": "2026-11-28T11:05:29.674Z",
   "images": {
     "/images/blog/4gamer-gate-of-gates-interview/01.jpg": {
       "w": 1280,
@@ -6668,6 +6668,189 @@
           "w": 670,
           "src": "/images/blog/gamespark-uchikoshi-crashkeys-interview/07-670.webp",
           "bytes": 28784
+        }
+      ]
+    },
+    "/images/blog/ichinose-rito-asmr-book-contributions/01.jpg": {
+      "w": 1353,
+      "h": 1920,
+      "bytes": 736999,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/ichinose-rito-asmr-book-contributions/01-600.webp",
+          "bytes": 88208
+        },
+        {
+          "w": 960,
+          "src": "/images/blog/ichinose-rito-asmr-book-contributions/01-960.webp",
+          "bytes": 160316
+        },
+        {
+          "w": 1353,
+          "src": "/images/blog/ichinose-rito-asmr-book-contributions/01-1353.webp",
+          "bytes": 238884
+        }
+      ]
+    },
+    "/images/blog/ichinose-rito-asmr-book-contributions/02.png": {
+      "w": 1680,
+      "h": 1260,
+      "bytes": 2722249,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/ichinose-rito-asmr-book-contributions/02-600.webp",
+          "bytes": 46030
+        },
+        {
+          "w": 960,
+          "src": "/images/blog/ichinose-rito-asmr-book-contributions/02-960.webp",
+          "bytes": 85296
+        },
+        {
+          "w": 1680,
+          "src": "/images/blog/ichinose-rito-asmr-book-contributions/02-1680.webp",
+          "bytes": 176666
+        }
+      ]
+    },
+    "/images/blog/ichinose-rito-asmr-book-contributions/03.png": {
+      "w": 1876,
+      "h": 1055,
+      "bytes": 1203924,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/ichinose-rito-asmr-book-contributions/03-600.webp",
+          "bytes": 17594
+        },
+        {
+          "w": 960,
+          "src": "/images/blog/ichinose-rito-asmr-book-contributions/03-960.webp",
+          "bytes": 33172
+        },
+        {
+          "w": 1876,
+          "src": "/images/blog/ichinose-rito-asmr-book-contributions/03-1876.webp",
+          "bytes": 76216
+        }
+      ]
+    },
+    "/images/blog/ichinose-rito-asmr-book-contributions/04.png": {
+      "w": 560,
+      "h": 420,
+      "bytes": 451563,
+      "variants": [
+        {
+          "w": 560,
+          "src": "/images/blog/ichinose-rito-asmr-book-contributions/04-560.webp",
+          "bytes": 45214
+        }
+      ]
+    },
+    "/images/blog/ichinose-rito-asmr-book-contributions/05.png": {
+      "w": 1440,
+      "h": 1080,
+      "bytes": 2079693,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/ichinose-rito-asmr-book-contributions/05-600.webp",
+          "bytes": 47450
+        },
+        {
+          "w": 960,
+          "src": "/images/blog/ichinose-rito-asmr-book-contributions/05-960.webp",
+          "bytes": 84502
+        },
+        {
+          "w": 1440,
+          "src": "/images/blog/ichinose-rito-asmr-book-contributions/05-1440.webp",
+          "bytes": 146352
+        }
+      ]
+    },
+    "/images/blog/ichinose-rito-asmr-book-contributions/06.png": {
+      "w": 2520,
+      "h": 1960,
+      "bytes": 5929404,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/ichinose-rito-asmr-book-contributions/06-600.webp",
+          "bytes": 35924
+        },
+        {
+          "w": 960,
+          "src": "/images/blog/ichinose-rito-asmr-book-contributions/06-960.webp",
+          "bytes": 67176
+        },
+        {
+          "w": 2520,
+          "src": "/images/blog/ichinose-rito-asmr-book-contributions/06-2520.webp",
+          "bytes": 334948
+        }
+      ]
+    },
+    "/images/blog/ichinose-rito-asmr-book-contributions/07.png": {
+      "w": 1254,
+      "h": 758,
+      "bytes": 1043329,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/ichinose-rito-asmr-book-contributions/07-600.webp",
+          "bytes": 34170
+        },
+        {
+          "w": 1254,
+          "src": "/images/blog/ichinose-rito-asmr-book-contributions/07-1254.webp",
+          "bytes": 84346
+        }
+      ]
+    },
+    "/images/blog/ichinose-rito-asmr-book-contributions/08.png": {
+      "w": 3840,
+      "h": 2160,
+      "bytes": 5420458,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/ichinose-rito-asmr-book-contributions/08-600.webp",
+          "bytes": 29532
+        },
+        {
+          "w": 960,
+          "src": "/images/blog/ichinose-rito-asmr-book-contributions/08-960.webp",
+          "bytes": 57712
+        },
+        {
+          "w": 3840,
+          "src": "/images/blog/ichinose-rito-asmr-book-contributions/08-3840.webp",
+          "bytes": 325272
+        }
+      ]
+    },
+    "/images/blog/ichinose-rito-asmr-book-contributions/09.jpg": {
+      "w": 1374,
+      "h": 1920,
+      "bytes": 361760,
+      "variants": [
+        {
+          "w": 600,
+          "src": "/images/blog/ichinose-rito-asmr-book-contributions/09-600.webp",
+          "bytes": 58158
+        },
+        {
+          "w": 960,
+          "src": "/images/blog/ichinose-rito-asmr-book-contributions/09-960.webp",
+          "bytes": 108288
+        },
+        {
+          "w": 1374,
+          "src": "/images/blog/ichinose-rito-asmr-book-contributions/09-1374.webp",
+          "bytes": 171364
         }
       ]
     },
