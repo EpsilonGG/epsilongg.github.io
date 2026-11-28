@@ -1,0 +1,899 @@
+{
+  "schema_version": 1,
+  "issue": {
+    "id": "261128-g",
+    "published_at": "2026-11-29T01:39:58.801355+09:00",
+    "window": {
+      "start": "2026-11-28T00:00:00+09:00",
+      "end": "2026-11-29T00:00:00+09:00"
+    },
+    "status": "confirmed",
+    "confirmed_at": "2026-11-28T16:46:35+00:00"
+  },
+  "counts": {
+    "items": 357,
+    "accounts": 67,
+    "late": 132,
+    "skipped_duplicate": 3
+  },
+  "description": "Key两部新作推进，虹彩都市上Steam，铃木达央离婚与ErogameScape故障引关注",
+  "highlights": [
+    {
+      "text": "Key宣布『Summer pockets Sunnyside Stories』装盘完成，预定2026年12月18日发售。",
+      "sources": [
+        "x:2126633667271512548"
+      ]
+    },
+    {
+      "text": "Key宣布『虹彩都市』Steam版发售决定，商店页已公开、发售日近期公布；支持日语、英语与简体中文。",
+      "sources": [
+        "x:2126648092628000948",
+        "bilibili:1275744478276091977"
+      ]
+    },
+    {
+      "text": "NanaWind公开开发中新作『NanaWind NewGame Project 01』的主视觉剪影，官网仍在调整。",
+      "sources": [
+        "x:2126636089398182161"
+      ]
+    },
+    {
+      "text": "sprite为『蒼の彼方のフォーリズム』迎来12周年，宣布「蒼の彼方のフォーリズム Visual Fan Book 2」预定2027年1月31日在演唱会先行发售。",
+      "sources": [
+        "x:2126330709040128407"
+      ]
+    },
+    {
+      "text": "EvilHeal公开『Dominate ～わからされた僕は悦楽に鳴く～』预定2027年1月29日发售并开放预约，公布店铺特典。",
+      "sources": [
+        "x:2126511410989461594"
+      ]
+    },
+    {
+      "text": "ASa Project开放『王様恋愛ミニファンディスク ロイヤルスイート』预约，首次公开画廊与店铺特典全新绘制CG。",
+      "sources": [
+        "x:2126664153041641601"
+      ]
+    },
+    {
+      "text": "HOOKSOFT转发了AirVelocity的消息，内容是『恋愛、はじめまして』Switch豪华限定版开放预约，预定2027年3月25日发售。",
+      "sources": [
+        "x:2126665662940565698"
+      ]
+    },
+    {
+      "text": "でぼの巣製作所宣布「神楽新風記～陽葵の章～」下载版特价至12月20日。",
+      "sources": [
+        "x:2126502134279815630"
+      ]
+    },
+    {
+      "text": "ひろいん报告ErogameScape服务器故障后切换至备用系统，网站可浏览但数据库只读，暂时无法录入得分。",
+      "sources": [
+        "x:2126573561209094638"
+      ]
+    },
+    {
+      "text": "StuartRiki_鍵視报道声优铃木达央宣布与歌手LiSA离婚，二人2020年结婚并育有孩子。",
+      "sources": [
+        "bilibili:1275695768993267717"
+      ]
+    },
+    {
+      "text": "電撃オンライン报道エディア在Steam开启最高五折促销，持续至12月7日2时。",
+      "sources": [
+        "x:2126619714260779120"
+      ]
+    },
+    {
+      "text": "FANZA同人公式专栏统计近15年同人作品标题字数约翻倍，认为标题需要向读者说明内容。",
+      "sources": [
+        "x:2126677494619414989"
+      ]
+    }
+  ],
+  "insights": [],
+  "interactions": [
+    {
+      "text": "ユウ＝ヤマナミ引用了ひろいん（ErogameScape）的消息，内容是网站服务器故障正在调查，本人庆幸服务已恢复。",
+      "sources": [
+        "x:2126579127562223877"
+      ]
+    },
+    {
+      "text": "エロゲ情報収集愛好家转发了ユウ＝ヤマナミ的消息，内容是12年前发售的蒼の彼方のフォーリズム续作ZWEI开发中止，本人称其从未存在。",
+      "sources": [
+        "x:2126545276605432081"
+      ]
+    },
+    {
+      "text": "Navel转发了サラ・ネルキン的消息，内容是安装窗帘杆的师傅称赞西又葵的画作，Navel为此致谢。",
+      "sources": [
+        "x:2126578311757517244"
+      ]
+    },
+    {
+      "text": "エンターグラム转发了本阿弥あずさ的消息，内容是『あじゅ～るメモリア』说明会定于20时举办并将公开首次披露的情报。",
+      "sources": [
+        "x:2126515510766706879"
+      ]
+    },
+    {
+      "text": "AKOU转发了他人关于『蒼の彼方のフォーリズム』发售满12周年的消息，回忆当年构思空中竞技规则的日子。",
+      "sources": [
+        "x:2126521047067635895"
+      ]
+    }
+  ],
+  "works": [
+    "『Summer pockets Sunnyside Stories』装盘完成，预定2026年12月18日发售。",
+    "『虹彩都市』Steam版发售决定，商店页已公开，发售日待定。",
+    "『NanaWind NewGame Project 01』公开开发中主视觉剪影。",
+    "「蒼の彼方のフォーリズム Visual Fan Book 2」预定2027年1月31日在sprite Piano Concert 2027先行发售。",
+    "『Dominate ～わからされた僕は悦楽に鳴く～』开放预约，预定2027年1月29日发售。",
+    "『王様恋愛ミニファンディスク ロイヤルスイート』开放预约，首次公开画廊与店铺特典全新绘制CG。",
+    "HOOKSOFT转发了AirVelocity的消息，内容是『恋愛、はじめまして』Switch豪华限定版开放预约，预定2027年3月25日发售。",
+    "『廃村少女』FANZA线上抽奖公布，奖品12月4日公开、12月11日开售。",
+    "『アマカノ3』预告「Perfect Edition」明年2月发售。",
+    "「神楽新風記～陽葵の章～」下载版特价至12月20日。",
+    "『あじゅ～るメモリア』说明会定于20时举办并将公开首次披露的情报。",
+    "『ワンナイトアフター -ONE NIGHT AFTER-』两项特典售罄后正在再制造，预计12月上旬补货。",
+    "『紫幻華は淫祀の夜に嗤う』装盘完成，预定12月25日发售。",
+    "『小日向柚月と初夜したいっ！』下载版在FANZA GAMES冬季促销中五折。",
+    "『MUV-LUV: DIMENSIONS SECRET ARCHIVE SET』开启通贩预约，收录超600页内容。",
+    "『愛型淘汰LOVE HEXA』预告站公开。",
+    "『完堕ちX金髪家族』预告站上线，原画松沢夢丹、剧本さんきち。",
+    "《 狂った果実│月島美夏ASMR 》开放预约。",
+    "『ライムライト・レモネードジャム』第四弹「二見原莉々子抱き枕カバー」受理至后天23时59分。",
+    "『どいなかガールズゆーとぴあ』公开封面插图联动专题与全新绘制周边通贩。"
+  ],
+  "categories": [],
+  "accounts": [
+    "Moepedia_net",
+    "TRYSET",
+    "kiss_staff",
+    "chaos_R_public",
+    "debonosu",
+    "AzarashiSoft",
+    "HOOKSOFT",
+    "escude1998",
+    "purple_NewWork",
+    "ASaProject_2016",
+    "smee_official",
+    "entergram_info",
+    "Amuse_kenzen",
+    "key_official",
+    "POISON_NEW1992",
+    "dessertsoft_tw",
+    "lumpofsuger",
+    "FANDC_Staff",
+    "NanaWind",
+    "Amuse_sub",
+    "stealcatAC",
+    "SAGAPLANETS",
+    "sprite_fairys",
+    "madostaff",
+    "CLIP_CRAFT",
+    "nisidahajime",
+    "evil_heal",
+    "project_navel",
+    "yuzusoft",
+    "jitaku_st",
+    "jita_gf",
+    "project_citrus",
+    "irodori_soft",
+    "Orthrossoft",
+    "POISON_EX1992",
+    "Muvluv_Official",
+    "unisonshift",
+    "BEEP_SHOP",
+    "Nameless_offi",
+    "adahemas",
+    "SukeraSparo",
+    "Overflow_staff",
+    "akaerocore",
+    "akaeroCore_kr",
+    "seiya_saiga",
+    "youtan0309",
+    "aikouka23",
+    "getchucom",
+    "hiro_in",
+    "AKOUtw",
+    "alice_net_pc",
+    "trader_R18",
+    "masanlive",
+    "dengekionline",
+    "4GamerNews",
+    "douzinr18",
+    "erogeAreAlive",
+    "cloud668",
+    "bili_3546777970018899",
+    "bili_298686071",
+    "bili_3546854253923281",
+    "bili_3706923618666922",
+    "bili_3546900143802616",
+    "bili_41883712",
+    "bili_1436152920",
+    "bili_477655087",
+    "bili_39471072"
+  ],
+  "people": [
+    {
+      "handle": "Moepedia_net",
+      "category": "",
+      "summary": "公布新作『愛型淘汰LOVE HEXA』预告站、『東京殺人鬼』体验版及POISON粉丝站更新",
+      "via": [],
+      "sources": [
+        "x:2126648047530598639",
+        "x:2126643013677949011",
+        "x:2126663146811306033",
+        "x:2126660630702592170"
+      ]
+    },
+    {
+      "handle": "TRYSET",
+      "category": "",
+      "summary": "转发了BirdLimeTrap的消息，内容是「はぴふる×トリモチ対バンライブ！」2027年1月17日在江古田举办",
+      "via": [],
+      "sources": [
+        "x:2126483727719252184"
+      ]
+    },
+    {
+      "handle": "kiss_staff",
+      "category": "",
+      "summary": "为『カスタムロマンスシティ3D3』故障致歉并更新角色动作说明，开启双重收藏活动报名、发放抢先活动兑换码",
+      "via": [],
+      "sources": [
+        "x:2126563369696321732",
+        "x:2126665155316785278",
+        "x:2126674784486584738",
+        "x:2126685089388200080",
+        "x:2126686605884981723",
+        "x:2126686698792988803"
+      ]
+    },
+    {
+      "handle": "chaos_R_public",
+      "category": "",
+      "summary": "通报官网因服务器故障无法访问，并参加DLsite美少女游戏冬季促销与FANZA冬季促销",
+      "via": [],
+      "sources": [
+        "x:2126584194579284348",
+        "x:2126586106305208708",
+        "x:2126588541836906641"
+      ]
+    },
+    {
+      "handle": "debonosu",
+      "category": "",
+      "summary": "公开【こすずの小部屋♪】第123期，并宣布「神楽新風記～陽葵の章～」下载版特价至12月20日",
+      "via": [],
+      "sources": [
+        "x:2126501168276984118",
+        "x:2126502134279815630"
+      ]
+    },
+    {
+      "handle": "AzarashiSoft",
+      "category": "",
+      "summary": "为『アマカノ3』女主角柳木詩夢庆生，并预告「Perfect Edition」明年2月发售",
+      "via": [],
+      "sources": [
+        "x:2126330203408617983"
+      ]
+    },
+    {
+      "handle": "HOOKSOFT",
+      "category": "",
+      "summary": "转发了AirVelocity等账号的消息，内容包括『ハッピーウィークエンド』发售与『恋愛、はじめまして』预约",
+      "via": [],
+      "sources": [
+        "x:2126499497534685229",
+        "x:2126514711969853797",
+        "x:2126604639437238572",
+        "x:2126644775717687696",
+        "x:2126652324957581573",
+        "x:2126665662940565698"
+      ]
+    },
+    {
+      "handle": "escude1998",
+      "category": "",
+      "summary": "为『廃村少女［弐］外伝』举办问卷抽奖并推出たかしな浅妃全新绘制B2挂画，截止12月1日",
+      "via": [],
+      "sources": [
+        "x:2126632196702367926",
+        "x:2126632196848877861",
+        "x:2126632202276688296"
+      ]
+    },
+    {
+      "handle": "purple_NewWork",
+      "category": "",
+      "summary": "转发了パープルショップ公式的消息，内容是『パープルソフトウェアメモリアルコレクション』在Booth商店再贩",
+      "via": [],
+      "sources": [
+        "x:2126617108473590008"
+      ]
+    },
+    {
+      "handle": "ASaProject_2016",
+      "category": "",
+      "summary": "开放『王様恋愛ミニファンディスク ロイヤルスイート』预约，首次公开画廊与店铺特典全新绘制CG",
+      "via": [],
+      "sources": [
+        "x:2126664153041641601"
+      ]
+    },
+    {
+      "handle": "smee_official",
+      "category": "",
+      "summary": "宣布最新作『ワンナイトアフター』正在各PC游戏门店发售，FANZA GAMES上架下载版",
+      "via": [],
+      "sources": [
+        "x:2126639745153298562"
+      ]
+    },
+    {
+      "handle": "entergram_info",
+      "category": "",
+      "summary": "转发了本阿弥あずさ、えびかれー伯爵等人的消息，内容是『あじゅ～るメモリア』说明会与OP发布及制作人员感言",
+      "via": [],
+      "sources": [
+        "x:2126511405687808493",
+        "x:2126515510766706879",
+        "x:2126528807385649489",
+        "x:2126625416412824013",
+        "x:2126632613762974038",
+        "x:2126649862754361503",
+        "x:2126651117832696231",
+        "x:2126655337122189376",
+        "x:2126655567607574578",
+        "x:2126656664749449399",
+        "x:2126657401915138257",
+        "x:2126662222042804392",
+        "x:2126662533155311779",
+        "x:2126673464799166947",
+        "x:2126686445285056811"
+      ]
+    },
+    {
+      "handle": "Amuse_kenzen",
+      "category": "",
+      "summary": "将『養花師の背徳愛』活动用插图上传至网络打印服务，可在全家、罗森等门店使用至11月28日",
+      "via": [],
+      "sources": [
+        "x:2126455024997822819"
+      ]
+    },
+    {
+      "handle": "key_official",
+      "category": "",
+      "summary": "公布『虹彩都市』Steam版发售决定，サマポケ新作装盘完成并定12月18日发售",
+      "via": [],
+      "sources": [
+        "x:2126524050398949809",
+        "x:2126602005628248339",
+        "x:2126632203455213840",
+        "x:2126633667271512548",
+        "x:2126635038863421909",
+        "x:2126648092628000948",
+        "x:2126648350024069252",
+        "x:2126648733760995365",
+        "x:2126649673507287188",
+        "x:2126677495546044920"
+      ]
+    },
+    {
+      "handle": "POISON_NEW1992",
+      "category": "",
+      "summary": "公布新作『完堕ちX金髪家族』预告站，并称『最高に都合のいいパイズリ上手のマリーさんME』在FANZA同人促销",
+      "via": [],
+      "sources": [
+        "x:2126662392906223839"
+      ]
+    },
+    {
+      "handle": "dessertsoft_tw",
+      "category": "",
+      "summary": "为『どいなかガールズゆーとぴあ』公开封面插图联动专题、全新绘制周边通贩与原画家角色设计评论",
+      "via": [],
+      "sources": [
+        "x:2126337685904384508",
+        "x:2126338265733312964"
+      ]
+    },
+    {
+      "handle": "lumpofsuger",
+      "category": "",
+      "summary": "更新FANBOX公开高分辨率插图与手机壁纸，并以【白き獣】全新绘制周边开启支援者限定通贩至11月30日",
+      "via": [],
+      "sources": [
+        "x:2126347074551902508",
+        "x:2126451003746632011",
+        "x:2126511410863915372",
+        "x:2126632212875387008"
+      ]
+    },
+    {
+      "handle": "FANDC_Staff",
+      "category": "",
+      "summary": "为『あいかぎ２～濡れた髪が乾く前に～』角色伊吹しおり庆生",
+      "via": [],
+      "sources": [
+        "x:2126330210987446501"
+      ]
+    },
+    {
+      "handle": "NanaWind",
+      "category": "",
+      "summary": "NanaWind公开新作『NanaWind NewGame Project 01』主视觉剪影，官网调整中，全貌待公开。",
+      "via": [],
+      "sources": [
+        "x:2126636089398182161"
+      ]
+    },
+    {
+      "handle": "Amuse_sub",
+      "category": "",
+      "summary": "エレクトリップ更新『養花師の背徳愛』Ci-en短篇并公开介绍视频，配音よもぎかすみ、葉月ひかり。",
+      "via": [],
+      "sources": [
+        "x:2126516177946210789",
+        "x:2126518947168068049",
+        "x:2126625397723037765"
+      ]
+    },
+    {
+      "handle": "stealcatAC",
+      "category": "",
+      "summary": "スティールキャット以猫咪口吻为已发售的カノ妹宣传女主角并作自我介绍。",
+      "via": [],
+      "sources": [
+        "x:2126605516797341750",
+        "x:2126619609625235512",
+        "x:2126628165770752054"
+      ]
+    },
+    {
+      "handle": "SAGAPLANETS",
+      "category": "",
+      "summary": "SAGA PLANETS在台北举办25周年快闪个展，临近结束推出全新绘制的烫金拍立得风小卡消费特典。",
+      "via": [],
+      "sources": [
+        "x:2126542537062318566",
+        "x:2126671597570498840"
+      ]
+    },
+    {
+      "handle": "sprite_fairys",
+      "category": "",
+      "summary": "sprite宣布『蒼の彼方のフォーリズム』12周年，官方商店与任天堂在线商店开启纪念促销。",
+      "via": [],
+      "sources": [
+        "x:2126330709040128407",
+        "x:2126521554087608337",
+        "x:2126527324543934763"
+      ]
+    },
+    {
+      "handle": "madostaff",
+      "category": "",
+      "summary": "まどそふと提示『カフェトリカルカフェ』官网公开的副女主角语音中有全新录制的特别语音，可在官网收听。",
+      "via": [],
+      "sources": [
+        "x:2126562588775596535"
+      ]
+    },
+    {
+      "handle": "CLIP_CRAFT",
+      "category": "",
+      "summary": "CLIP☆CRAFT公布『アキバリンクフェスタ2026冬』周边开放通贩预约，1月29日发售『ユニオリグッズ全29種』。",
+      "via": [],
+      "sources": [
+        "x:2126520244529455448",
+        "x:2126520272404828213"
+      ]
+    },
+    {
+      "handle": "nisidahajime",
+      "category": "",
+      "summary": "の～すとらいく转发了消息，内容是独自完成的『#恐怖愛好症』已在BOOTH免费公开，并祝贺『女装百合嵐』包装版发售。",
+      "via": [],
+      "sources": [
+        "x:2126332526612623505",
+        "x:2126483647054426414",
+        "x:2126531584765624438"
+      ]
+    },
+    {
+      "handle": "evil_heal",
+      "category": "",
+      "summary": "EvilHeal公开『Dominate ～わからされた僕は悦楽に鳴く～』2027年1月29日发售及店铺特典，开放预约。",
+      "via": [],
+      "sources": [
+        "x:2126511410989461594",
+        "x:2126511412075807031"
+      ]
+    },
+    {
+      "handle": "project_navel",
+      "category": "",
+      "summary": "Navel转发了サラ・ネルキン的消息，内容是安装窗帘杆的师傅称赞西又葵的画作，Navel为此致谢。",
+      "via": [],
+      "sources": [
+        "x:2126578311757517244"
+      ]
+    },
+    {
+      "handle": "yuzusoft",
+      "category": "",
+      "summary": "ゆずソフト提醒『ライムライト・レモネードジャム』抱枕套第四弹受理后天23时59分截止，完全受注生产。",
+      "via": [],
+      "sources": [
+        "x:2126617097090294227"
+      ]
+    },
+    {
+      "handle": "jitaku_st",
+      "category": "",
+      "summary": "自宅すたじお为ギャルフェス公开角色样音，称可借此把握角色氛围。",
+      "via": [],
+      "sources": [
+        "x:2126537835943735794"
+      ]
+    },
+    {
+      "handle": "jita_gf",
+      "category": "",
+      "summary": "ギャルズフィクション@ギャルフィク公开ギャルズフィクション-Festival-等信息，略称ギャルフィク。",
+      "via": [],
+      "sources": [
+        "x:2126546190670155929"
+      ]
+    },
+    {
+      "handle": "project_citrus",
+      "category": "",
+      "summary": "Citrus转发了消息，内容是Ceui出道20周年特别活动定于2027年2月21日举办，12月12日开票。",
+      "via": [],
+      "sources": [
+        "x:2126632240520319430"
+      ]
+    },
+    {
+      "handle": "irodori_soft",
+      "category": "",
+      "summary": "IRODORI在Ci-en发文称くノ一学園のウラオモテ最新作黑百合篇好评发售中，由かわしまりの配音。",
+      "via": [],
+      "sources": [
+        "x:2126642056059813898"
+      ]
+    },
+    {
+      "handle": "Orthrossoft",
+      "category": "",
+      "summary": "Orthros发布视频，展示自称做得是否有女孩子气的角色模样。",
+      "via": [],
+      "sources": [
+        "x:2126673162960310350"
+      ]
+    },
+    {
+      "handle": "POISON_EX1992",
+      "category": "",
+      "summary": "POISON EXTACY公布新作『完堕ちＸ金髪家族』预告网站今日上线，原画松沢夢丹、剧本さんきち。",
+      "via": [],
+      "sources": [
+        "x:2126477202829279562",
+        "x:2126477263051108606"
+      ]
+    },
+    {
+      "handle": "Muvluv_Official",
+      "category": "",
+      "summary": "aNTIQ的『MUV-LUV: DIMENSIONS SECRET ARCHIVE SET』开启通贩预约。",
+      "via": [],
+      "sources": [
+        "x:2126677500873093425"
+      ]
+    },
+    {
+      "handle": "unisonshift",
+      "category": "",
+      "summary": "ユニゾンシフト参加FANZA GAMES冬季促销，『小日向柚月と初夜したいっ！』下载版五折。",
+      "via": [],
+      "sources": [
+        "x:2126540840570872135"
+      ]
+    },
+    {
+      "handle": "BEEP_SHOP",
+      "category": "",
+      "summary": "BEEP开放《 狂った果実│月島美夏ASMR 》预约，并上架中古Game Gear游戏。",
+      "via": [],
+      "sources": [
+        "x:2126511412767846859",
+        "x:2126632194223264069"
+      ]
+    },
+    {
+      "handle": "Nameless_offi",
+      "category": "",
+      "summary": "Nameless转发了ホワクロ【公式】的消息，内容是『DeepOne-領界侵犯-』联动咖啡厅12月29日起举办。",
+      "via": [],
+      "sources": [
+        "x:2126528859327857139"
+      ]
+    },
+    {
+      "handle": "adahemas",
+      "category": "",
+      "summary": "Sonora的fanbox本月更新总集编第2卷，公开尚未电子化的漫画，并准备冬季漫展新刊。",
+      "via": [],
+      "sources": [
+        "x:2126507059185385482",
+        "x:2126537023670673793"
+      ]
+    },
+    {
+      "handle": "SukeraSparo",
+      "category": "",
+      "summary": "SukeraSomero转发了他人的消息，内容是『#初音ミク ミクめくJKライフ 〜かわいいフード巡り〜』本日发售。",
+      "via": [],
+      "sources": [
+        "x:2126548970252177803"
+      ]
+    },
+    {
+      "handle": "Overflow_staff",
+      "category": "",
+      "summary": "オーバーフロー转发了GOT_license的消息，内容是#SchoolDays全新绘制挂画抽选11月28日截止。",
+      "via": [],
+      "sources": [
+        "x:2126629612075810987"
+      ]
+    },
+    {
+      "handle": "akaerocore",
+      "category": "",
+      "summary": "akaeroCore发布韩文版活动宣传，抽取游戏序列号与DLsite 2000点积分。",
+      "via": [
+        "akaeroCore_kr"
+      ],
+      "sources": [
+        "x:2126634739607974089"
+      ]
+    },
+    {
+      "handle": "seiya_saiga",
+      "category": "",
+      "summary": "誠也の部屋@公式公开了「さくらの雲＊スカアレットの恋(完全版対応)」的攻略文章。",
+      "via": [],
+      "sources": [
+        "x:2126475262477086975"
+      ]
+    },
+    {
+      "handle": "youtan0309",
+      "category": "",
+      "summary": "ユウ＝ヤマナミ连续回顾18年前与12年前发售的多款游戏，并点评闘神都市III被低估。",
+      "via": [],
+      "sources": [
+        "x:2126333978713964806",
+        "x:2126335236065906920",
+        "x:2126336494059327739"
+      ]
+    },
+    {
+      "handle": "aikouka23",
+      "category": "",
+      "summary": "エロゲ情報収集愛好家转发了ユウ＝ヤマナミ的消息，内容是蒼の彼方のフォーリズム续作ZWEI中止，并称其从未存在。",
+      "via": [],
+      "sources": [
+        "x:2126545276605432081"
+      ]
+    },
+    {
+      "handle": "getchucom",
+      "category": "",
+      "summary": "Getchu.com（げっちゅ屋）宣布『ワンナイトアフター -ONE NIGHT AFTER-』特典售罄后再制造。",
+      "via": [],
+      "sources": [
+        "x:2126509825878290457"
+      ]
+    },
+    {
+      "handle": "hiro_in",
+      "category": "",
+      "summary": "ひろいん（ErogameScape）的网站服务器故障后切换至备用系统，可浏览但数据库只读、暂时无法录入得分。",
+      "via": [],
+      "sources": [
+        "x:2126573561209094638",
+        "x:2126579387474796916",
+        "x:2126579389001523570"
+      ]
+    },
+    {
+      "handle": "AKOUtw",
+      "category": "",
+      "summary": "AKOU（アミューズクラフト）当天主要转发业界话题，自己也提到花粉症和游戏进度。",
+      "via": [],
+      "sources": [
+        "x:2126455103356092758",
+        "x:2126618197566849307"
+      ]
+    },
+    {
+      "handle": "alice_net_pc",
+      "category": "",
+      "summary": "アリスNET店员分享门店到货的新作，并请读者在时间线上回应自家帖子。",
+      "via": [],
+      "sources": [
+        "x:2126546859200258327",
+        "x:2126579066799354360"
+      ]
+    },
+    {
+      "handle": "trader_R18",
+      "category": "",
+      "summary": "トレーダーＲ１８ Trader R18开放『王様恋愛 ミニファンディスク ロイヤルスイート 豪華限定版』预约。",
+      "via": [],
+      "sources": [
+        "x:2126556699217518683"
+      ]
+    },
+    {
+      "handle": "masanlive",
+      "category": "",
+      "summary": "まさん masanlive分享被狮子注视的照片，并发布电影『魔法使いの夜』的观后感视频。",
+      "via": [],
+      "sources": [
+        "x:2126530708181283030",
+        "x:2126609543299797048"
+      ]
+    },
+    {
+      "handle": "dengekionline",
+      "category": "",
+      "summary": "電撃オンライン盘点十款适合手机的像素游戏，并报道エディア在Steam的最高五折促销。",
+      "via": [],
+      "sources": [
+        "x:2126602099203211360",
+        "x:2126619714260779120"
+      ]
+    },
+    {
+      "handle": "4GamerNews",
+      "category": "",
+      "summary": "4Gamer《周刊Steam广场》第181期介绍多款Steam新作与「Am I Nima」。",
+      "via": [],
+      "sources": [
+        "x:2126602354632147414"
+      ]
+    },
+    {
+      "handle": "douzinr18",
+      "category": "",
+      "summary": "FANZA同人公式发布多部同人作品促销，并刊出标题字数15年翻倍的专栏。",
+      "via": [],
+      "sources": [
+        "x:2126624689384817008",
+        "x:2126632317133418607",
+        "x:2126639793622938049",
+        "x:2126647401792647288",
+        "x:2126677494619414989"
+      ]
+    },
+    {
+      "handle": "erogeAreAlive",
+      "category": "",
+      "summary": "ErogeAreAlive报道Alice Soft重制计划与夏日口袋新作装盘完成。",
+      "via": [],
+      "sources": [
+        "x:2126365614550008188",
+        "x:2126645912659194073"
+      ]
+    },
+    {
+      "handle": "cloud668",
+      "category": "",
+      "summary": "转发了デレステ官方的消息，内容是「アイドルマスター シンデレラガールズ」迎来15周年并追加5首乐曲。",
+      "via": [],
+      "sources": [
+        "x:2126647450526192076"
+      ]
+    },
+    {
+      "handle": "bili_3546777970018899",
+      "category": "",
+      "summary": "发布魔女因子调查对象报告中囚犯编号662莲见蕾雅的收监前背景记录。",
+      "via": [],
+      "sources": [
+        "bilibili:1275762534287147010"
+      ]
+    },
+    {
+      "handle": "bili_298686071",
+      "category": "",
+      "summary": "回顾WePlay展会试玩现场与兑换周边，感谢玩家到访展位。",
+      "via": [],
+      "sources": [
+        "bilibili:1275674878293311543"
+      ]
+    },
+    {
+      "handle": "bili_3546854253923281",
+      "category": "",
+      "summary": "发起千恋万花与白色相簿2二选一问答，并介绍上海与武汉门店。",
+      "via": [],
+      "sources": [
+        "bilibili:1275657127177748487"
+      ]
+    },
+    {
+      "handle": "bili_3706923618666922",
+      "category": "",
+      "summary": "《苍之彼方的四重奏》12周年宣布《苍之彼方的四重奏 Visual Fan Book 2》发售并推出纪念优惠。",
+      "via": [],
+      "sources": [
+        "bilibili:1275609289869754372"
+      ]
+    },
+    {
+      "handle": "bili_3546900143802616",
+      "category": "",
+      "summary": "介绍Muv-Luv系列角色安妮特·霍森菲尔德隶属第666战术机中队黑之宣告。",
+      "via": [],
+      "sources": [
+        "bilibili:1275698060398166033"
+      ]
+    },
+    {
+      "handle": "bili_41883712",
+      "category": "",
+      "summary": "在HIKARI FIELD STORE推出五款作品套装特卖，并促销多款国际中文版。",
+      "via": [],
+      "sources": [
+        "bilibili:1275419746529968132",
+        "bilibili:1275558903476649993"
+      ]
+    },
+    {
+      "handle": "bili_1436152920",
+      "category": "",
+      "summary": "借感恩节感谢编剧、原画与声优，并宣传JAST Store黑五特卖。",
+      "via": [],
+      "sources": [
+        "bilibili:1275669269071265793"
+      ]
+    },
+    {
+      "handle": "bili_477655087",
+      "category": "",
+      "summary": "宣布《虹彩都市》即将登陆Steam，支持日语、英语与简体中文。",
+      "via": [],
+      "sources": [
+        "bilibili:1275744478276091977"
+      ]
+    },
+    {
+      "handle": "bili_39471072",
+      "category": "",
+      "summary": "报道夏日口袋新作装盘完成、Key作品官中页面上线及声优铃木达央离婚。",
+      "via": [],
+      "sources": [
+        "bilibili:1275738430947459113",
+        "bilibili:1275632014542766086",
+        "bilibili:1275695768993267717"
+      ]
+    }
+  ],
+  "provenance": {
+    "generator": "daily",
+    "prompt_version": 1,
+    "cache_key": "answers:1",
+    "generated_at": "2026-11-28T16:46:31+00:00"
+  }
+}
