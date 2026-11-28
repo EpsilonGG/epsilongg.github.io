@@ -1,7 +1,7 @@
 {
  "schema_version": 1,
  "source": "README/reports/galgame-directors-list-1-1.html",
- "note": "Gplus daily crawl universe: all unique X handles in list 1-1. Includes all gal-daily info accounts; excludes jita_gf (gal-daily extra) and all B站 accounts.",
+ "note": "Gplus daily crawl universe: all unique X handles in list 1-1, plus melu_mechie (芽留メチエ, added 2026-11-29 on user request as a personal account). Includes all gal-daily info accounts; excludes jita_gf (gal-daily extra) and all B站 accounts.",
  "generated": "2026-11-22",
  "accounts": [
   {
@@ -4875,6 +4875,18 @@
    "tags": "0",
    "last30": "2026-06-01 03:04170 天前",
    "last": "广告 0 · 业界 0 · 日常 0 · 抽奖 0 · 转推 2—"
+  },
+  {
+   "handle": "melu_mechie",
+   "name": "芽留メチエ",
+   "group": "info",
+   "section": "其他 · 信息号・泛游戏媒体",
+   "tier": "① 7天>10条",
+   "role": "个人号",
+   "brand": "—",
+   "tags": "个人号；新作情报まとめ",
+   "last30": "2026-11-29 补入",
+   "last": "—"
   }
  ]
 }

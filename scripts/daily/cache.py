@@ -19,7 +19,7 @@ from dataclasses import asdict, dataclass, field
 from datetime import datetime, timezone
 from pathlib import Path
 
-PROMPT_VERSION = 10  # 10：转发者也写进 people，但必须写「转发了谁的什么事」，并禁止分类字样；9：people 必须本人原创（已撤销）；8：出稿取消条数限制
+PROMPT_VERSION = 11  # 11：人名照材料写，不许按读音/昵称猜成名单里相近的人（Ayumi. ≠ 歩サラ）；10：转发者也写进 people，但必须写「转发了谁的什么事」，并禁止分类字样；9：people 必须本人原创（已撤销）；8：出稿取消条数限制
 
 FRESH = "fresh"
 STALE = "stale"

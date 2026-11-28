@@ -3,7 +3,32 @@
   "note": "日报保护集的显式授权白名单。不是关掉闸门：未登记的保护路径仍逐字节比对、保护目录里出现新文件仍一律拦下。每条都要写清授权日与理由；改动一旦 commit，diff 归零、豁免自动失效，届时应把该条从这里删掉。batches 用于「一次用户裁决要改一批同构文件」的场景，仍然逐条列出完整文件路径，不接受目录或通配符。",
   "cleared_on": "2026-11-28",
   "cleared_reason": "转发者保留与分类字样清理已 commit（013a35b），保护集 diff 归零，豁免按设计失效。空列表才是正常状态。",
-  "waivers": [],
+  "waivers": [
+    {
+      "path": "data/daily/261128/report.json",
+      "authorized_by": "用户（2026-11-29：最新日报把歌手 Ayumi. 的 22 周年活动错写成歩サラ，要求改正）",
+      "authorized_on": "2026-11-29",
+      "reason": "订正 261128 中文正本：interactions 与 ricca_kitami 的 people.summary 中「歩サラ22周年」改为「Ayumi.的22周年」。只改两处人名，来源 id 与其余条目不动。"
+    },
+    {
+      "path": "data/daily/261128/report.ja.json",
+      "authorized_by": "用户（2026-11-29：同上订正）",
+      "authorized_on": "2026-11-29",
+      "reason": "Ci-en 日文版同步把「歩サラの22周年イベント」改为「Ayumi.の22周年イベント」，两处（interactions 与 people.summary）。"
+    },
+    {
+      "path": "scripts/daily/prompt.py",
+      "authorized_by": "用户（2026-11-29：Ayumi. 被误认成歩サラ，要求改正并防复发）",
+      "authorized_on": "2026-11-29",
+      "reason": "规则 10 已禁止写句柄，但仍会把材料里点名的人按读音换成名单里相近的人。新增规则 13：人名照材料写，Ayumi. ≠ 歩サラ。"
+    },
+    {
+      "path": "scripts/daily/cache.py",
+      "authorized_by": "用户（2026-11-29：同上防复发）",
+      "authorized_on": "2026-11-29",
+      "reason": "PROMPT_VERSION 10 -> 11：规则 13 变更后旧缓存题面必须失效重出，否则当天仍按旧口径写稿。"
+    }
+  ],
   "batches": [
     {
       "id": "gplus-daily-entry-2026-11-22",

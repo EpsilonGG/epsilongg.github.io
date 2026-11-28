@@ -109,7 +109,7 @@ data/daily/2611{19,20,21}-gp/report.json
 
 ### 3.1 名单与抓取
 
-- `src/config/gplus-roster.json`：405 个号（2026-11-25 补入 `randall_kznr` / `KulVario0`），字段 `handle / name / group / section / tier / role / brand / tags / last30 / last`；`group` ∈ `creator|brand|info`。另有可选布尔字段 `reply_scope`（2026-11-23 起）：只标玩家／评论总结向的 12 个号，与 `group` 无关，供回复抓取用。这是唯一可写正本。
+- `src/config/gplus-roster.json`：406 个号（2026-11-25 补入 `randall_kznr` / `KulVario0`；2026-11-29 用户要求补入个人号 `melu_mechie`／芽留メチエ，group=info、role=个人号），字段 `handle / name / group / section / tier / role / brand / tags / last30 / last`；`group` ∈ `creator|brand|info`。另有可选布尔字段 `reply_scope`（2026-11-23 起）：只标玩家／评论总结向的 12 个号，与 `group` 无关，供回复抓取用。这是唯一可写正本。
 - X-Reader 仓另开 `update-gplus.yml` + `config/config.galplus.yaml`（`data-galplus`），`accounts.galplus.yaml` 由 roster 生成；**本次测试用站点仓的 `scripts/gplus_fetch.py` 直连 Nitter 完成**，尚未在 X-Reader 仓落 workflow。两条路都要保证 403 号、独立 data_dir、独立 concurrency group。
 - 本机必须显式 `--proxy http://127.0.0.1:7897`；默认代理（65312）打不开 Nitter，直连超时。CI 上直连可用。
 - RSS 路由单号 20 条上限，403 号一次约 1.5 分钟（14 并发）；统计的「转推」来自 RSS 的 `RT by @…:` 文本前缀。

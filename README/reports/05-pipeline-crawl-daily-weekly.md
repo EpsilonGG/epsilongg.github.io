@@ -166,6 +166,8 @@ src/pages/daily/*         （原文全文，gitignore）                  │
 
 **归属铁律（三期通用，2026-11-28 定稿）**：题面标 `repost` / `转发自 @xxx` / `· 引用了 @xxx` 的条目必须写成「A 转发/引用了 B 的消息」，不许把 B 的内容算成 A 的发言。**转发者也留在 `people[]`，不能删掉**：只有转发的账号，sources 挂那条转发的 [id]，summary 写「转发了原作者显示名的消息，内容是……」；既有原创又有转发的账号，`people[].sources` 只挂本人原创，转发内容写进 highlights/works 并注明关系。`gplus_publish.py::check()` 逐行核对转发来源是否写明「转发/引用」且点出原作者显示名；`scripts/daily/prompt.py` 规则 12（`PROMPT_VERSION=10`）同步约束三期出稿。
 
+**人名照材料写（2026-11-29）**：正文里点名的人（含 `Ayumi.` 这类带句点的艺名）就是那个人；「账号显示名」表只把 `handle` 换成显示名，不能反过来把正文里的人名替换成表里读音／写法相近的人。`Ayumi.`（歌手出道 22 周年）≠ 歩サラ（`ayumi_sarah`）——261128 把北見六花庆贺的「Ayumi. 22周年」写成「歩サラ22周年」就是这么错的。`scripts/daily/prompt.py` 规则 13（`PROMPT_VERSION=11`）约束三期出稿。
+
 **分类字样不进前台（2026-11-28）**：people 的 summary 直接写「做了什么」，不要写「创作者」「游戏品牌」「品牌账号」「资讯账号」「游戏媒体账号」——分类只在 `category` 字段里。大题面用 `scripts/gplus_chunks.py --date <日> --per-chunk 42` 拆 `global.md` + 账号分片，分片题面带归属铁律与分类禁令。名单外的转发作者显示名由 `scripts/gplus_names.py --date <日> --proxy http://127.0.0.1:7897` 查 fxtwitter，落到 `data/gplus-author-names.json`，digest 的 Reposts/Quotes 段会把名字写在 handle 后的括号里。
 
 ### 3.2 `daily build` 内部：七个模块各管一件事
